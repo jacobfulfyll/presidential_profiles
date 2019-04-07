@@ -7,21 +7,26 @@ import string
 import psycopg2 as pg2
 from sqlalchemy import create_engine
 
-with codecs.open('../data/inaug_speeches.csv', 'r', encoding='utf-8', errors='ignore') as fdata:
+with codecs.open('../data/speeches.csv', 'r', encoding='utf-8', errors='ignore') as fdata:
     df = pd.read_csv(fdata)
 
 lemmatizer = WordNetLemmatizer() # Create Lemmatizer
 
 def create_dataset(df, db, table):
-    inaug_df = pd.DataFrame(columns=['word', 'pos', 'lemma', 'year']) #Create empty DF
+    inaug_df = pd.DataFrame(columns=['word', 'pos', 'lemma', 'year', 'president']) #Create empty DF
     counter = 0
     for idx, doc in df['text'].iteritems(): # For every inauguration speech
-        doc = doc.replace('<U+0092>', ' ') # Remove recurring unknown string
-        doc = doc.replace('<U+0097>', ' ') # Remove recurring unknown string
+        doc = doc.replace('xa0', '')
+        doc = doc.replace('(Applause)', '')
+        doc = doc.replace('(applause)', '')
+        doc = doc.replace('(Laughter)', '')
+        doc = doc.replace('(laughter)', '')
+        doc = doc.replace('(Laughter and applause)','')
         text = nltk.word_tokenize(doc) # Tokenize all words in current speech
         pos_tags = nltk.pos_tag(text) # Create Part of Speech Tag for every word
-        year = int(df.loc[idx]['Date'][-4:]) # Pull Year From Date Column, for new DF
-        print('doc: ', idx) # Status Check
+        year = int(df.loc[idx]['date'][-4:]) # Pull Year From Date Column, for new DF
+        president = df.loc[idx]['president']
+        print(idx, ' / ', len(df)) # Status Check
         for item in pos_tags:
             if item[0] in string.punctuation: # Remove Punctuation
                 pass
@@ -39,7 +44,7 @@ def create_dataset(df, db, table):
                 else:
                     lemma = item[0]
                 
-                inaug_df.loc[counter] = [word, part_of_speech, lemma, year] # Add row to DF
+                inaug_df.loc[counter] = [word, part_of_speech, lemma, year, president] # Add row to DF
                 counter += 1 # Move to the next row
     
     sql_upload(inaug_df, db, table)
@@ -64,3 +69,5 @@ def dataset_query(): # Create Pandas DF from entire SQL Table
     conn.close()
 
     return inaug_df
+
+create_dataset(df, 'rhetoric_capstone', 'all_speeches')
