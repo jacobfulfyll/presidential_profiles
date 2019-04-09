@@ -70,4 +70,31 @@ def dataset_query(): # Create Pandas DF from entire SQL Table
 
     return inaug_df
 
-create_dataset(df, 'rhetoric_capstone', 'all_speeches')
+def create_lemmaless_dataset(df, db, table):
+    inaug_df = pd.DataFrame(columns=['word', 'pos', 'year', 'president']) #Create empty DF
+    counter = 0
+    for idx, doc in df['text'].iteritems(): # For every inauguration speech
+        doc = doc.replace('xa0', '')
+        doc = doc.replace('(Applause)', '')
+        doc = doc.replace('(applause)', '')
+        doc = doc.replace('(Laughter)', '')
+        doc = doc.replace('(laughter)', '')
+        doc = doc.replace('(Laughter and applause)','')
+        text = nltk.word_tokenize(doc) # Tokenize all words in current speech
+        pos_tags = nltk.pos_tag(text) # Create Part of Speech Tag for every word
+        year = int(df.loc[idx]['date'][-4:]) # Pull Year From Date Column, for new DF
+        president = df.loc[idx]['president']
+        print(idx, ' / ', len(df)) # Status Check
+        for item in pos_tags:
+            if item[0] in string.punctuation: # Remove Punctuation
+                pass
+            else:
+                word = item[0].lower() # Seperate Word and Part of Speech into different variables
+                part_of_speech = item[1] # To be placed in new DF
+                
+                inaug_df.loc[counter] = [word, part_of_speech, year, president] # Add row to DF
+                counter += 1 # Move to the next row
+    
+    sql_upload(inaug_df, db, table)
+
+create_lemmaless_dataset(df, 'rhetoric_capstone', 'all_speeches')

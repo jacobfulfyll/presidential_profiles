@@ -1,0 +1,54 @@
+Donald Trump
+specific_topics_list = ['General Praise', 'America Abstractly', 'Southern Border Security', 'Parkland Teachers', 'Previous Government Failues', 'Fossil Fuels', 'Boy Scouts', 'Opioid Epidemic']
+general_topics_list  = ['General Praise', 'America', 'Immigration', 'Second Ammendment', 'Political Attack', 'Energy', 'American Organization', 'Drug Addiction']
+Total Topics = 8         
+
+Barack Obama
+specific_topics_list = ['American Economy', 'Israeli/Palestinian Conflict', 'War On Terror', 'Israeli/Palestinian Conflict', 'Gun Control', 'Healthcare Reform', 'Equal Pay', 'Iraq War', 'Supreme Court Nomination']
+general_topics_list = ['Economy', 'Foreign Intervention', 'Foreign Intervention', 'Foreign Intervention', 'Second Amendment', 'Healthcare', 'Equality', 'Foreign Intervention', 'Supreme Court']
+Total Topics = 9
+
+George W. Bush
+specific_topics_list = ['American Values', 'War on Terror', 'Stem Cells', 'Tax Cut', 'African AIDS Epidemic']
+general_topics_list = ['Values', 'US War', 'Healthcare', 'Taxes', 'Foreign Intervention']
+
+Bill Clinton
+specific_topics_list = ['America Abstractly', 'Bosnian War', 'African Future', 'Criminal Justice', 'Somalian Intervention']
+general_topics_list = ['America', 'Foreign Intervention', 'Foreign Intervention', 'US Laws', 'Foreign Intervention']
+
+George H.W. Bush
+specific_topics_list = ['America Abstractly', 'Gulf War', 'Cold War', 'Invasion of Panama', 'Budget Deficit']
+general_topics_list = ['America', 'Foreign Intervention', 'US War', 'Foreign Intervention', 'Economy']
+
+Ronald Reagan
+specific_topics_list = ['American Values', 'Cold War', 'Israeli/Palestinian Conflict', 'Tax Cut', 'Invasion of Panama', 'Union Strike']
+general_topics_list = ['Values', 'US War', 'Foreign Intervention', 'Taxes', 'Economy', 'Internal Unrest']
+
+Jimmy Carter
+specific_topics_list = ['Energy Crisis', 'Chinese Relations', 'American Values', 'Iran Hostage Crisis', 'Cold War']
+general_topics_list = ['Energy', 'Foreign Intervention', 'Values', 'Foreign Intervention', 'US War']
+
+Gerald Ford
+specific_topics_list = ['World Peace', 'Energy Tax', 'American Values', 'Soldier Amnesty', 'Watergate']
+general_topics_list = ['Global Cooperation', 'Energy', 'Values', 'Military Policy', 'Scandal']
+
+Richard Nixon
+specific_topics_list = ['America Abstractly', 'Vietnam War', 'Watergate', 'Abstract Nothing', 'Soviet Arms Limitations Talk']
+general_topics_list = ['America', 'US War', 'Scandal', 'Abstract Nothing', 'US War']
+
+Lyndon B. Johnson
+specific_topics_list = ['America Abstractly', 'Vietnam War', 'Detroit Riots', 'Nuclear Treaty', 'Dominican Intervention']
+general_topics_list = ['America', 'US War', 'Internal Unrest', 'Cold War', 'Foreign Intervention']
+
+John F. Kennedy
+specific_topics_list = ['World Peace', 'Education', 'Trade', 'Military Service', 'Religious Practice']
+general_topics_list = ['Global Cooperation', 'Education', 'Economy', 'Military Service', 'Religious Practice']
+
+John F. Kennedy
+specific_topics_list = ['World Peace', 'Education', 'Trade', 'Military Service', 'Religious Practice']
+general_topics_list = ['Global Cooperation', 'Education', 'Economy', 'Military Service', 'Religious Practice']
+
+
+
+
+
