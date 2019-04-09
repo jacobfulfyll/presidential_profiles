@@ -6,9 +6,12 @@ from nltk.corpus import stopwords, wordnet
 from nltk.stem.wordnet import WordNetLemmatizer
 import string
 import re
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 with codecs.open('data/speeches.csv', 'r', encoding='utf-8', errors='ignore') as fdata:
     df = pd.read_csv(fdata)
+
 
 def display_topics(model, feature_names, no_top_words):
     for topic_idx, topic in enumerate(model.components_):
@@ -49,35 +52,104 @@ def nmf_topics(documents, no_topics, no_words, stopwords):
     tfidf = tfidf_vectorizer.fit_transform(documents)
     tfidf_feature_names = tfidf_vectorizer.get_feature_names()
 
-    nmf = NMF(n_components=no_topics, random_state=1, alpha=.1, l1_ratio=.5, init='nndsvd').fit(tfidf)
+    nmf = NMF(n_components=no_topics, random_state=42, alpha=.1, l1_ratio=.5, init='nndsvd').fit(tfidf)
+    transform = nmf.transform(tfidf)
     display_topics(nmf, tfidf_feature_names, no_words)
-    #print(nmf.components_)
 
+    return transform 
 
 def clean_scraped_df(df):
     new_df = df[~df['speech_title'].str.contains("Debate")]
     new_df = new_df.drop(columns=['Unnamed: 0', 'Unnamed: 0.1'])
     return new_df
 
-def president_topics(president, no_topics=5, no_words=5, stop_words='english'):
+def president_speech_topics(president, no_topics=5, no_words=5, stop_words='english'):
     president_df = df[df['president'] == president]
     speeches = president_df['speech_title'].unique()
     
     for speech in speeches:
-        documents = []
+        paragraphs = []
         speech_df = president_df[president_df['speech_title'] == speech]
         print(speech)
-        for idx, d in speech_df['text'].iteritems():
-            d = d.replace('xa0', '')
-            d = d.replace('(Applause)', '')
-            d = d.replace('(applause)', '')
-            d = d.replace('(Laughter)', '')
-            d = d.replace('(laughter)', '')
-            d = d.replace('(Laughter and applause)','')
-            documents.append(d)
-        nmf_topics(documents, no_topics, no_words, stop_words)
+        for idx, p in speech_df['text'].iteritems():
+            p = replace_filler(p)
+            p = p.encode('ascii', 'ignore')
+            paragraphs.append(p)
+        
+        nmf_topics(paragraphs, no_topics, no_words, stop_words)
 
-#speeches_df = clean_scraped_df(df) 
+def president_total_topics(president, topics_list, no_topics=5, no_words=15, stop_words='english'):
+    president_df = df[df['president'] == president]
+    president_df = president_df[~president_df['speech_title'].str.contains("Debate")]
+    speeches = president_df['speech_title'].unique()
+
+    all_speeches = []
+    for speech in speeches:
+        current_speech = []
+        speech_df = president_df[president_df['speech_title'] == speech]
+        for idx, p in speech_df['text'].iteritems():
+            p = replace_filler(str(p))
+            current_speech.append(p)
+        current_speech = ''.join(current_speech)
+        current_speech = current_speech.encode('ascii', 'ignore')
+        all_speeches.append(current_speech)
+    nmf_matrix = nmf_topics(all_speeches, no_topics, no_words, stop_words)
+    graph_president(topics_list, nmf_matrix, speeches)
+
+
+def all_presidents(df, no_topics=20, no_words=5, stop_words='english'):
+    presidents = df['president'].unique()
+
+    all_speeches = []
+    for president in presidents:
+        president_df = df[df['president'] == president]
+        president_df = president_df[~president_df['speech_title'].str.contains("Debate")]
+        speeches = president_df['speech_title'].unique()
+        current_president = []
+        for speech in speeches:
+            current_speech = []
+            speech_df = president_df[president_df['speech_title'] == speech]
+            for idx, p in speech_df['text'].iteritems():
+                p = replace_filler(str(p))
+                current_speech.append(p)
+            current_speech = ''.join(current_speech)
+            current_president.append(current_speech)
+        current_president = ''.join(current_president)
+        current_president = current_president.encode('ascii', 'ignore')
+        all_speeches.append(current_president)
+    nmf_matrix = nmf_topics(all_speeches, no_topics, no_words, stop_words)
+
+
+def graph_president(topics_list, nmf_matrix, speeches):
+    topics_df = pd.DataFrame(data=nmf_matrix,    # values
+                             index=speeches,    # 1st column as index
+                             columns=topics_list)  # 1st row as the column names
+    
+    topics_df.plot.line()
+    plt.show()
+
+
+def replace_filler(text):
+
+    text = text.replace('xa0', '')
+    text = text.replace('(Applause.)', '')
+    text = text.replace('(APPLAUSE.)', '')
+    text = text.replace('(applause.)', '')
+    text = text.replace('(Laughter.)', '')
+    text = text.replace('(LAUGHTER.)', '')
+    text = text.replace('(laughter.)', '')
+    text = text.replace('(Laughter and applause.)','')
+    text = text.replace('(Laughter and Applause.)','')
+    text = text.replace('(Applause)', '')
+    text = text.replace('(APPLAUSE)', '')
+    text = text.replace('(applause)', '')
+    text = text.replace('(Laughter)', '')
+    text = text.replace('(LAUGHTER)', '')
+    text = text.replace('(laughter)', '')
+    text = text.replace('(Laughter and applause)','')
+    text = text.replace('(Laughter and Applause)','')
+
+    return text
 
 stop_words = frozenset([
     "a", "about", "above", "across", "after", "afterwards", "again", "against",
@@ -120,11 +192,11 @@ stop_words = frozenset([
     "wherein", "whereupon", "wherever", "whether", "which", "while", "whither",
     "who", "whoever", "whole", "whom", "whose", "why", "will", "with",
     "within", "without", "would", "yet", "you", "your", "yours", "yourself",
-    "yourselves", "audience", "thank", "applause", "president", "mr", "booo", "speaker", "lady"
-    "yes", "member", "everybody", "make", "vice", "members", "secretary"])
+    "yourselves", "audience", "thank", "applause", "president", "mr", "booo", "lady"
+    "yes", "member", "everybody", "make" "members", "secretary", "shall", "thats", "theyre",
+    "just", "ms", "ve", "000", "fellow", "got", "ive" ,"okay", "allen", "150", "lets", "sure",
+    "im", "think", "going", "lot", "90", "200"])
 
+topics_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
-no_topics = 1
-no_words = 5
-
-print(president_topics('Abraham Lincoln', no_topics, no_words, stop_words))
+print(president_total_topics('George W. Bush', topics_list, no_topics=10, no_words=20, stop_words=stop_words))
