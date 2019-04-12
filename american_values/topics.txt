@@ -1,54 +1,222 @@
 Donald Trump
-specific_topics_list = ['General Praise', 'America Abstractly', 'Southern Border Security', 'Parkland Teachers', 'Previous Government Failues', 'Fossil Fuels', 'Boy Scouts', 'Opioid Epidemic']
-general_topics_list  = ['General Praise', 'America', 'Immigration', 'Second Ammendment', 'Political Attack', 'Energy', 'American Organization', 'Drug Addiction']
+specific_topics_list = ['America Abstractly', 'People Don't Know', 'Southern Border Security', 'Parkland Teachers', 'Party Politics', 'Fossil Fuels', 'Boy Scouts', 'Opioid Addiction']
+general_topics_list  = ['America', 'People Don't Know', 'Immigration', 'Mass Killing', 'Party Politics', 'Energy', 'American Organization', 'Crime']
 Total Topics = 8         
 
 Barack Obama
 specific_topics_list = ['American Economy', 'Israeli/Palestinian Conflict', 'War On Terror', 'Israeli/Palestinian Conflict', 'Gun Control', 'Healthcare Reform', 'Equal Pay', 'Iraq War', 'Supreme Court Nomination']
-general_topics_list = ['Economy', 'Foreign Intervention', 'Foreign Intervention', 'Foreign Intervention', 'Second Amendment', 'Healthcare', 'Equality', 'Foreign Intervention', 'Supreme Court']
+general_topics_list = ['Economy', 'Foreign Intervention', 'Foreign Intervention', 'Foreign Intervention', 'Mass Killing', 'Healthcare', 'Internal Tension', 'Foreign Intervention', 'Supreme Court']
 Total Topics = 9
 
 George W. Bush
-specific_topics_list = ['American Values', 'War on Terror', 'Stem Cells', 'Tax Cut', 'African AIDS Epidemic']
-general_topics_list = ['Values', 'US War', 'Healthcare', 'Taxes', 'Foreign Intervention']
+specific_topics_list = ['American Values', 'Iraq War', 'Stem Cell Policy', 'Tax Cut', 'African AIDS Epidemic', 'Hurricane Katrina', 'The Great Recession', 'Illegal Immigration', 'Healthcare Legislation', 'Faith']
+general_topics_list = ['America', 'Foreign Intervention', 'Technology', 'Economy', 'Foreign Intervention', 'Natural Disaster', 'Economy', 'Immigration', 'Healthcare', 'Faith']
+Total Topics = 10
 
 Bill Clinton
-specific_topics_list = ['America Abstractly', 'Bosnian War', 'African Future', 'Criminal Justice', 'Somalian Intervention']
-general_topics_list = ['America', 'Foreign Intervention', 'Foreign Intervention', 'US Laws', 'Foreign Intervention']
+specific_topics_list = ['America Abstractly', 'Bosnian War', 'Serbian Refugees', 'Oklahoma City Bombing', 'Somalian Intervention', 'Criminal Justice', 'Northern Ireland Peace', 'Historical Figure Reference', 'Lewinsky Scandal', 'State Education']
+general_topics_list = ['America', 'Foreign Intervention', 'Foreign Intervention', 'Mass Killing', 'Foreign Intervention', 'Crime', 'Foreign Intervention', 'Historical Reference', 'Scandal', 'Education']
+Total Topics = 10
 
 George H.W. Bush
-specific_topics_list = ['America Abstractly', 'Gulf War', 'Cold War', 'Invasion of Panama', 'Budget Deficit']
-general_topics_list = ['America', 'Foreign Intervention', 'US War', 'Foreign Intervention', 'Economy']
+specific_topics_list = ['America Abstractly', 'Gulf War', 'Cold War', 'Somalian Intervention', 'Budget Deficit Legislation', 'Invasion of Panama', 'Disabilities Act' , 'Gulf War', 'Gulf War', 'Soviet Relations']
+general_topics_list = ['America', 'Foreign Intervention', 'US War', 'Foreign Intervention', 'Economy', 'Foreign Intervention', 'Healthcare', 'Foreign Intervention', 'Foreign Intervention', 'US War'] 
+Total Topics = 10
 
 Ronald Reagan
-specific_topics_list = ['American Values', 'Cold War', 'Israeli/Palestinian Conflict', 'Tax Cut', 'Invasion of Panama', 'Union Strike']
-general_topics_list = ['Values', 'US War', 'Foreign Intervention', 'Taxes', 'Economy', 'Internal Unrest']
+specific_topics_list = ['America Abstractly', 'Cold War', 'Israeli/Palestinian Conflict', 'Tax Cut', 'Values', 'Exclusionary Rule', 'Libya Air Strikes, 'Ireland Visit', 'Civil Rights', 'War on Drugs']
+general_topics_list = ['America', 'US War', 'Foreign Intervention', 'Economy', 'Values', 'Crime', 'Foreign Intervention', 'Foreign Intervention', 'Internal Tension', 'Crime']
+Total Topics = 10
 
 Jimmy Carter
-specific_topics_list = ['Energy Crisis', 'Chinese Relations', 'American Values', 'Iran Hostage Crisis', 'Cold War']
-general_topics_list = ['Energy', 'Foreign Intervention', 'Values', 'Foreign Intervention', 'US War']
+specific_topics_list = ['Energy Crisis', 'Cold War', 'Unclear Topic', 'Iran Hostage Crisis', 'Israeli/Palestinian Conflict', 'Chinese Relations', 'Panama Canal Treaty', 'Inflation', 'Israeli/Palestinian Conflict', 'Values']
+general_topics_list = ['Energy', 'US War', 'Unclear Topic', 'Foreign Intervention', 'Foreign Intervention', 'Foreign Diplomacy', 'Foreign Intervention', 'Economy', 'Foreign Intervention', 'Values']
+Total Topics = 10
 
 Gerald Ford
-specific_topics_list = ['World Peace', 'Energy Tax', 'American Values', 'Soldier Amnesty', 'Watergate']
-general_topics_list = ['Global Cooperation', 'Energy', 'Values', 'Military Policy', 'Scandal']
+specific_topics_list = ['America Abstractly', 'Energy Tax', 'Values', 'Soldier Amnesty', 'Watergate', 'Tulane Speech', 'Hawaii', 'Global Cooperation']
+general_topics_list = ['America', 'Energy', 'Values', 'Military Policy', 'Scandal', 'Education', 'US Expansion', 'Global Cooperation']
+Total Topics = 8
 
 Richard Nixon
-specific_topics_list = ['America Abstractly', 'Vietnam War', 'Watergate', 'Abstract Nothing', 'Soviet Arms Limitations Talk']
-general_topics_list = ['America', 'US War', 'Scandal', 'Abstract Nothing', 'US War']
+specific_topics_list = ['America Abstractly', 'Vietnam War', 'Watergate', 'Watergate', 'Soviet Arms Limitations Talk', 'Party Politics']
+general_topics_list = ['America', 'US War', 'Scandal', 'Scandal', 'US War', 'Party Politics', 'Energy']
+Total Topics = 7
 
 Lyndon B. Johnson
-specific_topics_list = ['America Abstractly', 'Vietnam War', 'Detroit Riots', 'Nuclear Treaty', 'Dominican Intervention']
-general_topics_list = ['America', 'US War', 'Internal Unrest', 'Cold War', 'Foreign Intervention']
+specific_topics_list = ['Peace', 'Vietnam War', 'Vietnam War', 'Values', 'Dominican Intervention', 'Vietnam War', 'Space Race', 'Nuclear Arms Treaty', 'Civil Rights', 'Faith']
+general_topics_list = ['Military Policy', 'Foreign Intervention', 'Foreign Intervention', 'Values', 'Foreign Intervention', 'Foreign Intervention', 'Technology', 'US War', 'Internal Tension', 'Faith']
+Total Topics = 10
 
 John F. Kennedy
-specific_topics_list = ['World Peace', 'Education', 'Trade', 'Military Service', 'Religious Practice']
-general_topics_list = ['Global Cooperation', 'Education', 'Economy', 'Military Service', 'Religious Practice']
+specific_topics_list = ['World Peace', 'Education', 'Trade Markets', 'Global Cooperation', 'Unclear Topic', 'Religious Practice', 'Berlin Wall', 'Cuban Missile Crisis', 'Peace Corps', 'Space Race']
+general_topics_list = ['Global Cooperation', 'Education', 'Economy', 'Global Cooperation', 'Unclear Topic', 'Religious Practice', 'US War', 'Foreign Intervention', 'Charitable Institution', 'Technology']
+Total Topics = 10
 
-John F. Kennedy
-specific_topics_list = ['World Peace', 'Education', 'Trade', 'Military Service', 'Religious Practice']
-general_topics_list = ['Global Cooperation', 'Education', 'Economy', 'Military Service', 'Religious Practice']
+Dwight D. Eisenhower
+specific_topics_list = ['Cold War', 'Cold War', 'Youth Movement', 'Party Politics', 'Atomic Bomb']
+general_topics_list = ['US War', 'US War', 'Internal Tension', 'Party Politics', 'Technology']
+Total Topics = 5
 
+Harry S. Truman
+specific_topics_list = ['World Peace', 'Party Politics', 'World War 2', 'Atomic Bomb', 'Labor Tensions', 'Civil Rights', 'Party Politics', 'Truman Doctrine', 'Korean War']
+general_topics_list = ['Global Cooperation', 'Party Politics', 'US War', 'Technology', 'Internal Tension', 'Internal Tension', 'Party Politics', 'Foreign Intervention', 'Foreign Intervention']
+Total Topics = 9
 
+Franklin D. Roosevelt
+specific_topics_list = ['World War 2', 'Public Works', 'World Peace', 'World War 2', 'World War 2', 'Memorial Dedication', 'Supreme Court Amendment', 'World War 2', 'Pearl Harbor', 'Great Depression']
+general_topics_list = ['US War', 'Economy', 'Global Cooperation', 'US War', 'US War', 'Praise', 'Supreme Court', 'US War', 'US War', 'Economy']
+Total Topics = 10
 
+Herbert Hoover
+specific_topics_list = ['Business', 'Pact of Paris', 'Food Supply', 'Party Politics', 'Tariffs', 'Law Enforcement', 'Trade Exports', 'Farm Bill']
+general_topics_list = ['Economy', 'Foreign Diplomacy', 'Economy', 'Party Politics', 'Economy', 'Crime', 'Economy', 'Economy']
+Total Topics = 8
 
+Calvin Coolidge
+specific_topics_list = ['American Government', 'Religion', 'Historical Figure Reference', 'American Historical Reference']
+general_topics_list = ['American Government', 'Religion', 'Historical Reference', 'Historical Reference']
+Total Topics = 4
+
+Warren G. Harding
+specific_topics_list = ['American Government', 'Public Transportation', 'American Values', 'World War 1 Praise', 'Youth Equality', 'Fair Labor']
+general_topics_list = ['American Goverment', 'Economy', 'Values', 'Praise', 'Internal Tension', 'Internal Tension']
+Total Topics = 6
+
+Woodrow Wilson
+specific_topics_list = ['Values', 'German Submarines', 'World Peace', 'Unlcear Topic', 'American Historical Reference', 'Unclear Topic', 'Values', 'Mexican Revolution', 'Monopolies', 'Women's Rights']
+general_topics_list = ['Values', 'US War', 'Global Cooperation', 'Unclear Topics', 'Historical Reference', 'Unclear Topic', 'Values', 'Foreign Intervention', 'Economy', 'Internal Tension']
+Total Topics = 10
+
+William Taft
+specific_topics_list = ['America Abstractly', 'Trade Agreement With Canada', 'Tariffs', 'Corporation Taxes, 'Public Works', 'Party Politics', 'Interstate Commerce']
+general_topics_list = ['America', 'Economy', 'Economy', 'Economy', 'Government Spending', 'Party Politics', 'Economy']
+Total Topics = 7
+
+Theodore Roosevelt
+specific_topics_list = ['Government Absractly', 'Panama Canal', 'Cuba Tariffs', 'Values', 'Party Politics', 'Meat Regulation', 'Neutrality', 'Puerto Rico', 'Natural World, 'Minorities', ]
+general_topics_list = ['Government', 'Foreign Intervention', 'Economy', 'Values', 'Party Politics', 'Goverment Regulation', 'Military Policy', 'Foreign Intervention', 'Natural World', 'Internal Tension']
+Total Topics = 10
+
+William McKinley
+specific_topics_list = ['America Abstractly', 'Spanish American War', 'Government Spending', 'Life In America', 'Currency Report', 'Discrimination/Discord']
+general_topics_list = ['America', 'US War', 'Economy', 'Economy', 'America', 'Economy', 'Internal Tension']
+Total Topics = 10
+
+Started with topics of 5
+
+Grover Cleveland
+specific_topics_list = ['America Abstractly', 'Monetary Policy', 'Law Violations', 'Chinese Exclusion Act', 'Party Politics', 'Unclear Topic', 'Monroe Doctrine', 'Literacy Test Immigration Veto']
+general_topics_list = ['America', 'Economy', 'Crime', 'Immigration', 'Party Politics', 'Unclear Topic', 'Foreign Interference', 'Immigration']
+Total Topics = 8
+
+Benjamin Harrison
+specific_topics_list = ['America Abstractly', 'Internal Tension', 'Chilean Relations', 'Unclear Topic', 'Johnstown Flood', 'Unclear Topic', 'Unclear Topic', 'Unclear Topic', 'Unclear Topic', 'Faith/Religion']
+general_topics_list = ['America', 'Internal Tension', 'Foreign Affairs', 'Unclear Topic', 'Natural Disaster', 'Unclear Topic', 'Unclear Topic', 'Unclear Topic', 'Unclear Topic', 'Faith/Religion']
+Total Topics = 10
+
+Chester A. Arthur
+specific_topics_list = ['Government', 'Native American Relations', 'Public Safety Regulations', 'Connecting With People', 'Nicaragua Canal', 'Government Spending', 'America Abstractly', 'Chinese Laborers']
+general_topics_list = ['Government', 'US War', 'Government Regulation', 'Connecting With Public', 'Foreign Interference', 'Government Spending', 'America', 'Internal Tension']
+Total Topics = 8
+
+James A. Garfield
+specific_topics_list = ['America Abstractly']
+general_topics_list = ['America']
+Total Topics = 1
+
+Rutherford B. Hayes
+specific_topics_list = ['American Government', 'Elections', 'Native American Relations', 'Banking System', 'Unclear Topic', 'Unclear Topic', 'Coinage System', 'Chinese Relations']
+general_topics_list = ['American Government', 'Elections', 'Foreign Relations', 'Economy', 'Unclear Topic', 'Unclear Topic', 'Economy', 'Immigration']
+Total Topics = 9
+
+Ulysses S. Grant
+specific_topics_list = ['American Government', 'America Abstractly', 'Election', 'Coinage System', 'Formation of Germany', 'Unclear Topic', 'Unclear Topic', 'Party Politics', 'Congressmen Pay']
+general_topics_list = ['American Government', 'America', 'Election', 'Economy', 'Foreign Events', 'Unclear Topic', 'Unclear Topic', 'Party Politics', 'Government Spending']
+Total Topics = 9
+
+Andrew Johnson
+specific_topics_list = ['American Government', 'Civil War', 'Ulysses S. Grant', 'Government Spending', 'Freed Slaves', 'Unclear Topic', 'Election', 'Law Enforcement', 'Civil War', 'Previous Governments']
+general_topics_list = ['American Government', 'US War', 'Political Opponent', 'Government Spending', 'Slavery', 'Unclear Topic', 'Election', 'Crime', 'US War', 'Previous Governments']
+Total Topics = 10
+
+Abraham Lincoln
+specific_topics_list = ['American Government', 'Slavery', 'Internal Tension', 'Praise Citizens', 'Civil War', 'Civil War', 'Civil War', 'Civil War', 'Henry Clay', 'American Founding']
+general_topics_list = ['American Government', 'Slavery', 'Internal Tension', 'Praise', 'US War', 'US War', 'US War', 'US War', 'Political Opponent', 'American Founding']
+Total Topics = 10
+
+James Buchanan
+specific_topics_list = ['American Government', 'Congress', 'Slavery', 'Virginian Building Anger', 'Military Precaution', 'Land Grant', 'Land Grant', 'Unclear Topic', 'Unclear Topic', 'Kansas']
+general_topics_list = ['American Government', 'American Government, 'Slavery', 'Internal Tension', 'Internal Tension', 'US Expansion', 'US Expansion', 'Unclear Topic', 'Unclear Topic', 'US Expansion']
+Total Topics = 10
+
+Franklin Pierce
+specific_topics_list = ['American Government', 'Unclear Topic', 'US Expansion', 'Law Enforcement', 'Unclear Topic', 'Army Health', 'Spanish Relations', 'American Government', 'Mexican Treaty', 'Kansas']
+general_topics_list = ['American Government', 'Unclear Topic', 'US Expansion', 'Crime', 'Unclear Topic', 'Military Policy', 'Foreign Relations', 'American Government', 'Foreign Relations', 'US Expansion']
+Total Topics = 10
+
+Millard Fillmore
+specific_topics_list = ['American Government', 'Texas', 'Marshal Law', 'Division']
+general_topics_list = ['American Government', 'US Expansion', 'Military Policy', 'Internal Tension']
+Total Topics = 4
+
+Zachary Taylor
+specific_topics_list = ['American Government', 'Foreign Relations']
+general_topics_list = ['American Government', 'Foreign Relations']
+Total Topics = 2
+
+James K. Polk
+specific_topics_list = ['Mexican American War', 'Mexican American War', 'Missouri Compromise', 'Native American Relations']
+general_topics_list = ['US War', 'US War', 'Slavery', 'Native American Relations']
+Total Topics = 4
+
+John Tyler
+specific_topics_list = ['American Government', 'Slave Economy', 'Internal Tension', 'Slavery', 'Native American Relations', 'US Expansion']
+general_topics_list = ['American Government', 'Slavery', 'Internal Tension', 'Slavery', 'Native American Relations', 'US Expansion']
+Total Topics = 6
+
+William Henry Harrison
+specific_topics_list = ['American Government']
+general_topics_list = ['American Government']
+Total Topics = 1
+
+Martin Van Buren
+specific_topics_list = ['American Government', 'Law Enforcement', 'Maine Dispute']
+general_topics_list = ['American Government', 'Crime', 'Crime']
+Total Topics = 3
+
+Andrew Jackson
+specific_topics_list = ['American Government', 'American Government', 'Trade', 'Choctaw Relations', 'Banking System', 'Unclear Topic', 'Naval Trade', 'Unclear Topic', 'Texas Independence', 'Native American Relations']
+general_topics_list = ['American Government', 'American Government', 'Economy', 'Native American Relations', 'Economy', 'Unclear Topic', 'Economy', 'Unclear Topic', 'US Expansion', 'Native American Relations']
+Total Topics = 10
+
+John Quincy Adams
+specific_topics_list = ['American Government', 'American Values', 'Amistad Africans']
+general_topics_list = ['American Government', 'American Values', 'Slavery']
+Total Topics = 3
+
+James Monroe
+specific_topics_list = ['American Government']
+general_topics_list = ['American Government']
+Total Topics = 1
+
+James Madison
+specific_topics_list = ['Revolutionary War', 'Faith', 'Unclear Topic', 'Unclear Topic', 'Unclear Topic', 'Religion', 'Currency', 'Unclear Topic', 'Contitution', 'US Territory']
+general_topics_list = ['US War', 'Faith', 'Unclear Topic', 'Unclear Topic', 'Unclear Topic', 'Faith', 'Economy', 'Unclear Topic', 'American Government', 'American Land']
+Total Topics = 10
+
+Thomas Jefferson
+specific_topics_list = ['American Government', 'Values', 'Unclear Topic', 'Military Policy', 'Unclear Topic', 'Values', 'Military Policy', 'Unclear Topic', 'Louisiana Purchase']
+general_topics_list = ['American Government', 'Values', 'Unclear Topic', 'Military Policy', 'Unclear Topic', 'Values', 'Military Policy', 'Unclear Topic', 'US Expansion']
+Total Topics = 9
+
+John Adams
+specific_topics_list = ['American Government', 'Treason', 'Washington's Death', 'Faith']
+general_topics_list = ['American Government', 'Crime', 'Praise', 'Faith']
+Total Topics = 4
+
+George Washington
+specific_topics_list = ['American Government', 'Treason', 'American Government', 'American Government', 'Unclear Topic', 'Unclear Topic', 'Native American Relations', 'Military Policy', 'Faith']
+general_topics_list = ['American Government', 'Crime', 'American Government', 'American Government', 'Unclear Topic', 'Unclear Topic', 'Native American Relations', 'Military Policy', 'Faith']
+Total Topics = 9
 
