@@ -1,0 +1,21 @@
+Harry S. Truman
+    "state", "missouri", "interests", "80th", "town", "certainly", "smith", "trenton", "moines",
+    "bryan", "accomplish", "convention"
+
+Grover Cleveland
+
+"andwhereas", "said", "grover", "cleveland"
+
+Andrew Johnson
+"andwhereas", "proclamation", "said", "discharged", "oath"
+
+Abraham Lincoln
+"st", "thereof", "lord", "39"
+
+James Buchanan
+"transit", "executive", "power", "land", "scrip"
+
+LBJ
+"united", "hostile", "aggression", "states", "seas"
+
+

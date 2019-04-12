@@ -195,8 +195,9 @@ stop_words = frozenset([
     "yourselves", "audience", "thank", "applause", "president", "mr", "booo", "lady"
     "yes", "member", "everybody", "make" "members", "secretary", "shall", "thats", "theyre",
     "just", "ms", "ve", "000", "fellow", "got", "ive" ,"okay", "allen", "150", "lets", "sure",
-    "im", "think", "going", "lot", "90", "200"])
+    "im", "think", "going", "lot", "90", "200", "let",
+    "united", "states", "convention", "roosevelt", "theodore"])
 
 topics_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
-print(president_total_topics('George W. Bush', topics_list, no_topics=10, no_words=20, stop_words=stop_words))
+print(president_total_topics('William McKinley', topics_list, no_topics=10, no_words=5, stop_words=stop_words))
