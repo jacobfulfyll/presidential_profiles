@@ -18,4 +18,6 @@ James Buchanan
 LBJ
 "united", "hostile", "aggression", "states", "seas"
 
+Theodore Roosevelt
+"united", "states", "convention", "roosevelt", "theodore"
 
