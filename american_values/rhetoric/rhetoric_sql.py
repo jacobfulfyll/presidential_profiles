@@ -9,7 +9,7 @@ query = """SELECT word,
                   lemma,
                   pos,
                   president
-            FROM presidesnts_words"""
+            FROM presidents_words"""
 
 # Change line 17 for a new year                                    
 
@@ -23,18 +23,21 @@ def president_urgency(df):
     possible_words = 0
     questionable_words = 0
     df['word'] = df['word'].str.lower()
-    df = df[df['president'] == 'George Washington']
+    df = df[df['president'] == 'Donald Trump']
     df_md = df[df['pos'] == 'MD']
     df_vbg = df[df['pos'] == 'VBG']
 
-
+    print(len(df))
 
     forceful_words += len(df_md[df_md['word'] == 'will'])
+    print(df_md[df_md['word'] == 'will'])
     forceful_words += len(df_md[df_md['word'] == 'must'])
     forceful_words += len(df_md[df_md['word'] == 'would'])
     forceful_words += len(df_md[df_md['word'] == 'wo'])
     forceful_words += len(df_md[df_md['word'] == 'need'])
     forceful_words += len(df_vbg[df_vbg['word'] == 'going'])
+    forceful_words += len(df_md[df_md['word'] == 'Will'])
+
 
     suggestive_words += len(df_md[df_md['word'] == 'should'])
     suggestive_words += len(df_md[df_md['word'] == 'ought'])
