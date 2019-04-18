@@ -97,4 +97,4 @@ def create_lemmaless_dataset(df, db, table):
     
     sql_upload(inaug_df, db, table)
 
-create_lemmaless_dataset(df, 'rhetoric_capstone', 'all_speeches')
+#create_lemmaless_dataset(df, 'rhetoric_capstone', 'all_speeches')

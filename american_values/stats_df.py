@@ -5,6 +5,7 @@ from topic_modeling import replace_filler
 import psycopg2 as pg2
 from nltk.tokenize import RegexpTokenizer
 from statistics import mean
+from rhetoric.rhetoric_dataset import sql_upload
 
 
 
@@ -79,9 +80,10 @@ def president_total_words(df):
         counter += 1
         pres_id -= 1
 
-    print(stats_df)
+    return stats_df
 
-#president_total_words(df)
+stats_df = president_total_words(df)
+sql_upload(stats_df, 'rhetoric_capstone', 'president_stats')
 
 
 def crowd_reactions(df):
@@ -126,7 +128,7 @@ def crowd_reactions(df):
             print('applause: ', applause)
             print('laughter: ', laughter)
 
-crowd_reactions(df)
+#crowd_reactions(df)
 
 def forceful_language():   
     conn = pg2.connect(dbname= "rhetoric_capstone", host = "localhost")

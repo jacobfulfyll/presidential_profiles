@@ -79,7 +79,7 @@ def president_speech_topics(president, no_topics=5, no_words=5, stop_words='engl
         
         nmf_topics(paragraphs, no_topics, no_words, stop_words)
 
-def president_total_topics(president, topics_list, no_topics=5, no_words=15, stop_words='english'):
+def president_total_topics(president, topics_list, no_topics=10, no_words=10, stop_words='english'):
     president_df = df[df['president'] == president]
     president_df = president_df[~president_df['speech_title'].str.contains("Debate")]
     speeches = president_df['speech_title'].unique()
@@ -95,13 +95,8 @@ def president_total_topics(president, topics_list, no_topics=5, no_words=15, sto
         current_speech = current_speech.encode('ascii', 'ignore')
         all_speeches.append(current_speech)
     nmf_matrix = nmf_topics(all_speeches, no_topics, no_words, stop_words)
-    topics_df = pd.DataFrame(data=nmf_matrix,    # values
-                            index=speeches,    # 1st column as index
-                            columns=topics_list)
-    print(topics_df)
-    print(len(topics_df))
-    print(topics_df['6'].sum())
-    #president_topics_table(president, topics_list, nmf_matrix, speeches)
+
+    president_topics_table(president, topics_list, nmf_matrix, speeches)
 
 
 def all_presidents(df, no_topics=20, no_words=5, stop_words='english'):
@@ -128,36 +123,49 @@ def all_presidents(df, no_topics=20, no_words=5, stop_words='english'):
 
 
 def president_topics_table(president, topics_list, nmf_matrix, speeches):
-    topics_df = pd.DataFrame(data=nmf_matrix,    # values
-                             index=speeches,    # 1st column as index
-                             columns=topics_list)
     
-    sql_df = pd.DataFrame(columns=['president', 'topic', 'score'])
+    topics_df = pd.DataFrame(index=speeches)
+    for idx, topic in enumerate(topics_list):
+        if topic == None:
+            s = pd.Series(nmf_matrix[:, idx], name='Unclear Topic', index=speeches)
+            topics_df = pd.concat([topics_df, s] , axis=1)
+        elif type(topic) == list:
+            for t in topic:
+                s = pd.Series(nmf_matrix[:, idx] / len(topic), name=t, index=speeches)
+                topics_df = pd.concat([topics_df, s] , axis=1)
+        else:
+            s = pd.Series(nmf_matrix[:, idx], name=topic, index=speeches)
+            topics_df = pd.concat([topics_df, s] , axis=1)
+
+    graph_df = pd.DataFrame(columns=['president', 'topic', 'score'])
     num_speeches = len(speeches)
-    topics_df = topics_df.groupby(topics_df.columns, axis=1).sum()
     try:
-        topics_df.drop(columns='Unclear Topic')
+        topics_df = topics_df.drop(columns='Unclear Topic')
     except:
         pass
+    topics_df = topics_df.groupby(topics_df.columns, axis=1).sum()
+
     counter = 0
+
     for topic in topics_df.columns:
-        
+
         zeros = len(topics_df[topics_df[topic] == 0])
         total = topics_df[topic].sum()
         score = total * ((num_speeches - zeros) / num_speeches)
         if score == 0:
             pass
         else:
-            sql_df.loc[counter] = [president, topic, score]
+            graph_df.loc[counter] = [president, topic, score]
         counter += 1
-    print(topics_df)
-    print(sql_df)
-    graph_president_topics(sql_df[['topic', 'score']])      
+
+    graph_president_topics(graph_df[['topic', 'score']], president)      
 
 
-def graph_president_topics(df):
+def graph_president_topics(df, president):
     df = df.set_index('topic')
-    df.plot.pie(y='score', labels=None)
+    df.plot(kind='bar', y = 'score', fontsize=10, rot=20)
+    filepath = 'graphs/president_topics/' + president.replace(' ', '_')
+    plt.savefig(filepath)
     plt.show()
 
 
@@ -227,11 +235,12 @@ stop_words = frozenset([
     "yourselves", "audience", "thank", "applause", "president", "mr", "booo", "lady"
     "yes", "member", "everybody", "make" "members", "secretary", "shall", "thats", "theyre",
     "just", "ms", "ve", "000", "fellow", "got", "ive" ,"okay", "allen", "150", "lets", "sure",
-    "im", "think", "going", "lot", "90", "200", "let",
+    "im", "think", "going", "lot", "90", "200", "let", "transit", "executive", "power", "land", "scrip"
     ])
 
 topics_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
-print(president_total_topics('John Tyler', topics_list, no_topics=10, no_words=10, stop_words=stop_words))
+#print(president_total_topics('James K. Polk', topics_list, no_topics=10, no_words=10, stop_words=stop_words))
 
 
+print(stop_words)
