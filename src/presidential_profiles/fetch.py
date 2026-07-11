@@ -21,6 +21,12 @@ CORPUS_URL = "https://data.millercenter.org/miller_center_speeches.tgz"
 REPO_ROOT = Path(__file__).resolve().parents[2]
 RAW_DIR = REPO_ROOT / "data" / "raw"
 PARQUET_PATH = REPO_ROOT / "data" / "speeches.parquet"
+PARAGRAPHS_PATH = REPO_ROOT / "data" / "paragraphs.parquet"
+
+# Merge adjacent paragraphs until a chunk reaches this size: one-line applause
+# beats ("This is democracy's day.") are too short to carry a topic.
+MIN_CHUNK_WORDS = 60
+MAX_CHUNK_WORDS = 220
 
 
 def download(force: bool = False) -> Path:
@@ -92,6 +98,68 @@ def parse(tgz_path: Path) -> pd.DataFrame:
     return df
 
 
+def parse_paragraphs(tgz_path: Path, speeches: pd.DataFrame) -> pd.DataFrame:
+    """Split each speech's transcript_html into topic-sized paragraph chunks."""
+    valid = set(speeches["doc_name"])
+    rows = []
+    with tarfile.open(tgz_path, "r:gz") as tar:
+        for member in tar.getmembers():
+            if not member.name.endswith(".json"):
+                continue
+            fh = tar.extractfile(member)
+            if fh is None:
+                continue
+            doc = json.load(fh)
+            doc_name = doc.get("doc_name")
+            if doc_name not in valid:
+                continue
+            html_text = doc.get("transcript_html") or ""
+            paras = [clean_transcript(p) for p in re.split(r"</p>", html_text)]
+            paras = [p for p in paras if p]
+
+            chunks: list[str] = []
+            current: list[str] = []
+            current_words = 0
+            for p in paras:
+                current.append(p)
+                current_words += len(p.split())
+                if current_words >= MIN_CHUNK_WORDS:
+                    chunks.append(" ".join(current))
+                    current, current_words = [], 0
+            if current:
+                tail = " ".join(current)
+                if chunks and len(tail.split()) < MIN_CHUNK_WORDS:
+                    chunks[-1] += " " + tail
+                else:
+                    chunks.append(tail)
+
+            # Cap oversized chunks (written 19th-century messages have huge
+            # paragraphs) by splitting on sentence boundaries.
+            final: list[str] = []
+            for c in chunks:
+                words = c.split()
+                if len(words) <= MAX_CHUNK_WORDS:
+                    final.append(c)
+                    continue
+                sentences = re.split(r"(?<=[.!?]) ", c)
+                cur, n = [], 0
+                for s in sentences:
+                    cur.append(s)
+                    n += len(s.split())
+                    if n >= MIN_CHUNK_WORDS * 2:
+                        final.append(" ".join(cur))
+                        cur, n = [], 0
+                if cur:
+                    final.append(" ".join(cur))
+
+            for i, chunk in enumerate(final):
+                rows.append({"doc_name": doc_name, "para_idx": i, "text": chunk})
+
+    out = pd.DataFrame(rows)
+    out["word_count"] = out["text"].str.split().str.len()
+    return out
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Fetch the Miller Center speech corpus")
     parser.add_argument("--force", action="store_true", help="re-download even if cached")
@@ -105,6 +173,9 @@ def main() -> None:
         f"Wrote {len(df):,} speeches ({df['date'].min():%Y-%m-%d} to "
         f"{df['date'].max():%Y-%m-%d}) to {PARQUET_PATH}"
     )
+    paragraphs = parse_paragraphs(tgz_path, df)
+    paragraphs.to_parquet(PARAGRAPHS_PATH, index=False)
+    print(f"Wrote {len(paragraphs):,} paragraph chunks to {PARAGRAPHS_PATH}")
 
 
 if __name__ == "__main__":

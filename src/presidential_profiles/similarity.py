@@ -15,8 +15,14 @@ from sklearn.decomposition import PCA
 from .corpus import DATA_DIR, load, president_order
 
 EMB_PATH = DATA_DIR / "president_embeddings.parquet"
+SPEECH_EMB_PATH = DATA_DIR / "speech_embeddings.parquet"
+ADJ_PATH = DATA_DIR / "president_embeddings_adjusted.parquet"
 
 MODEL_NAME = "minishlab/potion-base-8M"
+
+# Window for the era baseline: a president's voice is compared against
+# presidents whose first speech falls within this many years of their own.
+ERA_WINDOW = 24
 
 
 def _normalize(m: np.ndarray) -> np.ndarray:
@@ -33,6 +39,12 @@ def build_embeddings(df: pd.DataFrame | None = None, force: bool = False) -> pd.
 
     model = StaticModel.from_pretrained(MODEL_NAME)
     speech_vecs = _normalize(np.asarray(model.encode(df["transcript"].tolist())))
+
+    speech_emb = pd.DataFrame(
+        speech_vecs, columns=[f"e{j}" for j in range(speech_vecs.shape[1])]
+    )
+    speech_emb.insert(0, "doc_name", df["doc_name"].values)
+    speech_emb.to_parquet(SPEECH_EMB_PATH, index=False)
 
     order = president_order(df)
     pres_vecs = np.vstack(
@@ -64,3 +76,40 @@ def similarity_matrix(emb: pd.DataFrame) -> pd.DataFrame:
     m = _normalize(emb[vec_cols].to_numpy())
     sim = m @ m.T
     return pd.DataFrame(sim, index=emb["president"], columns=emb["president"])
+
+
+def build_adjusted(emb: pd.DataFrame | None = None, force: bool = False) -> pd.DataFrame:
+    """Era-adjusted president embeddings: each vector minus the mean of
+    contemporaries (first speech within ERA_WINDOW years, excluding self).
+
+    Raw similarity is ~0.68 correlated with temporal proximity — it mostly
+    measures the era's shared language. The residual is what distinguishes a
+    president from their contemporaries, making cross-era comparison
+    meaningful (top pair: Lincoln <-> FDR)."""
+    if ADJ_PATH.exists() and not force:
+        return pd.read_parquet(ADJ_PATH)
+
+    if emb is None:
+        emb = build_embeddings()
+    vec_cols = [c for c in emb.columns if c.startswith("e")]
+    V = _normalize(emb[vec_cols].to_numpy())
+    years = emb["first_year"].to_numpy()
+
+    adjusted = np.zeros_like(V)
+    for i in range(len(V)):
+        mask = (np.abs(years - years[i]) <= ERA_WINDOW) & (np.arange(len(V)) != i)
+        if mask.sum() < 2:
+            nearest = np.argsort(np.abs(years - years[i]))[1:5]
+            mask = np.zeros(len(V), dtype=bool)
+            mask[nearest] = True
+        adjusted[i] = V[i] - V[mask].mean(axis=0)
+    adjusted = _normalize(adjusted)
+
+    coords = PCA(n_components=2, random_state=42).fit_transform(adjusted)
+    out = emb[["president", "party", "n_speeches", "first_year"]].copy()
+    out["pc1"] = coords[:, 0]
+    out["pc2"] = coords[:, 1]
+    vec_df = pd.DataFrame(adjusted, columns=vec_cols)
+    out = pd.concat([out.reset_index(drop=True), vec_df], axis=1)
+    out.to_parquet(ADJ_PATH, index=False)
+    return out

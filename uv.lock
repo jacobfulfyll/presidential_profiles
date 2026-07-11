@@ -272,6 +272,15 @@ wheels = [
 ]
 
 [[package]]
+name = "corextopic"
+version = "1.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/31/38/669c88f5225e8de3735facdc9de6db5f42c5e42ca9f06b79d053a860276f/corextopic-1.1.tar.gz", hash = "sha256:f17dddaeadeda0ef6cea6648db4cc9230aa0666947736908d344c2d5ab55552b", size = 25660, upload-time = "2021-03-22T20:16:20.058Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2c/12/f2d5865ac6ec1a1bf4d05194db3f6ddf9f0e3489cdb79d07f20da27d9853/corextopic-1.1-py3-none-any.whl", hash = "sha256:2e4d42d39ec9d03218ea86a74283a51411adc3e58434d8e779f5e98701436b60", size = 27033, upload-time = "2021-03-22T20:16:18.906Z" },
+]
+
+[[package]]
 name = "cycler"
 version = "0.12.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1058,6 +1067,7 @@ version = "2.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "adjusttext" },
+    { name = "corextopic" },
     { name = "en-core-web-sm" },
     { name = "matplotlib" },
     { name = "model2vec" },
@@ -1072,6 +1082,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "adjusttext", specifier = ">=1.2" },
+    { name = "corextopic", specifier = ">=1.1" },
     { name = "en-core-web-sm", url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" },
     { name = "matplotlib", specifier = ">=3.9" },
     { name = "model2vec", specifier = ">=0.3" },

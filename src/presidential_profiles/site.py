@@ -13,7 +13,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
 
-from . import corpus, rhetoric, similarity, topics, trends
+from . import corpus, indices, issues, profiles, profiles_site, rhetoric, similarity, trends
 from .figures import (
     BASELINE,
     BLUE_RAMP,
@@ -26,10 +26,9 @@ from .figures import (
     SERIES,
     SURFACE,
 )
+from .site_style import FONT, PAGE_CSS
 
 SITE_DIR = REPO_ROOT / "docs"
-
-FONT = "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
 
 
 def _layout(**overrides) -> dict:
@@ -129,14 +128,74 @@ def _small_multiples(panels: list[tuple[str, pd.Series]], rows: int, cols: int,
     return fig
 
 
-def fig_topics(doc_topics: pd.DataFrame, topic_terms: dict) -> go.Figure:
-    keys = [k for k in doc_topics.columns if k.startswith("topic_")]
-    panels = [
-        (" · ".join(topic_terms[k][:3]), doc_topics.groupby("decade")[k].mean() * 100)
-        for k in keys
-    ]
-    return _small_multiples(panels, rows=4, cols=3, height=880,
-                            hovertemplate="%{y:.1f}% of speech")
+def fig_issues_decade(para_labels: pd.DataFrame, issue_names: list[str]) -> go.Figure:
+    """Share of paragraphs touching each curated issue, by decade."""
+    pl = para_labels.copy()
+    pl["decade"] = (pl["year"] // 10) * 10
+    display = issue_names + ["Discovered 5"]
+    panels = []
+    for name in display:
+        label = profiles_site.DISCOVERED_LABELS.get(name, name)
+        panels.append((label, pl.groupby("decade")[name].mean() * 100))
+    return _small_multiples(panels, rows=4, cols=4, height=880,
+                            hovertemplate="%{y:.1f}% of paragraphs")
+
+
+def _two_line_fig(series: list[tuple[str, pd.Series]], ytitle: str,
+                  dash_second: bool = False) -> go.Figure:
+    fig = go.Figure()
+    for i, (name, s) in enumerate(series):
+        fig.add_trace(go.Scatter(
+            x=s.index, y=s.values, name=name, mode="lines",
+            line=dict(color=SERIES[i], width=2.4,
+                      dash="dash" if (dash_second and i == 1) else "solid"),
+            hovertemplate="%{y:.2f}<extra>" + name + "</extra>",
+        ))
+    fig.update_layout(**_layout(hovermode="x unified", yaxis_title=ytitle))
+    return fig
+
+
+def fig_certainty(markers: pd.DataFrame) -> go.Figure:
+    return _two_line_fig(
+        [("all speeches", indices.certainty_by_decade(markers)),
+         ("inaugural addresses only", indices.certainty_by_decade(markers, inaugural_only=True))],
+        ytitle="assertive share of stance markers", dash_second=True,
+    )
+
+
+def fig_naming(rates: pd.DataFrame) -> go.Figure:
+    r = rates.set_index("decade")
+    return _two_line_fig(
+        [("“United States”", r["united_states"]), ("“America / American(s)”", r["america"])],
+        ytitle="uses per 10,000 words",
+    )
+
+
+def fig_orientation(rates: pd.DataFrame) -> go.Figure:
+    r = rates.set_index("decade")
+    return _two_line_fig(
+        [("future (future / forward / tomorrow)", r["future"]),
+         ("nostalgia (again / restore / back to)", r["nostalgia"])],
+        ytitle="uses per 10,000 words",
+    )
+
+
+def fig_religion(rates: pd.DataFrame) -> go.Figure:
+    r = rates.set_index("decade")
+    return _two_line_fig(
+        [("civil religion (god / faith / pray / bless / sacred)", r["religiosity"]),
+         ("“God bless”", r["god_bless"])],
+        ytitle="uses per 10,000 words",
+    )
+
+
+def fig_hope_fear(rates: pd.DataFrame) -> go.Figure:
+    r = rates.set_index("decade")
+    return _two_line_fig(
+        [("hope words (NRC trust + anticipation + joy)", r["nrc_hope"]),
+         ("fear words (NRC fear + anger)", r["nrc_fear"])],
+        ytitle="uses per 10,000 words",
+    )
 
 
 def fig_keywords(kw: pd.DataFrame) -> go.Figure:
@@ -237,16 +296,26 @@ def fig_heatmap(sim: pd.DataFrame) -> go.Figure:
 
 
 SECTIONS = [
-    ("map", "Who sounds like whom",
+    ("map", "The river of history",
      "Every speech embedded, averaged per president, projected to 2D with PCA. The model "
-     "never sees a date, yet the first principal component recovers time almost perfectly - "
-     "presidents drift left to right in chronological order, and the modern era forms its "
-     "own cluster. Colors follow party convention."),
-    ("heatmap", "Rhetorical similarity, president by president",
-     "Cosine similarity between president embeddings, in chronological order. The dark block "
-     "in the lower right is the modern presidency; the most similar pair in the corpus is "
-     "Bill Clinton and Barack Obama (0.978). Donald Trump has the lowest average similarity "
-     "to everyone else of any president with a substantial speech record."),
+     "never sees a date, yet time flows left to right almost perfectly - two-thirds of raw "
+     "voice similarity is simply era. Colors follow party convention."),
+    ("charmap", "The character map: era removed",
+     "The same embeddings with each president's era subtracted - what remains is what made "
+     "them different from their contemporaries. Lincoln lands beside FDR (their adjusted "
+     "similarity is the highest cross-era pair in the corpus), the great communicators "
+     "cluster, and the plain-spoken fighters find each other across centuries."),
+    ("heatmap", "The language of eras",
+     "Raw cosine similarity, in chronological order - read it as a map of how presidential "
+     "language itself changed. The dark block from FDR onward is the modern voice. "
+     "For character comparisons free of this era effect, see each president's "
+     "“sounds like” list on their profile page."),
+    ("certainty", "Confidence replaced deliberation",
+     "The assertive share of stance markers: boosters and will/must vs hedges and "
+     "concessives (“however”, “although” - the grammar of trade-offs). "
+     "The dashed line is inaugural addresses only - the same genre for 240 years - showing "
+     "the shift is rhetorical strategy, not just the move from written to spoken messages. "
+     "On inaugurals, certainty rose from 0.58 (1800s) to 0.93 (2020s)."),
     ("pronouns", "The 2020s flipped the pronoun trend",
      "Presidential speech spent a century becoming more collective - then the 2020s reversed "
      "it. “We” fell for the first time in a hundred years while “I” "
@@ -255,14 +324,33 @@ SECTIONS = [
      "The classic marker of formal obligation collapsed from 21.8 uses per 10k words in the "
      "1790s to 0.35 today. “Must” peaked in the FDR and war years; promising, "
      "future-facing “will” took over modern speech."),
+    ("naming", "From “the United States” to “America”",
+     "In 1800 the country was named as a legal entity seven times more often than as an "
+     "idea. The lines cross in the 1950s; by 2000 “America” leads eight to one. "
+     "The republic became a brand."),
+    ("orientation", "Nostalgia is catching the future",
+     "Restoration language (“again / restore / back to”) vs future language. "
+     "Future-talk won the entire twentieth century. The 1980s brought the first nostalgia "
+     "wave; in the 2020s nostalgia surges again while future-talk falls to its lowest "
+     "level since WWII."),
+    ("religion", "“God bless” is a television-era invention",
+     "The phrase does not occur in a single 19th-century speech in the corpus. It appears "
+     "in the 1950s and becomes mandatory by Reagan. Broader civil-religion language "
+     "doubled from 1800 to today - presidential speech got more religious as the country "
+     "secularized."),
+    ("hopefear", "Hope and fear",
+     "NRC Emotion Lexicon scores. Hope language (trust, anticipation, joy) and fear "
+     "language (fear, anger) per 10,000 words - the raw material of the profile pages' "
+     "hope and fear scores."),
     ("readability", "Speeches dropped twelve grade levels",
      "Median Flesch-Kincaid reading level fell from grade 19.9 in the 1790s to grade 7.8 in "
      "the 2020s. Hover any dot to see the speech behind it."),
-    ("topics", "What presidents talk about, 1789-2026",
-     "Twelve NMF topics trace the arc of American history: treaties and commerce in the "
-     "early republic, the Constitution and union peaking in the 1860s, gold and silver in "
-     "the 1890s, the Soviet block in the Cold War, Iraq and Afghanistan in the 2000s - and "
-     "an informal-register topic that explodes in the 2020s."),
+    ("issues", "What presidents actually cared about, 1789-2026",
+     "Anchored topic model over 36,000 paragraph-sized chunks: a fixed issue taxonomy plus "
+     "discovered topics, so every era is scored on the same axes. Money & banking dies "
+     "after the gold-standard era, agriculture fades with the family farm, health care and "
+     "education are late-20th-century arrivals - and immigration's 2020s spike exceeds "
+     "anything before it."),
     ("keywords", "One word at a time",
      "Usage rates for key terms, per 10,000 words by decade. “Border” and "
      "“immigration” reach all-time highs in the 2020s, above the early-1900s "
@@ -316,31 +404,14 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, inline: bool) -> st
 <meta name="description" content="Interactive analysis of 1,057 presidential speeches, 1789-2026, from the Miller Center corpus.">
 {plotly_src}
 <style>
-  :root {{
-    --surface: {SURFACE}; --page: #f9f9f7; --ink: {INK}; --ink2: {INK2};
-    --muted: {MUTED}; --grid: {GRID}; --border: rgba(11,11,11,0.10);
-  }}
-  * {{ box-sizing: border-box; margin: 0; }}
-  body {{ background: var(--page); color: var(--ink);
-         font-family: {FONT}; line-height: 1.55; }}
-  header {{ max-width: 980px; margin: 0 auto; padding: 56px 20px 8px; }}
-  header h1 {{ font-size: 2rem; letter-spacing: -0.02em; }}
-  header p.sub {{ color: var(--ink2); margin-top: 10px; max-width: 46rem; }}
+{PAGE_CSS}
   .tiles {{ display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 8px; }}
   .tile {{ background: var(--surface); border: 1px solid var(--border);
            border-radius: 10px; padding: 14px 22px; min-width: 130px; }}
   .tile .num {{ font-size: 1.55rem; font-weight: 650; }}
   .tile .lbl {{ color: var(--muted); font-size: 0.82rem; }}
-  main {{ max-width: 980px; margin: 0 auto; padding: 8px 20px 40px; }}
-  section {{ margin-top: 44px; }}
-  section h2 {{ font-size: 1.28rem; letter-spacing: -0.01em; }}
-  section p {{ color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }}
-  .chart-scroll {{ background: var(--surface); border: 1px solid var(--border);
-                   border-radius: 12px; padding: 10px 6px 6px; overflow-x: auto; }}
-  .chart {{ min-width: 640px; }}
-  footer {{ max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
-            border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }}
-  footer a {{ color: var(--ink2); }}
+  .profiles-link {{ display: inline-block; margin-top: 18px; font-size: 1rem;
+                    color: var(--ink); font-weight: 600; }}
 </style>
 </head>
 <body>
@@ -353,6 +424,7 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, inline: bool) -> st
   <div class="tiles">
 {tiles_html}
   </div>
+  <a class="profiles-link" href="presidents/index.html">Browse the 45 president profiles →</a>
 </header>
 <main>
 {sections_html}
@@ -385,19 +457,29 @@ def main() -> None:
 
     df = corpus.load()
     stats = rhetoric.build_stats(df)
-    doc_topics, topic_terms = topics.build_topics(df)
     emb = similarity.build_embeddings(df)
     sim = similarity.similarity_matrix(emb)
+    adj = similarity.build_adjusted(emb)
     kw = trends.keyword_trends(df)
     distinctive = trends.distinctive_terms(df)
+    markers = indices.build_markers(df)
+    rates = indices.decade_rates(markers)
+    _, issue_meta = issues.build_issues()
+    para_labels = pd.read_parquet(issues.PARA_LABELS_PATH)
 
     figs = {
         "map": fig_map(emb),
+        "charmap": fig_map(adj),
         "heatmap": fig_heatmap(sim),
+        "certainty": fig_certainty(markers),
         "pronouns": fig_pronouns(stats),
         "modals": fig_modals(stats),
+        "naming": fig_naming(rates),
+        "orientation": fig_orientation(rates),
+        "religion": fig_religion(rates),
+        "hopefear": fig_hope_fear(rates),
         "readability": fig_readability(stats),
-        "topics": fig_topics(doc_topics, topic_terms),
+        "issues": fig_issues_decade(para_labels, issue_meta["issues"]),
         "keywords": fig_keywords(kw),
         "distinctive": fig_distinctive(distinctive),
     }
@@ -413,6 +495,9 @@ def main() -> None:
     out = SITE_DIR / "index.html"
     out.write_text(build_html(figs, stats_line, inline=False))
     print(f"wrote {out.relative_to(REPO_ROOT)} ({out.stat().st_size / 1e6:.1f} MB)")
+
+    profile_data = profiles.build_profile_data()
+    profiles_site.write_profiles(profile_data, SITE_DIR)
 
     if args.inline:
         out2 = SITE_DIR / "index_selfcontained.html"

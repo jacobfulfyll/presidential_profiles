@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>President Profiles - Presidential Profiles</title>
+<style>
+
+  :root {
+    --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
+    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--page); color: var(--ink);
+         font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.55; }
+  header { max-width: 980px; margin: 0 auto; padding: 48px 20px 8px; }
+  header h1 { font-size: 2rem; letter-spacing: -0.02em; }
+  header p.sub { color: var(--ink2); margin-top: 10px; max-width: 46rem; }
+  main { max-width: 980px; margin: 0 auto; padding: 8px 20px 40px; }
+  section { margin-top: 44px; }
+  section h2 { font-size: 1.28rem; letter-spacing: -0.01em; }
+  section p { color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }
+  .chart-scroll { background: var(--surface); border: 1px solid var(--border);
+                   border-radius: 12px; padding: 10px 6px 6px; overflow-x: auto; }
+  .chart { min-width: 640px; }
+  footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
+            border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--ink2); }
+
+  .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
+  .crumbs a { color: var(--ink2); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+           gap: 12px; margin-top: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 10px; padding: 14px 16px; text-decoration: none;
+           color: var(--ink); transition: border-color 0.15s; }
+  .card:hover { border-color: var(--muted); }
+  .name { font-weight: 650; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+  .meta { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+  .issue { color: var(--ink2); font-size: 0.83rem; margin-top: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <p class="crumbs"><a href="../index.html">← Dashboard</a></p>
+  <h1>President Profiles</h1>
+  <p class="sub">Every president's rhetorical fingerprint, the issues they pressed
+  harder than their contemporaries, their distinctive vocabulary, and the speeches
+  that define them. Card badge: the issue they emphasized most vs their era.</p>
+  <div class="grid">
+<a class="card" href="george-washington.html">
+  <div class="name"><span class="dot" style="background:#898781"></span>George Washington</div>
+  <div class="meta">1789–1796 · 21 speeches</div>
+  <div class="issue">↑ Crime & justice</div>
+</a>
+<a class="card" href="john-adams.html">
+  <div class="name"><span class="dot" style="background:#4a3aa7"></span>John Adams</div>
+  <div class="meta">1797–1800 · 9 speeches</div>
+  <div class="issue">↑ Foreign policy</div>
+</a>
+<a class="card" href="thomas-jefferson.html">
+  <div class="name"><span class="dot" style="background:#1baf7a"></span>Thomas Jefferson</div>
+  <div class="meta">1801–1809 · 24 speeches</div>
+  <div class="issue">↑ Infrastructure</div>
+</a>
+<a class="card" href="james-madison.html">
+  <div class="name"><span class="dot" style="background:#1baf7a"></span>James Madison</div>
+  <div class="meta">1809–1817 · 21 speeches</div>
+  <div class="issue">↑ War & military</div>
+</a>
+<a class="card" href="james-monroe.html">
+  <div class="name"><span class="dot" style="background:#1baf7a"></span>James Monroe</div>
+  <div class="meta">1817–1824 · 10 speeches</div>
+  <div class="issue">↑ Infrastructure</div>
+</a>
+<a class="card" href="john-quincy-adams.html">
+  <div class="name"><span class="dot" style="background:#1baf7a"></span>John Quincy Adams</div>
+  <div class="meta">1821–1828 · 8 speeches</div>
+  <div class="issue">↑ Infrastructure</div>
+</a>
+<a class="card" href="andrew-jackson.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Andrew Jackson</div>
+  <div class="meta">1829–1837 · 26 speeches</div>
+  <div class="issue">↑ Money & banking</div>
+</a>
+<a class="card" href="martin-van-buren.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Martin Van Buren</div>
+  <div class="meta">1837–1841 · 10 speeches</div>
+  <div class="issue">↑ Money & banking</div>
+</a>
+<a class="card" href="william-harrison.html">
+  <div class="name"><span class="dot" style="background:#eda100"></span>William Harrison</div>
+  <div class="meta">1841–1841 · 1 speeches</div>
+  <div class="issue">↑ Money & banking</div>
+</a>
+<a class="card" href="john-tyler.html">
+  <div class="name"><span class="dot" style="background:#eda100"></span>John Tyler</div>
+  <div class="meta">1841–1845 · 18 speeches</div>
+  <div class="issue">↑ Money & banking</div>
+</a>
+<a class="card" href="james-k-polk.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>James K. Polk</div>
+  <div class="meta">1845–1849 · 25 speeches</div>
+  <div class="issue">↑ War & military</div>
+</a>
+<a class="card" href="zachary-taylor.html">
+  <div class="name"><span class="dot" style="background:#eda100"></span>Zachary Taylor</div>
+  <div class="meta">1849–1850 · 4 speeches</div>
+  <div class="issue">↑ Foreign policy</div>
+</a>
+<a class="card" href="millard-fillmore.html">
+  <div class="name"><span class="dot" style="background:#eda100"></span>Millard Fillmore</div>
+  <div class="meta">1850–1852 · 7 speeches</div>
+  <div class="issue">↑ Infrastructure</div>
+</a>
+<a class="card" href="abraham-lincoln.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Abraham Lincoln</div>
+  <div class="meta">1852–1865 · 15 speeches</div>
+  <div class="issue">↑ Civil rights & race</div>
+</a>
+<a class="card" href="franklin-pierce.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Franklin Pierce</div>
+  <div class="meta">1853–1856 · 15 speeches</div>
+  <div class="issue">↑ Infrastructure</div>
+</a>
+<a class="card" href="james-buchanan.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>James Buchanan</div>
+  <div class="meta">1857–1861 · 14 speeches</div>
+  <div class="issue">↑ War & military</div>
+</a>
+<a class="card" href="andrew-johnson.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Andrew Johnson</div>
+  <div class="meta">1865–1868 · 31 speeches</div>
+  <div class="issue">↑ War & military</div>
+</a>
+<a class="card" href="ulysses-s-grant.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Ulysses S. Grant</div>
+  <div class="meta">1869–1877 · 32 speeches</div>
+  <div class="issue">↑ Money & banking</div>
+</a>
+<a class="card" href="rutherford-b-hayes.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Rutherford B. Hayes</div>
+  <div class="meta">1877–1881 · 16 speeches</div>
+  <div class="issue">↑ Taxes & budget</div>
+</a>
+<a class="card" href="james-a-garfield.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>James A. Garfield</div>
+  <div class="meta">1881–1881 · 1 speeches</div>
+  <div class="issue">↑ Civil rights & race</div>
+</a>
+<a class="card" href="chester-a-arthur.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Chester A. Arthur</div>
+  <div class="meta">1881–1884 · 11 speeches</div>
+  <div class="issue">↑ Foreign policy</div>
+</a>
+<a class="card" href="grover-cleveland.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Grover Cleveland</div>
+  <div class="meta">1885–1897 · 32 speeches</div>
+  <div class="issue">↑ Money & banking</div>
+</a>
+<a class="card" href="benjamin-harrison.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Benjamin Harrison</div>
+  <div class="meta">1889–1893 · 16 speeches</div>
+  <div class="issue">↑ Trade & tariffs</div>
+</a>
+<a class="card" href="william-mckinley.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>William McKinley</div>
+  <div class="meta">1897–1901 · 14 speeches</div>
+  <div class="issue">↑ Foreign policy</div>
+</a>
+<a class="card" href="theodore-roosevelt.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Theodore Roosevelt</div>
+  <div class="meta">1901–1908 · 22 speeches</div>
+  <div class="issue">↑ Infrastructure</div>
+</a>
+<a class="card" href="william-taft.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>William Taft</div>
+  <div class="meta">1909–1912 · 12 speeches</div>
+  <div class="issue">↑ Trade & tariffs</div>
+</a>
+<a class="card" href="woodrow-wilson.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Woodrow Wilson</div>
+  <div class="meta">1913–1920 · 33 speeches</div>
+  <div class="issue">↑ Security & peace</div>
+</a>
+<a class="card" href="warren-g-harding.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Warren G. Harding</div>
+  <div class="meta">1917–1922 · 18 speeches</div>
+  <div class="issue">↑ Security & peace</div>
+</a>
+<a class="card" href="calvin-coolidge.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Calvin Coolidge</div>
+  <div class="meta">1923–1928 · 12 speeches</div>
+  <div class="issue">↑ Taxes & budget</div>
+</a>
+<a class="card" href="herbert-hoover.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Herbert Hoover</div>
+  <div class="meta">1928–1932 · 30 speeches</div>
+  <div class="issue">↑ Economy & jobs</div>
+</a>
+<a class="card" href="franklin-d-roosevelt.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Franklin D. Roosevelt</div>
+  <div class="meta">1933–1945 · 49 speeches</div>
+  <div class="issue">↑ Security & peace</div>
+</a>
+<a class="card" href="harry-s-truman.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Harry S. Truman</div>
+  <div class="meta">1945–1953 · 19 speeches</div>
+  <div class="issue">↑ Security & peace</div>
+</a>
+<a class="card" href="richard-m-nixon.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Richard M. Nixon</div>
+  <div class="meta">1952–1974 · 23 speeches</div>
+  <div class="issue">↑ War & military</div>
+</a>
+<a class="card" href="dwight-d-eisenhower.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Dwight D. Eisenhower</div>
+  <div class="meta">1953–1961 · 15 speeches</div>
+  <div class="issue">↑ Economy & jobs</div>
+</a>
+<a class="card" href="john-f-kennedy.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>John F. Kennedy</div>
+  <div class="meta">1960–1963 · 44 speeches</div>
+  <div class="issue">↑ Security & peace</div>
+</a>
+<a class="card" href="lyndon-b-johnson.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Lyndon B. Johnson</div>
+  <div class="meta">1963–1969 · 71 speeches</div>
+  <div class="issue">↑ Crime & justice</div>
+</a>
+<a class="card" href="ronald-reagan.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Ronald Reagan</div>
+  <div class="meta">1964–1989 · 60 speeches</div>
+  <div class="issue">↑ Taxes & budget</div>
+</a>
+<a class="card" href="gerald-ford.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Gerald Ford</div>
+  <div class="meta">1974–1977 · 14 speeches</div>
+  <div class="issue">↑ Foreign policy</div>
+</a>
+<a class="card" href="jimmy-carter.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Jimmy Carter</div>
+  <div class="meta">1976–1981 · 22 speeches</div>
+  <div class="issue">↑ Money & banking</div>
+</a>
+<a class="card" href="george-h-w-bush.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>George H. W. Bush</div>
+  <div class="meta">1988–1993 · 23 speeches</div>
+  <div class="issue">↑ War & military</div>
+</a>
+<a class="card" href="bill-clinton.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Bill Clinton</div>
+  <div class="meta">1993–2001 · 39 speeches</div>
+  <div class="issue">↑ Education</div>
+</a>
+<a class="card" href="george-w-bush.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>George W. Bush</div>
+  <div class="meta">2001–2009 · 38 speeches</div>
+  <div class="issue">↑ Security & peace</div>
+</a>
+<a class="card" href="barack-obama.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Barack Obama</div>
+  <div class="meta">2008–2017 · 51 speeches</div>
+  <div class="issue">↑ Economy & jobs</div>
+</a>
+<a class="card" href="donald-trump.html">
+  <div class="name"><span class="dot" style="background:#e34948"></span>Donald Trump</div>
+  <div class="meta">2017–2026 · 53 speeches</div>
+  <div class="issue">↑ Immigration</div>
+</a>
+<a class="card" href="joe-biden.html">
+  <div class="name"><span class="dot" style="background:#2a78d6"></span>Joe Biden</div>
+  <div class="meta">2021–2025 · 28 speeches</div>
+  <div class="issue">↑ War & military</div>
+</a>
+  </div>
+</header>
+<footer>
+  <p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
+  University of Virginia</a>.</p>
+</footer>
+</body>
+</html>
