@@ -21,6 +21,7 @@ dependencies = [
 [project.scripts]
 pp-fetch = "presidential_profiles.fetch:main"
 pp-analyze = "presidential_profiles.analyze:main"
+pp-site = "presidential_profiles.site:main"
 
 [build-system]
 requires = ["hatchling"]

@@ -14,6 +14,10 @@
     "TaskStop": {
       "searches": 1,
       "last": "2026-07-11"
+    },
+    "plugin_chrome-devtools-mcp_chrome-devtools": {
+      "searches": 2,
+      "last": "2026-07-11"
     }
   }
 }
