@@ -1,0 +1,10 @@
+{
+  "agents": {},
+  "commands": {},
+  "tool_searches": {
+    "TaskCreate,TaskUpdate,TaskList,WebFetch": {
+      "searches": 1,
+      "last": "2026-07-11"
+    }
+  }
+}

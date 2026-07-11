@@ -1,0 +1,34 @@
+[project]
+name = "presidential-profiles"
+version = "2.0.0"
+description = "How presidential rhetoric, issues, and policies manifest for each president and across U.S. history — analysis of the Miller Center speech corpus (1789-present)"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Jacob Press" }]
+dependencies = [
+    "requests>=2.32",
+    "pandas>=2.2",
+    "pyarrow>=17.0",
+    "spacy>=3.7",
+    "en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl",
+    "scikit-learn>=1.5",
+    "model2vec>=0.3",
+    "plotly>=5.24",
+    "matplotlib>=3.9",
+    "textstat>=0.7",
+]
+
+[project.scripts]
+pp-fetch = "presidential_profiles.fetch:main"
+pp-analyze = "presidential_profiles.analyze:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/presidential_profiles"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
