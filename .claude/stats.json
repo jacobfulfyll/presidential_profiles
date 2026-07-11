@@ -4,6 +4,10 @@
     "dataviz": {
       "runs": 1,
       "last": "2026-07-11"
+    },
+    "artifact-design": {
+      "runs": 1,
+      "last": "2026-07-11"
     }
   },
   "tool_searches": {
