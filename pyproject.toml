@@ -4,7 +4,6 @@ version = "2.0.0"
 description = "How presidential rhetoric, issues, and policies manifest for each president and across U.S. history — analysis of the Miller Center speech corpus (1789-present)"
 readme = "README.md"
 requires-python = ">=3.12"
-license = { text = "MIT" }
 authors = [{ name = "Jacob Press" }]
 dependencies = [
     "requests>=2.32",
@@ -16,7 +15,7 @@ dependencies = [
     "model2vec>=0.3",
     "plotly>=5.24",
     "matplotlib>=3.9",
-    "textstat>=0.7",
+    "adjusttext>=1.2",
 ]
 
 [project.scripts]

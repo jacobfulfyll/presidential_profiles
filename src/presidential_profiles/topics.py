@@ -27,7 +27,17 @@ EXTRA_STOP = {
     "going", "want", "know", "say", "said", "just", "let", "make",
     "america", "american", "americans", "united", "states", "people",
     "country", "nation", "president", "congress", "government", "year", "years",
+    # contraction fragments left by the word tokenizer (we're -> we + re)
+    "ve", "ll", "re", "don", "didn", "doesn", "isn", "wasn", "aren",
+    "weren", "hasn", "haven", "hadn", "wouldn", "couldn", "shouldn", "ain",
 }
+
+
+def _preprocess(text: str) -> str:
+    # Older transcripts write "Viet Nam" / "Viet-Nam"; unify so the topic
+    # model sees one term instead of splitting Vietnam across two topics.
+    text = text.lower()
+    return text.replace("viet nam", "vietnam").replace("viet-nam", "vietnam")
 
 
 def build_topics(df: pd.DataFrame | None = None, force: bool = False):
@@ -49,7 +59,7 @@ def build_topics(df: pd.DataFrame | None = None, force: bool = False):
         max_features=30_000,
         token_pattern=r"[a-zA-Z][a-zA-Z]+",
     )
-    tfidf = vectorizer.fit_transform(df["transcript"].str.lower())
+    tfidf = vectorizer.fit_transform(df["transcript"].map(_preprocess))
     terms = np.array(vectorizer.get_feature_names_out())
 
     nmf = NMF(n_components=N_TOPICS, init="nndsvda", max_iter=400, random_state=42)
@@ -65,9 +75,9 @@ def build_topics(df: pd.DataFrame | None = None, force: bool = False):
     doc_topics = pd.DataFrame(
         shares, columns=[f"topic_{k}" for k in range(N_TOPICS)]
     )
-    doc_topics.insert(0, "uuid", df["uuid"].values)
-    doc_topics = df[["uuid", "president", "party", "year", "decade"]].merge(
-        doc_topics, on="uuid"
+    doc_topics.insert(0, "doc_name", df["doc_name"].values)
+    doc_topics = df[["doc_name", "president", "party", "year", "decade"]].merge(
+        doc_topics, on="doc_name", validate="one_to_one"
     )
 
     doc_topics.to_parquet(DOC_TOPICS_PATH, index=False)

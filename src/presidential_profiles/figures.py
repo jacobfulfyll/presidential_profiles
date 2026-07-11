@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
+from adjustText import adjust_text
 from matplotlib.colors import LinearSegmentedColormap
 
 matplotlib.use("Agg")
@@ -55,7 +56,7 @@ def _theme():
             "axes.labelcolor": INK2,
             "axes.titlecolor": INK,
             "axes.titlesize": 12,
-            "axes.titleweight": "semibold",
+            "axes.titleweight": 600,
             "axes.labelsize": 10,
             "axes.spines.top": False,
             "axes.spines.right": False,
@@ -168,7 +169,7 @@ def topics_small_multiples(doc_topics: pd.DataFrame, topic_terms: dict):
         ax.set_title(" · ".join(topic_terms[key][:3]), fontsize=9.5)
         ax.set_ylim(bottom=0)
         ax.tick_params(labelsize=8)
-    fig.suptitle("Topic prevalence by decade (NMF, 12 topics)", fontsize=13, fontweight="semibold")
+    fig.suptitle("Topic prevalence by decade (NMF, 12 topics)", fontsize=13, fontweight=600)
     fig.supylabel("mean share of speech (%)", fontsize=10, color=INK2)
     fig.tight_layout(rect=(0.01, 0, 1, 0.98))
     _save(fig, "topics_by_decade.png")
@@ -186,7 +187,7 @@ def keyword_small_multiples(trends: pd.DataFrame):
         ax.set_title(term, fontsize=10)
         ax.set_ylim(bottom=0)
         ax.tick_params(labelsize=8)
-    fig.suptitle("Keyword usage per 10,000 words, by decade", fontsize=13, fontweight="semibold")
+    fig.suptitle("Keyword usage per 10,000 words, by decade", fontsize=13, fontweight=600)
     fig.tight_layout(rect=(0, 0, 1, 0.98))
     _save(fig, "keyword_trends.png")
 
@@ -208,7 +209,7 @@ def distinctive_terms_chart(scores: pd.DataFrame):
     fig.suptitle(
         "What changed: era-distinctive vocabulary in modern presidential speech",
         fontsize=13,
-        fontweight="semibold",
+        fontweight=600,
     )
     fig.tight_layout(rect=(0, 0, 1, 0.96))
     _save(fig, "distinctive_terms.png")
@@ -221,16 +222,11 @@ def president_map(emb: pd.DataFrame):
     for party, color in PARTY_COLORS.items():
         sub = emb[emb["party"] == party]
         ax.scatter(sub["pc1"], sub["pc2"], s=46, color=color, label=party, zorder=3)
-    for _, row in emb.iterrows():
-        ax.annotate(
-            row["president"],
-            (row["pc1"], row["pc2"]),
-            xytext=(0, 7),
-            textcoords="offset points",
-            fontsize=7,
-            color=INK2,
-            ha="center",
-        )
+    texts = [
+        ax.text(row["pc1"], row["pc2"], row["president"], fontsize=7, color=INK2)
+        for _, row in emb.iterrows()
+    ]
+    adjust_text(texts, ax=ax, expand=(1.2, 1.6), force_text=(0.3, 0.6))
     ax.set_title("Who sounds like whom: presidents mapped by speech embeddings (PCA)")
     ax.set_xlabel("principal component 1")
     ax.set_ylabel("principal component 2")

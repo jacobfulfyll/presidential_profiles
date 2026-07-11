@@ -5,6 +5,7 @@ from collections import Counter
 
 import numpy as np
 import pandas as pd
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
 from .corpus import load
 
@@ -69,7 +70,13 @@ def distinctive_terms(
 
     c_new, c_old = word_counts(new), word_counts(old)
     prior = c_new + c_old
-    vocab = [w for w, n in prior.items() if n >= 20]
+    # Content words only: drop stop words and contraction fragments so the
+    # chart reads as topical change rather than register change.
+    vocab = [
+        w
+        for w, n in prior.items()
+        if n >= 20 and w not in ENGLISH_STOP_WORDS and "'" not in w
+    ]
 
     n_new, n_old, n_prior = sum(c_new.values()), sum(c_old.values()), sum(prior.values())
     alpha0 = 500.0  # prior strength

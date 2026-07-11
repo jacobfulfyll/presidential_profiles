@@ -1,8 +1,17 @@
 {
   "agents": {},
-  "commands": {},
+  "commands": {
+    "dataviz": {
+      "runs": 1,
+      "last": "2026-07-11"
+    }
+  },
   "tool_searches": {
     "TaskCreate,TaskUpdate,TaskList,WebFetch": {
+      "searches": 1,
+      "last": "2026-07-11"
+    },
+    "TaskStop": {
       "searches": 1,
       "last": "2026-07-11"
     }

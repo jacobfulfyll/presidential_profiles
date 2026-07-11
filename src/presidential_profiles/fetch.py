@@ -7,7 +7,9 @@ everything through the current presidency.
 """
 
 import argparse
+import html
 import json
+import re
 import tarfile
 from pathlib import Path
 
@@ -36,6 +38,25 @@ def download(force: bool = False) -> Path:
     return tgz_path
 
 
+_TAG_RE = re.compile(r"<[^>]+>")
+_STAGE_RE = re.compile(
+    r"[\(\[]\s*(?:applause|laughter|cheers|booing|crosstalk|inaudible|laughter and applause)"
+    r"[^\)\]]*[\)\]]",
+    re.IGNORECASE,
+)
+_QUOTE_MAP = str.maketrans({"‘": "'", "’": "'", "“": '"', "”": '"',
+                            "–": "-", "—": " - ", "\xa0": " "})
+
+
+def clean_transcript(text: str) -> str:
+    """Strip HTML residue, stage directions, and normalize punctuation."""
+    text = html.unescape(text)
+    text = _TAG_RE.sub(" ", text)
+    text = _STAGE_RE.sub(" ", text)
+    text = text.translate(_QUOTE_MAP)
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def parse(tgz_path: Path) -> pd.DataFrame:
     """Parse every speech JSON in the tarball into one tidy DataFrame."""
     records = []
@@ -49,12 +70,13 @@ def parse(tgz_path: Path) -> pd.DataFrame:
             doc = json.load(fh)
             records.append(
                 {
-                    "uuid": doc.get("uuid"),
-                    "president": doc.get("president"),
+                    # doc_name (the site slug) is the stable unique key;
+                    # uuid is absent from nearly all corpus files.
                     "doc_name": doc.get("doc_name"),
+                    "president": doc.get("president"),
                     "date": doc.get("date"),
                     "title": doc.get("title"),
-                    "transcript": doc.get("transcript") or "",
+                    "transcript": clean_transcript(doc.get("transcript") or ""),
                     "introduction": doc.get("introduction") or "",
                 }
             )
@@ -63,8 +85,9 @@ def parse(tgz_path: Path) -> pd.DataFrame:
     df["date"] = pd.to_datetime(df["date"], utc=True, errors="coerce").dt.tz_localize(None)
     df["year"] = df["date"].dt.year
     df["word_count"] = df["transcript"].str.split().str.len()
-    df = df.dropna(subset=["president", "date"])
+    df = df.dropna(subset=["doc_name", "president", "date"])
     df = df[df["word_count"] > 0]
+    df = df.drop_duplicates(subset="doc_name")
     df = df.sort_values("date").reset_index(drop=True)
     return df
 

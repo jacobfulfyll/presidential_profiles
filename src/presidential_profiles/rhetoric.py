@@ -4,12 +4,11 @@ Replaces the 2019 NLTK word-by-word DataFrame build (which needed 181 batch
 files on AWS) with a single streamed spaCy pass over the corpus.
 """
 
+import re
 from collections import Counter
-from pathlib import Path
 
 import pandas as pd
 import spacy
-import textstat
 
 from .corpus import DATA_DIR, load
 
@@ -18,6 +17,17 @@ STATS_PATH = DATA_DIR / "speech_stats.parquet"
 MODALS = ["shall", "will", "must", "should", "can", "may", "would", "could"]
 FIRST_SINGULAR = {"i", "me", "my", "mine", "myself"}
 FIRST_PLURAL = {"we", "us", "our", "ours", "ourselves"}
+
+_VOWEL_GROUPS = re.compile(r"[aeiouy]+")
+
+
+def syllables(word: str) -> int:
+    """Vowel-group syllable estimate (silent trailing 'e' discounted)."""
+    w = word.lower()
+    n = len(_VOWEL_GROUPS.findall(w))
+    if w.endswith("e") and not w.endswith(("le", "ee", "ye")) and n > 1:
+        n -= 1
+    return max(n, 1)
 
 
 def _nlp():
@@ -45,6 +55,7 @@ def build_stats(df: pd.DataFrame | None = None, force: bool = False) -> pd.DataF
     for i, doc in enumerate(nlp.pipe(texts, batch_size=16)):
         modal_counts: Counter[str] = Counter()
         n_tokens = 0
+        n_syllables = 0
         i_count = 0
         we_count = 0
         for tok in doc:
@@ -52,20 +63,23 @@ def build_stats(df: pd.DataFrame | None = None, force: bool = False) -> pd.DataF
                 continue
             n_tokens += 1
             low = tok.lower_
+            n_syllables += syllables(low)
             if tok.tag_ == "MD":
                 modal_counts[low] += 1
             if low in FIRST_SINGULAR:
                 i_count += 1
             elif low in FIRST_PLURAL:
                 we_count += 1
-        n_sents = sum(1 for _ in doc.sents)
+        n_sents = max(sum(1 for _ in doc.sents), 1)
+        n_tokens = max(n_tokens, 1)
+        fk_grade = 0.39 * (n_tokens / n_sents) + 11.8 * (n_syllables / n_tokens) - 15.59
         row = {
-            "uuid": df.iloc[i]["uuid"],
+            "doc_name": df.iloc[i]["doc_name"],
             "n_tokens": n_tokens,
-            "n_sents": max(n_sents, 1),
+            "n_sents": n_sents,
             "i_count": i_count,
             "we_count": we_count,
-            "fk_grade": textstat.flesch_kincaid_grade(texts[i]),
+            "fk_grade": fk_grade,
         }
         for m in MODALS:
             row[f"modal_{m}"] = modal_counts.get(m, 0)
@@ -74,8 +88,8 @@ def build_stats(df: pd.DataFrame | None = None, force: bool = False) -> pd.DataF
             print(f"  tagged {i + 1}/{len(texts)} speeches")
 
     stats = pd.DataFrame(rows)
-    stats = df[["uuid", "president", "party", "date", "year", "decade", "title"]].merge(
-        stats, on="uuid"
+    stats = df[["doc_name", "president", "party", "date", "year", "decade", "title"]].merge(
+        stats, on="doc_name", validate="one_to_one"
     )
     stats["words_per_sentence"] = stats["n_tokens"] / stats["n_sents"]
     stats.to_parquet(STATS_PATH, index=False)

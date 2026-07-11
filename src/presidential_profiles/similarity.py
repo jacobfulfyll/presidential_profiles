@@ -52,8 +52,8 @@ def build_embeddings(df: pd.DataFrame | None = None, force: bool = False) -> pd.
             "pc2": coords[:, 1],
         }
     )
-    for j in range(pres_vecs.shape[1]):
-        out[f"e{j}"] = pres_vecs[:, j]
+    vec_df = pd.DataFrame(pres_vecs, columns=[f"e{j}" for j in range(pres_vecs.shape[1])])
+    out = pd.concat([out, vec_df], axis=1)
     out.to_parquet(EMB_PATH, index=False)
     return out
 
