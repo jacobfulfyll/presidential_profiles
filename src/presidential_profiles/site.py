@@ -376,76 +376,169 @@ def fig_heatmap(sim: pd.DataFrame) -> go.Figure:
     return fig
 
 
+# The headline findings. Each links to the section that carries the evidence.
+FINDINGS = [
+    ("0.58 → 0.93", "Presidents stopped hedging. On inaugural addresses alone - the same "
+     "genre for 240 years - the assertive share of stance language rose from balanced to "
+     "near-total. The grammar of trade-offs is nearly extinct.", "certainty"),
+    ("fear ×1.9", "Fear language has nearly doubled since 2020 - from 198 to 379 words per "
+     "10k by the 2026 war addresses - while hope sits at its lowest level on record.",
+     "hopefear"),
+    ("June 1, 2020", "The most fearful presidential speech in 240 years isn't from a war "
+     "or a depression. See the record book for the extremes.", "records"),
+    ("“I” > any decade since 1790s", "The 2020s broke a century-long rise of “we”: "
+     "self-reference is at its highest since George Washington spoke for himself.",
+     "pronouns"),
+    ("7:1 → 1:8", "“The United States” became “America”: the country stopped being named "
+     "as a legal entity and became an idea. The lines cross in the 1950s.", "naming"),
+    ("Lincoln ↔ FDR", "Remove each president's era from his voice, and the closest pair "
+     "across any century is Lincoln and FDR - the two crisis unifiers.", "charmap"),
+]
+
+# Verified verbatim from the corpus - the certainty finding, in two sentences.
+QUOTE_PAIRS = {
+    "certainty": [
+        ("Offensive operations have therefore been directed; to be conducted, "
+         "<strong>however</strong>, as consistently as possible with the dictates of "
+         "humanity.", "George Washington, Annual Message, 1791"),
+        ("The American dream is unstoppable, and our country is on the verge of a "
+         "comeback, the likes of which the world has <strong>never</strong> witnessed "
+         "and perhaps will <strong>never</strong> witness again.",
+         "Donald Trump, Address to Congress, 2025"),
+    ],
+}
+
+# key, chapter (eyebrow, only where a new chapter starts), title, prose
 SECTIONS = [
-    ("map", "The river of history",
-     "Every speech embedded, averaged per president, projected to 2D with PCA. The model "
-     "never sees a date, yet time flows left to right almost perfectly - two-thirds of raw "
-     "voice similarity is simply era. Colors follow party convention."),
-    ("charmap", "The character map: era removed",
-     "The same embeddings with each president's era subtracted - what remains is what made "
-     "them different from their contemporaries. Lincoln lands beside FDR (their adjusted "
-     "similarity is the highest cross-era pair in the corpus), the great communicators "
-     "cluster, and the plain-spoken fighters find each other across centuries."),
-    ("heatmap", "The language of eras",
-     "Raw cosine similarity, in chronological order - read it as a map of how presidential "
-     "language itself changed. The dark block from FDR onward is the modern voice. "
-     "For character comparisons free of this era effect, see each president's "
-     "“sounds like” list on their profile page."),
-    ("certainty", "Confidence replaced deliberation",
-     "The assertive share of stance markers: boosters and will/must vs hedges and "
-     "concessives (“however”, “although” - the grammar of trade-offs). "
-     "Each diamond is one inaugural address - the same genre for 240 years - showing the "
-     "shift is rhetorical strategy, not just the move from written to spoken messages. "
-     "The two most recent inaugurals sit near 0.98: almost pure assertion."),
-    ("pronouns", "The 2020s flipped the pronoun trend",
-     "Presidential speech spent a century becoming more collective - then the 2020s reversed "
-     "it. “We” fell for the first time in a hundred years while “I” "
-     "surged to its highest rate since George Washington."),
-    ("modals", "The death of “shall”",
-     "The classic marker of formal obligation collapsed from 21.8 uses per 10k words in the "
-     "1790s to 0.35 today. “Must” peaked in the FDR and war years; promising, "
-     "future-facing “will” took over modern speech."),
-    ("naming", "From “the United States” to “America”",
+    ("certainty", "The headline finding", "Presidents stopped hedging",
+     "In 1790, a president qualified a military order with “however … the dictates "
+     "of humanity” in the same sentence. In 2025, nothing is qualified. The chart is the "
+     "assertive share of stance language - boosters and will/must against hedges and "
+     "concessives - and each diamond is one inaugural address, the same genre across 240 "
+     "years. The two most recent inaugurals sit near 0.98: almost pure assertion. "
+     "Hover any dot to see whose year it was."),
+    ("hopefear", "The last five years", "Fear is surging right now",
+     "This is the newest thing in the corpus, and a decade-average would have erased it: "
+     "fear language collapses to a low in 2020, then nearly doubles - 198 to 379 per 10k - "
+     "through Ukraine, China, and the 2026 war addresses, while hope falls to its lowest "
+     "level in 240 years. The rally-round-the-flag unity of 2020 gave way to the most "
+     "fear-forward presidential rhetoric on record."),
+    ("orientation", None, "Nostalgia is beating the future",
+     "Future language won every decade of the twentieth century - often two to one over "
+     "restoration language. The 1980s brought the first nostalgia wave; the 2020s brought "
+     "the second, and this time future-talk is simultaneously at its lowest since WWII. "
+     "For the first time, presidents are selling the past harder than the future."),
+    ("distinctive", None, "The words that mark the new era",
+     "Vocabulary statistically distinctive of speeches since April 2019 against the "
+     "1989-2019 baseline: <em>ukraine, china, testing</em> - and, just as telling, "
+     "<em>really, yeah, going</em>. The presidency now speaks in spoken-word register."),
+    ("records", "The record book", "The most extreme speeches ever given",
+     "Single speeches of at least 800 words, rated per 10,000 words. The most absolutist "
+     "speech in presidential history is Nixon's farewell to his staff, delivered the "
+     "morning he resigned - a man consoling himself in “always” and "
+     "“never”. Links go to the full transcript."),
+    ("charmap", "Who presidents are", "The character map: era removed",
+     "Subtract each president's era from his voice and what remains is character. Lincoln "
+     "lands beside FDR - the strongest cross-era kinship in the corpus - the orators "
+     "cluster (Reagan, Obama, Jefferson), and the plain-spoken fighters find each other "
+     "across centuries (Trump's nearest voices: Truman and Van Buren). Every president's "
+     "own kinships are on their profile page."),
+    ("map", None, "The river of history",
+     "Why the adjustment above is necessary: raw voice similarity is two-thirds era. "
+     "Project the unadjusted embeddings and time flows left to right almost perfectly, "
+     "even though the model never sees a date. Both maps are true - this one is about "
+     "eras, the one above is about people."),
+    ("heatmap", None, "The language of eras",
+     "The same era effect as a matrix: cosine similarity in chronological order. The dark "
+     "block from FDR onward is the modern voice forming. The most similar pair anywhere: "
+     "Bill Clinton and Barack Obama (0.978)."),
+    ("pronouns", "The long arc", "The 2020s flipped a century of “we”",
+     "Presidential speech spent a hundred years becoming more collective - “we” "
+     "quadrupled from 1900 to the 2010s. Then the 2020s reversed it: “we” fell "
+     "for the first time in a century while “I” surged to its highest rate "
+     "since George Washington - who was, to be fair, mostly introducing himself."),
+    ("naming", None, "From “the United States” to “America”",
      "In 1800 the country was named as a legal entity seven times more often than as an "
-     "idea. The lines cross in the 1950s; by 2000 “America” leads eight to one. "
-     "The republic became a brand."),
-    ("orientation", "Nostalgia is catching the future",
-     "Restoration language (“again / restore / back to”) vs future language. "
-     "Future-talk won the entire twentieth century. The 1980s brought the first nostalgia "
-     "wave; in the 2020s nostalgia surges again while future-talk falls to its lowest "
-     "level since WWII. Each faint dot is one president's speeches in one year - transition years like 1841 and 1881 have dots for every president who spoke."),
-    ("religion", "“God bless” is a television-era invention",
-     "The phrase does not occur in a single 19th-century speech in the corpus. It appears "
-     "in the 1950s and becomes mandatory by Reagan. Broader civil-religion language "
-     "doubled from 1800 to today - presidential speech got more religious as the country "
-     "secularized."),
-    ("hopefear", "Hope and fear",
-     "NRC Emotion Lexicon scores: hope language (trust, anticipation, joy) and fear "
-     "language (fear, anger) per 10,000 words. The right edge is the newest finding in "
-     "the corpus: fear language nearly doubles from its 2020 low (198 per 10k) to 379 by "
-     "the 2026 war-era addresses, while hope falls to its lowest level on record. "
-     "Each faint dot is one president's speeches in one year - transition years like 1841 and 1881 have dots for every president who spoke."),
-    ("readability", "Speeches dropped twelve grade levels",
-     "Median Flesch-Kincaid reading level fell from grade 19.9 in the 1790s to grade 7.8 in "
-     "the 2020s. Hover any dot to see the speech behind it."),
-    ("issues", "What presidents actually cared about, 1789-2026",
-     "Anchored topic model over 36,000 paragraph-sized chunks: a fixed issue taxonomy plus "
-     "discovered topics, so every era is scored on the same axes. Money & banking dies "
-     "after the gold-standard era, agriculture fades with the family farm, health care and "
-     "education are late-20th-century arrivals - and immigration's 2020s spike exceeds "
-     "anything before it."),
-    ("keywords", "One word at a time",
-     "Usage rates for key terms, per 10,000 words by decade. “Border” and "
-     "“immigration” reach all-time highs in the 2020s, above the early-1900s "
-     "immigration-era peaks."),
-    ("distinctive", "What's new since 2019",
-     "Log-odds comparison of speeches added since this project's 2019 snapshot against the "
-     "1989-2019 baseline: ukraine, china, testing - and a marked shift toward informal "
-     "narration."),
+     "idea. The lines cross in the 1950s - television, again - and by 2000 "
+     "“America” leads eight to one. The republic became a brand."),
+    ("modals", None, "The death of “shall”",
+     "The strongest single-word signal in the corpus: “shall”, the language of "
+     "law and covenant, collapsed from 22 per 10k words to nearly zero after 1960. "
+     "“Must” peaked with FDR and the war; promising, future-facing "
+     "“will” took over."),
+    ("religion", None, "“God bless” is a television-era invention",
+     "The phrase does not occur in a single 19th-century speech in this corpus. It appears "
+     "in the 1950s and becomes mandatory by Reagan. Presidential speech got more religious "
+     "as the country secularized."),
+    ("readability", None, "Twelve grade levels, gone",
+     "Median reading level fell from grade 19.9 in the 1790s to grade 7.8 in the 2020s. "
+     "Every dot is one speech - hover to see which. The all-time floor is in the last "
+     "few years."),
+    ("issues", None, "What presidents actually cared about",
+     "36,000 paragraph-sized chunks, scored against one issue taxonomy across all eras. "
+     "Money & banking dies with the gold standard, agriculture fades with the family "
+     "farm, health care and education arrive only in the late twentieth century - and "
+     "immigration's 2020s spike exceeds anything in 240 years, including the Ellis "
+     "Island era."),
+    ("keywords", None, "One word at a time",
+     "Raw rates for single terms. “Border” and “immigration” at "
+     "all-time highs; “tariff” back from the dead after a century; "
+     "“constitution” never recovered from the 1860s."),
 ]
 
 
-def build_html(figs: dict[str, go.Figure], stats_line: dict, inline: bool) -> str:
+RECORD_SPECS = [
+    ("Most fearful", "nrc_fear", "fear words / 10k"),
+    ("Most hopeful", "nrc_hope", "hope words / 10k"),
+    ("Most absolutist", "boosters", "boosters / 10k"),
+    ("Most us-vs-them", "us_them", "they / them / 10k"),
+    ("Most superlative", "superlatives", "superlatives / 10k"),
+]
+
+
+def compute_records(markers: pd.DataFrame, min_words: int = 800) -> list[dict]:
+    m = markers[markers["n_words"] >= min_words]
+    records = []
+    for label, col, unit in RECORD_SPECS:
+        rate = m[col] / m["n_words"] * 10_000
+        row = m.loc[rate.idxmax()]
+        records.append({
+            "label": label,
+            "value": f"{rate.max():.0f}",
+            "unit": unit,
+            "president": row["president"],
+            "year": int(row["year"]),
+            "title": row["title"],
+            "url": profiles.MILLER_URL + row["doc_name"],
+        })
+    return records
+
+
+def _records_html(records: list[dict]) -> str:
+    cards = []
+    for r in records:
+        cards.append(f"""<div class="r-card">
+  <div class="r-label">{r["label"]}</div>
+  <div class="r-value">{r["value"]} <span class="r-unit">{r["unit"]}</span></div>
+  <div class="r-who">{r["president"]}, {r["year"]}</div>
+  <a class="r-title" href="{r["url"]}" target="_blank" rel="noopener">{r["title"]}</a>
+</div>""")
+    return '<div class="records">' + "\n".join(cards) + "</div>"
+
+
+def _quotes_html(key: str) -> str:
+    pair = QUOTE_PAIRS.get(key)
+    if not pair:
+        return ""
+    blocks = "\n".join(
+        f'<blockquote><p>“{text}”</p><cite>{who}</cite></blockquote>'
+        for text, who in pair
+    )
+    return f'<div class="quotepair">{blocks}</div>'
+
+
+def build_html(figs: dict[str, go.Figure], stats_line: dict, records: list[dict],
+               inline: bool) -> str:
     from plotly.offline import get_plotlyjs
 
     plotly_src = (
@@ -457,25 +550,35 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, inline: bool) -> st
 
     # Explicit pixel heights keep plotly's percent-sized inner containers from
     # collapsing when its responsive handler re-renders after a window resize.
-    sections_html = "\n".join(
-        f"""<section id="{key}">
+    parts = []
+    for key, chapter, title, prose in SECTIONS:
+        if chapter:
+            parts.append(f'<div class="eyebrow">{chapter}</div>')
+        if key == "records":
+            body = _records_html(records)
+        else:
+            body = (f'<div class="chart-scroll"><div class="chart" data-fig="{key}"'
+                    f' style="height:{figs[key].layout.height}px"></div></div>')
+        parts.append(f"""<section id="{key}">
   <h2>{title}</h2>
   <p>{prose}</p>
-  <div class="chart-scroll"><div class="chart" data-fig="{key}"
-       style="height:{figs[key].layout.height}px"></div></div>
-</section>"""
-        for key, title, prose in SECTIONS
+  {_quotes_html(key)}
+  {body}
+</section>""")
+    sections_html = "\n".join(parts)
+
+    findings_html = "\n".join(
+        f"""<a class="f-card" href="#{anchor}">
+  <div class="f-stat">{stat}</div>
+  <div class="f-text">{text}</div>
+</a>"""
+        for stat, text, anchor in FINDINGS
     )
 
-    tiles = [
-        (f"{stats_line['speeches']:,}", "speeches"),
-        (f"{stats_line['words'] / 1e6:.1f}M", "words"),
-        (str(stats_line["presidents"]), "presidents"),
-        (f"{stats_line['start']}–{stats_line['end']}", "years covered"),
-    ]
-    tiles_html = "\n".join(
-        f'<div class="tile"><div class="num">{num}</div><div class="lbl">{lbl}</div></div>'
-        for num, lbl in tiles
+    corpus_line = (
+        f"{stats_line['speeches']:,} speeches · {stats_line['words'] / 1e6:.1f}M words · "
+        f"{stats_line['presidents']} presidents · {stats_line['start']} - April "
+        f"{stats_line['end']}"
     )
 
     return f"""<!DOCTYPE html>
@@ -488,25 +591,52 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, inline: bool) -> st
 {plotly_src}
 <style>
 {PAGE_CSS}
-  .tiles {{ display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 8px; }}
-  .tile {{ background: var(--surface); border: 1px solid var(--border);
-           border-radius: 10px; padding: 14px 22px; min-width: 130px; }}
-  .tile .num {{ font-size: 1.55rem; font-weight: 650; }}
-  .tile .lbl {{ color: var(--muted); font-size: 0.82rem; }}
-  .profiles-link {{ display: inline-block; margin-top: 18px; font-size: 1rem;
+  .corpus-line {{ color: var(--muted); font-size: 0.86rem; margin-top: 14px; }}
+  .findings {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+               gap: 12px; margin-top: 24px; }}
+  .f-card {{ background: var(--surface); border: 1px solid var(--border);
+             border-radius: 12px; padding: 16px 18px; text-decoration: none;
+             color: var(--ink); transition: border-color 0.15s; }}
+  .f-card:hover {{ border-color: var(--muted); }}
+  .f-stat {{ font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }}
+  .f-text {{ color: var(--ink2); font-size: 0.9rem; margin-top: 7px; line-height: 1.45; }}
+  .eyebrow {{ margin-top: 54px; color: var(--muted); font-size: 0.78rem;
+              font-weight: 650; letter-spacing: 0.09em; text-transform: uppercase; }}
+  .eyebrow + section {{ margin-top: 10px; }}
+  .quotepair {{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+                margin: 0 0 16px; }}
+  @media (max-width: 820px) {{ .quotepair {{ grid-template-columns: 1fr; }} }}
+  .quotepair blockquote {{ background: var(--surface); border: 1px solid var(--border);
+                           border-left: 3px solid var(--muted); border-radius: 10px;
+                           padding: 14px 18px; }}
+  .quotepair p {{ color: var(--ink); font-size: 0.98rem; margin: 0; max-width: none; }}
+  .quotepair strong {{ font-weight: 750; }}
+  .quotepair cite {{ display: block; color: var(--muted); font-style: normal;
+                     font-size: 0.82rem; margin-top: 10px; }}
+  .records {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+              gap: 12px; }}
+  .r-card {{ background: var(--surface); border: 1px solid var(--border);
+             border-radius: 12px; padding: 16px 18px; }}
+  .r-label {{ color: var(--muted); font-size: 0.78rem; font-weight: 650;
+              letter-spacing: 0.07em; text-transform: uppercase; }}
+  .r-value {{ font-size: 1.6rem; font-weight: 700; margin-top: 6px; }}
+  .r-unit {{ font-size: 0.8rem; font-weight: 500; color: var(--muted); }}
+  .r-who {{ margin-top: 6px; font-weight: 600; font-size: 0.94rem; }}
+  .r-title {{ display: block; color: var(--ink2); font-size: 0.85rem; margin-top: 4px; }}
+  .profiles-link {{ display: inline-block; margin-top: 20px; font-size: 1rem;
                     color: var(--ink); font-weight: 600; }}
 </style>
 </head>
 <body>
 <header>
   <h1>Presidential Profiles</h1>
-  <p class="sub">How presidential rhetoric, issues, and policies have shifted across U.S.
-  history - every speech in the Miller Center corpus, George Washington's 1789 inaugural
-  through April 2026. All charts are interactive: hover for detail, drag to zoom,
-  double-click to reset.</p>
-  <div class="tiles">
-{tiles_html}
+  <p class="sub">What 240 years of presidential speech actually says - and how it is
+  changing right now. Every finding below is computed from the full Miller Center corpus
+  and links to its evidence; all charts are interactive.</p>
+  <div class="findings">
+{findings_html}
   </div>
+  <p class="corpus-line">{corpus_line}</p>
   <a class="profiles-link" href="presidents/index.html">Browse the 45 president profiles →</a>
 </header>
 <main>
@@ -581,9 +711,11 @@ def main() -> None:
         "end": int(df["year"].max()),
     }
 
+    records = compute_records(markers)
+
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     out = SITE_DIR / "index.html"
-    out.write_text(build_html(figs, stats_line, inline=False))
+    out.write_text(build_html(figs, stats_line, records, inline=False))
     print(f"wrote {out.relative_to(REPO_ROOT)} ({out.stat().st_size / 1e6:.1f} MB)")
 
     profile_data = profiles.build_profile_data()
@@ -591,7 +723,7 @@ def main() -> None:
 
     if args.inline:
         out2 = SITE_DIR / "index_selfcontained.html"
-        out2.write_text(build_html(figs, stats_line, inline=True))
+        out2.write_text(build_html(figs, stats_line, records, inline=True))
         print(f"wrote {out2.relative_to(REPO_ROOT)} ({out2.stat().st_size / 1e6:.1f} MB)")
 
 

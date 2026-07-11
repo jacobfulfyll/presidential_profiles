@@ -29,114 +29,202 @@
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
   footer a { color: var(--ink2); }
 
-  .tiles { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 8px; }
-  .tile { background: var(--surface); border: 1px solid var(--border);
-           border-radius: 10px; padding: 14px 22px; min-width: 130px; }
-  .tile .num { font-size: 1.55rem; font-weight: 650; }
-  .tile .lbl { color: var(--muted); font-size: 0.82rem; }
-  .profiles-link { display: inline-block; margin-top: 18px; font-size: 1rem;
+  .corpus-line { color: var(--muted); font-size: 0.86rem; margin-top: 14px; }
+  .findings { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+               gap: 12px; margin-top: 24px; }
+  .f-card { background: var(--surface); border: 1px solid var(--border);
+             border-radius: 12px; padding: 16px 18px; text-decoration: none;
+             color: var(--ink); transition: border-color 0.15s; }
+  .f-card:hover { border-color: var(--muted); }
+  .f-stat { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
+  .f-text { color: var(--ink2); font-size: 0.9rem; margin-top: 7px; line-height: 1.45; }
+  .eyebrow { margin-top: 54px; color: var(--muted); font-size: 0.78rem;
+              font-weight: 650; letter-spacing: 0.09em; text-transform: uppercase; }
+  .eyebrow + section { margin-top: 10px; }
+  .quotepair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+                margin: 0 0 16px; }
+  @media (max-width: 820px) { .quotepair { grid-template-columns: 1fr; } }
+  .quotepair blockquote { background: var(--surface); border: 1px solid var(--border);
+                           border-left: 3px solid var(--muted); border-radius: 10px;
+                           padding: 14px 18px; }
+  .quotepair p { color: var(--ink); font-size: 0.98rem; margin: 0; max-width: none; }
+  .quotepair strong { font-weight: 750; }
+  .quotepair cite { display: block; color: var(--muted); font-style: normal;
+                     font-size: 0.82rem; margin-top: 10px; }
+  .records { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+              gap: 12px; }
+  .r-card { background: var(--surface); border: 1px solid var(--border);
+             border-radius: 12px; padding: 16px 18px; }
+  .r-label { color: var(--muted); font-size: 0.78rem; font-weight: 650;
+              letter-spacing: 0.07em; text-transform: uppercase; }
+  .r-value { font-size: 1.6rem; font-weight: 700; margin-top: 6px; }
+  .r-unit { font-size: 0.8rem; font-weight: 500; color: var(--muted); }
+  .r-who { margin-top: 6px; font-weight: 600; font-size: 0.94rem; }
+  .r-title { display: block; color: var(--ink2); font-size: 0.85rem; margin-top: 4px; }
+  .profiles-link { display: inline-block; margin-top: 20px; font-size: 1rem;
                     color: var(--ink); font-weight: 600; }
 </style>
 </head>
 <body>
 <header>
   <h1>Presidential Profiles</h1>
-  <p class="sub">How presidential rhetoric, issues, and policies have shifted across U.S.
-  history - every speech in the Miller Center corpus, George Washington's 1789 inaugural
-  through April 2026. All charts are interactive: hover for detail, drag to zoom,
-  double-click to reset.</p>
-  <div class="tiles">
-<div class="tile"><div class="num">1,057</div><div class="lbl">speeches</div></div>
-<div class="tile"><div class="num">4.2M</div><div class="lbl">words</div></div>
-<div class="tile"><div class="num">45</div><div class="lbl">presidents</div></div>
-<div class="tile"><div class="num">1789–2026</div><div class="lbl">years covered</div></div>
+  <p class="sub">What 240 years of presidential speech actually says - and how it is
+  changing right now. Every finding below is computed from the full Miller Center corpus
+  and links to its evidence; all charts are interactive.</p>
+  <div class="findings">
+<a class="f-card" href="#certainty">
+  <div class="f-stat">0.58 → 0.93</div>
+  <div class="f-text">Presidents stopped hedging. On inaugural addresses alone - the same genre for 240 years - the assertive share of stance language rose from balanced to near-total. The grammar of trade-offs is nearly extinct.</div>
+</a>
+<a class="f-card" href="#hopefear">
+  <div class="f-stat">fear ×1.9</div>
+  <div class="f-text">Fear language has nearly doubled since 2020 - from 198 to 379 words per 10k by the 2026 war addresses - while hope sits at its lowest level on record.</div>
+</a>
+<a class="f-card" href="#records">
+  <div class="f-stat">June 1, 2020</div>
+  <div class="f-text">The most fearful presidential speech in 240 years isn't from a war or a depression. See the record book for the extremes.</div>
+</a>
+<a class="f-card" href="#pronouns">
+  <div class="f-stat">“I” > any decade since 1790s</div>
+  <div class="f-text">The 2020s broke a century-long rise of “we”: self-reference is at its highest since George Washington spoke for himself.</div>
+</a>
+<a class="f-card" href="#naming">
+  <div class="f-stat">7:1 → 1:8</div>
+  <div class="f-text">“The United States” became “America”: the country stopped being named as a legal entity and became an idea. The lines cross in the 1950s.</div>
+</a>
+<a class="f-card" href="#charmap">
+  <div class="f-stat">Lincoln ↔ FDR</div>
+  <div class="f-text">Remove each president's era from his voice, and the closest pair across any century is Lincoln and FDR - the two crisis unifiers.</div>
+</a>
   </div>
+  <p class="corpus-line">1,057 speeches · 4.2M words · 45 presidents · 1789 - April 2026</p>
   <a class="profiles-link" href="presidents/index.html">Browse the 45 president profiles →</a>
 </header>
 <main>
-<section id="map">
-  <h2>The river of history</h2>
-  <p>Every speech embedded, averaged per president, projected to 2D with PCA. The model never sees a date, yet time flows left to right almost perfectly - two-thirds of raw voice similarity is simply era. Colors follow party convention.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="map"
-       style="height:720px"></div></div>
+<div class="eyebrow">The headline finding</div>
+<section id="certainty">
+  <h2>Presidents stopped hedging</h2>
+  <p>In 1790, a president qualified a military order with “however … the dictates of humanity” in the same sentence. In 2025, nothing is qualified. The chart is the assertive share of stance language - boosters and will/must against hedges and concessives - and each diamond is one inaugural address, the same genre across 240 years. The two most recent inaugurals sit near 0.98: almost pure assertion. Hover any dot to see whose year it was.</p>
+  <div class="quotepair"><blockquote><p>“Offensive operations have therefore been directed; to be conducted, <strong>however</strong>, as consistently as possible with the dictates of humanity.”</p><cite>George Washington, Annual Message, 1791</cite></blockquote>
+<blockquote><p>“The American dream is unstoppable, and our country is on the verge of a comeback, the likes of which the world has <strong>never</strong> witnessed and perhaps will <strong>never</strong> witness again.”</p><cite>Donald Trump, Address to Congress, 2025</cite></blockquote></div>
+  <div class="chart-scroll"><div class="chart" data-fig="certainty" style="height:430px"></div></div>
 </section>
+<div class="eyebrow">The last five years</div>
+<section id="hopefear">
+  <h2>Fear is surging right now</h2>
+  <p>This is the newest thing in the corpus, and a decade-average would have erased it: fear language collapses to a low in 2020, then nearly doubles - 198 to 379 per 10k - through Ukraine, China, and the 2026 war addresses, while hope falls to its lowest level in 240 years. The rally-round-the-flag unity of 2020 gave way to the most fear-forward presidential rhetoric on record.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="hopefear" style="height:430px"></div></div>
+</section>
+<section id="orientation">
+  <h2>Nostalgia is beating the future</h2>
+  <p>Future language won every decade of the twentieth century - often two to one over restoration language. The 1980s brought the first nostalgia wave; the 2020s brought the second, and this time future-talk is simultaneously at its lowest since WWII. For the first time, presidents are selling the past harder than the future.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="orientation" style="height:430px"></div></div>
+</section>
+<section id="distinctive">
+  <h2>The words that mark the new era</h2>
+  <p>Vocabulary statistically distinctive of speeches since April 2019 against the 1989-2019 baseline: <em>ukraine, china, testing</em> - and, just as telling, <em>really, yeah, going</em>. The presidency now speaks in spoken-word register.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="distinctive" style="height:560px"></div></div>
+</section>
+<div class="eyebrow">The record book</div>
+<section id="records">
+  <h2>The most extreme speeches ever given</h2>
+  <p>Single speeches of at least 800 words, rated per 10,000 words. The most absolutist speech in presidential history is Nixon's farewell to his staff, delivered the morning he resigned - a man consoling himself in “always” and “never”. Links go to the full transcript.</p>
+  
+  <div class="records"><div class="r-card">
+  <div class="r-label">Most fearful</div>
+  <div class="r-value">682 <span class="r-unit">fear words / 10k</span></div>
+  <div class="r-who">Donald Trump, 2020</div>
+  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-1-2020-statement-protests-against-police-brutality" target="_blank" rel="noopener">June 1, 2020: Statement on Protests Against Police Brutality </a>
+</div>
+<div class="r-card">
+  <div class="r-label">Most hopeful</div>
+  <div class="r-value">1218 <span class="r-unit">hope words / 10k</span></div>
+  <div class="r-who">Donald Trump, 2020</div>
+  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-26-2020-swearing-ceremony-honorable-amy-coney-barrett" target="_blank" rel="noopener">October 26, 2020: Swearing-In Ceremony of the Honorable Amy Coney Barrett to the US Supreme Court </a>
+</div>
+<div class="r-card">
+  <div class="r-label">Most absolutist</div>
+  <div class="r-value">116 <span class="r-unit">boosters / 10k</span></div>
+  <div class="r-who">Richard M. Nixon, 1974</div>
+  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-9-1974-remarks-departure-white-house" target="_blank" rel="noopener">August 9, 1974: Remarks on Departure From the White House</a>
+</div>
+<div class="r-card">
+  <div class="r-label">Most us-vs-them</div>
+  <div class="r-value">335 <span class="r-unit">they / them / 10k</span></div>
+  <div class="r-who">Donald Trump, 2020</div>
+  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-5-2020-remarks-2020-election" target="_blank" rel="noopener">November 5, 2020: Remarks on the 2020 Election</a>
+</div>
+<div class="r-card">
+  <div class="r-label">Most superlative</div>
+  <div class="r-value">71 <span class="r-unit">superlatives / 10k</span></div>
+  <div class="r-who">Ulysses S. Grant, 1869</div>
+  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1869-first-inaugural-address" target="_blank" rel="noopener">March 4, 1869: First Inaugural Address</a>
+</div></div>
+</section>
+<div class="eyebrow">Who presidents are</div>
 <section id="charmap">
   <h2>The character map: era removed</h2>
-  <p>The same embeddings with each president's era subtracted - what remains is what made them different from their contemporaries. Lincoln lands beside FDR (their adjusted similarity is the highest cross-era pair in the corpus), the great communicators cluster, and the plain-spoken fighters find each other across centuries.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="charmap"
-       style="height:720px"></div></div>
+  <p>Subtract each president's era from his voice and what remains is character. Lincoln lands beside FDR - the strongest cross-era kinship in the corpus - the orators cluster (Reagan, Obama, Jefferson), and the plain-spoken fighters find each other across centuries (Trump's nearest voices: Truman and Van Buren). Every president's own kinships are on their profile page.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="charmap" style="height:720px"></div></div>
+</section>
+<section id="map">
+  <h2>The river of history</h2>
+  <p>Why the adjustment above is necessary: raw voice similarity is two-thirds era. Project the unadjusted embeddings and time flows left to right almost perfectly, even though the model never sees a date. Both maps are true - this one is about eras, the one above is about people.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="map" style="height:720px"></div></div>
 </section>
 <section id="heatmap">
   <h2>The language of eras</h2>
-  <p>Raw cosine similarity, in chronological order - read it as a map of how presidential language itself changed. The dark block from FDR onward is the modern voice. For character comparisons free of this era effect, see each president's “sounds like” list on their profile page.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="heatmap"
-       style="height:780px"></div></div>
+  <p>The same era effect as a matrix: cosine similarity in chronological order. The dark block from FDR onward is the modern voice forming. The most similar pair anywhere: Bill Clinton and Barack Obama (0.978).</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="heatmap" style="height:780px"></div></div>
 </section>
-<section id="certainty">
-  <h2>Confidence replaced deliberation</h2>
-  <p>The assertive share of stance markers: boosters and will/must vs hedges and concessives (“however”, “although” - the grammar of trade-offs). Each diamond is one inaugural address - the same genre for 240 years - showing the shift is rhetorical strategy, not just the move from written to spoken messages. The two most recent inaugurals sit near 0.98: almost pure assertion.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="certainty"
-       style="height:430px"></div></div>
-</section>
+<div class="eyebrow">The long arc</div>
 <section id="pronouns">
-  <h2>The 2020s flipped the pronoun trend</h2>
-  <p>Presidential speech spent a century becoming more collective - then the 2020s reversed it. “We” fell for the first time in a hundred years while “I” surged to its highest rate since George Washington.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="pronouns"
-       style="height:430px"></div></div>
-</section>
-<section id="modals">
-  <h2>The death of “shall”</h2>
-  <p>The classic marker of formal obligation collapsed from 21.8 uses per 10k words in the 1790s to 0.35 today. “Must” peaked in the FDR and war years; promising, future-facing “will” took over modern speech.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="modals"
-       style="height:430px"></div></div>
+  <h2>The 2020s flipped a century of “we”</h2>
+  <p>Presidential speech spent a hundred years becoming more collective - “we” quadrupled from 1900 to the 2010s. Then the 2020s reversed it: “we” fell for the first time in a century while “I” surged to its highest rate since George Washington - who was, to be fair, mostly introducing himself.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="pronouns" style="height:430px"></div></div>
 </section>
 <section id="naming">
   <h2>From “the United States” to “America”</h2>
-  <p>In 1800 the country was named as a legal entity seven times more often than as an idea. The lines cross in the 1950s; by 2000 “America” leads eight to one. The republic became a brand.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="naming"
-       style="height:430px"></div></div>
+  <p>In 1800 the country was named as a legal entity seven times more often than as an idea. The lines cross in the 1950s - television, again - and by 2000 “America” leads eight to one. The republic became a brand.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="naming" style="height:430px"></div></div>
 </section>
-<section id="orientation">
-  <h2>Nostalgia is catching the future</h2>
-  <p>Restoration language (“again / restore / back to”) vs future language. Future-talk won the entire twentieth century. The 1980s brought the first nostalgia wave; in the 2020s nostalgia surges again while future-talk falls to its lowest level since WWII. Each faint dot is one president's speeches in one year - transition years like 1841 and 1881 have dots for every president who spoke.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="orientation"
-       style="height:430px"></div></div>
+<section id="modals">
+  <h2>The death of “shall”</h2>
+  <p>The strongest single-word signal in the corpus: “shall”, the language of law and covenant, collapsed from 22 per 10k words to nearly zero after 1960. “Must” peaked with FDR and the war; promising, future-facing “will” took over.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="modals" style="height:430px"></div></div>
 </section>
 <section id="religion">
   <h2>“God bless” is a television-era invention</h2>
-  <p>The phrase does not occur in a single 19th-century speech in the corpus. It appears in the 1950s and becomes mandatory by Reagan. Broader civil-religion language doubled from 1800 to today - presidential speech got more religious as the country secularized.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="religion"
-       style="height:430px"></div></div>
-</section>
-<section id="hopefear">
-  <h2>Hope and fear</h2>
-  <p>NRC Emotion Lexicon scores: hope language (trust, anticipation, joy) and fear language (fear, anger) per 10,000 words. The right edge is the newest finding in the corpus: fear language nearly doubles from its 2020 low (198 per 10k) to 379 by the 2026 war-era addresses, while hope falls to its lowest level on record. Each faint dot is one president's speeches in one year - transition years like 1841 and 1881 have dots for every president who spoke.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="hopefear"
-       style="height:430px"></div></div>
+  <p>The phrase does not occur in a single 19th-century speech in this corpus. It appears in the 1950s and becomes mandatory by Reagan. Presidential speech got more religious as the country secularized.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="religion" style="height:430px"></div></div>
 </section>
 <section id="readability">
-  <h2>Speeches dropped twelve grade levels</h2>
-  <p>Median Flesch-Kincaid reading level fell from grade 19.9 in the 1790s to grade 7.8 in the 2020s. Hover any dot to see the speech behind it.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="readability"
-       style="height:430px"></div></div>
+  <h2>Twelve grade levels, gone</h2>
+  <p>Median reading level fell from grade 19.9 in the 1790s to grade 7.8 in the 2020s. Every dot is one speech - hover to see which. The all-time floor is in the last few years.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="readability" style="height:430px"></div></div>
 </section>
 <section id="issues">
-  <h2>What presidents actually cared about, 1789-2026</h2>
-  <p>Anchored topic model over 36,000 paragraph-sized chunks: a fixed issue taxonomy plus discovered topics, so every era is scored on the same axes. Money & banking dies after the gold-standard era, agriculture fades with the family farm, health care and education are late-20th-century arrivals - and immigration's 2020s spike exceeds anything before it.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="issues"
-       style="height:880px"></div></div>
+  <h2>What presidents actually cared about</h2>
+  <p>36,000 paragraph-sized chunks, scored against one issue taxonomy across all eras. Money & banking dies with the gold standard, agriculture fades with the family farm, health care and education arrive only in the late twentieth century - and immigration's 2020s spike exceeds anything in 240 years, including the Ellis Island era.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="issues" style="height:880px"></div></div>
 </section>
 <section id="keywords">
   <h2>One word at a time</h2>
-  <p>Usage rates for key terms, per 10,000 words by decade. “Border” and “immigration” reach all-time highs in the 2020s, above the early-1900s immigration-era peaks.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="keywords"
-       style="height:680px"></div></div>
-</section>
-<section id="distinctive">
-  <h2>What's new since 2019</h2>
-  <p>Log-odds comparison of speeches added since this project's 2019 snapshot against the 1989-2019 baseline: ukraine, china, testing - and a marked shift toward informal narration.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="distinctive"
-       style="height:560px"></div></div>
+  <p>Raw rates for single terms. “Border” and “immigration” at all-time highs; “tariff” back from the dead after a century; “constitution” never recovered from the 1860s.</p>
+  
+  <div class="chart-scroll"><div class="chart" data-fig="keywords" style="height:680px"></div></div>
 </section>
 </main>
 <footer>
