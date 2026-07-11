@@ -152,6 +152,27 @@ def yearly_raw_rates(markers: pd.DataFrame, min_words: int = 5_000) -> pd.DataFr
     return rates
 
 
+def president_year_rates(markers: pd.DataFrame, min_words: int = 4_000) -> pd.DataFrame:
+    """Unsmoothed rates per (president, year) — 46 years have more than one
+    president speaking (1841 and 1881 have three), and the corpus files a few
+    famous pre-presidency speeches under the later president, so per-year dots
+    must not blend speakers. Rows with under min_words are dropped."""
+    g = markers.groupby(["president", "year"])
+    counts = g[ALL_RATE_COLS].sum()
+    words = g["n_words"].sum()
+    out = (counts.div(words, axis=0) * 10_000).reset_index()
+    out["n_words"] = words.values
+    out["n_speeches"] = g.size().values
+
+    assertive = (g["boosters"].sum() + g["assertive_modals"].sum()).values
+    deliberative = (g["hedges"].sum() + g["concessives"].sum()).values
+    total_stance = assertive + deliberative
+    out["certainty"] = np.where(
+        total_stance >= 30, assertive / np.maximum(total_stance, 1), np.nan
+    )
+    return out[out["n_words"] >= min_words].reset_index(drop=True)
+
+
 def certainty_yearly(
     markers: pd.DataFrame,
     window: int = 5,
