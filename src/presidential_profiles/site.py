@@ -51,22 +51,50 @@ def _layout(**overrides) -> dict:
     return base
 
 
-def _decade_rate(stats: pd.DataFrame, col: str) -> pd.Series:
-    g = stats.groupby("decade")
-    return g[col].sum() / g["n_tokens"].sum() * 10_000
+X_RANGE = [1786, 2029]
+
+
+def _stats_yearly(stats: pd.DataFrame, count_col: str, window: int = 5,
+                  min_tokens: int = 20_000, raw: bool = False) -> pd.Series:
+    """Rolling per-10k rate by year from the spaCy stats table. Raw mode
+    returns unsmoothed yearly rates for texture markers."""
+    g = stats.groupby("year")
+    counts = g[count_col].sum()
+    toks = g["n_tokens"].sum()
+    years = pd.RangeIndex(int(stats["year"].min()), int(stats["year"].max()) + 1,
+                          name="year")
+    counts = counts.reindex(years, fill_value=0)
+    toks = toks.reindex(years, fill_value=0)
+    if raw:
+        rate = counts / toks.replace(0, np.nan) * 10_000
+        rate[toks < 5_000] = np.nan
+        return rate
+    csum = counts.rolling(window, center=True, min_periods=1).sum()
+    tsum = toks.rolling(window, center=True, min_periods=1).sum()
+    rate = csum / tsum * 10_000
+    rate[tsum < min_tokens] = np.nan
+    return rate
+
+
+def _timeline_layout(**overrides) -> dict:
+    out = _layout(**overrides)
+    out["xaxis"] = dict(range=X_RANGE, gridcolor=GRID, linecolor=BASELINE,
+                        tickcolor=MUTED, tickfont=dict(color=MUTED, size=11),
+                        zeroline=False)
+    return out
 
 
 def fig_modals(stats: pd.DataFrame) -> go.Figure:
     fig = go.Figure()
     for i, m in enumerate(["shall", "will", "must", "should"]):
-        rate = _decade_rate(stats, f"modal_{m}")
+        rate = _stats_yearly(stats, f"modal_{m}")
         fig.add_trace(go.Scatter(
             x=rate.index, y=rate.values, name=m, mode="lines",
-            line=dict(color=SERIES[i], width=2.4),
+            line=dict(color=SERIES[i], width=2.4), connectgaps=False,
             hovertemplate="%{y:.1f} per 10k<extra>" + m + "</extra>",
         ))
-    fig.update_layout(**_layout(hovermode="x unified",
-                                yaxis_title="uses per 10,000 words"))
+    fig.update_layout(**_timeline_layout(hovermode="x unified",
+                                         yaxis_title="uses per 10,000 words"))
     return fig
 
 
@@ -74,14 +102,20 @@ def fig_pronouns(stats: pd.DataFrame) -> go.Figure:
     fig = go.Figure()
     for i, (name, col) in enumerate([("we / us / our", "we_count"),
                                      ("I / me / my", "i_count")]):
-        rate = _decade_rate(stats, col)
+        raw = _stats_yearly(stats, col, raw=True)
+        fig.add_trace(go.Scatter(
+            x=raw.index, y=raw.values, mode="markers", showlegend=False,
+            marker=dict(color=SERIES[i], size=4, opacity=0.28),
+            hoverinfo="skip",
+        ))
+        rate = _stats_yearly(stats, col)
         fig.add_trace(go.Scatter(
             x=rate.index, y=rate.values, name=name, mode="lines",
-            line=dict(color=SERIES[i], width=2.4),
+            line=dict(color=SERIES[i], width=2.4), connectgaps=False,
             hovertemplate="%{y:.0f} per 10k<extra>" + name + "</extra>",
         ))
-    fig.update_layout(**_layout(hovermode="x unified",
-                                yaxis_title="uses per 10,000 words"))
+    fig.update_layout(**_timeline_layout(hovermode="x unified",
+                                         yaxis_title="uses per 10,000 words"))
     return fig
 
 
@@ -96,13 +130,15 @@ def fig_readability(stats: pd.DataFrame) -> go.Figure:
         hovertemplate="<b>%{customdata[0]}</b><br>%{customdata[1]}"
                       "<br>grade %{y:.1f}<extra></extra>",
     ))
-    med = s.groupby("decade")["fk"].median()
+    med = (s.groupby("year")["fk"].median()
+           .reindex(pd.RangeIndex(int(s["year"].min()), int(s["year"].max()) + 1))
+           .rolling(7, center=True, min_periods=3).median())
     fig.add_trace(go.Scatter(
-        x=med.index + 5, y=med.values, mode="lines", name="decade median",
-        line=dict(color=BLUE_RAMP[5], width=3),
+        x=med.index, y=med.values, mode="lines", name="rolling median (7 yr)",
+        line=dict(color=BLUE_RAMP[5], width=3), connectgaps=False,
         hovertemplate="median grade %{y:.1f}<extra></extra>",
     ))
-    fig.update_layout(**_layout(yaxis_title="Flesch-Kincaid grade level"))
+    fig.update_layout(**_timeline_layout(yaxis_title="Flesch-Kincaid grade level"))
     return fig
 
 
@@ -129,78 +165,104 @@ def _small_multiples(panels: list[tuple[str, pd.Series]], rows: int, cols: int,
 
 
 def fig_issues_decade(para_labels: pd.DataFrame, issue_names: list[str]) -> go.Figure:
-    """Share of paragraphs touching each curated issue, by decade."""
+    """Share of paragraphs touching each curated issue, in 5-year periods.
+    Periods backed by fewer than 40 paragraphs are dropped."""
     pl = para_labels.copy()
-    pl["decade"] = (pl["year"] // 10) * 10
+    pl["period"] = (pl["year"] // 5) * 5
+    counts = pl.groupby("period").size()
+    valid = counts[counts >= 40].index
     display = issue_names + ["Discovered 5"]
     panels = []
     for name in display:
         label = profiles_site.DISCOVERED_LABELS.get(name, name)
-        panels.append((label, pl.groupby("decade")[name].mean() * 100))
+        share = pl.groupby("period")[name].mean() * 100
+        panels.append((label, share.loc[share.index.isin(valid)]))
     return _small_multiples(panels, rows=4, cols=4, height=880,
                             hovertemplate="%{y:.1f}% of paragraphs")
 
 
-def _two_line_fig(series: list[tuple[str, pd.Series]], ytitle: str,
-                  dash_second: bool = False) -> go.Figure:
+def _two_line_fig(series: list, ytitle: str, dash_second: bool = False) -> go.Figure:
+    """Each entry: (name, smoothed_series) or (name, smoothed, raw_yearly)."""
     fig = go.Figure()
-    for i, (name, s) in enumerate(series):
+    for i, entry in enumerate(series):
+        name, s = entry[0], entry[1]
+        raw = entry[2] if len(entry) > 2 else None
+        if raw is not None:
+            fig.add_trace(go.Scatter(
+                x=raw.index, y=raw.values, mode="markers", showlegend=False,
+                marker=dict(color=SERIES[i], size=4, opacity=0.28),
+                hoverinfo="skip",
+            ))
         fig.add_trace(go.Scatter(
             x=s.index, y=s.values, name=name, mode="lines",
             line=dict(color=SERIES[i], width=2.4,
                       dash="dash" if (dash_second and i == 1) else "solid"),
+            connectgaps=False,
             hovertemplate="%{y:.2f}<extra>" + name + "</extra>",
         ))
-    fig.update_layout(**_layout(hovermode="x unified", yaxis_title=ytitle))
+    fig.update_layout(**_timeline_layout(hovermode="x unified", yaxis_title=ytitle))
     return fig
 
 
 def fig_certainty(markers: pd.DataFrame) -> go.Figure:
-    return _two_line_fig(
-        [("all speeches", indices.certainty_by_decade(markers)),
-         ("inaugural addresses only", indices.certainty_by_decade(markers, inaugural_only=True))],
-        ytitle="assertive share of stance markers", dash_second=True,
+    fig = _two_line_fig(
+        [("all speeches", indices.certainty_yearly(markers))],
+        ytitle="assertive share of stance markers",
     )
+    # Inaugurals happen every four years — plot each as its own point
+    # rather than a gap-riddled rolling line.
+    inaug = markers[markers["title"].str.contains("Inaugural", case=False, na=False)].copy()
+    assertive = inaug["boosters"] + inaug["assertive_modals"]
+    deliberative = inaug["hedges"] + inaug["concessives"]
+    inaug["share"] = assertive / (assertive + deliberative)
+    inaug = inaug[(assertive + deliberative) >= 30]
+    fig.add_trace(go.Scatter(
+        x=inaug["year"], y=inaug["share"], mode="markers",
+        name="inaugural addresses (one point each)",
+        marker=dict(color=SERIES[1], size=7, symbol="diamond",
+                    line=dict(color=SURFACE, width=1)),
+        customdata=inaug["president"],
+        hovertemplate="<b>%{customdata}</b> %{x}<br>share %{y:.2f}<extra></extra>",
+    ))
+    return fig
 
 
-def fig_naming(rates: pd.DataFrame) -> go.Figure:
-    r = rates.set_index("decade")
+def fig_naming(rates: pd.DataFrame, raw: pd.DataFrame) -> go.Figure:
     return _two_line_fig(
-        [("“United States”", r["united_states"]), ("“America / American(s)”", r["america"])],
+        [("“United States”", rates["united_states"], raw["united_states"]),
+         ("“America / American(s)”", rates["america"], raw["america"])],
         ytitle="uses per 10,000 words",
     )
 
 
-def fig_orientation(rates: pd.DataFrame) -> go.Figure:
-    r = rates.set_index("decade")
+def fig_orientation(rates: pd.DataFrame, raw: pd.DataFrame) -> go.Figure:
     return _two_line_fig(
-        [("future (future / forward / tomorrow)", r["future"]),
-         ("nostalgia (again / restore / back to)", r["nostalgia"])],
+        [("future (future / forward / tomorrow)", rates["future"], raw["future"]),
+         ("nostalgia (again / restore / back to)", rates["nostalgia"], raw["nostalgia"])],
         ytitle="uses per 10,000 words",
     )
 
 
-def fig_religion(rates: pd.DataFrame) -> go.Figure:
-    r = rates.set_index("decade")
+def fig_religion(rates: pd.DataFrame, raw: pd.DataFrame) -> go.Figure:
     return _two_line_fig(
-        [("civil religion (god / faith / pray / bless / sacred)", r["religiosity"]),
-         ("“God bless”", r["god_bless"])],
+        [("civil religion (god / faith / pray / bless / sacred)",
+          rates["religiosity"], raw["religiosity"]),
+         ("“God bless”", rates["god_bless"], raw["god_bless"])],
         ytitle="uses per 10,000 words",
     )
 
 
-def fig_hope_fear(rates: pd.DataFrame) -> go.Figure:
-    r = rates.set_index("decade")
+def fig_hope_fear(rates: pd.DataFrame, raw: pd.DataFrame) -> go.Figure:
     return _two_line_fig(
-        [("hope words (NRC trust + anticipation + joy)", r["nrc_hope"]),
-         ("fear words (NRC fear + anger)", r["nrc_fear"])],
+        [("hope words (NRC trust + anticipation + joy)", rates["nrc_hope"], raw["nrc_hope"]),
+         ("fear words (NRC fear + anger)", rates["nrc_fear"], raw["nrc_fear"])],
         ytitle="uses per 10,000 words",
     )
 
 
 def fig_keywords(kw: pd.DataFrame) -> go.Figure:
     panels = [
-        (term, kw[kw["term"] == term].set_index("decade")["rate"])
+        (term, kw[kw["term"] == term].set_index("period")["rate"])
         for term in kw["term"].unique()
     ]
     return _small_multiples(panels, rows=3, cols=3, height=680,
@@ -313,9 +375,9 @@ SECTIONS = [
     ("certainty", "Confidence replaced deliberation",
      "The assertive share of stance markers: boosters and will/must vs hedges and "
      "concessives (“however”, “although” - the grammar of trade-offs). "
-     "The dashed line is inaugural addresses only - the same genre for 240 years - showing "
-     "the shift is rhetorical strategy, not just the move from written to spoken messages. "
-     "On inaugurals, certainty rose from 0.58 (1800s) to 0.93 (2020s)."),
+     "Each diamond is one inaugural address - the same genre for 240 years - showing the "
+     "shift is rhetorical strategy, not just the move from written to spoken messages. "
+     "The two most recent inaugurals sit near 0.98: almost pure assertion."),
     ("pronouns", "The 2020s flipped the pronoun trend",
      "Presidential speech spent a century becoming more collective - then the 2020s reversed "
      "it. “We” fell for the first time in a hundred years while “I” "
@@ -332,16 +394,18 @@ SECTIONS = [
      "Restoration language (“again / restore / back to”) vs future language. "
      "Future-talk won the entire twentieth century. The 1980s brought the first nostalgia "
      "wave; in the 2020s nostalgia surges again while future-talk falls to its lowest "
-     "level since WWII."),
+     "level since WWII. Faint dots are raw single years."),
     ("religion", "“God bless” is a television-era invention",
      "The phrase does not occur in a single 19th-century speech in the corpus. It appears "
      "in the 1950s and becomes mandatory by Reagan. Broader civil-religion language "
      "doubled from 1800 to today - presidential speech got more religious as the country "
      "secularized."),
     ("hopefear", "Hope and fear",
-     "NRC Emotion Lexicon scores. Hope language (trust, anticipation, joy) and fear "
-     "language (fear, anger) per 10,000 words - the raw material of the profile pages' "
-     "hope and fear scores."),
+     "NRC Emotion Lexicon scores: hope language (trust, anticipation, joy) and fear "
+     "language (fear, anger) per 10,000 words. The right edge is the newest finding in "
+     "the corpus: fear language nearly doubles from its 2020 low (198 per 10k) to 379 by "
+     "the 2026 war-era addresses, while hope falls to its lowest level on record. "
+     "Faint dots are raw single years."),
     ("readability", "Speeches dropped twelve grade levels",
      "Median Flesch-Kincaid reading level fell from grade 19.9 in the 1790s to grade 7.8 in "
      "the 2020s. Hover any dot to see the speech behind it."),
@@ -435,6 +499,10 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, inline: bool) -> st
   Miller Center staff). Analysis &amp; code:
   <a href="https://github.com/jacobfulfyll/presidential_profiles">jacobfulfyll/presidential_profiles</a>.
   Originally a 2019 Galvanize capstone, rebuilt in 2026.</p>
+  <p>Method note: timelines are 5-year centered rolling rates weighted by word count,
+  through April 2026. Points backed by under 20,000 words are not plotted - the corpus
+  before ~1790 is a handful of speeches, and one personal inaugural should not set a
+  national trend line.</p>
 </footer>
 <script>
   const FIGS = {json.dumps(fig_json)};
@@ -463,7 +531,8 @@ def main() -> None:
     kw = trends.keyword_trends(df)
     distinctive = trends.distinctive_terms(df)
     markers = indices.build_markers(df)
-    rates = indices.decade_rates(markers)
+    rates = indices.yearly_rates(markers)
+    raw_rates = indices.yearly_raw_rates(markers)
     _, issue_meta = issues.build_issues()
     para_labels = pd.read_parquet(issues.PARA_LABELS_PATH)
 
@@ -474,10 +543,10 @@ def main() -> None:
         "certainty": fig_certainty(markers),
         "pronouns": fig_pronouns(stats),
         "modals": fig_modals(stats),
-        "naming": fig_naming(rates),
-        "orientation": fig_orientation(rates),
-        "religion": fig_religion(rates),
-        "hopefear": fig_hope_fear(rates),
+        "naming": fig_naming(rates, raw_rates),
+        "orientation": fig_orientation(rates, raw_rates),
+        "religion": fig_religion(rates, raw_rates),
+        "hopefear": fig_hope_fear(rates, raw_rates),
         "readability": fig_readability(stats),
         "issues": fig_issues_decade(para_labels, issue_meta["issues"]),
         "keywords": fig_keywords(kw),

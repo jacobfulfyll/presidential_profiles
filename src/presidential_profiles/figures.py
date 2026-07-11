@@ -84,9 +84,21 @@ def _save(fig, name: str):
     print(f"  wrote {path.relative_to(REPO_ROOT)}")
 
 
-def _decade_rate(stats: pd.DataFrame, count_col: str) -> pd.Series:
-    g = stats.groupby("decade")
-    return g[count_col].sum() / g["n_tokens"].sum() * 10_000
+def _yearly_rate(stats: pd.DataFrame, count_col: str, window: int = 5,
+                 min_tokens: int = 20_000) -> pd.Series:
+    """Rolling per-10k rate by year, computed on window totals. Years whose
+    window holds fewer than min_tokens are masked (sparse early corpus)."""
+    g = stats.groupby("year")
+    counts = g[count_col].sum()
+    toks = g["n_tokens"].sum()
+    years = pd.RangeIndex(int(stats["year"].min()), int(stats["year"].max()) + 1)
+    counts = counts.reindex(years, fill_value=0)
+    toks = toks.reindex(years, fill_value=0)
+    csum = counts.rolling(window, center=True, min_periods=1).sum()
+    tsum = toks.rolling(window, center=True, min_periods=1).sum()
+    rate = csum / tsum * 10_000
+    rate[tsum < min_tokens] = np.nan
+    return rate
 
 
 def modal_verbs(stats: pd.DataFrame):
@@ -95,11 +107,12 @@ def modal_verbs(stats: pd.DataFrame):
     fig, ax = plt.subplots(figsize=(10, 5.5))
     modals = ["shall", "will", "must", "should"]
     for i, m in enumerate(modals):
-        rate = _decade_rate(stats, f"modal_{m}")
+        rate = _yearly_rate(stats, f"modal_{m}")
         ax.plot(rate.index, rate.values, color=SERIES[i], label=m)
+        last = rate.dropna()
         ax.annotate(
             m,
-            (rate.index[-1], rate.values[-1]),
+            (last.index[-1], last.values[-1]),
             xytext=(6, 0),
             textcoords="offset points",
             color=INK2,
@@ -107,8 +120,8 @@ def modal_verbs(stats: pd.DataFrame):
             va="center",
         )
     ax.set_title("Modal verbs in presidential speech, 1789–2026")
-    ax.set_ylabel("uses per 10,000 words")
-    ax.set_xlim(1780, 2045)
+    ax.set_ylabel("uses per 10,000 words (5-yr rolling)")
+    ax.set_xlim(1786, 2042)
     ax.legend(loc="upper right")
     _save(fig, "modal_verbs.png")
 
@@ -118,11 +131,12 @@ def pronouns(stats: pd.DataFrame):
     _theme()
     fig, ax = plt.subplots(figsize=(10, 5.5))
     for i, (label, col) in enumerate([("we / us / our", "we_count"), ("I / me / my", "i_count")]):
-        rate = _decade_rate(stats, col)
+        rate = _yearly_rate(stats, col)
         ax.plot(rate.index, rate.values, color=SERIES[i], label=label)
+        last = rate.dropna()
         ax.annotate(
             label.split(" ")[0],
-            (rate.index[-1], rate.values[-1]),
+            (last.index[-1], last.values[-1]),
             xytext=(6, 0),
             textcoords="offset points",
             color=INK2,
@@ -130,8 +144,8 @@ def pronouns(stats: pd.DataFrame):
             va="center",
         )
     ax.set_title("First-person pronouns: the collective vs the individual voice")
-    ax.set_ylabel("uses per 10,000 words")
-    ax.set_xlim(1780, 2045)
+    ax.set_ylabel("uses per 10,000 words (5-yr rolling)")
+    ax.set_xlim(1786, 2042)
     ax.legend(loc="upper left")
     _save(fig, "pronouns.png")
 
@@ -148,8 +162,10 @@ def readability(stats: pd.DataFrame):
         alpha=0.45,
         linewidths=0,
     )
-    med = stats.groupby("decade")["fk_grade"].median()
-    ax.plot(med.index + 5, med.values, color=BLUE_RAMP[5], label="decade median")
+    med = (stats.groupby("year")["fk_grade"].median()
+           .reindex(pd.RangeIndex(int(stats["year"].min()), int(stats["year"].max()) + 1))
+           .rolling(7, center=True, min_periods=3).median())
+    ax.plot(med.index, med.values, color=BLUE_RAMP[5], label="rolling median (7 yr)")
     ax.set_title("Reading level of presidential speeches, 1789–2026")
     ax.set_ylabel("Flesch–Kincaid grade level")
     ax.set_ylim(0, 30)
@@ -182,8 +198,8 @@ def keyword_small_multiples(trends: pd.DataFrame):
     fig, axes = plt.subplots(3, 3, figsize=(12, 8.5), sharex=True)
     for ax, term in zip(axes.flat, terms):
         sub = trends[trends["term"] == term]
-        ax.fill_between(sub["decade"], sub["rate"], color=BLUE_RAMP[2], alpha=0.55)
-        ax.plot(sub["decade"], sub["rate"], color=BLUE_RAMP[4], linewidth=1.6)
+        ax.fill_between(sub["period"], sub["rate"], color=BLUE_RAMP[2], alpha=0.55)
+        ax.plot(sub["period"], sub["rate"], color=BLUE_RAMP[4], linewidth=1.6)
         ax.set_title(term, fontsize=10)
         ax.set_ylim(bottom=0)
         ax.tick_params(labelsize=8)

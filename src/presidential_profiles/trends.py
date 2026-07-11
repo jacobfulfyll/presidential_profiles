@@ -29,21 +29,28 @@ def tokens(text: str) -> list[str]:
     return WORD_RE.findall(text.lower())
 
 
-def keyword_trends(df: pd.DataFrame | None = None) -> pd.DataFrame:
-    """Rate per 10k words for each term group, by decade."""
+def keyword_trends(
+    df: pd.DataFrame | None = None, bucket: int = 5, min_words: int = 20_000
+) -> pd.DataFrame:
+    """Rate per 10k words for each term group, in `bucket`-year periods.
+    Periods with fewer than min_words are dropped (the earliest corpus years
+    are a handful of speeches)."""
     if df is None:
         df = load()
+    df = df.assign(period=(df["year"] // bucket) * bucket)
     rows = []
-    for decade, group in df.groupby("decade"):
+    for period, group in df.groupby("period"):
         counts: Counter[str] = Counter()
         total = 0
         for text in group["transcript"]:
             toks = tokens(text)
             total += len(toks)
             counts.update(toks)
+        if total < min_words:
+            continue
         for name, terms in TERM_GROUPS.items():
             rate = sum(counts[t] for t in terms) / total * 10_000
-            rows.append({"decade": decade, "term": name, "rate": rate})
+            rows.append({"period": period, "term": name, "rate": rate})
     return pd.DataFrame(rows)
 
 

@@ -116,6 +116,61 @@ def decade_rates(markers: pd.DataFrame) -> pd.DataFrame:
     return out.reset_index()
 
 
+ALL_RATE_COLS = list(MARKERS) + ["nrc_hope", "nrc_fear"]
+
+
+def _yearly_sums(markers: pd.DataFrame, cols: list[str]):
+    g = markers.groupby("year")
+    counts = g[cols].sum()
+    words = g["n_words"].sum()
+    years = pd.RangeIndex(int(markers["year"].min()), int(markers["year"].max()) + 1,
+                          name="year")
+    return counts.reindex(years, fill_value=0), words.reindex(years, fill_value=0)
+
+
+def yearly_rates(
+    markers: pd.DataFrame, window: int = 5, min_words: int = 20_000
+) -> pd.DataFrame:
+    """Per-year rates smoothed with a centered rolling window computed on
+    word totals (so sparse years are weighted, not averaged). Years whose
+    window holds fewer than min_words are masked — the corpus before ~1790
+    is a handful of speeches and would otherwise spike every chart."""
+    counts, words = _yearly_sums(markers, ALL_RATE_COLS)
+    csum = counts.rolling(window, center=True, min_periods=1).sum()
+    wsum = words.rolling(window, center=True, min_periods=1).sum()
+    rates = csum.div(wsum, axis=0) * 10_000
+    rates[wsum < min_words] = np.nan
+    return rates
+
+
+def yearly_raw_rates(markers: pd.DataFrame, min_words: int = 5_000) -> pd.DataFrame:
+    """Unsmoothed per-year rates (for texture markers behind the trend line);
+    years with very little speech are masked."""
+    counts, words = _yearly_sums(markers, ALL_RATE_COLS)
+    rates = counts.div(words, axis=0) * 10_000
+    rates[words < min_words] = np.nan
+    return rates
+
+
+def certainty_yearly(
+    markers: pd.DataFrame,
+    window: int = 5,
+    inaugural_only: bool = False,
+    min_markers: int = 150,
+) -> pd.Series:
+    """Rolling assertive share of stance markers by year."""
+    m = markers
+    if inaugural_only:
+        m = m[m["title"].str.contains("Inaugural", case=False, na=False)]
+    counts, _ = _yearly_sums(m, ["boosters", "assertive_modals", "hedges", "concessives"])
+    s = counts.rolling(window, center=True, min_periods=1).sum()
+    assertive = s["boosters"] + s["assertive_modals"]
+    deliberative = s["hedges"] + s["concessives"]
+    out = assertive / (assertive + deliberative)
+    out[(assertive + deliberative) < min_markers] = np.nan
+    return out
+
+
 def certainty_index(markers: pd.DataFrame) -> pd.Series:
     """Assertive share of stance markers: (boosters + will/must) /
     (all stance markers). 0.5 = balanced; higher = confidence over
