@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">tariff</span><span class="term">interstate</span><span class="term">canal</span><span class="term">department</span><span class="term">statute</span><span class="term">court</span><span class="term">schedule</span><span class="term">commerce</span><span class="term">commission</span><span class="term">estimates</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Trade & tariffs</span>
+    <span class="i-badge">+15 pp vs their era</span></div>
+  <div class="terms"><span class="term">tariff</span><span class="term">interstate</span><span class="term">commerce</span><span class="term">wool</span><span class="term">business</span></div>
+  <blockquote><p>“The Department of Commerce and Labor has arranged to give publicity to the expected arrival and the itinerary of consular officers and commercial agents while on leave in the United States, in order that trade organizations may arrange for conferences with them.”</p><cite>Third Annual Message, 1911</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Foreign policy</span>
+    <span class="i-badge">+7 pp vs their era</span></div>
+  <div class="terms"><span class="term">trade</span></div>
+  <blockquote><p>“Through the newly created Division of Information the foreign service is kept fully informed of what transpires from day to day in the international relations of the country, and contemporary foreign comment affecting American interests is promptly brought to the attention of the department.”</p><cite>Fourth Annual Message, 1912</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Infrastructure</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">canal</span></div>
+  <blockquote><p>“The Interstate Commerce Commission has recommended appropriations for the purpose of enabling it to enter upon a valuation of all railroads.”</p><cite>Second Annual Message, 1910</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Energy & environment</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">statute</span></div>
+  <blockquote><p>“of it is being treated scientifically and with a view to the maintenance of the forests.”</p><cite>Message Regarding Environmental Preservation, 1910</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">department</span><span class="term">court</span><span class="term">schedule</span><span class="term">commission</span><span class="term">estimates</span><span class="term">cost</span><span class="term">procedure</span><span class="term">antitrust</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

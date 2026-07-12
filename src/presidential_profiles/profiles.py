@@ -1,11 +1,13 @@
 """Assemble everything a president profile page needs."""
 
+import html
 import re
 
 import numpy as np
 import pandas as pd
 
 from .corpus import DATA_DIR, load
+from .fetch import PARAGRAPHS_PATH
 from . import indices, issues, rhetoric, similarity, trends
 
 DISTINCTIVE_PATH = DATA_DIR / "president_distinctive.parquet"
@@ -69,7 +71,7 @@ def build_distinctive(df: pd.DataFrame, force: bool = False) -> pd.DataFrame:
         n_p = sum(c_p.values())
         min_count = 8 if n_p < 30_000 else 20
         scores = trends.log_odds_scores(c_p, rest, min_count=min_count)
-        for rank, (_, r) in enumerate(scores.tail(10)[::-1].iterrows()):
+        for rank, (_, r) in enumerate(scores.tail(18)[::-1].iterrows()):
             rows.append({"president": p, "term": r["term"],
                          "z": r["z"], "rank": rank})
     out = pd.DataFrame(rows)
@@ -147,6 +149,124 @@ def neighbors(adj: pd.DataFrame, issue_df: pd.DataFrame) -> tuple[dict, dict]:
     return voice, agenda
 
 
+# Anchor words for the one discovered topic promoted to the taxonomy display.
+_EXTRA_ANCHORS = {"Discovered 5": ["soviet", "nuclear", "weapons", "peace",
+                                   "freedom", "forces"]}
+
+_ABBREV_RE = re.compile(r"\b(Mr|Mrs|Ms|Dr|St|Gen|Col|Capt|Hon|No|vs|U\.S)\.")
+_SENT_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
+
+
+def _sentences(text: str) -> list[str]:
+    protected = _ABBREV_RE.sub(lambda m: m.group(0).replace(".", "\x00"), text)
+    return [s.replace("\x00", ".") for s in _SENT_SPLIT_RE.split(protected)]
+
+
+def _pick_sentence(texts, anchor_terms: list[str],
+                   extra_terms: list[str]) -> str | None:
+    """The most quotable sentence across candidate paragraphs: scored by
+    anchor-term hits (x2) plus the president's own distinctive words."""
+    best, best_score = None, 0
+    for text in texts:
+        for sent in _sentences(text):
+            if not 70 <= len(sent) <= 300:
+                continue
+            low = sent.lower()
+            score = 2 * sum(
+                bool(re.search(rf"\b{re.escape(t)}\w*", low)) for t in anchor_terms
+            ) + sum(
+                bool(re.search(rf"\b{re.escape(t)}\b", low)) for t in extra_terms
+            )
+            if score > best_score:
+                best, best_score = sent.strip(), score
+    return best
+
+
+def issue_cards(
+    df: pd.DataFrame,
+    distinctive: pd.DataFrame,
+    issue_df: pd.DataFrame,
+    issue_meta: dict,
+    top_n: int = 4,
+) -> dict:
+    """Per president: their top era-relative issues, each with the president's
+    own distinctive vocabulary for that issue and a verbatim sentence from
+    their speeches on it. Remaining distinctive terms become their 'voice'."""
+    paras = pd.read_parquet(PARAGRAPHS_PATH).reset_index(drop=True)
+    labels = pd.read_parquet(issues.PARA_LABELS_PATH).reset_index(drop=True)
+    if len(paras) != len(labels):
+        raise RuntimeError("paragraphs and labels out of sync - rerun the pipeline")
+    titles = df.set_index("doc_name")[["title", "year"]]
+
+    display = issue_meta["issues"] + ["Discovered 5"]
+    anchors = {**issues.ISSUE_ANCHORS, **_EXTRA_ANCHORS}
+
+    out = {}
+    for pres, prow in issue_df.iterrows():
+        mask = (labels["president"] == pres).to_numpy()
+        n_paras = float(prow["n_paragraphs"])
+        eligible = [
+            n for n in display
+            if prow[f"rel_{n}"] >= 0.75 and prow[f"share_{n}"] * n_paras >= 4
+        ]
+        eligible.sort(key=lambda n: -prow[f"rel_{n}"])
+        eligible = eligible[:top_n]
+
+        terms = distinctive[distinctive["president"] == pres].sort_values("rank")
+        remaining = terms["term"].tolist()
+
+        all_text = " ".join(paras.loc[mask, "text"]).lower()
+        all_words = max(len(all_text.split()), 1)
+
+        cards = []
+        for name in eligible:
+            issue_mask = mask & labels[name].to_numpy()
+            texts = paras.loc[issue_mask, "text"]
+            joined = " ".join(texts).lower()
+            issue_words = max(len(joined.split()), 1)
+
+            # A term belongs to an issue only if it is CONCENTRATED there
+            # (1.5x the president's overall rate) - otherwise a president's
+            # general register words would attach to every issue.
+            words = []
+            for t in remaining:
+                n_issue = len(re.findall(rf"\b{re.escape(t)}\b", joined))
+                if n_issue < 2:
+                    continue
+                n_all = len(re.findall(rf"\b{re.escape(t)}\b", all_text))
+                if n_issue / issue_words >= 1.5 * n_all / all_words:
+                    words.append(t)
+                if len(words) == 5:
+                    break
+            for w in words:
+                remaining.remove(w)
+
+            quote = cite = None
+            if len(texts):
+                hits = texts.str.lower().str.count(
+                    "|".join(rf"\b{re.escape(t)}\w*" for t in anchors[name]))
+                top_idx = hits.nlargest(3).index
+                quote = _pick_sentence(
+                    [paras.loc[i, "text"] for i in top_idx], anchors[name], words
+                )
+                if quote:
+                    src = next(i for i in top_idx if quote in paras.loc[i, "text"])
+                    t = titles.loc[paras.loc[src, "doc_name"]]
+                    cite = f"{t['title'].split(':', 1)[-1].strip()}, {int(t['year'])}"
+                    quote = html.escape(quote)
+
+            cards.append({
+                "issue": name,
+                "rel": float(prow[f"rel_{name}"]),
+                "share": float(prow[f"share_{name}"]),
+                "words": words,
+                "quote": quote,
+                "cite": cite,
+            })
+        out[pres] = {"cards": cards, "voice": remaining[:8]}
+    return out
+
+
 def build_profile_data(force: bool = False) -> dict:
     """Everything the profile pages need, keyed by president."""
     df = load()
@@ -159,6 +279,7 @@ def build_profile_data(force: bool = False) -> dict:
     sigs = signature_speeches(df, adj)
     invokes, invoked_by = invocations(df)
     voice, agenda = neighbors(adj, issue_df)
+    cards = issue_cards(df, distinctive, issue_df.set_index("president"), issue_meta)
 
     return {
         "df": df,
@@ -172,4 +293,5 @@ def build_profile_data(force: bool = False) -> dict:
         "invoked_by": invoked_by,
         "voice_neighbors": voice,
         "agenda_neighbors": agenda,
+        "issue_cards": cards,
     }

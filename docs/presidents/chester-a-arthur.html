@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">chinese</span><span class="term">deck</span><span class="term">attention</span><span class="term">merchandise</span><span class="term">treaty</span><span class="term">lately</span><span class="term">passengers</span><span class="term">sinking</span><span class="term">laborers</span><span class="term">fees</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Foreign policy</span>
+    <span class="i-badge">+9 pp vs their era</span></div>
+  <div class="terms"><span class="term">chinese</span><span class="term">merchandise</span><span class="term">treaty</span><span class="term">laborers</span><span class="term">consular</span></div>
+  <blockquote><p>“The present treaty relations between that power and the United States spring from an antagonism which arose between our paramount domestic interests and our previous relations.”</p><cite>Veto of the Chinese Exclusion Act, 1882</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Taxes & budget</span>
+    <span class="i-badge">+8 pp vs their era</span></div>
+  <div class="terms"><span class="term">sinking</span><span class="term">fees</span><span class="term">cent</span><span class="term">circulation</span></div>
+  <blockquote><p>“If the revenue laws remain unchanged,this surplus must year by year increase, on account of the reduction of the public debt and its burden of interest and because of the rapid increase of our population.”</p><cite>First Annual Message, 1881</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Infrastructure</span>
+    <span class="i-badge">+6 pp vs their era</span></div>
+  <div class="terms"><span class="term">deck</span><span class="term">passengers</span><span class="term">vessels</span></div>
+  <blockquote><p>“The statistics of mail transportation show that during the past year railroad routes have been increased in length 6,249 miles and in cost $1,114,382,while steamboat routes have been decreased in length 2,182 miles and in cost $134,054.”</p><cite>First Annual Message, 1881</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Immigration</span>
+    <span class="i-badge">+2 pp vs their era</span></div>
+  
+  <blockquote><p>“A just and uniform law in this respect would strengthen the hands of the Government in protecting its citizens abroad and would pave the way for the conclusion of treaties of naturalization with foreign countries.”</p><cite>Fourth Annual Message, 1884</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">attention</span><span class="term">lately</span><span class="term">likely</span><span class="term">report</span><span class="term">intercourse</span><span class="term">chile</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

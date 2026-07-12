@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">republic</span><span class="term">civilization</span><span class="term">conscience</span><span class="term">nationality</span><span class="term">world</span><span class="term">railway</span><span class="term">insistent</span><span class="term">readjustment</span><span class="term">citizenship</span><span class="term">fortune</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Security & peace</span>
+    <span class="i-badge">+8 pp vs their era</span></div>
+  <div class="terms"><span class="term">civilization</span><span class="term">conscience</span><span class="term">nationality</span><span class="term">world</span><span class="term">fortune</span></div>
+  <blockquote><p>“In the call of the conscience of America is peace, peace that closes the gaping wound of world war, and silences the impassioned voices of international envy and distrust.”</p><cite>Speech Accepting the Republican Nomination, 1920</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Religion & values</span>
+    <span class="i-badge">+8 pp vs their era</span></div>
+  <div class="terms"><span class="term">republic</span><span class="term">understanding</span><span class="term">concord</span></div>
+  <blockquote><p>“I can only pray to the Omnipotent God that I may be as worthy in service as I know myself to be faithful in thought and purpose.”</p><cite>Speech Accepting the Republican Nomination, 1920</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">War & military</span>
+    <span class="i-badge">+7 pp vs their era</span></div>
+  <div class="terms"><span class="term">sons</span></div>
+  <blockquote><p>“My countrymen, the surpassing war of all times has involved us, and found us utterly unprepared in either a mental or military sense.”</p><cite>The Republic Must Awaken, 1917</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Immigration</span>
+    <span class="i-badge">+7 pp vs their era</span></div>
+  <div class="terms"><span class="term">citizenship</span><span class="term">eminence</span><span class="term">contemplates</span></div>
+  <blockquote><p>“I believe in established standards for immigration, which are concerned with the future citizenship of the republic, not with mere manpower in industry.”</p><cite>Speech Accepting the Republican Nomination, 1920</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">railway</span><span class="term">insistent</span><span class="term">readjustment</span><span class="term">relationship</span><span class="term">transportation</span><span class="term">activities</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

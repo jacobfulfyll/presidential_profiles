@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">atomic</span><span class="term">program</span><span class="term">economic</span><span class="term">peoples</span><span class="term">strength</span><span class="term">nations</span><span class="term">free</span><span class="term">security</span><span class="term">world</span><span class="term">defense</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Economy & jobs</span>
+    <span class="i-badge">+5 pp vs their era</span></div>
+  <div class="terms"><span class="term">economic</span><span class="term">programs</span></div>
+  <blockquote><p>“The prosperity of our small business enterprises is an indispensable element in the maintenance of our economic strength.”</p><cite>State of the Union Address, 1955</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Health care</span>
+    <span class="i-badge">+5 pp vs their era</span></div>
+  <div class="terms"><span class="term">program</span><span class="term">federal</span><span class="term">assistance</span></div>
+  <blockquote><p>“I shall also recommend voluntary health insurance on a contributory basis for Federal employees and their dependents.”</p><cite>State of the Union Address, 1955</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Agriculture</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">farm</span></div>
+  <blockquote><p>“And, by helping our agriculture achieve full parity in the market, it promises our farmers a higher and steadier financial return over the years than any alternative plan.”</p><cite>State of the Union Address, 1954</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Trade & tariffs</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">peoples</span><span class="term">free</span><span class="term">world</span><span class="term">collective</span></div>
+  <blockquote><p>“I most earnestly request that the Congress approve our membership in the Organization for Trade Cooperation, which would assist the carrying out of the General Agreement on Tariffs and Trade to which we have been a party since 1948.”</p><cite>State of the Union Address, 1956</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">atomic</span><span class="term">strength</span><span class="term">nations</span><span class="term">security</span><span class="term">defense</span><span class="term">military</span><span class="term">freedom</span><span class="term">development</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

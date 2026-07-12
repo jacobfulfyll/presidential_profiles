@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">texas</span><span class="term">mexico</span><span class="term">shall</span><span class="term">article</span><span class="term">california</span><span class="term">laws</span><span class="term">expedition</span><span class="term">militia</span><span class="term">rio</span><span class="term">subject</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Infrastructure</span>
+    <span class="i-badge">+12 pp vs their era</span></div>
+  <div class="terms"><span class="term">rio</span><span class="term">ofthe</span><span class="term">survey</span></div>
+  <blockquote><p>“Our territory is checkered over with railroads and furrowed with canals.”</p><cite>Third Annual Message, 1852</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Economy & jobs</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">article</span><span class="term">postage</span></div>
+  <blockquote><p>“The prosperity and wealth of every nation must depend upon its productive industry.”</p><cite>Third Annual Message, 1852</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Taxes & budget</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">california</span></div>
+  <blockquote><p>“If the present and anticipated surplus in the Treasury should not be absorbed by appropriations of an extraordinary character, this surplus should be employed in such way and under such restrictions as Congress may enact in extinguishing the outstanding debt of the nation.”</p><cite>Second Annual Message, 1851</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Trade & tariffs</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  
+  <blockquote><p>“The values of our domestic exports for the last fiscal year, as compared with those of the previous year, exhibit an increase of $43,646,322.”</p><cite>Second Annual Message, 1851</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">texas</span><span class="term">mexico</span><span class="term">shall</span><span class="term">laws</span><span class="term">expedition</span><span class="term">militia</span><span class="term">subject</span><span class="term">state</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

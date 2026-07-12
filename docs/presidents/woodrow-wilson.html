@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">german</span><span class="term">men</span><span class="term">processes</span><span class="term">imperial</span><span class="term">counsel</span><span class="term">shall</span><span class="term">business</span><span class="term">alien</span><span class="term">set</span><span class="term">submarines</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Security & peace</span>
+    <span class="i-badge">+6 pp vs their era</span></div>
+  <div class="terms"><span class="term">german</span><span class="term">imperial</span><span class="term">submarines</span><span class="term">seas</span><span class="term">mankind</span></div>
+  <blockquote><p>“Absolute freedom of navigation upon the seas, outside territorial waters, alike in peace and in war, except as the seas may be closed in whole or in part by international action for the enforcement of international covenants.”</p><cite>Wilson's "Fourteen Points", 1918</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">War & military</span>
+    <span class="i-badge">+6 pp vs their era</span></div>
+  <div class="terms"><span class="term">definite</span></div>
+  <blockquote><p>“We have always looked to the navy of the country as our first and chief line of defense; we have always seen it to be our manifest course of prudence to be strong on the seas.”</p><cite>Third Annual Message, 1915</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Religion & values</span>
+    <span class="i-badge">+1 pp vs their era</span></div>
+  <div class="terms"><span class="term">counsel</span><span class="term">gentlemen</span><span class="term">life</span></div>
+  <blockquote><p>“I have not so much laid before you a series of recommendations, gentlemen, as sought to utter a confession of faith, of the faith in which I was bred and which it is my solemn purpose to stand by until my last fighting day.”</p><cite>Eighth Annual Message, 1920</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Civil rights & race</span>
+    <span class="i-badge">+1 pp vs their era</span></div>
+  <div class="terms"><span class="term">processes</span><span class="term">business</span><span class="term">set</span></div>
+  <blockquote><p>“Only a peace the very principle of which is equality and a common participation in a common benefit.”</p><cite>"A World League for Peace" Speech, 1917</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">men</span><span class="term">shall</span><span class="term">alien</span><span class="term">play</span><span class="term">thought</span><span class="term">wish</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

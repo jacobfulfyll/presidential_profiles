@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">banks</span><span class="term">public</span><span class="term">specie</span><span class="term">moneys</span><span class="term">embarrassments</span><span class="term">bank</span><span class="term">notes</span><span class="term">suspension</span><span class="term">treasury</span><span class="term">institutions</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Money & banking</span>
+    <span class="i-badge">+20 pp vs their era</span></div>
+  <div class="terms"><span class="term">banks</span><span class="term">specie</span><span class="term">bank</span><span class="term">notes</span><span class="term">suspension</span></div>
+  <blockquote><p>“Yet the commerce and currency of the country are suffering evils from the operations of the State banks which can not and ought not to be overlooked.”</p><cite>Third Annual Message to Congress, 1839</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Economy & jobs</span>
+    <span class="i-badge">+11 pp vs their era</span></div>
+  <div class="terms"><span class="term">embarrassments</span><span class="term">institutions</span><span class="term">paper</span><span class="term">banking</span></div>
+  <blockquote><p>“Looking upon it with the eyes of statesmen and patriots, they saw all the sources of rapid and wonderful prosperity; but they saw also that various habits, opinions, and institutions peculiar to the various portions of so vast a region were deeply fixed.”</p><cite>Inaugural Address, 1837</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Taxes & budget</span>
+    <span class="i-badge">+7 pp vs their era</span></div>
+  <div class="terms"><span class="term">public</span><span class="term">treasury</span><span class="term">extent</span><span class="term">disbursement</span><span class="term">currency</span></div>
+  <blockquote><p>“To burden the country with increased taxation when there is in fact a large surplus revenue would be unjust and unwise; to raise moneys by loans under such circumstances, and thus to commence a new national debt, would scarcely be sanctioned by the American people.”</p><cite>Special Session Message, 1837</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Trade & tariffs</span>
+    <span class="i-badge">+2 pp vs their era</span></div>
+  
+  <blockquote><p>“Our commerce and navigation have received increased aid and protection during the present year.”</p><cite>First Annual Message to Congress, 1837</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">moneys</span><span class="term">maine</span><span class="term">government</span><span class="term">portion</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

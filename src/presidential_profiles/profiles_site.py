@@ -71,11 +71,40 @@ def _neighbor_list(pairs: list, fmt: str) -> str:
     )
 
 
+def _issue_cards_html(president: str, data: dict) -> str:
+    info = data["issue_cards"].get(president, {"cards": [], "voice": []})
+    cards = []
+    for c in info["cards"]:
+        issue = DISCOVERED_LABELS.get(c["issue"], c["issue"])
+        words = "".join(f'<span class="term">{w}</span>' for w in c["words"])
+        words_html = f'<div class="terms">{words}</div>' if c["words"] else ""
+        quote_html = ""
+        if c["quote"]:
+            quote_html = (f'<blockquote><p>“{c["quote"]}”</p>'
+                          f'<cite>{c["cite"]}</cite></blockquote>')
+        cards.append(f"""<div class="i-card">
+  <div class="i-head"><span class="i-name">{issue}</span>
+    <span class="i-badge">+{c["rel"]:.0f} pp vs their era</span></div>
+  {words_html}
+  {quote_html}
+</div>""")
+    cards_html = "\n".join(cards) if cards else \
+        '<p class="dim">No issue stands out above their era.</p>'
+
+    voice_html = ""
+    if info["voice"]:
+        chips = "".join(f'<span class="term">{w}</span>' for w in info["voice"])
+        voice_html = f"""<div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms">{chips}</div>
+</div>"""
+    return cards_html + voice_html
+
+
 def render_profile(president: str, data: dict, display_issues: list[str]) -> str:
     scores = data["scores"].loc[president]
     issue_row = data["issues"].loc[president]
-    dist = data["distinctive"]
-    terms = dist[dist["president"] == president].sort_values("rank")["term"].tolist()
 
     figs = {
         "radar": fig_radar(scores),
@@ -91,8 +120,6 @@ def render_profile(president: str, data: dict, display_issues: list[str]) -> str
         f'<span class="chip">{int(scores["n_speeches"])} speeches</span>'
         f'<span class="chip">{int(scores["n_words"]):,} words</span>'
     )
-
-    term_chips = "".join(f'<span class="term">{t}</span>' for t in terms)
 
     sigs = "".join(
         f'<li><a href="{s["url"]}" target="_blank" rel="noopener">{s["title"]}</a></li>'
@@ -138,6 +165,19 @@ def render_profile(president: str, data: dict, display_issues: list[str]) -> str
   .terms {{ display: flex; flex-wrap: wrap; gap: 8px; }}
   .term {{ background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }}
+  .i-card, .i-voice {{ background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }}
+  .i-head {{ display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }}
+  .i-name {{ font-weight: 700; font-size: 1.02rem; }}
+  .i-badge {{ color: var(--muted); font-size: 0.8rem; }}
+  .i-card .term, .i-voice .term {{ background: var(--page); }}
+  .i-card blockquote {{ border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }}
+  .i-card blockquote p {{ color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }}
+  .i-card cite {{ display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }}
   .dim {{ color: var(--muted); }}
   .neighbors p {{ margin: 6px 0; }}
   ul.sigs {{ margin: 10px 0 0 18px; color: var(--ink2); }}
@@ -168,9 +208,10 @@ def render_profile(president: str, data: dict, display_issues: list[str]) -> str
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms">{term_chips}</div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  {_issue_cards_html(president, data)}
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

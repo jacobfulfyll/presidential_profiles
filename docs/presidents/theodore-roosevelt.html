@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">panama</span><span class="term">isthmus</span><span class="term">canal</span><span class="term">corporations</span><span class="term">interstate</span><span class="term">men</span><span class="term">conditions</span><span class="term">forest</span><span class="term">man</span><span class="term">november</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Infrastructure</span>
+    <span class="i-badge">+11 pp vs their era</span></div>
+  <div class="terms"><span class="term">panama</span><span class="term">isthmus</span><span class="term">canal</span><span class="term">interstate</span><span class="term">november</span></div>
+  <blockquote><p>“The ever-increasing casualty list upon our railroads is a matter of grave public concern, and urgently calls for action by the Congress.”</p><cite>Fourth Annual Message, 1904</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Crime & justice</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">man</span><span class="term">law</span><span class="term">colored</span></div>
+  <blockquote><p>“In connection with the delays of the law, I call your attention and the attention of the Nation to the prevalence of crime among us, and above all to the epidemic of lynching and mob violence that springs up, now in one part of our country, now in another.”</p><cite>Sixth Annual Message, 1906</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Economy & jobs</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">corporations</span><span class="term">labor</span><span class="term">industrial</span><span class="term">business</span></div>
+  <blockquote><p>“In the long run the one vital factor in the permanent prosperity of the country is the high individual character of the average American worker, the average American citizen, no matter whether his work be mental or manual, whether he be farmer or wage-worker, business man or professional man.”</p><cite>Fifth Annual Message, 1905</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Health care</span>
+    <span class="i-badge">+1 pp vs their era</span></div>
+  <div class="terms"><span class="term">men</span><span class="term">conditions</span><span class="term">employees</span><span class="term">work</span></div>
+  <blockquote><p>“All the patients that I saw, with one or two exceptions, were laborers or other employees on the canal works and railways, most of them being colored men of the ordinary laborer stamp.”</p><cite>Message Regarding Conditions in Panama, 1906</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">forest</span><span class="term">regards</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,31 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">constitution</span><span class="term">states</span><span class="term">rebellion</span><span class="term">state</span><span class="term">persons</span><span class="term">officer</span><span class="term">grant</span><span class="term">section</span><span class="term">office</span><span class="term">oath</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">War & military</span>
+    <span class="i-badge">+16 pp vs their era</span></div>
+  <div class="terms"><span class="term">officer</span><span class="term">grant</span><span class="term">civil</span><span class="term">interim</span><span class="term">general</span></div>
+  <blockquote><p>“It is proposed to reduce the military establishment to a peace footing, comprehending 50,000 troops of all arms, organized so as to admit of an enlargement by filling up the ranks to 82,600 if the circumstances of the country should require an augmentation of the Army.”</p><cite>First Annual Message, 1865</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Crime & justice</span>
+    <span class="i-badge">+5 pp vs their era</span></div>
+  <div class="terms"><span class="term">state</span><span class="term">persons</span><span class="term">section</span><span class="term">oath</span><span class="term">authority</span></div>
+  <blockquote><p>“It is clear that in States which deny to persons whose rights are secured by the first section of the bill any one of those rights all criminal and civil cases affecting them will, by the provisions of the third section, come under the exclusive cognizance of the Federal tribunals.”</p><cite>Veto Message on Civil Rights Legislation, 1866</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Civil rights & race</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">constitution</span><span class="term">shall</span></div>
+  <blockquote><p>“In no one of these can any State ever exercise any power of discrimination between the different races.”</p><cite>Veto Message on Civil Rights Legislation, 1866</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">states</span><span class="term">rebellion</span><span class="term">office</span><span class="term">insurrection</span><span class="term">conversation</span><span class="term">judicial</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

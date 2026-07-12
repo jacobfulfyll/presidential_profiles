@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">energy</span><span class="term">oil</span><span class="term">food</span><span class="term">inflation</span><span class="term">programs</span><span class="term">petroleum</span><span class="term">detente</span><span class="term">barrels</span><span class="term">strategic</span><span class="term">americans</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Foreign policy</span>
+    <span class="i-badge">+12 pp vs their era</span></div>
+  <div class="terms"><span class="term">energy</span><span class="term">oil</span><span class="term">petroleum</span><span class="term">detente</span><span class="term">barrels</span></div>
+  <blockquote><p>“In recent years, under the stress of the Vietnam War, legislative restrictions on the President&#x27;s ability to execute foreign policy and military decisions have proliferated.”</p><cite>State of the Union Address, 1975</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Energy & environment</span>
+    <span class="i-badge">+9 pp vs their era</span></div>
+  <div class="terms"><span class="term">food</span><span class="term">crude</span><span class="term">production</span></div>
+  <blockquote><p>“In order that we make greater use of domestic coal resources, I am submitting amendments to the Energy Supply and Environmental Coordination Act which will greatly increase the number of powerplants that can be promptly converted to coal.”</p><cite>State of the Union Address, 1975</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Money & banking</span>
+    <span class="i-badge">+5 pp vs their era</span></div>
+  <div class="terms"><span class="term">inflation</span><span class="term">programs</span><span class="term">federal</span><span class="term">developing</span></div>
+  <blockquote><p>“Three: Hereafter, I will require that all major legislative proposals, regulations, and rules emanating from the executive branch of the Government will include an inflation impact statement that certifies we have carefully weighed the effect on the Nation.”</p><cite>"Whip Inflation Now" Speech, 1974</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Taxes & budget</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  
+  <blockquote><p>“People have been pushed into higher tax brackets by inflation, with consequent reduction in their actual spending power.”</p><cite>State of the Union Address, 1975</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">strategic</span><span class="term">americans</span><span class="term">adversaries</span><span class="term">asia</span><span class="term">friends</span><span class="term">economic</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

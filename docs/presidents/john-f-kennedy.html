@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">kennedy</span><span class="term">senator</span><span class="term">nixon</span><span class="term">berlin</span><span class="term">freedom</span><span class="term">latin</span><span class="term">communists</span><span class="term">communist</span><span class="term">space</span><span class="term">nuclear</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Security & peace</span>
+    <span class="i-badge">+8 pp vs their era</span></div>
+  <div class="terms"><span class="term">berlin</span><span class="term">freedom</span><span class="term">latin</span><span class="term">communists</span><span class="term">communist</span></div>
+  <blockquote><p>“This Nation is prepared to present its case against the Soviet threat to peace, and our own proposals for a peaceful world, at any time and in any forum--in the OAS, in the United Nations, or in any other meeting that could be useful--without limiting our freedom of action.”</p><cite>Address on the Buildup of Arms in Cuba, 1962</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Education</span>
+    <span class="i-badge">+6 pp vs their era</span></div>
+  <div class="terms"><span class="term">university</span></div>
+  <blockquote><p>“The war babies of the 1940&#x27;s, who overcrowded our schools in the 1950&#x27;s, are now descending in 1960 upon our colleges-with two college students for every one, ten years from now--and our colleges are ill prepared.”</p><cite>State of the Union, 1961</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Civil rights & race</span>
+    <span class="i-badge">+2 pp vs their era</span></div>
+  <div class="terms"><span class="term">space</span><span class="term">nuclear</span><span class="term">disarmament</span><span class="term">soviet</span></div>
+  <blockquote><p>“What will be the leadership of the president in these areas to provide equality of opportunity for employment?”</p><cite>Debate with Richard Nixon in Washington, D.C., 1960</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">War & military</span>
+    <span class="i-badge">+2 pp vs their era</span></div>
+  
+  <blockquote><p>“Third, I am directing the Secretary of Defense to expand rapidly and substantially, in cooperation with our Allies, the orientation of existing forces for the conduct of nonnuclear war, para-military operations and sub-limited or unconventional wars.”</p><cite>The Goal of Sending a Man to the Moon, 1961</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">kennedy</span><span class="term">senator</span><span class="term">nixon</span><span class="term">world</span><span class="term">khrushchev</span><span class="term">free</span><span class="term">vice</span><span class="term">prestige</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

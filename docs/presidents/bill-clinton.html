@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">children</span><span class="term">americans</span><span class="term">care</span><span class="term">century</span><span class="term">health</span><span class="term">senator</span><span class="term">parents</span><span class="term">work</span><span class="term">people</span><span class="term">college</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Education</span>
+    <span class="i-badge">+10 pp vs their era</span></div>
+  <div class="terms"><span class="term">children</span><span class="term">parents</span><span class="term">college</span><span class="term">child</span></div>
+  <blockquote><p>“We have to ask more in our schools of our students, our teachers, our principals, our parents.”</p><cite>Address Before a Joint Session of Congress, 1993</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Crime & justice</span>
+    <span class="i-badge">+8 pp vs their era</span></div>
+  <div class="terms"><span class="term">crime</span><span class="term">community</span><span class="term">challenge</span></div>
+  <blockquote><p>“Three strikes, and you are out.&quot; Second, we must take serious steps to reduce violence and prevent crime, beginning with more police officers and more community policing.”</p><cite>State of the Union Address, 1994</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Economy & jobs</span>
+    <span class="i-badge">+8 pp vs their era</span></div>
+  <div class="terms"><span class="term">health</span><span class="term">welfare</span></div>
+  <blockquote><p>“Look at the facts, just look at the facts: 4.4 million Americans now living in a home of their own for the first time; hundreds of thousands of women have started their own new businesses; more minorities own businesses than ever before; record numbers of new small businesses and exports.”</p><cite>Remarks at the Democratic National Convention, 1996</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Health care</span>
+    <span class="i-badge">+8 pp vs their era</span></div>
+  <div class="terms"><span class="term">care</span></div>
+  <blockquote><p>“To those who would cut Medicare without protecting seniors, I say the solution to today&#x27;s squeeze on middle-class working people&#x27;s health care is not to put the squeeze on middle-class retired people&#x27;s health care.”</p><cite>State of the Union Address, 1994</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">americans</span><span class="term">century</span><span class="term">senator</span><span class="term">work</span><span class="term">people</span><span class="term">dole</span><span class="term">america</span><span class="term">ask</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">mexico</span><span class="term">mexican</span><span class="term">texas</span><span class="term">oregon</span><span class="term">treaty</span><span class="term">war</span><span class="term">army</span><span class="term">territory</span><span class="term">revenue</span><span class="term">contributions</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">War & military</span>
+    <span class="i-badge">+19 pp vs their era</span></div>
+  <div class="terms"><span class="term">mexico</span><span class="term">war</span><span class="term">army</span><span class="term">contributions</span><span class="term">rio</span></div>
+  <blockquote><p>“If the services of the Navy were not so brilliant as those of the Army in the late war with Mexico, it was because they had no enemy to meet on their own element.”</p><cite>Fourth Annual Message to Congress, 1848</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Foreign policy</span>
+    <span class="i-badge">+13 pp vs their era</span></div>
+  <div class="terms"><span class="term">mexican</span><span class="term">treaty</span><span class="term">indemnity</span><span class="term">ceded</span></div>
+  <blockquote><p>“Many of the ports of entry and delivery now authorized by law, so far as foreign commerce is concerned, exist only in the statute books.”</p><cite>Veto Message Regarding Funding Internal Improvements, 1846</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Taxes & budget</span>
+    <span class="i-badge">+5 pp vs their era</span></div>
+  <div class="terms"><span class="term">revenue</span><span class="term">treasury</span></div>
+  <blockquote><p>“One of the difficulties which we have had to encounter in the practical administration of the government consists in the adjustment of our revenue laws and the levy of the taxes necessary for the support of government.”</p><cite>Inaugural Address, 1845</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Trade & tariffs</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  
+  <blockquote><p>“If the restriction is a sound one, it can only apply to the bays, inlets, and rivers connected with or leading to such ports as actually have foreign commerce--ports at which foreign importations arrive in bulk, paying the duties charged by law, and from which exports are made to foreign countries.”</p><cite>Veto Message Regarding Funding Internal Improvements, 1846</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">texas</span><span class="term">oregon</span><span class="term">territory</span><span class="term">steamers</span><span class="term">grande</span><span class="term">states</span><span class="term">annexation</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

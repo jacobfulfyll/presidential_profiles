@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,31 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">soviet</span><span class="term">freedom</span><span class="term">tax</span><span class="term">missiles</span><span class="term">lebanon</span><span class="term">soviets</span><span class="term">arms</span><span class="term">spending</span><span class="term">mondale</span><span class="term">nuclear</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Taxes & budget</span>
+    <span class="i-badge">+6 pp vs their era</span></div>
+  <div class="terms"><span class="term">tax</span><span class="term">spending</span><span class="term">budget</span><span class="term">economic</span><span class="term">deficits</span></div>
+  <blockquote><p>“Raising taxes won&#x27;t balance the budget; it will encourage more government spending and less private investment.”</p><cite>State of the Union Address, 1982</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Religion & values</span>
+    <span class="i-badge">+6 pp vs their era</span></div>
+  <div class="terms"><span class="term">freedom</span></div>
+  <blockquote><p>“The men of Normandy had faith that what they were doing was right, faith that they fought for all humanity, faith that a just God would grant them mercy on this beachhead or on the next.”</p><cite>40th Anniversary of D-Day, 1984</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Crime & justice</span>
+    <span class="i-badge">+1 pp vs their era</span></div>
+  <div class="terms"><span class="term">lebanon</span><span class="term">reagan</span><span class="term">yes</span></div>
+  <blockquote><p>“Taken as a whole, these proposals will toughen our laws against drug criminals, encourage more research and treatment, and ensure that illegal drugs will not be tolerated in our schools or in our workplaces.”</p><cite>Speech to the Nation on the Campaign Against Drug Abuse, 1986</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">soviet</span><span class="term">missiles</span><span class="term">soviets</span><span class="term">arms</span><span class="term">mondale</span><span class="term">nuclear</span><span class="term">strategic</span><span class="term">told</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

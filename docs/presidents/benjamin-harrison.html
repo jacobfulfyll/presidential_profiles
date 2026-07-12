@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">sailors</span><span class="term">chilean</span><span class="term">silver</span><span class="term">cent</span><span class="term">products</span><span class="term">lines</span><span class="term">methods</span><span class="term">electors</span><span class="term">value</span><span class="term">tariff</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Trade & tariffs</span>
+    <span class="i-badge">+8 pp vs their era</span></div>
+  <div class="terms"><span class="term">cent</span><span class="term">products</span><span class="term">lines</span><span class="term">value</span><span class="term">tariff</span></div>
+  <blockquote><p>“During the twelve months from October 1, 1890, to September 30, 1891, the total value of our foreign commerce (imports and exports combined) was $1,747,806,406, which was the largest of any year in the history of the United States.”</p><cite>Third Annual Message, 1891</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Foreign policy</span>
+    <span class="i-badge">+6 pp vs their era</span></div>
+  <div class="terms"><span class="term">pounds</span><span class="term">chile</span></div>
+  <blockquote><p>“On November 12, 1884, a treaty was concluded with Mexico reaffirming the boundary between the two countries as described in the treaties of February 2, 1848, and December 30, 1853.”</p><cite>Third Annual Message, 1891</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Infrastructure</span>
+    <span class="i-badge">+5 pp vs their era</span></div>
+  <div class="terms"><span class="term">sailors</span><span class="term">baltimore</span></div>
+  <blockquote><p>“Steamship lines from these ports to some northern port of South America will almost certainly effect a connection between the railroad systems of the continents long before any continuous line of railroads can be put into operation.”</p><cite>Second Annual Message, 1890</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Crime & justice</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">chilean</span></div>
+  <blockquote><p>“Commander Evans, who by my direction recently visited Mr. Egan at Santiago, in his telegram to the Navy Department described the legation as &quot;a veritable prison,&quot; and states that the police agents or detectives were after his arrival withdrawn during his stay.”</p><cite>Message Regarding Valparaiso Incident, 1892</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">silver</span><span class="term">methods</span><span class="term">electors</span><span class="term">indian</span><span class="term">increased</span><span class="term">allotments</span><span class="term">exports</span><span class="term">merchandise</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

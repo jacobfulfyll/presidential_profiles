@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">elections</span><span class="term">coinage</span><span class="term">election</span><span class="term">silver</span><span class="term">marshals</span><span class="term">statutes</span><span class="term">deputy</span><span class="term">indian</span><span class="term">laws</span><span class="term">appropriations</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Taxes & budget</span>
+    <span class="i-badge">+7 pp vs their era</span></div>
+  <div class="terms"><span class="term">appropriations</span><span class="term">attention</span></div>
+  <blockquote><p>“A tax of 10 cents a pound on tea and 2 cents a pound on coffee would produce a revenue exceeding $12,000,000, and thus enable Congress to repeal a multitude of annoying taxes yielding a revenue not exceeding that sum.”</p><cite>First Annual Message, 1877</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Immigration</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  
+  <blockquote><p>“To the House of Representatives: After a very careful consideration of House bill 2423, entitled &quot;An act to restrict the immigration of Chinese to the United States,&quot; I herewith return it to the House of Representatives, in which it originated, with my objections to its passage.”</p><cite>Veto Message Regarding Immigration Legislation, 1879</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Education</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">indian</span></div>
+  <blockquote><p>“The success of the public schools of the District of Columbia, and the progress made, under the intelligent direction of the board of education and the superintendent, in supplying the educational requirements of the District with thoroughly trained and efficient teachers, is very gratifying.”</p><cite>Fourth Annual Message, 1880</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Money & banking</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">coinage</span><span class="term">silver</span><span class="term">tender</span><span class="term">coin</span><span class="term">section</span></div>
+  <blockquote><p>“During the year prior to the passage of the bill authorizing its coinage the market value of the silver which it contained was from 90 to 92 cents as compared with the standard gold dollar.”</p><cite>Fourth Annual Message, 1880</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">elections</span><span class="term">election</span><span class="term">marshals</span><span class="term">statutes</span><span class="term">deputy</span><span class="term">laws</span><span class="term">sec</span><span class="term">deputies</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

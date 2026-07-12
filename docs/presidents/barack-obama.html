@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">jobs</span><span class="term">businesses</span><span class="term">insurance</span><span class="term">economy</span><span class="term">just</span><span class="term">health</span><span class="term">families</span><span class="term">kids</span><span class="term">america</span><span class="term">folks</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Economy & jobs</span>
+    <span class="i-badge">+14 pp vs their era</span></div>
+  <div class="terms"><span class="term">jobs</span><span class="term">businesses</span><span class="term">economy</span><span class="term">companies</span><span class="term">college</span></div>
+  <blockquote><p>“Pass this jobs bill -- pass this jobs bill, and starting tomorrow, small businesses will get a tax cut if they hire new workers or if they raise workers&#x27; wages.”</p><cite>Address to Congress on the American Jobs Act, 2011</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Health care</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">insurance</span><span class="term">health</span><span class="term">families</span><span class="term">care</span><span class="term">americans</span></div>
+  <blockquote><p>“Now, that&#x27;s what Americans who have health insurance can expect from this plan, more security and more stability.”</p><cite>Address to Congress on Health Care, 2009</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Education</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">kids</span></div>
+  <blockquote><p>“So tonight, I ask Congress to change the Higher Education Act so that affordability and value are included in determining which colleges receive certain types of federal aid.”</p><cite>2013 State of the Union Address, 2013</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Taxes & budget</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">republicans</span></div>
+  <blockquote><p>“And their conclusion is that the only way to tackle our deficit is to cut excessive spending wherever we find it -- in domestic spending, defense spending, health care spending, and spending through tax breaks and loopholes.”</p><cite>2011 State of the Union Address, 2011</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">just</span><span class="term">america</span><span class="term">folks</span><span class="term">qaeda</span><span class="term">afghanistan</span><span class="term">iraq</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

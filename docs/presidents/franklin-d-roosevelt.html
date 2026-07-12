@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">japanese</span><span class="term">war</span><span class="term">germany</span><span class="term">planes</span><span class="term">fighting</span><span class="term">production</span><span class="term">axis</span><span class="term">italy</span><span class="term">attack</span><span class="term">farm</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Security & peace</span>
+    <span class="i-badge">+17 pp vs their era</span></div>
+  <div class="terms"><span class="term">japanese</span><span class="term">germany</span><span class="term">planes</span><span class="term">axis</span><span class="term">italy</span></div>
+  <blockquote><p>“But it can be a peace - and it will be a peace - based on the sound and just principles of the Atlantic Charter - on the concept of the dignity of the human being - and on the guarantees of tolerance and freedom of religious worship.”</p><cite>Address to Congress on Yalta, 1945</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">War & military</span>
+    <span class="i-badge">+17 pp vs their era</span></div>
+  <div class="terms"><span class="term">war</span><span class="term">fighting</span><span class="term">german</span><span class="term">japan</span></div>
+  <blockquote><p>“From now on, if German or Italian vessels of war enter the waters, the protection of which is necessary for American defense, they do so at their own peril.”</p><cite>Fireside Chat 18: On The Greer Incident, 1941</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Infrastructure</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">attack</span><span class="term">nazi</span><span class="term">ships</span><span class="term">hitler</span></div>
+  <blockquote><p>“Our Railroad Bill falls into the same class because it seeks to provide and make certain definite planning by the railroads themselves, with the assistance of the Government, to eliminate the duplication and waste that is now resulting in railroad receiverships and continuing operating deficits.”</p><cite>Fireside Chat 2: On Progress During the First Two Months, 1933</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Economy & jobs</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  <div class="terms"><span class="term">production</span><span class="term">farm</span><span class="term">wages</span></div>
+  <blockquote><p>“The permanent cure lies in finding suitable jobs in industry and agriculture for all willing workers.”</p><cite>Fireside Chat 11: On the Unemployment Census, 1937</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">men</span><span class="term">nazis</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

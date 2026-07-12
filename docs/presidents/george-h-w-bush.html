@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,31 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">bush</span><span class="term">lehrer</span><span class="term">clinton</span><span class="term">soviet</span><span class="term">minute</span><span class="term">gorbachev</span><span class="term">governor</span><span class="term">kuwait</span><span class="term">think</span><span class="term">saddam</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">War & military</span>
+    <span class="i-badge">+5 pp vs their era</span></div>
+  <div class="terms"><span class="term">kuwait</span><span class="term">saddam</span><span class="term">gulf</span><span class="term">iraq</span><span class="term">leadership</span></div>
+  <blockquote><p>“And at the same time, and whether on the battlefield of Iraq or in some tiny little village in Somalia, America&#x27;s soldiers have always brought a quality of caring and kindness to their mission.”</p><cite>Address at West Point, 1993</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Security & peace</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">soviet</span><span class="term">gorbachev</span><span class="term">world</span></div>
+  <blockquote><p>“The Governor was for a nuclear freeze that would have locked in a thousand Soviet intermediate nuclear force weapons and zero for the West.”</p><cite>Debate with Michael Dukakis, 1988</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Taxes & budget</span>
+    <span class="i-badge">+1 pp vs their era</span></div>
+  <div class="terms"><span class="term">clinton</span><span class="term">got</span></div>
+  <blockquote><p>“It brings that deficit down further and balances the budget by 1993 with no new taxes.”</p><cite>State of the Union Address, 1990</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">bush</span><span class="term">lehrer</span><span class="term">minute</span><span class="term">governor</span><span class="term">think</span><span class="term">president</span><span class="term">vice</span><span class="term">say</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

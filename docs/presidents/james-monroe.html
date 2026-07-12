@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">spain</span><span class="term">likewise</span><span class="term">presumed</span><span class="term">respecting</span><span class="term">colonies</span><span class="term">fortifications</span><span class="term">object</span><span class="term">powers</span><span class="term">great</span><span class="term">effect</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Infrastructure</span>
+    <span class="i-badge">+8 pp vs their era</span></div>
+  <div class="terms"><span class="term">likewise</span><span class="term">fortifications</span><span class="term">tribes</span><span class="term">commerce</span><span class="term">coast</span></div>
+  <blockquote><p>“Other interests of high importance will claim attention, among which the improvement of our country by roads and canals, proceeding always with a constitutional sanction, holds a distinguished place.”</p><cite>First Inaugural Address, 1817</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">War & military</span>
+    <span class="i-badge">+7 pp vs their era</span></div>
+  <div class="terms"><span class="term">augmentation</span></div>
+  <blockquote><p>“Of the virtue of the people and of the heroic exploits of the Army, the Navy, and the militia I need not speak.”</p><cite>First Inaugural Address, 1817</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Foreign policy</span>
+    <span class="i-badge">+6 pp vs their era</span></div>
+  <div class="terms"><span class="term">spain</span><span class="term">respecting</span><span class="term">formed</span><span class="term">negotiation</span><span class="term">manufactures</span></div>
+  <blockquote><p>“The act of Congress of [1815-03-03], adopted immediately after the return of a general peace, was a new overture to foreign nations to establish our commercial relations with them on the basis of free and equal reciprocity.”</p><cite>Eighth Annual Message, 1824</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Trade & tariffs</span>
+    <span class="i-badge">+5 pp vs their era</span></div>
+  <div class="terms"><span class="term">colonies</span><span class="term">powers</span><span class="term">vessels</span></div>
+  <blockquote><p>“By placing, then, the navigation precisely on the same ground in the transportation of exports and imports between the United States and other countries it was presumed that all was offered which could be desired.”</p><cite>Fifth Annual Message, 1821</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">presumed</span><span class="term">object</span><span class="term">great</span><span class="term">effect</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

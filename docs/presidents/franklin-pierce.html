@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">territory</span><span class="term">states</span><span class="term">kansas</span><span class="term">nicaragua</span><span class="term">jurisdiction</span><span class="term">subject</span><span class="term">britain</span><span class="term">objects</span><span class="term">internal</span><span class="term">legislative</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Infrastructure</span>
+    <span class="i-badge">+10 pp vs their era</span></div>
+  <div class="terms"><span class="term">nicaragua</span><span class="term">jurisdiction</span><span class="term">navigation</span><span class="term">improvements</span><span class="term">granada</span></div>
+  <blockquote><p>“Congress would have begun, in pursuance of the state of knowledge at the time, by constructing turnpikes; then, as knowledge advanced, it would have constructed canals, and at the present time it would have been embarked in an almost limitless scheme of railroads.”</p><cite>Expansion of August 4 Veto Message, 1854</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Foreign policy</span>
+    <span class="i-badge">+6 pp vs their era</span></div>
+  <div class="terms"><span class="term">britain</span><span class="term">isthmus</span></div>
+  <blockquote><p>“Our diplomatic relations with foreign powers have undergone no essential changesince the adjournment of the last Congress.”</p><cite>First Annual Message, 1853</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Religion & values</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">internal</span><span class="term">constitution</span></div>
+  <blockquote><p>“It was alleged that the original enactment being a compact of perpetual moral obligation, its repeal constituted an odious breach of faith.”</p><cite>Fourth Annual Message, 1856</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Security & peace</span>
+    <span class="i-badge">+3 pp vs their era</span></div>
+  
+  <blockquote><p>“We have nothing in our history or position to invite aggression;we have everything to beckon us to the cultivation of relations of peaceand amity with all nations.”</p><cite>Inaugural Address, 1853</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">territory</span><span class="term">states</span><span class="term">kansas</span><span class="term">subject</span><span class="term">objects</span><span class="term">legislative</span><span class="term">assembly</span><span class="term">constitutional</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

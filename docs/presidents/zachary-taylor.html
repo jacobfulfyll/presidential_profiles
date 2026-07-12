@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">california</span><span class="term">treaty</span><span class="term">granada</span><span class="term">predecessor</span><span class="term">mexico</span><span class="term">recommend</span><span class="term">admission</span><span class="term">territory</span><span class="term">isthmus</span><span class="term">hidalgo</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Foreign policy</span>
+    <span class="i-badge">+26 pp vs their era</span></div>
+  <div class="terms"><span class="term">treaty</span><span class="term">granada</span><span class="term">isthmus</span><span class="term">hidalgo</span><span class="term">tehuantepec</span></div>
+  <blockquote><p>“Should this treaty be ratified, it will secure in future the liberation of all Central America from any kind of foreign aggression.”</p><cite>Message Regarding Treaty with Great Britain, 1850</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Infrastructure</span>
+    <span class="i-badge">+21 pp vs their era</span></div>
+  <div class="terms"><span class="term">guaranties</span></div>
+  <blockquote><p>“Opinion, as elicited and expressed by two large and respectable conventions lately assembled at St. Louis and Memphis, points to a railroad as that which, if practicable, will best meet the wishes and wants of the country.”</p><cite>First Annual Message, 1849</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Trade & tariffs</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">recommend</span></div>
+  <blockquote><p>“I recommend a revision of the existing tariff and its adjustment on a basis which may augment the revenue.”</p><cite>First Annual Message, 1849</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Agriculture</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">congress</span></div>
+  <blockquote><p>“No direct aid has been given by the General Government to the improvement of agriculture except by the expenditure of small sums for the collection and publication of agricultural statistics and for some chemical analyses, which have been thus far paid for out of the patent fund.”</p><cite>First Annual Message, 1849</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">california</span><span class="term">predecessor</span><span class="term">mexico</span><span class="term">admission</span><span class="term">territory</span><span class="term">guadalupe</span><span class="term">empire</span><span class="term">constitution</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>

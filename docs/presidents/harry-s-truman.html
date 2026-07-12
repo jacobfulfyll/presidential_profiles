@@ -41,6 +41,19 @@
   .terms { display: flex; flex-wrap: wrap; gap: 8px; }
   .term { background: var(--surface); border: 1px solid var(--border);
            border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
+  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
+  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+             margin-bottom: 10px; }
+  .i-name { font-weight: 700; font-size: 1.02rem; }
+  .i-badge { color: var(--muted); font-size: 0.8rem; }
+  .i-card .term, .i-voice .term { background: var(--page); }
+  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
+                        padding: 2px 0 2px 14px; }
+  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
+                          max-width: none; }
+  .i-card cite { display: block; color: var(--muted); font-style: normal;
+                  font-size: 0.8rem; margin-top: 6px; }
   .dim { color: var(--muted); }
   .neighbors p { margin: 6px 0; }
   ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
@@ -71,9 +84,37 @@
   </div>
 </section>
 <section>
-  <h2>In their own words</h2>
-  <p>Vocabulary statistically distinctive of this president vs all others.</p>
-  <div class="terms"><span class="term">greece</span><span class="term">world</span><span class="term">atomic</span><span class="term">korea</span><span class="term">victory</span><span class="term">democratic</span><span class="term">bomb</span><span class="term">republicans</span><span class="term">greek</span><span class="term">republican</span></div>
+  <h2>What they cared about — in their own words</h2>
+  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
+     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <div class="i-card">
+  <div class="i-head"><span class="i-name">Security & peace</span>
+    <span class="i-badge">+22 pp vs their era</span></div>
+  <div class="terms"><span class="term">greece</span><span class="term">atomic</span><span class="term">korea</span><span class="term">victory</span><span class="term">bomb</span></div>
+  <blockquote><p>“We shall continue to strive to promote freedom of expression and freedom of religion throughout the peace-loving areas of the world.”</p><cite>Navy Day Address, 1945</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">War & military</span>
+    <span class="i-badge">+7 pp vs their era</span></div>
+  <div class="terms"><span class="term">turkey</span></div>
+  <blockquote><p>“The fleet, on V-J Day, consisted of 1200 warships, more than 50,000 supporting and landing craft, and over 40,000 navy planes.”</p><cite>Navy Day Address, 1945</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Religion & values</span>
+    <span class="i-badge">+5 pp vs their era</span></div>
+  <div class="terms"><span class="term">peace</span><span class="term">nations</span></div>
+  <blockquote><p>“&quot;I call upon the people of the United States, whatever their faith, to unite in offering joyful thanks to God for the victory we have won, and to pray that He will support us to the end of our present struggle and guide us into the ways of peace.”</p><cite>Announcing the Surrender of Germany, 1945</cite></blockquote>
+</div>
+<div class="i-card">
+  <div class="i-head"><span class="i-name">Foreign policy</span>
+    <span class="i-badge">+4 pp vs their era</span></div>
+  <div class="terms"><span class="term">greek</span><span class="term">taft</span></div>
+  <blockquote><p>“The Foreign Relations Committees of the Senate and House were taken into the full confidence of the President in every one of these moves, and don&#x27;t let anybody tell you anything else.”</p><cite>Democratic National Convention, 1948</cite></blockquote>
+</div><div class="i-voice">
+  <div class="i-head"><span class="i-name">Their voice</span>
+    <span class="i-badge">distinctive words that belong to no single issue</span></div>
+  <div class="terms"><span class="term">world</span><span class="term">democratic</span><span class="term">republicans</span><span class="term">republican</span><span class="term">berlin</span><span class="term">reparations</span><span class="term">platform</span><span class="term">communism</span></div>
+</div>
 </section>
 <section class="neighbors">
   <h2>Kinships</h2>
