@@ -112,14 +112,22 @@ ERAS = [
 ]
 
 
-def era_vocabulary(df: pd.DataFrame | None = None, top_n: int = 8) -> list[dict]:
+# Synonym families that split one topic across several tokens ("covid",
+# "coronavirus") and hide it from the rankings.
+CANON = {"coronavirus": "covid", "vaccines": "vaccine"}
+
+
+def era_vocabulary(df: pd.DataFrame | None = None, top_n: int = 10) -> list[dict]:
     """Each era's statistically distinctive vocabulary vs all other eras."""
     if df is None:
         df = load()
-    counts = {
-        label: word_counts(df[df["year"].between(lo, hi)]["transcript"])
-        for label, lo, hi in ERAS
-    }
+    counts = {}
+    for label, lo, hi in ERAS:
+        c = word_counts(df[df["year"].between(lo, hi)]["transcript"])
+        for src, dst in CANON.items():
+            if src in c:
+                c[dst] += c.pop(src)
+        counts[label] = c
     total = sum(counts.values(), start=Counter())
     out = []
     for label, lo, hi in ERAS:

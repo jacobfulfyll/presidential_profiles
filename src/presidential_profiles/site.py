@@ -509,7 +509,7 @@ def fig_hope_fear(rates: pd.DataFrame, py: pd.DataFrame) -> go.Figure:
     ))
     for year, label in [(1812, "War of 1812"), (1860, "1860: eve of the Civil War"),
                         (1894, "Pullman strike"), (1941, "WWII"),
-                        (1983, "1983"), (2004, "Iraq"),
+                        (1983, "1983: Reagan's Cold War"), (2002, "9/11 → Iraq"),
                         (2026, "2026: highest since WWII")]:
         if year in ratio.index and pd.notna(ratio[year]):
             fig.add_annotation(x=year, y=float(ratio[year]),
@@ -667,17 +667,10 @@ FINDINGS = [
     ("Truman ×2", "One president holds both emotional records: the most hopeful "
      "substantial speech ever (four days after FDR died) and the most fearful "
      "(announcing the Korea emergency).", "records"),
-    ("“I” > any decade since 1790s", "The 2020s broke a century-long rise of “we”: "
-     "self-reference is at its highest since George Washington spoke for himself.",
-     "pronouns"),
     ("7:1 → 1:8", "“The United States” became “America”: the country stopped being named "
      "as a legal entity and became an idea. The lines cross in the 1950s.", "naming"),
     ("Lincoln ↔ FDR", "Remove each president's era from his voice, and the closest pair "
      "across any century is Lincoln and FDR - the two crisis unifiers.", "kinships"),
-    ("“I believe” died in 2017", "The share of “I” followed by believe / "
-     "think / hope / recommend climbed for two centuries - then collapsed to its lowest "
-     "level in the corpus. The modern “I” asserts; it no longer reasons.",
-     "afteri"),
 ]
 
 # Verified verbatim from the corpus - the certainty finding, in two sentences.
@@ -707,61 +700,6 @@ SECTIONS = [
      "while fear runs high, putting the 2025-26 ratio (0.61) above everything except the "
      "Second World War itself. The other peaks say what company the present keeps: 1983, "
      "and 1854-1861 - the eve of the Civil War. Each faint dot is one president's year."),
-    ("orientation", None, "Nostalgia is beating the future",
-     "Future language won every decade of the twentieth century. There have been three "
-     "nostalgia waves: the 1850s (Lincoln and Buchanan pleading to restore the Union as "
-     "it fractured), the 1980s (Reagan's “again”), and the 2020s - the only "
-     "one where future-talk is simultaneously at its lowest since WWII. The bottom panel "
-     "overlays the two divisions - nostalgia÷future and fear÷hope - and they "
-     "rhyme: both spike in the 1850s and both are elevated now."),
-    ("distinctive", None, "The vocabulary of every era",
-     "Each era's statistically distinctive words against all the rest of presidential "
-     "history, register words filtered out. Read it as a compressed history of what "
-     "the presidency was for: treaties and militia, then slavery and union, then "
-     "corporations and tariffs, then communism, then jobs - and now testing, ukraine, "
-     "china, border."),
-    ("records", "The record book", "The most extreme speeches ever given",
-     "Substantial speeches only (1,500+ words), rated per 10,000 words. Truman holds both "
-     "emotional records. The most absolutist speech in presidential history is Nixon's "
-     "farewell to his staff, the morning he resigned - a man consoling himself in "
-     "“always” and “never”. Below the length bar, short statements "
-     "spike higher still: the most fearful short statement ever is Trump's June 1, 2020 "
-     "remarks on the protests. Links go to the full transcripts."),
-    ("kinships", "Who presidents are", "Voices that rhyme across the centuries",
-     "Each president's voice with his era subtracted, then matched across gaps of 30+ "
-     "years. Presidents with fewer than five speeches (W. Harrison, Garfield, Taylor) "
-     "are excluded - a few speeches are not a voice. Lincoln ↔ FDR is the "
-     "strongest kinship in the corpus; every president's own matches are on their "
-     "profile page."),
-    ("map", None, "The river of history",
-     "Why the adjustment above is necessary: raw voice similarity is two-thirds era. "
-     "Project the unadjusted embeddings and time flows left to right almost perfectly, "
-     "even though the model never sees a date. Both maps are true - this one is about "
-     "eras, the one above is about people."),
-    ("heatmap", None, "The language of eras",
-     "The same era effect as a matrix: cosine similarity in chronological order. The dark "
-     "block from FDR onward is the modern voice forming. The most similar pair anywhere: "
-     "Bill Clinton and Barack Obama (0.978)."),
-    ("pronouns", "The long arc", "I versus we: where every president sits",
-     "Of each president's first-person language, how much is “I” rather than "
-     "“we”? Each face sits at that share, at the midpoint of their years in "
-     "the corpus. The founders spoke for themselves, the twentieth century spoke for "
-     "the nation, and the 2020s snapped back toward “I”."),
-    ("afteri", None, "“I believe” died in 2017",
-     "Not all “I” is the same - “I believe we should” and "
-     "“I built the greatest economy” do different work. Classifying every "
-     "word that follows “I”: the epistemic frame (believe / think / hope / "
-     "recommend) climbed for two centuries, peaked in the Cold War, and then collapsed "
-     "after 2017 to its lowest share in the corpus - below even the founders. The "
-     "modern “I” asserts; it no longer reasons."),
-    ("naming", None, "From “the United States” to “America”",
-     "In 1800 the country was named as a legal entity seven times more often than as an "
-     "idea. The lines cross in the 1950s - television, again - and by 2000 "
-     "“America” leads eight to one. The republic became a brand."),
-    ("religion", None, "“God bless” is a television-era invention",
-     "The phrase does not occur in a single 19th-century speech in this corpus. It appears "
-     "in the 1950s and becomes mandatory by Reagan. Presidential speech got more religious "
-     "as the country secularized."),
     ("readability", None, "Twelve grade levels, gone",
      "Median reading level fell from grade 19.9 in the 1790s to grade 7.8 in the 2020s. "
      "Every dot is one speech - hover to see which. The all-time floor is in the last "
@@ -1006,6 +944,12 @@ def main() -> None:
     para_labels = pd.read_parquet(issues.PARA_LABELS_PATH)
 
     scores = indices.president_scores(markers, stats, df).set_index("president")
+    # Presidents with a handful of speeches distort per-president charts
+    # (Garfield's one speech made him a certainty outlier); they keep their
+    # profile pages but sit out the dashboard graphics.
+    sparse = set(scores[scores["n_speeches"] < 5].index)
+    scores = scores[scores["n_speeches"] >= 5]
+    py = py[~py["president"].isin(sparse)].reset_index(drop=True)
     faces = portraits.data_uris(list(scores.index))
     issue_df, _ = issues.build_issues()
 
@@ -1013,11 +957,7 @@ def main() -> None:
         "map": fig_map(emb),
         "heatmap": fig_heatmap(sim),
         "certainty": fig_certainty_faces(scores, markers, faces),
-        "pronouns": fig_pronoun_faces(scores, faces),
-        "afteri": fig_after_i(df),
         "naming": fig_naming(rates, py),
-        "orientation": fig_orientation(rates, py),
-        "religion": fig_religion(rates, py),
         "hopefear": fig_hope_fear(rates, py),
         "readability": fig_readability(stats),
         "issues": fig_issues_decade(para_labels, issue_meta["issues"],
