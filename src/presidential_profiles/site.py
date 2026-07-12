@@ -1001,8 +1001,10 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, bodies: dict[str, s
 <header>
   <h1>Presidential Profiles</h1>
   <p class="sub">What 240 years of presidential speech actually says - and how it is
-  changing right now. Every finding below is computed from the full Miller Center corpus
-  and links to its evidence; all charts are interactive.</p>
+  changing right now. This corpus is the presidency's most formal register: the major
+  prepared addresses curated by the Miller Center, not rallies or tweets - presidents
+  with their best foot forward. Every finding below holds even there. All charts are
+  interactive and every finding links to its evidence.</p>
   <div class="findings">
 {findings_html}
   </div>
@@ -1025,7 +1027,10 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, bodies: dict[str, s
   before ~1790 is a handful of speeches, and one personal inaugural should not set a
   national trend line. Dots are per president per year: 46 years have more than one
   president speaking, and the corpus files a few famous pre-presidency speeches
-  (Nixon's Checkers speech, Reagan's "A Time for Choosing") under the later president.</p>
+  (Nixon's Checkers speech, Reagan's "A Time for Choosing") under the later president.
+  This is the formal register only - major prepared addresses; rallies, debates, and
+  social media are outside the corpus, so every trend here is presidents at their most
+  prepared.</p>
 </footer>
 <script>
   const FIGS = {json.dumps(fig_json)};

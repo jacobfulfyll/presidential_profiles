@@ -128,34 +128,20 @@ def render_profile(president: str, data: dict, display_issues: list[str]) -> str
         for s in data["signatures"][president]
     )
 
-    def _tone_word(pos, neg, n):
-        if n < 3 or pos + neg == 0:
-            return ""
-        if pos >= 2 * max(neg, 1):
-            return ", warmly"
-        if neg >= 2 * max(pos, 1):
-            return ", critically"
-        return ""
-
+    # Tone percentages were tried and retracted: lexicon sentiment cannot
+    # hear sarcasm ("because he was a nice guy?"), which dominates modern
+    # adversarial mentions. Counts only.
     invokes = data["invokes"].get(president) or []
     invoked_by = data["invoked_by"].get(president)
     invocation_bits = []
     if invokes:
         invocation_bits.append(
-            "Invokes: " + ", ".join(
-                f"{m['target']} ({m['n']}×{_tone_word(m['pos'], m['neg'], m['n'])})"
-                for m in invokes[:4])
+            "Invokes: " + ", ".join(f"{m['target']} ({m['n']}×)"
+                                    for m in invokes[:4])
         )
     if invoked_by and invoked_by["total"]:
-        t = invoked_by
-        toned = t["pos"] + t["neg"]
-        if toned >= 5:
-            rev = t["pos"] / toned * 100
-            invocation_bits.append(
-                f"Invoked {t['total']}× by later presidents - "
-                f"{rev:.0f}% of tone-carrying mentions are reverent")
-        else:
-            invocation_bits.append(f"Invoked {t['total']}× by later presidents")
+        invocation_bits.append(
+            f"Invoked {invoked_by['total']}× by later presidents")
     invocation_html = (
         f'<p class="invocations">{" &nbsp;·&nbsp; ".join(invocation_bits)}</p>'
         if invocation_bits else ""
