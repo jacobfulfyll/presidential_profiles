@@ -13,7 +13,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
 
-from . import corpus, indices, issues, profiles, profiles_site, rhetoric, similarity, trends
+from . import corpus, indices, issues, portraits, profiles, profiles_site, rhetoric, similarity, trends
 from .figures import (
     BASELINE,
     BLUE_RAMP,
@@ -84,16 +84,19 @@ def _timeline_layout(**overrides) -> dict:
     return out
 
 
-def fig_kinships(adj: pd.DataFrame, min_gap: int = 30, top_n: int = 12) -> go.Figure:
-    """The exact numbers behind cross-era voice kinship: top era-adjusted
-    similarity pairs at least min_gap years apart. A 2-D map necessarily
-    distorts pairwise distances; this chart doesn't."""
+def kinship_pairs(adj: pd.DataFrame, min_gap: int = 30,
+                  min_speeches: int = 3) -> list[tuple]:
+    """Top era-adjusted similarity pairs at least min_gap years apart.
+    One-speech presidents (W. Harrison, Garfield) are excluded - a single
+    speech is not a voice."""
+    keep = adj["n_speeches"] >= min_speeches
+    sub = adj[keep].reset_index(drop=True)
     vec_cols = [c for c in adj.columns if c.startswith("e")]
-    V = adj[vec_cols].to_numpy(dtype=float)
+    V = sub[vec_cols].to_numpy(dtype=float)
     V = V / np.linalg.norm(V, axis=1, keepdims=True)
     sim = V @ V.T
-    names = adj["president"].tolist()
-    years = adj["first_year"].to_numpy()
+    names = sub["president"].tolist()
+    years = sub["first_year"].to_numpy()
 
     pairs = []
     for i in range(len(names)):
@@ -102,7 +105,13 @@ def fig_kinships(adj: pd.DataFrame, min_gap: int = 30, top_n: int = 12) -> go.Fi
             if gap >= min_gap:
                 pairs.append((float(sim[i, j]), names[i], names[j], gap))
     pairs.sort(reverse=True)
-    top = pairs[:top_n][::-1]
+    return pairs
+
+
+def fig_kinships(adj: pd.DataFrame, top_n: int = 12) -> go.Figure:
+    """The exact numbers behind cross-era voice kinship. A 2-D map
+    necessarily distorts pairwise distances; this chart doesn't."""
+    top = kinship_pairs(adj)[:top_n][::-1]
 
     labels = [f"{a} ↔ {b}" for _, a, b, _ in top]
     fig = go.Figure(go.Bar(
@@ -133,14 +142,70 @@ def _stats_president_year(stats: pd.DataFrame, cols: list[str],
     return out[out["n_tokens"] >= min_tokens].reset_index(drop=True)
 
 
-def fig_pronouns(stats: pd.DataFrame) -> go.Figure:
-    py = _stats_president_year(stats, ["we_count", "i_count"])
-    return _two_line_fig(
-        [("we / us / our", _stats_yearly(stats, "we_count"),
-          _president_dots(py, "we_count", SERIES[0])),
-         ("I / me / my", _stats_yearly(stats, "i_count"),
-          _president_dots(py, "i_count", SERIES[1]))],
-        ytitle="uses per 10,000 words",
+FACE_CHART_WIDTH = 920  # fixed so portrait circles stay circular
+
+
+def _face_chart(scores: pd.DataFrame, value_col: str, ytitle: str, faces: dict,
+                hover_fmt: str = "%{customdata[1]:.2f}",
+                trend: pd.Series | None = None,
+                trend_name: str = "corpus rolling rate") -> go.Figure:
+    """Every president as their portrait, sitting at their score; the line
+    under each face spans their years in the corpus."""
+    fig = go.Figure()
+    if trend is not None:
+        fig.add_trace(go.Scatter(
+            x=trend.index, y=trend.values, mode="lines", name=trend_name,
+            line=dict(color=GRID, width=2), connectgaps=False,
+            hovertemplate="%{y:.2f}<extra>" + trend_name + "</extra>",
+        ))
+    vals = scores[value_col]
+    y_span = float(vals.max() - vals.min()) or 1.0
+    face_h = y_span * 1.35 * 30 / 430  # ~30px at chart height
+    for pres, row in scores.iterrows():
+        v = float(row[value_col])
+        x0, x1 = int(row["first_year"]), int(row["last_year"])
+        mid = (x0 + x1) / 2
+        color = PARTY_COLORS.get(row["party"], MUTED)
+        fig.add_trace(go.Scatter(
+            x=[x0, x1], y=[v, v], mode="lines", showlegend=False,
+            line=dict(color=color, width=2.5), hoverinfo="skip",
+        ))
+        fig.add_trace(go.Scatter(
+            x=[mid], y=[v], mode="markers", showlegend=False,
+            marker=dict(size=26, opacity=0),
+            customdata=[[pres, v]],
+            hovertemplate="<b>%{customdata[0]}</b><br>"
+                          + hover_fmt + "<extra></extra>",
+        ))
+        if pres in faces:
+            fig.add_layout_image(
+                source=faces[pres], x=mid, y=v, xref="x", yref="y",
+                sizex=8.2, sizey=face_h, xanchor="center", yanchor="middle",
+                layer="above",
+            )
+    layout = _timeline_layout(height=560, width=FACE_CHART_WIDTH,
+                              yaxis_title=ytitle, showlegend=trend is not None)
+    pad = y_span * 0.09
+    layout["yaxis"]["range"] = [float(vals.min()) - pad, float(vals.max()) + pad]
+    fig.update_layout(**layout)
+    return fig
+
+
+def fig_certainty_faces(scores: pd.DataFrame, markers: pd.DataFrame,
+                        faces: dict) -> go.Figure:
+    return _face_chart(
+        scores, "certainty", "assertive share of stance markers", faces,
+        hover_fmt="assertive share %{customdata[1]:.2f}",
+        trend=indices.certainty_yearly(markers),
+    )
+
+
+def fig_pronoun_faces(scores: pd.DataFrame, faces: dict) -> go.Figure:
+    s = scores.copy()
+    s["i_share"] = s["self_reference"] * 100
+    return _face_chart(
+        s, "i_share", "share of first-person that is “I” (%)", faces,
+        hover_fmt="“I” share %{customdata[1]:.0f}%",
     )
 
 
@@ -294,76 +359,86 @@ def fig_religion(rates: pd.DataFrame, py: pd.DataFrame) -> go.Figure:
 
 
 def fig_hope_fear(rates: pd.DataFrame, py: pd.DataFrame) -> go.Figure:
-    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[0.58, 0.42],
-                        vertical_spacing=0.1,
-                        subplot_titles=["hope and fear words per 10,000",
-                                        "the balance: fear ÷ hope"])
-    fig.add_trace(_president_dots(py, "nrc_hope", SERIES[0]), row=1, col=1)
-    fig.add_trace(_president_dots(py, "nrc_fear", SERIES[1]), row=1, col=1)
-    for i, (name, col) in enumerate([("hope words", "nrc_hope"),
-                                     ("fear words", "nrc_fear")]):
-        fig.add_trace(go.Scatter(
-            x=rates.index, y=rates[col], name=name, mode="lines",
-            line=dict(color=SERIES[i], width=2.4), connectgaps=False,
-            hovertemplate="%{y:.0f} per 10k<extra>" + name + "</extra>",
-        ), row=1, col=1)
-
+    """The balance only: fear words divided by hope words."""
     ratio = rates["nrc_fear"] / rates["nrc_hope"]
+    py = py.copy()
+    py["fh_ratio"] = py["nrc_fear"] / py["nrc_hope"].replace(0, np.nan)
+
+    fig = go.Figure()
+    fig.add_trace(_president_dots(py, "fh_ratio", SERIES[4], unit="fear/hope"))
     fig.add_trace(go.Scatter(
         x=ratio.index, y=ratio.values, name="fear ÷ hope", mode="lines",
-        line=dict(color=SERIES[4], width=2.4), connectgaps=False,
-        hovertemplate="fear/hope %{y:.2f}<extra></extra>",
-    ), row=2, col=1)
+        line=dict(color=SERIES[4], width=2.6), connectgaps=False,
+        hovertemplate="fear/hope %{y:.2f}<extra></extra>", showlegend=False,
+    ))
     for year, label in [(1860, "1860: eve of the Civil War"), (1941, "WWII"),
                         (1983, "1983"), (2026, "2026: highest since WWII")]:
         if year in ratio.index and pd.notna(ratio[year]):
-            fig.add_annotation(x=year, y=float(ratio[year]), xref="x2", yref="y2",
-                               text=label, showarrow=True, arrowhead=0, ax=0, ay=-26,
-                               arrowcolor=MUTED,
-                               font=dict(size=10.5, color=INK2))
-
-    fig.update_layout(**_layout(height=620, margin=dict(l=56, r=24, t=40, b=44)))
-    fig.update_xaxes(range=X_RANGE, gridcolor=GRID, linecolor=BASELINE,
-                     tickfont=dict(color=MUTED, size=11))
-    fig.update_yaxes(gridcolor=GRID, linecolor=BASELINE,
-                     tickfont=dict(color=MUTED, size=11))
-    fig.update_annotations(font=dict(size=12.5, color=INK), selector=dict(ay=0))
+            fig.add_annotation(x=year, y=float(ratio[year]),
+                               text=label, showarrow=True, arrowhead=0, ax=0, ay=-30,
+                               arrowcolor=MUTED, font=dict(size=11, color=INK2))
+    fig.update_layout(**_timeline_layout(height=470,
+                                         yaxis_title="fear words ÷ hope words"))
     return fig
 
 
-def fig_issues_opponents(rates: pd.DataFrame, py: pd.DataFrame,
-                         para_labels: pd.DataFrame, issue_names: list[str]) -> go.Figure:
-    """Are presidents talking about policy or about opponents?"""
-    pl = para_labels.copy()
-    pl["period"] = (pl["year"] // 5) * 5
-    counts = pl.groupby("period").size()
+def fig_president_issues(issue_df: pd.DataFrame, issue_names: list[str]) -> go.Figure:
+    """Every president x every issue: share of their paragraphs on it."""
     display = issue_names + ["Discovered 5"]
-    any_issue = pl.groupby("period")[display].apply(lambda g: g.any(axis=1).mean()) * 100
-    any_issue = any_issue[counts >= 40]
+    d = issue_df.sort_values("first_year") if "first_year" in issue_df else issue_df
+    presidents = d["president"].tolist()
+    labels = [profiles_site.DISCOVERED_LABELS.get(n, n) for n in display]
+    z = np.array([[d.iloc[i][f"share_{n}"] * 100 for n in display]
+                  for i in range(len(d))])
+    rel = np.array([[d.iloc[i][f"rel_{n}"] for n in display]
+                    for i in range(len(d))])
+    fig = go.Figure(go.Heatmap(
+        z=z, x=labels, y=presidents,
+        colorscale=[[i / 6, c] for i, c in enumerate(BLUE_RAMP)],
+        zmin=0, zmax=float(np.percentile(z, 98)),
+        customdata=rel,
+        hovertemplate="<b>%{y}</b> · %{x}<br>%{z:.0f}% of their paragraphs · "
+                      "%{customdata:+.1f} pp vs their era<extra></extra>",
+        colorbar=dict(title=dict(text="% of speech", font=dict(size=11, color=INK2)),
+                      tickfont=dict(size=10, color=MUTED), thickness=12, outlinewidth=0),
+    ))
+    fig.update_layout(**_layout(
+        height=900, margin=dict(l=150, r=24, t=24, b=110),
+        xaxis=dict(tickangle=45, tickfont=dict(size=10.5, color=INK2)),
+        yaxis=dict(autorange="reversed", tickfont=dict(size=9.5, color=INK2)),
+    ))
+    return fig
 
-    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[0.5, 0.5],
-                        vertical_spacing=0.11,
-                        subplot_titles=["share of paragraphs about a policy issue (%)",
-                                        "opponent talk per 10,000 words"])
-    fig.add_trace(go.Scatter(
-        x=any_issue.index, y=any_issue.values, mode="lines", name="policy issue share",
-        line=dict(color=BLUE_RAMP[4], width=2.4),
-        fill="tozeroy", fillcolor="rgba(109, 167, 236, 0.25)",
-        hovertemplate="%{y:.0f}% of paragraphs<extra></extra>", showlegend=False,
-    ), row=1, col=1)
-    fig.add_trace(_president_dots(py, "opponents", SERIES[5]), row=2, col=1)
-    fig.add_trace(go.Scatter(
-        x=rates.index, y=rates["opponents"], mode="lines", name="opponent talk",
-        line=dict(color=SERIES[5], width=2.4), connectgaps=False,
-        hovertemplate="%{y:.1f} per 10k<extra></extra>", showlegend=False,
-    ), row=2, col=1)
-    fig.update_layout(**_layout(height=560, margin=dict(l=56, r=24, t=40, b=44),
-                                showlegend=False))
-    fig.update_xaxes(range=X_RANGE, gridcolor=GRID, linecolor=BASELINE,
-                     tickfont=dict(color=MUTED, size=11))
-    fig.update_yaxes(gridcolor=GRID, linecolor=BASELINE, rangemode="tozero",
-                     tickfont=dict(color=MUTED, size=11))
-    fig.update_annotations(font=dict(size=12.5, color=INK))
+
+def fig_president_keywords(df: pd.DataFrame) -> go.Figure:
+    """Every president x the tracked keywords, column-normalized so one hot
+    metric doesn't wash out the rest; hover shows the raw rate."""
+    order = corpus.president_order(df)
+    rows = []
+    for p in order:
+        text = " ".join(df[df["president"] == p]["transcript"]).lower()
+        total = max(len(trends.tokens(text)), 1)
+        rows.append([sum(text.count(f" {t} ") for t in terms) / total * 10_000
+                     for terms in trends.TERM_GROUPS.values()])
+    raw = np.array(rows)
+    col_max = raw.max(axis=0, keepdims=True)
+    z = raw / np.maximum(col_max, 1e-9)
+    fig = go.Figure(go.Heatmap(
+        z=z, x=list(trends.TERM_GROUPS), y=order,
+        colorscale=[[i / 6, c] for i, c in enumerate(BLUE_RAMP)],
+        zmin=0, zmax=1,
+        customdata=raw,
+        hovertemplate="<b>%{y}</b> · %{x}<br>%{customdata:.1f} per 10k words"
+                      "<extra></extra>",
+        colorbar=dict(title=dict(text="share of column max",
+                                 font=dict(size=11, color=INK2)),
+                      tickfont=dict(size=10, color=MUTED), thickness=12, outlinewidth=0),
+    ))
+    fig.update_layout(**_layout(
+        height=900, margin=dict(l=150, r=24, t=24, b=100),
+        xaxis=dict(tickangle=45, tickfont=dict(size=10.5, color=INK2)),
+        yaxis=dict(autorange="reversed", tickfont=dict(size=9.5, color=INK2)),
+    ))
     return fig
 
 
@@ -416,8 +491,18 @@ def _label_positions(emb: pd.DataFrame, radius: float = 0.085) -> pd.Series:
     return pd.Series(out, index=emb.index)
 
 
-def fig_map(emb: pd.DataFrame) -> go.Figure:
+def fig_map(emb: pd.DataFrame, edges: list[tuple] | None = None) -> go.Figure:
     fig = go.Figure()
+    if edges:
+        coords = emb.set_index("president")[["pc1", "pc2"]]
+        for sim_val, a, b, _gap in edges:
+            fig.add_trace(go.Scatter(
+                x=[coords.loc[a, "pc1"], coords.loc[b, "pc1"]],
+                y=[coords.loc[a, "pc2"], coords.loc[b, "pc2"]],
+                mode="lines", showlegend=False,
+                line=dict(color=BASELINE, width=1.4, dash="dot"),
+                hovertemplate=f"{a} ↔ {b}: {sim_val:.2f}<extra></extra>",
+            ))
     positions = _label_positions(emb)
     for party, color in PARTY_COLORS.items():
         sub = emb[emb["party"] == party]
@@ -501,17 +586,16 @@ QUOTE_PAIRS = {
 SECTIONS = [
     ("certainty", "The headline finding", "Presidents stopped hedging",
      "In 1790, a president qualified a military order with “however … the dictates "
-     "of humanity” in the same sentence. In 2025, nothing is qualified. The chart is the "
-     "assertive share of stance language - boosters and will/must against hedges and "
-     "concessives - and each diamond is one inaugural address, the same genre across 240 "
-     "years. The two most recent inaugurals sit near 0.98: almost pure assertion. "
-     "Hover any dot to see whose year it was."),
+     "of humanity” in the same sentence. In 2025, nothing is qualified. Every "
+     "president sits at their assertive share of stance language - boosters and will/must "
+     "against hedges and concessives - with the line under each face spanning their years "
+     "in the corpus. The gray line is the corpus-wide rolling rate. No president before "
+     "1900 sits where any president after 1950 does."),
     ("hopefear", "The last five years", "The most fearful balance since WWII",
-     "Fear levels alone are not unprecedented - the 1940s ran hotter. The story is the "
-     "balance: hope has fallen to its lowest level in 240 years while fear runs high, "
-     "putting the 2025-26 fear-to-hope ratio (0.61) above everything except the Second "
-     "World War itself. The other peaks on the lower panel say what company the present "
-     "keeps: 1983, and 1854-1861 - the eve of the Civil War."),
+     "Fear words divided by hope words. Hope has fallen to its lowest level in 240 years "
+     "while fear runs high, putting the 2025-26 ratio (0.61) above everything except the "
+     "Second World War itself. The other peaks say what company the present keeps: 1983, "
+     "and 1854-1861 - the eve of the Civil War. Each faint dot is one president's year."),
     ("orientation", None, "Nostalgia is beating the future",
      "Future language won every decade of the twentieth century - often two to one over "
      "restoration language. There have been three nostalgia waves: the 1850s (Lincoln and "
@@ -524,12 +608,6 @@ SECTIONS = [
      "1989-2019 baseline, register words filtered out: <em>ukraine, china, testing, "
      "border</em>. What presidents talk about changed; how they talk changed more - see "
      "the next chart."),
-    ("issuesopp", None, "From issues to opponents",
-     "Two measures of what a president's words are for. Top: the share of paragraphs "
-     "that touch any policy issue in the taxonomy. Bottom: opponent talk - references to "
-     "the other party, opponents, politicians, the media. Policy share erodes in the "
-     "modern era while opponent talk climbs to all-time highs in the 2010s-2020s: "
-     "presidential speech is increasingly about who's wrong rather than what to do."),
     ("records", "The record book", "The most extreme speeches ever given",
      "Substantial speeches only (1,500+ words), rated per 10,000 words. Truman holds both "
      "emotional records. The most absolutist speech in presidential history is Nixon's "
@@ -539,13 +617,15 @@ SECTIONS = [
      "remarks on the protests. Links go to the full transcripts."),
     ("charmap", "Who presidents are", "The character map: era removed",
      "Subtract each president's era from his voice and what remains is character. The "
-     "layout preserves pairwise distances (MDS on the adjusted similarities), but any "
-     "2-D map distorts - the ranked list below it carries the exact numbers. Every "
-     "president's own kinships are on their profile page."),
+     "dotted lines are the strongest cross-era kinships, drawn directly on the map so "
+     "the layout and the numbers can be checked against each other - any 2-D layout "
+     "distorts, so the ranked list below carries the exact values. Every president's "
+     "own kinships are on their profile page."),
     ("kinships", None, "The strongest kinships across the centuries, exactly",
-     "The top era-adjusted voice pairs at least 30 years apart - the precise values "
-     "behind the map. Lincoln ↔ FDR is the strongest cross-era kinship in the "
-     "corpus; Lincoln appears three times in the top ranks."),
+     "The top era-adjusted voice pairs at least 30 years apart, among presidents with "
+     "at least three speeches (a single speech is not a voice, so William Harrison and "
+     "Garfield sit this one out). Lincoln ↔ FDR is the strongest cross-era "
+     "kinship in the corpus."),
     ("map", None, "The river of history",
      "Why the adjustment above is necessary: raw voice similarity is two-thirds era. "
      "Project the unadjusted embeddings and time flows left to right almost perfectly, "
@@ -555,11 +635,11 @@ SECTIONS = [
      "The same era effect as a matrix: cosine similarity in chronological order. The dark "
      "block from FDR onward is the modern voice forming. The most similar pair anywhere: "
      "Bill Clinton and Barack Obama (0.978)."),
-    ("pronouns", "The long arc", "The 2020s flipped a century of “we”",
-     "Presidential speech spent a hundred years becoming more collective - “we” "
-     "quadrupled from 1900 to the 2010s. Then the 2020s reversed it: “we” fell "
-     "for the first time in a century while “I” surged to its highest rate "
-     "since George Washington - who was, to be fair, mostly introducing himself."),
+    ("pronouns", "The long arc", "I versus we: where every president sits",
+     "Of each president's first-person language, how much is “I” rather than "
+     "“we”? The distribution tells the century-long story at a glance: the "
+     "founders spoke for themselves, the twentieth century spoke for the nation, and the "
+     "2020s snapped back toward “I”. Hover a face for the exact share."),
     ("naming", None, "From “the United States” to “America”",
      "In 1800 the country was named as a legal entity seven times more often than as an "
      "idea. The lines cross in the 1950s - television, again - and by 2000 "
@@ -578,10 +658,21 @@ SECTIONS = [
      "farm, health care and education arrive only in the late twentieth century - and "
      "immigration's 2020s spike exceeds anything in 240 years, including the Ellis "
      "Island era."),
+    ("presissues", None, "Every president × every issue",
+     "The full agenda matrix: how much of each president's speech touched each issue. "
+     "Read a row for one president's priorities, a column for an issue's history - "
+     "McKinley's row lights up on trade, FDR's on war and the economy, the modern rows "
+     "on health and education. Hover shows both the share and how it compares to their "
+     "era."),
     ("keywords", None, "One word at a time",
      "Raw rates for single terms. “Border” and “immigration” at "
      "all-time highs; “tariff” back from the dead after a century; "
      "“constitution” never recovered from the 1860s."),
+    ("preswords", None, "Every president × the keywords",
+     "The same terms, per president, each column scaled to its own maximum so the heavy "
+     "war-talk column doesn't wash out the light ones. Hover shows the raw rate per "
+     "10,000 words. Lincoln owns “constitution”, McKinley owns "
+     "“tariff”, the 2020s own “border”."),
 ]
 
 
@@ -791,21 +882,29 @@ def main() -> None:
     _, issue_meta = issues.build_issues()
     para_labels = pd.read_parquet(issues.PARA_LABELS_PATH)
 
+    scores = indices.president_scores(markers, stats, df).set_index("president")
+    faces = portraits.data_uris(list(scores.index))
+    issue_df, _ = issues.build_issues()
+    issue_df = issue_df.merge(
+        scores[["first_year"]].reset_index(), on="president", how="left")
+    edges = kinship_pairs(adj)[:8]
+
     figs = {
         "map": fig_map(emb),
-        "charmap": fig_map(adj),
+        "charmap": fig_map(adj, edges=edges),
         "heatmap": fig_heatmap(sim),
-        "certainty": fig_certainty(markers, py),
+        "certainty": fig_certainty_faces(scores, markers, faces),
         "kinships": fig_kinships(adj),
-        "pronouns": fig_pronouns(stats),
+        "pronouns": fig_pronoun_faces(scores, faces),
         "naming": fig_naming(rates, py),
         "orientation": fig_orientation(rates, py),
         "religion": fig_religion(rates, py),
         "hopefear": fig_hope_fear(rates, py),
         "readability": fig_readability(stats),
         "issues": fig_issues_decade(para_labels, issue_meta["issues"]),
-        "issuesopp": fig_issues_opponents(rates, py, para_labels, issue_meta["issues"]),
+        "presissues": fig_president_issues(issue_df, issue_meta["issues"]),
         "keywords": fig_keywords(kw),
+        "preswords": fig_president_keywords(df),
         "distinctive": fig_distinctive(distinctive),
     }
     stats_line = {
