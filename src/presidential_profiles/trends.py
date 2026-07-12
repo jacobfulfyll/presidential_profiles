@@ -92,7 +92,42 @@ REGISTER_WORDS = {
     "thing", "things", "kind", "actually", "okay", "gonna", "tell", "told",
     "saying", "talk", "talking", "look", "looking", "way", "right", "think",
     "thank", "great", "president", "didn", "don", "doesn", "isn", "wasn",
+    "like", "sir", "did", "doing", "does", "oh", "hey", "guys", "let",
+    # corpus-structural noise: split "united states", dates read aloud
+    "states", "united", "january", "february", "march", "april", "june",
+    "july", "september", "october", "november", "december",
 }
+
+# Named eras for the all-history vocabulary comparison.
+ERAS = [
+    ("The founding", 1789, 1815),
+    ("Expansion", 1816, 1849),
+    ("Civil War & Reconstruction", 1850, 1877),
+    ("The Gilded Age", 1878, 1900),
+    ("Progressives & Depression", 1901, 1932),
+    ("War & New Deal", 1933, 1945),
+    ("The Cold War", 1946, 1988),
+    ("Post-Cold War", 1989, 2016),
+    ("The present era", 2017, 2026),
+]
+
+
+def era_vocabulary(df: pd.DataFrame | None = None, top_n: int = 8) -> list[dict]:
+    """Each era's statistically distinctive vocabulary vs all other eras."""
+    if df is None:
+        df = load()
+    counts = {
+        label: word_counts(df[df["year"].between(lo, hi)]["transcript"])
+        for label, lo, hi in ERAS
+    }
+    total = sum(counts.values(), start=Counter())
+    out = []
+    for label, lo, hi in ERAS:
+        scores = log_odds_scores(counts[label], total - counts[label])
+        scores = scores[~scores["term"].isin(REGISTER_WORDS)]
+        out.append({"era": label, "years": f"{lo}-{hi}",
+                    "words": scores.tail(top_n)["term"].tolist()[::-1]})
+    return out
 
 
 def distinctive_terms(
