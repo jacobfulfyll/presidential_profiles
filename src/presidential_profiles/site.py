@@ -84,17 +84,41 @@ def _timeline_layout(**overrides) -> dict:
     return out
 
 
-def fig_modals(stats: pd.DataFrame) -> go.Figure:
-    fig = go.Figure()
-    for i, m in enumerate(["shall", "will", "must", "should"]):
-        rate = _stats_yearly(stats, f"modal_{m}")
-        fig.add_trace(go.Scatter(
-            x=rate.index, y=rate.values, name=m, mode="lines",
-            line=dict(color=SERIES[i], width=2.4), connectgaps=False,
-            hovertemplate="%{y:.1f} per 10k<extra>" + m + "</extra>",
-        ))
-    fig.update_layout(**_timeline_layout(hovermode="x unified",
-                                         yaxis_title="uses per 10,000 words"))
+def fig_kinships(adj: pd.DataFrame, min_gap: int = 30, top_n: int = 12) -> go.Figure:
+    """The exact numbers behind cross-era voice kinship: top era-adjusted
+    similarity pairs at least min_gap years apart. A 2-D map necessarily
+    distorts pairwise distances; this chart doesn't."""
+    vec_cols = [c for c in adj.columns if c.startswith("e")]
+    V = adj[vec_cols].to_numpy(dtype=float)
+    V = V / np.linalg.norm(V, axis=1, keepdims=True)
+    sim = V @ V.T
+    names = adj["president"].tolist()
+    years = adj["first_year"].to_numpy()
+
+    pairs = []
+    for i in range(len(names)):
+        for j in range(i + 1, len(names)):
+            gap = abs(int(years[i] - years[j]))
+            if gap >= min_gap:
+                pairs.append((float(sim[i, j]), names[i], names[j], gap))
+    pairs.sort(reverse=True)
+    top = pairs[:top_n][::-1]
+
+    labels = [f"{a} ↔ {b}" for _, a, b, _ in top]
+    fig = go.Figure(go.Bar(
+        y=labels, x=[s for s, *_ in top], orientation="h",
+        marker=dict(color=BLUE_RAMP[4]),
+        customdata=[g for *_, g in top],
+        hovertemplate="%{y}<br>adjusted similarity %{x:.2f} · "
+                      "%{customdata} years apart<extra></extra>",
+    ))
+    fig.update_layout(**_layout(
+        height=470, margin=dict(l=10, r=24, t=24, b=48),
+        xaxis=dict(title=dict(text="era-adjusted voice similarity",
+                              font=dict(size=11, color=INK2)),
+                   gridcolor=GRID, tickfont=dict(color=MUTED, size=11)),
+        yaxis=dict(tickfont=dict(color=INK, size=12.5), gridcolor=SURFACE),
+    ))
     return fig
 
 
@@ -227,7 +251,7 @@ def fig_certainty(markers: pd.DataFrame, py: pd.DataFrame) -> go.Figure:
     assertive = inaug["boosters"] + inaug["assertive_modals"]
     deliberative = inaug["hedges"] + inaug["concessives"]
     inaug["share"] = assertive / (assertive + deliberative)
-    inaug = inaug[(assertive + deliberative) >= 30]
+    inaug = inaug[(assertive + deliberative) >= 10]
     fig.add_trace(go.Scatter(
         x=inaug["year"], y=inaug["share"], mode="markers",
         name="inaugural addresses (one point each)",
@@ -270,13 +294,77 @@ def fig_religion(rates: pd.DataFrame, py: pd.DataFrame) -> go.Figure:
 
 
 def fig_hope_fear(rates: pd.DataFrame, py: pd.DataFrame) -> go.Figure:
-    return _two_line_fig(
-        [("hope words (NRC trust + anticipation + joy)", rates["nrc_hope"],
-          _president_dots(py, "nrc_hope", SERIES[0])),
-         ("fear words (NRC fear + anger)", rates["nrc_fear"],
-          _president_dots(py, "nrc_fear", SERIES[1]))],
-        ytitle="uses per 10,000 words",
-    )
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[0.58, 0.42],
+                        vertical_spacing=0.1,
+                        subplot_titles=["hope and fear words per 10,000",
+                                        "the balance: fear ÷ hope"])
+    fig.add_trace(_president_dots(py, "nrc_hope", SERIES[0]), row=1, col=1)
+    fig.add_trace(_president_dots(py, "nrc_fear", SERIES[1]), row=1, col=1)
+    for i, (name, col) in enumerate([("hope words", "nrc_hope"),
+                                     ("fear words", "nrc_fear")]):
+        fig.add_trace(go.Scatter(
+            x=rates.index, y=rates[col], name=name, mode="lines",
+            line=dict(color=SERIES[i], width=2.4), connectgaps=False,
+            hovertemplate="%{y:.0f} per 10k<extra>" + name + "</extra>",
+        ), row=1, col=1)
+
+    ratio = rates["nrc_fear"] / rates["nrc_hope"]
+    fig.add_trace(go.Scatter(
+        x=ratio.index, y=ratio.values, name="fear ÷ hope", mode="lines",
+        line=dict(color=SERIES[4], width=2.4), connectgaps=False,
+        hovertemplate="fear/hope %{y:.2f}<extra></extra>",
+    ), row=2, col=1)
+    for year, label in [(1860, "1860: eve of the Civil War"), (1941, "WWII"),
+                        (1983, "1983"), (2026, "2026: highest since WWII")]:
+        if year in ratio.index and pd.notna(ratio[year]):
+            fig.add_annotation(x=year, y=float(ratio[year]), xref="x2", yref="y2",
+                               text=label, showarrow=True, arrowhead=0, ax=0, ay=-26,
+                               arrowcolor=MUTED,
+                               font=dict(size=10.5, color=INK2))
+
+    fig.update_layout(**_layout(height=620, margin=dict(l=56, r=24, t=40, b=44)))
+    fig.update_xaxes(range=X_RANGE, gridcolor=GRID, linecolor=BASELINE,
+                     tickfont=dict(color=MUTED, size=11))
+    fig.update_yaxes(gridcolor=GRID, linecolor=BASELINE,
+                     tickfont=dict(color=MUTED, size=11))
+    fig.update_annotations(font=dict(size=12.5, color=INK), selector=dict(ay=0))
+    return fig
+
+
+def fig_issues_opponents(rates: pd.DataFrame, py: pd.DataFrame,
+                         para_labels: pd.DataFrame, issue_names: list[str]) -> go.Figure:
+    """Are presidents talking about policy or about opponents?"""
+    pl = para_labels.copy()
+    pl["period"] = (pl["year"] // 5) * 5
+    counts = pl.groupby("period").size()
+    display = issue_names + ["Discovered 5"]
+    any_issue = pl.groupby("period")[display].apply(lambda g: g.any(axis=1).mean()) * 100
+    any_issue = any_issue[counts >= 40]
+
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[0.5, 0.5],
+                        vertical_spacing=0.11,
+                        subplot_titles=["share of paragraphs about a policy issue (%)",
+                                        "opponent talk per 10,000 words"])
+    fig.add_trace(go.Scatter(
+        x=any_issue.index, y=any_issue.values, mode="lines", name="policy issue share",
+        line=dict(color=BLUE_RAMP[4], width=2.4),
+        fill="tozeroy", fillcolor="rgba(109, 167, 236, 0.25)",
+        hovertemplate="%{y:.0f}% of paragraphs<extra></extra>", showlegend=False,
+    ), row=1, col=1)
+    fig.add_trace(_president_dots(py, "opponents", SERIES[5]), row=2, col=1)
+    fig.add_trace(go.Scatter(
+        x=rates.index, y=rates["opponents"], mode="lines", name="opponent talk",
+        line=dict(color=SERIES[5], width=2.4), connectgaps=False,
+        hovertemplate="%{y:.1f} per 10k<extra></extra>", showlegend=False,
+    ), row=2, col=1)
+    fig.update_layout(**_layout(height=560, margin=dict(l=56, r=24, t=40, b=44),
+                                showlegend=False))
+    fig.update_xaxes(range=X_RANGE, gridcolor=GRID, linecolor=BASELINE,
+                     tickfont=dict(color=MUTED, size=11))
+    fig.update_yaxes(gridcolor=GRID, linecolor=BASELINE, rangemode="tozero",
+                     tickfont=dict(color=MUTED, size=11))
+    fig.update_annotations(font=dict(size=12.5, color=INK))
+    return fig
 
 
 def fig_keywords(kw: pd.DataFrame) -> go.Figure:
@@ -381,11 +469,12 @@ FINDINGS = [
     ("0.58 → 0.93", "Presidents stopped hedging. On inaugural addresses alone - the same "
      "genre for 240 years - the assertive share of stance language rose from balanced to "
      "near-total. The grammar of trade-offs is nearly extinct.", "certainty"),
-    ("fear ×1.9", "Fear language has nearly doubled since 2020 - from 198 to 379 words per "
-     "10k by the 2026 war addresses - while hope sits at its lowest level on record.",
-     "hopefear"),
-    ("June 1, 2020", "The most fearful presidential speech in 240 years isn't from a war "
-     "or a depression. See the record book for the extremes.", "records"),
+    ("highest since WWII", "The fear-to-hope balance in 2025-26 is the most fearful "
+     "since the Second World War - and the earlier peaks are 1983 and the eve of the "
+     "Civil War. Hope itself is at its lowest level in 240 years.", "hopefear"),
+    ("Truman ×2", "One president holds both emotional records: the most hopeful "
+     "substantial speech ever (four days after FDR died) and the most fearful "
+     "(announcing the Korea emergency).", "records"),
     ("“I” > any decade since 1790s", "The 2020s broke a century-long rise of “we”: "
      "self-reference is at its highest since George Washington spoke for himself.",
      "pronouns"),
@@ -417,32 +506,46 @@ SECTIONS = [
      "concessives - and each diamond is one inaugural address, the same genre across 240 "
      "years. The two most recent inaugurals sit near 0.98: almost pure assertion. "
      "Hover any dot to see whose year it was."),
-    ("hopefear", "The last five years", "Fear is surging right now",
-     "This is the newest thing in the corpus, and a decade-average would have erased it: "
-     "fear language collapses to a low in 2020, then nearly doubles - 198 to 379 per 10k - "
-     "through Ukraine, China, and the 2026 war addresses, while hope falls to its lowest "
-     "level in 240 years. The rally-round-the-flag unity of 2020 gave way to the most "
-     "fear-forward presidential rhetoric on record."),
+    ("hopefear", "The last five years", "The most fearful balance since WWII",
+     "Fear levels alone are not unprecedented - the 1940s ran hotter. The story is the "
+     "balance: hope has fallen to its lowest level in 240 years while fear runs high, "
+     "putting the 2025-26 fear-to-hope ratio (0.61) above everything except the Second "
+     "World War itself. The other peaks on the lower panel say what company the present "
+     "keeps: 1983, and 1854-1861 - the eve of the Civil War."),
     ("orientation", None, "Nostalgia is beating the future",
      "Future language won every decade of the twentieth century - often two to one over "
-     "restoration language. The 1980s brought the first nostalgia wave; the 2020s brought "
-     "the second, and this time future-talk is simultaneously at its lowest since WWII. "
-     "For the first time, presidents are selling the past harder than the future."),
+     "restoration language. There have been three nostalgia waves: the 1850s (Lincoln and "
+     "Buchanan pleading to restore the Union as it fractured), the 1980s (Reagan's "
+     "“again”), and the 2020s - the only one where future-talk is "
+     "simultaneously at its lowest since WWII. Both this chart and the fear-hope balance "
+     "above point at the same historical rhyme: the 1850s."),
     ("distinctive", None, "The words that mark the new era",
      "Vocabulary statistically distinctive of speeches since April 2019 against the "
-     "1989-2019 baseline: <em>ukraine, china, testing</em> - and, just as telling, "
-     "<em>really, yeah, going</em>. The presidency now speaks in spoken-word register."),
+     "1989-2019 baseline, register words filtered out: <em>ukraine, china, testing, "
+     "border</em>. What presidents talk about changed; how they talk changed more - see "
+     "the next chart."),
+    ("issuesopp", None, "From issues to opponents",
+     "Two measures of what a president's words are for. Top: the share of paragraphs "
+     "that touch any policy issue in the taxonomy. Bottom: opponent talk - references to "
+     "the other party, opponents, politicians, the media. Policy share erodes in the "
+     "modern era while opponent talk climbs to all-time highs in the 2010s-2020s: "
+     "presidential speech is increasingly about who's wrong rather than what to do."),
     ("records", "The record book", "The most extreme speeches ever given",
-     "Single speeches of at least 800 words, rated per 10,000 words. The most absolutist "
-     "speech in presidential history is Nixon's farewell to his staff, delivered the "
-     "morning he resigned - a man consoling himself in “always” and "
-     "“never”. Links go to the full transcript."),
+     "Substantial speeches only (1,500+ words), rated per 10,000 words. Truman holds both "
+     "emotional records. The most absolutist speech in presidential history is Nixon's "
+     "farewell to his staff, the morning he resigned - a man consoling himself in "
+     "“always” and “never”. Below the length bar, short statements "
+     "spike higher still: the most fearful short statement ever is Trump's June 1, 2020 "
+     "remarks on the protests. Links go to the full transcripts."),
     ("charmap", "Who presidents are", "The character map: era removed",
-     "Subtract each president's era from his voice and what remains is character. Lincoln "
-     "lands beside FDR - the strongest cross-era kinship in the corpus - the orators "
-     "cluster (Reagan, Obama, Jefferson), and the plain-spoken fighters find each other "
-     "across centuries (Trump's nearest voices: Truman and Van Buren). Every president's "
-     "own kinships are on their profile page."),
+     "Subtract each president's era from his voice and what remains is character. The "
+     "layout preserves pairwise distances (MDS on the adjusted similarities), but any "
+     "2-D map distorts - the ranked list below it carries the exact numbers. Every "
+     "president's own kinships are on their profile page."),
+    ("kinships", None, "The strongest kinships across the centuries, exactly",
+     "The top era-adjusted voice pairs at least 30 years apart - the precise values "
+     "behind the map. Lincoln ↔ FDR is the strongest cross-era kinship in the "
+     "corpus; Lincoln appears three times in the top ranks."),
     ("map", None, "The river of history",
      "Why the adjustment above is necessary: raw voice similarity is two-thirds era. "
      "Project the unadjusted embeddings and time flows left to right almost perfectly, "
@@ -461,11 +564,6 @@ SECTIONS = [
      "In 1800 the country was named as a legal entity seven times more often than as an "
      "idea. The lines cross in the 1950s - television, again - and by 2000 "
      "“America” leads eight to one. The republic became a brand."),
-    ("modals", None, "The death of “shall”",
-     "The strongest single-word signal in the corpus: “shall”, the language of "
-     "law and covenant, collapsed from 22 per 10k words to nearly zero after 1960. "
-     "“Must” peaked with FDR and the war; promising, future-facing "
-     "“will” took over."),
     ("religion", None, "“God bless” is a television-era invention",
      "The phrase does not occur in a single 19th-century speech in this corpus. It appears "
      "in the 1950s and becomes mandatory by Reagan. Presidential speech got more religious "
@@ -496,20 +594,24 @@ RECORD_SPECS = [
 ]
 
 
-def compute_records(markers: pd.DataFrame, min_words: int = 800) -> list[dict]:
+def compute_records(markers: pd.DataFrame, min_words: int = 1_500) -> list[dict]:
+    """Substantial speeches only: below ~1,500 words, short ceremonial
+    statements top every emotion category on lexicon density alone."""
     m = markers[markers["n_words"] >= min_words]
     records = []
     for label, col, unit in RECORD_SPECS:
-        rate = m[col] / m["n_words"] * 10_000
-        row = m.loc[rate.idxmax()]
+        rate = (m[col] / m["n_words"] * 10_000).sort_values(ascending=False)
+        row, runner = m.loc[rate.index[0]], m.loc[rate.index[1]]
         records.append({
             "label": label,
-            "value": f"{rate.max():.0f}",
+            "value": f"{rate.iloc[0]:.0f}",
             "unit": unit,
             "president": row["president"],
             "year": int(row["year"]),
             "title": row["title"],
             "url": profiles.MILLER_URL + row["doc_name"],
+            "runner": f"{runner['president']}, {runner['title'].split(':', 1)[-1].strip()}"
+                      f" ({rate.iloc[1]:.0f})",
         })
     return records
 
@@ -522,6 +624,7 @@ def _records_html(records: list[dict]) -> str:
   <div class="r-value">{r["value"]} <span class="r-unit">{r["unit"]}</span></div>
   <div class="r-who">{r["president"]}, {r["year"]}</div>
   <a class="r-title" href="{r["url"]}" target="_blank" rel="noopener">{r["title"]}</a>
+  <div class="r-runner">runner-up: {r["runner"]}</div>
 </div>""")
     return '<div class="records">' + "\n".join(cards) + "</div>"
 
@@ -623,6 +726,7 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, records: list[dict]
   .r-unit {{ font-size: 0.8rem; font-weight: 500; color: var(--muted); }}
   .r-who {{ margin-top: 6px; font-weight: 600; font-size: 0.94rem; }}
   .r-title {{ display: block; color: var(--ink2); font-size: 0.85rem; margin-top: 4px; }}
+  .r-runner {{ color: var(--muted); font-size: 0.78rem; margin-top: 8px; }}
   .profiles-link {{ display: inline-block; margin-top: 20px; font-size: 1rem;
                     color: var(--ink); font-weight: 600; }}
 </style>
@@ -692,14 +796,15 @@ def main() -> None:
         "charmap": fig_map(adj),
         "heatmap": fig_heatmap(sim),
         "certainty": fig_certainty(markers, py),
+        "kinships": fig_kinships(adj),
         "pronouns": fig_pronouns(stats),
-        "modals": fig_modals(stats),
         "naming": fig_naming(rates, py),
         "orientation": fig_orientation(rates, py),
         "religion": fig_religion(rates, py),
         "hopefear": fig_hope_fear(rates, py),
         "readability": fig_readability(stats),
         "issues": fig_issues_decade(para_labels, issue_meta["issues"]),
+        "issuesopp": fig_issues_opponents(rates, py, para_labels, issue_meta["issues"]),
         "keywords": fig_keywords(kw),
         "distinctive": fig_distinctive(distinctive),
     }

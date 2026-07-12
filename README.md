@@ -49,14 +49,6 @@ highest of any decade since George Washington's personal addresses in the 1790s.
 
 ![First-person pronouns over time](outputs/figures/pronouns.png)
 
-### The death of "shall"
-
-The classic marker of formal obligation collapsed from **21.8 uses per 10k words in the 1790s
-to 0.35 today**. "Must" rose in its place through the FDR/war years, and "will" — promising,
-future-facing — took over modern speech, peaking around 2000.
-
-![Modal verbs over time](outputs/figures/modal_verbs.png)
-
 ### Speeches dropped twelve grade levels
 
 Median Flesch–Kincaid reading level fell from **grade 19.9 in the 1790s to grade 7.8 in the

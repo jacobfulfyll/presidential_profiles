@@ -85,6 +85,16 @@ def log_odds_scores(
     return pd.DataFrame(rows).sort_values("z")
 
 
+# Spoken-register words: interesting as a register finding, but they crowd
+# topical change out of the era-distinctive chart.
+REGISTER_WORDS = {
+    "going", "said", "really", "yeah", "know", "want", "lot", "just", "got",
+    "thing", "things", "kind", "actually", "okay", "gonna", "tell", "told",
+    "saying", "talk", "talking", "look", "looking", "way", "right", "think",
+    "thank", "great", "president", "didn", "don", "doesn", "isn", "wasn",
+}
+
+
 def distinctive_terms(
     df: pd.DataFrame | None = None,
     split_date: str = "2019-04-18",
@@ -101,6 +111,7 @@ def distinctive_terms(
 
     scores = log_odds_scores(word_counts(new["transcript"]),
                              word_counts(old["transcript"]))
+    scores = scores[~scores["term"].isin(REGISTER_WORDS)]
     top_old = scores.head(top_n).assign(era="1989 - Apr 2019")
     top_new = scores.tail(top_n).assign(era="Apr 2019 - 2026")
     return pd.concat([top_old, top_new]).reset_index(drop=True)

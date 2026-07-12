@@ -39,6 +39,11 @@ MARKERS = {
     "us_them": r"\bthey\b|\bthem\b|\bthemselves\b",
     "superlatives": r"\bgreatest\b|\bbest\b|\bfinest\b|\bstrongest\b|\bworst\b"
                     r"|\bbiggest\b|\bmost important\b",
+    # Era-safe opponent vocabulary: party-member plurals and explicit opponent
+    # words only ("republican government" and "party to a treaty" don't count).
+    "opponents": r"\bopponents?\b|\bpartisan\w*\b|\bdemocrats\b|\brepublicans\b"
+                 r"|\bpoliticians\b|\bfake news\b|\bradical left\b|\bthe other side\b"
+                 r"|\bmy opponent\b|\bcritics\b|\bthe press\b|\bthe media\b",
 }
 
 # NRC emotion groupings: hope reads as trust + anticipation + joy;

@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 from model2vec import StaticModel
 from sklearn.decomposition import PCA
+from sklearn.manifold import MDS
 
 from .corpus import DATA_DIR, load, president_order
 
@@ -105,7 +106,13 @@ def build_adjusted(emb: pd.DataFrame | None = None, force: bool = False) -> pd.D
         adjusted[i] = V[i] - V[mask].mean(axis=0)
     adjusted = _normalize(adjusted)
 
-    coords = PCA(n_components=2, random_state=42).fit_transform(adjusted)
+    # MDS on the actual cosine distances: with 45 points it preserves the
+    # pairwise structure far better than PCA (which scattered the top pair,
+    # Lincoln <-> FDR, to opposite regions).
+    dist = 1.0 - adjusted @ adjusted.T
+    np.fill_diagonal(dist, 0.0)
+    coords = MDS(n_components=2, dissimilarity="precomputed", random_state=42,
+                 n_init=8, normalized_stress=False).fit_transform(dist)
     out = emb[["president", "party", "n_speeches", "first_year"]].copy()
     out["pc1"] = coords[:, 0]
     out["pc2"] = coords[:, 1]
