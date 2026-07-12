@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Economy & jobs - Presidential Profiles</title>
+<script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+<style>
+
+  :root {
+    --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
+    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--page); color: var(--ink);
+         font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.55; }
+  header { max-width: 980px; margin: 0 auto; padding: 48px 20px 8px; }
+  header h1 { font-size: 2rem; letter-spacing: -0.02em; }
+  header p.sub { color: var(--ink2); margin-top: 10px; max-width: 46rem; }
+  main { max-width: 980px; margin: 0 auto; padding: 8px 20px 40px; }
+  section { margin-top: 44px; }
+  section h2 { font-size: 1.28rem; letter-spacing: -0.01em; }
+  section p { color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }
+  .chart-scroll { background: var(--surface); border: 1px solid var(--border);
+                   border-radius: 12px; padding: 10px 6px 6px; overflow-x: auto; }
+  .chart { min-width: 640px; }
+  footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
+            border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--ink2); }
+
+  .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
+  .crumbs a { color: var(--ink2); }
+  .o-row { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
+  .o-row img { width: 34px; height: 34px; border-radius: 50%; flex: none; }
+  .o-name { width: 190px; flex: none; font-size: 0.92rem; }
+  .o-bar { flex: 1; height: 10px; background: var(--page); border-radius: 5px;
+            border: 1px solid var(--border); overflow: hidden; }
+  .o-bar span { display: block; height: 100%; background: #256abf; }
+  .o-val { width: 46px; text-align: right; color: var(--ink2);
+            font-size: 0.88rem; flex: none; }
+  blockquote { background: var(--surface); border: 1px solid var(--border);
+                border-left: 3px solid var(--muted); border-radius: 10px;
+                padding: 14px 18px; margin: 12px 0; }
+  blockquote p { color: var(--ink); margin: 4px 0 0; max-width: none; }
+  .q-label { color: var(--muted); font-size: 0.76rem; font-weight: 650;
+              letter-spacing: 0.07em; text-transform: uppercase; }
+  blockquote cite { display: block; font-style: normal; font-size: 0.82rem;
+                     margin-top: 8px; }
+  blockquote cite a { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <p class="crumbs"><a href="index.html">← All issues</a> &nbsp;·&nbsp;
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../presidents/index.html">Presidents</a></p>
+  <h1>Economy & jobs</h1>
+</header>
+<main>
+<section>
+  <h2>240 years of attention</h2>
+  <p>Share of presidential speech about economy & jobs; each dot is one
+  president's own share, at their term midpoint.</p>
+  <div class="chart-scroll"><div class="chart" id="chart" style="height:380px"></div></div>
+</section>
+<section>
+  <h2>Who owned it</h2>
+  <p>The presidents who gave it the largest share of their words.</p>
+  <div class="o-row">
+  <img src="../portraits/herbert-hoover.png" alt=""><span class="o-name">Herbert Hoover</span>
+  <span class="o-bar"><span style="width:100%"></span></span>
+  <span class="o-val">38%</span>
+</div><div class="o-row">
+  <img src="../portraits/barack-obama.png" alt=""><span class="o-name">Barack Obama</span>
+  <span class="o-bar"><span style="width:86%"></span></span>
+  <span class="o-val">33%</span>
+</div><div class="o-row">
+  <img src="../portraits/bill-clinton.png" alt=""><span class="o-name">Bill Clinton</span>
+  <span class="o-bar"><span style="width:72%"></span></span>
+  <span class="o-val">27%</span>
+</div><div class="o-row">
+  <img src="../portraits/calvin-coolidge.png" alt=""><span class="o-name">Calvin Coolidge</span>
+  <span class="o-bar"><span style="width:61%"></span></span>
+  <span class="o-val">23%</span>
+</div><div class="o-row">
+  <img src="../portraits/franklin-d-roosevelt.png" alt=""><span class="o-name">Franklin D. Roosevelt</span>
+  <span class="o-bar"><span style="width:61%"></span></span>
+  <span class="o-val">23%</span>
+</div><div class="o-row">
+  <img src="../portraits/william-taft.png" alt=""><span class="o-name">William Taft</span>
+  <span class="o-bar"><span style="width:56%"></span></span>
+  <span class="o-val">21%</span>
+</div><div class="o-row">
+  <img src="../portraits/jimmy-carter.png" alt=""><span class="o-name">Jimmy Carter</span>
+  <span class="o-bar"><span style="width:53%"></span></span>
+  <span class="o-val">20%</span>
+</div><div class="o-row">
+  <img src="../portraits/dwight-d-eisenhower.png" alt=""><span class="o-name">Dwight D. Eisenhower</span>
+  <span class="o-bar"><span style="width:53%"></span></span>
+  <span class="o-val">20%</span>
+</div>
+</section>
+<section>
+  <h2>In their words</h2>
+  <blockquote><div class="q-label">Early</div>
+<p>“I feel particular satisfaction in remarking that an interior view of our country presents us with grateful proofs of its substantial and increasing prosperity.”</p>
+<cite><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-5-1810-second-annual-message" target="_blank" rel="noopener">James Madison, Second Annual Message, 1810</a></cite>
+</blockquote>
+<blockquote><div class="q-label">At its peak</div>
+<p>“The permanent cure lies in finding suitable jobs in industry and agriculture for all willing workers.”</p>
+<cite><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-14-1937-fireside-chat-11-unemployment-census" target="_blank" rel="noopener">Franklin D. Roosevelt, Fireside Chat 11: On the Unemployment Census, 1937</a></cite>
+</blockquote>
+<blockquote><div class="q-label">Most recent</div>
+<p>“Pass this jobs bill -- pass this jobs bill, and starting tomorrow, small businesses will get a tax cut if they hire new workers or if they raise workers&#x27; wages.”</p>
+<cite><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/september-8-2011-address-congress-american-jobs-act" target="_blank" rel="noopener">Barack Obama, Address to Congress on the American Jobs Act, 2011</a></cite>
+</blockquote>
+</section>
+</main>
+<footer>
+  <p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
+  University of Virginia</a>.</p>
+</footer>
+<script>
+  const FIG = {"data":[{"customdata":["Abraham Lincoln","Andrew Jackson","Andrew Johnson","Barack Obama","Benjamin Harrison","Bill Clinton","Calvin Coolidge","Chester A. Arthur","Donald Trump","Dwight D. Eisenhower","Franklin D. Roosevelt","Franklin Pierce","George H. W. Bush","George W. Bush","George Washington","Gerald Ford","Grover Cleveland","Harry S. Truman","Herbert Hoover","James Buchanan","James K. Polk","James Madison","James Monroe","Jimmy Carter","Joe Biden","John Adams","John F. Kennedy","John Quincy Adams","John Tyler","Lyndon B. Johnson","Martin Van Buren","Millard Fillmore","Richard M. Nixon","Ronald Reagan","Rutherford B. Hayes","Theodore Roosevelt","Thomas Jefferson","Ulysses S. Grant","Warren G. Harding","William McKinley","William Taft","Woodrow Wilson"],"hovertemplate":"\u003cb\u003e%{customdata}\u003c\u002fb\u003e: %{y:.1f}% of their speech\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#184f95","opacity":0.45,"size":5},"mode":"markers","showlegend":false,"x":{"dtype":"f8","bdata":"AAAAAAAKnUAAAAAAAKScQAAAAAAAKp1AAAAAAAByn0AAAAAAAIydQAAAAAAANJ9AAAAAAAAWnkAAAAAAAGqdQAAAAAAAlp9AAAAAAACUnkAAAAAAAEyeQAAAAAAA+pxAAAAAAAAan0AAAAAAAFSfQAAAAAAAApxAAAAAAADenkAAAAAAAIydQAAAAAAAdJ5AAAAAAAAonkAAAAAAAAydQAAAAAAA3JxAAAAAAABUnEAAAAAAAHKcQAAAAAAA6p5AAAAAAACcn0AAAAAAABqcQAAAAAAApp5AAAAAAACCnEAAAAAAAMycQAAAAAAAuJ5AAAAAAAC8nEAAAAAAAOycQAAAAAAArJ5AAAAAAADinkAAAAAAAFydQAAAAAAAwp1AAAAAAAA0nEAAAAAAAESdQAAAAAAA\u002fp1AAAAAAACsnUAAAAAAANqdQAAAAAAA8p1A"},"y":{"dtype":"f8","bdata":"JEXIIFbNDUBkIQtZyEImQN3TCMs9jSBAqqsMldZPQEDHSIG777gwQCOqdfZFVDtAvzy2Img4N0CU2\u002f0dXPYeQBBVXJ\u002fQzyxATIoXyKT4M0Dj8O\u002ferCc3QIug4aTuyyFAa69ADsIqMECWKijdxzMxQPH6qI2EgShAE7UrUbsSMUBCewntJbQrQBTirPyEOC1A+7J8Tpn7QkCF61G4HoUbQOTn0RhVSCJAi4b449blJUAz0JMzgnceQKjvbNR3NjRAgOCxe1HUL0CoEZZ7GmEwQFPDW9reNiVAqDe96U1vHkChvYT2EtolQNw0HshN4yBAySOPPPLIM0Am0gOVs1ssQE\u002fsxE7sxCRAlStXrly5LkAAAAAAAAAqQNPS0tLS0jJANq6DVz1dJkDcHta4qZkoQK6JQK6JQC5AvjuzGU3nJUCtd+MLu1w1QGVPpxBB+DNA"},"type":"scatter"},{"fill":"tozeroy","fillcolor":"rgba(109, 167, 236, 0.30)","hovertemplate":"%{y:.1f}% of paragraphs\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"#256abf","width":2.4},"mode":"lines","showlegend":false,"x":{"dtype":"i4","bdata":"\u002fgYAAAMHAAAIBwAADQcAABIHAAAXBwAAHAcAACEHAAAmBwAAKwcAADAHAAA1BwAAOgcAAD8HAABEBwAASQcAAE4HAABTBwAAWAcAAF0HAABiBwAAZwcAAGwHAABxBwAAdgcAAHsHAACABwAAhQcAAIoHAACPBwAAlAcAAJkHAACeBwAAowcAAKgHAACtBwAAsgcAALcHAAC8BwAAwQcAAMYHAADLBwAA0AcAANUHAADaBwAA3wcAAOQHAADpBwAA"},"y":{"dtype":"f8","bdata":"0Bf0BX1BJ0DjrexzSE0sQGmQBmmQBjBAkAZpkAZpIEAkSZIkSZIcQPyoLjFroShAjMhLdoDhHECnN73pTe8hQBmMAg7N5yJA4RkVGWvRMkAUuvuonycmQIRWFOle6iJAzAZNvmzQIECu7HNITTAeQPLgGRUZaxFAcj8lnqEAIkDEN6LApFMrQOzoufsFXiRAUhOMt7LPI0AaOWnkpJErQA4XP4RBzi5A75IHA864JkBELisGSngxQDmO4ziOIzRA9NJAfV4aNkDl75Dn20QwQPllZ7mkfzNAfzM3aYznOUAxi8JafRxEQNJFF1100UFAjz192+GELUBAcxrceZEqQCYknXESZS1Aj2D4QzdTN0D45zEiL9kkQEkkEolEoiBA+cgEeqeuJUDSZAE7F4I0QCvc5C19BTBAV2hup\u002fLoLEByMog8cBU1QMVf5AwLLjlA3IT5XS3uMECNYcsoK+c3QJpCoCkEmkFAOFG8jTTUM0AKPxhYhAstQPQ9HAlmECZA"},"type":"scatter"}],"layout":{"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"rgb(36,36,36)"},"error_y":{"color":"rgb(36,36,36)"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"rgb(36,36,36)","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"rgb(36,36,36)"},"baxis":{"endlinecolor":"rgb(36,36,36)","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"rgb(36,36,36)"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"histogram2d"}],"histogram":[{"marker":{"line":{"color":"white","width":0.6}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"rgb(237,237,237)"},"line":{"color":"white"}},"header":{"fill":{"color":"rgb(217,217,217)"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"colorscale":{"diverging":[[0.0,"rgb(103,0,31)"],[0.1,"rgb(178,24,43)"],[0.2,"rgb(214,96,77)"],[0.3,"rgb(244,165,130)"],[0.4,"rgb(253,219,199)"],[0.5,"rgb(247,247,247)"],[0.6,"rgb(209,229,240)"],[0.7,"rgb(146,197,222)"],[0.8,"rgb(67,147,195)"],[0.9,"rgb(33,102,172)"],[1.0,"rgb(5,48,97)"]],"sequential":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"sequentialminus":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]]},"colorway":["#1F77B4","#FF7F0E","#2CA02C","#D62728","#9467BD","#8C564B","#E377C2","#7F7F7F","#BCBD22","#17BECF"],"font":{"color":"rgb(36,36,36)"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"},"bgcolor":"white","radialaxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"rgb(232,232,232)","gridwidth":2,"linecolor":"rgb(36,36,36)","showbackground":true,"showgrid":false,"showline":true,"ticks":"outside","zeroline":false,"zerolinecolor":"rgb(36,36,36)"},"yaxis":{"backgroundcolor":"white","gridcolor":"rgb(232,232,232)","gridwidth":2,"linecolor":"rgb(36,36,36)","showbackground":true,"showgrid":false,"showline":true,"ticks":"outside","zeroline":false,"zerolinecolor":"rgb(36,36,36)"},"zaxis":{"backgroundcolor":"white","gridcolor":"rgb(232,232,232)","gridwidth":2,"linecolor":"rgb(36,36,36)","showbackground":true,"showgrid":false,"showline":true,"ticks":"outside","zeroline":false,"zerolinecolor":"rgb(36,36,36)"}},"shapedefaults":{"fillcolor":"black","line":{"width":0},"opacity":0.3},"ternary":{"aaxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"},"baxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"},"bgcolor":"white","caxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside","title":{"standoff":15},"zeroline":false,"zerolinecolor":"rgb(36,36,36)"},"yaxis":{"automargin":true,"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside","title":{"standoff":15},"zeroline":false,"zerolinecolor":"rgb(36,36,36)"}}},"font":{"family":"system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif","color":"#0b0b0b","size":13},"margin":{"l":56,"r":24,"t":24,"b":44},"xaxis":{"tickfont":{"color":"#898781","size":11},"range":[1786,2029],"gridcolor":"#e1e0d9","linecolor":"#c3c2b7"},"yaxis":{"tickfont":{"color":"#898781","size":11},"title":{"text":"% of speech about economy & jobs"},"gridcolor":"#e1e0d9","linecolor":"#c3c2b7","rangemode":"tozero"},"paper_bgcolor":"#fcfcfb","plot_bgcolor":"#fcfcfb","height":380}};
+  Plotly.newPlot("chart", FIG.data, FIG.layout, {displayModeBar: false, responsive: true});
+</script>
+</body>
+</html>

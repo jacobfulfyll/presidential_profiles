@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Issues - Presidential Profiles</title>
+<style>
+
+  :root {
+    --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
+    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--page); color: var(--ink);
+         font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.55; }
+  header { max-width: 980px; margin: 0 auto; padding: 48px 20px 8px; }
+  header h1 { font-size: 2rem; letter-spacing: -0.02em; }
+  header p.sub { color: var(--ink2); margin-top: 10px; max-width: 46rem; }
+  main { max-width: 980px; margin: 0 auto; padding: 8px 20px 40px; }
+  section { margin-top: 44px; }
+  section h2 { font-size: 1.28rem; letter-spacing: -0.01em; }
+  section p { color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }
+  .chart-scroll { background: var(--surface); border: 1px solid var(--border);
+                   border-radius: 12px; padding: 10px 6px 6px; overflow-x: auto; }
+  .chart { min-width: 640px; }
+  footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
+            border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--ink2); }
+
+  .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
+  .crumbs a { color: var(--ink2); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+           gap: 12px; margin-top: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 10px; padding: 14px 16px; text-decoration: none;
+           color: var(--ink); }
+  .card:hover { border-color: var(--muted); }
+  .name { font-weight: 650; }
+  .meta { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <p class="crumbs"><a href="../index.html">← Dashboard</a></p>
+  <h1>Issue profiles</h1>
+  <p class="sub">The biography of every issue: 240 years of attention, the presidents
+  who owned it, and their words at its defining moments.</p>
+  <div class="grid">
+<a class="card" href="economy-and-jobs.html">
+  <div class="name">Economy & jobs</div>
+  <div class="meta">peak: 1930s · top voice: Herbert Hoover</div>
+</a>
+<a class="card" href="taxes-and-budget.html">
+  <div class="name">Taxes & budget</div>
+  <div class="meta">peak: 1830s · top voice: Bill Clinton</div>
+</a>
+<a class="card" href="war-and-military.html">
+  <div class="name">War & military</div>
+  <div class="meta">peak: 1940s · top voice: James Madison</div>
+</a>
+<a class="card" href="foreign-policy.html">
+  <div class="name">Foreign policy</div>
+  <div class="meta">peak: 1840s · top voice: James K. Polk</div>
+</a>
+<a class="card" href="immigration.html">
+  <div class="name">Immigration</div>
+  <div class="meta">peak: 2010s · top voice: Warren G. Harding</div>
+</a>
+<a class="card" href="civil-rights-and-race.html">
+  <div class="name">Civil rights & race</div>
+  <div class="meta">peak: 1850s · top voice: Abraham Lincoln</div>
+</a>
+<a class="card" href="health-care.html">
+  <div class="name">Health care</div>
+  <div class="meta">peak: 2000s · top voice: Bill Clinton</div>
+</a>
+<a class="card" href="education.html">
+  <div class="name">Education</div>
+  <div class="meta">peak: 1990s · top voice: Bill Clinton</div>
+</a>
+<a class="card" href="crime-and-justice.html">
+  <div class="name">Crime & justice</div>
+  <div class="meta">peak: 1990s · top voice: Bill Clinton</div>
+</a>
+<a class="card" href="energy-and-environment.html">
+  <div class="name">Energy & environment</div>
+  <div class="meta">peak: 1970s · top voice: Gerald Ford</div>
+</a>
+<a class="card" href="trade-and-tariffs.html">
+  <div class="name">Trade & tariffs</div>
+  <div class="meta">peak: 1910s · top voice: William Taft</div>
+</a>
+<a class="card" href="agriculture.html">
+  <div class="name">Agriculture</div>
+  <div class="meta">peak: 1930s · top voice: Herbert Hoover</div>
+</a>
+<a class="card" href="religion-and-values.html">
+  <div class="name">Religion & values</div>
+  <div class="meta">peak: 1780s · top voice: Warren G. Harding</div>
+</a>
+<a class="card" href="money-and-banking.html">
+  <div class="name">Money & banking</div>
+  <div class="meta">peak: 1830s · top voice: Martin Van Buren</div>
+</a>
+<a class="card" href="infrastructure.html">
+  <div class="name">Infrastructure</div>
+  <div class="meta">peak: 1800s · top voice: Thomas Jefferson</div>
+</a>
+<a class="card" href="security-and-peace.html">
+  <div class="name">Security & peace</div>
+  <div class="meta">peak: 1940s · top voice: Harry S. Truman</div>
+</a>
+  </div>
+</header>
+</body>
+</html>

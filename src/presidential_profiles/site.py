@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
 
-from . import corpus, indices, issues, portraits, profiles, profiles_site, rhetoric, similarity, trends
+from . import corpus, explorer, indices, issues, issues_site, portraits, profiles, profiles_site, rhetoric, similarity, trends
 from .figures import (
     BASELINE,
     BLUE_RAMP,
@@ -822,7 +822,8 @@ SECTIONS = [
      "Money & banking dies with the gold standard, agriculture fades with the family "
      "farm, health care and education arrive only in the late twentieth century - and "
      "immigration's 2020s spike exceeds anything in 240 years, including the Ellis "
-     "Island era."),
+     "Island era. Every issue has its own page - timeline, owners, and defining "
+     "quotes - in the <a href='issues/index.html'>issue profiles</a>."),
     ("keywords", None, "One word at a time",
      "Raw rates for single terms. “Border” and “immigration” at "
      "all-time highs; “tariff” back from the dead after a century; "
@@ -1007,6 +1008,7 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, bodies: dict[str, s
   </div>
   <p class="corpus-line">{corpus_line}</p>
   <a class="profiles-link" href="presidents/index.html">Browse the 45 president profiles →</a>
+  &nbsp; <a class="profiles-link" href="explorer.html">Look up any word or phrase →</a>
 </header>
 <main>
 {sections_html}
@@ -1100,6 +1102,11 @@ def main() -> None:
 
     profile_data = profiles.build_profile_data()
     profiles_site.write_profiles(profile_data, SITE_DIR)
+
+    if not (explorer.EXPLORER_DIR / "meta.json").exists():
+        explorer.build_explorer_data()
+    explorer.write_page()
+    issues_site.write_issue_pages(SITE_DIR, issue_df, issue_meta, scores, faces)
 
     if args.inline:
         out2 = SITE_DIR / "index_selfcontained.html"

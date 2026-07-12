@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word explorer - Presidential Profiles</title>
+<script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+<style>
+
+  :root {
+    --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
+    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--page); color: var(--ink);
+         font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.55; }
+  header { max-width: 980px; margin: 0 auto; padding: 48px 20px 8px; }
+  header h1 { font-size: 2rem; letter-spacing: -0.02em; }
+  header p.sub { color: var(--ink2); margin-top: 10px; max-width: 46rem; }
+  main { max-width: 980px; margin: 0 auto; padding: 8px 20px 40px; }
+  section { margin-top: 44px; }
+  section h2 { font-size: 1.28rem; letter-spacing: -0.01em; }
+  section p { color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }
+  .chart-scroll { background: var(--surface); border: 1px solid var(--border);
+                   border-radius: 12px; padding: 10px 6px 6px; overflow-x: auto; }
+  .chart { min-width: 640px; }
+  footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
+            border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--ink2); }
+
+  .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
+  .crumbs a { color: var(--ink2); }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .controls input { flex: 1; min-width: 220px; padding: 10px 14px; font-size: 1rem;
+                     border: 1px solid var(--border); border-radius: 10px;
+                     background: var(--surface); color: var(--ink);
+                     font-family: inherit; }
+  .controls input:focus { outline: 2px solid var(--muted); }
+  .controls select { padding: 10px 12px; border: 1px solid var(--border);
+                      border-radius: 10px; background: var(--surface);
+                      color: var(--ink); font-family: inherit; font-size: 0.95rem; }
+  .controls button { padding: 10px 18px; border: 1px solid var(--border);
+                      border-radius: 10px; background: var(--ink); color: var(--page);
+                      font-family: inherit; font-size: 0.95rem; cursor: pointer; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; min-height: 34px; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px;
+           background: var(--surface); border: 1px solid var(--border);
+           border-radius: 999px; font-size: 0.9rem; }
+  .chip .swatch { width: 10px; height: 10px; border-radius: 50%; }
+  .chip button { border: none; background: none; cursor: pointer; color: var(--muted);
+                  font-size: 1rem; padding: 0; }
+  #msg { color: var(--muted); font-size: 0.88rem; min-height: 1.3em; }
+  #unitnote { color: var(--muted); font-size: 0.82rem; margin-top: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <p class="crumbs"><a href="index.html">← Dashboard</a> &nbsp;·&nbsp;
+     <a href="presidents/index.html">President profiles</a></p>
+  <h1>Word explorer</h1>
+  <p class="sub">Type any word or two-word phrase - “tariff”, “middle
+  class”, “crypto”, “slavery” - and see its 240-year history in
+  presidential speech. Add several to compare, or overlay an issue from the topic menu.
+  Rates are 5-year rolling per 10,000 words.</p>
+  <div class="controls">
+    <input id="q" placeholder="type a word or two-word phrase, press Enter"
+           autocomplete="off">
+    <select id="topic"><option value="">add a topic…</option></select>
+    <button id="add">Add</button>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div id="msg"></div>
+</header>
+<main>
+  <div class="chart-scroll"><div class="chart" id="chart" style="height:480px"></div></div>
+  <p id="unitnote"></p>
+</main>
+<footer>
+  <p>Words with at least 30 uses and phrases with at least 15 across the corpus are
+  indexed. Data: <a href="https://data.millercenter.org">Miller Center of Public
+  Affairs, University of Virginia</a>.</p>
+</footer>
+<script>
+const COLORS = ["#2a78d6", "#1baf7a", "#eda100", "#008300", "#4a3aa7", "#e34948"];
+const CHROME = {surface:"#fcfcfb", ink:"#0b0b0b", ink2:"#52514e", muted:"#898781",
+                 grid:"#e1e0d9", baseline:"#c3c2b7"};
+const FONT = "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif";
+let META = null;
+const shardCache = {};
+let series = [];
+
+async function loadJSON(path) {
+  const r = await fetch(path);
+  if (!r.ok) throw new Error(path);
+  return r.json();
+}
+async function getShard(prefix, letter) {
+  const key = prefix + "_" + letter;
+  if (!(key in shardCache)) {
+    try { shardCache[key] = await loadJSON("explorer/" + key + ".json"); }
+    catch (e) { shardCache[key] = {}; }
+  }
+  return shardCache[key];
+}
+function rolling(years, values, allYears, window) {
+  const map = new Map(years.map((y, i) => [y, values[i]]));
+  const half = Math.floor(window / 2);
+  return allYears.map(y => {
+    let s = 0;
+    for (let d = -half; d <= half; d++) s += map.get(y + d) || 0;
+    return s;
+  });
+}
+function seriesTrace(s, idx, indexed) {
+  let x, y;
+  if (s.type === "term") {
+    const counts = rolling(s.data.y, s.data.c, META.years, 5);
+    const totals = rolling(META.years, META.totals, META.years, 5);
+    x = META.years;
+    y = counts.map((c, i) => totals[i] > 20000 ? c / totals[i] * 10000 : null);
+  } else {
+    const m = new Map(s.data.y.map((yy, i) => [yy, s.data.v[i]]));
+    x = META.years;
+    const vals = META.years.map(yy => m.has(yy) ? m.get(yy) : null);
+    y = x.map((yy, i) => {
+      let s2 = 0, n = 0;
+      for (let d = -2; d <= 2; d++) {
+        const v = m.get(yy + d);
+        if (v != null) { s2 += v; n++; }
+      }
+      return n ? s2 / n : null;
+    });
+  }
+  if (indexed) {
+    const mx = Math.max(...y.filter(v => v != null));
+    y = y.map(v => v == null ? null : v / mx * 100);
+  }
+  return {x, y, name: s.label, mode: "lines", connectgaps: false,
+          line: {color: COLORS[idx % COLORS.length], width: 2.4},
+          hovertemplate: "%{y:.2f}<extra>" + s.label + "</extra>"};
+}
+function redraw() {
+  const mixed = new Set(series.map(s => s.type)).size > 1;
+  const traces = series.map((s, i) => seriesTrace(s, i, mixed));
+  const ylabel = mixed ? "% of each series' own peak"
+    : (series[0] && series[0].type === "topic" ? "% of paragraphs"
+       : "uses per 10,000 words");
+  Plotly.react("chart", traces, {
+    template: "simple_white", paper_bgcolor: CHROME.surface,
+    plot_bgcolor: CHROME.surface,
+    font: {family: FONT, color: CHROME.ink, size: 13},
+    margin: {l: 56, r: 24, t: 24, b: 44},
+    xaxis: {range: [1786, 2029], gridcolor: CHROME.grid,
+            linecolor: CHROME.baseline, tickfont: {color: CHROME.muted, size: 11}},
+    yaxis: {title: ylabel, gridcolor: CHROME.grid, linecolor: CHROME.baseline,
+            tickfont: {color: CHROME.muted, size: 11}, rangemode: "tozero"},
+    legend: {orientation: "h", yanchor: "bottom", y: 1.01, x: 0},
+  }, {displayModeBar: false, responsive: true});
+  document.getElementById("unitnote").textContent = mixed
+    ? "Mixing words and topics: each line is scaled to its own peak (=100) so shapes are comparable."
+    : "";
+  renderChips();
+}
+function renderChips() {
+  const el = document.getElementById("chips");
+  el.innerHTML = "";
+  series.forEach((s, i) => {
+    const chip = document.createElement("span");
+    chip.className = "chip";
+    chip.innerHTML = `<span class="swatch" style="background:${COLORS[i % COLORS.length]}"></span>
+      ${s.label} <button aria-label="remove">×</button>`;
+    chip.querySelector("button").onclick = () => { series.splice(i, 1); redraw(); };
+    el.appendChild(chip);
+  });
+}
+function msg(t) { document.getElementById("msg").textContent = t; }
+async function addTerm(raw) {
+  const q = raw.trim().toLowerCase().replace(/[^a-z' ]/g, "").replace(/ +/g, " ");
+  if (!q) return;
+  if (series.some(s => s.label === q)) { msg("already on the chart"); return; }
+  const words = q.split(" ");
+  if (words.length > 2) { msg("words and two-word phrases only (for now)"); return; }
+  const prefix = words.length === 1 ? "u" : "b";
+  const letter = /[a-z]/.test(q[0]) ? q[0] : "0";
+  msg("loading…");
+  const shard = await getShard(prefix, letter);
+  if (!(q in shard)) {
+    msg(`“${q}” ${words.length === 1
+      ? "appears fewer than 30 times in 240 years of presidential speech"
+      : "appears fewer than 15 times as a phrase"}`);
+    return;
+  }
+  msg("");
+  series.push({label: q, type: "term", data: shard[q]});
+  redraw();
+}
+function addTopic(name) {
+  if (!name || series.some(s => s.label === name)) return;
+  series.push({label: name, type: "topic", data: META.topics[name]});
+  redraw();
+}
+(async () => {
+  META = await loadJSON("explorer/meta.json");
+  const sel = document.getElementById("topic");
+  Object.keys(META.topics).forEach(t => {
+    const o = document.createElement("option"); o.value = t; o.textContent = t;
+    sel.appendChild(o);
+  });
+  sel.onchange = () => { addTopic(sel.value); sel.value = ""; };
+  const input = document.getElementById("q");
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") { addTerm(input.value); input.value = ""; }
+  });
+  document.getElementById("add").onclick = () => { addTerm(input.value); input.value = ""; };
+  for (const t of ["tariff", "freedom", "border"]) await addTerm(t);
+})();
+</script>
+</body>
+</html>
