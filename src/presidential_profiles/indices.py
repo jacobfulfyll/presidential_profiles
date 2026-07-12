@@ -44,6 +44,18 @@ MARKERS = {
     "opponents": r"\bopponents?\b|\bpartisan\w*\b|\bdemocrats\b|\brepublicans\b"
                  r"|\bpoliticians\b|\bfake news\b|\bradical left\b|\bthe other side\b"
                  r"|\bmy opponent\b|\bcritics\b|\bthe press\b|\bthe media\b",
+    # Unbounded positive language - superlatives and no-degree absolutes.
+    "hype": r"\bunstoppable\b|\bunprecedented\b|\bunmatched\b|\bunrivaled\b"
+            r"|\bgreatest\b|\bstrongest\b|\bbiggest\b|\bperfect\b|\bhistoric\b"
+            r"|\bincredible\b|\btremendous\w*\b|\bof all time\b|\bin the history of\b"
+            r"|\blike never before\b|\bever seen\b",
+    # Unbounded negative language.
+    "doom": r"\bworst\b|\bdisaster\w*\b|\bcatastroph\w+\b|\bcrisis\b|\bcarnage\b"
+            r"|\bnightmare\b|\bcollaps\w+\b|\bdestroy\w*\b",
+    # Policy machinery - the vocabulary of actually governing. Its five-fold
+    # decline since the 19th century is the 'depth' measure.
+    "mechanism": r"\bact\b|\bbill\b|\bsection\b|\btreaty\b|\bappropriat\w+\b"
+                 r"|\bamendment\b|\bstatute\b|\bprovision\w*\b|\bclause\b",
 }
 
 # NRC emotion groupings: hope reads as trust + anticipation + joy;

@@ -494,6 +494,101 @@ def fig_religion(rates: pd.DataFrame, py: pd.DataFrame) -> go.Figure:
     )
 
 
+FAMILY_PANELS = [
+    ("Soviet → Russia", [(r"\bsoviets?\b|\bussr\b", "Soviet / USSR"),
+                         (r"\brussians?\b|\brussia\b", "Russia")]),
+    ("global warming → climate change",
+     [(r"\bglobal warming\b", "global warming"),
+      (r"\bclimate change\b", "climate change")]),
+    ("atomic → nuclear", [(r"\batomic\b", "atomic"), (r"\bnuclear\b", "nuclear")]),
+    ("terror: the 2000s word that vanished", [(r"\bterror\w*\b", "terror*")]),
+    ("social security", [(r"\bsocial security\b", "social security")]),
+    ("middle class", [(r"\bmiddle class\b", "middle class")]),
+]
+
+
+def _pattern_rate(df: pd.DataFrame, pattern: str, bucket: int = 5,
+                  min_words: int = 20_000) -> pd.Series:
+    out = {}
+    d = df.assign(p=(df["year"] // bucket) * bucket)
+    for period, g in d.groupby("p"):
+        text = " ".join(g["transcript"]).lower()
+        n = len(re.findall(r"[a-z']+", text))
+        if n >= min_words:
+            out[period] = len(re.findall(pattern, text)) / n * 10_000
+    return pd.Series(out)
+
+
+def fig_families(df: pd.DataFrame) -> go.Figure:
+    """Concepts that hide from single-word views: renamings and vanishings."""
+    fig = make_subplots(rows=2, cols=3, shared_xaxes=True,
+                        subplot_titles=[t for t, _ in FAMILY_PANELS],
+                        vertical_spacing=0.14, horizontal_spacing=0.07)
+    for k, (_, series_specs) in enumerate(FAMILY_PANELS):
+        r, c = divmod(k, 3)
+        for i, (pattern, name) in enumerate(series_specs):
+            rate = _pattern_rate(df, pattern)
+            fig.add_trace(go.Scatter(
+                x=rate.index, y=rate.values, mode="lines", name=name,
+                line=dict(color=SERIES[i], width=2), showlegend=False,
+                hovertemplate="%{y:.1f} per 10k<extra>" + name + "</extra>",
+            ), row=r + 1, col=c + 1)
+    fig.update_layout(**_layout(height=560, margin=dict(l=40, r=16, t=48, b=36)))
+    fig.update_xaxes(gridcolor=GRID, linecolor=BASELINE,
+                     tickfont=dict(color=MUTED, size=10))
+    fig.update_yaxes(gridcolor=GRID, linecolor=BASELINE, rangemode="tozero",
+                     tickfont=dict(color=MUTED, size=10))
+    fig.update_annotations(font=dict(size=12, color=INK))
+    return fig
+
+
+def fig_hype_doom(rates: pd.DataFrame, py: pd.DataFrame) -> go.Figure:
+    return _two_line_fig(
+        [("hype (greatest / unstoppable / historic / of all time)",
+          rates["hype"], _president_dots(py, "hype", SERIES[0])),
+         ("doom (worst / disaster / catastrophe / carnage)",
+          rates["doom"], _president_dots(py, "doom", SERIES[1]))],
+        ytitle="uses per 10,000 words",
+    )
+
+
+def fig_quadrant(scores: pd.DataFrame, faces: dict) -> go.Figure:
+    """Loud vs deep: unbounded language against policy machinery."""
+    fig = go.Figure()
+    x_span = float(scores["mechanism"].max()) * 1.15
+    y_span = float(scores["hype"].max()) * 1.15
+    for pres, row in scores.iterrows():
+        x, y = float(row["mechanism"]), float(row["hype"])
+        fig.add_trace(go.Scatter(
+            x=[x], y=[y], mode="markers", showlegend=False,
+            marker=dict(size=26, opacity=0),
+            customdata=[[pres]],
+            hovertemplate="<b>%{customdata[0]}</b><br>machinery %{x:.0f} · "
+                          "hype %{y:.1f} per 10k<extra></extra>",
+        ))
+        if pres in faces:
+            fig.add_layout_image(
+                source=faces[pres], x=x, y=y, xref="x", yref="y",
+                sizex=x_span * 30 / 860, sizey=y_span * 30 / 470,
+                xanchor="center", yanchor="middle", layer="above",
+            )
+    for x, y, text in [(x_span * 0.10, y_span * 0.95, "loud, no machinery"),
+                       (x_span * 0.85, y_span * 0.05, "quiet, heavy machinery")]:
+        fig.add_annotation(x=x, y=y, text=text, showarrow=False,
+                           font=dict(size=11, color=MUTED))
+    fig.update_layout(**_layout(
+        height=560, width=FACE_CHART_WIDTH,
+        xaxis=dict(title=dict(text="policy machinery per 10k (act / bill / treaty / appropriation)",
+                              font=dict(size=11, color=INK2)),
+                   range=[0, x_span], gridcolor=GRID, linecolor=BASELINE,
+                   tickfont=dict(color=MUTED, size=11)),
+        yaxis=dict(title=dict(text="hype per 10k", font=dict(size=11, color=INK2)),
+                   range=[0, y_span], gridcolor=GRID,
+                   linecolor=BASELINE, tickfont=dict(color=MUTED, size=11)),
+    ))
+    return fig
+
+
 def fig_hope_fear(rates: pd.DataFrame, py: pd.DataFrame) -> go.Figure:
     """The balance only: fear words divided by hope words."""
     ratio = rates["nrc_fear"] / rates["nrc_hope"]
@@ -671,6 +766,12 @@ FINDINGS = [
      "as a legal entity and became an idea. The lines cross in the 1950s.", "naming"),
     ("Lincoln ↔ FDR", "Remove each president's era from his voice, and the closest pair "
      "across any century is Lincoln and FDR - the two crisis unifiers.", "kinships"),
+    ("hype ×3", "Unbounded language - greatest, unstoppable, historic, of all time - "
+     "tripled in the present era after two centuries of slow growth. Doom barely moved: "
+     "the explosion is self-superlatives.", "hypedoom"),
+    ("machinery ÷5", "The vocabulary of actually governing - act, bill, treaty, "
+     "appropriation - has fallen five-fold since the 19th century. Speeches got louder "
+     "and emptier at the same time.", "quadrant"),
 ]
 
 # Verified verbatim from the corpus - the certainty finding, in two sentences.
@@ -695,6 +796,18 @@ SECTIONS = [
      "against hedges and concessives - with the line under each face spanning their years "
      "in the corpus. The gray line is the corpus-wide rolling rate. No president before "
      "1900 sits where any president after 1950 does."),
+    ("hypedoom", None, "The volume knob: hype and doom",
+     "Unbounded language, split by direction. Hype - greatest, unstoppable, historic, "
+     "of all time - tripled in the present era after two centuries of slow growth. Doom "
+     "- worst, disaster, carnage - rose only modestly; the only era where doom beat hype "
+     "was 1900-1949, the Depression and the wars. What exploded in the 2020s is "
+     "self-superlatives, not catastrophizing."),
+    ("quadrant", None, "Loud vs deep",
+     "Two measures against each other: hype (up) and policy machinery - act, bill, "
+     "treaty, section, appropriation, the vocabulary of actually governing - which has "
+     "collapsed five-fold since the 19th century (right). The old presidency lives in "
+     "the bottom right: quiet and procedural. The modern one has drifted up and left. "
+     "One corner is empty: nobody is loud AND procedural."),
     ("hopefear", "The last five years", "The most fearful balance since WWII",
      "Fear words divided by hope words. Hope has fallen to its lowest level in 240 years "
      "while fear runs high, putting the 2025-26 ratio (0.61) above everything except the "
@@ -957,6 +1070,9 @@ def main() -> None:
         "map": fig_map(emb),
         "heatmap": fig_heatmap(sim),
         "certainty": fig_certainty_faces(scores, markers, faces),
+        "hypedoom": fig_hype_doom(rates, py),
+        "quadrant": fig_quadrant(scores, faces),
+        "families": fig_families(df),
         "naming": fig_naming(rates, py),
         "hopefear": fig_hope_fear(rates, py),
         "readability": fig_readability(stats),
