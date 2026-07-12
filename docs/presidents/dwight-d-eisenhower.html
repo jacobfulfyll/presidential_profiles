@@ -30,6 +30,12 @@
 
   .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
   .crumbs a { color: var(--ink2); }
+  .id-row { display: flex; align-items: center; gap: 20px; }
+  .portrait { width: 84px; height: 84px; border-radius: 50%;
+               border: 1px solid var(--border); flex: none; }
+  .i-stance { background: var(--page); border: 1px solid var(--border);
+               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+               color: var(--ink2); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .chip { background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
@@ -64,9 +70,15 @@
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a></p>
-  <h1>Dwight D. Eisenhower</h1>
-  <div class="chips"><span class="chip"><span class="dot" style="background:#e34948"></span>Republican</span><span class="chip">1953–1961</span><span class="chip">15 speeches</span><span class="chip">68,018 words</span></div>
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../compare.html?a=dwight-d-eisenhower">Compare →</a></p>
+  <div class="id-row">
+    <img class="portrait" src="../portraits/dwight-d-eisenhower.png" alt="Dwight D. Eisenhower">
+    <div>
+      <h1>Dwight D. Eisenhower</h1>
+      <div class="chips"><span class="chip"><span class="dot" style="background:#e34948"></span>Republican</span><span class="chip">1953–1961</span><span class="chip">15 speeches</span><span class="chip">68,018 words</span></div>
+    </div>
+  </div>
 </header>
 <main>
 <section>
@@ -120,7 +132,7 @@
   <h2>Kinships</h2>
   <p>Sounds like <span class="dim">(era-adjusted voice)</span>: <a href="calvin-coolidge.html">Calvin Coolidge</a> <span class="dim">(0.47)</span> · <a href="grover-cleveland.html">Grover Cleveland</a> <span class="dim">(0.36)</span> · <a href="warren-g-harding.html">Warren G. Harding</a> <span class="dim">(0.34)</span></p>
   <p>Shared agenda <span class="dim">(issue mix)</span>: <a href="franklin-d-roosevelt.html">Franklin D. Roosevelt</a> <span class="dim">(0.95)</span> · <a href="harry-s-truman.html">Harry S. Truman</a> <span class="dim">(0.88)</span> · <a href="gerald-ford.html">Gerald Ford</a> <span class="dim">(0.88)</span></p>
-  <p class="invocations">Invokes: Abraham Lincoln (5×), Theodore Roosevelt (1×), Richard M. Nixon (1×) &nbsp;·&nbsp; Invoked 134× by later presidents</p>
+  <p class="invocations">Invokes: Abraham Lincoln (5×, warmly), Theodore Roosevelt (1×), Richard M. Nixon (1×) &nbsp;·&nbsp; Invoked 134× by later presidents - 91% of tone-carrying mentions are reverent</p>
 </section>
 <section>
   <h2>Signature speeches</h2>

@@ -30,6 +30,12 @@
 
   .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
   .crumbs a { color: var(--ink2); }
+  .id-row { display: flex; align-items: center; gap: 20px; }
+  .portrait { width: 84px; height: 84px; border-radius: 50%;
+               border: 1px solid var(--border); flex: none; }
+  .i-stance { background: var(--page); border: 1px solid var(--border);
+               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+               color: var(--ink2); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .chip { background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
@@ -64,9 +70,15 @@
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a></p>
-  <h1>George Washington</h1>
-  <div class="chips"><span class="chip"><span class="dot" style="background:#898781"></span>Unaffiliated</span><span class="chip">1789–1796</span><span class="chip">21 speeches</span><span class="chip">31,474 words</span></div>
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../compare.html?a=george-washington">Compare →</a></p>
+  <div class="id-row">
+    <img class="portrait" src="../portraits/george-washington.png" alt="George Washington">
+    <div>
+      <h1>George Washington</h1>
+      <div class="chips"><span class="chip"><span class="dot" style="background:#898781"></span>Unaffiliated</span><span class="chip">1789–1796</span><span class="chip">21 speeches</span><span class="chip">31,474 words</span></div>
+    </div>
+  </div>
 </header>
 <main>
 <section>
@@ -102,7 +114,7 @@
   <h2>Kinships</h2>
   <p>Sounds like <span class="dim">(era-adjusted voice)</span>: <a href="william-harrison.html">William Harrison</a> <span class="dim">(0.41)</span> · <a href="grover-cleveland.html">Grover Cleveland</a> <span class="dim">(0.30)</span> · <a href="andrew-jackson.html">Andrew Jackson</a> <span class="dim">(0.27)</span></p>
   <p>Shared agenda <span class="dim">(issue mix)</span>: <a href="james-buchanan.html">James Buchanan</a> <span class="dim">(0.99)</span> · <a href="andrew-jackson.html">Andrew Jackson</a> <span class="dim">(0.98)</span> · <a href="franklin-pierce.html">Franklin Pierce</a> <span class="dim">(0.98)</span></p>
-  <p class="invocations">Invoked 80× by later presidents</p>
+  <p class="invocations">Invoked 80× by later presidents - 88% of tone-carrying mentions are reverent</p>
 </section>
 <section>
   <h2>Signature speeches</h2>

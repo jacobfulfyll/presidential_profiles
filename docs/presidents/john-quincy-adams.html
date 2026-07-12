@@ -30,6 +30,12 @@
 
   .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
   .crumbs a { color: var(--ink2); }
+  .id-row { display: flex; align-items: center; gap: 20px; }
+  .portrait { width: 84px; height: 84px; border-radius: 50%;
+               border: 1px solid var(--border); flex: none; }
+  .i-stance { background: var(--page); border: 1px solid var(--border);
+               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+               color: var(--ink2); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .chip { background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
@@ -64,9 +70,15 @@
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a></p>
-  <h1>John Quincy Adams</h1>
-  <div class="chips"><span class="chip"><span class="dot" style="background:#1baf7a"></span>Democratic-Republican</span><span class="chip">1821–1828</span><span class="chip">8 speeches</span><span class="chip">36,778 words</span></div>
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../compare.html?a=john-quincy-adams">Compare →</a></p>
+  <div class="id-row">
+    <img class="portrait" src="../portraits/john-quincy-adams.png" alt="John Quincy Adams">
+    <div>
+      <h1>John Quincy Adams</h1>
+      <div class="chips"><span class="chip"><span class="dot" style="background:#1baf7a"></span>Democratic-Republican</span><span class="chip">1821–1828</span><span class="chip">8 speeches</span><span class="chip">36,778 words</span></div>
+    </div>
+  </div>
 </header>
 <main>
 <section>
@@ -107,7 +119,7 @@
 </div>
 <div class="i-card">
   <div class="i-head"><span class="i-name">War & military</span>
-    <span class="i-badge">+5 pp vs their era</span></div>
+    <span class="i-badge">+5 pp vs their era</span><span class="i-stance">mostly about ending wars</span></div>
   
   <blockquote><p>“In a period of profound peace the conduct of the mere military establishment forms but a very inconsiderable portion of the duties devolving upon the administration of the Department of War.”</p><cite>Second Annual Address, 1826</cite></blockquote>
 </div><div class="i-voice">

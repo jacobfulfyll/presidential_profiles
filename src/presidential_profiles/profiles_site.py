@@ -82,9 +82,11 @@ def _issue_cards_html(president: str, data: dict) -> str:
         if c["quote"]:
             quote_html = (f'<blockquote><p>“{c["quote"]}”</p>'
                           f'<cite>{c["cite"]}</cite></blockquote>')
+        stance = (f'<span class="i-stance">{c["stance"]}</span>'
+                  if c.get("stance") else "")
         cards.append(f"""<div class="i-card">
   <div class="i-head"><span class="i-name">{issue}</span>
-    <span class="i-badge">+{c["rel"]:.0f} pp vs their era</span></div>
+    <span class="i-badge">+{c["rel"]:.0f} pp vs their era</span>{stance}</div>
   {words_html}
   {quote_html}
 </div>""")
@@ -126,15 +128,34 @@ def render_profile(president: str, data: dict, display_issues: list[str]) -> str
         for s in data["signatures"][president]
     )
 
+    def _tone_word(pos, neg, n):
+        if n < 3 or pos + neg == 0:
+            return ""
+        if pos >= 2 * max(neg, 1):
+            return ", warmly"
+        if neg >= 2 * max(pos, 1):
+            return ", critically"
+        return ""
+
     invokes = data["invokes"].get(president) or []
     invoked_by = data["invoked_by"].get(president)
     invocation_bits = []
     if invokes:
         invocation_bits.append(
-            "Invokes: " + ", ".join(f"{n} ({c}×)" for n, c in invokes[:4])
+            "Invokes: " + ", ".join(
+                f"{m['target']} ({m['n']}×{_tone_word(m['pos'], m['neg'], m['n'])})"
+                for m in invokes[:4])
         )
-    if invoked_by:
-        invocation_bits.append(f"Invoked {invoked_by}× by later presidents")
+    if invoked_by and invoked_by["total"]:
+        t = invoked_by
+        toned = t["pos"] + t["neg"]
+        if toned >= 5:
+            rev = t["pos"] / toned * 100
+            invocation_bits.append(
+                f"Invoked {t['total']}× by later presidents - "
+                f"{rev:.0f}% of tone-carrying mentions are reverent")
+        else:
+            invocation_bits.append(f"Invoked {t['total']}× by later presidents")
     invocation_html = (
         f'<p class="invocations">{" &nbsp;·&nbsp; ".join(invocation_bits)}</p>'
         if invocation_bits else ""
@@ -154,6 +175,12 @@ def render_profile(president: str, data: dict, display_issues: list[str]) -> str
 {PAGE_CSS}
   .crumbs {{ margin-bottom: 18px; font-size: 0.88rem; }}
   .crumbs a {{ color: var(--ink2); }}
+  .id-row {{ display: flex; align-items: center; gap: 20px; }}
+  .portrait {{ width: 84px; height: 84px; border-radius: 50%;
+               border: 1px solid var(--border); flex: none; }}
+  .i-stance {{ background: var(--page); border: 1px solid var(--border);
+               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+               color: var(--ink2); }}
   .chips {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }}
   .chip {{ background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
@@ -188,9 +215,15 @@ def render_profile(president: str, data: dict, display_issues: list[str]) -> str
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a></p>
-  <h1>{president}</h1>
-  <div class="chips">{chips}</div>
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../compare.html?a={slug(president)}">Compare →</a></p>
+  <div class="id-row">
+    <img class="portrait" src="../portraits/{slug(president)}.png" alt="{president}">
+    <div>
+      <h1>{president}</h1>
+      <div class="chips">{chips}</div>
+    </div>
+  </div>
 </header>
 <main>
 <section>

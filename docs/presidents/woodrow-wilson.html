@@ -30,6 +30,12 @@
 
   .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
   .crumbs a { color: var(--ink2); }
+  .id-row { display: flex; align-items: center; gap: 20px; }
+  .portrait { width: 84px; height: 84px; border-radius: 50%;
+               border: 1px solid var(--border); flex: none; }
+  .i-stance { background: var(--page); border: 1px solid var(--border);
+               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+               color: var(--ink2); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .chip { background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
@@ -64,9 +70,15 @@
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a></p>
-  <h1>Woodrow Wilson</h1>
-  <div class="chips"><span class="chip"><span class="dot" style="background:#2a78d6"></span>Democratic</span><span class="chip">1913–1920</span><span class="chip">33 speeches</span><span class="chip">85,256 words</span></div>
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../compare.html?a=woodrow-wilson">Compare →</a></p>
+  <div class="id-row">
+    <img class="portrait" src="../portraits/woodrow-wilson.png" alt="Woodrow Wilson">
+    <div>
+      <h1>Woodrow Wilson</h1>
+      <div class="chips"><span class="chip"><span class="dot" style="background:#2a78d6"></span>Democratic</span><span class="chip">1913–1920</span><span class="chip">33 speeches</span><span class="chip">85,256 words</span></div>
+    </div>
+  </div>
 </header>
 <main>
 <section>
@@ -89,13 +101,13 @@
      statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
   <div class="i-card">
   <div class="i-head"><span class="i-name">Security & peace</span>
-    <span class="i-badge">+6 pp vs their era</span></div>
+    <span class="i-badge">+6 pp vs their era</span><span class="i-stance">mostly about ending wars</span></div>
   <div class="terms"><span class="term">german</span><span class="term">imperial</span><span class="term">submarines</span><span class="term">seas</span><span class="term">mankind</span></div>
   <blockquote><p>“Absolute freedom of navigation upon the seas, outside territorial waters, alike in peace and in war, except as the seas may be closed in whole or in part by international action for the enforcement of international covenants.”</p><cite>Wilson's "Fourteen Points", 1918</cite></blockquote>
 </div>
 <div class="i-card">
   <div class="i-head"><span class="i-name">War & military</span>
-    <span class="i-badge">+6 pp vs their era</span></div>
+    <span class="i-badge">+6 pp vs their era</span><span class="i-stance">mostly about ending wars</span></div>
   <div class="terms"><span class="term">definite</span></div>
   <blockquote><p>“We have always looked to the navy of the country as our first and chief line of defense; we have always seen it to be our manifest course of prudence to be strong on the seas.”</p><cite>Third Annual Message, 1915</cite></blockquote>
 </div>
@@ -120,7 +132,7 @@
   <h2>Kinships</h2>
   <p>Sounds like <span class="dim">(era-adjusted voice)</span>: <a href="william-harrison.html">William Harrison</a> <span class="dim">(0.46)</span> · <a href="warren-g-harding.html">Warren G. Harding</a> <span class="dim">(0.42)</span> · <a href="abraham-lincoln.html">Abraham Lincoln</a> <span class="dim">(0.38)</span></p>
   <p>Shared agenda <span class="dim">(issue mix)</span>: <a href="warren-g-harding.html">Warren G. Harding</a> <span class="dim">(0.98)</span> · <a href="calvin-coolidge.html">Calvin Coolidge</a> <span class="dim">(0.92)</span> · <a href="theodore-roosevelt.html">Theodore Roosevelt</a> <span class="dim">(0.91)</span></p>
-  <p class="invocations">Invokes: George Washington (1×), Abraham Lincoln (1×) &nbsp;·&nbsp; Invoked 33× by later presidents</p>
+  <p class="invocations">Invokes: George Washington (1×), Abraham Lincoln (1×) &nbsp;·&nbsp; Invoked 33× by later presidents - 87% of tone-carrying mentions are reverent</p>
 </section>
 <section>
   <h2>Signature speeches</h2>

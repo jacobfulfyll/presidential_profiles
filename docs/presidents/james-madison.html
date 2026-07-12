@@ -30,6 +30,12 @@
 
   .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
   .crumbs a { color: var(--ink2); }
+  .id-row { display: flex; align-items: center; gap: 20px; }
+  .portrait { width: 84px; height: 84px; border-radius: 50%;
+               border: 1px solid var(--border); flex: none; }
+  .i-stance { background: var(--page); border: 1px solid var(--border);
+               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+               color: var(--ink2); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .chip { background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
@@ -64,9 +70,15 @@
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a></p>
-  <h1>James Madison</h1>
-  <div class="chips"><span class="chip"><span class="dot" style="background:#1baf7a"></span>Democratic-Republican</span><span class="chip">1809–1817</span><span class="chip">21 speeches</span><span class="chip">34,970 words</span></div>
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../compare.html?a=james-madison">Compare →</a></p>
+  <div class="id-row">
+    <img class="portrait" src="../portraits/james-madison.png" alt="James Madison">
+    <div>
+      <h1>James Madison</h1>
+      <div class="chips"><span class="chip"><span class="dot" style="background:#1baf7a"></span>Democratic-Republican</span><span class="chip">1809–1817</span><span class="chip">21 speeches</span><span class="chip">34,970 words</span></div>
+    </div>
+  </div>
 </header>
 <main>
 <section>
@@ -89,13 +101,13 @@
      statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
   <div class="i-card">
   <div class="i-head"><span class="i-name">War & military</span>
-    <span class="i-badge">+23 pp vs their era</span></div>
+    <span class="i-badge">+23 pp vs their era</span><span class="i-stance">mostly about ending wars</span></div>
   <div class="terms"><span class="term">militia</span><span class="term">war</span></div>
   <blockquote><p>“Among the incidents to the measures of the war I am constrained to advert to the refusal of the governors of Maine and Connecticut to furnish the required detachments of militia toward the defense of the maritime frontier.”</p><cite>Fourth Annual Message, 1812</cite></blockquote>
 </div>
 <div class="i-card">
   <div class="i-head"><span class="i-name">Security & peace</span>
-    <span class="i-badge">+2 pp vs their era</span></div>
+    <span class="i-badge">+2 pp vs their era</span><span class="i-stance">mostly about ending wars</span></div>
   <div class="terms"><span class="term">savages</span><span class="term">decrees</span><span class="term">councils</span><span class="term">madison</span><span class="term">dispositions</span></div>
   <blockquote><p>“Three of our eminent citizens were accordingly commissioned with the requisite powers to conclude a treaty of peace with persons clothed with like powers on the part of Great Britain.”</p><cite>Message on the Special Congressional Session -- State of War and Diplomacy, 1813</cite></blockquote>
 </div>

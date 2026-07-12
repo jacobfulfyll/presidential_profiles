@@ -30,6 +30,12 @@
 
   .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
   .crumbs a { color: var(--ink2); }
+  .id-row { display: flex; align-items: center; gap: 20px; }
+  .portrait { width: 84px; height: 84px; border-radius: 50%;
+               border: 1px solid var(--border); flex: none; }
+  .i-stance { background: var(--page); border: 1px solid var(--border);
+               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+               color: var(--ink2); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .chip { background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
@@ -64,9 +70,15 @@
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a></p>
-  <h1>Franklin Pierce</h1>
-  <div class="chips"><span class="chip"><span class="dot" style="background:#2a78d6"></span>Democratic</span><span class="chip">1853–1856</span><span class="chip">15 speeches</span><span class="chip">63,318 words</span></div>
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../compare.html?a=franklin-pierce">Compare →</a></p>
+  <div class="id-row">
+    <img class="portrait" src="../portraits/franklin-pierce.png" alt="Franklin Pierce">
+    <div>
+      <h1>Franklin Pierce</h1>
+      <div class="chips"><span class="chip"><span class="dot" style="background:#2a78d6"></span>Democratic</span><span class="chip">1853–1856</span><span class="chip">15 speeches</span><span class="chip">63,318 words</span></div>
+    </div>
+  </div>
 </header>
 <main>
 <section>
@@ -107,7 +119,7 @@
 </div>
 <div class="i-card">
   <div class="i-head"><span class="i-name">Security & peace</span>
-    <span class="i-badge">+3 pp vs their era</span></div>
+    <span class="i-badge">+3 pp vs their era</span><span class="i-stance">mostly about ending wars</span></div>
   
   <blockquote><p>“We have nothing in our history or position to invite aggression;we have everything to beckon us to the cultivation of relations of peaceand amity with all nations.”</p><cite>Inaugural Address, 1853</cite></blockquote>
 </div><div class="i-voice">
@@ -120,7 +132,7 @@
   <h2>Kinships</h2>
   <p>Sounds like <span class="dim">(era-adjusted voice)</span>: <a href="herbert-hoover.html">Herbert Hoover</a> <span class="dim">(0.39)</span> · <a href="william-taft.html">William Taft</a> <span class="dim">(0.39)</span> · <a href="chester-a-arthur.html">Chester A. Arthur</a> <span class="dim">(0.37)</span></p>
   <p>Shared agenda <span class="dim">(issue mix)</span>: <a href="thomas-jefferson.html">Thomas Jefferson</a> <span class="dim">(0.99)</span> · <a href="james-monroe.html">James Monroe</a> <span class="dim">(0.99)</span> · <a href="james-buchanan.html">James Buchanan</a> <span class="dim">(0.99)</span></p>
-  <p class="invocations">Invokes: Andrew Jackson (4×), George Washington (1×), Thomas Jefferson (1×)</p>
+  <p class="invocations">Invokes: Andrew Jackson (4×, warmly), George Washington (1×), Thomas Jefferson (1×)</p>
 </section>
 <section>
   <h2>Signature speeches</h2>

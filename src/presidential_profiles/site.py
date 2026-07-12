@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
 
-from . import corpus, explorer, indices, issues, issues_site, portraits, profiles, profiles_site, rhetoric, similarity, trends
+from . import compare_site, corpus, explorer, indices, issues, issues_site, portraits, profiles, profiles_site, rhetoric, similarity, trends
 from .figures import (
     BASELINE,
     BLUE_RAMP,
@@ -1009,6 +1009,7 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, bodies: dict[str, s
   <p class="corpus-line">{corpus_line}</p>
   <a class="profiles-link" href="presidents/index.html">Browse the 45 president profiles →</a>
   &nbsp; <a class="profiles-link" href="explorer.html">Look up any word or phrase →</a>
+  &nbsp; <a class="profiles-link" href="compare.html">Compare two presidents →</a>
 </header>
 <main>
 {sections_html}
@@ -1107,6 +1108,8 @@ def main() -> None:
         explorer.build_explorer_data()
     explorer.write_page()
     issues_site.write_issue_pages(SITE_DIR, issue_df, issue_meta, scores, faces)
+    compare_site.write_compare(profile_data,
+                               issue_meta["issues"] + ["Discovered 5"])
 
     if args.inline:
         out2 = SITE_DIR / "index_selfcontained.html"

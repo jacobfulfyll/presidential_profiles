@@ -105,22 +105,44 @@ def signature_speeches(df: pd.DataFrame, adj: pd.DataFrame, top_n: int = 5) -> d
 
 
 def invocations(df: pd.DataFrame) -> tuple[dict, dict]:
-    """(who each president invokes, how often each is invoked by successors)."""
+    """Who each president invokes, and how each is invoked by successors -
+    with the tone of each mention classified from its surrounding words
+    (NRC positive/negative), so reverence and criticism are separated."""
+    lex = indices._nrc_lexicon()
+
+    def tone(window: str) -> int:
+        pos = neg = 0
+        for w in re.findall(r"[a-z']+", window.lower()):
+            emos = lex.get(w)
+            if emos:
+                pos += "positive" in emos
+                neg += "negative" in emos
+        return 1 if pos > neg else (-1 if neg > pos else 0)
+
     first_year = df.groupby("president")["year"].min()
     compiled = {p: re.compile(pat) for p, pat in INVOCATION_PATTERNS.items()}
     invokes: dict[str, list] = {}
-    invoked_by: dict[str, int] = {p: 0 for p in INVOCATION_PATTERNS}
+    invoked_by: dict[str, dict] = {
+        p: {"total": 0, "pos": 0, "neg": 0} for p in INVOCATION_PATTERNS
+    }
     for speaker, group in df.groupby("president"):
         text = " ".join(group["transcript"])
         mentions = []
         for target, pat in compiled.items():
             if target == speaker or first_year[target] >= first_year[speaker]:
                 continue
-            n = len(pat.findall(text))
+            pos = neg = n = 0
+            for m in pat.finditer(text):
+                n += 1
+                t = tone(text[max(0, m.start() - 130):m.end() + 130])
+                pos += t == 1
+                neg += t == -1
             if n:
-                mentions.append((target, n))
-                invoked_by[target] += n
-        invokes[speaker] = sorted(mentions, key=lambda x: -x[1])[:5]
+                mentions.append({"target": target, "n": n, "pos": pos, "neg": neg})
+                invoked_by[target]["total"] += n
+                invoked_by[target]["pos"] += pos
+                invoked_by[target]["neg"] += neg
+        invokes[speaker] = sorted(mentions, key=lambda x: -x["n"])[:5]
     return invokes, invoked_by
 
 
@@ -152,6 +174,31 @@ def neighbors(adj: pd.DataFrame, issue_df: pd.DataFrame) -> tuple[dict, dict]:
 # Anchor words for the one discovered topic promoted to the taxonomy display.
 _EXTRA_ANCHORS = {"Discovered 5": ["soviet", "nuclear", "weapons", "peace",
                                    "freedom", "forces"]}
+
+# Stance detection for war-adjacent issues: talking about war is not the
+# same as being for it (Biden's war paragraphs are about ending wars).
+_STANCE_ISSUES = {"War & military", "Discovered 5"}
+_PEACE_RE = re.compile(
+    r"\bend(?:ing)? (?:the |this |these )?wars?\b|\bbring(?:ing)? (?:our )?troops home\b"
+    r"|\bwithdraw\w*\b|\bpeace\b|\bceasefire\b|\bdiploma\w+\b|\bnegotiat\w+\b"
+    r"|\bdisarm\w*\b|\barms control\b|\bnever again\b")
+_MARTIAL_RE = re.compile(
+    r"\bvictor\w+\b|\bwin (?:the |this )?wars?\b|\bdefeat\w*\b|\bdestroy\w*\b"
+    r"|\bcrush\w*\b|\bfight\w*\b|\battack\w*\b|\bstrike\w*\b|\bconquer\w*\b")
+
+
+def _war_stance(texts) -> str | None:
+    joined = " ".join(texts).lower()
+    peace = len(_PEACE_RE.findall(joined))
+    martial = len(_MARTIAL_RE.findall(joined))
+    if peace + martial < 8:
+        return None
+    share = peace / (peace + martial)
+    if share >= 0.60:
+        return "mostly about ending wars"
+    if share <= 0.40:
+        return "mostly about waging it"
+    return "waging and ending in equal measure"
 
 _ABBREV_RE = re.compile(r"\b(Mr|Mrs|Ms|Dr|St|Gen|Col|Capt|Hon|No|vs|U\.S)\.")
 _SENT_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
@@ -262,6 +309,7 @@ def issue_cards(
                 "words": words,
                 "quote": quote,
                 "cite": cite,
+                "stance": (_war_stance(texts) if name in _STANCE_ISSUES else None),
             })
         out[pres] = {"cards": cards, "voice": remaining[:8]}
     return out

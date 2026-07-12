@@ -30,6 +30,12 @@
 
   .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
   .crumbs a { color: var(--ink2); }
+  .id-row { display: flex; align-items: center; gap: 20px; }
+  .portrait { width: 84px; height: 84px; border-radius: 50%;
+               border: 1px solid var(--border); flex: none; }
+  .i-stance { background: var(--page); border: 1px solid var(--border);
+               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+               color: var(--ink2); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .chip { background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
@@ -64,9 +70,15 @@
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a></p>
-  <h1>Harry S. Truman</h1>
-  <div class="chips"><span class="chip"><span class="dot" style="background:#2a78d6"></span>Democratic</span><span class="chip">1945–1953</span><span class="chip">19 speeches</span><span class="chip">37,012 words</span></div>
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../compare.html?a=harry-s-truman">Compare →</a></p>
+  <div class="id-row">
+    <img class="portrait" src="../portraits/harry-s-truman.png" alt="Harry S. Truman">
+    <div>
+      <h1>Harry S. Truman</h1>
+      <div class="chips"><span class="chip"><span class="dot" style="background:#2a78d6"></span>Democratic</span><span class="chip">1945–1953</span><span class="chip">19 speeches</span><span class="chip">37,012 words</span></div>
+    </div>
+  </div>
 </header>
 <main>
 <section>
@@ -89,13 +101,13 @@
      statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
   <div class="i-card">
   <div class="i-head"><span class="i-name">Security & peace</span>
-    <span class="i-badge">+22 pp vs their era</span></div>
+    <span class="i-badge">+22 pp vs their era</span><span class="i-stance">waging and ending in equal measure</span></div>
   <div class="terms"><span class="term">greece</span><span class="term">atomic</span><span class="term">korea</span><span class="term">victory</span><span class="term">bomb</span></div>
   <blockquote><p>“We shall continue to strive to promote freedom of expression and freedom of religion throughout the peace-loving areas of the world.”</p><cite>Navy Day Address, 1945</cite></blockquote>
 </div>
 <div class="i-card">
   <div class="i-head"><span class="i-name">War & military</span>
-    <span class="i-badge">+7 pp vs their era</span></div>
+    <span class="i-badge">+7 pp vs their era</span><span class="i-stance">waging and ending in equal measure</span></div>
   <div class="terms"><span class="term">turkey</span></div>
   <blockquote><p>“The fleet, on V-J Day, consisted of 1200 warships, more than 50,000 supporting and landing craft, and over 40,000 navy planes.”</p><cite>Navy Day Address, 1945</cite></blockquote>
 </div>
@@ -120,7 +132,7 @@
   <h2>Kinships</h2>
   <p>Sounds like <span class="dim">(era-adjusted voice)</span>: <a href="franklin-d-roosevelt.html">Franklin D. Roosevelt</a> <span class="dim">(0.38)</span> · <a href="abraham-lincoln.html">Abraham Lincoln</a> <span class="dim">(0.37)</span> · <a href="donald-trump.html">Donald Trump</a> <span class="dim">(0.31)</span></p>
   <p>Shared agenda <span class="dim">(issue mix)</span>: <a href="john-f-kennedy.html">John F. Kennedy</a> <span class="dim">(0.98)</span> · <a href="richard-m-nixon.html">Richard M. Nixon</a> <span class="dim">(0.96)</span> · <a href="franklin-d-roosevelt.html">Franklin D. Roosevelt</a> <span class="dim">(0.95)</span></p>
-  <p class="invocations">Invokes: Franklin D. Roosevelt (12×), Abraham Lincoln (3×), Woodrow Wilson (3×), Andrew Jackson (1×) &nbsp;·&nbsp; Invoked 136× by later presidents</p>
+  <p class="invocations">Invokes: Franklin D. Roosevelt (12×, warmly), Abraham Lincoln (3×, warmly), Woodrow Wilson (3×, warmly), Andrew Jackson (1×) &nbsp;·&nbsp; Invoked 136× by later presidents - 80% of tone-carrying mentions are reverent</p>
 </section>
 <section>
   <h2>Signature speeches</h2>

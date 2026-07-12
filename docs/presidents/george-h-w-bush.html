@@ -30,6 +30,12 @@
 
   .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
   .crumbs a { color: var(--ink2); }
+  .id-row { display: flex; align-items: center; gap: 20px; }
+  .portrait { width: 84px; height: 84px; border-radius: 50%;
+               border: 1px solid var(--border); flex: none; }
+  .i-stance { background: var(--page); border: 1px solid var(--border);
+               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+               color: var(--ink2); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .chip { background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
@@ -64,9 +70,15 @@
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a></p>
-  <h1>George H. W. Bush</h1>
-  <div class="chips"><span class="chip"><span class="dot" style="background:#e34948"></span>Republican</span><span class="chip">1988–1993</span><span class="chip">23 speeches</span><span class="chip">100,029 words</span></div>
+     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
+     <a href="../compare.html?a=george-h-w-bush">Compare →</a></p>
+  <div class="id-row">
+    <img class="portrait" src="../portraits/george-h-w-bush.png" alt="George H. W. Bush">
+    <div>
+      <h1>George H. W. Bush</h1>
+      <div class="chips"><span class="chip"><span class="dot" style="background:#e34948"></span>Republican</span><span class="chip">1988–1993</span><span class="chip">23 speeches</span><span class="chip">100,029 words</span></div>
+    </div>
+  </div>
 </header>
 <main>
 <section>
@@ -89,13 +101,13 @@
      statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
   <div class="i-card">
   <div class="i-head"><span class="i-name">War & military</span>
-    <span class="i-badge">+5 pp vs their era</span></div>
+    <span class="i-badge">+5 pp vs their era</span><span class="i-stance">waging and ending in equal measure</span></div>
   <div class="terms"><span class="term">kuwait</span><span class="term">saddam</span><span class="term">gulf</span><span class="term">iraq</span><span class="term">leadership</span></div>
   <blockquote><p>“And at the same time, and whether on the battlefield of Iraq or in some tiny little village in Somalia, America&#x27;s soldiers have always brought a quality of caring and kindness to their mission.”</p><cite>Address at West Point, 1993</cite></blockquote>
 </div>
 <div class="i-card">
   <div class="i-head"><span class="i-name">Security & peace</span>
-    <span class="i-badge">+4 pp vs their era</span></div>
+    <span class="i-badge">+4 pp vs their era</span><span class="i-stance">mostly about ending wars</span></div>
   <div class="terms"><span class="term">soviet</span><span class="term">gorbachev</span><span class="term">world</span></div>
   <blockquote><p>“The Governor was for a nuclear freeze that would have locked in a thousand Soviet intermediate nuclear force weapons and zero for the West.”</p><cite>Debate with Michael Dukakis, 1988</cite></blockquote>
 </div>
@@ -114,7 +126,7 @@
   <h2>Kinships</h2>
   <p>Sounds like <span class="dim">(era-adjusted voice)</span>: <a href="james-madison.html">James Madison</a> <span class="dim">(0.31)</span> · <a href="harry-s-truman.html">Harry S. Truman</a> <span class="dim">(0.27)</span> · <a href="joe-biden.html">Joe Biden</a> <span class="dim">(0.26)</span></p>
   <p>Shared agenda <span class="dim">(issue mix)</span>: <a href="ronald-reagan.html">Ronald Reagan</a> <span class="dim">(0.99)</span> · <a href="joe-biden.html">Joe Biden</a> <span class="dim">(0.99)</span> · <a href="jimmy-carter.html">Jimmy Carter</a> <span class="dim">(0.98)</span></p>
-  <p class="invocations">Invokes: Ronald Reagan (26×), Harry S. Truman (7×), Franklin D. Roosevelt (4×), Dwight D. Eisenhower (4×)</p>
+  <p class="invocations">Invokes: Ronald Reagan (26×, warmly), Harry S. Truman (7×, warmly), Franklin D. Roosevelt (4×, critically), Dwight D. Eisenhower (4×, warmly)</p>
 </section>
 <section>
   <h2>Signature speeches</h2>
