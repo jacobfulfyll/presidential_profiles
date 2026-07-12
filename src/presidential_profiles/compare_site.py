@@ -63,11 +63,13 @@ def write_compare(data: dict, display_issues: list[str]) -> None:
                  border: 2px solid var(--border); }}
   .picker.a img {{ border-color: {SERIES[0]}; }}
   .picker.b img {{ border-color: {SERIES[1]}; }}
+  .picker.c img {{ border-color: {SERIES[2]}; }}
+  .picker.c img.empty {{ visibility: hidden; }}
   select {{ padding: 9px 12px; border: 1px solid var(--border); border-radius: 10px;
             background: var(--surface); color: var(--ink); font-family: inherit;
             font-size: 0.95rem; }}
-  .duo {{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; }}
-  @media (max-width: 820px) {{ .duo {{ grid-template-columns: 1fr; }} }}
+  .duo {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+          gap: 16px; margin-top: 10px; }}
   .col {{ background: var(--surface); border: 1px solid var(--border);
           border-radius: 12px; padding: 16px 18px; }}
   .col h3 {{ font-size: 1.02rem; display: flex; align-items: center; gap: 8px; }}
@@ -101,6 +103,7 @@ def write_compare(data: dict, display_issues: list[str]) -> None:
   <div class="pickers">
     <div class="picker a"><img id="imga" src="" alt=""><select id="sela"></select></div>
     <div class="picker b"><img id="imgb" src="" alt=""><select id="selb"></select></div>
+    <div class="picker c"><img id="imgc" src="" alt=""><select id="selc"></select></div>
   </div>
 </header>
 <main>
@@ -116,12 +119,17 @@ def write_compare(data: dict, display_issues: list[str]) -> None:
 <script>
 const P = {json.dumps(payload)};
 const AXES = {json.dumps(axes)};
-const COLORS = ["{SERIES[0]}", "{SERIES[1]}"];
+const COLORS = ["{SERIES[0]}", "{SERIES[1]}", "{SERIES[2]}"];
 const CHROME = {{surface:"{SURFACE}", ink:"{INK}", ink2:"{INK2}",
                  muted:"{MUTED}", grid:"{GRID}"}};
 const names = Object.keys(P);
 
-function fillSelect(sel, chosen) {{
+function fillSelect(sel, chosen, allowNone) {{
+  if (allowNone) {{
+    const o = document.createElement("option");
+    o.value = ""; o.textContent = "add a third…";
+    sel.appendChild(o);
+  }}
   names.forEach(n => {{
     const o = document.createElement("option");
     o.value = n; o.textContent = n; if (n === chosen) o.selected = true;
@@ -152,22 +160,28 @@ function colHTML(name, i) {{
     <h4>Sounds like</h4><div class="issue-line">${{kin}}</div>
   </div>`;
 }}
-function statsHTML(a, b) {{
-  const rows = Object.keys(P[a].stats).map(k => {{
-    const va = P[a].stats[k], vb = P[b].stats[k];
-    const wa = va > vb ? "win" : "", wb = vb > va ? "win" : "";
-    return `<tr><td>${{k}}</td><td class="num ${{wa}}">${{va}}</td>
-            <td class="num ${{wb}}">${{vb}}</td></tr>`;
+function statsHTML(sel) {{
+  const rows = Object.keys(P[sel[0]].stats).map(k => {{
+    const vals = sel.map(n => P[n].stats[k]);
+    const mx = Math.max(...vals);
+    const tds = vals.map(v =>
+      `<td class="num ${{v === mx ? "win" : ""}}">${{v}}</td>`).join("");
+    return `<tr><td>${{k}}</td>${{tds}}</tr>`;
   }}).join("");
-  return `<thead><tr><th>measure</th><th>${{a}}</th><th>${{b}}</th></tr></thead>
-          <tbody>${{rows}}</tbody>`;
+  const heads = sel.map(n => `<th>${{n}}</th>`).join("");
+  return `<thead><tr><th>measure</th>${{heads}}</tr></thead><tbody>${{rows}}</tbody>`;
 }}
 function render() {{
   const a = document.getElementById("sela").value;
   const b = document.getElementById("selb").value;
+  const c = document.getElementById("selc").value;
+  const sel = c ? [a, b, c] : [a, b];
   document.getElementById("imga").src = "portraits/" + P[a].slug + ".png";
   document.getElementById("imgb").src = "portraits/" + P[b].slug + ".png";
-  Plotly.react("radar", [radarTrace(a, 0), radarTrace(b, 1)], {{
+  const imgc = document.getElementById("imgc");
+  imgc.className = c ? "" : "empty";
+  if (c) imgc.src = "portraits/" + P[c].slug + ".png";
+  Plotly.react("radar", sel.map((n, i) => radarTrace(n, i)), {{
     template: "simple_white", paper_bgcolor: CHROME.surface,
     font: {{family: "{FONT}", color: CHROME.ink2, size: 12}},
     polar: {{bgcolor: CHROME.surface,
@@ -178,20 +192,25 @@ function render() {{
     legend: {{orientation: "h", x: 0, y: 1.12}},
     height: 430, margin: {{l: 70, r: 70, t: 40, b: 30}},
   }}, {{displayModeBar: false, responsive: true}});
-  document.getElementById("cols").innerHTML = colHTML(a, 0) + colHTML(b, 1);
-  document.getElementById("stats").innerHTML = statsHTML(a, b);
+  document.getElementById("cols").innerHTML =
+    sel.map((n, i) => colHTML(n, i)).join("");
+  document.getElementById("stats").innerHTML = statsHTML(sel);
   const url = new URL(location);
   url.searchParams.set("a", P[a].slug); url.searchParams.set("b", P[b].slug);
+  if (c) url.searchParams.set("c", P[c].slug); else url.searchParams.delete("c");
   history.replaceState(null, "", url);
 }}
 const params = new URLSearchParams(location.search);
 const bySlug = Object.fromEntries(names.map(n => [P[n].slug, n]));
 const a0 = bySlug[params.get("a")] || "Abraham Lincoln";
 const b0 = bySlug[params.get("b")] || "Franklin D. Roosevelt";
+const c0 = bySlug[params.get("c")] || "";
 fillSelect(document.getElementById("sela"), a0);
 fillSelect(document.getElementById("selb"), b0);
+fillSelect(document.getElementById("selc"), c0, true);
 document.getElementById("sela").onchange = render;
 document.getElementById("selb").onchange = render;
+document.getElementById("selc").onchange = render;
 render();
 </script>
 </body>

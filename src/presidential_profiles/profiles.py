@@ -175,9 +175,10 @@ def neighbors(adj: pd.DataFrame, issue_df: pd.DataFrame) -> tuple[dict, dict]:
 _EXTRA_ANCHORS = {"Discovered 5": ["soviet", "nuclear", "weapons", "peace",
                                    "freedom", "forces"]}
 
-# Stance detection for war-adjacent issues: talking about war is not the
-# same as being for it (Biden's war paragraphs are about ending wars).
-_STANCE_ISSUES = {"War & military", "Discovered 5"}
+# Stance detection: talking about an issue is not the same as taking a
+# side on it. Each spec: (side_a regex, side_a label, side_b regex,
+# side_b label, mixed label). Applied where the sides are real and the
+# vocabulary is era-portable.
 _PEACE_RE = re.compile(
     r"\bend(?:ing)? (?:the |this |these )?wars?\b|\bbring(?:ing)? (?:our )?troops home\b"
     r"|\bwithdraw\w*\b|\bpeace\b|\bceasefire\b|\bdiploma\w+\b|\bnegotiat\w+\b"
@@ -185,20 +186,48 @@ _PEACE_RE = re.compile(
 _MARTIAL_RE = re.compile(
     r"\bvictor\w+\b|\bwin (?:the |this )?wars?\b|\bdefeat\w*\b|\bdestroy\w*\b"
     r"|\bcrush\w*\b|\bfight\w*\b|\battack\w*\b|\bstrike\w*\b|\bconquer\w*\b")
+_WAR_SPEC = (_PEACE_RE, "mostly about ending wars",
+             _MARTIAL_RE, "mostly about waging it",
+             "waging and ending in equal measure")
+
+_STANCE_SPECS = {
+    "War & military": _WAR_SPEC,
+    "Discovered 5": _WAR_SPEC,
+    "Immigration": (
+        re.compile(r"\bnation of immigrants\b|\bwelcom\w+\b|\bpathway\b|\basylum\b"
+                   r"|\brefugees?\b|\bnaturaliz\w+\b|\bcontribut\w+\b|\bopportunit\w+\b"),
+        "mostly about welcoming",
+        re.compile(r"\billegal\w*\b|\bdeport\w*\b|\bsecure[ds]? (?:the |our )?border\b"
+                   r"|\bborder security\b|\bcriminal\w*\b|\binvasion\b|\bexclusion\b"
+                   r"|\brestrict\w*\b|\bsmuggl\w+\b"),
+        "mostly about restricting",
+        "welcoming and restricting in equal measure"),
+    "Trade & tariffs": (
+        re.compile(r"\bprotect\w* (?:american|our|home) (?:industr|worker|manufactur|labor)\w*"
+                   r"|\bprotective tariff\w*|\bunfair\w*\b|\bdumping\b|\btrade deficit\b"
+                   r"|\bcheat\w*\b|\bretaliat\w+\b"),
+        "mostly protectionist",
+        re.compile(r"\bfree trade\b|\bopen markets?\b|\btrade agreements?\b|\bnafta\b"
+                   r"|\breciproc\w+\b|\blower\w* (?:the |of )?(?:tariffs?|duties)\b"
+                   r"|\bfreer\b|\bliberaliz\w+\b"),
+        "mostly free-trade",
+        "protection and free trade in equal measure"),
+}
 
 
-def _war_stance(texts) -> str | None:
+def _issue_stance(texts, spec) -> str | None:
+    re_a, label_a, re_b, label_b, label_mixed = spec
     joined = " ".join(texts).lower()
-    peace = len(_PEACE_RE.findall(joined))
-    martial = len(_MARTIAL_RE.findall(joined))
-    if peace + martial < 8:
+    a = len(re_a.findall(joined))
+    b = len(re_b.findall(joined))
+    if a + b < 8:
         return None
-    share = peace / (peace + martial)
+    share = a / (a + b)
     if share >= 0.60:
-        return "mostly about ending wars"
+        return label_a
     if share <= 0.40:
-        return "mostly about waging it"
-    return "waging and ending in equal measure"
+        return label_b
+    return label_mixed
 
 _ABBREV_RE = re.compile(r"\b(Mr|Mrs|Ms|Dr|St|Gen|Col|Capt|Hon|No|vs|U\.S)\.")
 _SENT_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
@@ -309,7 +338,8 @@ def issue_cards(
                 "words": words,
                 "quote": quote,
                 "cite": cite,
-                "stance": (_war_stance(texts) if name in _STANCE_ISSUES else None),
+                "stance": (_issue_stance(texts, _STANCE_SPECS[name])
+                           if name in _STANCE_SPECS else None),
             })
         out[pres] = {"cards": cards, "voice": remaining[:8]}
     return out
