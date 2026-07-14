@@ -1,0 +1,58 @@
+# Tasks
+
+Direction: `notes/convergence-investigation-direction.md`
+Adversarial review of the convergence design (13 confirmed / 9 partial findings) reshaped this
+backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what changed and why.
+
+## Active Tasks
+
+### fix-paragraph-issues-key
+**Task**: Give paragraph_issues.parquet a real (doc_name, para_idx) key
+**Pipeline**: code-workflow
+**Branch**: task/fix-paragraph-issues-key
+**Worktree**: .worktree/fix-paragraph-issues-key
+**Base**: master
+**Started**: 2026-07-13
+**Files**:
+- MOD: src/presidential_profiles/issues.py
+- MOD: src/presidential_profiles/profiles.py
+- MOD: src/presidential_profiles/site.py
+- MOD: src/presidential_profiles/explorer.py
+- MOD: src/presidential_profiles/issues_site.py
+- MOD: data/paragraph_issues.parquet
+
+---
+
+## Backlog
+
+### Data Foundation
+- [ ] build-annotation-provenance-layer: LLM derived-data layer, manifests, pp-annotate CLI, invocation_tone migration [P1] [complex] [tier: opus:high] [code] [planned]
+  files: src/presidential_profiles/llm_annotations.py (NEW), src/presidential_profiles/annotate.py (NEW), pyproject.toml (MOD), data/llm_annotations/ (NEW)
+- [ ] discover-corpus-taxonomy: Derive a two-level corpus-native taxonomy + crosswalk to the legacy 15 [P1] [complex] [tier: opus:high] [code] [planned] [depends: build-annotation-provenance-layer, fix-paragraph-issues-key]
+  files: src/presidential_profiles/embed_topics.py (NEW), src/presidential_profiles/taxonomy.py (NEW), data/llm_annotations/taxonomy_v1.json (NEW), data/llm_annotations/crosswalk_v1.json (NEW)
+- [ ] run-llm-annotation-pass: Annotate 36k paragraphs + 1057 speeches via Sonnet 5 batch (<=$50) [P1] [complex] [tier: opus:high] [code] [planned] [depends: discover-corpus-taxonomy]
+  files: src/presidential_profiles/prompts/annotation_v1.py (NEW), src/presidential_profiles/annotate.py (MOD), data/llm_annotations/paragraph_annotations.parquet (NEW), data/llm_annotations/speech_annotations.parquet (NEW), data/llm_annotations/paragraph_entities.parquet (NEW)
+- [ ] inter-model-agreement-check: Opus 4.8 second pass on a persisted 25% sample; publish disagreement [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
+  files: src/presidential_profiles/agreement.py (NEW), data/llm_annotations/agreement_sample_v1.json (NEW), data/llm_annotations/agreement_v1.parquet (NEW), notes/agreement-report-v1.md (NEW)
+- [ ] build-word-families: Group word forms (immigrant/immigrants/immigration) into one node in the word graph [P2] [complex] [tier: opus:high] [code] [planned] [conflicts: fix-paragraph-issues-key, topic-chart-upgrades]
+  files: src/presidential_profiles/word_families.py (NEW), src/presidential_profiles/explorer.py (MOD), src/presidential_profiles/trends.py (MOD), src/presidential_profiles/site.py (MOD), pyproject.toml (MOD), data/word_families.json (NEW), notes/word-families-review.md (NEW)
+
+### Analysis & Findings
+- [ ] topic-method-comparison: LLM vs CorEx label agreement, coherence scoring, cluster naming [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass] [conflicts: fix-paragraph-issues-key]
+  files: src/presidential_profiles/triangulate.py (NEW), src/presidential_profiles/topic_quality.py (NEW), src/presidential_profiles/issues.py (MOD)
+- [ ] breadth-depth-register: Did the formal record get broader, shallower, more values-driven? [P2] [complex] [tier: opus:high] [code] [planned] [depends: run-llm-annotation-pass]
+  files: src/presidential_profiles/register.py (NEW), data/register/trends.parquet (NEW), notes/register-findings-v1.md (NEW)
+- [ ] issue-attention-over-time: Topic birth, death, and revival across 240 years [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass, discover-corpus-taxonomy]
+  files: src/presidential_profiles/attention.py (NEW), data/attention/topic_lifecycles.parquet (NEW), notes/attention-findings-v1.md (NEW)
+- [ ] combativeness-over-time: Where does today land against the 1860s and 1930s? [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
+  files: src/presidential_profiles/combat.py (NEW), data/combat/combativeness.parquet (NEW), notes/combativeness-findings-v1.md (NEW)
+- [ ] era-atlas: Era fingerprints, similarity matrix, data-driven periodization, LLM portraits [P2] [complex] [tier: opus:high] [code] [planned] [depends: breadth-depth-register, issue-attention-over-time, combativeness-over-time]
+  files: src/presidential_profiles/eras.py (NEW), data/eras/era_fingerprints.parquet (NEW), data/eras/era_similarity.parquet (NEW), notes/era-atlas-v1.md (NEW)
+- [ ] convergence-analysis: Pre-registered test of agenda convergence (rebuilt after adversarial review) [P3] [complex] [tier: opus:high] [code] [planned] [depends: era-atlas, topic-method-comparison]
+  files: src/presidential_profiles/convergence.py (NEW), notes/convergence-prereg-v1.md (NEW), notes/convergence-findings-v1.md (NEW), data/convergence/ (NEW)
+
+### Site Presentation
+- [ ] topic-chart-upgrades: Confidence bands (sampling + annotator disagreement) on issue trend charts [P3] [moderate] [tier: opus:medium] [design] [planned] [depends: inter-model-agreement-check] [conflicts: profile-issue-views, build-word-families]
+  files: src/presidential_profiles/bands.py (NEW), src/presidential_profiles/site.py (MOD), src/presidential_profiles/issues_site.py (MOD)
+- [ ] profile-issue-views: Raw attention + era-relative + "topic of the day" flag on profiles [P3] [moderate] [tier: opus:medium] [design] [planned] [conflicts: topic-chart-upgrades]
+  files: src/presidential_profiles/profiles.py (MOD), src/presidential_profiles/profiles_site.py (MOD)
