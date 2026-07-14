@@ -1,0 +1,1 @@
+- [Verification workflow](verification-workflow.md) — how to run tests + build the static site for presidential_profiles (Rosetta venv, deterministic docs)

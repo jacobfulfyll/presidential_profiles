@@ -114,8 +114,9 @@ def build_issues(force: bool = False):
     all_names = issue_names + [f"Discovered {i + 1}" for i in range(N_FREE_TOPICS)]
     para_labels = pd.DataFrame(labels, columns=all_names)
     para_labels.insert(0, "doc_name", paras["doc_name"].values)
-    para_labels.insert(1, "president", paras["president"].values)
-    para_labels.insert(2, "year", paras["year"].values)
+    para_labels.insert(1, "para_idx", paras["para_idx"].values)
+    para_labels.insert(2, "president", paras["president"].values)
+    para_labels.insert(3, "year", paras["year"].values)
     para_labels.to_parquet(PARA_LABELS_PATH, index=False)
 
     # President x issue: share of paragraphs touching each issue.

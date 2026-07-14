@@ -268,10 +268,14 @@ def issue_cards(
     """Per president: their top era-relative issues, each with the president's
     own distinctive vocabulary for that issue and a verbatim sentence from
     their speeches on it. Remaining distinctive terms become their 'voice'."""
-    paras = pd.read_parquet(PARAGRAPHS_PATH).reset_index(drop=True)
-    labels = pd.read_parquet(issues.PARA_LABELS_PATH).reset_index(drop=True)
-    if len(paras) != len(labels):
-        raise RuntimeError("paragraphs and labels out of sync - rerun the pipeline")
+    paras = pd.read_parquet(PARAGRAPHS_PATH)
+    labels = pd.read_parquet(issues.PARA_LABELS_PATH)
+    merged = paras.merge(
+        labels, on=["doc_name", "para_idx"], how="inner", validate="one_to_one"
+    )
+    if len(merged) != len(paras) or len(merged) != len(labels):
+        raise RuntimeError("paragraphs and labels key sets diverge - rerun the pipeline")
+    paras = merged.reset_index(drop=True)
     titles = df.set_index("doc_name")[["title", "year"]]
 
     display = issue_meta["issues"] + ["Discovered 5"]
@@ -279,7 +283,7 @@ def issue_cards(
 
     out = {}
     for pres, prow in issue_df.iterrows():
-        mask = (labels["president"] == pres).to_numpy()
+        mask = (paras["president"] == pres).to_numpy()
         n_paras = float(prow["n_paragraphs"])
         eligible = [
             n for n in display
@@ -296,7 +300,7 @@ def issue_cards(
 
         cards = []
         for name in eligible:
-            issue_mask = mask & labels[name].to_numpy()
+            issue_mask = mask & paras[name].to_numpy()
             texts = paras.loc[issue_mask, "text"]
             joined = " ".join(texts).lower()
             issue_words = max(len(joined.split()), 1)

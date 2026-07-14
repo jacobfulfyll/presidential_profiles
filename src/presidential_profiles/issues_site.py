@@ -50,15 +50,19 @@ def fig_issue_timeline(pl: pd.DataFrame, name: str, label: str,
     return fig
 
 
-def _issue_quotes(pl: pd.DataFrame, paras: pd.DataFrame, name: str,
+def _issue_quotes(merged: pd.DataFrame, name: str,
                   anchors: list[str], titles: pd.DataFrame) -> list[dict]:
-    """Three verbatim moments: early, peak, and recent."""
-    mask = pl[name].to_numpy()
-    idx = pd.Series(range(len(pl)))[mask]
-    years = pl.loc[mask, "year"]
+    """Three verbatim moments: early, peak, and recent.
+
+    `merged` is paragraphs joined with their issue labels on
+    (doc_name, para_idx), so paragraph text and label booleans live in the
+    same frame/row - no positional alignment between separate tables."""
+    mask = merged[name].to_numpy()
+    idx = pd.Series(range(len(merged)))[mask]
+    years = merged.loc[mask, "year"]
     if not len(years):
         return []
-    d = pl.assign(period=(pl["year"] // 20) * 20)
+    d = merged.assign(period=(merged["year"] // 20) * 20)
     peak_period = (d.groupby("period")[name].mean()).idxmax()
     windows = [
         ("Early", int(years.min()), int(years.min()) + 40),
@@ -70,16 +74,16 @@ def _issue_quotes(pl: pd.DataFrame, paras: pd.DataFrame, name: str,
         win = idx[(years >= lo) & (years <= hi)]
         if not len(win):
             continue
-        texts = paras.loc[win, "text"]
+        texts = merged.loc[win, "text"]
         hits = texts.str.lower().str.count(
             "|".join(rf"\b{a}\w*" for a in anchors))
         top = hits.nlargest(3).index
-        q = _pick_sentence([paras.loc[i, "text"] for i in top], anchors, [])
+        q = _pick_sentence([merged.loc[i, "text"] for i in top], anchors, [])
         if not q or q in seen:
             continue
         seen.add(q)
-        src = next(i for i in top if q in paras.loc[i, "text"])
-        doc = paras.loc[src, "doc_name"]
+        src = next(i for i in top if q in merged.loc[i, "text"])
+        doc = merged.loc[src, "doc_name"]
         t = titles.loc[doc]
         quotes.append({
             "label": label, "quote": html_mod.escape(q),
@@ -90,8 +94,8 @@ def _issue_quotes(pl: pd.DataFrame, paras: pd.DataFrame, name: str,
     return quotes
 
 
-def render_issue(name: str, label: str, pl, paras, titles, owners,
-                 fig: go.Figure, quotes: list[dict], faces: dict) -> str:
+def render_issue(label: str, owners, fig: go.Figure,
+                 quotes: list[dict]) -> str:
     fig_json = pio.to_json(fig)
     owner_rows = []
     max_share = owners["share"].max() or 1
@@ -223,6 +227,14 @@ def write_issue_pages(site_dir, issue_df: pd.DataFrame, issue_meta: dict,
 
     paras = pd.read_parquet(PARAGRAPHS_PATH).reset_index(drop=True)
     pl = pd.read_parquet(issues.PARA_LABELS_PATH).reset_index(drop=True)
+    # Explicit key join for anything that needs both paragraph text and
+    # labels in the same row - no positional alignment between the tables.
+    merged = paras.merge(
+        pl, on=["doc_name", "para_idx"], how="inner", validate="one_to_one"
+    )
+    if len(merged) != len(paras) or len(merged) != len(pl):
+        raise RuntimeError("paragraphs and labels key sets diverge - rerun the pipeline")
+    merged = merged.reset_index(drop=True)
     speeches_df = pd.read_parquet(issues.DATA_DIR / "speeches.parquet")
     titles = speeches_df.set_index("doc_name")[["president", "title", "year"]]
     anchors_all = {**issues.ISSUE_ANCHORS, **_EXTRA_ANCHORS}
@@ -245,9 +257,8 @@ def write_issue_pages(site_dir, issue_df: pd.DataFrame, issue_meta: dict,
             "share": d.loc[scores.index, f"share_{name}"] * 100,
         }).nlargest(8, "share")
         fig = fig_issue_timeline(pl, name, label, pres_dots)
-        quotes = _issue_quotes(pl, paras, name, anchors_all[name], titles)
-        page = render_issue(name, label, pl, paras, titles, owners, fig,
-                            quotes, faces)
+        quotes = _issue_quotes(merged, name, anchors_all[name], titles)
+        page = render_issue(label, owners, fig, quotes)
         (out_dir / f"{issue_slug(label)}.html").write_text(page)
 
         periods = pl.assign(period=(pl["year"] // 10) * 10)

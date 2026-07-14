@@ -91,7 +91,8 @@ Miller Center of Public Affairs, University of Virginia.
 
 `data/speeches.parquet` is the normalized corpus (one row per speech, cleaned plain-text
 transcript). The other parquet files are derived tables the pipeline caches so you can explore
-results without recomputing.
+results without recomputing. Paragraph-level tables (`paragraphs.parquet`, `paragraph_issues.parquet`)
+share a `(doc_name, para_idx)` key — join on it rather than assuming row order.
 
 ## Running it
 
@@ -103,6 +104,8 @@ uv run pp-fetch         # download + normalize the corpus  -> data/speeches.parq
 uv run pp-analyze       # full pipeline                    -> outputs/
 uv run pp-site          # interactive dashboard            -> docs/index.html
 ```
+
+Tests: `uv sync --extra dev && uv run pytest`.
 
 `pp-analyze --force` recomputes the cached intermediate tables. The spaCy tagging pass over
 4.2M words takes a few minutes; everything else is seconds.
