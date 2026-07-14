@@ -21,13 +21,24 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 - MOD: src/presidential_profiles/issues_site.py
 - MOD: data/paragraph_issues.parquet
 
+### build-annotation-provenance-layer
+**Task**: LLM derived-data layer, manifests, pp-annotate CLI, invocation_tone migration
+**Pipeline**: code-workflow
+**Branch**: task/build-annotation-provenance-layer
+**Worktree**: .worktree/build-annotation-provenance-layer
+**Base**: master
+**Started**: 2026-07-13
+**Files**:
+- NEW: src/presidential_profiles/llm_annotations.py
+- NEW: src/presidential_profiles/annotate.py
+- MOD: pyproject.toml
+- NEW: data/llm_annotations/
+
 ---
 
 ## Backlog
 
 ### Data Foundation
-- [ ] build-annotation-provenance-layer: LLM derived-data layer, manifests, pp-annotate CLI, invocation_tone migration [P1] [complex] [tier: opus:high] [code] [planned]
-  files: src/presidential_profiles/llm_annotations.py (NEW), src/presidential_profiles/annotate.py (NEW), pyproject.toml (MOD), data/llm_annotations/ (NEW)
 - [ ] discover-corpus-taxonomy: Derive a two-level corpus-native taxonomy + crosswalk to the legacy 15 [P1] [complex] [tier: opus:high] [code] [planned] [depends: build-annotation-provenance-layer, fix-paragraph-issues-key]
   files: src/presidential_profiles/embed_topics.py (NEW), src/presidential_profiles/taxonomy.py (NEW), data/llm_annotations/taxonomy_v1.json (NEW), data/llm_annotations/crosswalk_v1.json (NEW)
 - [ ] run-llm-annotation-pass: Annotate 36k paragraphs + 1057 speeches via Sonnet 5 batch (<=$50) [P1] [complex] [tier: opus:high] [code] [planned] [depends: discover-corpus-taxonomy]
