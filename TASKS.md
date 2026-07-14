@@ -6,21 +6,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### fix-paragraph-issues-key
-**Task**: Give paragraph_issues.parquet a real (doc_name, para_idx) key
-**Pipeline**: code-workflow
-**Branch**: task/fix-paragraph-issues-key
-**Worktree**: .worktree/fix-paragraph-issues-key
-**Base**: master
-**Started**: 2026-07-13
-**Files**:
-- MOD: src/presidential_profiles/issues.py
-- MOD: src/presidential_profiles/profiles.py
-- MOD: src/presidential_profiles/site.py
-- MOD: src/presidential_profiles/explorer.py
-- MOD: src/presidential_profiles/issues_site.py
-- MOD: data/paragraph_issues.parquet
-
 ### build-annotation-provenance-layer
 **Task**: LLM derived-data layer, manifests, pp-annotate CLI, invocation_tone migration
 **Pipeline**: code-workflow
