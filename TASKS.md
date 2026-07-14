@@ -67,3 +67,11 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   files: src/presidential_profiles/bands.py (NEW), src/presidential_profiles/site.py (MOD), src/presidential_profiles/issues_site.py (MOD)
 - [ ] profile-issue-views: Raw attention + era-relative + "topic of the day" flag on profiles [P3] [moderate] [tier: opus:medium] [design] [planned] [conflicts: topic-chart-upgrades]
   files: src/presidential_profiles/profiles.py (MOD), src/presidential_profiles/profiles_site.py (MOD)
+
+### Ungroomed
+Discovered during build-annotation-provenance-layer (2026-07-14). Not fixed — logged only.
+- [ ] migrate-invocation-tone-not-rerunnable: `migrate_invocation_tone(force=True)` reads `invocation_tone.json`, which the migration deletes — so `force=True` on a clean checkout raises FileNotFoundError. Recovering the source needs `git show`. The sharp edge of "delete the original, git history preserves it."
+- [ ] submit-double-loads-corpus: `annotate.py cmd_submit` re-derives the corpus fingerprint with a second `load()` + `read_parquet` after `_prepare()` already loaded both — a redundant full corpus load on the paid path.
+- [ ] invocation-windows-bleed-across-speeches: `profiles.invocations()` computes tone windows on the *concatenated* per-president transcript, so a window near a speech boundary can pull text from an adjacent speech. Affects window text only, not match counts.
+- [ ] nondeterministic-plot-output: `outputs/figures/*.png` and `outputs/interactive/*.html` are tracked but regenerate with byte-level differences on every `pp-analyze` run, so any task that runs the pipeline shows unrelated diff noise.
+- [ ] nrc-lexicon-refetch-in-worktree: `pp-site` re-downloads the NRC Emotion Lexicon in a fresh worktree because `data/raw/` is gitignored — a network fetch in an otherwise offline pipeline.
