@@ -17,15 +17,21 @@ dependencies = [
     "matplotlib>=3.9",
     "adjusttext>=1.2",
     "corextopic>=1.1",
+    "anthropic>=0.116,<1",
+    # Used directly by annotate.py to validate batch requests against the SDK's
+    # own types before a paid submit. Ships with anthropic, but the import is
+    # first-party here, so the dependency is declared rather than borrowed.
+    "pydantic>=2.0,<3",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=9.0.3"]
+dev = ["pytest>=9.0.3", "pytest-cov>=5.0"]
 
 [project.scripts]
 pp-fetch = "presidential_profiles.fetch:main"
 pp-analyze = "presidential_profiles.analyze:main"
 pp-site = "presidential_profiles.site:main"
+pp-annotate = "presidential_profiles.annotate:main"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

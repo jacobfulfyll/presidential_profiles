@@ -1,0 +1,26 @@
+{
+  "annotation_files": [
+    "invocation_tone.parquet"
+  ],
+  "batch_id": null,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "corpus_fingerprint": {
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc",
+    "n_paragraphs": 36229,
+    "n_speeches": 1057
+  },
+  "cost_usd": null,
+  "date": "2026-07-12",
+  "fields": [
+    "label"
+  ],
+  "input_tokens": 0,
+  "model": "claude-fable-5",
+  "n_requests": 0,
+  "notes": "MIGRATED from data/llm_annotations/invocation_tone.json, whose 101 labels were keyed only by position in two JSON arrays (biden_to_trump=69, trump_to_obama=32). Re-anchored to (doc_name, char_start, char_end) by replaying profiles.invocations()'s per-president transcript concatenation with cumulative offset tracking; match counts and label histograms verified identical (C=52/N=16/R=1 and C=20/N=10/R=2).\n\nORIGINAL `method` FIELD, VERBATIM (the historical record of what was claimed):\nEach mention window (\u00b1110 chars around the name) read and classified in-session by Claude Fable 5, 2026-07-12. Labels: R reverent, C critical, N neutral/procedural (incl. reporters' questions and ceremonial listings). Supersedes NRC lexicon tone, which cannot detect sarcasm.\n\nDISCREPANCY, NOT CORRECTED: the method string above claims a +/-110 char tone window, but profiles.py:137 \u2014 the code that actually produced these matches \u2014 uses +/-130. The reconstruction replicates the CODE (+/-130), since that is what the labeller was shown. Window size affects only the window text, not the match count, so the 69/32 counts are unaffected. The method string is preserved unedited rather than silently fixed.\n\nThis run was interactive, not batched: no batch_id, no request count, and no usage numbers were recorded, so cost_usd is null (unknown, not zero). Not reproducible from this manifest \u2014 that is the point of the layer that replaces it.",
+  "output_tokens": 0,
+  "prompt_hash": "sha256:5952db301a5c0e4aa1f7d567a467df2cf66b37f7744b7f35cb4595bf391d7845",
+  "prompt_version": "invocation_tone/in-session-2026-07-12",
+  "run_id": "2026-07-12-invocation-tone-fable5"
+}

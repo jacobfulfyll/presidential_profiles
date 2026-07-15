@@ -94,6 +94,12 @@ transcript). The other parquet files are derived tables the pipeline caches so y
 results without recomputing. Paragraph-level tables (`paragraphs.parquet`, `paragraph_issues.parquet`)
 share a `(doc_name, para_idx)` key — join on it rather than assuming row order.
 
+LLM-derived annotations live separately under `data/llm_annotations/`, keyed by `doc_name` or
+`(doc_name, para_idx)` — never by row order — with every row's `run_id` pointing at a manifest
+(model, prompt version + hash, batch id, token counts, cost, corpus fingerprint) so any
+annotated value is traceable to what produced it. `invocation_tone.parquet` is the first table
+in this layer, migrated from a legacy position-keyed JSON file.
+
 ## Running it
 
 Requires [uv](https://docs.astral.sh/uv/). Then:
@@ -109,6 +115,14 @@ Tests: `uv sync --extra dev && uv run pytest`.
 
 `pp-analyze --force` recomputes the cached intermediate tables. The spaCy tagging pass over
 4.2M words takes a few minutes; everything else is seconds.
+
+`pp-annotate` (subcommands `dry-run` / `submit` / `status` / `ingest`) drives LLM annotation
+passes over the corpus via the Anthropic Batches API. It is the only command in the pipeline
+that can spend money — kept behind its own CLI so a `pp-analyze --force` rebuild can never
+trigger a paid call. `dry-run` builds and validates the batch file and a cost estimate with
+zero network calls and no credentials; `submit` is the paid step and refuses to run without
+both `--yes` and a `--max-cost-usd` ceiling. A dry-run over the full corpus produces ~1,057
+batch requests (~$8.53 est.); no paid annotation run has been made yet.
 
 ## How it works
 
