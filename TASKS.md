@@ -6,19 +6,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### build-annotation-provenance-layer
-**Task**: LLM derived-data layer, manifests, pp-annotate CLI, invocation_tone migration
-**Pipeline**: code-workflow
-**Branch**: task/build-annotation-provenance-layer
-**Worktree**: .worktree/build-annotation-provenance-layer
-**Base**: master
-**Started**: 2026-07-13
-**Files**:
-- NEW: src/presidential_profiles/llm_annotations.py
-- NEW: src/presidential_profiles/annotate.py
-- MOD: pyproject.toml
-- NEW: data/llm_annotations/
-
 ---
 
 ## Backlog
