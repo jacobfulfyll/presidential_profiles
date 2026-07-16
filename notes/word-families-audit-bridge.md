@@ -1,0 +1,387 @@
+# Cross-stem bridge audit (2026-07-16)
+
+Prefix+cosine bridge over the word-family vocabulary surfaced 435 cross-stem candidates
+(shared prefix >=4 or containment, model2vec cos >=0.70). A first pass classified them
+MERGE/SPLIT (403 MERGE); the 371 MERGE candidates with full context were then adversarially
+verified by 3 independent lenses each (semantic / corpus-drift / prefix-trap).
+
+- verified: 371  |  confirmed (<2 of 3 refuted): 358  |  rejected (>=2): 13
+- 10 further pulled on the completeness critic (agent-noun / drifted-sense).
+- Net shipped in CROSS_STEM_MERGE: 348 pairs.
+
+## Rejected by >=2 of 3 lenses (the invisible false merges this pass caught)
+
+- warm + warmth  (3/3)  warm is a common, multi-sense adjective (warm welcome/relations/weather); usage won't trac
+- defense + defenseless  (3/3)  '-less' negates: defenseless = helpless/vulnerable people, not national defense. Antonymic
+- four + fourth  (3/3)  'fourth' dominated by 'Fourth of July' (Independence Day) and fractions ('fourths') — drif
+- democracy + democratic  (3/3)  Members democrat/democrats are overwhelmingly the Democratic Party (proper noun) in presid
+- framed + framers  (3/3)  'framers' = the Framers (Founders), a specific referent; 'frame/framing' spans framework/f
+- commission + commissioners  (3/3)  Agent-noun for a class of officials vs the polysemous act/body/military-commission; parall
+- earn + earners  (2/3)  earn = broad verb (earn respect/trust/living); earners = income-class term (high/top/wage 
+- weigh + weight  (2/3)  'weight' lexicalized as independent noun (heaviness/importance/burden) diverging from verb
+- embryonic + embryos  (2/3)  Drifted sense: 'embryonic' frequently metaphorical (early/undeveloped stage) vs 'embryos' 
+- legislation + legislature  (2/3)  legislature = law-making body/institution; legislation = the laws/act — distinct referents
+- charge + chargeable  (2/3)  charge is highly polysemous; chargeable = liable-to-be-charged, a drifted derivation (cf. 
+- steam + steamers  (2/3)  steamer = a vessel (ship), a drifted concrete-object sense; steam = power/vapor. Like offi
+- effect + effectual  (2/3)  'effect'=result/consequence (dominant noun sense) vs rare 'effectual'=effective; senses dr
+
+## Confirmed (348 shipped; the ~24 single-refute borderline cases marked *)
+
+- absence + absent
+- accuracy + accurate
+- acquired + acquisition
+- add + addition
+- afghan + afghanistan
+- africa + african
+- america + american
+- anxiety + anxious
+- argue + argument
+- arise + arisen
+- asia + asian
+- asserted + assertion
+- associated + associates
+- assume + assumption
+- attained + attainment
+- avoid + avoidance
+- bank + bankers
+- belief + believe
+- big + bigger
+- big + biggest
+- bless + blessings
+- bombers + bombing
+- brave + bravery
+- brazil + brazilian
+- bright + brighter
+- britain + british
+- broke + broken
+- build + builders
+- build + buildings *
+- build + built
+- burden + burdensome
+- bureau + bureaus
+- canada + canadian
+- charitable + charity
+- cheap + cheaper
+- chile + chilean
+- china + chinese
+- chose + chosen
+- claimants + claims
+- clean + cleaner
+- clear + clearer
+- coin + coinage
+- collected + collector *
+- colombia + colombian
+- combinations + combined *
+- command + commanded
+- command + commander *
+- communism + communist
+- comparative + comparison
+- compared + comparison
+- compassion + compassionate
+- compete + competition
+- compete + competitive
+- compete + competitors
+- competition + competitors
+- complain + complaint
+- conciliation + conciliatory
+- concluded + conclusion
+- concur + concurrence
+- condemnation + condemned
+- confidence + confidently
+- confirmation + confirmed
+- congress + congressional
+- congress + congressmen
+- congressional + congressman
+- coordinate + coordination
+- correct + correction
+- create + creation
+- crime + criminal
+- crises + crisis
+- cuba + cuban
+- dark + darkest
+- debt + debtors *
+- decided + decision
+- deep + deeper
+- deep + deepest
+- deeper + deepest
+- deeper + deeply
+- defend + defenders
+- defend + defense
+- defined + definition
+- delegates + delegation
+- delivered + delivery
+- demonstrated + demonstrations *
+- depart + departure
+- department + departmental
+- depositories + deposits *
+- depositors + deposits *
+- destroy + destruction
+- detailed + details
+- deter + deterrent
+- dictator + dictatorship
+- differences + different
+- difficult + difficulties
+- diplomacy + diplomatic
+- disagree + disagreement
+- disarm + disarmament
+- discovered + discovery
+- discretion + discretionary *
+- draw + drawn
+- earliest + early
+- easier + easiest
+- east + eastern
+- economic + economists *
+- economic + economy
+- efficiency + efficiently
+- emphasis + emphasize
+- employed + employment
+- encourage + encouragement
+- environment + environmental
+- erected + erection
+- europe + european
+- exclude + exclusion
+- existence + existing
+- expand + expansion
+- experience + experienced
+- experiment + experimental
+- explain + explanation
+- exploration + explore
+- extended + extension
+- extremism + extremists
+- fail + failure
+- fall + fallen
+- farm + farmers
+- fast + faster
+- fast + fastest
+- faster + fastest
+- finance + financial
+- fish + fisheries
+- fish + fishermen
+- forbade + forbid
+- force + forcibly
+- forced + forcibly
+- formation + formed
+- fort + fortifications
+- founded + founders
+- fraud + fraudulent
+- free + freely
+- friends + friendship
+- full + fully
+- generosity + generous
+- gentleman + gentlemen
+- german + germany
+- government + governmental
+- graduate + graduation
+- granted + grants
+- grateful + gratitude
+- gratification + gratifying
+- greece + greek
+- growing + grown
+- growing + growth
+- happily + happy
+- hard + harder
+- hard + hardest
+- harder + hardest
+- hawaii + hawaiian
+- heaviest + heavy
+- heroic + heroism
+- historic + historically
+- historic + history
+- historically + history
+- honest + honesty
+- hundred + hundredth *
+- hunger + hungry
+- idealism + ideals
+- indebted + indebtedness
+- induced + inducement
+- inflation + inflationary
+- influence + influential
+- injured + injury
+- inspection + inspectors
+- intended + intention
+- intervene + intervention
+- invaded + invasion
+- investment + investors
+- iran + iranian
+- iraq + iraqi
+- israel + israeli
+- italian + italy
+- japan + japanese
+- jealous + jealousy
+- judicial + judiciary
+- justification + justify
+- korea + korean
+- large + larger
+- large + largest
+- leaders + leadership
+- lebanese + lebanon
+- legislation + legislators
+- legislators + legislature
+- lobby + lobbyists
+- long + longest
+- low + lower
+- low + lowest
+- lower + lowest
+- loyal + loyalty
+- machine + machinery
+- maintain + maintenance
+- manifest + manifestation
+- marriage + married
+- means + meant *
+- medical + medicine
+- meet + meetings
+- members + membership
+- mexican + mexico
+- mistake + mistaken
+- modification + modified
+- monthly + months
+- nation + nationwide
+- necessaries + necessity
+- necessary + necessity
+- new + newly
+- nicaragua + nicaraguan
+- nomination + nominee
+- north + northern
+- notification + notified
+- observation + observed
+- old + older
+- optimism + optimistic
+- owned + owners
+- owned + ownership
+- owners + ownership
+- partial + partly
+- partners + partnership
+- pay + payable
+- pay + payment
+- peace + peaceable
+- peace + peacefully
+- peace + peacetime
+- percent + percentage
+- political + politicians
+- poor + poorest
+- postage + postal
+- pray + prayer
+- precisely + precision
+- preparatory + prepared
+- present + presented *
+- president + presidential
+- produce + producers
+- produce + production
+- producers + production
+- prompt + promptitude *
+- provinces + provincial
+- publication + published
+- qualifications + qualified
+- rail + railroad *
+- rail + railway
+- railroad + railway
+- rapidity + rapidly
+- ratification + ratified
+- rebel + rebellion
+- rebuild + rebuilt
+- reclaim + reclamation *
+- recognition + recognize
+- recover + recovery
+- reduce + reduction
+- register + registration
+- regulations + regulatory
+- religion + religious
+- repeat + repeatedly
+- repeat + repetition
+- representation + represented
+- respect + respectfully
+- respond + response
+- restrain + restraint
+- revolution + revolutionary
+- ruin + ruinous
+- russia + russian
+- sacrifice + sacrificed
+- safe + safer
+- safe + safest
+- safe + safety
+- safer + safety
+- sanitary + sanitation
+- satisfaction + satisfied
+- science + scientific
+- science + scientists
+- scientific + scientists
+- secrecy + secret
+- secure + secured
+- see + seen
+- seven + seventh *
+- shipping + ships
+- short + shorter
+- show + shown
+- silence + silent
+- simple + simplicity
+- six + sixth *
+- slave + slavery
+- slow + slowly
+- small + smaller
+- small + smallest
+- smaller + smallest
+- south + southern
+- sovereign + sovereignty
+- speed + speedy
+- stability + stable
+- statesman + statesmanship
+- strategic + strategy
+- strict + strictest
+- strong + stronger
+- strong + strongest
+- stronger + strongest
+- submission + submitted *
+- succeed + success *
+- sufferers + suffering
+- supervision + supervisors
+- suspended + suspension
+- sympathize + sympathy
+- syria + syrian
+- tax + taxation
+- tax + taxpayers *
+- teach + teachers
+- tech + technology
+- temporarily + temporary
+- temptation + tempted
+- terror + terrorists
+- testify + testimony
+- threat + threatened
+- throw + thrown
+- tough + tougher
+- tough + toughest
+- tougher + toughest
+- traditional + traditions
+- tragedy + tragic
+- treated + treatment
+- tribal + tribes
+- turkey + turkish *
+- ukraine + ukrainian
+- uncertain + uncertainty
+- valuable + value *
+- valuation + value *
+- venezuela + venezuelan
+- verification + verify
+- viet + vietnam
+- viet + vietnamese
+- vietnam + vietnamese
+- view + viewpoint
+- violence + violent
+- visit + visitors
+- voluntarily + voluntary
+- watchful + watching
+- weak + weaken
+- weak + weaker
+- weaken + weaker
+- wealth + wealthy
+- wealthiest + wealthy
+- west + western
+- wise + wisest
+- withdrawal + withdrew
+- withdrawn + withdrew
+- world + worldwide
+- worse + worst
+- write + written
+- year + years'
+- young + younger
+- yourself + yourselves
+- zeal + zealous

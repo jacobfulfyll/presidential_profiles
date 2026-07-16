@@ -31,7 +31,7 @@ the stem "immigr").
 The override lists were produced by a 21-agent adversarial audit of all 2,154
 merge/split decisions the algorithm makes (4.5% error rate, 96 confirmed errors,
 each refuted by three independent skeptics before it counted). See
-.pipeline/build-word-families/AUDIT-*.md for the audit and its rationale.
+notes/word-families-audit-*.{md,json} for the audit and its rationale.
 """
 
 import json
@@ -207,7 +207,7 @@ IRREGULAR_MERGE: list[set[str]] = [
 # CROSS_STEM_MERGE: derivational families the Snowball stem gate cannot see
 # because the suffix rewrites the stem (tax/taxat, religion/religi), so cosine
 # never got to judge them. Found by a prefix+cosine bridge and confirmed by a
-# 3-lens adversarial audit (see .pipeline/build-word-families/AUDIT-bridge-*.md).
+# 3-lens adversarial audit (see notes/word-families-audit-bridge.md).
 # Each pair names two forms whose whole nodes are unioned.
 CROSS_STEM_MERGE: list[set[str]] = [
     # 348 derivational families the Snowball stem gate cannot see because the
@@ -219,7 +219,7 @@ CROSS_STEM_MERGE: list[set[str]] = [
     # completeness critic (agent-noun & drifted-sense: means/meant,
     # command/commander, combinations/combined, reclaim/reclamation,
     # collected/collector, tax/taxpayers, debt/debtors, ...). See
-    # .pipeline/build-word-families/AUDIT-bridge-*.md.
+    # notes/word-families-audit-bridge.md.
     {"absence", "absent"},
     {"accuracy", "accurate"},
     {"acquired", "acquisition"},
