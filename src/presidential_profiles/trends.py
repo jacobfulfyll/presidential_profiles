@@ -2,17 +2,24 @@
 
 import re
 from collections import Counter
+from functools import lru_cache
 
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
+from . import word_families as wf
 from .corpus import load
 
 WORD_RE = re.compile(r"[a-z']+")
 
-# Term groups tracked per 10k words. Values are the surface forms counted.
-TERM_GROUPS = {
+# Seed forms for each tracked concept. These are the editorial groupings (e.g.
+# freedom + liberty are synonyms no morphological map would join); the actual
+# surface forms counted are these seeds expanded through the word-family map, so
+# "immigration" automatically also counts "immigrant"/"immigrants". Seeds keep
+# their own literal forms too, so the concept never regresses if the map is
+# missing or splits a word.
+TERM_SEEDS = {
     "democracy": ["democracy", "democratic"],
     "freedom / liberty": ["freedom", "freedoms", "liberty", "liberties"],
     "God": ["god"],
@@ -23,6 +30,18 @@ TERM_GROUPS = {
     "constitution": ["constitution", "constitutional"],
     "border": ["border", "borders"],
 }
+
+
+@lru_cache(maxsize=1)
+def term_groups() -> dict[str, list[str]]:
+    """Each concept's seeds expanded through the word-family map — the surface
+    forms actually summed. Lazy (not an import-time dict) so a fresh clone
+    without data/word_families.json still imports; unmapped seeds fall back to
+    themselves."""
+    return {
+        name: sorted({f for seed in seeds for f in wf.family_members(seed)})
+        for name, seeds in TERM_SEEDS.items()
+    }
 
 
 def tokens(text: str) -> list[str]:
@@ -48,7 +67,7 @@ def keyword_trends(
             counts.update(toks)
         if total < min_words:
             continue
-        for name, terms in TERM_GROUPS.items():
+        for name, terms in term_groups().items():
             rate = sum(counts[t] for t in terms) / total * 10_000
             rows.append({"period": period, "term": name, "rate": rate})
     return pd.DataFrame(rows)

@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
 
-from . import compare_site, corpus, explorer, indices, issues, issues_site, portraits, profiles, profiles_site, rhetoric, similarity, trends
+from . import compare_site, corpus, explorer, indices, issues, issues_site, portraits, profiles, profiles_site, rhetoric, similarity, trends, word_families
 from .figures import (
     BASELINE,
     BLUE_RAMP,
@@ -625,7 +625,7 @@ def _president_keyword_rates(df: pd.DataFrame) -> pd.DataFrame:
             "president": p,
             **{term: sum(len(re.findall(rf"\b{re.escape(t)}\b", text))
                          for t in terms) / total * 10_000
-               for term, terms in trends.TERM_GROUPS.items()},
+               for term, terms in trends.term_groups().items()},
         })
     return pd.DataFrame(rows).set_index("president")
 
@@ -642,7 +642,7 @@ def fig_keywords(kw: pd.DataFrame, df: pd.DataFrame | None = None,
                 "y": pk.loc[mids.index, term].values,
                 "name": mids.index,
             })
-            for term in trends.TERM_GROUPS
+            for term in trends.term_groups()
         }
     panels = [
         (term, kw[kw["term"] == term].set_index("period")["rate"])
@@ -1052,6 +1052,8 @@ def main() -> None:
     args = parser.parse_args()
 
     df = corpus.load()
+    word_families.build_families(df)      # before keyword_trends: term_groups reads the map
+    trends.term_groups.cache_clear()
     stats = rhetoric.build_stats(df)
     emb = similarity.build_embeddings(df)
     sim = similarity.similarity_matrix(emb)
@@ -1109,8 +1111,10 @@ def main() -> None:
     profile_data = profiles.build_profile_data()
     profiles_site.write_profiles(profile_data, SITE_DIR)
 
-    if not (explorer.EXPLORER_DIR / "meta.json").exists():
-        explorer.build_explorer_data()
+    meta = explorer.EXPLORER_DIR / "meta.json"
+    if (not meta.exists()
+            or word_families.FAMILIES_PATH.stat().st_mtime > meta.stat().st_mtime):
+        explorer.build_explorer_data()      # rebuild if the family map changed
     explorer.write_page()
     issues_site.write_issue_pages(SITE_DIR, issue_df, issue_meta, scores, faces)
     compare_site.write_compare(profile_data,

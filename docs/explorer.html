@@ -47,10 +47,25 @@
            background: var(--surface); border: 1px solid var(--border);
            border-radius: 999px; font-size: 0.9rem; }
   .chip .swatch { width: 10px; height: 10px; border-radius: 50%; }
+  .chip .count { color: var(--muted); font-size: 0.78rem; cursor: help;
+                  border-bottom: 1px dotted var(--border); }
+  #tip { position: fixed; z-index: 50; max-width: 340px; padding: 8px 11px;
+          background: var(--surface); border: 1px solid var(--border);
+          border-radius: 8px; font-size: 0.84rem; color: var(--ink);
+          line-height: 1.5; pointer-events: none;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.14); }
+  #tip[hidden] { display: none; }
+  #tip .thead { color: var(--muted); font-size: 0.72rem; text-transform: uppercase;
+                 letter-spacing: 0.04em; margin-bottom: 4px; }
   .chip button { border: none; background: none; cursor: pointer; color: var(--muted);
                   font-size: 1rem; padding: 0; }
   #msg { color: var(--muted); font-size: 0.88rem; min-height: 1.3em; }
   #unitnote { color: var(--muted); font-size: 0.82rem; margin-top: 8px; }
+  .grouptoggle { display: inline-flex; align-items: center; gap: 7px;
+                  font-size: 0.9rem; color: var(--ink2); cursor: pointer;
+                  margin: 6px 0 2px; }
+  .grouptoggle input { flex: none; min-width: 0; width: auto; margin: 0;
+                        accent-color: var(--ink); cursor: pointer; }
 </style>
 </head>
 <body>
@@ -68,8 +83,11 @@
     <select id="topic"><option value="">add a topic…</option></select>
     <button id="add">Add</button>
   </div>
+  <label class="grouptoggle" for="grp"><input type="checkbox" id="grp">
+    group word forms (count “immigrant”, “immigrants”, “immigration” as one)</label>
   <div class="chips" id="chips"></div>
   <div id="msg"></div>
+  <div id="tip" hidden></div>
 </header>
 <main>
   <div class="chart-scroll"><div class="chart" id="chart" style="height:480px"></div></div>
@@ -86,8 +104,20 @@ const CHROME = {surface:"#fcfcfb", ink:"#0b0b0b", ink2:"#52514e", muted:"#898781
                  grid:"#e1e0d9", baseline:"#c3c2b7"};
 const FONT = "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif";
 let META = null;
+let FAMILIES = {};
+const MEMBERS = {};        // node label -> [surface forms folded into it]
+let grouped = false;
 const shardCache = {};
 let series = [];
+
+// The surface forms counted under each position of a (grouped) query, e.g.
+// ["immigration"] -> [["immigration","immigrants","immigrant"]].
+function memberForms(words) {
+  return words.map(w => {
+    const lab = node(w);
+    return [...new Set([lab].concat(MEMBERS[lab] || []))];
+  });
+}
 
 async function loadJSON(path) {
   const r = await fetch(path);
@@ -135,9 +165,10 @@ function seriesTrace(s, idx, indexed) {
     const mx = Math.max(...y.filter(v => v != null));
     y = y.map(v => v == null ? null : v / mx * 100);
   }
+  const extra = s.members ? s.label + "<br>" + s.members : s.label;
   return {x, y, name: s.label, mode: "lines", connectgaps: false,
           line: {color: COLORS[idx % COLORS.length], width: 2.4},
-          hovertemplate: "%{y:.2f}<extra>" + s.label + "</extra>"};
+          hovertemplate: "%{y:.2f}<extra>" + extra + "</extra>"};
 }
 function redraw() {
   const mixed = new Set(series.map(s => s.type)).size > 1;
@@ -167,52 +198,114 @@ function renderChips() {
   series.forEach((s, i) => {
     const chip = document.createElement("span");
     chip.className = "chip";
+    const badge = s.members
+      ? `<span class="count">${s.nforms} forms</span>` : "";
     chip.innerHTML = `<span class="swatch" style="background:${COLORS[i % COLORS.length]}"></span>
-      ${s.label} <button aria-label="remove">×</button>`;
-    chip.querySelector("button").onclick = () => { series.splice(i, 1); redraw(); };
+      ${s.label} ${badge}<button aria-label="remove">×</button>`;
+    chip.querySelector("button").onclick = () => { series.splice(i, 1); hideTip(); redraw(); };
+    if (s.members) {
+      chip.addEventListener("mousemove", e => showTip(s, e));
+      chip.addEventListener("mouseleave", hideTip);
+    }
     el.appendChild(chip);
   });
 }
 function msg(t) { document.getElementById("msg").textContent = t; }
-async function addTerm(raw) {
+function showTip(s, e) {
+  const tip = document.getElementById("tip");
+  const list = s.members.split(" / ").join(", ").split("  +  ").join("  •  ");
+  tip.innerHTML = `<div class="thead">counted as “${s.label}” (${s.nforms} forms)</div>${list}`;
+  tip.hidden = false;
+  moveTip(e);
+}
+function moveTip(e) {
+  const tip = document.getElementById("tip"), pad = 14, r = tip.getBoundingClientRect();
+  let x = e.clientX + pad, y = e.clientY + pad;
+  if (x + r.width > innerWidth) x = e.clientX - r.width - pad;
+  if (y + r.height > innerHeight) y = e.clientY - r.height - pad;
+  tip.style.left = Math.max(4, x) + "px"; tip.style.top = Math.max(4, y) + "px";
+}
+function hideTip() { document.getElementById("tip").hidden = true; }
+const node = w => (grouped && FAMILIES[w]) ? FAMILIES[w] : w;
+const shardLetter = w => /[a-z]/.test(w[0]) ? w[0] : "0";
+async function addTerm(raw, silent) {
   const q = raw.trim().toLowerCase().replace(/[^a-z' ]/g, "").replace(/ +/g, " ");
   if (!q) return;
-  if (series.some(s => s.label === q)) { msg("already on the chart"); return; }
   const words = q.split(" ");
   if (words.length > 2) { msg("words and two-word phrases only (for now)"); return; }
-  const prefix = words.length === 1 ? "u" : "b";
-  const letter = /[a-z]/.test(q[0]) ? q[0] : "0";
-  msg("loading…");
-  const shard = await getShard(prefix, letter);
-  if (!(q in shard)) {
-    msg(`“${q}” ${words.length === 1
+  // Resolve to the family node when grouping is on: "immigrants" -> "immigration".
+  const key = words.map(node).join(" ");
+  const label = grouped ? key : q;
+  if (series.some(s => s.label === label)) {
+    if (!silent) msg("already on the chart"); return; }
+  const shardPrefix = grouped ? (words.length === 1 ? "gu" : "gb")
+                              : (words.length === 1 ? "u" : "b");
+  if (!silent) msg("loading…");
+  const shard = await getShard(shardPrefix, shardLetter(key));
+  if (!(key in shard)) {
+    if (!silent) msg(`“${q}” ${words.length === 1
       ? "appears fewer than 30 times in 240 years of presidential speech"
       : "appears fewer than 15 times as a phrase"}`);
     return;
   }
   msg("");
-  series.push({label: q, type: "term", data: shard[q]});
-  redraw();
+  // What's actually being counted, for the chip badge and hover tooltip.
+  let members = null, nforms = 0;
+  if (grouped) {
+    const perPos = memberForms(words);
+    const total = perPos.reduce((a, f) => a + f.length, 0);
+    if (total > words.length) {        // at least one position folds >1 form
+      members = perPos.map(f => f.join(" / ")).join("  +  ");
+      nforms = words.length === 1 ? perPos[0].length : total;
+    }
+  }
+  series.push({label, q: raw, type: "term", data: shard[key], members, nforms});
+  if (!silent) redraw();
 }
 function addTopic(name) {
   if (!name || series.some(s => s.label === name)) return;
   series.push({label: name, type: "topic", data: META.topics[name]});
   redraw();
 }
+function addEntity(name) {
+  if (!name || series.some(s => s.label === name)) return;
+  series.push({label: name, type: "term", data: META.entities[name]});
+  redraw();
+}
+async function regroup() {
+  grouped = document.getElementById("grp").checked;
+  const queries = series.filter(s => s.q !== undefined).map(s => s.q);
+  series = series.filter(s => s.q === undefined);   // keep topics + entities
+  for (const q of queries) await addTerm(q, true);
+  redraw();
+}
 (async () => {
-  META = await loadJSON("explorer/meta.json");
+  [META, FAMILIES] = await Promise.all([
+    loadJSON("explorer/meta.json"), loadJSON("explorer/families.json")]);
+  for (const f in FAMILIES) (MEMBERS[FAMILIES[f]] ||= []).push(f);
   const sel = document.getElementById("topic");
   Object.keys(META.topics).forEach(t => {
-    const o = document.createElement("option"); o.value = t; o.textContent = t;
+    const o = document.createElement("option"); o.value = "t:" + t; o.textContent = t;
     sel.appendChild(o);
   });
-  sel.onchange = () => { addTopic(sel.value); sel.value = ""; };
+  Object.keys(META.entities || {}).forEach(t => {
+    const o = document.createElement("option"); o.value = "e:" + t; o.textContent = t;
+    sel.appendChild(o);
+  });
+  sel.onchange = () => {
+    const v = sel.value;
+    if (v.startsWith("t:")) addTopic(v.slice(2));
+    else if (v.startsWith("e:")) addEntity(v.slice(2));
+    sel.value = "";
+  };
   const input = document.getElementById("q");
   input.addEventListener("keydown", e => {
     if (e.key === "Enter") { addTerm(input.value); input.value = ""; }
   });
   document.getElementById("add").onclick = () => { addTerm(input.value); input.value = ""; };
-  for (const t of ["tariff", "freedom", "border"]) await addTerm(t);
+  document.getElementById("grp").addEventListener("change", regroup);
+  for (const t of ["tariff", "freedom", "border"]) await addTerm(t, true);
+  redraw();
 })();
 </script>
 </body>

@@ -17,6 +17,7 @@ dependencies = [
     "matplotlib>=3.9",
     "adjusttext>=1.2",
     "corextopic>=1.1",
+    "snowballstemmer>=3.1",
     "anthropic>=0.116,<1",
     # Used directly by annotate.py to validate batch requests against the SDK's
     # own types before a paid submit. Ships with anthropic, but the import is
@@ -32,6 +33,7 @@ pp-fetch = "presidential_profiles.fetch:main"
 pp-analyze = "presidential_profiles.analyze:main"
 pp-site = "presidential_profiles.site:main"
 pp-annotate = "presidential_profiles.annotate:main"
+pp-word-families = "presidential_profiles.word_families:main"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
