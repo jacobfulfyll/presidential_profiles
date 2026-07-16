@@ -19,13 +19,28 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 **Note**: Acceptance criterion 4 (centralized names file) deferred at PICKUP — the file does not
 exist and is blocked behind topic-method-comparison. Building 4 of 5. See CONTEXT.md.
 
+### discover-corpus-taxonomy
+**Task**: Derive a two-level corpus-native taxonomy + crosswalk to the legacy 15
+**Pipeline**: code-workflow
+**Branch**: task/discover-corpus-taxonomy
+**Worktree**: .worktree/discover-corpus-taxonomy
+**Base**: master
+**Started**: 2026-07-16
+**Files**:
+- NEW: src/presidential_profiles/embed_topics.py
+**Note**: SCOPE SPLIT at PICKUP — building `embed_topics.py` only. `taxonomy.py`,
+`taxonomy_v1.json`, and `crosswalk_v1.json` are deferred: no ANTHROPIC_API_KEY exists in this
+environment, and those artifacts are by definition the output of an LLM discovery pass. Authoring
+them without one would fabricate a corpus-derived taxonomy from model priors — the exact
+researcher degree of freedom this task exists to eliminate. The embedding half is fully offline
+and deterministic, and is a hard prerequisite for the deferred era sampling. On completion, the
+taxonomy half returns to Backlog blocked on credentials. See CONTEXT.md.
+
 ---
 
 ## Backlog
 
 ### Data Foundation
-- [ ] discover-corpus-taxonomy: Derive a two-level corpus-native taxonomy + crosswalk to the legacy 15 [P1] [complex] [tier: opus:high] [code] [planned] [depends: build-annotation-provenance-layer, fix-paragraph-issues-key]
-  files: src/presidential_profiles/embed_topics.py (NEW), src/presidential_profiles/taxonomy.py (NEW), data/llm_annotations/taxonomy_v1.json (NEW), data/llm_annotations/crosswalk_v1.json (NEW)
 - [ ] run-llm-annotation-pass: Annotate 36k paragraphs + 1057 speeches via Sonnet 5 batch (<=$50) [P1] [complex] [tier: opus:high] [code] [planned] [depends: discover-corpus-taxonomy]
   files: src/presidential_profiles/prompts/annotation_v1.py (NEW), src/presidential_profiles/annotate.py (MOD), data/llm_annotations/paragraph_annotations.parquet (NEW), data/llm_annotations/speech_annotations.parquet (NEW), data/llm_annotations/paragraph_entities.parquet (NEW)
 - [ ] inter-model-agreement-check: Opus 4.8 second pass on a persisted 25% sample; publish disagreement [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
@@ -46,9 +61,9 @@ exist and is blocked behind topic-method-comparison. Building 4 of 5. See CONTEX
   files: src/presidential_profiles/convergence.py (NEW), notes/convergence-prereg-v1.md (NEW), notes/convergence-findings-v1.md (NEW), data/convergence/ (NEW)
 
 ### Site Presentation
-- [ ] topic-chart-upgrades: Confidence bands (sampling + annotator disagreement) on issue trend charts [P3] [moderate] [tier: opus:medium] [design] [planned] [depends: inter-model-agreement-check] [conflicts: profile-issue-views, build-word-families]
+- [ ] topic-chart-upgrades: Confidence bands (sampling + annotator disagreement) on issue trend charts [P3] [moderate] [tier: opus:medium] [design] [planned] [depends: inter-model-agreement-check] [conflicts: profile-issue-views]
   files: src/presidential_profiles/bands.py (NEW), src/presidential_profiles/site.py (MOD), src/presidential_profiles/issues_site.py (MOD)
-- [ ] centralize-issue-display-names: `issues + ["Discovered 5"]` is hardcoded in five modules (`profiles.py:281`, `profiles_site.py:334`, `explorer.py:118`, `issues_site.py:247`, `site.py:361` + `site.py:1121`). Deferred from `profile-issue-views` (its acceptance criterion 4) at PICKUP on 2026-07-16: the "centralized names file" that criterion assumed does not exist and is blocked behind `topic-method-comparison`. Note task.md called this "the two hardcoded sites" — it is five. [P3] [moderate] [code] [depends: topic-method-comparison] [conflicts: build-word-families]
+- [ ] centralize-issue-display-names: `issues + ["Discovered 5"]` is hardcoded in five modules (`profiles.py:281`, `profiles_site.py:334`, `explorer.py:118`, `issues_site.py:247`, `site.py:361` + `site.py:1121`). Deferred from `profile-issue-views` (its acceptance criterion 4) at PICKUP on 2026-07-16: the "centralized names file" that criterion assumed does not exist and is blocked behind `topic-method-comparison`. Note task.md called this "the two hardcoded sites" — it is five. [P3] [moderate] [code] [depends: topic-method-comparison]
 
 ### Ungroomed
 Discovered during build-annotation-provenance-layer (2026-07-14). Not fixed — logged only.
