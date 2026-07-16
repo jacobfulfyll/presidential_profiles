@@ -6,6 +6,19 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+### profile-issue-views
+**Task**: Raw attention + era-relative + "topic of the day" flag on profiles
+**Pipeline**: code-workflow
+**Branch**: task/profile-issue-views
+**Worktree**: .worktree/profile-issue-views
+**Base**: master
+**Started**: 2026-07-16
+**Files**:
+- MOD: src/presidential_profiles/profiles.py
+- MOD: src/presidential_profiles/profiles_site.py
+**Note**: Acceptance criterion 4 (centralized names file) deferred at PICKUP — the file does not
+exist and is blocked behind topic-method-comparison. Building 4 of 5. See CONTEXT.md.
+
 ---
 
 ## Backlog
@@ -17,8 +30,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   files: src/presidential_profiles/prompts/annotation_v1.py (NEW), src/presidential_profiles/annotate.py (MOD), data/llm_annotations/paragraph_annotations.parquet (NEW), data/llm_annotations/speech_annotations.parquet (NEW), data/llm_annotations/paragraph_entities.parquet (NEW)
 - [ ] inter-model-agreement-check: Opus 4.8 second pass on a persisted 25% sample; publish disagreement [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
   files: src/presidential_profiles/agreement.py (NEW), data/llm_annotations/agreement_sample_v1.json (NEW), data/llm_annotations/agreement_v1.parquet (NEW), notes/agreement-report-v1.md (NEW)
-- [ ] build-word-families: Group word forms (immigrant/immigrants/immigration) into one node in the word graph [P2] [complex] [tier: opus:high] [code] [planned] [conflicts: fix-paragraph-issues-key, topic-chart-upgrades]
-  files: src/presidential_profiles/word_families.py (NEW), src/presidential_profiles/explorer.py (MOD), src/presidential_profiles/trends.py (MOD), src/presidential_profiles/site.py (MOD), pyproject.toml (MOD), data/word_families.json (NEW), notes/word-families-review.md (NEW)
 
 ### Analysis & Findings
 - [ ] topic-method-comparison: LLM vs CorEx label agreement, coherence scoring, cluster naming [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass] [conflicts: fix-paragraph-issues-key]
@@ -37,8 +48,7 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 ### Site Presentation
 - [ ] topic-chart-upgrades: Confidence bands (sampling + annotator disagreement) on issue trend charts [P3] [moderate] [tier: opus:medium] [design] [planned] [depends: inter-model-agreement-check] [conflicts: profile-issue-views, build-word-families]
   files: src/presidential_profiles/bands.py (NEW), src/presidential_profiles/site.py (MOD), src/presidential_profiles/issues_site.py (MOD)
-- [ ] profile-issue-views: Raw attention + era-relative + "topic of the day" flag on profiles [P3] [moderate] [tier: opus:medium] [design] [planned] [conflicts: topic-chart-upgrades]
-  files: src/presidential_profiles/profiles.py (MOD), src/presidential_profiles/profiles_site.py (MOD)
+- [ ] centralize-issue-display-names: `issues + ["Discovered 5"]` is hardcoded in five modules (`profiles.py:281`, `profiles_site.py:334`, `explorer.py:118`, `issues_site.py:247`, `site.py:361` + `site.py:1121`). Deferred from `profile-issue-views` (its acceptance criterion 4) at PICKUP on 2026-07-16: the "centralized names file" that criterion assumed does not exist and is blocked behind `topic-method-comparison`. Note task.md called this "the two hardcoded sites" — it is five. [P3] [moderate] [code] [depends: topic-method-comparison] [conflicts: build-word-families]
 
 ### Ungroomed
 Discovered during build-annotation-provenance-layer (2026-07-14). Not fixed — logged only.
