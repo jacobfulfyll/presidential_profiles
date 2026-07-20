@@ -6,19 +6,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### profile-issue-views
-**Task**: Raw attention + era-relative + "topic of the day" flag on profiles
-**Pipeline**: code-workflow
-**Branch**: task/profile-issue-views
-**Worktree**: .worktree/profile-issue-views
-**Base**: master
-**Started**: 2026-07-16
-**Files**:
-- MOD: src/presidential_profiles/profiles.py
-- MOD: src/presidential_profiles/profiles_site.py
-**Note**: Acceptance criterion 4 (centralized names file) deferred at PICKUP — the file does not
-exist and is blocked behind topic-method-comparison. Building 4 of 5. See CONTEXT.md.
-
 ---
 
 ## Backlog
