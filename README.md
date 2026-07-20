@@ -106,6 +106,16 @@ LLM-derived annotations live separately under `data/llm_annotations/`, keyed by 
 annotated value is traceable to what produced it. `invocation_tone.parquet` is the first table
 in this layer, migrated from a legacy position-keyed JSON file.
 
+`taxonomy_v1.json` and `crosswalk_v1.json` are two more artifacts in that layer — not row-keyed
+tables but a two-level topic taxonomy derived from the corpus itself: 17 level-1 domains (12
+policy, 5 non-policy — ceremonial, personal narrative, procedural/administrative, faith &
+values, partisan/media combat) and 50 level-2 topics, plus a crosswalk mapping every one of the
+15 legacy issues (+ "Security & peace") onto it. It's frozen: derived and validated against a
+held-out sample *before* any bulk annotation pass runs against it — a pre-registration discipline
+against researcher degrees of freedom, so the taxonomy can't be quietly reshaped to fit whatever
+an annotation run later finds. Provenance (models, prompt hash, exact sample IDs, actual cost)
+lives in `data/llm_annotations/manifests/taxonomy-v1-20260719.json`.
+
 ## Running it
 
 Requires [uv](https://docs.astral.sh/uv/). Then:
@@ -123,12 +133,22 @@ Tests: `uv sync --extra dev && uv run pytest`.
 4.2M words takes a few minutes; everything else is seconds.
 
 `pp-annotate` (subcommands `dry-run` / `submit` / `status` / `ingest`) drives LLM annotation
-passes over the corpus via the Anthropic Batches API. It is the only command in the pipeline
-that can spend money — kept behind its own CLI so a `pp-analyze --force` rebuild can never
-trigger a paid call. `dry-run` builds and validates the batch file and a cost estimate with
+passes over the corpus via the Anthropic Batches API. It is the only `pp-*` command that can
+spend money — kept behind its own CLI so a `pp-analyze --force` rebuild can never trigger a
+paid call. `dry-run` builds and validates the batch file and a cost estimate with
 zero network calls and no credentials; `submit` is the paid step and refuses to run without
 both `--yes` and a `--max-cost-usd` ceiling. A dry-run over the full corpus produces ~1,057
 batch requests (~$8.53 est.); no paid annotation run has been made yet.
+
+`python -m presidential_profiles.taxonomy` derives the corpus taxonomy above. It has no `pp-*`
+entry point and is not part of `pp-analyze` — like `pp-annotate`, it's a paid step run on its
+own. Per-era LLM proposals (each era sees only its own paragraphs, so the 1800s model can never
+propose "healthcare policy") are merged into the two-level structure, crosswalked to the legacy
+issues, and checked against a held-out coverage gate. `--dry-run` samples and reports with zero
+API calls; on a real run, a `--cost-ceiling` guard plus an enforced bail gate refuse to write
+`taxonomy_v1.json`/`crosswalk_v1.json` at all if coverage, structure, or crosswalk checks fail,
+so a bad run can never overwrite the frozen v1 artifacts. The committed v1 run cost $2.44 and
+reached 100% held-out coverage.
 
 ## How it works
 
@@ -139,6 +159,7 @@ batch requests (~$8.53 est.); no paid annotation run has been made yet.
 | Rhetorical indices | `indices.py` | Certainty (boosters vs hedges/concessives), naming, nostalgia/future, religiosity, NRC hope/fear, windowed vocabulary richness |
 | Issue topics | `issues.py` | Anchored CorEx over paragraphs: 15-issue curated taxonomy + discovered topics; era-relative emphasis per president |
 | Topic clusters | `embed_topics.py` | model2vec paragraph embeddings → MiniBatchKMeans at k=40 (discovery) and k=15 (dimension-matched to the anchored issues); c-TF-IDF terms + NPMI coherence; corpus-native counterweight to the anchored taxonomy, keyed `(doc_name, para_idx)` |
+| Corpus taxonomy | `taxonomy.py` | Era-isolated LLM proposals (no cross-era context — the anachronism guard) → merge into 17 domains / 50 topics → crosswalk to the 15 legacy issues → held-out coverage gate; frozen once validated — standalone paid script, not wired into `pp-analyze` |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
 | Profiles | `profiles.py` | Fingerprint percentiles, dual-axis issue cards (raw share of paragraphs + era-relative emphasis, "topic of the day" flag), distinctive vocabulary, signature speeches, invocations |

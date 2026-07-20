@@ -17,6 +17,13 @@
   real `(doc_name, para_idx)` key. Always join on it (`validate="one_to_one"`) — never assume
   row order lines the two tables up, even though it happens to hold today. This replaced a
   positional-alignment bug that could silently mislabel every paragraph on reorder.
+- `validate="one_to_one"` catches duplicate keys but NOT diverging key *sets* — an inner join
+  silently drops non-matching rows. When co-derived tables must stay row-complete, also assert
+  merged length == each input's length after the join (see `taxonomy.py::_require_full_merge`).
+- Artifacts under `data/llm_annotations/` (e.g. `taxonomy_v1.json`, `crosswalk_v1.json`) are
+  frozen, provenance-stamped outputs of paid LLM runs — never regenerate or hand-edit them
+  casually; each has a manifest in `data/llm_annotations/manifests/` recording models, prompts,
+  sample IDs, and actual cost.
 
 ## Testing
 - `tests/` (pytest) covers the paragraph/issue-label keyed-merge logic. Run with
@@ -25,3 +32,8 @@
 - Favor small synthetic DataFrames over the real 36k-row corpus or the real CorEx topic model
   (`issues.build_issues()` fits a full model — too slow/heavy for unit tests). Mirror the
   specific logic under test on a tiny frame instead of invoking the real pipeline function.
+- Money-path guard: `python -m presidential_profiles.taxonomy` (like `pp-annotate submit`) makes
+  PAID Anthropic API calls; `--dry-run` is $0. Tests must never construct an anthropic client —
+  `tests/conftest.py`'s autouse `_no_anthropic_creds` deletes the API key so any stray client
+  construction fails loudly. Fake API responses with `types.SimpleNamespace`, keep `import
+  anthropic` lazy inside the one client-constructing function.
