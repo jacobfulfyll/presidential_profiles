@@ -1,1 +1,2 @@
 - [Verification workflow](verification-workflow.md) — how to run tests + build the static site for presidential_profiles (Rosetta venv, deterministic docs)
+- [Verify embed clusters](verification-embed-clusters.md) — how to verify embed_topics.build_clusters end-to-end (offline, ~4s, seed-42 deterministic, NPMI sanity)

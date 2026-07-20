@@ -6,6 +6,11 @@
   resolve to the wrong architecture's interpreter.
 - The venv is uv-managed and has no `pip`; install packages with `uv pip install ...` (with
   `VIRTUAL_ENV` pointed at `.venv`) rather than `python -m pip`.
+- Running from a **git worktree** (e.g. `.worktree/<slug>/`): the editable install's `.pth`
+  hardcodes the **main repo's** `src`, so a bare `python`/`pytest` imports main-repo code even
+  when your cwd is the worktree — you'd silently test the wrong source. Set
+  `PYTHONPATH=<worktree>/src` (pytest already prepends the relative `src`), and confirm with
+  `python -c "import presidential_profiles as m; print(m.__file__)"` before trusting results.
 
 ## Data conventions
 - Paragraph-level tables (`data/paragraphs.parquet`, `data/paragraph_issues.parquet`) share a

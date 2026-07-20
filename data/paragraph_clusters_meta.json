@@ -1,0 +1,946 @@
+{
+  "model": "minishlab/potion-base-8M",
+  "n_paragraphs": 36229,
+  "random_state": 42,
+  "clusters": {
+    "k40": [
+      {
+        "cluster": 0,
+        "size": 886,
+        "terms": [
+          "constitution",
+          "state",
+          "act",
+          "union",
+          "slavery",
+          "territory",
+          "representatives",
+          "senate",
+          "shall",
+          "election"
+        ],
+        "npmi": 0.1373439868231577
+      },
+      {
+        "cluster": 1,
+        "size": 1216,
+        "terms": [
+          "think",
+          "believe",
+          "time",
+          "right",
+          "good",
+          "way",
+          "things",
+          "doing",
+          "question",
+          "thing"
+        ],
+        "npmi": 0.07227222952838948
+      },
+      {
+        "cluster": 2,
+        "size": 1194,
+        "terms": [
+          "public",
+          "interests",
+          "duty",
+          "shall",
+          "subject",
+          "present",
+          "great",
+          "power",
+          "regard",
+          "character"
+        ],
+        "npmi": 0.09718758226493246
+      },
+      {
+        "cluster": 3,
+        "size": 725,
+        "terms": [
+          "labor",
+          "work",
+          "business",
+          "wages",
+          "public",
+          "wage",
+          "men",
+          "great",
+          "employment",
+          "industry"
+        ],
+        "npmi": 0.1266271812205538
+      },
+      {
+        "cluster": 4,
+        "size": 718,
+        "terms": [
+          "great",
+          "proud",
+          "god",
+          "bless",
+          "honor",
+          "love",
+          "incredible",
+          "good",
+          "come",
+          "like"
+        ],
+        "npmi": 0.11719895187732884
+      },
+      {
+        "cluster": 5,
+        "size": 834,
+        "terms": [
+          "senator",
+          "members",
+          "house",
+          "vice",
+          "speaker",
+          "senate",
+          "democratic",
+          "party",
+          "kennedy",
+          "republican"
+        ],
+        "npmi": 0.19907178438323922
+      },
+      {
+        "cluster": 6,
+        "size": 1074,
+        "terms": [
+          "minister",
+          "mexico",
+          "treaty",
+          "spain",
+          "received",
+          "citizens",
+          "claims",
+          "th",
+          "subject",
+          "mexican"
+        ],
+        "npmi": 0.20076187789098568
+      },
+      {
+        "cluster": 7,
+        "size": 881,
+        "terms": [
+          "forces",
+          "troops",
+          "military",
+          "vietnam",
+          "army",
+          "war",
+          "iraq",
+          "men",
+          "south",
+          "afghanistan"
+        ],
+        "npmi": 0.17258849943129873
+      },
+      {
+        "cluster": 8,
+        "size": 1107,
+        "terms": [
+          "department",
+          "service",
+          "report",
+          "secretary",
+          "public",
+          "attention",
+          "commission",
+          "general",
+          "departments",
+          "federal"
+        ],
+        "npmi": 0.1546118968638164
+      },
+      {
+        "cluster": 9,
+        "size": 597,
+        "terms": [
+          "testing",
+          "virus",
+          "new",
+          "tests",
+          "research",
+          "lot",
+          "space",
+          "working",
+          "work",
+          "scientists"
+        ],
+        "npmi": 0.11686257814176498
+      },
+      {
+        "cluster": 10,
+        "size": 1144,
+        "terms": [
+          "peace",
+          "world",
+          "war",
+          "freedom",
+          "nations",
+          "free",
+          "seek",
+          "strength",
+          "force",
+          "shall"
+        ],
+        "npmi": 0.1174711471732589
+      },
+      {
+        "cluster": 11,
+        "size": 576,
+        "terms": [
+          "treasury",
+          "debt",
+          "sum",
+          "expenditures",
+          "fiscal",
+          "receipts",
+          "public",
+          "estimated",
+          "revenue",
+          "present"
+        ],
+        "npmi": 0.35576259324864895
+      },
+      {
+        "cluster": 12,
+        "size": 580,
+        "terms": [
+          "billion",
+          "million",
+          "dollars",
+          "percent",
+          "increase",
+          "cent",
+          "millions",
+          "increased",
+          "total",
+          "nearly"
+        ],
+        "npmi": 0.17110243307275946
+      },
+      {
+        "cluster": 13,
+        "size": 1105,
+        "terms": [
+          "world",
+          "peace",
+          "nations",
+          "war",
+          "freedom",
+          "israel",
+          "east",
+          "security",
+          "iraq",
+          "free"
+        ],
+        "npmi": 0.15613685638056346
+      },
+      {
+        "cluster": 14,
+        "size": 686,
+        "terms": [
+          "shall",
+          "court",
+          "courts",
+          "officers",
+          "officer",
+          "office",
+          "executive",
+          "law",
+          "duties",
+          "service"
+        ],
+        "npmi": 0.15191195696289597
+      },
+      {
+        "cluster": 15,
+        "size": 1286,
+        "terms": [
+          "man",
+          "men",
+          "slavery",
+          "right",
+          "great",
+          "life",
+          "liberty",
+          "spirit",
+          "power",
+          "wrong"
+        ],
+        "npmi": 0.07378525610569087
+      },
+      {
+        "cluster": 16,
+        "size": 1034,
+        "terms": [
+          "children",
+          "work",
+          "help",
+          "need",
+          "opportunity",
+          "child",
+          "better",
+          "life",
+          "future",
+          "education"
+        ],
+        "npmi": 0.13577133206216974
+      },
+      {
+        "cluster": 17,
+        "size": 948,
+        "terms": [
+          "nations",
+          "territory",
+          "relations",
+          "foreign",
+          "interests",
+          "treaty",
+          "policy",
+          "great",
+          "commerce",
+          "peace"
+        ],
+        "npmi": 0.11854506495822509
+      },
+      {
+        "cluster": 18,
+        "size": 1183,
+        "terms": [
+          "currency",
+          "banks",
+          "gold",
+          "treasury",
+          "public",
+          "money",
+          "bank",
+          "revenue",
+          "notes",
+          "silver"
+        ],
+        "npmi": 0.326504517975281
+      },
+      {
+        "cluster": 19,
+        "size": 605,
+        "terms": [
+          "governor",
+          "state",
+          "washington",
+          "secretary",
+          "carter",
+          "soviet",
+          "world",
+          "kennedy",
+          "history",
+          "administration"
+        ],
+        "npmi": 0.03278717441590995
+      },
+      {
+        "cluster": 20,
+        "size": 499,
+        "terms": [
+          "navy",
+          "ships",
+          "vessels",
+          "naval",
+          "coast",
+          "war",
+          "fleet",
+          "sea",
+          "cruisers",
+          "ship"
+        ],
+        "npmi": 0.3194831798293439
+      },
+      {
+        "cluster": 21,
+        "size": 1508,
+        "terms": [
+          "constitution",
+          "law",
+          "laws",
+          "power",
+          "shall",
+          "rights",
+          "state",
+          "right",
+          "constitutional",
+          "authority"
+        ],
+        "npmi": 0.14747361096126668
+      },
+      {
+        "cluster": 22,
+        "size": 925,
+        "terms": [
+          "great",
+          "national",
+          "prosperity",
+          "public",
+          "principles",
+          "world",
+          "life",
+          "progress",
+          "nations",
+          "policy"
+        ],
+        "npmi": 0.05612643168591583
+      },
+      {
+        "cluster": 23,
+        "size": 424,
+        "terms": [
+          "fiscal",
+          "june",
+          "expenditures",
+          "total",
+          "receipts",
+          "ending",
+          "treasury",
+          "estimated",
+          "increase",
+          "amounted"
+        ],
+        "npmi": 0.40998084246551103
+      },
+      {
+        "cluster": 24,
+        "size": 1177,
+        "terms": [
+          "think",
+          "question",
+          "sir",
+          "vice",
+          "yes",
+          "vietnam",
+          "ahead",
+          "time",
+          "tell",
+          "senator"
+        ],
+        "npmi": 0.09939760079212287
+      },
+      {
+        "cluster": 25,
+        "size": 475,
+        "terms": [
+          "river",
+          "line",
+          "canal",
+          "water",
+          "lake",
+          "miles",
+          "west",
+          "boundary",
+          "north",
+          "waters"
+        ],
+        "npmi": 0.24936374209006784
+      },
+      {
+        "cluster": 26,
+        "size": 705,
+        "terms": [
+          "nuclear",
+          "weapons",
+          "soviet",
+          "defense",
+          "arms",
+          "missiles",
+          "military",
+          "strategic",
+          "security",
+          "forces"
+        ],
+        "npmi": 0.26759952766527195
+      },
+      {
+        "cluster": 27,
+        "size": 891,
+        "terms": [
+          "got",
+          "lot",
+          "like",
+          "did",
+          "think",
+          "really",
+          "doing",
+          "big",
+          "came",
+          "look"
+        ],
+        "npmi": 0.14819636751764811
+      },
+      {
+        "cluster": 28,
+        "size": 955,
+        "terms": [
+          "help",
+          "new",
+          "economic",
+          "nations",
+          "world",
+          "program",
+          "work",
+          "programs",
+          "development",
+          "efforts"
+        ],
+        "npmi": 0.1027567487272736
+      },
+      {
+        "cluster": 29,
+        "size": 1117,
+        "terms": [
+          "god",
+          "freedom",
+          "faith",
+          "world",
+          "bless",
+          "hope",
+          "life",
+          "peace",
+          "great",
+          "love"
+        ],
+        "npmi": 0.1369088886792598
+      },
+      {
+        "cluster": 30,
+        "size": 614,
+        "terms": [
+          "health",
+          "care",
+          "insurance",
+          "medicare",
+          "coverage",
+          "pay",
+          "help",
+          "families",
+          "social",
+          "medical"
+        ],
+        "npmi": 0.2781372344084583
+      },
+      {
+        "cluster": 31,
+        "size": 1417,
+        "terms": [
+          "world",
+          "freedom",
+          "history",
+          "peace",
+          "great",
+          "new",
+          "democracy",
+          "future",
+          "nations",
+          "human"
+        ],
+        "npmi": 0.11096290638032048
+      },
+      {
+        "cluster": 32,
+        "size": 916,
+        "terms": [
+          "like",
+          "got",
+          "did",
+          "tell",
+          "man",
+          "think",
+          "young",
+          "good",
+          "great",
+          "right"
+        ],
+        "npmi": 0.07786784936012998
+      },
+      {
+        "cluster": 33,
+        "size": 780,
+        "terms": [
+          "products",
+          "farm",
+          "production",
+          "agriculture",
+          "agricultural",
+          "farmers",
+          "food",
+          "prices",
+          "energy",
+          "market"
+        ],
+        "npmi": 0.28710495212101805
+      },
+      {
+        "cluster": 34,
+        "size": 721,
+        "terms": [
+          "killed",
+          "war",
+          "men",
+          "attack",
+          "terrorists",
+          "world",
+          "thousands",
+          "children",
+          "shot",
+          "lives"
+        ],
+        "npmi": 0.1143012210551552
+      },
+      {
+        "cluster": 35,
+        "size": 824,
+        "terms": [
+          "tax",
+          "budget",
+          "taxes",
+          "spending",
+          "deficit",
+          "cut",
+          "billion",
+          "federal",
+          "cuts",
+          "income"
+        ],
+        "npmi": 0.3455408706389336
+      },
+      {
+        "cluster": 36,
+        "size": 947,
+        "terms": [
+          "treaty",
+          "convention",
+          "republic",
+          "conference",
+          "relations",
+          "senate",
+          "britain",
+          "international",
+          "governments",
+          "panama"
+        ],
+        "npmi": 0.16982896141410134
+      },
+      {
+        "cluster": 37,
+        "size": 1271,
+        "terms": [
+          "consideration",
+          "session",
+          "subject",
+          "shall",
+          "present",
+          "necessary",
+          "public",
+          "law",
+          "legislation",
+          "act"
+        ],
+        "npmi": 0.13880818570040568
+      },
+      {
+        "cluster": 38,
+        "size": 836,
+        "terms": [
+          "vessels",
+          "law",
+          "laws",
+          "commerce",
+          "foreign",
+          "interstate",
+          "act",
+          "legislation",
+          "trade",
+          "ports"
+        ],
+        "npmi": 0.1479804327727785
+      },
+      {
+        "cluster": 39,
+        "size": 848,
+        "terms": [
+          "jobs",
+          "economy",
+          "workers",
+          "new",
+          "economic",
+          "unemployment",
+          "energy",
+          "million",
+          "work",
+          "growth"
+        ],
+        "npmi": 0.18923754254082753
+      }
+    ],
+    "k15": [
+      {
+        "cluster": 0,
+        "size": 2000,
+        "terms": [
+          "think",
+          "time",
+          "question",
+          "right",
+          "good",
+          "believe",
+          "like",
+          "way",
+          "hope",
+          "did"
+        ],
+        "npmi": 0.0464599671989533
+      },
+      {
+        "cluster": 1,
+        "size": 2381,
+        "terms": [
+          "public",
+          "currency",
+          "treasury",
+          "gold",
+          "revenue",
+          "money",
+          "banks",
+          "tariff",
+          "present",
+          "business"
+        ],
+        "npmi": 0.20574246193198284
+      },
+      {
+        "cluster": 2,
+        "size": 2837,
+        "terms": [
+          "world",
+          "freedom",
+          "god",
+          "peace",
+          "great",
+          "new",
+          "future",
+          "life",
+          "history",
+          "come"
+        ],
+        "npmi": 0.0889978526568773
+      },
+      {
+        "cluster": 3,
+        "size": 1942,
+        "terms": [
+          "citizens",
+          "nations",
+          "great",
+          "state",
+          "union",
+          "rights",
+          "peace",
+          "relations",
+          "world",
+          "political"
+        ],
+        "npmi": 0.08409757062037856
+      },
+      {
+        "cluster": 4,
+        "size": 3006,
+        "terms": [
+          "law",
+          "power",
+          "public",
+          "shall",
+          "citizens",
+          "right",
+          "rights",
+          "constitution",
+          "duty",
+          "laws"
+        ],
+        "npmi": 0.11867006924653264
+      },
+      {
+        "cluster": 5,
+        "size": 2110,
+        "terms": [
+          "world",
+          "war",
+          "peace",
+          "nations",
+          "iraq",
+          "freedom",
+          "terrorists",
+          "east",
+          "vietnam",
+          "forces"
+        ],
+        "npmi": 0.14876625359846657
+      },
+      {
+        "cluster": 6,
+        "size": 1616,
+        "terms": [
+          "fiscal",
+          "expenditures",
+          "treasury",
+          "total",
+          "increase",
+          "billion",
+          "june",
+          "receipts",
+          "estimated",
+          "cent"
+        ],
+        "npmi": 0.31284595715457825
+      },
+      {
+        "cluster": 7,
+        "size": 2559,
+        "terms": [
+          "world",
+          "peace",
+          "man",
+          "men",
+          "great",
+          "life",
+          "shall",
+          "human",
+          "war",
+          "believe"
+        ],
+        "npmi": 0.06913007864606874
+      },
+      {
+        "cluster": 8,
+        "size": 2036,
+        "terms": [
+          "military",
+          "forces",
+          "war",
+          "nuclear",
+          "peace",
+          "defense",
+          "weapons",
+          "security",
+          "force",
+          "world"
+        ],
+        "npmi": 0.16293440411686383
+      },
+      {
+        "cluster": 9,
+        "size": 3550,
+        "terms": [
+          "jobs",
+          "new",
+          "tax",
+          "economy",
+          "work",
+          "help",
+          "health",
+          "economic",
+          "energy",
+          "care"
+        ],
+        "npmi": 0.1551431950242345
+      },
+      {
+        "cluster": 10,
+        "size": 2374,
+        "terms": [
+          "service",
+          "department",
+          "public",
+          "report",
+          "secretary",
+          "federal",
+          "work",
+          "navy",
+          "commission",
+          "attention"
+        ],
+        "npmi": 0.12898455439120676
+      },
+      {
+        "cluster": 11,
+        "size": 2923,
+        "terms": [
+          "shall",
+          "constitution",
+          "law",
+          "state",
+          "laws",
+          "act",
+          "power",
+          "authority",
+          "public",
+          "court"
+        ],
+        "npmi": 0.1409319288793659
+      },
+      {
+        "cluster": 12,
+        "size": 2621,
+        "terms": [
+          "like",
+          "got",
+          "did",
+          "think",
+          "lot",
+          "great",
+          "time",
+          "good",
+          "really",
+          "right"
+        ],
+        "npmi": 0.08835595391150443
+      },
+      {
+        "cluster": 13,
+        "size": 2041,
+        "terms": [
+          "senator",
+          "governor",
+          "vice",
+          "think",
+          "house",
+          "question",
+          "members",
+          "kennedy",
+          "secretary",
+          "senate"
+        ],
+        "npmi": 0.12891710768460327
+      },
+      {
+        "cluster": 14,
+        "size": 2233,
+        "terms": [
+          "treaty",
+          "mexico",
+          "convention",
+          "state",
+          "republic",
+          "th",
+          "relations",
+          "territory",
+          "britain",
+          "panama"
+        ],
+        "npmi": 0.1751768740820751
+      }
+    ]
+  }
+}

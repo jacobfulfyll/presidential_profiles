@@ -94,6 +94,10 @@ transcript). The other parquet files are derived tables the pipeline caches so y
 results without recomputing. Paragraph-level tables (`paragraphs.parquet`, `paragraph_issues.parquet`)
 share a `(doc_name, para_idx)` key — join on it rather than assuming row order.
 
+`data/paragraph_clusters.parquet` holds per-paragraph cluster assignments at k=40 and k=15,
+keyed the same way; `paragraph_clusters_meta.json` carries each cluster's size, top terms, and
+NPMI coherence.
+
 LLM-derived annotations live separately under `data/llm_annotations/`, keyed by `doc_name` or
 `(doc_name, para_idx)` — never by row order — with every row's `run_id` pointing at a manifest
 (model, prompt version + hash, batch id, token counts, cost, corpus fingerprint) so any
@@ -132,6 +136,7 @@ batch requests (~$8.53 est.); no paid annotation run has been made yet.
 | Linguistic stats | `rhetoric.py` | One spaCy pass: modal verbs, pronouns, sentences, Flesch–Kincaid |
 | Rhetorical indices | `indices.py` | Certainty (boosters vs hedges/concessives), naming, nostalgia/future, religiosity, NRC hope/fear, windowed vocabulary richness |
 | Issue topics | `issues.py` | Anchored CorEx over paragraphs: 15-issue curated taxonomy + discovered topics; era-relative emphasis per president |
+| Topic clusters | `embed_topics.py` | model2vec paragraph embeddings → MiniBatchKMeans at k=40 (discovery) and k=15 (dimension-matched to the anchored issues); c-TF-IDF terms + NPMI coherence; corpus-native counterweight to the anchored taxonomy, keyed `(doc_name, para_idx)` |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
 | Profiles | `profiles.py` | Fingerprint percentiles, distinctive vocabulary, signature speeches, invocations |
