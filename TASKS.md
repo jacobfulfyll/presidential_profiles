@@ -6,21 +6,23 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+### derive-corpus-taxonomy
+**Task**: LLM taxonomy discovery + crosswalk to the legacy 15 (deferred half of discover-corpus-taxonomy)
+**Pipeline**: code-workflow
+**Branch**: task/derive-corpus-taxonomy
+**Worktree**: .worktree/derive-corpus-taxonomy
+**Base**: master
+**Started**: 2026-07-19
+**Files**:
+- NEW: src/presidential_profiles/taxonomy.py
+- NEW: data/llm_annotations/taxonomy_v1.json
+- NEW: data/llm_annotations/crosswalk_v1.json
+
 ---
 
 ## Backlog
 
 ### Data Foundation
-- [ ] derive-corpus-taxonomy: LLM taxonomy discovery + crosswalk to the legacy 15 — deferred half of discover-corpus-taxonomy, BLOCKED until an ANTHROPIC_API_KEY exists [P1] [complex] [tier: opus:high] [code] [planned]
-  files: src/presidential_profiles/taxonomy.py (NEW), data/llm_annotations/taxonomy_v1.json (NEW), data/llm_annotations/crosswalk_v1.json (NEW)
-  > Era-stratified LLM discovery of the two-level taxonomy (12-18 domains / 35-50 topics) plus
-  > crosswalk. The embedding-cluster prerequisite landed with discover-corpus-taxonomy
-  > (data/paragraph_clusters.parquet, k=40 + k=15). Plan carried over verbatim at
-  > .pipeline/derive-corpus-taxonomy/task.md (see its CARRY-OVER NOTE). Hard rule from the scope
-  > split: the taxonomy must be corpus-derived via a real LLM pass — never authored from model
-  > priors. Seam correction from PICKUP depth-check: use direct synchronous calls with the
-  > provenance primitives (llm_annotations.Manifest, corpus_fingerprint, write_manifest), NOT
-  > the pp-annotate Batches CLI (that seam is per-paragraph annotation rows, not proposals).
 - [ ] run-llm-annotation-pass: Annotate 36k paragraphs + 1057 speeches via Sonnet 5 batch (<=$50) [P1] [complex] [tier: opus:high] [code] [planned] [depends: derive-corpus-taxonomy]
   files: src/presidential_profiles/prompts/annotation_v1.py (NEW), src/presidential_profiles/annotate.py (MOD), data/llm_annotations/paragraph_annotations.parquet (NEW), data/llm_annotations/speech_annotations.parquet (NEW), data/llm_annotations/paragraph_entities.parquet (NEW)
 - [ ] inter-model-agreement-check: Opus 4.8 second pass on a persisted 25% sample; publish disagreement [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
