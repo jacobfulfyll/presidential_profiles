@@ -19,29 +19,22 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 **Note**: Acceptance criterion 4 (centralized names file) deferred at PICKUP — the file does not
 exist and is blocked behind topic-method-comparison. Building 4 of 5. See CONTEXT.md.
 
-### discover-corpus-taxonomy
-**Task**: Derive a two-level corpus-native taxonomy + crosswalk to the legacy 15
-**Pipeline**: code-workflow
-**Branch**: task/discover-corpus-taxonomy
-**Worktree**: .worktree/discover-corpus-taxonomy
-**Base**: master
-**Started**: 2026-07-16
-**Files**:
-- NEW: src/presidential_profiles/embed_topics.py
-**Note**: SCOPE SPLIT at PICKUP — building `embed_topics.py` only. `taxonomy.py`,
-`taxonomy_v1.json`, and `crosswalk_v1.json` are deferred: no ANTHROPIC_API_KEY exists in this
-environment, and those artifacts are by definition the output of an LLM discovery pass. Authoring
-them without one would fabricate a corpus-derived taxonomy from model priors — the exact
-researcher degree of freedom this task exists to eliminate. The embedding half is fully offline
-and deterministic, and is a hard prerequisite for the deferred era sampling. On completion, the
-taxonomy half returns to Backlog blocked on credentials. See CONTEXT.md.
-
 ---
 
 ## Backlog
 
 ### Data Foundation
-- [ ] run-llm-annotation-pass: Annotate 36k paragraphs + 1057 speeches via Sonnet 5 batch (<=$50) [P1] [complex] [tier: opus:high] [code] [planned] [depends: discover-corpus-taxonomy]
+- [ ] derive-corpus-taxonomy: LLM taxonomy discovery + crosswalk to the legacy 15 — deferred half of discover-corpus-taxonomy, BLOCKED until an ANTHROPIC_API_KEY exists [P1] [complex] [tier: opus:high] [code] [planned]
+  files: src/presidential_profiles/taxonomy.py (NEW), data/llm_annotations/taxonomy_v1.json (NEW), data/llm_annotations/crosswalk_v1.json (NEW)
+  > Era-stratified LLM discovery of the two-level taxonomy (12-18 domains / 35-50 topics) plus
+  > crosswalk. The embedding-cluster prerequisite landed with discover-corpus-taxonomy
+  > (data/paragraph_clusters.parquet, k=40 + k=15). Plan carried over verbatim at
+  > .pipeline/derive-corpus-taxonomy/task.md (see its CARRY-OVER NOTE). Hard rule from the scope
+  > split: the taxonomy must be corpus-derived via a real LLM pass — never authored from model
+  > priors. Seam correction from PICKUP depth-check: use direct synchronous calls with the
+  > provenance primitives (llm_annotations.Manifest, corpus_fingerprint, write_manifest), NOT
+  > the pp-annotate Batches CLI (that seam is per-paragraph annotation rows, not proposals).
+- [ ] run-llm-annotation-pass: Annotate 36k paragraphs + 1057 speeches via Sonnet 5 batch (<=$50) [P1] [complex] [tier: opus:high] [code] [planned] [depends: derive-corpus-taxonomy]
   files: src/presidential_profiles/prompts/annotation_v1.py (NEW), src/presidential_profiles/annotate.py (MOD), data/llm_annotations/paragraph_annotations.parquet (NEW), data/llm_annotations/speech_annotations.parquet (NEW), data/llm_annotations/paragraph_entities.parquet (NEW)
 - [ ] inter-model-agreement-check: Opus 4.8 second pass on a persisted 25% sample; publish disagreement [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
   files: src/presidential_profiles/agreement.py (NEW), data/llm_annotations/agreement_sample_v1.json (NEW), data/llm_annotations/agreement_v1.parquet (NEW), notes/agreement-report-v1.md (NEW)
@@ -51,7 +44,7 @@ taxonomy half returns to Backlog blocked on credentials. See CONTEXT.md.
   files: src/presidential_profiles/triangulate.py (NEW), src/presidential_profiles/topic_quality.py (NEW), src/presidential_profiles/issues.py (MOD)
 - [ ] breadth-depth-register: Did the formal record get broader, shallower, more values-driven? [P2] [complex] [tier: opus:high] [code] [planned] [depends: run-llm-annotation-pass]
   files: src/presidential_profiles/register.py (NEW), data/register/trends.parquet (NEW), notes/register-findings-v1.md (NEW)
-- [ ] issue-attention-over-time: Topic birth, death, and revival across 240 years [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass, discover-corpus-taxonomy]
+- [ ] issue-attention-over-time: Topic birth, death, and revival across 240 years [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass, derive-corpus-taxonomy]
   files: src/presidential_profiles/attention.py (NEW), data/attention/topic_lifecycles.parquet (NEW), notes/attention-findings-v1.md (NEW)
 - [ ] combativeness-over-time: Where does today land against the 1860s and 1930s? [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
   files: src/presidential_profiles/combat.py (NEW), data/combat/combativeness.parquet (NEW), notes/combativeness-findings-v1.md (NEW)
