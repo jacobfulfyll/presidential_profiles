@@ -6,13 +6,25 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+### run-llm-annotation-pass
+**Task**: Annotate 36k paragraphs + 1057 speeches via Sonnet 5 batch (<=$50)
+**Pipeline**: code-workflow
+**Branch**: task/run-llm-annotation-pass
+**Worktree**: .worktree/run-llm-annotation-pass
+**Base**: master
+**Started**: 2026-07-20
+**Files**:
+- NEW: src/presidential_profiles/prompts/annotation_v1.py
+- MOD: src/presidential_profiles/annotate.py
+- NEW: data/llm_annotations/paragraph_annotations.parquet
+- NEW: data/llm_annotations/speech_annotations.parquet
+- NEW: data/llm_annotations/paragraph_entities.parquet
+
 ---
 
 ## Backlog
 
 ### Data Foundation
-- [ ] run-llm-annotation-pass: Annotate 36k paragraphs + 1057 speeches via Sonnet 5 batch (<=$50) [P1] [complex] [tier: opus:high] [code] [planned] [depends: derive-corpus-taxonomy]
-  files: src/presidential_profiles/prompts/annotation_v1.py (NEW), src/presidential_profiles/annotate.py (MOD), data/llm_annotations/paragraph_annotations.parquet (NEW), data/llm_annotations/speech_annotations.parquet (NEW), data/llm_annotations/paragraph_entities.parquet (NEW)
 - [ ] inter-model-agreement-check: Opus 4.8 second pass on a persisted 25% sample; publish disagreement [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
   files: src/presidential_profiles/agreement.py (NEW), data/llm_annotations/agreement_sample_v1.json (NEW), data/llm_annotations/agreement_v1.parquet (NEW), notes/agreement-report-v1.md (NEW)
 
