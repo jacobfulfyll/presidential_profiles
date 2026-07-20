@@ -6,9 +6,10 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.io as pio
+from plotly.subplots import make_subplots
 
 from .figures import BLUE_RAMP, GRID, INK, INK2, MUTED, PARTY_COLORS, SURFACE
-from .profiles import RADAR_AXES, slug
+from .profiles import MIN_ISSUE_PARAS, RADAR_AXES, slug
 from .site_style import FONT, PAGE_CSS
 
 # Issues shown on profiles: the curated taxonomy plus the one discovered
@@ -41,26 +42,45 @@ def fig_radar(row: pd.Series) -> go.Figure:
 
 
 def fig_issue_bars(issue_row: pd.Series, display_issues: list[str]) -> go.Figure:
-    rel = {name: float(issue_row[f"rel_{name}"]) for name in display_issues}
-    s = pd.Series(rel).sort_values()
-    top = pd.concat([s.head(2), s.tail(6)])
-    labels = [DISCOVERED_LABELS.get(n, n) for n in top.index]
-    colors = [BLUE_RAMP[4] if v >= 0 else MUTED for v in top.values]
-    fig = go.Figure(go.Bar(
-        y=labels, x=top.values, orientation="h",
-        marker=dict(color=colors),
+    """Two panels sharing a row per issue: raw share of paragraphs on the
+    left, era-relative emphasis on the right. Selecting and ordering by raw
+    share answers "what did they talk about?" first; the era panel then says
+    which of it was unusual. Ordering by rel (as this once did) meant issues
+    that dominated a presidency but matched its era never appeared at all."""
+    share = pd.Series(
+        {name: float(issue_row[f"share_{name}"]) * 100 for name in display_issues}
+    ).sort_values().tail(8)
+    rel = [float(issue_row[f"rel_{name}"]) for name in share.index]
+    labels = [DISCOVERED_LABELS.get(n, n) for n in share.index]
+
+    fig = make_subplots(
+        rows=1, cols=2, shared_yaxes=True, horizontal_spacing=0.06,
+        subplot_titles=("share of their paragraphs (%)",
+                        "vs their era (pp)"),
+    )
+    fig.add_trace(go.Bar(
+        y=labels, x=share.values, orientation="h",
+        marker=dict(color=BLUE_RAMP[4]),
+        hovertemplate="%{y}: %{x:.1f}% of their paragraphs<extra></extra>",
+    ), row=1, col=1)
+    fig.add_trace(go.Bar(
+        y=labels, x=rel, orientation="h",
+        marker=dict(color=[BLUE_RAMP[4] if v >= 0 else MUTED for v in rel]),
         hovertemplate="%{y}: %{x:+.1f} pp vs their era<extra></extra>",
-    ))
+    ), row=1, col=2)
     fig.update_layout(
         template="simple_white", paper_bgcolor=SURFACE, plot_bgcolor=SURFACE,
         font=dict(family=FONT, color=INK, size=12),
-        xaxis=dict(title=dict(text="attention vs contemporaries (percentage points)",
-                              font=dict(size=10.5, color=INK2)),
-                   gridcolor=GRID, tickfont=dict(color=MUTED, size=10),
-                   zeroline=True, zerolinecolor=INK2, zerolinewidth=1),
-        yaxis=dict(tickfont=dict(color=INK, size=12)),
-        height=380, margin=dict(l=10, r=16, t=40, b=48),
+        showlegend=False,
+        height=380, margin=dict(l=10, r=16, t=48, b=48),
     )
+    fig.update_xaxes(gridcolor=GRID, tickfont=dict(color=MUTED, size=10))
+    fig.update_xaxes(rangemode="tozero", row=1, col=1)
+    fig.update_xaxes(zeroline=True, zerolinecolor=INK2, zerolinewidth=1,
+                     row=1, col=2)
+    fig.update_yaxes(tickfont=dict(color=INK, size=12))
+    for note in fig.layout.annotations:
+        note.font = dict(size=10.5, color=INK2)
     return fig
 
 
@@ -84,14 +104,26 @@ def _issue_cards_html(president: str, data: dict) -> str:
                           f'<cite>{c["cite"]}</cite></blockquote>')
         stance = (f'<span class="i-stance">{c["stance"]}</span>'
                   if c.get("stance") else "")
+        flag = ('<span class="i-flag">topic of the day</span>'
+                if c.get("topic_of_day") else "")
         cards.append(f"""<div class="i-card">
   <div class="i-head"><span class="i-name">{issue}</span>
-    <span class="i-badge">+{c["rel"]:.0f} pp vs their era</span>{stance}</div>
+    <span class="i-badge"><strong>{c["share"] * 100:.0f}%</strong> of their paragraphs</span>
+    <span class="i-badge">{c["rel"]:+.0f} pp vs their era</span>{flag}{stance}</div>
   {words_html}
   {quote_html}
 </div>""")
     cards_html = "\n".join(cards) if cards else \
-        '<p class="dim">No issue stands out above their era.</p>'
+        '<p class="dim">No issue rises above the historical base rate or their era.</p>'
+
+    if info.get("low_confidence"):
+        n_sp = info["n_speeches"]
+        cards_html = (
+            f'<p class="i-warn">Thin record: {n_sp} '
+            f'{"speech" if n_sp == 1 else "speeches"}, {info["n_paragraphs"]} '
+            f'paragraphs. These rates carry wide error and are shown for '
+            f'completeness, not precision.</p>'
+        ) + cards_html
 
     voice_html = ""
     if info["voice"]:
@@ -184,6 +216,14 @@ def render_profile(president: str, data: dict, display_issues: list[str]) -> str
              margin-bottom: 10px; }}
   .i-name {{ font-weight: 700; font-size: 1.02rem; }}
   .i-badge {{ color: var(--muted); font-size: 0.8rem; }}
+  .i-badge strong {{ color: var(--ink2); font-weight: 650; }}
+  .i-flag {{ background: var(--page); border: 1px dashed var(--border);
+             border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
+             color: var(--muted); }}
+  .i-warn {{ color: var(--ink2); font-size: 0.88rem; background: var(--surface);
+             border: 1px solid var(--border); border-left: 3px solid var(--muted);
+             border-radius: 8px; padding: 10px 14px; margin-top: 12px;
+             max-width: none; }}
   .i-card .term, .i-voice .term {{ background: var(--page); }}
   .i-card blockquote {{ border-left: 3px solid var(--grid); margin: 12px 0 0;
                         padding: 2px 0 2px 14px; }}
@@ -220,16 +260,20 @@ def render_profile(president: str, data: dict, display_issues: list[str]) -> str
       <div class="chart-scroll"><div class="chart" data-fig="radar" style="height:380px"></div></div>
     </div>
     <div>
-      <h2>Issues, relative to their era</h2>
-      <p>What they talked about more — and less — than contemporaries.</p>
+      <h2>Issues: attention and emphasis</h2>
+      <p>How much of their speech each issue took (left), and how that
+         compared with contemporaries (right).</p>
       <div class="chart-scroll"><div class="chart" data-fig="issues" style="height:380px"></div></div>
     </div>
   </div>
 </section>
 <section>
   <h2>What they cared about — in their own words</h2>
-  <p>Their strongest issues relative to contemporaries, each with the vocabulary that is
-     statistically <em>theirs</em> on that issue and a verbatim sentence from their speeches.</p>
+  <p>The issues that either defined their agenda or set them apart from their era, each with
+     the vocabulary that is statistically <em>theirs</em> on that issue and a verbatim sentence
+     from their speeches. <span class="dim">“Topic of the day” marks a subject they gave
+     unusual attention by historical standards but no more than their own contemporaries —
+     the air everyone was breathing.</span></p>
   {_issue_cards_html(president, data)}
 </section>
 <section class="neighbors">
@@ -269,12 +313,13 @@ def render_index(data: dict, display_issues: list[str]) -> str:
     for president in scores.sort_values("first_year").index:
         s = scores.loc[president]
         n_paras = float(issues_df.loc[president, "n_paragraphs"])
-        # Badge only issues backed by >= 4 paragraphs, so one-speech
-        # presidents don't get a headline from a stray metaphor.
+        # Badge only issues backed by at least MIN_ISSUE_PARAS paragraphs, so
+        # one-speech presidents don't get a headline from a stray metaphor.
+        # Shared with the profile-card floor so the two gates cannot diverge.
         rel = {
             n: float(issues_df.loc[president, f"rel_{n}"])
             for n in display_issues
-            if float(issues_df.loc[president, f"share_{n}"]) * n_paras >= 4
+            if float(issues_df.loc[president, f"share_{n}"]) * n_paras >= MIN_ISSUE_PARAS
         }
         if not rel:
             rel = {n: float(issues_df.loc[president, f"rel_{n}"]) for n in display_issues}

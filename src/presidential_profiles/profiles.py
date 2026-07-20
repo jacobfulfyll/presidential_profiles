@@ -14,6 +14,35 @@ DISTINCTIVE_PATH = DATA_DIR / "president_distinctive.parquet"
 
 MILLER_URL = "https://millercenter.org/the-presidency/presidential-speeches/"
 
+# --- Issue card thresholds -------------------------------------------------
+# These are fixed from first principles, NOT tuned against which presidents
+# they happen to flag. Both reuse lines the codebase already draws elsewhere,
+# so a card's two axes are judged by one consistent standard.
+
+# The era-relative bar. This is the pre-existing eligibility cutoff: the
+# codebase already asserts 0.75 pp is the line between "stands out from their
+# era" and "doesn't". We keep it as the positive bar AND reuse it, as a
+# two-sided band, for the definition of "not distinctive" - an issue whose
+# |rel| falls under it is one the codebase already considers era-noise.
+REL_DISTINCT_PP = 0.75
+
+# The raw-attention bar, as a multiple of the issue's own corpus-wide base
+# rate. 1.5x is the same concentration ratio issue_cards() already uses to
+# decide a term "belongs to" an issue rather than to a president's general
+# register - the same question (is this meaningfully above background?) gets
+# the same answer here.
+RAW_ELEVATED_MULT = 1.5
+
+# An issue needs this many of the president's paragraphs behind it before it
+# gets a card, so a one-speech president gets no headline from a stray
+# metaphor.
+MIN_ISSUE_PARAS = 4
+
+# Below this, a president's rates are too thin to state without a caveat.
+# Mirrors the dashboard's sparse-president cutoff (site.py), which drops them
+# from per-president graphics entirely; profiles keep them but say so.
+SPARSE_MIN_SPEECHES = 5
+
 # Conservative invocation patterns: full names / titled surnames only, so
 # Jefferson Davis, Hillary Clinton, and Henry Ford don't count. Ambiguous
 # surnames (Johnson, Bush, Ford, both Harrisons/Adamses) are skipped.
@@ -258,6 +287,35 @@ def _pick_sentence(texts, anchor_terms: list[str],
     return best
 
 
+def issue_base_rates(issue_df: pd.DataFrame, display: list[str]) -> dict:
+    """Each issue's corpus-wide base rate: the fraction of all paragraphs in
+    the corpus that touch it. Paragraph-weighted, not a mean of per-president
+    shares - otherwise Garfield's 29 paragraphs would count as heavily as
+    FDR's thousands in defining what 'normal attention' means."""
+    n = issue_df["n_paragraphs"].to_numpy()
+    return {
+        name: float((issue_df[f"share_{name}"].to_numpy() * n).sum() / n.sum())
+        for name in display
+    }
+
+
+def issue_strengths(prow, name: str, base: dict) -> tuple[float, float]:
+    """An issue's ``(rel_strength, raw_strength)`` for president row ``prow``,
+    each normalised so 1.0 is exactly its threshold. ``raw_strength`` is 0 when
+    the issue's corpus-wide base rate is 0 (guards against divide-by-zero)."""
+    rel = float(prow[f"rel_{name}"]) / REL_DISTINCT_PP
+    raw = (float(prow[f"share_{name}"]) / base[name]) / RAW_ELEVATED_MULT \
+        if base[name] > 0 else 0.0
+    return rel, raw
+
+
+def is_topic_of_day(raw_strength: float, rel: float) -> bool:
+    """A "topic of the day": elevated well above the historical base rate, yet
+    indistinguishable from their own era. The subject was in the air; the
+    president is not the reason for it."""
+    return bool(raw_strength >= 1.0 and abs(rel) < REL_DISTINCT_PP)
+
+
 def issue_cards(
     df: pd.DataFrame,
     distinctive: pd.DataFrame,
@@ -265,9 +323,10 @@ def issue_cards(
     issue_meta: dict,
     top_n: int = 4,
 ) -> dict:
-    """Per president: their top era-relative issues, each with the president's
-    own distinctive vocabulary for that issue and a verbatim sentence from
-    their speeches on it. Remaining distinctive terms become their 'voice'."""
+    """Per president: the issues that either defined their agenda in raw terms
+    or set them apart from their era, each with the president's own
+    distinctive vocabulary for that issue and a verbatim sentence from their
+    speeches on it. Remaining distinctive terms become their 'voice'."""
     paras = pd.read_parquet(PARAGRAPHS_PATH)
     labels = pd.read_parquet(issues.PARA_LABELS_PATH)
     merged = paras.merge(
@@ -280,16 +339,28 @@ def issue_cards(
 
     display = issue_meta["issues"] + ["Discovered 5"]
     anchors = {**issues.ISSUE_ANCHORS, **_EXTRA_ANCHORS}
+    base = issue_base_rates(issue_df, display)
+    n_speeches = df.groupby("president").size()
 
     out = {}
     for pres, prow in issue_df.iterrows():
         mask = (paras["president"] == pres).to_numpy()
         n_paras = float(prow["n_paragraphs"])
+
+        # An issue earns a card on EITHER axis. Gating on era-relative alone
+        # (as this once did) discards the issues that consumed a presidency
+        # but consumed their contemporaries equally - a wartime president
+        # talking war at wartime rates scored ~0 rel and vanished from his own
+        # profile. Both strengths are normalised so that 1.0 is exactly the
+        # threshold, which makes them comparable on one scale for ranking.
         eligible = [
             n for n in display
-            if prow[f"rel_{n}"] >= 0.75 and prow[f"share_{n}"] * n_paras >= 4
+            if prow[f"share_{n}"] * n_paras >= MIN_ISSUE_PARAS
+            and max(issue_strengths(prow, n, base)) >= 1.0
         ]
-        eligible.sort(key=lambda n: -prow[f"rel_{n}"])
+        # Rank by whichever axis the issue is strongest on, so a defining-but-
+        # ordinary issue and a distinctive-but-small one both surface.
+        eligible.sort(key=lambda n: -max(issue_strengths(prow, n, base)))
         eligible = eligible[:top_n]
 
         terms = distinctive[distinctive["president"] == pres].sort_values("rank")
@@ -335,17 +406,28 @@ def issue_cards(
                     cite = f"{t['title'].split(':', 1)[-1].strip()}, {int(t['year'])}"
                     quote = html.escape(quote)
 
+            rel = float(prow[f"rel_{name}"])
+            share = float(prow[f"share_{name}"])
+            _, raw_strength = issue_strengths(prow, name, base)
             cards.append({
                 "issue": name,
-                "rel": float(prow[f"rel_{name}"]),
-                "share": float(prow[f"share_{name}"]),
+                "rel": rel,
+                "share": share,
+                "base": base[name],
+                "topic_of_day": is_topic_of_day(raw_strength, rel),
                 "words": words,
                 "quote": quote,
                 "cite": cite,
                 "stance": (_issue_stance(texts, _STANCE_SPECS[name])
                            if name in _STANCE_SPECS else None),
             })
-        out[pres] = {"cards": cards, "voice": remaining[:8]}
+        out[pres] = {
+            "cards": cards,
+            "voice": remaining[:8],
+            "n_speeches": int(n_speeches.get(pres, 0)),
+            "n_paragraphs": int(n_paras),
+            "low_confidence": bool(n_speeches.get(pres, 0) < SPARSE_MIN_SPEECHES),
+        }
     return out
 
 
