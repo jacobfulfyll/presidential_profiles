@@ -6,18 +6,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### derive-corpus-taxonomy
-**Task**: LLM taxonomy discovery + crosswalk to the legacy 15 (deferred half of discover-corpus-taxonomy)
-**Pipeline**: code-workflow
-**Branch**: task/derive-corpus-taxonomy
-**Worktree**: .worktree/derive-corpus-taxonomy
-**Base**: master
-**Started**: 2026-07-19
-**Files**:
-- NEW: src/presidential_profiles/taxonomy.py
-- NEW: data/llm_annotations/taxonomy_v1.json
-- NEW: data/llm_annotations/crosswalk_v1.json
-
 ---
 
 ## Backlog
