@@ -6,6 +6,18 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+### topic-method-comparison
+**Task**: LLM vs CorEx label agreement, coherence scoring, cluster naming
+**Pipeline**: code-workflow
+**Branch**: task/topic-method-comparison
+**Worktree**: .worktree/topic-method-comparison
+**Base**: master
+**Started**: 2026-07-21
+**Files**:
+- NEW: src/presidential_profiles/triangulate.py
+- NEW: src/presidential_profiles/topic_quality.py
+- MOD: src/presidential_profiles/issues.py
+
 ---
 
 ## Backlog
@@ -15,8 +27,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   files: src/presidential_profiles/agreement.py (NEW), data/llm_annotations/agreement_sample_v1.json (NEW), data/llm_annotations/agreement_v1.parquet (NEW), notes/agreement-report-v1.md (NEW)
 
 ### Analysis & Findings
-- [ ] topic-method-comparison: LLM vs CorEx label agreement, coherence scoring, cluster naming [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass] [conflicts: fix-paragraph-issues-key]
-  files: src/presidential_profiles/triangulate.py (NEW), src/presidential_profiles/topic_quality.py (NEW), src/presidential_profiles/issues.py (MOD)
 - [ ] breadth-depth-register: Did the formal record get broader, shallower, more values-driven? [P2] [complex] [tier: opus:high] [code] [planned] [depends: run-llm-annotation-pass]
   files: src/presidential_profiles/register.py (NEW), data/register/trends.parquet (NEW), notes/register-findings-v1.md (NEW)
 - [ ] issue-attention-over-time: Topic birth, death, and revival across 240 years [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass, derive-corpus-taxonomy]
