@@ -6,22 +6,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### inter-model-agreement-check
-**Task**: Opus 4.8 second pass on a persisted 25% sample; publish disagreement
-**Pipeline**: code-workflow
-**Branch**: task/inter-model-agreement-check
-**Worktree**: .worktree/inter-model-agreement-check
-**Base**: master
-**Started**: 2026-07-21
-**Files**:
-- NEW: src/presidential_profiles/agreement.py
-- MOD: src/presidential_profiles/annotate.py
-- NEW: data/llm_annotations/agreement_sample_v1.json
-- NEW: data/llm_annotations/agreement_v1.parquet
-- NEW: notes/agreement-report-v1.md
-
----
-
 ### era-atlas
 **Task**: Era fingerprints, similarity matrix, data-driven periodization, LLM portraits
 **Pipeline**: code-workflow
@@ -119,3 +103,6 @@ Discovered during build-annotation-provenance-layer (2026-07-14). Not fixed — 
 - [ ] gitignore-coverage-artifact: A `.coverage` file lands in the repo root whenever pytest runs with `--cov` (the QA stages do this routinely) and is not in `.gitignore`, so it shows as untracked noise in every `git status` and can be committed by accident with a `git add -A`. One line in `.gitignore`. (topic-method-comparison, 2026-07-21)
 - [ ] rename-candidates-lacks-issue-support-floor: `triangulate.rename_candidates` applies no issue-support floor — it inherits only `MIN_ERA_PARAGRAPHS = 100` from `rename_vs_death`, which gates on **era size**, not on how many positives the specific issue has in that era. That is precisely the gate the report's own §8.5 criticises, and §5 elsewhere mandates a support floor before any per-era reading. Inert today: all 9 currently-flagged rows clear a >=25 floor (lowest `min(n_llm, n_corex)` is 28, Energy & environment / Expansion), so the published table is sound **by property of the data, not by construction**. A corpus change or a threshold change could publish a flagged rename candidate backed by single-digit support with nothing to catch it. Add a `min_support` column to the drift frame, matching what `method_agreement.parquet` already ships. (REVIEW section-5 re-check, topic-method-comparison, 2026-07-21)
 - [ ] two-topic-normalizers-for-one-problem: Two parallel tasks independently solved the same 58-raw-labels-vs-50-canonical-names case-variant hazard with different code. `triangulate.py` uses `taxonomy._norm_name`; `attention.py` rolled its own `canonical_label_map` + `normalize_topics` (casefold-based) and imports `LEGACY_ISSUES`/`SECURITY_PEACE`/`_require_full_merge` from taxonomy but *not* `_norm_name`. **Verified they agree on all 58 raw labels today — 0 disagreements** — so this is latent, not live. It matters because if either drifts, `attention.py` and `triangulate.py` would emit non-joinable topic labels, and both feed `convergence-analysis` (directly, and via `era-atlas`). Converge on one normalizer, or add a test asserting the two agree across the full label set so a drift fails loudly. (SYNC-DOCS merge, topic-method-comparison, 2026-07-21)
+- [ ] qa-report-amendment-derives-from-ephemeral-state: `pp-annotate qa --converged` rewrites Amendment #2 of the committed `notes/annotation-qa-v1.md` from the gitignored `data/llm_annotations/runs/` state — after runs/ cleanup it writes "none — no speech required chunking" where the committed report lists 32 chunk-escalated speeches, so any QA rerun produces a spurious diff on a committed file. Gate lines are deterministic; only the provenance narrative drifts. Derive the amendment from a committed artifact instead (`annotate.py::_all_chunk_escalated_docs` ~L1509). (VERIFY-APP, inter-model-agreement-check, 2026-07-22)
+- [ ] manifest-missing-cost-field-sums-silently: `manifests/2026-07-12-invocation-tone-fable5.json` has no `cost_usd`, so "sum every manifest" cumulative-spend arithmetic omits it without warning. Either backfill the field (even as 0.0 with a note) or make the summing path raise on a costless manifest. (VERIFY-APP, inter-model-agreement-check, 2026-07-22)
+- [ ] ingest-all-empty-spec-keyerror: `annotate.py` cmd_ingest merge branch (~L1308-1319) — if a paragraph-unit spec's results are ALL empty arrays yet the spec key exists in `rows`, `pd.DataFrame([])` has no columns and `df[key]` raises KeyError. Requires a catastrophic all-empty response set; pre-existing, surfaced during REVIEW of the agreement task. (REVIEW, inter-model-agreement-check, 2026-07-22)
