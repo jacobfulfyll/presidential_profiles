@@ -128,6 +128,28 @@
   Deal `ref_weight_covered` 0.86 → 0.22), trading an interval problem for a worse
   representativeness one. Discipline the *interval*; the point estimate was never the defect.
 
+## Era atlas layer (data/eras/, learned 2026-07-21)
+- `data/eras/` follows the combat/attention pattern: derived, deterministic, $0 to regenerate
+  (`python -m presidential_profiles.eras`), byte-identical on rerun. The exceptions are
+  `era_portraits.parquet` + `data/eras/manifests/` — frozen PAID artifacts ($0.0595, 9 portraits,
+  claude-sonnet-5). `eras.py` refuses to overwrite a `generated` portraits parquet with placeholders
+  (a no-key `--run` must never silently downgrade a paid artifact).
+- **Similarity consumers**: read `ci_components` before trusting any interval (`sampling_only` until
+  `agreement_v1.parquet` is propagated — the file now exists but era-atlas predates it; regenerating
+  with bands is a groomed follow-up). The RAW matrix tracks time by construction (Spearman 0.70 with
+  temporal proximity); only the DETRENDED matrix answers rhyme questions. Present era's detrended
+  nearest neighbor: Civil War & Reconstruction (0.315, mutual).
+- **Count periodization recovery in DISTINCT canonical boundaries, not matching discovered rows.**
+  Two discovered boundaries can hit one canonical (1881 + 1882 both match 1878 across Garfield's
+  single-speech presidency) — the note shipped "5 of 8" for what is 4 of 8 distinct and was caught
+  only by recomputing from `periodization.parquet`. Same bare-count drift class as ever.
+- **Paid-module recipe additions** (extend the annotate.py conventions): accumulate `usage` from a
+  response IMMEDIATELY after `create()` returns, before any content parsing — a billed-but-unparseable
+  200 must still be counted, or the partial manifest under-reports spend. On mid-loop failure,
+  persist a partial manifest (accumulated actual cost, n_succeeded, PARTIAL note) BEFORE re-raising.
+  `llm_annotations.write_manifest` hardcodes its own manifests dir — a new layer writing manifests
+  elsewhere must write them directly, not reuse it.
+
 ## Published research notes are a deliverable, not documentation (learned 2026-07-21)
 `notes/*-findings-*.md` get read as findings. `issue-attention-over-time` shipped a note whose
 tables were flawless and whose **prose contained 16 defects** — and the lesson is what they had in
