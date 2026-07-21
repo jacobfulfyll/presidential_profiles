@@ -58,13 +58,23 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 - NEW: data/register/trends.parquet
 - NEW: notes/register-findings-v1.md
 
+### combativeness-over-time
+**Task**: Where does today land against the 1860s and 1930s?
+**Pipeline**: code-workflow
+**Branch**: task/combativeness-over-time
+**Worktree**: .worktree/combativeness-over-time
+**Base**: master
+**Started**: 2026-07-21
+**Files**:
+- NEW: src/presidential_profiles/combat.py
+- NEW: data/combat/combativeness.parquet
+- NEW: notes/combativeness-findings-v1.md
+
 ---
 
 ## Backlog
 
 ### Analysis & Findings
-- [ ] combativeness-over-time: Where does today land against the 1860s and 1930s? [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
-  files: src/presidential_profiles/combat.py (NEW), data/combat/combativeness.parquet (NEW), notes/combativeness-findings-v1.md (NEW)
 - [ ] era-atlas: Era fingerprints, similarity matrix, data-driven periodization, LLM portraits [P2] [complex] [tier: opus:high] [code] [planned] [depends: breadth-depth-register, issue-attention-over-time, combativeness-over-time]
   files: src/presidential_profiles/eras.py (NEW), data/eras/era_fingerprints.parquet (NEW), data/eras/era_similarity.parquet (NEW), notes/era-atlas-v1.md (NEW)
 - [ ] convergence-analysis: Pre-registered test of agenda convergence (rebuilt after adversarial review) [P3] [complex] [tier: opus:high] [code] [planned] [depends: era-atlas, topic-method-comparison]
