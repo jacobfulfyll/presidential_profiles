@@ -34,17 +34,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 - NEW: src/presidential_profiles/topic_quality.py
 - MOD: src/presidential_profiles/issues.py
 
-### issue-attention-over-time
-**Task**: Topic birth, death, and revival across 240 years
-**Pipeline**: code-workflow
-**Branch**: task/issue-attention-over-time
-**Worktree**: .worktree/issue-attention-over-time
-**Base**: master
-**Started**: 2026-07-21
-**Files**:
-- NEW: src/presidential_profiles/attention.py
-- NEW: data/attention/topic_lifecycles.parquet
-- NEW: notes/attention-findings-v1.md
 
 ### breadth-depth-register
 **Task**: Did the formal record get broader, shallower, more values-driven?

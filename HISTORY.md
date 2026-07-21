@@ -8,3 +8,4 @@
 - [x] derive-corpus-taxonomy LLM taxonomy discovery + crosswalk: frozen taxonomy_v1 (17 domains / 50 topics, 5 non-policy) + crosswalk_v1, 100% held-out coverage, $2.62 actual spend -- 2026-07-20
 - [x] run-llm-annotation-pass Annotate 36,229 paragraphs + 1,057 speeches via Sonnet 5 batches; 100% coverage via convergence ladder, all QA gates green, $38.56 actual of $50 -- 2026-07-21
 - [x] combativeness-over-time Where today lands vs the 1860s and 1930s: present-era party_attack 4.81x [2.35, 14.32] the Civil War era on annual messages; zero_sum NOT distinguishable from the founding; 1930s peak is two campaigns, not the presidency -- 2026-07-21
+- [x] issue-attention-over-time Topic lifecycles across 240 years: attention.py + topic_lifecycles.parquet (201 rows, byte-reproducible) + notes/attention-findings-v1.md; 17 died / 14 born / 12 persistent / 7 revived -- 2026-07-21
