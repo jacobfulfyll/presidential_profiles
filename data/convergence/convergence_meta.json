@@ -1,0 +1,159 @@
+{
+  "preregistration": "notes/convergence-prereg-v1.md",
+  "preregistration_commit_precedes_results": true,
+  "arms": [
+    {
+      "name": "corex_all",
+      "role": "primary",
+      "label_source": "corex",
+      "speech_types": "all",
+      "s_speeches": 8,
+      "b_paragraphs": 6
+    },
+    {
+      "name": "corex_sotu",
+      "role": "co_primary",
+      "label_source": "corex",
+      "speech_types": [
+        "state_of_the_union_or_annual_message"
+      ],
+      "s_speeches": 4,
+      "b_paragraphs": 12
+    },
+    {
+      "name": "llm_all",
+      "role": "sensitivity",
+      "label_source": "llm",
+      "speech_types": "all",
+      "s_speeches": 8,
+      "b_paragraphs": 6
+    }
+  ],
+  "estimator": {
+    "rarefaction": "cluster (S speeches x B paragraphs, both with replacement)",
+    "m_paragraphs": 48,
+    "draws_per_window": 20,
+    "floor_draws_per_window": 50,
+    "metric": "mean pairwise Jensen-Shannon divergence, base 2",
+    "composition": "c[j] = (1/m) sum_i [ 1{k_i>=1} 1{j in L_i}/k_i + 1{k_i=0} 1{j = no-topic} ]; every paragraph contributes mass 1",
+    "no_topic_bin": "(no topic)"
+  },
+  "windows": {
+    "length": 30,
+    "step": 2,
+    "min_presidents_for_trend": 3,
+    "kinds": [
+      "rolling",
+      "nonoverlapping"
+    ],
+    "dating_end_year": 2014
+  },
+  "inference": {
+    "null": "full-pipeline president permutation (bijection over donors)",
+    "n_permutations": 2000,
+    "alpha_one_sided": 0.05,
+    "scipy_spearmanr_pvalue": "BANNED \u2014 measured type-I error 58% on these overlapping windows; spearman_rho() discards it at the call site",
+    "power_statement": "At the permutation-calibrated critical value this design has 68% power against the effect size it is hunting. A null result is weakly informative, not a refutation."
+  },
+  "seeds": {
+    "master": 20260721,
+    "scheme": "np.random.default_rng([MASTER_SEED, arm_index, window_kind_index, permutation_index]); permutation donor maps from [MASTER_SEED, 7, arm_index]"
+  },
+  "coverage": {
+    "corex_all": {
+      "n_windows_rolling": 105,
+      "n_windows_used": 105,
+      "n_eligible_min": 3,
+      "n_eligible_median": 5.0,
+      "n_eligible_max": 7,
+      "n_presidents_ever_eligible": 38,
+      "n_bins": 16,
+      "n_qualifying_speeches": 923
+    },
+    "corex_sotu": {
+      "n_windows_rolling": 105,
+      "n_windows_used": 92,
+      "n_eligible_min": 1,
+      "n_eligible_median": 5.0,
+      "n_eligible_max": 6,
+      "n_presidents_ever_eligible": 35,
+      "n_bins": 16,
+      "n_qualifying_speeches": 216
+    },
+    "llm_all": {
+      "n_windows_rolling": 105,
+      "n_windows_used": 105,
+      "n_eligible_min": 3,
+      "n_eligible_median": 5.0,
+      "n_eligible_max": 7,
+      "n_presidents_ever_eligible": 38,
+      "n_bins": 51,
+      "n_qualifying_speeches": 923
+    }
+  },
+  "decision": {
+    "cell": "no_convergence",
+    "headline": "Across 240 years we find no significant decline in between-president agenda dispersion; at 68% power this is weak evidence against convergence, not a refutation of it.",
+    "inputs": {
+      "corex_all.dispersion": false,
+      "corex_sotu.dispersion": false,
+      "corex_all.floor_corrected": false,
+      "corex_sotu.floor_corrected": false,
+      "corex_all.excess_ratio": false,
+      "corex_sotu.excess_ratio": false
+    }
+  },
+  "selftest": {
+    "a_cluster_null_rho": -0.08933000814503195,
+    "a_cluster_null_rho_sd": 0.13555365027886693,
+    "a_paragraph_null_rho": -0.40640098748016223,
+    "a_paragraph_null_rho_sd": 0.08679792679592366,
+    "b_injected_rho": -0.9699683435356157,
+    "b_injected_rho_sd": 0.013744672036586192,
+    "corpora": 12,
+    "n_windows": 106,
+    "c_permutation_size": 0.05,
+    "c_replicates": 40,
+    "c_permutations_each": 150,
+    "checks": {
+      "a_cluster_flat": true,
+      "a_paragraph_contrast": true,
+      "b_detects_injected": true,
+      "c_size_at_nominal_5pct": true
+    },
+    "passed": true
+  },
+  "label_normalization": {
+    "normalizer": "attention.canonical_label_map + attention.normalize_topics",
+    "raises_on_unmapped_label": true,
+    "llm_assignments_post_dedup": 52133
+  },
+  "genre_other_bucket": "the 8 `other`-typed speeches enter corex_all and llm_all and are excluded from corex_sotu, which is defined by one positive speech type",
+  "limitations": [
+    "llm_all uses native taxonomy_v1 level-2 labels, avoiding triangulate's union projection; its dispersion LEVEL is still not comparable to a CorEx arm's (different bin count and budget)",
+    "taxonomy_v1 is frozen: no standalone Education topic, no modern monetary policy, no Prohibition, no standalone Terrorism; 7 of 50 level-2 topics have no legacy parent",
+    "no annotator-disagreement component is propagated into these curves",
+    "indices.py MARKERS are not used anywhere here (era-biased regexes)"
+  ],
+  "corpus_fingerprint": {
+    "n_speeches": 1057,
+    "n_paragraphs": 36229,
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+  },
+  "staleness": {
+    "combat_meta.json": {
+      "match": true,
+      "expected": {
+        "n_speeches": 1057,
+        "n_paragraphs": 36229,
+        "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+      },
+      "live": {
+        "n_speeches": 1057,
+        "n_paragraphs": 36229,
+        "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+      }
+    }
+  },
+  "api_calls": 0
+}
