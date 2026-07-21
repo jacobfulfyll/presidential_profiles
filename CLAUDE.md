@@ -129,6 +129,33 @@ common, not their number:
 - A "largest N" table must actually be sorted by the quantity it ranks — one shipped omitting its
   2nd and 4th largest rows while including the 9th and 10th.
 
+## Mechanize note completeness — reading for it does not converge (learned 2026-07-21)
+`breadth-depth-register` hit one defect **nine times**: a statistic the analysis computed, bearing
+on a claim the note made, printed nowhere. Careful adversarial reading found them one at a time
+across three review rounds and never converged. Enumerating the artifact found six more in a single
+pass. The generalizable shape:
+- **Enumerate, don't read.** For every `(measure, taxonomy, treatment, statistic)` cell in the
+  output, assert it is either printed in the prose or inside an **explicitly declared scope rule**,
+  and run that assertion in CI (`test_every_significant_unprinted_cell_falls_inside_a_declared_scope_rule`).
+  A note's "reports every arm it computed" is a testable claim — make it one, or don't make it.
+- **A value-matching sweep needs a significant-digit floor.** Rendering a value at 0 decimals makes
+  `0.7833` match a bare `1` present in almost any paragraph. That one artifact silently marked 77
+  significant cells as "printed". Require ≥2 significant digits and pin it
+  (`test_renderings_never_matches_on_fewer_than_two_significant_digits`).
+- **The matcher must fail SAFE.** A missing/wrong section alias should produce a *false leak*, never
+  a silent miss. Verify by deleting aliases one at a time and confirming the count only rises.
+- **Completeness cuts both ways.** The rule that forces printing a damaging arm equally forces
+  printing a helpful one. Two of the nine instances *understated* findings (a contrast at the
+  bootstrap floor on all three arms filed as "marginal"; a 33-of-33-at-floor block unprinted).
+  Over-correction is a real late-round failure mode — fixing bias in one direction while creating it
+  in the other.
+- **A guard can be blind to the defect shape it was written for.** The scanner added to catch a false
+  "pre-declared" claim *skipped* segments containing a negation near "declared" — exactly where the
+  original defect lived, so the bug re-introduced verbatim left it green. **Always mutate the
+  original defect back in and confirm the new guard fails.**
+- **Never backdate a pre-registration.** When prose claimed a marker was "pre-declared" and the
+  declaration table did not contain it, the fix is to strike the claim — not to add the row.
+
 ## Testing
 - `tests/` (pytest) covers the paragraph/issue-label keyed-merge logic. Run with
   `uv sync --extra dev && uv run pytest`, or directly:
