@@ -199,6 +199,34 @@ in per-model-suffixed tables (`paragraph_annotations__opus4-8.parquet`,
 `paragraph_entities__opus4-8.parquet`, `speech_annotations__opus4-8.parquet`) rather than the
 primary parquets, which are never touched by a second-opinion run.
 
+`data/eras/` fingerprints every era across three grains — the 9 named `trends.ERAS`
+eras (`era_fingerprints.parquet`, the reporting grain) plus 31 eight-year bins and 45
+presidencies (`fine_fingerprints.parquet`) — on 63 z-scored axes spanning topic mix,
+issue mix, style markers, register, combativeness, and speech-type mix.
+`era_similarity.parquet` (era grain) and `president_similarity.parquet` (presidency
+grain) carry both the raw and the drift-detrended cosine matrix side by side — raw
+similarity trivially tracks temporal adjacency (PC1 of presidential language is
+time), so the detrended matrix, built by reusing `similarity.py`'s adjacent-era-mean
+trick, is what makes genuine non-adjacent rhyme visible — and `nearest_neighbors.parquet`
+distills each unit's top match under both. All three carry a `ci_components` column
+reading `sampling_only` — the committed artifacts predate `agreement_v1.parquet`'s
+landing, and propagating the bands is a groomed follow-up — the same seam convention
+as `data/combat/`; check it before trusting an interval.
+`periodization.parquet` holds a contiguity-constrained Ward clustering of the
+fine-grained fingerprints against the 8 canonical era boundaries at both grains,
+plus a leave-one-out rerun with the availability-bounded `opponents` marker dropped,
+so a boundary that only exists because of it can be told apart from a real one;
+`combativeness_ci_check.parquet` audits that no fingerprint axis was built from a
+`suppressed_n_floor` combat cell. `eras_meta.json` carries the axis registry, corpus
+fingerprint, and a staleness check against `data/combat/combat_meta.json`.
+`era_portraits.parquet` — nine LLM-written era descriptions grounded in each
+fingerprint plus exemplar quotes — is a **frozen, paid artifact** ($0.0595 actual;
+manifest in `data/eras/manifests/`), and the CLI refuses to overwrite it with
+placeholders. Headline finding: the present era's detrended nearest neighbor is
+**Civil War & Reconstruction** (cosine 0.315, mutual, a 10.8× gap to #2) — modest in
+absolute terms and honestly caveated as such in the write-up,
+[`notes/era-atlas-v1.md`](notes/era-atlas-v1.md).
+
 ## Running it
 
 Requires [uv](https://docs.astral.sh/uv/). Then:
@@ -301,6 +329,18 @@ paragraphs are one `--chunk-size 10` resubmission (~$3-4) whenever budget allows
 table/report regenerate with one command. `agreement_v1.parquet` and
 `notes/agreement-report-v1.md` are built from this coverage, per-era n stated everywhere.
 
+`python -m presidential_profiles.eras` builds `data/eras/` — the fingerprints, both
+similarity matrices, and the periodization — from `data/register/trends.parquet`,
+`data/combat/`, `data/attention/`, and the frozen annotations. Like `taxonomy.py` it
+has no `pp-*` entry point and is not part of `pp-analyze`; like `register.py`,
+`combat.py`, and `attention.py`, the base run is **$0** and deterministic — the seven
+parquets plus `eras_meta.json` reproduce byte-identical on rerun. The one paid path
+is a subcommand: `python -m presidential_profiles.eras portraits --dry-run`
+estimates the cost of the nine LLM-written era portraits with zero network calls;
+`--run --yes` is the paid step (actual cost $0.0595 against a $5.00 ceiling) and
+refuses to overwrite the committed `era_portraits.parquet` with placeholders once it
+has already been generated for real.
+
 ## How it works
 
 | Stage | Module | Method |
@@ -319,6 +359,7 @@ table/report regenerate with one command. `agreement_v1.parquet` and
 | Method triangulation | `triangulate.py` | Per-speech composition vectors across all three labelers (LLM taxonomy, CorEx legacy, embedding clusters); LLM↔CorEx agreement (Jaccard + kappa) per issue and per era; rename-vs-death detection separating vocabulary drift from real decline; `agreement_drivers()` isolates what actually predicts agreement once the algebraic Jaccard ceiling is controlled for; standalone, not wired into `pp-analyze` |
 | Inter-model agreement | `agreement.py` | Draws a persisted 25% era-stratified sample → Opus 4.8 re-annotates it with byte-identical prompts (model is the only variable) → Cohen's kappa / Jaccard / exact-match / entity-stance agreement per field, overall and by 30-year era bin; flags low-confidence fields, never gates — standalone paid step, no `pp-*` entry point |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
+| Era atlas | `eras.py` | 63 z-scored axes (topic/issue mix, style, register, combativeness, speech-type mix) per era/bin/presidency → raw + drift-detrended similarity (reusing `similarity.py`'s adjacent-era-mean trick) → contiguity-constrained periodization vs the historians' eras, checked with an `opponents`-dropped leave-one-out → LLM-written era portraits; standalone, not wired into `pp-analyze` |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
 | Profiles | `profiles.py` | Fingerprint percentiles, dual-axis issue cards (raw share of paragraphs + era-relative emphasis, "topic of the day" flag), distinctive vocabulary, signature speeches, invocations |
 | Site & figures | `site.py`, `figures.py` | plotly dashboard + 45 profile pages; validated palette |

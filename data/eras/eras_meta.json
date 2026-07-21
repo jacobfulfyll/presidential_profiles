@@ -1,0 +1,104 @@
+{
+  "era_scheme": "trends.ERAS",
+  "grains": [
+    "era",
+    "bin8 (8-year bins)",
+    "president"
+  ],
+  "bin_width_years": 8,
+  "detrend": {
+    "era_grain": "adjacent-era mean subtraction (build_adjusted pattern, adapted to the 9 ordered eras)",
+    "president_grain": "local-era mean subtraction within ERA_WINDOW",
+    "era_window_years": 24
+  },
+  "axes": {
+    "n_total": 63,
+    "groups": {
+      "topic": 17,
+      "combat": 3,
+      "register": 3,
+      "marker": 19,
+      "stat": 11,
+      "genre": 10
+    },
+    "availability_bounded": "marker_opponents"
+  },
+  "combativeness": {
+    "axis_source": "raw per-unit flag means (== combat.parquet raw treatment, all ci_status=ok)",
+    "combat_raw_max_abs_diff": {
+      "party_attack": 0.0,
+      "enemy_naming": 0.0,
+      "zero_sum": 0.0
+    },
+    "n_cells_excluded_suppressed_n_floor": 9,
+    "n_cells_excluded_low_cluster_caution": 3,
+    "ci_status_note": "genre_standardized/sotu_only suppressed cells never seeded a fingerprint axis (CLAUDE.md ci_status rule)"
+  },
+  "periodization": {
+    "method": "contiguity-constrained Ward clustering (path-graph connectivity) on the RAW z-fingerprints",
+    "primary_k": 9,
+    "canonical_boundaries": [
+      1816,
+      1850,
+      1878,
+      1901,
+      1933,
+      1946,
+      1989,
+      2017
+    ],
+    "match_tolerance_years": 8,
+    "leave_one_out": "rebuilt with marker_opponents dropped"
+  },
+  "similarity": {
+    "detrended_offdiag_std": 0.320013,
+    "group_balanced_robustness": {
+      "weighting": "each z-axis multiplied by 1/sqrt(n_group) so all six axis groups contribute their MEAN per-axis product to the cosine (equalizing groups regardless of axis count)",
+      "matrix": "detrended, era grain",
+      "present_era_nearest": "Civil War & Reconstruction",
+      "present_era_nearest_cosine": 0.338573,
+      "present_era_ranking": {
+        "Civil War & Reconstruction": 0.338573,
+        "War & New Deal": 0.205139,
+        "The Cold War": 0.113328,
+        "The Gilded Age": 0.079682,
+        "The founding": 0.031256,
+        "Expansion": -0.244588,
+        "Progressives & Depression": -0.385457,
+        "Post-Cold War": -0.915386
+      },
+      "agrees_with_primary": true
+    },
+    "annotator_disagreement": {
+      "applied": false,
+      "ci_components": "sampling_only",
+      "agreement_source": "absent:agreement_v1.parquet",
+      "status": "ABSENT \u2014 similarity contains sampling structure only; agreement_v1.parquet pending inter-model-agreement-check"
+    }
+  },
+  "staleness_check": {
+    "combat_meta.json": {
+      "match": true,
+      "expected": {
+        "n_speeches": 1057,
+        "n_paragraphs": 36229,
+        "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+      },
+      "live": {
+        "n_speeches": 1057,
+        "n_paragraphs": 36229,
+        "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+      }
+    }
+  },
+  "corpus_fingerprint": {
+    "n_speeches": 1057,
+    "n_paragraphs": 36229,
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+  },
+  "portraits": {
+    "artifact": "era_portraits.parquet",
+    "status": "generated separately via `eras portraits` (paid path)"
+  },
+  "api_calls": 0
+}
