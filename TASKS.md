@@ -6,6 +6,22 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+### inter-model-agreement-check
+**Task**: Opus 4.8 second pass on a persisted 25% sample; publish disagreement
+**Pipeline**: code-workflow
+**Branch**: task/inter-model-agreement-check
+**Worktree**: .worktree/inter-model-agreement-check
+**Base**: master
+**Started**: 2026-07-21
+**Files**:
+- NEW: src/presidential_profiles/agreement.py
+- MOD: src/presidential_profiles/annotate.py
+- NEW: data/llm_annotations/agreement_sample_v1.json
+- NEW: data/llm_annotations/agreement_v1.parquet
+- NEW: notes/agreement-report-v1.md
+
+---
+
 ### topic-method-comparison
 **Task**: LLM vs CorEx label agreement, coherence scoring, cluster naming
 **Pipeline**: code-workflow
