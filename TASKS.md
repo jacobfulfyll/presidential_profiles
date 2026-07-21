@@ -6,16 +6,25 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-(none)
+### convergence-analysis
+**Task**: Pre-registered test of agenda convergence (rebuilt after adversarial review)
+**Pipeline**: code-workflow
+**Branch**: task/convergence-analysis
+**Worktree**: .worktree/convergence-analysis
+**Base**: master
+**Started**: 2026-07-21
+**Files**:
+- NEW: src/presidential_profiles/convergence.py
+- NEW: notes/convergence-prereg-v1.md
+- NEW: notes/convergence-findings-v1.md
+- NEW: data/convergence/
+- NEW: tests/test_convergence.py
 
 ---
 
 ## Backlog
 
 ### Analysis & Findings
-- [ ] convergence-analysis: Pre-registered test of agenda convergence (rebuilt after adversarial review) [P3] [complex] [tier: opus:high] [code] [planned] [depends: era-atlas, topic-method-comparison]
-  files: src/presidential_profiles/convergence.py (NEW), notes/convergence-prereg-v1.md (NEW), notes/convergence-findings-v1.md (NEW), data/convergence/ (NEW)
-
 - [ ] restructure-register-findings-note: `notes/register-findings-v1.md` is correct but misshapen — 1,367 lines, with "Method notes that change the numbers" running ~290 lines before the first finding, and ~16 "an earlier draft said..." disclosures because four corrective rounds ADDED to the prose rather than substituting into it. REVIEW round 4 adjudicated this as shape-not-accuracy and explicitly NOT a blocker: the summary of verdicts is at L31 and a reader who reads 55 lines has the whole answer. Estimated under 900 lines without deleting a fact (method notes -> appendix, draft history -> a changelog section). Two things the task MUST inherit: (a) the completeness sweep is coupled to the note's H1/H2 heading structure, so moving prose re-scopes the matcher — it fails SAFE (spurious leaks), so this is a CI guard, not a hazard; (b) `self_reference` is the one measure whose 5 significant cells have no printed home outside "Method notes" — if that section moves, its numbers move with it or it gets its own section. ~360 test anchors in `tests/test_register_note_claims.py` pin the note's printed figures and will need updating in lockstep. [P3] [moderate] [tier: opus:medium] [code] [depends: none]
   files: notes/register-findings-v1.md (MOD), tests/test_register_note_claims.py (MOD)
 
