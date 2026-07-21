@@ -26,7 +26,16 @@
   regenerate or hand-edit them casually; each has a manifest in `data/llm_annotations/manifests/`
   recording models, prompts, sample IDs, and actual cost. The annotation QA report + its
   pre-registration amendments live at `notes/annotation-qa-v1.md`.
-- `data/combat/` is the opposite case: **derived, deterministic, and safe to regenerate** with
+- **`paragraph_annotations.topics` needs two normalizations before any counting**, and skipping
+  either silently fragments real topics. (a) **Case variants**: 58 distinct label strings appear
+  against `taxonomy_v1`'s 50 level-2 names — the 8 extras are pure case drift ("… & The
+  Environment", "War Of 1812"). `{name.casefold(): name}` over the 50 names is 1:1 and maps all of
+  them with zero residue; **raise on any unmapped label** rather than warn, since one means the
+  taxonomy and the annotations have diverged. (b) **Duplicate `(paragraph, topic)` pairs**: 722 of
+  them survive normalization, so 52,855 raw assignments are 52,133 distinct (mean 1.439 topics per
+  paragraph, not 1.46). Quote the post-dedup figure. See `attention.py::normalize_topics`.
+- `data/attention/` and `data/combat/` are the opposite case: **derived, deterministic, and safe to
+  regenerate** with
   `python -m presidential_profiles.combat` (pure local compute over the frozen parquets, $0, zero
   API calls). All 10 outputs are byte-identical on rerun **on any date** — a wall-clock stamp was
   deliberately removed from `combat_meta.json` so that a dirty `git status data/combat/` means the
@@ -72,6 +81,28 @@
 - **Raising the stratum floor is not the fix.** Going 3 → 5 collapsed genre coverage (War & New
   Deal `ref_weight_covered` 0.86 → 0.22), trading an interval problem for a worse
   representativeness one. Discipline the *interval*; the point estimate was never the defect.
+
+## Published research notes are a deliverable, not documentation (learned 2026-07-21)
+`notes/*-findings-*.md` get read as findings. `issue-attention-over-time` shipped a note whose
+tables were flawless and whose **prose contained 16 defects** — and the lesson is what they had in
+common, not their number:
+- **Every one was invisible to a reader of the note alone.** They surfaced only by recomputing from
+  the parquet. Reviewing a findings note by reading it proves nothing; the only verification that
+  works is re-deriving each number from the artifact. Budget for that, and have the note **state
+  which cells were verified and which were not** — a note that declares its own boundary is worth
+  more than one that implies completeness.
+- **The drift concentrates in sentences containing a bare number**, never in the generated tables.
+  Counts are the weakest class ("seven other topics" → 9; "eight topics" → 10; "four absolute
+  births" → 2; "eighty years later" → 92). Sweep every count claim; spot-checking misses them.
+- **Prose can carry the wrong *mechanism* while every number is right.** One claim attributed a
+  1790 peak to annual-message enumeration when 14 of its 17 paragraphs came from a single
+  non-annual-message speech — a different artifact class that genre standardization does not absorb
+  either. The finding survived (a counterfactual left it at 13.7% vs an 8.06 ceiling), but the
+  stated reason was wrong. Check explanations, not just values.
+- **Double-rounding** (2 dp then 1 dp) has now produced one-increment-high cells in two independent
+  notes. Round from the fraction in one step, and state the fraction-vs-percentage-point convention.
+- A "largest N" table must actually be sorted by the quantity it ranks — one shipped omitting its
+  2nd and 4th largest rows while including the 9th and 10th.
 
 ## Testing
 - `tests/` (pytest) covers the paragraph/issue-label keyed-merge logic. Run with
