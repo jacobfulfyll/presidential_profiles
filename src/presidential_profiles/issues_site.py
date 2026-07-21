@@ -10,7 +10,7 @@ import plotly.io as pio
 from .figures import BASELINE, BLUE_RAMP, GRID, INK, INK2, MUTED, SURFACE
 from .profiles import MILLER_URL, _EXTRA_ANCHORS, _pick_sentence, slug
 from .site_style import FONT, PAGE_CSS
-from . import issues
+from . import issues, topic_quality
 
 
 def issue_slug(name: str) -> str:
@@ -244,7 +244,7 @@ def write_issue_pages(site_dir, issue_df: pd.DataFrame, issue_meta: dict,
 
     out_dir = site_dir / "issues"
     out_dir.mkdir(parents=True, exist_ok=True)
-    display = issue_meta["issues"] + ["Discovered 5"]
+    display = topic_quality.display_issues(issue_meta["issues"])
     entries = []
     for name in display:
         label = profiles_site.DISCOVERED_LABELS.get(name, name)

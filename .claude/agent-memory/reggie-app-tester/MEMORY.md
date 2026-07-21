@@ -6,3 +6,5 @@
 - [Verify combat.py](verification-combat.md) — $0/2s/byte-identical; meta.json is date-stamped; audit prose asides not tables (era-vs-decade + CONTEXT-inherited counts)
 - [Verify attention.py](verification-attention.md) — $0/4s/byte-identical; blockquote-vs-corpus recipe + the `--`/em-dash trap; prose counts drift, tables don't
 - [Re-verifying findings notes](verification-findings-notes.md) — recipe + the error classes that survive correction passes when auditing notes/*-findings-v1.md against a parquet
+- [Verify triangulate](verification-triangulate.md) — triangulate.run() row counts, names-file degradation matrix, slug collision, $0 API proof
+- [Perturb/restore discipline](feedback_perturb-restore-discipline.md) — sha-verify restores of committed artifacts; a chained perturb+move silently restores the perturbed copy

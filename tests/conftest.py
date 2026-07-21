@@ -1,6 +1,6 @@
 """Shared fixtures for the annotation-provenance test suite.
 
-Every test in this suite runs OFFLINE and spends $0. Two guardrails enforce it:
+Every test in this suite runs OFFLINE and spends $0. Three guardrails enforce it:
 
 * ``_no_anthropic_creds`` (autouse) deletes ANTHROPIC_API_KEY / ANTHROPIC_AUTH_TOKEN
   so a stray real client construction fails loudly instead of leaking a paid call.
@@ -9,6 +9,9 @@ Every test in this suite runs OFFLINE and spends $0. Two guardrails enforce it:
   ``data/llm_annotations/`` tree. Read-only corpus paths (speeches/paragraphs
   parquet) are deliberately left pointing at the real data — tests read them, and
   the migration/coverage assertions depend on the real corpus.
+* ``_frozen_data_artifacts`` (autouse) fails any test that WRITES to a committed
+  data artifact several tests read live, which would otherwise make those tests
+  silently order-dependent.
 
 The fake Anthropic client here forges SDK *outputs*; it never talks to the network.
 We patch ``anthropic.Anthropic`` in place (the functions under test do
@@ -18,6 +21,7 @@ We patch ``anthropic.Anthropic`` in place (the functions under test do
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -40,6 +44,63 @@ def _no_anthropic_creds(monkeypatch):
     construction must fail loudly rather than silently authenticate."""
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+
+
+# Committed, provenance-stamped artifacts that tests READ live off `data/`:
+#   * `topic_display_names.json` — `profiles_site.DISCOVERED_LABELS` is
+#     IMPORT-TIME state read from this file, and
+#     `test_profiles_site_labels_come_from_the_names_file` compares that snapshot
+#     against a fresh read. That comparison is correct today only because every
+#     names-file write in the suite is redirected at `tmp_path`.
+#   * `issues_meta.json` — `TestCheckedInIssuesMeta` regression-checks the
+#     report's §3/§4 coherence figures against it.
+#   * `llm_annotations/taxonomy_v1.json` and `llm_annotations/crosswalk_v1.json`
+#     — read live by `test_triangulate.py` (the 50 canonical level-2 names, the
+#     16 crosswalk keys) and by `test_taxonomy.py`. They are also frozen,
+#     provenance-stamped outputs of a PAID run, so a test that rewrote one would
+#     be destroying an artifact that cannot be cheaply regenerated.
+# A test that wrote to any of these would make the readers order-dependent:
+# passing or failing according to what ran before them. This turns the
+# convention into an enforced invariant that fails in the test that broke it,
+# not downstream.
+FROZEN_DATA_ARTIFACTS = (
+    "topic_display_names.json",
+    "issues_meta.json",
+    "llm_annotations/taxonomy_v1.json",
+    "llm_annotations/crosswalk_v1.json",
+)
+
+
+def _artifact_digests() -> dict[str, str]:
+    from presidential_profiles.corpus import DATA_DIR
+
+    out = {}
+    for name in FROZEN_DATA_ARTIFACTS:
+        path = DATA_DIR / name
+        if path.exists():
+            out[name] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return out
+
+
+@pytest.fixture(autouse=True)
+def _frozen_data_artifacts():
+    """Fail the test that mutates a committed data artifact, not its successor.
+
+    Digests rather than raw bytes so a failure reads as the filename plus a
+    short hash, not a 10 KB byte diff.
+    """
+    before = _artifact_digests()
+
+    yield
+
+    after = _artifact_digests()
+    changed = sorted(k for k in before if after.get(k) != before[k])
+    assert not changed, (
+        f"committed data artifact(s) modified by this test: {changed}. They are "
+        f"read-only in this suite — redirect the write at tmp_path (monkeypatch "
+        f"topic_quality.NAMES_PATH / issues.ISSUES_META_PATH). Leaving one "
+        f"modified makes every later test that reads it order-dependent."
+    )
 
 
 @pytest.fixture(autouse=True)

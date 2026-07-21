@@ -8,7 +8,7 @@ import pandas as pd
 
 from .corpus import DATA_DIR, load
 from .fetch import PARAGRAPHS_PATH
-from . import indices, issues, rhetoric, similarity, trends
+from . import indices, issues, rhetoric, similarity, topic_quality, trends
 
 DISTINCTIVE_PATH = DATA_DIR / "president_distinctive.parquet"
 
@@ -337,7 +337,7 @@ def issue_cards(
     paras = merged.reset_index(drop=True)
     titles = df.set_index("doc_name")[["title", "year"]]
 
-    display = issue_meta["issues"] + ["Discovered 5"]
+    display = topic_quality.display_issues(issue_meta["issues"])
     anchors = {**issues.ISSUE_ANCHORS, **_EXTRA_ANCHORS}
     base = issue_base_rates(issue_df, display)
     n_speeches = df.groupby("president").size()

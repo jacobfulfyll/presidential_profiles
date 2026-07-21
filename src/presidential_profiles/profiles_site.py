@@ -11,11 +11,17 @@ from plotly.subplots import make_subplots
 from .figures import BLUE_RAMP, GRID, INK, INK2, MUTED, PARTY_COLORS, SURFACE
 from .profiles import MIN_ISSUE_PARAS, RADAR_AXES, slug
 from .site_style import FONT, PAGE_CSS
+from . import topic_quality
 
 # Issues shown on profiles: the curated taxonomy plus the one discovered
 # topic that is a genuine issue (soviet/nuclear/weapons).
 DISPLAY_ISSUES = None  # filled from meta at build time
-DISCOVERED_LABELS = {"Discovered 5": "Security & peace"}
+# Column name -> display label for CorEx's discovered topics, sourced from the
+# names file (data/topic_display_names.json) instead of being hardcoded here.
+# Every read site is `.get(name, name)`, so a topic missing from the file — or a
+# missing file entirely — degrades to showing the raw column name rather than
+# breaking a page build.
+DISCOVERED_LABELS = topic_quality.discovered_labels()
 
 
 def fig_radar(row: pd.Series) -> go.Figure:
@@ -376,7 +382,7 @@ def render_index(data: dict, display_issues: list[str]) -> str:
 
 
 def write_profiles(data: dict, site_dir) -> None:
-    display_issues = data["issue_meta"]["issues"] + ["Discovered 5"]
+    display_issues = topic_quality.display_issues(data["issue_meta"]["issues"])
     pres_dir = site_dir / "presidents"
     pres_dir.mkdir(parents=True, exist_ok=True)
     (pres_dir / "index.html").write_text(render_index(data, display_issues))

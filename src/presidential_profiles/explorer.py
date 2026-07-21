@@ -13,7 +13,7 @@ from collections import Counter, defaultdict
 import pandas as pd
 
 from .corpus import load
-from . import issues, word_families
+from . import issues, topic_quality, word_families
 from .figures import REPO_ROOT
 
 EXPLORER_DIR = REPO_ROOT / "docs" / "explorer"
@@ -115,11 +115,12 @@ def build_explorer_data() -> None:
     # Topics: share of paragraphs per year for each display issue.
     para_labels = pd.read_parquet(issues.PARA_LABELS_PATH)
     meta_issues = json.loads(issues.ISSUES_META_PATH.read_text())
-    display = meta_issues["issues"] + ["Discovered 5"]
+    display = topic_quality.display_issues(meta_issues["issues"])
+    labels = topic_quality.discovered_labels()
     topic_data = {}
     year_counts = para_labels.groupby("year").size()
     for name in display:
-        label = "Security & peace" if name == "Discovered 5" else name
+        label = labels.get(name, name)
         share = (para_labels.groupby("year")[name].mean() * 100)
         share = share[year_counts >= 10].round(2)
         topic_data[label] = {"y": [int(y) for y in share.index],

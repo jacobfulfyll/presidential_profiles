@@ -82,9 +82,9 @@ def build_issues(force: bool = False):
             json.loads(ISSUES_META_PATH.read_text()),
         )
 
-    paras = pd.read_parquet(PARAGRAPHS_PATH)
+    paras_all = pd.read_parquet(PARAGRAPHS_PATH)
     speeches = load()
-    paras = paras.merge(
+    paras = paras_all.merge(
         speeches[["doc_name", "president", "year", "decade"]], on="doc_name"
     )
 
@@ -140,5 +140,65 @@ def build_issues(force: bool = False):
 
     meta = {"issues": issue_names, "topic_words": topic_words,
             "n_paragraphs": len(paras)}
+    # Scored on the RAW paragraph frame, not the speeches-merged one. Coherence
+    # must be computed over the same paragraph set embed_topics.build_clusters
+    # fits its vectorizer on (paragraphs.parquet, unmerged) or the NPMI numbers
+    # here stop being comparable with paragraph_clusters_meta.json — and that
+    # shared yardstick is the whole basis of the cross-method benchmark.
+    meta = attach_coherence(meta, paras_all["text"])
     ISSUES_META_PATH.write_text(json.dumps(meta, indent=2))
     return out, meta
+
+
+def attach_coherence(meta: dict, texts: pd.Series) -> dict:
+    """Add NPMI coherence + a names-file pointer to an `issues_meta` dict.
+
+    Scored with `topic_quality`, which delegates to `embed_topics._npmi` over the
+    shared paragraph vocabulary — the same yardstick as
+    `paragraph_clusters_meta.json`, so CorEx topics and embedding clusters are
+    directly comparable.
+
+    THE ASYMMETRY IS DELIBERATE. `coherence` covers all 22 topics, but
+    `discovered_status` covers only the 7 free ones. Anchored issues are scored
+    and never gated: their anchor sets deliberately span vocabulary that never
+    co-occurs in a single paragraph, so a low NPMI is the taxonomy working as
+    designed. See the COHERENCE CAVEAT in `embed_topics.py` before "fixing" this.
+
+    The import is local because `topic_quality` imports from this module.
+    """
+    from .topic_quality import NAMES_PATH, classify_discovered, compute_coherence
+
+    coherence = compute_coherence(meta["topic_words"], texts)
+    meta["coherence"] = {
+        name: {k: rec[k] for k in ("npmi", "n_scored", "n_terms")}
+        for name, rec in coherence.items()
+    }
+    meta["discovered_status"] = {
+        name: {"status": rec["status"], "noise_reasons": rec["noise_reasons"]}
+        for name, rec in classify_discovered(coherence).items()
+    }
+    meta["names_file"] = NAMES_PATH.name
+    # Both callers must pass the RAW paragraphs.parquet text, unmerged — that is
+    # the frame embed_topics.build_clusters fits its vectorizer on, and a shared
+    # vocabulary is what makes these NPMI values comparable with the ones in
+    # paragraph_clusters_meta.json. Scoring the speeches-merged frame instead
+    # would silently shift the vocabulary on any corpus where a paragraph's
+    # doc_name is missing from speeches. Recording the count scored makes such a
+    # drift visible on the artifact; compare it against
+    # paragraph_clusters_meta.json's own n_paragraphs.
+    meta["coherence_n_paragraphs_scored"] = int(len(texts))
+    return meta
+
+
+def refresh_meta_coherence() -> dict:
+    """Add coherence to the persisted `issues_meta.json` WITHOUT refitting CorEx.
+
+    `build_issues()` fits a full CorEx model over 36k x 25k paragraphs, and its
+    labels are already frozen into `paragraph_issues.parquet`. Enriching the meta
+    must not require reproducing that fit, so this reads the persisted top terms
+    and scores them in place.
+    """
+    meta = json.loads(ISSUES_META_PATH.read_text())
+    meta = attach_coherence(meta, pd.read_parquet(PARAGRAPHS_PATH)["text"])
+    ISSUES_META_PATH.write_text(json.dumps(meta, indent=2))
+    return meta

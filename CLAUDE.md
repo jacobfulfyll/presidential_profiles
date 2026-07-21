@@ -54,6 +54,31 @@
   columns on every output row recording that the component is missing (see
   `combat.load_agreement_bands` / `ci_components="sampling_only"`). Never fabricate, stub, or
   hardcode a magnitude, and never create the other task's file.
+- **The coherence-threshold asymmetry is deliberate, not a bug.** `topic_quality.py` computes
+  NPMI for all 22 CorEx topics but the noise gate (`classify_discovered`) applies to the 7
+  *discovered* topics only. Four *anchored* issues — Immigration (-0.028), Foreign policy
+  (0.079), Infrastructure (0.089), Civil rights & race (0.091) — actually score below every
+  other coherent topic, right next to `Discovered 3` (-0.047), the corpus's one real noise
+  topic. They are exempt by design: their anchor sets deliberately span vocabulary that never
+  co-occurs in one paragraph (railroad and broadband are one issue, "Infrastructure", on
+  purpose). Documented in `embed_topics.py`, `topic_quality.py`, and
+  `issues.py::attach_coherence`, and test-enforced (`TestCoherenceAsymmetry` and siblings in
+  `tests/test_topic_quality.py`) — do not "fix" it into a single global floor.
+- **`method_agreement.parquet`'s `era` column is `trends.ERAS` (9 named, reporting axis), not
+  `taxonomy.ERA_SPAN`** (30-year bands, a *sampling* stratification — the anachronism guard for
+  taxonomy discovery, deliberately atheoretical). Any new per-era reporting table should reuse
+  `trends.ERAS`, not reach for `ERA_SPAN`. On this table `era == NaN` marks the whole-corpus row;
+  `triangulate.assign_eras()` raises rather than letting an out-of-band year fall through to NaN
+  and be silently read as a corpus-wide statistic.
+- `data/topic_display_names.json` is meant to be hand-edited, and degrades two different ways: a
+  topic missing its `display` value falls back to the raw column name (`Discovered 6`) —
+  lossless; a topic missing from the file, or the file missing entirely, drops out of
+  `surfaced_discovered()` — safe (no crash) but lossy, since it silently removes a live site
+  page. `display` strings are not currently HTML-escaped on the way into rendered `docs/` pages
+  (backlogged as `escape-display-names-in-rendered-html`).
+- `data/method_compositions.parquet` and `data/method_agreement.parquet` are safe to delete and
+  regenerate: `triangulate.run()` is pure local computation over already-frozen parquets ($0, no
+  API calls), and reproduces byte-identical output on rerun.
 
 ## Batches-API annotation lessons (paid, learned 2026-07-20/21)
 - **Structured-output arrays "collapse"**: Sonnet 5 sometimes emits ONE complete array item and

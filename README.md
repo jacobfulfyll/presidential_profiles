@@ -164,6 +164,19 @@ Rate columns are stored as **fractions**; the report quotes percentage points. B
 on rerun from a fixed seed. Findings — the clearest births, deaths, and revivals, with exemplar
 quotes, per-era sample sizes, and an explicit record of which numbers were re-derived and which
 were not — are in [`notes/attention-findings-v1.md`](notes/attention-findings-v1.md).
+`data/method_compositions.parquet` (85,617 rows) holds per-speech topic-share vectors from all
+three labelers in one long table, keyed `(doc_name, method, topic)`: `method` is `llm_taxonomy`
+(the 50 level-2 topics), `corex_legacy` (the 16 crosswalk issues — the 15 legacy issues plus
+Security & peace), or `embed_k15` (the 15 embedding clusters). Every method shares the same
+per-speech denominator — all paragraphs, including the ones the LLM left unlabeled — so shares
+are comparable across methods. `data/method_agreement.parquet` (160 rows) holds Jaccard and
+Cohen's kappa between the LLM and CorEx arms for each of the 16 crosswalk issues, both for the
+whole corpus (`era` is null) and for each of 9 named eras (144 rows). `data/topic_display_names.json`
+decides which CorEx discovered topics are coherent and substantive enough to name and surface on
+the site — of the 7, only `Discovered 5` ("Security & peace") clears the bar today — and is what
+the site now reads instead of a hardcoded `+ ["Discovered 5"]`. Findings, including a
+pre-registered prediction that did *not* hold, are in
+[`notes/topic-comparison-report-v1.md`](notes/topic-comparison-report-v1.md).
 
 ## Running it
 
@@ -247,10 +260,12 @@ ground-truth and anachronism checks, including the ones that fail. `--out` is co
 | Rhetorical indices | `indices.py` | Certainty (boosters vs hedges/concessives), naming, nostalgia/future, religiosity, NRC hope/fear, windowed vocabulary richness |
 | Issue topics | `issues.py` | Anchored CorEx over paragraphs: 15-issue curated taxonomy + discovered topics; era-relative emphasis per president |
 | Topic clusters | `embed_topics.py` | model2vec paragraph embeddings → MiniBatchKMeans at k=40 (discovery) and k=15 (dimension-matched to the anchored issues); c-TF-IDF terms + NPMI coherence; corpus-native counterweight to the anchored taxonomy, keyed `(doc_name, para_idx)` |
+| Topic coherence & naming | `topic_quality.py` | NPMI coherence for every CorEx topic, reusing `embed_topics._npmi` for a comparable yardstick; a pre-registered noise gate applies to the 7 discovered topics only (the 15 anchored issues are exempt by design); writes `topic_display_names.json`, the registry `site.py`/`profiles.py`/`profiles_site.py`/`issues_site.py`/`explorer.py` now read instead of a hardcoded `"Discovered 5"`; the scoring + naming step itself is run directly, not wired into `pp-analyze` |
 | Corpus taxonomy | `taxonomy.py` | Era-isolated LLM proposals (no cross-era context — the anachronism guard) → merge into 17 domains / 50 topics → crosswalk to the 15 legacy issues → held-out coverage gate; frozen once validated — standalone paid script, not wired into `pp-analyze` |
 | LLM annotation | `annotate.py` | Batches-API annotation passes over the corpus (masked paragraph judgment on the frozen taxonomy + unmasked speech typing) — dry-run/submit/status/ingest lifecycle, coverage-based resume, chunked re-requests, per-run manifests; the only `pp-*` command that spends money, never wired into `pp-analyze` |
 | Combativeness | `combat.py` | Three annotation flags (`party_attack` / `enemy_naming` / `zero_sum`) per era under three genre treatments — raw, SOTU-only (co-primary: the one genre present in every era), genre-standardized — with speech-clustered bootstrap CIs and a pre-registered n-floor that suppresses intervals it can't support; entity-stance and lexical cross-checks; reported separately, never as a composite index — standalone $0 script, not wired into `pp-analyze` |
 | Topic attention | `attention.py` | Per-topic attention curves over the annotated corpus → substantive-year threshold → born/died/persistent/revived lifecycles under three genre treatments, with rename-vs-death from LLM↔CorEx divergence plus in-domain successor detection; speech-clustered bootstrap CIs — standalone, $0, not wired into `pp-analyze` |
+| Method triangulation | `triangulate.py` | Per-speech composition vectors across all three labelers (LLM taxonomy, CorEx legacy, embedding clusters); LLM↔CorEx agreement (Jaccard + kappa) per issue and per era; rename-vs-death detection separating vocabulary drift from real decline; `agreement_drivers()` isolates what actually predicts agreement once the algebraic Jaccard ceiling is controlled for; standalone, not wired into `pp-analyze` |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
 | Profiles | `profiles.py` | Fingerprint percentiles, dual-axis issue cards (raw share of paragraphs + era-relative emphasis, "topic of the day" flag), distinctive vocabulary, signature speeches, invocations |

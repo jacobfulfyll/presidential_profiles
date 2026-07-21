@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
 
-from . import compare_site, corpus, explorer, indices, issues, issues_site, portraits, profiles, profiles_site, rhetoric, similarity, trends, word_families
+from . import compare_site, corpus, explorer, indices, issues, issues_site, portraits, profiles, profiles_site, rhetoric, similarity, topic_quality, trends, word_families
 from .figures import (
     BASELINE,
     BLUE_RAMP,
@@ -358,7 +358,7 @@ def fig_issues_decade(para_labels: pd.DataFrame, issue_names: list[str],
     pl["period"] = (pl["year"] // 5) * 5
     counts = pl.groupby("period").size()
     valid = counts[counts >= 40].index
-    display = issue_names + ["Discovered 5"]
+    display = topic_quality.display_issues(issue_names)
 
     dots = None
     if issue_df is not None and scores is not None:
@@ -1112,13 +1112,20 @@ def main() -> None:
     profiles_site.write_profiles(profile_data, SITE_DIR)
 
     meta = explorer.EXPLORER_DIR / "meta.json"
+    # Every input the explorer payload is built FROM must be watched, not just
+    # the word families. Its topic series come from issues.ISSUES_META_PATH and
+    # its topic LABELS from topic_quality.NAMES_PATH, so without those two a
+    # renamed or newly-surfaced topic would serve stale labels forever.
+    explorer_inputs = (word_families.FAMILIES_PATH, issues.ISSUES_META_PATH,
+                       topic_quality.NAMES_PATH)
     if (not meta.exists()
-            or word_families.FAMILIES_PATH.stat().st_mtime > meta.stat().st_mtime):
-        explorer.build_explorer_data()      # rebuild if the family map changed
+            or any(p.exists() and p.stat().st_mtime > meta.stat().st_mtime
+                   for p in explorer_inputs)):
+        explorer.build_explorer_data()      # rebuild if any input changed
     explorer.write_page()
     issues_site.write_issue_pages(SITE_DIR, issue_df, issue_meta, scores, faces)
     compare_site.write_compare(profile_data,
-                               issue_meta["issues"] + ["Discovered 5"])
+                               topic_quality.display_issues(issue_meta["issues"]))
 
     if args.inline:
         out2 = SITE_DIR / "index_selfcontained.html"

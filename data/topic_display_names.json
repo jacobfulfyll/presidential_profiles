@@ -1,0 +1,433 @@
+{
+  "version": 1,
+  "provenance": {
+    "authored_by": "claude-opus-4-8",
+    "method": "in-session naming by the implementing model; NO Anthropic API call was made (see pipeline scope decision D1)",
+    "date": "2026-07-21",
+    "evidence": "top c-TF-IDF terms per CorEx topic from data/issues_meta.json, scored with embed_topics._npmi over embed_topics._fit_vectorizer's shared paragraph vocabulary (the same yardstick as data/paragraph_clusters_meta.json)",
+    "gate": {
+      "coherence_floor": 0.0,
+      "min_scored_fraction": 0.5,
+      "pre_registered": true,
+      "applies_to": "discovered topics only \u2014 anchored issues are exempt by design (see embed_topics.py COHERENCE CAVEAT)"
+    }
+  },
+  "topics": {
+    "Discovered 1": {
+      "display": "Fiscal Administration & Appropriations",
+      "status": "coherent",
+      "surface": false,
+      "npmi": 0.1284565421226404,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "treasury",
+        "attention",
+        "service",
+        "large",
+        "recommend",
+        "provision",
+        "increased",
+        "legislation",
+        "increase",
+        "payment"
+      ],
+      "noise_reasons": [],
+      "rationale": "Treasury/appropriations housekeeping of 19th-c. annual messages. Coherent, but it duplicates Taxes & budget and reads as procedural register, not a distinct issue."
+    },
+    "Discovered 2": {
+      "display": "Executive Departments & Official Reports",
+      "status": "coherent",
+      "surface": false,
+      "npmi": 0.14212515649897878,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "secretary",
+        "report",
+        "department",
+        "senate",
+        "th",
+        "general",
+        "session",
+        "representatives",
+        "commission",
+        "act"
+      ],
+      "noise_reasons": [],
+      "rationale": "Cabinet-report boilerplate (secretary/department/session). Coherent administrative genre, not a policy issue."
+    },
+    "Discovered 3": {
+      "display": null,
+      "status": "noise",
+      "surface": false,
+      "npmi": -0.046842905292557545,
+      "n_scored": 7,
+      "n_terms": 10,
+      "terms": [
+        "ve",
+        "don",
+        "ll",
+        "help",
+        "children",
+        "job",
+        "consideration",
+        "duties",
+        "families",
+        "condition"
+      ],
+      "noise_reasons": [
+        "npmi -0.0468 <= floor 0.0"
+      ],
+      "rationale": "NOISE by the pre-registered gate (NPMI below the independence floor). Contraction fragments (ve/don/ll) with no thematic core. Deliberately left unnamed."
+    },
+    "Discovered 4": {
+      "display": "Debate & Interview Exchanges",
+      "status": "coherent",
+      "surface": false,
+      "npmi": 0.15944883630601572,
+      "n_scored": 8,
+      "n_terms": 10,
+      "terms": [
+        "mr",
+        "senator",
+        "governor",
+        "didn",
+        "vice",
+        "did",
+        "kennedy",
+        "john",
+        "ago",
+        "sir"
+      ],
+      "noise_reasons": [],
+      "rationale": "Televised-debate transcript genre (mr/senator/governor/kennedy/sir). Coherent \u2014 those terms genuinely co-occur \u2014 but it is a medium artifact, not an issue. The clearest case for why `status` and `surface` must stay separate."
+    },
+    "Discovered 5": {
+      "display": "Security & peace",
+      "status": "coherent",
+      "surface": true,
+      "npmi": 0.19495239091480746,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "nations",
+        "peace",
+        "soviet",
+        "nuclear",
+        "weapons",
+        "freedom",
+        "forces",
+        "europe",
+        "asia",
+        "east"
+      ],
+      "noise_reasons": [],
+      "rationale": "A genuine substantive theme the curated 15 never named: collective security, nuclear arms, alliances. Highest NPMI of the discovered set. Already surfaced site-wide."
+    },
+    "Discovered 6": {
+      "display": "Territory, Sovereignty & Constitutional Powers",
+      "status": "coherent",
+      "surface": false,
+      "npmi": 0.14042714422354943,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "constitution",
+        "territory",
+        "subject",
+        "state",
+        "powers",
+        "authority",
+        "mexico",
+        "intercourse",
+        "governments",
+        "spain"
+      ],
+      "noise_reasons": [],
+      "rationale": "Early-republic territorial expansion and federal-power disputes (constitution/territory/powers/mexico/spain). Substantively real and arguably a missing issue \u2014 but surfacing it needs an anchor-term list (issues_site.py indexes anchors_all[name]) and would add a page to the live site, which is beyond this task's display-name-wiring boundary. Flagged as a candidate."
+    },
+    "Discovered 7": {
+      "display": "Law, Duty & Public Obligation",
+      "status": "coherent",
+      "surface": false,
+      "npmi": 0.11037761470308782,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "public",
+        "shall",
+        "duty",
+        "laws",
+        "present",
+        "power",
+        "law",
+        "necessary",
+        "character",
+        "interests"
+      ],
+      "noise_reasons": [],
+      "rationale": "Generic legal/constitutional register (public/shall/duty/laws). Coherent but too diffuse to be an issue."
+    }
+  },
+  "surfaced": [
+    "Discovered 5"
+  ],
+  "anchored_coherence_caveat": {
+    "Economy & jobs": {
+      "npmi": 0.19226245098661474,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "business",
+        "economy",
+        "prosperity",
+        "jobs",
+        "industry",
+        "workers",
+        "unemployment",
+        "wages",
+        "businesses",
+        "labor"
+      ]
+    },
+    "Taxes & budget": {
+      "npmi": 0.2633763401324483,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "tax",
+        "revenue",
+        "debt",
+        "budget",
+        "taxes",
+        "appropriations",
+        "spending",
+        "deficit",
+        "expenditures",
+        "fiscal"
+      ]
+    },
+    "War & military": {
+      "npmi": 0.186659133308744,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "war",
+        "military",
+        "defense",
+        "army",
+        "navy",
+        "troops",
+        "battle",
+        "soldiers",
+        "force",
+        "enemy"
+      ]
+    },
+    "Foreign policy": {
+      "npmi": 0.07944977445950024,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "foreign",
+        "treaty",
+        "relations",
+        "allies",
+        "negotiations",
+        "diplomatic",
+        "alliance",
+        "embassy",
+        "countries",
+        "policy"
+      ]
+    },
+    "Immigration": {
+      "npmi": -0.028327495619111076,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "border",
+        "immigration",
+        "citizenship",
+        "immigrants",
+        "aliens",
+        "naturalization",
+        "illegal",
+        "patrol",
+        "bona",
+        "fide"
+      ]
+    },
+    "Civil rights & race": {
+      "npmi": 0.09058092133489343,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "race",
+        "slavery",
+        "equality",
+        "discrimination",
+        "negro",
+        "emancipation",
+        "racial",
+        "slave",
+        "nebraska",
+        "color"
+      ]
+    },
+    "Health care": {
+      "npmi": 0.28376366576107265,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "health",
+        "insurance",
+        "disease",
+        "medicare",
+        "doctors",
+        "hospitals",
+        "patients",
+        "medicaid",
+        "care",
+        "coverage"
+      ]
+    },
+    "Education": {
+      "npmi": 0.3723928371763468,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "education",
+        "schools",
+        "students",
+        "teachers",
+        "learning",
+        "colleges",
+        "school",
+        "college",
+        "universities",
+        "training"
+      ]
+    },
+    "Crime & justice": {
+      "npmi": 0.2227642249135658,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "violence",
+        "crime",
+        "courts",
+        "police",
+        "drugs",
+        "criminals",
+        "prison",
+        "criminal",
+        "drug",
+        "enforcement"
+      ]
+    },
+    "Energy & environment": {
+      "npmi": 0.26736978676602907,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "oil",
+        "environment",
+        "climate",
+        "coal",
+        "conservation",
+        "forests",
+        "pollution",
+        "energy",
+        "gas",
+        "clean"
+      ]
+    },
+    "Trade & tariffs": {
+      "npmi": 0.18320007220052179,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "trade",
+        "commerce",
+        "tariff",
+        "markets",
+        "imports",
+        "exports",
+        "products",
+        "interstate",
+        "manufactures",
+        "navigation"
+      ]
+    },
+    "Agriculture": {
+      "npmi": 0.37508134619572575,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "agriculture",
+        "farmers",
+        "farm",
+        "crops",
+        "agricultural",
+        "farmer",
+        "prices",
+        "food",
+        "production",
+        "wheat"
+      ]
+    },
+    "Religion & values": {
+      "npmi": 0.20414955107181684,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "faith",
+        "god",
+        "moral",
+        "church",
+        "spiritual",
+        "prayer",
+        "bless",
+        "religious",
+        "almighty",
+        "religion"
+      ]
+    },
+    "Money & banking": {
+      "npmi": 0.2999273509970052,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "bank",
+        "currency",
+        "gold",
+        "inflation",
+        "dollar",
+        "silver",
+        "banking",
+        "coinage",
+        "banks",
+        "circulation"
+      ]
+    },
+    "Infrastructure": {
+      "npmi": 0.08930010682485374,
+      "n_scored": 10,
+      "n_terms": 10,
+      "terms": [
+        "railroad",
+        "roads",
+        "railroads",
+        "infrastructure",
+        "highways",
+        "bridges",
+        "vessels",
+        "canals",
+        "ships",
+        "coast"
+      ]
+    }
+  }
+}

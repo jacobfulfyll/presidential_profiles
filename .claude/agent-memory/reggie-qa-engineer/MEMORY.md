@@ -14,3 +14,7 @@
 - [combat.py test seams](reference_combat-test-seams.md) — injectable load_frame inputs, import-time-bound path defaults, real-corpus rate + ratio anchors, the 3 equivalent mutants
 - [Same-frame invariance tests are vacuous](feedback_same-frame-invariance-tests.md) — shuffle tests must assert on CROSS-frame columns; `.sample(frac=1)` can no-op; untied fixtures never exercise a tie-break
 - [A deferred seam's active branch is the deliverable](feedback_deferred-seam-is-the-deliverable.md) — optional-loader criteria ship 100% untested "if present" paths; grep every call site for the non-default arg
+- [Synthetic corpus with derivable NPMI](feedback_synthetic-corpus-derivable-npmi.md) — 100-doc fixture clears min_df=20/max_df=0.5 and makes every coherence value hand-derivable
+- [triangulate monkeypatch harness](reference_triangulate-monkeypatch-harness.md) — module-constant paths, and default args (N_LEVEL2_TOPICS, NAMES_PATH) that are NOT monkeypatchable
+- [Pin the conclusion, not the shape](feedback_pin-the-conclusion-not-the-shape.md) — "effect does not survive the control" needs the attenuation asserted plus a real-effect contrast fixture
+- [Report numbers need artifact anchors](feedback_report-numbers-need-artifact-anchors.md) — regression-check published figures against committed data; a mismatched docstring is a coverage hole
