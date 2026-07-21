@@ -58,18 +58,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 - NEW: data/register/trends.parquet
 - NEW: notes/register-findings-v1.md
 
-### combativeness-over-time
-**Task**: Where does today land against the 1860s and 1930s?
-**Pipeline**: code-workflow
-**Branch**: task/combativeness-over-time
-**Worktree**: .worktree/combativeness-over-time
-**Base**: master
-**Started**: 2026-07-21
-**Files**:
-- NEW: src/presidential_profiles/combat.py
-- NEW: data/combat/combativeness.parquet
-- NEW: notes/combativeness-findings-v1.md
-
 ---
 
 ## Backlog
