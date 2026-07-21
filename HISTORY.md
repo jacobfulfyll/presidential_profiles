@@ -11,3 +11,4 @@
 - [x] issue-attention-over-time Topic lifecycles across 240 years: attention.py + topic_lifecycles.parquet (201 rows, byte-reproducible) + notes/attention-findings-v1.md; 17 died / 14 born / 12 persistent / 7 revived -- 2026-07-21
 - [x] topic-method-comparison LLM vs CorEx triangulation: coherence + naming registry, per-issue/per-era agreement, rename-vs-death; pre-registered low-coherence prediction FALSIFIED and published -- 2026-07-21
 - [x] breadth-depth-register Breadth/depth/register trends under 3 genre treatments + 3 taxonomies; headline mostly falsified, null published -- 2026-07-21
+- [x] inter-model-agreement-check Opus 4.8 second pass on persisted 25% sample (266 speeches, 94.7% para coverage at pre-registered bail); agreement_v1.parquet + notes/agreement-report-v1.md; party_attack kappa 0.0 pre-1848 = predicted anachronism made visible; $30.52 actual -- 2026-07-22
