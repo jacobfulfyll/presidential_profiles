@@ -22,13 +22,24 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ---
 
+### era-atlas
+**Task**: Era fingerprints, similarity matrix, data-driven periodization, LLM portraits
+**Pipeline**: code-workflow
+**Branch**: task/era-atlas
+**Worktree**: .worktree/era-atlas
+**Base**: master
+**Started**: 2026-07-21
+**Files**:
+- NEW: src/presidential_profiles/eras.py
+- NEW: data/eras/era_fingerprints.parquet
+- NEW: data/eras/era_similarity.parquet
+- NEW: notes/era-atlas-v1.md
+
 ---
 
 ## Backlog
 
 ### Analysis & Findings
-- [ ] era-atlas: Era fingerprints, similarity matrix, data-driven periodization, LLM portraits [P2] [complex] [tier: opus:high] [code] [planned] [depends: breadth-depth-register, issue-attention-over-time, combativeness-over-time]
-  files: src/presidential_profiles/eras.py (NEW), data/eras/era_fingerprints.parquet (NEW), data/eras/era_similarity.parquet (NEW), notes/era-atlas-v1.md (NEW)
 - [ ] convergence-analysis: Pre-registered test of agenda convergence (rebuilt after adversarial review) [P3] [complex] [tier: opus:high] [code] [planned] [depends: era-atlas, topic-method-comparison]
   files: src/presidential_profiles/convergence.py (NEW), notes/convergence-prereg-v1.md (NEW), notes/convergence-findings-v1.md (NEW), data/convergence/ (NEW)
 
