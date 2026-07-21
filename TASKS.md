@@ -22,19 +22,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ---
 
-### topic-method-comparison
-**Task**: LLM vs CorEx label agreement, coherence scoring, cluster naming
-**Pipeline**: code-workflow
-**Branch**: task/topic-method-comparison
-**Worktree**: .worktree/topic-method-comparison
-**Base**: master
-**Started**: 2026-07-21
-**Files**:
-- NEW: src/presidential_profiles/triangulate.py
-- NEW: src/presidential_profiles/topic_quality.py
-- MOD: src/presidential_profiles/issues.py
-
-
 ### breadth-depth-register
 **Task**: Did the formal record get broader, shallower, more values-driven?
 **Pipeline**: code-workflow
