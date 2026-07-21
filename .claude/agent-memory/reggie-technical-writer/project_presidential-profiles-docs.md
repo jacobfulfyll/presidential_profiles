@@ -1,14 +1,22 @@
 ---
 name: project-presidential-profiles-docs
-description: Presidential Profiles doc conventions — README-only (no CHANGELOG.md), module table in "How it works", terminology to match UI copy exactly
+description: Presidential Profiles doc conventions — no CHANGELOG.md; README + CLAUDE.md are the SYNC-DOCS surface; module table in "How it works"; terminology matches UI copy exactly
 metadata:
   type: project
 ---
 
 Presidential Profiles keeps a single `README.md` as its documentation surface — no
 `CHANGELOG.md` exists and the project convention is README-only for user-facing change
-summaries. `CLAUDE.md`, `TASKS.md`, and `HISTORY.md` are maintained by other pipeline stages,
-not the technical-writer/SYNC-DOCS stage.
+summaries. `TASKS.md` and `HISTORY.md` are maintained by other pipeline stages, not the
+technical-writer/SYNC-DOCS stage.
+
+**`CLAUDE.md` IS in SYNC-DOCS scope** when the task brief says so (confirmed
+`combativeness-over-time`, 2026-07-21) — it is the repo's durable-conventions file and a
+SYNC-DOCS pass is the natural place to add hard-won lessons. Style: terse bullets under a
+topic-scoped `##` section, dated when the lesson came from a specific run (`## Batches-API
+annotation lessons (paid, learned 2026-07-20/21)`). Before adding, diff against what's already
+there — keyed merges, `arch -x86_64`, the worktree `PYTHONPATH` trap, and money-path guards are
+already documented and must not be restated.
 
 **Why:** Confirmed explicitly in a SYNC-DOCS task brief (profile-issue-views, 2026-07-19):
 "Do NOT create a CHANGELOG.md — this repo doesn't have one and the convention is README-only."
