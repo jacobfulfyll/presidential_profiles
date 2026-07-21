@@ -6,6 +6,24 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+### topic-chart-upgrades
+**Task**: Confidence bands (sampling + annotator disagreement) on issue trend charts
+**Pipeline**: code-workflow
+**Branch**: task/topic-chart-upgrades
+**Worktree**: .worktree/topic-chart-upgrades
+**Base**: master
+**Started**: 2026-07-21
+**Scope note**: PICKUP found acceptance criterion 3 rests on a false premise (CorEx labels
+carry no LLM annotator). User chose BOTH SURFACES — sampling-only bands on the CorEx issue
+charts, plus a genuine sampling+disagreement band on the LLM topic layer. See
+`.pipeline/topic-chart-upgrades/CONTEXT.md` -> ARCHITECTURE CORRECTION.
+**Files**:
+- NEW: src/presidential_profiles/bands.py
+- NEW: tests/test_bands.py
+- MOD: src/presidential_profiles/site.py
+- MOD: src/presidential_profiles/issues_site.py
+- NEW: data/bands.parquet
+
 ### convergence-analysis
 **Task**: Pre-registered test of agenda convergence (rebuilt after adversarial review)
 **Pipeline**: code-workflow
@@ -29,8 +47,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   files: notes/register-findings-v1.md (MOD), tests/test_register_note_claims.py (MOD)
 
 ### Site Presentation
-- [ ] topic-chart-upgrades: Confidence bands (sampling + annotator disagreement) on issue trend charts [P3] [moderate] [tier: opus:medium] [design] [planned] [depends: inter-model-agreement-check] [conflicts: profile-issue-views]
-  files: src/presidential_profiles/bands.py (NEW), src/presidential_profiles/site.py (MOD), src/presidential_profiles/issues_site.py (MOD)
 - [ ] centralize-issue-display-names: `issues + ["Discovered 5"]` is hardcoded in five modules (`profiles.py:281`, `profiles_site.py:334`, `explorer.py:118`, `issues_site.py:247`, `site.py:361` + `site.py:1121`). Deferred from `profile-issue-views` (its acceptance criterion 4) at PICKUP on 2026-07-16: the "centralized names file" that criterion assumed does not exist and is blocked behind `topic-method-comparison`. Note task.md called this "the two hardcoded sites" — it is five. [P3] [moderate] [code] [depends: topic-method-comparison] **LARGELY SUPERSEDED 2026-07-21**: `topic-method-comparison` centralized all six append sites onto `data/topic_display_names.json` behavior-preservingly, and `taxonomy.CROSSWALK_ISSUES` (added 2026-07-20) already provides the centralized legacy-issue list this entry says "does not exist". Residual scope only: the 5 *other* `"Discovered 5"` literals that were deliberately left alone — `profiles_site.py` `DISCOVERED_LABELS`, `explorer.py` inline label ternary, `profiles.py` `_EXTRA_ANCHORS` + `_WAR_SPEC`. Re-groom before picking up; the line numbers in this entry are stale (`profiles.py` is 340 not 281, `profiles_site.py` is 379 not 334).
 
 ### Ungroomed
