@@ -5,4 +5,4 @@
 - [Threshold anchoring value](project_threshold-anchoring-value.md) — analytic thresholds must be pre-hoc + anchored to existing constants, not outcome-tuned; verify reuse claims
 - [Pipeline review heuristics](project_pipeline-review-heuristics.md) — TASKS.md two-dot-diff FALSE POSITIVE; run() bail-gate pattern; total-vs-partial filter fallback bug class
 - [Render vs metric null guard](project_render-vs-metric-null-guard.md) — null-coercion fixes on compute paths miss the sibling render path; per-model ingest routing only unit-tested
-- [Research-report review heuristics](project_research-report-review-heuristics.md) — 13 checks; #5 selective-statistic reuse is the dominant class (6 instances in one task) — build the full parquet cell grid and grep the note for every measure
+- [Research-report review heuristics](project_research-report-review-heuristics.md) — 13 checks; #5 selective-statistic reuse is the dominant class (9 instances in one task); #5b/#5c: a mechanical sweep does NOT exhaust it — audit the declared scope rules

@@ -68,6 +68,41 @@ grep for that same statistic on every claim it *advances* — and vice versa.
   the rebuttal ("both stance shares rise") is `modern − early`; post-1860 `proposal_share` on
   raw is −0.011, p=0.52. Check the rebuttal uses the contrast being rebutted.
 
+- **Round-3 refinement — the mechanical sweep does NOT exhaust the class.** A pass that
+  enumerates all 444 cells and regex-matches each value against the note's prose still leaves
+  three residues, and all three are found only by reading:
+  (i) **a matcher artifact** — rendering a value at 0 decimals makes `0.7833` match a bare
+  `1` in the region, marking a genuinely unprinted cell "printed". Drop the 0-dp rendering
+  and re-run; that alone surfaced `nrc_fear`'s Spearman (+0.78/+0.73, p≈0.028, significant on
+  both controls, discussed nowhere).
+  (ii) **a printed number carrying an overstated interpretation** — the sweep can only see
+  whether the digits appear, never what the sentence does with them. Here sub-claim 3's
+  post-1860 contrast is printed at the floor on all three arms *and* the note calls the same
+  claim "the weakest-evidenced of the surviving claims" / "most multiplicity-exposed",
+  and files it in the marginal multiplicity table only. **Exact mirror of the round-2
+  blocker, in the opposite direction** — the pass had just written the governing rule
+  ("marginal on one contrast is not marginal on the measure") and applied it only to the
+  claim it was killing.
+  (iii) **a prose claim with no artifact behind it at all** — `nrc_fear` "declared as
+  rising" / "the opposite sign to its declared direction" asserted 3×, while the note's own
+  Pre-declaration table lists neither `nrc_fear` nor `nrc_hope`. Diff the declaration table
+  against every "declared"/"pre-declared" grep hit; the sweep is blind to this by design.
+
+**5c. RE-REVIEW: when a pass answers an omission finding with DECLARED SCOPE RULES, audit
+the rules, not the count.** Each rule is a falsifiable claim about the artifact. On
+`breadth-depth-register` round 3, four rules justified 49 unprinted cells and three were
+partly false: "the two unprinted columns are the same size to within the width of the printed
+intervals" (false for `fk_grade`: 2.47 gap vs a 1.02-wide printed CI); "where an endpoint
+contrast disagrees with a block contrast — <3 measures named> — it is tabulated in full"
+(enumeration incomplete: `effective_topics` is the only measure in the table with two
+*significant* contrasts of opposite sign, and `labels_per_1k_words` has 5/6 endpoint cells
+significant and unprinted); and a blanket "everything else significant is reported".
+The one rule that held was the strongest-sounding one (monotone-transform Spearmans identical
+digit-for-digit — verified 0.0 max abs diff on all 9 arms; note the *p-values* still differ
+slightly for the plug-in twin, which proves it is not literally a monotone transform).
+- **How to apply:** for each rule, write the one-line pandas check that falsifies it. Also
+  check `set(rule-covered cells) ⊇ set(significant unprinted cells)` — the gap is the finding.
+
 **5b. RE-REVIEW: a new disclosure leaves orphans on the summary surfaces.** When a pass adds a
 counter-datum deep in a section, check it propagated to (a) the summary verdict table, (b) the
 adjudication/"which reading is honest" section, (c) the headline paragraph, (d) the multiplicity
