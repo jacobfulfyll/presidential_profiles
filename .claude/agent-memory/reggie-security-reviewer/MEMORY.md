@@ -5,3 +5,5 @@
 - [Inter-model agreement task](project-inter-model-agreement.md) — agreement.py is no-network/no-paid; annotate.py --model/--sample keep gate ordering + add resume-identity guards --force can't bypass
 - [Derived-analysis-module recipe](derived-analysis-module-recipe.md) — how to actually PROVE the $0 guard + frozen-artifact integrity for agreement.py/combat.py-shaped modules (two gotchas that fake a clean result)
 - [HTML render sink inventory](html-render-sink-inventory.md) — which docs/ sinks escape and which don't; plotly JSON + issue_slug are safe by construction, don't re-flag them
+- [Money-path verification](money-path-verification.md) — the highest-value check here: 3-layer proof a module can't construct a paid Anthropic client
+- [CLI path-arg containment](cli-path-arg-containment.md) — recurring `--out`/`run_id`-into-a-write finding; grade MEDIUM as integrity, never as traversal

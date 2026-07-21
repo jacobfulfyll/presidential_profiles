@@ -153,6 +153,17 @@ key, not row order — so every point on a chart has receipts), `entity_consiste
 `genre_decomposition.parquet`, and `combat_meta.json` (seed, thresholds, reference genre weights,
 corpus fingerprint). The write-up is
 [`notes/combativeness-findings-v1.md`](notes/combativeness-findings-v1.md).
+`data/attention/topic_lifecycles.parquet` (201 rows) is the first life-history table built on
+that annotation layer: one row per `(level, treatment, topic)` — 2 levels × 3 genre treatments ×
+50 level-2 topics / 17 level-1 domains — holding each topic's first, peak, and last substantive
+year, rise and fall rates, era of relevance, lifecycle class (born / died / persistent /
+revived), a rename-vs-death classification, and speech-clustered bootstrap CIs on its first,
+peak, and final era shares. It is not paragraph-keyed, so join it on
+`(level, treatment, topic)` rather than on `(doc_name, para_idx)` — and never on row order.
+Rate columns are stored as **fractions**; the report quotes percentage points. Byte-reproducible
+on rerun from a fixed seed. Findings — the clearest births, deaths, and revivals, with exemplar
+quotes, per-era sample sizes, and an explicit record of which numbers were re-derived and which
+were not — are in [`notes/attention-findings-v1.md`](notes/attention-findings-v1.md).
 
 ## Running it
 
@@ -214,6 +225,18 @@ indices so results don't depend on iteration order), and no output carries a wal
 all ten files are byte-identical on rerun on any date — a dirty `git status data/combat/` means the
 numbers actually moved. Unlike the frozen `data/llm_annotations/` artifacts, these are safe to
 regenerate. `--quiet` writes the tables without printing the summary.
+`python -m presidential_profiles.attention` builds the topic lifecycle table. Like `taxonomy.py`
+it has no `pp-*` entry point and is not part of `pp-analyze`, but unlike it this step is **$0** —
+it never imports `anthropic` and reads only frozen local artifacts. Every topic is measured under
+three genre treatments (raw, annual-messages-only, and genre-standardized against fixed
+corpus-wide genre weights), because annual messages run 55–76% of the paragraphs in every era
+through 1932 but only 21–31% from the Cold War onward, and a raw-only reading would report the
+annual message's own death as every 19th-century issue's death. Confidence intervals resample **speeches**, not paragraphs —
+within-speech correlation runs to 0.17, so paragraph-level resampling would understate the
+intervals badly. `--quotes "<topic>" --quote-years <lo> <hi>` prints deterministic exemplar
+paragraphs for one topic instead of rebuilding the table, and a rerun prints the pre-registered
+ground-truth and anachronism checks, including the ones that fail. `--out` is confined to
+`data/attention/` so a mistyped path cannot clobber the paid annotation artifacts.
 
 ## How it works
 
@@ -227,6 +250,7 @@ regenerate. `--quiet` writes the tables without printing the summary.
 | Corpus taxonomy | `taxonomy.py` | Era-isolated LLM proposals (no cross-era context — the anachronism guard) → merge into 17 domains / 50 topics → crosswalk to the 15 legacy issues → held-out coverage gate; frozen once validated — standalone paid script, not wired into `pp-analyze` |
 | LLM annotation | `annotate.py` | Batches-API annotation passes over the corpus (masked paragraph judgment on the frozen taxonomy + unmasked speech typing) — dry-run/submit/status/ingest lifecycle, coverage-based resume, chunked re-requests, per-run manifests; the only `pp-*` command that spends money, never wired into `pp-analyze` |
 | Combativeness | `combat.py` | Three annotation flags (`party_attack` / `enemy_naming` / `zero_sum`) per era under three genre treatments — raw, SOTU-only (co-primary: the one genre present in every era), genre-standardized — with speech-clustered bootstrap CIs and a pre-registered n-floor that suppresses intervals it can't support; entity-stance and lexical cross-checks; reported separately, never as a composite index — standalone $0 script, not wired into `pp-analyze` |
+| Topic attention | `attention.py` | Per-topic attention curves over the annotated corpus → substantive-year threshold → born/died/persistent/revived lifecycles under three genre treatments, with rename-vs-death from LLM↔CorEx divergence plus in-domain successor detection; speech-clustered bootstrap CIs — standalone, $0, not wired into `pp-analyze` |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
 | Profiles | `profiles.py` | Fingerprint percentiles, dual-axis issue cards (raw share of paragraphs + era-relative emphasis, "topic of the day" flag), distinctive vocabulary, signature speeches, invocations |

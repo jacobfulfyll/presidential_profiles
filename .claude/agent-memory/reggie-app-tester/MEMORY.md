@@ -5,3 +5,4 @@
 - [Verify register note](verification-register-note.md) — note-vs-parquet cross-check recipe; 49% of rows have degenerate zero-width CIs (n_speeches=1); double-rounding artifact
 - [Verify combat.py](verification-combat.md) — $0/2s/byte-identical; meta.json is date-stamped; audit prose asides not tables (era-vs-decade + CONTEXT-inherited counts)
 - [Verify attention.py](verification-attention.md) — $0/4s/byte-identical; blockquote-vs-corpus recipe + the `--`/em-dash trap; prose counts drift, tables don't
+- [Re-verifying findings notes](verification-findings-notes.md) — recipe + the error classes that survive correction passes when auditing notes/*-findings-v1.md against a parquet
