@@ -229,6 +229,12 @@ class Args:
         self.max_cost_usd = A.MAX_COST_USD
         self.count_tokens = False
         self.refetch = False
+        # New surfaces (pilot sampling, sealing, qa report path). The cmd_*
+        # functions read these via getattr with a default so the pre-existing
+        # tests still pass, but new tests set them explicitly.
+        self.pilot = False
+        self.resubmit_sealed = False
+        self.out = None
         self.__dict__.update(kw)
 
 

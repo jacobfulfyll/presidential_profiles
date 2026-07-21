@@ -103,8 +103,23 @@ NPMI coherence.
 LLM-derived annotations live separately under `data/llm_annotations/`, keyed by `doc_name` or
 `(doc_name, para_idx)` — never by row order — with every row's `run_id` pointing at a manifest
 (model, prompt version + hash, batch id, token counts, cost, corpus fingerprint) so any
-annotated value is traceable to what produced it. `invocation_tone.parquet` is the first table
+annotated value is traceable to what produced it. `invocation_tone.parquet` was the first table
 in this layer, migrated from a legacy position-keyed JSON file.
+
+The full corpus is now annotated. `paragraph_annotations.parquet` (36,229 rows, keyed
+`(doc_name, para_idx)`) holds topic labels (multi-label against the frozen `taxonomy_v1.json`
+50-name set, or none), three binary combativeness flags (`party_attack`, `enemy_naming`,
+`zero_sum`), and a `proposal_values` class (proposal / values / mixed / neither) — judged
+**masked**: the model sees only the paragraph text and its decade, never the president or speech
+title, so the obscure middle of the corpus is judged on its words rather than its author's
+reputation. `paragraph_entities.parquet` (27,214 rows, same key) explodes each paragraph's named
+entities into a long table (`entity`, `type`, `stance` — adversarial/favorable/neutral), the raw
+material the enemy-naming flag cross-validates against. `speech_annotations.parquet` (1,057
+rows, keyed `doc_name`) holds `speech_type` / `audience` / `medium`, judged **unmasked** from the
+title, year, and opening paragraphs — the title is the single best signal for a factual field
+like speech type, so masking there would only make it worse. QA (label rates by decade, flag
+co-occurrence, entity-substring face validity) is in
+[`notes/annotation-qa-v1.md`](notes/annotation-qa-v1.md).
 
 `taxonomy_v1.json` and `crosswalk_v1.json` are two more artifacts in that layer — not row-keyed
 tables but a two-level topic taxonomy derived from the corpus itself: 17 level-1 domains (12
@@ -132,13 +147,31 @@ Tests: `uv sync --extra dev && uv run pytest`.
 `pp-analyze --force` recomputes the cached intermediate tables. The spaCy tagging pass over
 4.2M words takes a few minutes; everything else is seconds.
 
-`pp-annotate` (subcommands `dry-run` / `submit` / `status` / `ingest`) drives LLM annotation
-passes over the corpus via the Anthropic Batches API. It is the only `pp-*` command that can
-spend money — kept behind its own CLI so a `pp-analyze --force` rebuild can never trigger a
-paid call. `dry-run` builds and validates the batch file and a cost estimate with
-zero network calls and no credentials; `submit` is the paid step and refuses to run without
-both `--yes` and a `--max-cost-usd` ceiling. A dry-run over the full corpus produces ~1,057
-batch requests (~$8.53 est.); no paid annotation run has been made yet.
+`pp-annotate` (subcommands `dry-run` / `submit` / `status` / `ingest` / `qa`) drives LLM
+annotation passes over the corpus via the Anthropic Batches API. It is the only `pp-*` command
+that can spend money — kept behind its own CLI so a `pp-analyze --force` rebuild can never
+trigger a paid call. `dry-run` builds and validates the batch file and a cost estimate with
+zero network calls and no credentials; `submit` is the paid step and refuses to run without both
+`--yes` and a `--max-cost-usd` ceiling. `--pilot` selects a deterministic 20-speech
+era-stratified sample instead of the full corpus; `--chunk-size N` splits a speech's paragraph
+requests into ≤N-paragraph chunks (the lever for stragglers that won't complete at whole-speech
+scope); `--resubmit-sealed` re-requests speeches that failed permanently, once the underlying
+request is fixed. `qa` computes distribution QA over ingested annotations into
+`notes/annotation-qa-v1.md`; `--pilot` and `--converged` gate it (exit non-zero on any failed
+check) while plain `qa` just reports.
+
+The two real field specs are `paragraph_annotations` (the masked judgment pass) and
+`speech_annotations` (the unmasked factual pass) — see [Data](#data) above. The full corpus is
+annotated: 36,229 paragraphs + 1,057 speeches for **$38.56** (budget $50). Getting there
+surfaced a real model quirk worth recording: on a structured-output array request, Sonnet 5
+sometimes emits one complete item and stops (`end_turn`, not truncation) instead of annotating
+every paragraph in the speech — a "collapse" independent of speech length. Reaching 100%
+coverage took a convergence ladder: several resubmission rounds, then `--chunk-size` escalating
+25 → 10 → 5 → 2 → 1 for the 32 speeches that kept collapsing at whole-speech scope. Both
+resulting deviations from the original plan (the coverage gate loosened from single-pass ≥99% to
+post-convergence 100%; "resubmitted once" loosened to "resubmitted to convergence") are recorded
+as pre-registration amendments in `notes/annotation-qa-v1.md`, along with the 32
+chunk-escalated speech names.
 
 `python -m presidential_profiles.taxonomy` derives the corpus taxonomy above. It has no `pp-*`
 entry point and is not part of `pp-analyze` — like `pp-annotate`, it's a paid step run on its
@@ -160,6 +193,7 @@ reached 100% held-out coverage.
 | Issue topics | `issues.py` | Anchored CorEx over paragraphs: 15-issue curated taxonomy + discovered topics; era-relative emphasis per president |
 | Topic clusters | `embed_topics.py` | model2vec paragraph embeddings → MiniBatchKMeans at k=40 (discovery) and k=15 (dimension-matched to the anchored issues); c-TF-IDF terms + NPMI coherence; corpus-native counterweight to the anchored taxonomy, keyed `(doc_name, para_idx)` |
 | Corpus taxonomy | `taxonomy.py` | Era-isolated LLM proposals (no cross-era context — the anachronism guard) → merge into 17 domains / 50 topics → crosswalk to the 15 legacy issues → held-out coverage gate; frozen once validated — standalone paid script, not wired into `pp-analyze` |
+| LLM annotation | `annotate.py` | Batches-API annotation passes over the corpus (masked paragraph judgment on the frozen taxonomy + unmasked speech typing) — dry-run/submit/status/ingest lifecycle, coverage-based resume, chunked re-requests, per-run manifests; the only `pp-*` command that spends money, never wired into `pp-analyze` |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
 | Profiles | `profiles.py` | Fingerprint percentiles, dual-axis issue cards (raw share of paragraphs + era-relative emphasis, "topic of the day" flag), distinctive vocabulary, signature speeches, invocations |
