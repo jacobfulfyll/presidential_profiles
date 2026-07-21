@@ -6,18 +6,7 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### era-atlas
-**Task**: Era fingerprints, similarity matrix, data-driven periodization, LLM portraits
-**Pipeline**: code-workflow
-**Branch**: task/era-atlas
-**Worktree**: .worktree/era-atlas
-**Base**: master
-**Started**: 2026-07-21
-**Files**:
-- NEW: src/presidential_profiles/eras.py
-- NEW: data/eras/era_fingerprints.parquet
-- NEW: data/eras/era_similarity.parquet
-- NEW: notes/era-atlas-v1.md
+(none)
 
 ---
 
