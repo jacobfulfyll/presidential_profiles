@@ -6,20 +6,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### run-llm-annotation-pass
-**Task**: Annotate 36k paragraphs + 1057 speeches via Sonnet 5 batch (<=$50)
-**Pipeline**: code-workflow
-**Branch**: task/run-llm-annotation-pass
-**Worktree**: .worktree/run-llm-annotation-pass
-**Base**: master
-**Started**: 2026-07-20
-**Files**:
-- NEW: src/presidential_profiles/prompts/annotation_v1.py
-- MOD: src/presidential_profiles/annotate.py
-- NEW: data/llm_annotations/paragraph_annotations.parquet
-- NEW: data/llm_annotations/speech_annotations.parquet
-- NEW: data/llm_annotations/paragraph_entities.parquet
-
 ---
 
 ## Backlog
