@@ -188,6 +188,17 @@ the site now reads instead of a hardcoded `+ ["Discovered 5"]`. Findings, includ
 pre-registered prediction that did *not* hold, are in
 [`notes/topic-comparison-report-v1.md`](notes/topic-comparison-report-v1.md).
 
+`agreement_sample_v1.json` persists a second-opinion sample alongside the full-corpus
+annotations: 266 speeches (9,048 paragraphs), drawn once with a fixed seed (20260721)
+proportionally across the same 30-year era bins, minimum 3 speeches per bin. The committed
+**file**, not the seed, is the source of truth for membership — a future hand-graded truth
+pass annotates exactly this list, and re-running the draw logic can never silently shift it.
+Opus 4.8 — deliberately a different tier from the Sonnet 5 primary — re-annotates the sample
+with byte-identical prompts and schemas, so the model is the only variable. Its results land
+in per-model-suffixed tables (`paragraph_annotations__opus4-8.parquet`,
+`paragraph_entities__opus4-8.parquet`, `speech_annotations__opus4-8.parquet`) rather than the
+primary parquets, which are never touched by a second-opinion run.
+
 ## Running it
 
 Requires [uv](https://docs.astral.sh/uv/). Then:
@@ -269,6 +280,27 @@ paragraphs for one topic instead of rebuilding the table, and a rerun prints the
 ground-truth and anachronism checks, including the ones that fail. `--out` is confined to
 `data/attention/` so a mistyped path cannot clobber the paid annotation artifacts.
 
+The inter-model agreement check reuses `pp-annotate` rather than adding a new command:
+`pp-annotate submit --model claude-opus-4-8 --sample data/llm_annotations/agreement_sample_v1.json`
+re-annotates the persisted sample above with the identical judgment/factual specs and prompts
+as the primary run — `--model` is the only thing that changes. A non-default `--model` writes
+per-model-suffixed parquets instead of the primary tables, and a resubmission round that
+switches model or drops/swaps `--sample` aborts rather than risk silently corrupting the
+sample's identity. `python -m presidential_profiles.agreement` (`draw-sample` / `build` /
+`report`) turns the two annotation passes into the agreement table: Cohen's kappa for the
+three combativeness flags, Jaccard overlap for the multi-label topics, exact-match for
+proposal-vs-values, and name-matched entity-stance agreement — all overall and broken out per
+30-year era bin, so divergence concentrated in older eras is visible as the anachronism failure
+mode rather than assumed away. Nothing is gated on these numbers: a kappa below 0.4 is flagged
+low-confidence, never hidden. Like `taxonomy.py`, it has no `pp-*` entry point of its own. The
+judgment pass — most of the sample's tokens — was estimated at ~$20 (the planning-time ~$8
+figure understated measured output-token rates by roughly 3.5x). Actuals: factual $1.61; judgment $28.91 across two rounds ($21.54 + $7.37 fill-in) — task
+total $30.52. Coverage stopped at the pre-registered bail point: 8,570/9,048 sample
+paragraphs (94.7%; weakest era bin 1939-1968 at 82.7%, n=1,220) — the remaining 478
+paragraphs are one `--chunk-size 10` resubmission (~$3-4) whenever budget allows, and the
+table/report regenerate with one command. `agreement_v1.parquet` and
+`notes/agreement-report-v1.md` are built from this coverage, per-era n stated everywhere.
+
 ## How it works
 
 | Stage | Module | Method |
@@ -285,6 +317,7 @@ ground-truth and anachronism checks, including the ones that fail. `--out` is co
 | Combativeness | `combat.py` | Three annotation flags (`party_attack` / `enemy_naming` / `zero_sum`) per era under three genre treatments — raw, SOTU-only (co-primary: the one genre present in every era), genre-standardized — with speech-clustered bootstrap CIs and a pre-registered n-floor that suppresses intervals it can't support; entity-stance and lexical cross-checks; reported separately, never as a composite index — standalone $0 script, not wired into `pp-analyze` |
 | Topic attention | `attention.py` | Per-topic attention curves over the annotated corpus → substantive-year threshold → born/died/persistent/revived lifecycles under three genre treatments, with rename-vs-death from LLM↔CorEx divergence plus in-domain successor detection; speech-clustered bootstrap CIs — standalone, $0, not wired into `pp-analyze` |
 | Method triangulation | `triangulate.py` | Per-speech composition vectors across all three labelers (LLM taxonomy, CorEx legacy, embedding clusters); LLM↔CorEx agreement (Jaccard + kappa) per issue and per era; rename-vs-death detection separating vocabulary drift from real decline; `agreement_drivers()` isolates what actually predicts agreement once the algebraic Jaccard ceiling is controlled for; standalone, not wired into `pp-analyze` |
+| Inter-model agreement | `agreement.py` | Draws a persisted 25% era-stratified sample → Opus 4.8 re-annotates it with byte-identical prompts (model is the only variable) → Cohen's kappa / Jaccard / exact-match / entity-stance agreement per field, overall and by 30-year era bin; flags low-confidence fields, never gates — standalone paid step, no `pp-*` entry point |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
 | Profiles | `profiles.py` | Fingerprint percentiles, dual-axis issue cards (raw share of paragraphs + era-relative emphasis, "topic of the day" flag), distinctive vocabulary, signature speeches, invocations |

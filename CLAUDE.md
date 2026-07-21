@@ -92,6 +92,27 @@
   cannot distinguish them.
 - **Batch prompt caching hit ~50% at 1,000-request scale** (22-53% variance on small batches),
   so conservative no-cache estimates run ~20-30% high — the safe direction.
+- **Batch `request_counts` can be stale for HOURS** (observed: 265/266 requests complete while
+  the counter showed 0 succeeded for 12h). The billing dashboard is the true progress signal;
+  `cancel` on a stuck-"in_progress" batch releases already-completed results and bills only those
+  — both Opus agreement rounds were recovered this way losing 1 and 3 requests respectively.
+- **Cost extrapolations must use MEASURED output rates, not planning guesses**: the agreement
+  task's plan assumed 0.3M output tokens for a 25% sample; the production-measured rate
+  (~115 tok/paragraph, baked into `JUDGMENT_EST_OUTPUT_TOKENS_PER_PARA`) put it at ~1.04M —
+  a 3.5× miss that tripped the cost bail. Always dry-run against current spec constants.
+
+## Second-opinion passes (inter-model agreement, added 2026-07-22)
+- A non-default `--model` on `pp-annotate` writes to per-model-suffixed parquets
+  (`paragraph_annotations__opus4-8.parquet` …) routed by `state.json`'s recorded model —
+  NEVER into the primary tables (their loaders raise on duplicate keys). Keys stay identical.
+- Resume identity is guarded: `state.json` records `model` + `sample_docs_sha256`; a
+  resubmission round that switches model or drops/swaps `--sample` aborts before any
+  corpus load or client construction. Always pass BOTH flags on ladder rounds anyway.
+- Null semantics in `agreement.py` metrics (nulls are absent in practice; guards are
+  crash-proofing): kappa excludes null pairs pairwise (n = compared pairs — sklearn raises
+  on mixed None/bool), null topics coerce to the empty set, report renders null flags as
+  `null`. The persisted sample FILE (`agreement_sample_v1.json`), not its seed, is the
+  source of truth for membership.
 
 ## Paragraph-rate estimator lessons (learned 2026-07-21)
 - **Cluster the bootstrap on speeches, not paragraphs.** Within-speech ICC on paragraph-level

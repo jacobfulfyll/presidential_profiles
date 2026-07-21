@@ -64,6 +64,65 @@ BATCH_DISCOUNT = 0.50
 CACHE_READ_MULTIPLIER = 0.10
 CACHE_WRITE_MULTIPLIER = 1.25
 
+
+@dataclass(frozen=True)
+class ModelSpec:
+    """Per-model batch pricing. `input/output_usd_per_mtok` are the STANDARD
+    (list) per-MTok rates; the 50% batch discount is applied separately in
+    `cost_usd`. A model with introductory pricing carries the intro rates and the
+    date they end (inclusive) — `rates()` returns the intro pair while it is in
+    effect and the list pair afterward."""
+
+    name: str
+    input_usd_per_mtok: float
+    output_usd_per_mtok: float
+    intro_input_usd_per_mtok: float | None = None
+    intro_output_usd_per_mtok: float | None = None
+    intro_ends: str | None = None
+
+    def intro_applies(self) -> bool:
+        """True while this model's introductory pricing is still in effect."""
+        return self.intro_ends is not None and date.today().isoformat() <= self.intro_ends
+
+    def rates(self) -> tuple[float, float]:
+        if self.intro_applies():
+            return self.intro_input_usd_per_mtok, self.intro_output_usd_per_mtok
+        return self.input_usd_per_mtok, self.output_usd_per_mtok
+
+
+# The models `submit`/`dry-run` build requests for. Sonnet 5 is the primary
+# (default) annotator; Opus 4.8 is the inter-model-agreement second opinion. Both
+# take the IDENTICAL request shape — thinking explicitly disabled, no sampling
+# params (see _validate_request) — so the model is the only variable. This dict is
+# the single place a model's batch pricing lives.
+MODELS: dict[str, ModelSpec] = {
+    "claude-sonnet-5": ModelSpec(
+        name="claude-sonnet-5",
+        input_usd_per_mtok=LIST_INPUT_USD_PER_MTOK,
+        output_usd_per_mtok=LIST_OUTPUT_USD_PER_MTOK,
+        intro_input_usd_per_mtok=INPUT_USD_PER_MTOK,
+        intro_output_usd_per_mtok=OUTPUT_USD_PER_MTOK,
+        intro_ends=INTRO_PRICING_ENDS,
+    ),
+    # Opus 4.8 batch pricing = standard $5/$25 per MTok with the 50% batch
+    # discount applied in cost_usd ($2.50/$12.50 effective). No intro pricing.
+    "claude-opus-4-8": ModelSpec(
+        name="claude-opus-4-8",
+        input_usd_per_mtok=5.00,
+        output_usd_per_mtok=25.00,
+    ),
+}
+
+# The default model writes the CANONICAL annotation tables; any OTHER model writes
+# SEPARATE, per-model-suffixed tables. The primary parquets hold exactly one row
+# per key and the loaders raise on a duplicate key, so a second-opinion pass over
+# the same (doc_name, para_idx)/doc_name keys must never merge into them. The
+# suffix changes only the filename — the key columns and run_id stay identical.
+MODEL_TABLE_SUFFIX: dict[str, str] = {
+    "claude-sonnet-5": "",
+    "claude-opus-4-8": "opus4-8",
+}
+
 BATCH_MAX_REQUESTS = 100_000
 BATCH_MAX_BYTES = 256 * 1024 * 1024
 
@@ -100,11 +159,33 @@ QA_REPORT_PATH = REPO_ROOT / "notes" / "annotation-qa-v1.md"
 _JUDGMENT_FLAGS = ("party_attack", "enemy_naming", "zero_sum")
 
 
-def _rates() -> tuple[float, float]:
-    intro = date.today().isoformat() <= INTRO_PRICING_ENDS
-    if intro:
-        return INPUT_USD_PER_MTOK, OUTPUT_USD_PER_MTOK
-    return LIST_INPUT_USD_PER_MTOK, LIST_OUTPUT_USD_PER_MTOK
+def _resolve_model(model: str | None) -> str:
+    """Validate a --model value (or None → default) against the allowlist."""
+    m = model or MODEL
+    if m not in MODELS:
+        raise SystemExit(f"--model must be one of {sorted(MODELS)} — got {m!r}")
+    return m
+
+
+def _table_name(spec_name: str, model: str) -> str:
+    """Parquet base-name for a spec's output under `model`: the canonical name for
+    the default model, a per-model suffix otherwise. Refuses a non-default model
+    with no configured suffix rather than let it silently share (and clobber) the
+    primary tables."""
+    if model == MODEL:
+        return spec_name
+    suffix = MODEL_TABLE_SUFFIX.get(model)
+    if not suffix:
+        raise ValueError(f"no output-table suffix configured for non-default model {model!r}")
+    return f"{spec_name}__{suffix}"
+
+
+def _rates(model: str = MODEL) -> tuple[float, float]:
+    return MODELS[model].rates()
+
+
+def _intro_applies(model: str = MODEL) -> bool:
+    return MODELS[model].intro_applies()
 
 
 def cost_usd(
@@ -112,9 +193,10 @@ def cost_usd(
     output_tokens: int,
     cache_creation_input_tokens: int = 0,
     cache_read_input_tokens: int = 0,
+    model: str = MODEL,
 ) -> float:
-    """Batch-discounted cost in USD from raw token counts."""
-    in_rate, out_rate = _rates()
+    """Batch-discounted cost in USD from raw token counts, priced for `model`."""
+    in_rate, out_rate = _rates(model)
     billable_in = (
         input_tokens
         + cache_creation_input_tokens * CACHE_WRITE_MULTIPLIER
@@ -326,7 +408,7 @@ def _custom_id(spec_name: str, doc_name: str, chunk: int | None = None) -> str:
 
 def build_requests(
     spec: FieldSpec, speeches: pd.DataFrame, paragraphs: pd.DataFrame,
-    chunk_size: int | None = None,
+    chunk_size: int | None = None, model: str = MODEL,
 ) -> tuple[list[Request], dict]:
     """One request per speech — or, when `chunk_size` is set, one request per
     chunk of <= `chunk_size` paragraphs (a convergence lever for speeches whose
@@ -393,17 +475,19 @@ def build_requests(
             cid = _custom_id(spec.name, doc_name, chunk=chunk_no)
 
             params = MessageCreateParamsNonStreaming(
-                model=MODEL,
+                model=model,
                 max_tokens=max_tokens,
                 # COST TRAP — DO NOT DELETE THIS LINE.
                 # On claude-sonnet-5, OMITTING `thinking` runs ADAPTIVE THINKING BY
                 # DEFAULT (unlike older Sonnets, which defaulted to no thinking).
                 # Left off, this would silently bill thinking tokens on every one of
                 # 1,057 requests and can truncate the JSON answer against max_tokens.
-                # A bulk extraction pass wants none of it.
-                # Also: `budget_tokens` is REMOVED on Sonnet 5 (400), and non-default
-                # temperature/top_p/top_k are REMOVED (400) — depth is controlled by
-                # output_config.effort instead. See _validate_request().
+                # A bulk extraction pass wants none of it. On claude-opus-4-8 omitting
+                # thinking already runs WITHOUT thinking, but we keep it explicitly
+                # disabled anyway so both models' requests are byte-comparable.
+                # Also: `budget_tokens` is REMOVED (400), and non-default
+                # temperature/top_p/top_k are REMOVED (400) on BOTH models — depth is
+                # controlled by output_config.effort instead. See _validate_request().
                 thinking={"type": "disabled"},
                 output_config={
                     "effort": spec.effort,
@@ -434,13 +518,15 @@ def build_requests(
 _REQUEST_ADAPTER = TypeAdapter(Request)
 _PARAM_KEYS = set(MessageCreateParamsNonStreaming.__annotations__)
 
-# Rejected outright by the Batches API, or by Sonnet 5 (400). TypedDicts ignore
-# unknown keys, so pydantic alone would let these through to a paid call.
+# Rejected outright by the Batches API, or by the annotation models (400).
+# TypedDicts ignore unknown keys, so pydantic alone would let these through to a
+# paid call. temperature/top_p/top_k 400 on BOTH claude-sonnet-5 and
+# claude-opus-4-8, so the ban is model-independent.
 _FORBIDDEN_PARAMS = {
     "fallbacks": "the `fallbacks` parameter is rejected on the Batches API",
-    "temperature": "non-default sampling params return 400 on claude-sonnet-5",
-    "top_p": "non-default sampling params return 400 on claude-sonnet-5",
-    "top_k": "non-default sampling params return 400 on claude-sonnet-5",
+    "temperature": "non-default sampling params return 400 on the annotation models",
+    "top_p": "non-default sampling params return 400 on the annotation models",
+    "top_k": "non-default sampling params return 400 on the annotation models",
 }
 
 
@@ -452,8 +538,10 @@ def _validate_request(req: Request) -> None:
          validation (catches a missing max_tokens, a malformed message).
       2. an unknown-key check — TypedDicts silently ignore extra keys, so
          pydantic would happily pass `fallbacks` straight through to a paid call.
-      3. Sonnet-5-specific guards — `thinking` must be explicitly disabled, and
-         budget_tokens / sampling params must be absent.
+      3. Model guards — `thinking` must be explicitly disabled, and
+         budget_tokens / sampling params must be absent. Keyed to the whole model
+         ALLOWLIST (both claude-sonnet-5 and the claude-opus-4-8 override), so a
+         non-default model can never slip past this check with thinking left on.
     """
     _REQUEST_ADAPTER.validate_python(req)
 
@@ -470,13 +558,16 @@ def _validate_request(req: Request) -> None:
             raise ValueError(f"{req['custom_id']}: missing required param `{required}`")
 
     thinking = params.get("thinking")
-    if params["model"] == MODEL and (thinking or {}).get("type") != "disabled":
+    if params["model"] in MODELS and (thinking or {}).get("type") != "disabled":
         raise ValueError(
-            f"{req['custom_id']}: on {MODEL}, thinking must be EXPLICITLY disabled — "
-            "omitting it runs adaptive thinking and bills thinking tokens on every request"
+            f"{req['custom_id']}: on {params['model']}, thinking must be EXPLICITLY "
+            "disabled — omitting it runs adaptive thinking and bills thinking tokens "
+            "on every request"
         )
     if "budget_tokens" in (thinking or {}):
-        raise ValueError(f"{req['custom_id']}: `budget_tokens` is removed on {MODEL} (400)")
+        raise ValueError(
+            f"{req['custom_id']}: `budget_tokens` is removed on {params['model']} (400)"
+        )
 
 
 # --------------------------------------------------------------------------
@@ -522,21 +613,66 @@ def _specs(names: list[str] | None) -> list[FieldSpec]:
     return specs
 
 
+def _load_sample_docs(sample_path: str, speeches: pd.DataFrame) -> set[str]:
+    """The set of doc_names listed in a sample JSON (agreement_sample_v1.json),
+    validated against the corpus. Errors clearly if the file is missing, lists no
+    doc_names, or names a doc_name the corpus does not contain (a stale sample)."""
+    p = Path(sample_path)
+    if not p.exists():
+        raise SystemExit(f"--sample file not found: {sample_path}")
+    data = json.loads(p.read_text())
+    docs = data.get("doc_names")
+    if not docs and isinstance(data.get("speeches"), list):
+        docs = [s["doc_name"] for s in data["speeches"]]
+    if not docs:
+        raise SystemExit(f"--sample file {sample_path} lists no doc_names")
+    docs = set(docs)
+    unknown = docs - set(speeches["doc_name"])
+    if unknown:
+        raise SystemExit(
+            f"--sample lists {len(unknown)} doc_name(s) not in the corpus "
+            f"(e.g. {sorted(unknown)[:3]}) — is the sample stale relative to the corpus?"
+        )
+    return docs
+
+
+def _sample_docs_sha(sample_path: str) -> str:
+    """Order-insensitive fingerprint of a sample file's doc list. Computed from
+    the FILE alone (no corpus load) so the resume guard in cmd_submit can run
+    before any heavy work."""
+    p = Path(sample_path)
+    if not p.exists():
+        raise SystemExit(f"--sample file not found: {sample_path}")
+    data = json.loads(p.read_text())
+    docs = data.get("doc_names")
+    if not docs and isinstance(data.get("speeches"), list):
+        docs = [s["doc_name"] for s in data["speeches"]]
+    return hashlib.sha256("\n".join(sorted(docs or [])).encode()).hexdigest()
+
+
 def _prepare(
     specs: list[FieldSpec],
     limit: int | None,
     speeches: pd.DataFrame | None = None,
     paragraphs: pd.DataFrame | None = None,
     chunk_size: int | None = None,
+    model: str = MODEL,
+    sample_docs: set[str] | None = None,
 ) -> tuple[list[Request], dict, pd.DataFrame, pd.DataFrame]:
-    """Build every spec's requests, optionally capped at the first `limit`
-    speeches, optionally splitting each paragraph-unit speech into `chunk_size`
-    chunks. A caller that already holds the corpus (submit, which fingerprints
-    the full frame first) can pass it in rather than reload it."""
+    """Build every spec's requests for `model`, optionally restricted to
+    `sample_docs`, optionally capped at the first `limit` speeches, optionally
+    splitting each paragraph-unit speech into `chunk_size` chunks. A caller that
+    already holds the corpus (submit, which fingerprints the full frame first) can
+    pass it in rather than reload it. `sample_docs` (the persisted agreement
+    sample) and `limit` compose — limit takes the head of the sample-restricted
+    frame, a cheap lever for a partial dry-run."""
     if speeches is None:
         speeches = load()
     if paragraphs is None:
         paragraphs = pd.read_parquet(ann.PARAGRAPHS_PATH)
+    if sample_docs is not None:
+        speeches = speeches[speeches["doc_name"].isin(sample_docs)]
+        paragraphs = paragraphs[paragraphs["doc_name"].isin(sample_docs)]
     if limit:
         speeches = speeches.head(limit)
         paragraphs = paragraphs[paragraphs["doc_name"].isin(set(speeches["doc_name"]))]
@@ -544,7 +680,7 @@ def _prepare(
     requests: list[Request] = []
     index: dict = {}
     for spec in specs:
-        reqs, idx = build_requests(spec, speeches, paragraphs, chunk_size=chunk_size)
+        reqs, idx = build_requests(spec, speeches, paragraphs, chunk_size=chunk_size, model=model)
         requests += reqs
         index |= idx
     return requests, index, speeches, paragraphs
@@ -622,7 +758,11 @@ def cmd_dry_run(args) -> None:
     """Build and validate the batch WITHOUT touching the network. No client is
     constructed, so this works with no credentials at all."""
     specs = _specs(args.spec)
+    model = _resolve_model(getattr(args, "model", None))
     pilot = getattr(args, "pilot", False)
+    sample_path = getattr(args, "sample", None)
+    if pilot and sample_path:
+        raise SystemExit("choose --pilot OR --sample, not both")
     run_id = args.run_id or f"{date.today().isoformat()}-dryrun{'-pilot' if pilot else ''}"
     chunk_size = getattr(args, "chunk_size", None)
     if pilot:
@@ -631,9 +771,16 @@ def cmd_dry_run(args) -> None:
         paragraphs_all = pd.read_parquet(ann.PARAGRAPHS_PATH)
         paragraphs_sel = paragraphs_all[paragraphs_all["doc_name"].isin(set(sample["doc_name"]))]
         requests, index, speeches, paragraphs = _prepare(
-            specs, None, sample, paragraphs_sel, chunk_size=chunk_size)
+            specs, None, sample, paragraphs_sel, chunk_size=chunk_size, model=model)
     else:
-        requests, index, speeches, paragraphs = _prepare(specs, args.limit, chunk_size=chunk_size)
+        speeches_arg = None
+        sample_docs = None
+        if sample_path:
+            speeches_arg = load()
+            sample_docs = _load_sample_docs(sample_path, speeches_arg)
+        requests, index, speeches, paragraphs = _prepare(
+            specs, args.limit, speeches_arg, None, chunk_size=chunk_size,
+            model=model, sample_docs=sample_docs)
 
     for req in requests:
         _validate_request(req)
@@ -662,7 +809,7 @@ def cmd_dry_run(args) -> None:
 
     estimate = {
         "run_id": run_id,
-        "model": MODEL,
+        "model": model,
         "n_requests": len(requests),
         "n_speeches": int(len(speeches)),
         "n_paragraphs": int(len(paragraphs)),
@@ -670,15 +817,16 @@ def cmd_dry_run(args) -> None:
         "estimated_input_tokens": int(est_in),
         "estimated_output_tokens": int(est_out),
         "estimate_method": method,
-        "estimated_cost_usd": round(cost_usd(int(est_in), int(est_out)), 2),
-        "intro_pricing_applies": date.today().isoformat() <= INTRO_PRICING_ENDS,
+        "estimated_cost_usd": round(cost_usd(int(est_in), int(est_out), model=model), 2),
+        "intro_pricing_applies": _intro_applies(model),
         "specs": {s.name: {"prompt_version": s.prompt_version,
                            "prompt_hash": s.prompt_hash()} for s in specs},
     }
     (_run_dir(run_id) / "estimate.json").write_text(json.dumps(estimate, indent=2))
 
-    print(f"DRY RUN — no network calls, no cost. run_id={run_id}"
+    print(f"DRY RUN — no network calls, no cost. run_id={run_id}  model={model}"
           + ("  [PILOT: 20 era-stratified speeches]" if pilot else "")
+          + (f"  [SAMPLE: {len(speeches)} speeches from {sample_path}]" if sample_path else "")
           + (f"  [CHUNKED: <= {chunk_size} paras/request]" if chunk_size else ""))
     print(f"  specs:      {', '.join(s.name for s in specs)}")
     n_chunked = sum(1 for m in index.values() if m.get("chunk") is not None)
@@ -705,28 +853,55 @@ def cmd_submit(args) -> None:
         )
 
     specs = _specs(args.spec)
+    model = _resolve_model(getattr(args, "model", None))
+    recorded_model = state.get("model")
+    if recorded_model and recorded_model != model:
+        raise SystemExit(
+            f"run {run_id} was submitted with model={recorded_model}, but this "
+            f"submit resolved model={model}. Pass --model {recorded_model} "
+            "explicitly — a forgotten --model on a resubmission round would "
+            "silently switch models mid-run."
+        )
+    sample_path = getattr(args, "sample", None)
+    current_sample_sha = _sample_docs_sha(sample_path) if sample_path else None
+    recorded_sample_sha = state.get("sample_docs_sha256")
+    if recorded_sample_sha and current_sample_sha != recorded_sample_sha:
+        raise SystemExit(
+            f"run {run_id} was submitted with a --sample restriction "
+            f"(doc-set sha256 {recorded_sample_sha[:12]}…), but this submit "
+            + (f"resolved a DIFFERENT sample ({current_sample_sha[:12]}…)."
+               if current_sample_sha else "has NO --sample at all.")
+            + f" Pass --sample {state.get('sample_path', '<the original file>')} — "
+            "a resubmission round without it would silently widen the run to the "
+            "full corpus."
+        )
     # Load the corpus ONCE. The fingerprint must cover the FULL corpus even under
     # --limit, so it is taken here, before `_prepare` caps the frames; the same
     # loaded frames are threaded into `_prepare` rather than reloaded.
     speeches = load()
     paragraphs = pd.read_parquet(ann.PARAGRAPHS_PATH)
-    # The fingerprint always covers the FULL corpus, even under --limit/--pilot,
-    # so it is taken before the frame is narrowed.
+    # The fingerprint always covers the FULL corpus, even under --limit/--pilot/
+    # --sample, so it is taken before the frame is narrowed.
     fingerprint = ann.corpus_fingerprint(speeches=speeches, paragraphs=paragraphs)
     chunk_size = getattr(args, "chunk_size", None)
-    if getattr(args, "pilot", False):
+    pilot = getattr(args, "pilot", False)
+    if pilot and sample_path:
+        raise SystemExit("choose --pilot OR --sample, not both")
+    if pilot:
         speeches_sel = _pilot_speeches(speeches)
         paragraphs_sel = paragraphs[paragraphs["doc_name"].isin(set(speeches_sel["doc_name"]))]
         requests, index, _, paragraphs = _prepare(
-            specs, None, speeches_sel, paragraphs_sel, chunk_size=chunk_size)
+            specs, None, speeches_sel, paragraphs_sel, chunk_size=chunk_size, model=model)
     else:
+        sample_docs = _load_sample_docs(sample_path, speeches) if sample_path else None
         requests, index, _, paragraphs = _prepare(
-            specs, args.limit, speeches, paragraphs, chunk_size=chunk_size)
+            specs, args.limit, speeches, paragraphs, chunk_size=chunk_size,
+            model=model, sample_docs=sample_docs)
 
-    # Resume: skip speeches this spec has already FULLY annotated, so a retry
-    # after a partial failure does not pay for them twice. Per spec, not pooled:
-    # a speech annotated for spec A is not annotated for spec B.
-    done = _already_ingested(specs, paragraphs)
+    # Resume: skip speeches this spec has already FULLY annotated FOR THIS MODEL,
+    # so a retry after a partial failure does not pay for them twice. Per spec,
+    # not pooled: a speech annotated for spec A is not annotated for spec B.
+    done = _already_ingested(specs, paragraphs, model)
     kept = [r for r in requests
             if index[r["custom_id"]]["doc_name"] not in done[index[r["custom_id"]]["spec"]]]
     if len(kept) < len(requests):
@@ -769,8 +944,9 @@ def cmd_submit(args) -> None:
     _check_batch_limits(len(requests), size)
 
     est_in, est_out = _estimate_tokens(requests, index, specs)
-    estimate = cost_usd(est_in, est_out)
-    print(f"about to submit {len(requests)} requests ({size:,} bytes)")
+    estimate = cost_usd(est_in, est_out, model=model)
+    print(f"about to submit {len(requests)} requests ({size:,} bytes)  model={model}"
+          + (f"  [SAMPLE: {sample_path}]" if sample_path else ""))
     print(f"  est tokens: {est_in:,} in / {est_out:,} out  [offline heuristic]")
     print(f"  EST COST:   ${estimate:,.2f}  (ceiling ${args.max_cost_usd:,.2f})")
 
@@ -801,7 +977,7 @@ def cmd_submit(args) -> None:
         run_id,
         batch_id=batch.id,
         results_batch_id=None,
-        model=MODEL,
+        model=model,
         submitted=date.today().isoformat(),
         n_requests=len(requests),
         # Every custom_id actually sent. Ingest asserts each one comes back — a
@@ -809,6 +985,11 @@ def cmd_submit(args) -> None:
         submitted_custom_ids=sorted(r["custom_id"] for r in requests),
         specs=[s.name for s in specs],
         corpus_fingerprint=fingerprint,
+        # The sample restriction is part of the run's identity: a resubmission
+        # round that drops or swaps --sample is refused (see the guard above),
+        # symmetric with the recorded-model guard.
+        sample_path=sample_path,
+        sample_docs_sha256=current_sample_sha,
     )
     print(f"submitted batch {batch.id} ({len(requests)} requests), status={batch.processing_status}")
 
@@ -831,21 +1012,22 @@ def cmd_status(args) -> None:
 
 
 def _already_ingested(
-    specs: list[FieldSpec], paragraphs: pd.DataFrame
+    specs: list[FieldSpec], paragraphs: pd.DataFrame, model: str = MODEL
 ) -> dict[str, set[str]]:
-    """Per spec, the speeches that are FULLY annotated on disk.
+    """Per spec, the speeches that are FULLY annotated on disk FOR `model`.
 
     Coverage, not presence. A model that drops items from a long array leaves a
     half-annotated speech behind; keying `done` on the doc_name alone would mark
     that speech finished forever and seal the gap in permanently. A
     paragraph-unit speech is done only when every para_idx the corpus has for it
     has a row. Keyed per spec, since a speech annotated for spec A has not been
-    annotated for spec B."""
+    annotated for spec B. Reads the model's OWN output table, so a second-opinion
+    (Opus) resume never sees the primary run's rows and skips its whole sample."""
     expected = {d: set(map(int, idxs))
                 for d, idxs in paragraphs.groupby("doc_name")["para_idx"]}
     done: dict[str, set[str]] = {}
     for spec in specs:
-        path = ann.annotation_path(spec.name)
+        path = ann.annotation_path(_table_name(spec.name, model))
         if not path.exists():
             done[spec.name] = set()
             continue
@@ -922,6 +1104,11 @@ def _classify_failure(err_type: str | None, err_message: str | None, rtype: str)
 def cmd_ingest(args) -> None:
     run_id = args.run_id
     state = _read_state(run_id)
+    # Ingest routing follows the model the run was SUBMITTED with (recorded in
+    # state), never a CLI flag — so a second-opinion (non-default) run's rows land
+    # in its own per-model tables and can never overwrite the primary parquets,
+    # whose loaders raise on a duplicate key. Pricing follows the same model.
+    ingest_model = _resolve_model(state.get("model", MODEL))
     index = _load_index(run_id)
     raw_path = _run_dir(run_id) / "results.jsonl"
 
@@ -1124,7 +1311,7 @@ def cmd_ingest(args) -> None:
         for k in total_usage:
             total_usage[k] += int(b.get(k, 0))
         total_requests += int(b.get("n_requests", 0))
-    actual_cost = cost_usd(**total_usage)
+    actual_cost = cost_usd(**total_usage, model=ingest_model)
     all_batch_ids = ",".join(sorted(batch_usage))
 
     written = []
@@ -1150,18 +1337,25 @@ def cmd_ingest(args) -> None:
                         "stance": e.get("stance"), "run_id": run_id,
                     })
         df = pd.DataFrame(spec_rows)
-        path = ann.annotation_path(spec_name)
+        # Route to the model's OWN table (canonical for the default model, a
+        # per-model suffix otherwise) so a non-default run never merges into the
+        # primary parquets.
+        table_name = _table_name(spec_name, ingest_model)
+        path = ann.annotation_path(table_name)
         if path.exists():
-            # Merge with prior runs; rows from THIS run win on a key collision.
+            # Merge with prior runs of THIS model; rows from THIS run win on a key
+            # collision.
             key = ann.SPEECH_KEY if spec.unit == "speech" else ann.PARAGRAPH_KEY
             prior = pd.read_parquet(path)
             prior = prior.merge(df[key], on=key, how="left", indicator=True)
             prior = prior[prior["_merge"] == "left_only"].drop(columns="_merge")
             df = pd.concat([prior, df], ignore_index=True)
-        written.append(ann.write_annotations(spec_name, df, spec.unit).name)
+        written.append(ann.write_annotations(table_name, df, spec.unit).name)
 
     if entity_specs_present:
-        written.append(_write_entity_table(entity_rows, entity_touched, run_id))
+        written.append(_write_entity_table(
+            entity_rows, entity_touched, run_id,
+            table_name=_table_name("paragraph_entities", ingest_model)))
 
     coverage = (
         f"paragraph coverage: {n_returned:,}/{n_sent:,} sent para_idxs returned"
@@ -1255,9 +1449,12 @@ def cmd_ingest(args) -> None:
 
 
 def _write_entity_table(
-    entity_rows: list[dict], touched_keys: list[tuple], run_id: str
+    entity_rows: list[dict], touched_keys: list[tuple], run_id: str,
+    table_name: str = "paragraph_entities",
 ) -> str:
-    """Write/refresh paragraph_entities.parquet from exploded entity rows.
+    """Write/refresh the entity table (`table_name`.parquet) from exploded entity
+    rows. `table_name` is the canonical name for the default model and a per-model
+    suffix otherwise, so a second-opinion run writes its own file.
 
     The (doc_name, para_idx) key is deliberately NON-unique here — a paragraph
     can name several entities — so the unique-key writer does not apply. This
@@ -1268,7 +1465,7 @@ def _write_entity_table(
     row order."""
     cols = ["doc_name", "para_idx", "entity", "type", "stance", "run_id"]
     df = pd.DataFrame(entity_rows, columns=cols)
-    path = ann.annotation_path("paragraph_entities")
+    path = ann.annotation_path(table_name)
     if path.exists() and touched_keys:
         prior = pd.read_parquet(path)
         touched = pd.DataFrame(touched_keys, columns=["doc_name", "para_idx"]).drop_duplicates()
@@ -1610,6 +1807,15 @@ def main() -> None:
             p.add_argument("--pilot", action="store_true",
                            help=f"select exactly the deterministic {PILOT_N} era-stratified "
                                 "pilot speeches (ignores --limit)")
+            p.add_argument("--model", choices=sorted(MODELS), default=MODEL,
+                           help=f"model to build requests for (default {MODEL}). A "
+                                "non-default model (e.g. claude-opus-4-8, the inter-model "
+                                "agreement pass) writes SEPARATE per-model output tables and "
+                                "is priced from its own batch rates.")
+            p.add_argument("--sample", metavar="PATH",
+                           help="restrict to the doc_names listed in a sample JSON "
+                                "(e.g. data/llm_annotations/agreement_sample_v1.json); "
+                                "mutually exclusive with --pilot")
             p.add_argument("--chunk-size", type=int,
                            help="split each paragraph-unit speech into <= N-paragraph "
                                 "chunk requests (convergence lever for persistent stragglers; "
