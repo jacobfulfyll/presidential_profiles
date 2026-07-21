@@ -18,6 +18,18 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 - NEW: src/presidential_profiles/topic_quality.py
 - MOD: src/presidential_profiles/issues.py
 
+### issue-attention-over-time
+**Task**: Topic birth, death, and revival across 240 years
+**Pipeline**: code-workflow
+**Branch**: task/issue-attention-over-time
+**Worktree**: .worktree/issue-attention-over-time
+**Base**: master
+**Started**: 2026-07-21
+**Files**:
+- NEW: src/presidential_profiles/attention.py
+- NEW: data/attention/topic_lifecycles.parquet
+- NEW: notes/attention-findings-v1.md
+
 ---
 
 ## Backlog
@@ -29,8 +41,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 ### Analysis & Findings
 - [ ] breadth-depth-register: Did the formal record get broader, shallower, more values-driven? [P2] [complex] [tier: opus:high] [code] [planned] [depends: run-llm-annotation-pass]
   files: src/presidential_profiles/register.py (NEW), data/register/trends.parquet (NEW), notes/register-findings-v1.md (NEW)
-- [ ] issue-attention-over-time: Topic birth, death, and revival across 240 years [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass, derive-corpus-taxonomy]
-  files: src/presidential_profiles/attention.py (NEW), data/attention/topic_lifecycles.parquet (NEW), notes/attention-findings-v1.md (NEW)
 - [ ] combativeness-over-time: Where does today land against the 1860s and 1930s? [P2] [moderate] [tier: opus:medium] [code] [planned] [depends: run-llm-annotation-pass]
   files: src/presidential_profiles/combat.py (NEW), data/combat/combativeness.parquet (NEW), notes/combativeness-findings-v1.md (NEW)
 - [ ] era-atlas: Era fingerprints, similarity matrix, data-driven periodization, LLM portraits [P2] [complex] [tier: opus:high] [code] [planned] [depends: breadth-depth-register, issue-attention-over-time, combativeness-over-time]
