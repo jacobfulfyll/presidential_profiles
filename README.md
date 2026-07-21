@@ -131,6 +131,16 @@ against researcher degrees of freedom, so the taxonomy can't be quietly reshaped
 an annotation run later finds. Provenance (models, prompt hash, exact sample IDs, actual cost)
 lives in `data/llm_annotations/manifests/taxonomy-v1-20260719.json`.
 
+`data/register/trends.parquet` (16,243 rows) holds how the formal presidential record's
+breadth, depth, and register moved across 240 years — issue entropy, label density,
+non-policy share, proposal-vs-values ratio, and 13 style markers — each computed under three
+genre treatments (raw / SOTU-only / genre-standardized) and against both taxonomies (the
+legacy 15 issues and `taxonomy_v1`'s 50 topics / 17 domains), with speech-clustered bootstrap
+CIs. It's long-format, not paragraph-keyed: `unit`, `period`, `measure`, `taxonomy`,
+`genre_treatment`, and `statistic` together identify a row. The write-up, including which of
+these trends survived their own controls, is
+[`notes/register-findings-v1.md`](notes/register-findings-v1.md).
+
 `data/combat/` is the combativeness layer derived from those annotations — ten tables, computed
 locally with zero API calls. `combativeness.parquet` is the deliverable: era × flag × genre
 treatment, each row a rate with a 95% **speech-clustered** bootstrap interval (within-speech ICC on
@@ -230,6 +240,14 @@ API calls; on a real run, a `--cost-ceiling` guard plus an enforced bail gate re
 so a bad run can never overwrite the frozen v1 artifacts. The committed v1 run cost $2.44 and
 reached 100% held-out coverage.
 
+`python -m presidential_profiles.register` computes the trends above. It has no `pp-*` entry
+point and is not part of `pp-analyze` — but unlike its neighbors `annotate.py` and
+`taxonomy.py`, it makes **no API calls at all**: every input (`paragraphs.parquet`,
+`paragraph_issues.parquet`, the frozen `taxonomy_v1.json` and annotation parquets,
+`speech_stats.parquet`) is already on disk, so it costs nothing and reruns are free.
+Deterministic — the default seed reproduces `data/register/trends.parquet` byte-for-byte —
+and takes about 6 seconds; `--n-bootstrap` and `--seed` override the 2,000-replicate default.
+
 `python -m presidential_profiles.combat` builds `data/combat/` from the frozen annotations. Like
 `taxonomy.py` it has no `pp-*` entry point and is not part of `pp-analyze` — but for the opposite
 reason: it is pure local compute over parquets already on disk and makes **zero** API calls. It is
@@ -263,6 +281,7 @@ ground-truth and anachronism checks, including the ones that fail. `--out` is co
 | Topic coherence & naming | `topic_quality.py` | NPMI coherence for every CorEx topic, reusing `embed_topics._npmi` for a comparable yardstick; a pre-registered noise gate applies to the 7 discovered topics only (the 15 anchored issues are exempt by design); writes `topic_display_names.json`, the registry `site.py`/`profiles.py`/`profiles_site.py`/`issues_site.py`/`explorer.py` now read instead of a hardcoded `"Discovered 5"`; the scoring + naming step itself is run directly, not wired into `pp-analyze` |
 | Corpus taxonomy | `taxonomy.py` | Era-isolated LLM proposals (no cross-era context — the anachronism guard) → merge into 17 domains / 50 topics → crosswalk to the 15 legacy issues → held-out coverage gate; frozen once validated — standalone paid script, not wired into `pp-analyze` |
 | LLM annotation | `annotate.py` | Batches-API annotation passes over the corpus (masked paragraph judgment on the frozen taxonomy + unmasked speech typing) — dry-run/submit/status/ingest lifecycle, coverage-based resume, chunked re-requests, per-run manifests; the only `pp-*` command that spends money, never wired into `pp-analyze` |
+| Historical trends | `register.py` | Issue entropy, label density, non-policy share, proposal-vs-values ratio, and 13 style markers over 240 years, each under raw/SOTU-only/genre-standardized genre treatments and the legacy 15 + `taxonomy_v1` taxonomies, with speech-clustered bootstrap CIs to separate real change from taxonomy-fit or genre-mix artifacts; standalone, no API calls, not wired into `pp-analyze` |
 | Combativeness | `combat.py` | Three annotation flags (`party_attack` / `enemy_naming` / `zero_sum`) per era under three genre treatments — raw, SOTU-only (co-primary: the one genre present in every era), genre-standardized — with speech-clustered bootstrap CIs and a pre-registered n-floor that suppresses intervals it can't support; entity-stance and lexical cross-checks; reported separately, never as a composite index — standalone $0 script, not wired into `pp-analyze` |
 | Topic attention | `attention.py` | Per-topic attention curves over the annotated corpus → substantive-year threshold → born/died/persistent/revived lifecycles under three genre treatments, with rename-vs-death from LLM↔CorEx divergence plus in-domain successor detection; speech-clustered bootstrap CIs — standalone, $0, not wired into `pp-analyze` |
 | Method triangulation | `triangulate.py` | Per-speech composition vectors across all three labelers (LLM taxonomy, CorEx legacy, embedding clusters); LLM↔CorEx agreement (Jaccard + kappa) per issue and per era; rename-vs-death detection separating vocabulary drift from real decline; `agreement_drivers()` isolates what actually predicts agreement once the algebraic Jaccard ceiling is controlled for; standalone, not wired into `pp-analyze` |

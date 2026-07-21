@@ -1,4 +1,15 @@
-"""Shared fixtures for the annotation-provenance test suite.
+"""Shared fixtures for the test suite, in two independent halves.
+
+**Annotation provenance** (top half) — global guardrails, a fake Anthropic SDK,
+and forged run state for ``annotate.py`` / ``llm_annotations.py``.
+
+**register.py synthetic builders** (bottom half, below the second banner) —
+``register_taxonomy`` / ``register_corpus`` / ``register_panel``, which build
+hand-countable stand-ins for the seven on-disk tables and for a rolled-up
+``SpeechPanel``. They live here rather than in a helper module because ``tests/``
+is not a package, so a test module cannot import from a sibling. They construct
+no client, touch no path constant, and register no autouse fixture, so they
+cannot affect the annotation tests above.
 
 Every test in this suite runs OFFLINE and spends $0. Three guardrails enforce it:
 
@@ -13,6 +24,10 @@ Every test in this suite runs OFFLINE and spends $0. Three guardrails enforce it
   data artifact several tests read live, which would otherwise make those tests
   silently order-dependent.
 
+Because ``redirect_annotation_dirs`` moves ``ANNOTATIONS_DIR``, anything that
+must read a real frozen artifact reads it by absolute worktree path instead
+(see ``test_register_taxonomy_index.py``).
+
 The fake Anthropic client here forges SDK *outputs*; it never talks to the network.
 We patch ``anthropic.Anthropic`` in place (the functions under test do
 ``import anthropic; anthropic.Anthropic()``), which leaves ``anthropic.types``
@@ -23,6 +38,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import types
 from pathlib import Path
 
 import pytest
@@ -305,6 +321,196 @@ def args():
 
 
 # ---------------------------------------------------------------------------
+# register.py synthetic builders
+# ---------------------------------------------------------------------------
+#
+# register.py keeps load and compute apart, so every function under test takes
+# DataFrames. These builders make tiny hand-countable stand-ins for the seven
+# on-disk tables (and for the rolled-up SpeechPanel) so no test ever reads the
+# real 36k-row corpus. They live in conftest because `tests/` is not a package
+# — a test module cannot import a helper from a sibling test module.
+
+
+# A five-topic / three-domain taxonomy with the SAME shape as taxonomy_v1: two
+# non-policy domains, and one level-2 name containing a lowercase small word
+# ("the War on Terror") so the case-variant resolution path has a real target.
+REGISTER_TAXONOMY = {
+    "level1": [
+        {"name": "Economy", "definition": "d", "kind": "policy"},
+        {"name": "Security", "definition": "d", "kind": "policy"},
+        {"name": "Ceremonial", "definition": "d", "kind": "non-policy"},
+        {"name": "Personal Narrative", "definition": "d", "kind": "non-policy"},
+    ],
+    "level2": [
+        {"name": "Jobs & Wages", "definition": "d", "level1": "Economy"},
+        {"name": "Trade & Tariffs", "definition": "d", "level1": "Economy"},
+        {"name": "the War on Terror", "definition": "d", "level1": "Security"},
+        {"name": "Holidays & Tributes", "definition": "d", "level1": "Ceremonial"},
+        {"name": "Reflection on Office", "definition": "d", "level1": "Personal Narrative"},
+    ],
+}
+
+_STYLE_DEFAULTS = {
+    "n_tokens": 200.0,
+    "n_sents": 10.0,
+    "i_count": 2.0,
+    "we_count": 8.0,
+    "fk_grade": 9.0,
+    "n_words": 200.0,
+}
+
+
+def _build_register_corpus(specs):
+    """The seven register.py input tables, from a compact per-speech spec.
+
+    Each spec is ``{doc_name, year, president, speech_type, paras: [...]}`` where
+    each paragraph is ``{legacy: [issue names], topics: [level-2 labels],
+    pv: proposal_values, words: int}``. Style/stat columns take the defaults
+    above unless overridden on the spec.
+    """
+    import pandas as pd
+
+    from presidential_profiles.register import STYLE_MARKERS
+    from presidential_profiles.taxonomy import LEGACY_ISSUES
+
+    para_rows, issue_rows, ann_rows = [], [], []
+    speech_rows, type_rows, stat_rows, marker_rows = [], [], [], []
+
+    for spec in specs:
+        doc = spec["doc_name"]
+        year = spec["year"]
+        president = spec.get("president", "P")
+        for idx, para in enumerate(spec["paras"]):
+            words = para.get("words", 100)
+            para_rows.append({
+                "doc_name": doc,
+                "para_idx": idx,
+                "text": "w " * words,
+                "word_count": words,
+            })
+            fired = set(para.get("legacy", ()))
+            issue_rows.append({
+                "doc_name": doc,
+                "para_idx": idx,
+                "president": president,
+                "year": para.get("year", year),
+                **{issue: issue in fired for issue in LEGACY_ISSUES},
+            })
+            ann_rows.append({
+                "doc_name": doc,
+                "para_idx": idx,
+                "topics": list(para.get("topics", ())),
+                "proposal_values": para.get("pv", "neither"),
+            })
+        speech_rows.append({"doc_name": doc, "president": president, "year": year})
+        type_rows.append({"doc_name": doc, "speech_type": spec["speech_type"]})
+        stat_rows.append({
+            "doc_name": doc,
+            **{k: float(spec.get(k, v)) for k, v in _STYLE_DEFAULTS.items()
+               if k != "n_words"},
+        })
+        marker_rows.append({
+            "doc_name": doc,
+            "n_words": float(spec.get("n_words", _STYLE_DEFAULTS["n_words"])),
+            **{m: float(spec.get(m, 4.0)) for m in STYLE_MARKERS},
+        })
+
+    return types.SimpleNamespace(
+        paragraphs=pd.DataFrame(para_rows),
+        issues=pd.DataFrame(issue_rows),
+        annotations=pd.DataFrame(ann_rows),
+        speeches=pd.DataFrame(speech_rows),
+        speech_annotations=pd.DataFrame(type_rows),
+        stats=pd.DataFrame(stat_rows),
+        markers=pd.DataFrame(marker_rows),
+    )
+
+
+_SCALAR_DEFAULTS = {
+    "n_paragraphs": 4.0,
+    "para_words": 400.0,
+    "llm_labels": 8.0,
+    "legacy_labels": 4.0,
+    "llm_non_policy_paras": 0.0,
+    "llm_zero_paras": 0.0,
+    "legacy_zero_paras": 0.0,
+    "pv_proposal": 2.0,
+    "pv_values": 1.0,
+    "pv_mixed": 0.0,
+    "pv_neither": 1.0,
+    "n_tokens": 400.0,
+    "n_sents": 20.0,
+    "i_count": 2.0,
+    "we_count": 8.0,
+    "fk_x_tokens": 3600.0,
+    "n_words": 400.0,
+}
+
+
+def _build_register_panel(rows, topic_counts=None, topic_names=None):
+    """A SpeechPanel built directly from per-speech scalars.
+
+    Bypasses `build_speech_panel` on purpose: the measure / bootstrap / trend
+    tests need exact, hand-computable sufficient statistics, and building them
+    through a paragraph frame would only obscure where a number came from.
+    """
+    import numpy as np
+    import pandas as pd
+
+    from presidential_profiles.register import STYLE_MARKERS
+    from presidential_profiles.taxonomy import ERA_SPAN
+
+    speeches = pd.DataFrame([
+        {
+            "doc_name": r["doc_name"],
+            "president": r.get("president", "P"),
+            "year": r["year"],
+            "speech_type": r["speech_type"],
+            "era": (r["year"] // ERA_SPAN) * ERA_SPAN,
+        }
+        for r in rows
+    ])
+    scalars = pd.DataFrame([
+        {
+            **{k: float(r.get(k, v)) for k, v in _SCALAR_DEFAULTS.items()},
+            **{m: float(r.get(m, 4.0)) for m in STYLE_MARKERS},
+        }
+        for r in rows
+    ])
+    if topic_counts is None:
+        topic_counts = {"legacy15": np.ones((len(rows), 3), dtype=float)}
+    if topic_names is None:
+        topic_names = {
+            name: tuple(f"t{i}" for i in range(matrix.shape[1]))
+            for name, matrix in topic_counts.items()
+        }
+    from presidential_profiles.register import SpeechPanel
+
+    return SpeechPanel(
+        speeches=speeches,
+        scalars=scalars,
+        topic_counts={k: np.asarray(v, dtype=float) for k, v in topic_counts.items()},
+        topic_names=topic_names,
+    )
+
+
+@pytest.fixture
+def register_taxonomy():
+    """A fresh copy of the synthetic taxonomy dict (tests mutate it)."""
+    import copy
+
+    return copy.deepcopy(REGISTER_TAXONOMY)
+
+
+@pytest.fixture
+def register_corpus():
+    return _build_register_corpus
+
+
+@pytest.fixture
+def register_panel():
+    return _build_register_panel
+
 # synthetic corpus builder (combat.py suite)
 # ---------------------------------------------------------------------------
 #
