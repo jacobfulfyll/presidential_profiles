@@ -241,3 +241,114 @@ class Args:
 @pytest.fixture
 def args():
     return Args
+
+
+# ---------------------------------------------------------------------------
+# synthetic corpus builder (combat.py suite)
+# ---------------------------------------------------------------------------
+#
+# ``combat.load_frame`` accepts all five of its inputs as injected DataFrames,
+# which is what lets the whole module — merge guards, era mapping, bootstrap,
+# genre standardization — run on a dozen hand-authored rows instead of the real
+# 36,229-row corpus (the repo's testing convention, CLAUDE.md). These two
+# helpers build those frames from a compact spec so each test states only the
+# structure it actually cares about.
+
+
+def _combat_inputs(specs: list[dict]) -> dict:
+    """Build the five injectable frames from a list of speech specs.
+
+    Each spec is ``{"doc", "year", "type", "paras": [...]}``; each paragraph is
+    a dict of flag overrides plus optional ``word_count`` / ``text`` /
+    ``adversaries`` (``[(entity, type)]``, stance=adversarial) / ``entities``
+    (``[(entity, type, stance)]`` for non-adversarial stances).
+    """
+    import pandas as pd
+
+    from presidential_profiles import combat as C
+
+    speeches, speech_anns, paragraphs, annotations, entities = [], [], [], [], []
+    for spec in specs:
+        doc = spec["doc"]
+        speeches.append(
+            {
+                "doc_name": doc,
+                "president": spec.get("president", "A President"),
+                "party": spec.get("party", "Whig"),
+                "date": f"{spec['year']}-01-01",
+                "year": spec["year"],
+                "title": spec.get("title", f"Address {doc}"),
+            }
+        )
+        speech_anns.append(
+            {
+                "doc_name": doc,
+                "speech_type": spec.get("type", C.SOTU_TYPE),
+                "audience": spec.get("audience", "public"),
+                "medium": spec.get("medium", "written"),
+            }
+        )
+        for i, para in enumerate(spec["paras"]):
+            paragraphs.append(
+                {
+                    "doc_name": doc,
+                    "para_idx": i,
+                    "text": para.get("text", f"{doc} paragraph {i}. " + "word " * 30),
+                    "word_count": para.get("word_count", 40),
+                }
+            )
+            annotations.append(
+                {
+                    "doc_name": doc,
+                    "para_idx": i,
+                    "run_id": spec.get("run_id", "run-test"),
+                    **{f: bool(para.get(f, False)) for f in C.FLAGS},
+                }
+            )
+            for name, kind in para.get("adversaries", []):
+                entities.append(
+                    {
+                        "doc_name": doc,
+                        "para_idx": i,
+                        "entity": name,
+                        "type": kind,
+                        "stance": "adversarial",
+                    }
+                )
+            for name, kind, stance in para.get("entities", []):
+                entities.append(
+                    {
+                        "doc_name": doc,
+                        "para_idx": i,
+                        "entity": name,
+                        "type": kind,
+                        "stance": stance,
+                    }
+                )
+
+    return {
+        "annotations": pd.DataFrame(annotations),
+        "speech_annotations": pd.DataFrame(speech_anns),
+        "paragraphs": pd.DataFrame(paragraphs),
+        "speeches": pd.DataFrame(speeches),
+        "entities": pd.DataFrame(
+            entities, columns=["doc_name", "para_idx", "entity", "type", "stance"]
+        ),
+    }
+
+
+def _combat_paras(n: int, n_flagged: int = 0, flag: str = "party_attack", **extra):
+    """``n`` paragraphs of which the first ``n_flagged`` carry ``flag``."""
+    return [{flag: i < n_flagged, **extra} for i in range(n)]
+
+
+@pytest.fixture
+def combat_inputs():
+    """Factory for the five frames ``combat.load_frame`` accepts."""
+    return _combat_inputs
+
+
+@pytest.fixture
+def combat_paras():
+    """Factory for a run of paragraphs with a known flag count."""
+    return _combat_paras

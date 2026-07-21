@@ -26,6 +26,25 @@
   regenerate or hand-edit them casually; each has a manifest in `data/llm_annotations/manifests/`
   recording models, prompts, sample IDs, and actual cost. The annotation QA report + its
   pre-registration amendments live at `notes/annotation-qa-v1.md`.
+- `data/combat/` is the opposite case: **derived, deterministic, and safe to regenerate** with
+  `python -m presidential_profiles.combat` (pure local compute over the frozen parquets, $0, zero
+  API calls). All 10 outputs are byte-identical on rerun **on any date** — a wall-clock stamp was
+  deliberately removed from `combat_meta.json` so that a dirty `git status data/combat/` means the
+  numbers actually moved, not that the clock did. Keep it that way; provenance identity is the
+  `corpus_fingerprint`, and *when* it ran is git's job.
+- `ci_status` (in `data/combat/{combativeness,peak_decades,ratios}.parquet`) is the
+  machine-readable **trust gate** for downstream consumers — `era-atlas` depends on this table.
+  Never read `rate`/`ratio` without it: `suppressed_n_floor` = too few speech clusters for an
+  interval to mean anything, `low_cluster_caution` = an interval exists but is thin. A consumer
+  that plots `rate` blind will publish the n=3 War & New Deal SOTU cell as a peak.
+- Era-grain analyses reuse `trends.ERAS` (9 named eras) rather than inventing a periodization —
+  data-driven periodization belongs to `era-atlas`, and two competing era axes would make every
+  cross-task number unjoinable.
+- When a dependency's artifact does not exist yet (parallel worktrees make this normal), build the
+  **seam, not a stub**: an optional loader that returns `None` when the file is absent, plus
+  columns on every output row recording that the component is missing (see
+  `combat.load_agreement_bands` / `ci_components="sampling_only"`). Never fabricate, stub, or
+  hardcode a magnitude, and never create the other task's file.
 
 ## Batches-API annotation lessons (paid, learned 2026-07-20/21)
 - **Structured-output arrays "collapse"**: Sonnet 5 sometimes emits ONE complete array item and
@@ -39,6 +58,20 @@
   cannot distinguish them.
 - **Batch prompt caching hit ~50% at 1,000-request scale** (22-53% variance on small batches),
   so conservative no-cache estimates run ~20-30% high — the safe direction.
+
+## Paragraph-rate estimator lessons (learned 2026-07-21)
+- **Cluster the bootstrap on speeches, not paragraphs.** Within-speech ICC on paragraph-level
+  annotation flags runs as high as 0.17, so a paragraph-resampled interval is far too narrow.
+- **Two floors, two different n's.** When an estimator is a weighted average over strata (e.g.
+  `combat.py`'s genre-standardized rate), a minimum-n floor on the cell's *total* cluster count
+  does **not** bind on its *effective* one: a 3-speech stratum carried ~49% of the renormalized
+  weight while the cell reported `n_speeches=52` and published `ci_status="ok"`. Publish the
+  effective quantity (`effective_min_cluster`, `weight_from_thin_strata`) and downgrade status on
+  thin-stratum weight, not on the total. Nothing about this bug is visible in any single number —
+  it survived unit tests, mutation testing, and end-to-end verification.
+- **Raising the stratum floor is not the fix.** Going 3 → 5 collapsed genre coverage (War & New
+  Deal `ref_weight_covered` 0.86 → 0.22), trading an interval problem for a worse
+  representativeness one. Discipline the *interval*; the point estimate was never the defect.
 
 ## Testing
 - `tests/` (pytest) covers the paragraph/issue-label keyed-merge logic. Run with

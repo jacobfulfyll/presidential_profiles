@@ -131,6 +131,29 @@ against researcher degrees of freedom, so the taxonomy can't be quietly reshaped
 an annotation run later finds. Provenance (models, prompt hash, exact sample IDs, actual cost)
 lives in `data/llm_annotations/manifests/taxonomy-v1-20260719.json`.
 
+`data/combat/` is the combativeness layer derived from those annotations — ten tables, computed
+locally with zero API calls. `combativeness.parquet` is the deliverable: era × flag × genre
+treatment, each row a rate with a 95% **speech-clustered** bootstrap interval (within-speech ICC on
+these flags runs as high as 0.17, so resampling paragraphs would understate the interval badly) and
+its counts. Three genre treatments ship side by side and none is published alone — `raw` (all
+genres), `sotu_only` (the annual message, the one genre present in every era, **co-primary rather
+than a control** because the corpus admits more informal genres over time), and
+`genre_standardized` (each era's genre mix reweighted to the pooled corpus reference). The three
+flags are always reported separately; there is deliberately no composite "combativeness index",
+because a weighted sum would hide the fact that they disagree with each other.
+
+`ci_status` is the trust gate on every rate and ratio row and downstream code should read it before
+reading `rate`: `suppressed_n_floor` means the cell had too few speech clusters to support an
+interval at all (the War & New Deal SOTU cell is 3 annual messages), `low_cluster_caution` means it
+has one but a thin one. Alongside it: `ratios.parquet` (present era ÷ every other era, per flag per
+treatment), `peak_decades.parquet` (the same at decade grain for the 1860s / 1930s / 2020s),
+`exemplars.parquet` (top 10 passages per era per flag, carrying `(doc_name, para_idx)` — join on the
+key, not row order — so every point on a chart has receipts), `entity_consistency.parquet`,
+`lexical_baseline.parquet`, `adversary_mix.parquet`, `by_president.parquet`,
+`genre_decomposition.parquet`, and `combat_meta.json` (seed, thresholds, reference genre weights,
+corpus fingerprint). The write-up is
+[`notes/combativeness-findings-v1.md`](notes/combativeness-findings-v1.md).
+
 ## Running it
 
 Requires [uv](https://docs.astral.sh/uv/). Then:
@@ -183,6 +206,15 @@ API calls; on a real run, a `--cost-ceiling` guard plus an enforced bail gate re
 so a bad run can never overwrite the frozen v1 artifacts. The committed v1 run cost $2.44 and
 reached 100% held-out coverage.
 
+`python -m presidential_profiles.combat` builds `data/combat/` from the frozen annotations. Like
+`taxonomy.py` it has no `pp-*` entry point and is not part of `pp-analyze` — but for the opposite
+reason: it is pure local compute over parquets already on disk and makes **zero** API calls. It is
+deterministic (the bootstrap is seeded, and each cell draws from a generator seeded on its own
+indices so results don't depend on iteration order), and no output carries a wall-clock stamp, so
+all ten files are byte-identical on rerun on any date — a dirty `git status data/combat/` means the
+numbers actually moved. Unlike the frozen `data/llm_annotations/` artifacts, these are safe to
+regenerate. `--quiet` writes the tables without printing the summary.
+
 ## How it works
 
 | Stage | Module | Method |
@@ -194,6 +226,7 @@ reached 100% held-out coverage.
 | Topic clusters | `embed_topics.py` | model2vec paragraph embeddings → MiniBatchKMeans at k=40 (discovery) and k=15 (dimension-matched to the anchored issues); c-TF-IDF terms + NPMI coherence; corpus-native counterweight to the anchored taxonomy, keyed `(doc_name, para_idx)` |
 | Corpus taxonomy | `taxonomy.py` | Era-isolated LLM proposals (no cross-era context — the anachronism guard) → merge into 17 domains / 50 topics → crosswalk to the 15 legacy issues → held-out coverage gate; frozen once validated — standalone paid script, not wired into `pp-analyze` |
 | LLM annotation | `annotate.py` | Batches-API annotation passes over the corpus (masked paragraph judgment on the frozen taxonomy + unmasked speech typing) — dry-run/submit/status/ingest lifecycle, coverage-based resume, chunked re-requests, per-run manifests; the only `pp-*` command that spends money, never wired into `pp-analyze` |
+| Combativeness | `combat.py` | Three annotation flags (`party_attack` / `enemy_naming` / `zero_sum`) per era under three genre treatments — raw, SOTU-only (co-primary: the one genre present in every era), genre-standardized — with speech-clustered bootstrap CIs and a pre-registered n-floor that suppresses intervals it can't support; entity-stance and lexical cross-checks; reported separately, never as a composite index — standalone $0 script, not wired into `pp-analyze` |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
 | Profiles | `profiles.py` | Fingerprint percentiles, dual-axis issue cards (raw share of paragraphs + era-relative emphasis, "topic of the day" flag), distinctive vocabulary, signature speeches, invocations |

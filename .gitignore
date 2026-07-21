@@ -33,3 +33,8 @@ data/llm_annotations/runs/
 
 .pipeline/
 .worktree/
+
+# Coverage artifacts
+.coverage
+.coverage.*
+htmlcov/

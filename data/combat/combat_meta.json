@@ -1,0 +1,91 @@
+{
+  "era_scheme": "trends.ERAS",
+  "flags": [
+    "party_attack",
+    "enemy_naming",
+    "zero_sum"
+  ],
+  "treatments": [
+    "raw",
+    "sotu_only",
+    "genre_standardized"
+  ],
+  "composite_index": "none \u2014 the three flags are reported separately by design",
+  "peak_decades": [
+    1860,
+    1930,
+    2020
+  ],
+  "bootstrap": {
+    "n": 2000,
+    "seed": 20260721,
+    "ci_level": 0.95,
+    "cluster_unit": "speech",
+    "min_clusters_for_ci": 5,
+    "low_cluster_caution": 20
+  },
+  "genre_standardization": {
+    "reference": "pooled corpus paragraph share by speech_type",
+    "reference_weights": {
+      "state_of_the_union_or_annual_message": 0.419305,
+      "public_remarks_or_address": 0.219382,
+      "campaign_or_debate": 0.104171,
+      "special_message_to_congress": 0.084131,
+      "press_conference_or_interview": 0.077231,
+      "inaugural_address": 0.031163,
+      "veto_or_signing_statement": 0.02912,
+      "eulogy_or_commemoration": 0.017445,
+      "proclamation": 0.013856,
+      "other": 0.004196
+    },
+    "min_cell_speeches": 3
+  },
+  "annotator_disagreement": {
+    "applied": false,
+    "source": "data/llm_annotations/agreement_v1.parquet",
+    "status": "ABSENT \u2014 intervals contain sampling error only. Pending inter-model-agreement-check."
+  },
+  "ratios": {
+    "reference_era": "The present era",
+    "method": "speech-clustered bootstrap of the ratio, reusing the marginal resamples; suppressed if either cell is below the n-floor"
+  },
+  "exemplars_per_cell": 10,
+  "annotation_run_ids": [
+    "judgment-chunk1-20260720",
+    "judgment-chunk10-20260720",
+    "judgment-chunk25-20260720",
+    "judgment-chunk5-20260720",
+    "judgment-full-20260720",
+    "judgment-r2-20260720",
+    "pilot-v2-20260720"
+  ],
+  "corpus_fingerprint": {
+    "n_speeches": 1057,
+    "n_paragraphs": 36229,
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+  },
+  "lexical_spearman": {
+    "party_attack~us_them_per_10k": 0.229,
+    "party_attack~opponents_per_10k": 0.4492,
+    "enemy_naming~us_them_per_10k": 0.2533,
+    "enemy_naming~opponents_per_10k": 0.1635,
+    "zero_sum~us_them_per_10k": 0.2088,
+    "zero_sum~opponents_per_10k": 0.2132
+  },
+  "mistyped_nation_recount": {
+    "era": "Civil War & Reconstruction",
+    "n_adversarial": 867,
+    "n_typed_nation": 179,
+    "n_domestic_mistyped": 18,
+    "share_of_nation_mistyped": 0.1005586592178771,
+    "foreign_share_as_typed": 0.20645905420991925,
+    "foreign_share_reclassified": 0.18569780853517878
+  },
+  "thin_stratum_policy": {
+    "min_cell_speeches": 3,
+    "suppress_weight": 0.25,
+    "caution_weight": 0.1,
+    "rationale": "the standardized estimator averages within-stratum resamples, so its interval is disciplined by the weight sitting in strata below min_clusters_for_ci, not by the total speech count"
+  },
+  "api_calls": 0
+}
