@@ -22,18 +22,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ---
 
-### breadth-depth-register
-**Task**: Did the formal record get broader, shallower, more values-driven?
-**Pipeline**: code-workflow
-**Branch**: task/breadth-depth-register
-**Worktree**: .worktree/breadth-depth-register
-**Base**: master
-**Started**: 2026-07-21
-**Files**:
-- NEW: src/presidential_profiles/register.py
-- NEW: data/register/trends.parquet
-- NEW: notes/register-findings-v1.md
-
 ---
 
 ## Backlog

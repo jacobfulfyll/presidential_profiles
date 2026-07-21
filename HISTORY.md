@@ -10,3 +10,4 @@
 - [x] combativeness-over-time Where today lands vs the 1860s and 1930s: present-era party_attack 4.81x [2.35, 14.32] the Civil War era on annual messages; zero_sum NOT distinguishable from the founding; 1930s peak is two campaigns, not the presidency -- 2026-07-21
 - [x] issue-attention-over-time Topic lifecycles across 240 years: attention.py + topic_lifecycles.parquet (201 rows, byte-reproducible) + notes/attention-findings-v1.md; 17 died / 14 born / 12 persistent / 7 revived -- 2026-07-21
 - [x] topic-method-comparison LLM vs CorEx triangulation: coherence + naming registry, per-issue/per-era agreement, rename-vs-death; pre-registered low-coherence prediction FALSIFIED and published -- 2026-07-21
+- [x] breadth-depth-register Breadth/depth/register trends under 3 genre treatments + 3 taxonomies; headline mostly falsified, null published -- 2026-07-21
