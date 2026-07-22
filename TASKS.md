@@ -6,24 +6,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### topic-chart-upgrades
-**Task**: Confidence bands (sampling + annotator disagreement) on issue trend charts
-**Pipeline**: code-workflow
-**Branch**: task/topic-chart-upgrades
-**Worktree**: .worktree/topic-chart-upgrades
-**Base**: master
-**Started**: 2026-07-21
-**Scope note**: PICKUP found acceptance criterion 3 rests on a false premise (CorEx labels
-carry no LLM annotator). User chose BOTH SURFACES — sampling-only bands on the CorEx issue
-charts, plus a genuine sampling+disagreement band on the LLM topic layer. See
-`.pipeline/topic-chart-upgrades/CONTEXT.md` -> ARCHITECTURE CORRECTION.
-**Files**:
-- NEW: src/presidential_profiles/bands.py
-- NEW: tests/test_bands.py
-- MOD: src/presidential_profiles/site.py
-- MOD: src/presidential_profiles/issues_site.py
-- NEW: data/bands.parquet
-
 ### convergence-analysis
 **Task**: Pre-registered test of agenda convergence (rebuilt after adversarial review)
 **Pipeline**: code-workflow
