@@ -29,6 +29,13 @@ against this table rather than re-tracing. Only flag the unescaped sinks.
   any "escaping is architecturally absent here" defence.
 
 ## SAFE BY CONSTRUCTION — verified empirically, do NOT re-flag
+- **Plotly `subplot_titles=` and `hovertemplate="..." + "<extra>" + title + "</extra>"`**
+  (`site.py::_small_multiples`, and its `_banded_small_multiples` clone added by
+  `topic-chart-upgrades`): the display name reaches plotly *config*, so it is serialized by the
+  plotly encoder below and cannot break the `<script>`. Residual risk is cosmetic only — plotly
+  renders a tag subset in annotation/hover text (`<b> <i> <br> <a>`, with a protocol whitelist on
+  `href`), and a `%{...}` in a title would be read as a hover token. Grade INFO; the pattern
+  pre-dates any given task, so a new panel grid copying it is not a regression.
 - **Plotly `<script>` embeds** (`pio.to_json(fig)` inside `<script>const FIG = ...`): plotly's
   encoder emits `<` / `>` / `/`, so `</script><script>alert(1)</script>` in a
   chart title cannot break out. Verified by injecting it into a `yaxis.title`. Note plain

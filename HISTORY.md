@@ -13,3 +13,5 @@
 - [x] breadth-depth-register Breadth/depth/register trends under 3 genre treatments + 3 taxonomies; headline mostly falsified, null published -- 2026-07-21
 - [x] inter-model-agreement-check Opus 4.8 second pass on persisted 25% sample (266 speeches, 94.7% para coverage at pre-registered bail); agreement_v1.parquet + notes/agreement-report-v1.md; party_attack kappa 0.0 pre-1848 = predicted anachronism made visible; $30.52 actual -- 2026-07-22
 - [x] era-atlas Era fingerprints across 3 grains + raw/detrended similarity + data-driven periodization + LLM portraits ($0.06): present era detrended-nearest to Civil War & Reconstruction (0.315, mutual); 6/8 canonical boundaries recovered at bin grain; opponents leave-one-out clean -- 2026-07-21
+- [x] topic-chart-upgrades Two-surface confidence bands on issue trend charts; sampling-only on CorEx labels (annotator disagreement categorically inapplicable), sampling+disagreement on the LLM topic layer measured directly in pp rather than mapped from agreement_v1's jaccard; 1785 recovered from the >=40 mask; 133 new tests -- 2026-07-21
+

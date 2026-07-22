@@ -9,7 +9,8 @@ Originally a 2019 Galvanize data-science capstone; rebuilt in 2026 on the offici
 data release with a modern Python pipeline. The original code is preserved in [`legacy/`](legacy/).
 
 **➡ [Interactive dashboard](https://jacobfulfyll.github.io/presidential_profiles/)** — every
-trend as a live chart, plus **[45 president profile pages](https://jacobfulfyll.github.io/presidential_profiles/presidents/)**:
+trend as a live chart — the issue and topic trends carrying confidence bands that widen where the
+record is thin instead of dropping the thin years — plus **[45 president profile pages](https://jacobfulfyll.github.io/presidential_profiles/presidents/)**:
 each president's rhetorical fingerprint (hope, fear, certainty, us-vs-them...), the issues
 that defined their agenda side by side with the ones that set them apart from their era —
 flagging "topic of the day" subjects that were simply in the air everyone breathed, and
@@ -227,6 +228,24 @@ placeholders. Headline finding: the present era's detrended nearest neighbor is
 absolute terms and honestly caveated as such in the write-up,
 [`notes/era-atlas-v1.md`](notes/era-atlas-v1.md).
 
+`data/bands.parquet` (1,528 rows) is what puts a shaded confidence band under every issue and
+topic trend line, so a 1785 point resting on two speeches no longer looks like a 1965 point
+resting on ninety. It is keyed `(surface, series, period)` — not paragraph-keyed — and each row
+carries a point estimate, a sampling-only interval, the composed interval, and the counts behind
+them. The two surfaces carry deliberately different uncertainty budgets: `corex_issues` (22
+series over 49 five-year periods, the labels behind the site's issue charts) is
+`ci_components="sampling_only"`, because those labels come from a seeded CorEx topic model with no
+LLM annotator anywhere in its pipeline — annotator disagreement isn't missing from those rows, it
+is **not applicable** to them. `llm_topics` (50 series over the 9 named eras) is
+`sampling+annotator_disagreement`: there the labels *are* the LLM annotations, so the Sonnet-5 vs
+Opus-4.8 gap is real uncertainty about the plotted quantity, measured directly as half the
+difference between the two annotators' era shares over the 8,570 paragraphs both labeled. Both
+components resample **speeches**, not paragraphs. `ci_status` is the trust gate — read it before
+`lo`/`hi`, exactly as with `data/combat/` — and thin periods are now shown de-emphasized with wide
+bands rather than dropped from the chart (which recovers exactly one period, 1785).
+`bands_meta.json` records the seed, the composition rule, the cluster floors and why they differ
+from `combat.py`'s, and the caveats on the disagreement half-width in both directions.
+
 ## Running it
 
 Requires [uv](https://docs.astral.sh/uv/). Then:
@@ -341,6 +360,17 @@ estimates the cost of the nine LLM-written era portraits with zero network calls
 refuses to overwrite the committed `era_portraits.parquet` with placeholders once it
 has already been generated for real.
 
+`python -m presidential_profiles.bands` builds `data/bands.parquet` and `bands_meta.json`, which
+`pp-site` then reads when it renders the issue and topic charts. Like `combat.py` and
+`attention.py` it has no `pp-*` entry point, makes **zero API calls**, and is deterministic — the
+bootstrap is seeded per period, so a period's interval never depends on how many periods were
+processed before it, and no output carries a wall-clock stamp, so a dirty
+`git status data/bands.parquet` means the numbers actually moved. It does not re-derive the LLM
+surface's sampling noise: that comes from `attention.bootstrap_era_shares`, already the seeded
+speech-clustered bootstrap for exactly that quantity. `--quiet` writes the outputs without
+printing the checks. If the table is missing, the site still builds — the charts simply render as
+bare lines.
+
 ## How it works
 
 | Stage | Module | Method |
@@ -358,6 +388,7 @@ has already been generated for real.
 | Topic attention | `attention.py` | Per-topic attention curves over the annotated corpus → substantive-year threshold → born/died/persistent/revived lifecycles under three genre treatments, with rename-vs-death from LLM↔CorEx divergence plus in-domain successor detection; speech-clustered bootstrap CIs — standalone, $0, not wired into `pp-analyze` |
 | Method triangulation | `triangulate.py` | Per-speech composition vectors across all three labelers (LLM taxonomy, CorEx legacy, embedding clusters); LLM↔CorEx agreement (Jaccard + kappa) per issue and per era; rename-vs-death detection separating vocabulary drift from real decline; `agreement_drivers()` isolates what actually predicts agreement once the algebraic Jaccard ceiling is controlled for; standalone, not wired into `pp-analyze` |
 | Inter-model agreement | `agreement.py` | Draws a persisted 25% era-stratified sample → Opus 4.8 re-annotates it with byte-identical prompts (model is the only variable) → Cohen's kappa / Jaccard / exact-match / entity-stance agreement per field, overall and by 30-year era bin; flags low-confidence fields, never gates — standalone paid step, no `pp-*` entry point |
+| Chart confidence bands | `bands.py` | Speech-clustered bootstrap over the CorEx issue labels at 5-year grain, reusing `attention.bootstrap_era_shares` for the LLM topic layer rather than re-deriving it → per-surface uncertainty budgets (`sampling_only` for CorEx, which has no annotator to disagree; sampling + measured Sonnet↔Opus gap for the annotated topics) → `ci_status` trust gate and visual de-emphasis in place of the old hard n-mask; standalone $0 script, read by `pp-site` |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Era atlas | `eras.py` | 63 z-scored axes (topic/issue mix, style, register, combativeness, speech-type mix) per era/bin/presidency → raw + drift-detrended similarity (reusing `similarity.py`'s adjacent-era-mean trick) → contiguity-constrained periodization vs the historians' eras, checked with an `opponents`-dropped leave-one-out → LLM-written era portraits; standalone, not wired into `pp-analyze` |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |

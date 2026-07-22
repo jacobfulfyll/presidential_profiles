@@ -1,0 +1,62 @@
+{
+  "surfaces": {
+    "corex_issues": {
+      "labels": "CorEx anchored topic model (issues.py, seed=42)",
+      "grain": "5-year periods",
+      "ci_components": "sampling_only",
+      "annotator_disagreement": "NOT APPLICABLE \u2014 the CorEx pipeline contains no LLM annotator, so there is no annotator whose disagreement could widen these intervals. This is not a missing component awaiting a dependency."
+    },
+    "llm_topics": {
+      "labels": "paragraph_annotations.topics (level2 of taxonomy_v1)",
+      "grain": "trends.ERAS (9 named eras)",
+      "treatment": "raw",
+      "sampling_source": "attention.bootstrap_era_shares (reused, not re-derived)",
+      "annotator_disagreement": {
+        "definition": "|share_primary - share_secondary| / 2 over the paragraphs both annotators labeled",
+        "source": "paragraph_annotations.parquet vs paragraph_annotations__opus4-8.parquet",
+        "era_axis": "measured directly on trends.ERAS \u2014 no cross-axis mapping from taxonomy.ERA_SPAN is performed",
+        "agreement_v1_parquet": "deliberately NOT read: its topic metric is a jaccard with no conversion to percentage points of share, and it is keyed on the ERA_SPAN sampling axis",
+        "caveats": {
+          "inflating": "the paired subsample's own sampling noise is included in the observed difference, so the half-width leans high \u2014 the safe direction for a band, and not corrected for",
+          "deflating": "the band is centred on the PRIMARY annotator's point estimate and moves by half the gap between the two, so it reaches halfway toward the secondary annotator's estimate and never covers it; an envelope containing both readings would use the full |difference|",
+          "transfer_assumption": "the paired set is a DOCUMENT-level sample: 262 speeches (of the 266 agreement_sample_v1.json drew; agreement.py::_load_joined restricts to sample_docs), holding 8570 of the corpus's 36229 paragraphs \u2014 23.7%. Its disagreement is assumed to transfer to the full-corpus era intervals it widens; within-speech clustering is not modelled in the half-width, only in the sampling bootstrap. `bands.paired_coverage()` recomputes every figure in this sentence."
+        },
+        "min_paired_paragraphs": 50,
+        "rows_with_component_applied": 450,
+        "rows_total": 450
+      }
+    }
+  },
+  "composition": "lo = lo_sampling - hw; hi = hi_sampling + hw; clipped to [0, 1]",
+  "units": "fraction of paragraphs (NOT percent) \u2014 charts multiply by 100",
+  "bootstrap": {
+    "n_draws": 500,
+    "seed": 20260721,
+    "ci_percentiles": [
+      2.5,
+      97.5
+    ],
+    "cluster_unit": "speech",
+    "rationale": "within-speech ICC up to 0.17; paragraph resampling would understate the interval",
+    "surface_a_seeding": "default_rng([seed, period]) \u2014 per period, so a period's draws do not depend on its neighbours"
+  },
+  "ci_status": {
+    "min_clusters_for_ci": 2,
+    "low_cluster_caution": 8,
+    "min_period_paragraphs": 40,
+    "differs_from_combat": {
+      "combat_min_clusters_for_ci": 5,
+      "combat_low_cluster_caution": 20,
+      "reason": "combat's floors guard an ERA-grain rate; these guard a 5-year period, where the corpus median is 20 speeches per period, so combat's floor of 20 would mark 24 of the 49 periods \u2014 roughly half the record \u2014 provisional, and a caution flag that fires on half the chart carries no information. Same column name and direction, different grain \u2014 do not read one gate across both artifacts."
+    },
+    "de_emphasis_is_two_sided": "MIN_PERIOD_PARAGRAPHS was the charts' former hard mask and dropped exactly one of 49 periods (1785); LOW_CLUSTER_CAUTION is a new gate that additionally demotes 1820 (277 paragraphs, 7 speeches) from solid to provisional. One period recovered, one newly marked provisional.",
+    "note": "MIN_PERIOD_PARAGRAPHS was the charts' former hard mask; it dropped exactly one of 49 five-year periods (1785, 14 paragraphs, 2 speeches) and is now a de-emphasis flag",
+    "degenerate_interval_predicate": "ci_status == 'low_cluster_caution' and lo == hi \u2014 a bootstrap over n clusters has only C(2n-1, n) distinct resamples (3 at n=2), so such a cell's zero-width interval means 'too few speeches to resolve one', NOT a confident zero. Left published rather than suppressed; see the module docstring."
+  },
+  "corpus_fingerprint": {
+    "n_speeches": 1057,
+    "n_paragraphs": 36229,
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+  },
+  "api_calls": 0
+}

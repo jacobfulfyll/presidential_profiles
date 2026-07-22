@@ -54,6 +54,36 @@
   columns on every output row recording that the component is missing (see
   `combat.load_agreement_bands` / `ci_components="sampling_only"`). Never fabricate, stub, or
   hardcode a magnitude, and never create the other task's file.
+- `data/bands.parquet` + `data/bands_meta.json` (the confidence bands under the issue/topic trend
+  charts) are the same derived, deterministic, **$0** class as `data/attention/`, `data/combat/`
+  and `data/eras/`: regenerate with `python -m presidential_profiles.bands` — pure local compute
+  over the frozen parquets, **zero API calls**, byte-identical on rerun with **no wall-clock
+  stamp**, so a dirty `git status data/bands.parquet` means the numbers moved, not that the clock
+  did. Two surfaces, two uncertainty budgets: `corex_issues` rows are permanently
+  `ci_components="sampling_only"` because those labels come from a seeded CorEx topic model with
+  **no LLM annotator anywhere in the pipeline** — annotator disagreement is *categorically
+  inapplicable* there, not merely absent, which is a different thing from the missing-dependency
+  seam above. `llm_topics` rows carry `sampling+annotator_disagreement`.
+- **`agreement_v1.parquet` is deliberately NOT read by `bands.py`** — a future consumer tempted to
+  "wire up the agreement table" needs to know this was considered and rejected on units, not
+  overlooked. The fastest check: the table has **no `disagreement_half_width` column at all** — its
+  schema is `field / era_bin / era_label / metric / value / n` (`agreement.py:370`), and
+  `combat.AGREEMENT_REQUIRED_COLUMNS` names `{era, flag, disagreement_half_width}`, a contract the
+  real file has never met (so `combat.load_agreement_bands` now *raises* on it rather than
+  returning `None`). Beyond the missing column: its topic metric is a **jaccard**, with no
+  conversion into percentage points of
+  paragraph share (any factor would be a fabricated magnitude), and it is keyed on
+  `taxonomy.ERA_SPAN`, not `trends.ERAS`. Disagreement is instead measured directly as
+  `|share_primary − share_secondary| / 2` over the 8,570 paragraphs both annotators labeled, on the
+  `trends.ERAS` reporting axis — same quantity, same units, same axis, no cross-axis mapping. That
+  paired set is a **document-level** sample (262 of the 266 sampled speeches; 8,570 of the corpus's
+  36,229 paragraphs, 23.7%) and its disagreement is *assumed to transfer* to full-corpus eras;
+  within-speech clustering is modelled in the sampling bootstrap but **not** in the half-width.
+- `ci_status` on `bands.parquet` is the trust gate under the same doctrine as `data/combat/` —
+  never read `lo`/`hi` without it. But its constants **shadow `combat.py`'s names with different
+  values** (`MIN_CLUSTERS_FOR_CI` 2 vs 5, `LOW_CLUSTER_CAUTION` 8 vs 20) because the grain differs:
+  these guard a 5-year period, combat's guard an era-grain genre stratum. Same column, same
+  direction, different thresholds — do not read one artifact's gate across the other.
 - **The coherence-threshold asymmetry is deliberate, not a bug.** `topic_quality.py` computes
   NPMI for all 22 CorEx topics but the noise gate (`classify_discovered`) applies to the 7
   *discovered* topics only. Four *anchored* issues — Immigration (-0.028), Foreign policy
@@ -171,6 +201,17 @@ common, not their number:
   notes. Round from the fraction in one step, and state the fraction-vs-percentage-point convention.
 - A "largest N" table must actually be sorted by the quantity it ranks — one shipped omitting its
   2nd and 4th largest rows while including the 9th and 10th.
+- **A provenance artifact's explanatory strings are prose, and drift the same way.** Four
+  wrong-number-in-prose defects surfaced on `topic-chart-upgrades`; the one that actually shipped
+  was in `data/bands_meta.json`, the **only** new prose block without a re-derivation test — the
+  two blocks that had one stayed correct. Pin prose numbers wherever they live (meta JSON, module
+  docstrings), not only in `notes/`.
+- **A rationale can be self-defeating, not merely wrong.** That same meta justified diverging from
+  `combat.py`'s cluster floors with "the corpus median is ~30 speeches per period". The median is
+  20.0 — and at 30 the argument would have pointed the *other* way, i.e. the stated premise would
+  have refuted the choice it was offered to support. Correcting the number is half the fix; also
+  assert that the premise **entails** the conclusion (`combat.LOW_CLUSTER_CAUTION >= median`), so a
+  later retune of either side fails a test instead of quietly inverting the argument.
 
 ## Mechanize note completeness — reading for it does not converge (learned 2026-07-21)
 `breadth-depth-register` hit one defect **nine times**: a statistic the analysis computed, bearing
@@ -211,3 +252,15 @@ pass. The generalizable shape:
   `tests/conftest.py`'s autouse `_no_anthropic_creds` deletes the API key so any stray client
   construction fails loudly. Fake API responses with `types.SimpleNamespace`, keep `import
   anthropic` lazy inside the one client-constructing function.
+- **An always-true assertion is invisible to coverage AND to mutation testing.**
+  `assert np.isnan(x) is not available` passes for every combination of both operands, because
+  `np.isnan` returns `np.bool_` and never the Python `True`/`False` singletons. Coverage sees the
+  line execute; a source mutant that genuinely breaks the behaviour still leaves the test green. No
+  tool in the suite reports this shape — grep for identity comparisons (`is True` / `is False` /
+  `is not`) against numpy scalars and rewrite them as `==` / `bool(...)`.
+- **A visual check cannot see a point that is outside the axis.** A hardcoded
+  `X_RANGE = [1786, 2029]` cropped the 1785 bucket on *both* chart surfaces — the one period the
+  whole change existed to stop hiding — and every screenshot review passed, because band, marker
+  and hover were off-axis rather than visibly broken. Derive plot bounds from the plotted data in
+  one place (`issues_site.x_range_covering`), and verify a recovered point by querying the figure's
+  traces, not by looking at the picture.
