@@ -6,19 +6,7 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### convergence-analysis
-**Task**: Pre-registered test of agenda convergence (rebuilt after adversarial review)
-**Pipeline**: code-workflow
-**Branch**: task/convergence-analysis
-**Worktree**: .worktree/convergence-analysis
-**Base**: master
-**Started**: 2026-07-21
-**Files**:
-- NEW: src/presidential_profiles/convergence.py
-- NEW: notes/convergence-prereg-v1.md
-- NEW: notes/convergence-findings-v1.md
-- NEW: data/convergence/
-- NEW: tests/test_convergence.py
+(none)
 
 ---
 
