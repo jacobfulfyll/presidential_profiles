@@ -1632,7 +1632,16 @@ class TestArtifactContract:
 
     def test_module_never_imports_anthropic(self):
         """$0 GUARD, scanned over the AST so that the docstring PROMISING it
-        cannot be what satisfies the test."""
+        cannot be what satisfies the test.
+
+        SCOPE, stated because this test is structurally blind past it: it ASTs
+        THIS FILE only. `anthropic` is in fact resident in `sys.modules` during
+        every run, transitively — `convergence.py` -> `eras.check_staleness` ->
+        `annotate._rates` -> `anthropic.types`. So a green result here does NOT
+        mean the process is anthropic-free, and no strengthening of this scan
+        could tell you that. The behavioural twin below is what actually holds
+        the $0 line.
+        """
         tree = ast.parse(open(C.__file__).read())
         imported: set[str] = set()
         for node in ast.walk(tree):
@@ -1641,6 +1650,37 @@ class TestArtifactContract:
             elif isinstance(node, ast.ImportFrom) and node.module:
                 imported.add(node.module.split(".")[0])
         assert "anthropic" not in imported
+
+    def test_a_full_build_runs_with_client_construction_booby_trapped(
+        self, tmp_path, monkeypatch, tiny_pipeline
+    ):
+        """The behavioural half of the $0 guard, which the AST scan above cannot
+        provide: drive a full `build_convergence` with every Anthropic client
+        constructor rigged to explode. If any code path reached for the paid API
+        the build dies; completing proves it did not.
+
+        This is the pattern `combat.py` already uses
+        (`test_combat_contracts.py::test_a_full_build_runs_with_client_construction_booby_trapped`).
+        `convergence` had only the static scan, which is blind to the transitive
+        import by construction — a real gap, since the transitive import is
+        exactly the thing a reader would want the guard to be watching.
+        """
+        import anthropic
+
+        def _bomb(*a, **k):  # pragma: no cover - must never run
+            raise AssertionError(
+                "a client was constructed on the $0 path; this module must never "
+                "reach for the paid API"
+            )
+
+        for name in ("Anthropic", "AsyncAnthropic", "AnthropicBedrock", "AnthropicVertex"):
+            if hasattr(anthropic, name):
+                monkeypatch.setattr(anthropic, name, _bomb)
+
+        out = tmp_path / "convergence"
+        C.build_convergence(out_dir=out, n_permutations=3, progress=False)
+        assert (out / C.META_PATH.name).exists()
+        assert json.loads((out / C.META_PATH.name).read_text())["api_calls"] == 0
 
 
 # --------------------------------------------------------------------------

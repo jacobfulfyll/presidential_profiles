@@ -50,8 +50,19 @@ an arm: the arms have different bin counts and different sampling budgets, and
 (sidestepped here by using native level-2 labels, but the annotations are
 unchanged).
 
-$0 GUARD: pure local compute over frozen parquets. This module never imports
-`anthropic` and never constructs a client. Zero API calls.
+$0 GUARD: pure local compute over frozen parquets. This module never constructs
+an Anthropic client and makes zero API calls — verified at runtime, not merely
+by grep (a build with `anthropic.Anthropic.__init__` booby-trapped completes,
+and a socket-level block records no connection attempt).
+
+Be precise about the import, because the obvious sentence is wrong: this FILE
+does not import `anthropic`, but the PROCESS does. `convergence.py` imports
+`eras.check_staleness`, `eras.py` imports `annotate._rates`, and `annotate.py`
+imports from `anthropic.types` at module scope — so `anthropic` IS in
+`sys.modules` during every run. That is inherited from the era-atlas layer and
+predates this module. It costs nothing (importing a type module is not a client
+and not a call), but "never imports `anthropic`" is a file-level truth that must
+not be restated as a process-level one.
 
 Run as:
     PYTHONPATH=src arch -x86_64 .venv/bin/python -m presidential_profiles.convergence
