@@ -109,6 +109,30 @@
 - `data/method_compositions.parquet` and `data/method_agreement.parquet` are safe to delete and
   regenerate: `triangulate.run()` is pure local computation over already-frozen parquets ($0, no
   API calls), and reproduces byte-identical output on rerun.
+- `data/convergence/` is the same derived/deterministic/**$0** class (`python -m
+  presidential_profiles.convergence`, ~19 min at R=2000, byte-identical on any date, no wall-clock
+  stamp), with two guards the other layers lack. (a) **The three-leg `_selftest` is a bail
+  condition, not a diagnostic**: it runs before `out_dir` is even resolved, and a failing leg
+  aborts before a single real number exists. Skipping it needs a verbatim token AND forbids writing
+  the published layer. (b) **A run below the pre-registered R=2000 refuses to overwrite
+  `data/convergence/`** — pass `--out-dir`. Both exist because an under-powered or ungated number
+  that reaches the published layer is indistinguishable from a real one after the fact.
+- **`convergence.py`'s permutation null does NOT absorb the estimator's residual bias**, and the
+  obvious claim that it does is false — it survived several review rounds inside this project
+  before being caught by re-derivation. The observed curve samples each president's **in-window**
+  pool (mean size 17 → 36 across the corpus, Spearman vs window centre **+0.85**); a permuted slot
+  samples the donor's **global career** pool (**+0.06**). Permuting donors decorrelates pool size
+  from time, destroying the supply drift that *causes* the bias. The artifact proves it in one
+  column: `selftest.a_cluster_null_rho` = −0.089 vs the null's `null_mean` = +0.014 — if it were
+  absorbed those would coincide. Net effect: the test is mildly **anti-conservative toward
+  convergence** (~6.3% size at nominal 5%), which leaves a *no-convergence* finding conservative
+  and would matter enormously to a future run that found a decline.
+- Reading `data/convergence/`: `excess_ratio` is the rival-hypothesis statistic (observed ÷
+  entropy-matched) and is **not** immune to a rising no-topic share, though `floor_corrected` is.
+  Never compare dispersion **levels** across arms — `llm_all` has 51 bins vs the CorEx arms' 16.
+  `n_windows` is deliberately absent from `permutation_null.parquet`; join it from
+  `dispersion_curves.parquet`. And at D=20 the seed-to-seed sd of the primary rho is **0.032**,
+  larger than the point estimate itself — so **no jackknife delta is a president effect**.
 
 ## Batches-API annotation lessons (paid, learned 2026-07-20/21)
 - **Structured-output arrays "collapse"**: Sonnet 5 sometimes emits ONE complete array item and
@@ -264,3 +288,64 @@ pass. The generalizable shape:
   and hover were off-axis rather than visibly broken. Derive plot bounds from the plotted data in
   one place (`issues_site.x_range_covering`), and verify a recovered point by querying the figure's
   traces, not by looking at the picture.
+
+## Mutation testing beats coverage, and a passing test is not a working test (learned 2026-07-22)
+`convergence-analysis` shipped a 149-test suite at **99% line coverage** of the module. Mutation
+testing then killed 61 of 62 mutants — but **14 of the first 27 SURVIVED**, including the ones
+guarding the permutation null (the entire inference), the jackknife, and `significant_decline`.
+Coverage measures *execution*; it cannot see *discrimination*. The recurring shapes:
+- **Fixture-dependent vacuity was the single largest source (6 of 30 survivors).** A test whose
+  fixture lacks the property under test passes for the wrong reason and is invisible to coverage,
+  to a re-read, and to mutation of unrelated code. Fix: **every test asserts its fixture has the
+  property first** (`assert len(pool) >= 5` before asserting an ordering over the pool), or pins a
+  measured magnitude that fails loudly on re-seed. A re-seed must break the test, not silence it.
+- **A test can pass against the exact defect it is named for.** `test_cluster_rarefaction_...`
+  passed with the sampler swapped for the superseded paragraph-rarefied one, because its assertions
+  (`shape ==`, `sum == 1.0`) are invariant to S and B. Likewise a "floor is bounded" test was
+  guaranteed by an `np.clip` upstream. **The question to ask of any assertion: what single-line
+  source change would make this fail?** If you cannot name one, it is decoration.
+- **Identity is not evidence.** `per_slot == [value, value]` at two slots is an algebraic identity
+  (symmetric JSD, zero diagonal) that holds for *any* implementation. Prefer a fixture where the
+  quantities genuinely differ.
+- **A "tautology" may be load-bearing.** Replacing that identity with an `argmax` discriminator
+  silently regressed the sole killer of a divisor mutant, because `argmax` is scale-invariant.
+  Before deleting an assertion as vacuous, check what it currently kills — the fix was an exact
+  identity pin (`mean(per_slot) == the pairwise mean`, true only for the correct divisor).
+- **Write the guard broader than the known instance.** A loop-variable-leak check written as a
+  sweep over *every* function (not just the reported one) immediately found a second live instance.
+
+## Prose tests must assert the RENDERED SENTENCE, not the source value (learned 2026-07-22)
+`notes/convergence-findings-v1.md` shipped with `tests/test_convergence_note_claims.py`. The first
+draft — 65 tests, all green — asserted values pulled from `data/convergence/*.parquet`. Mutating
+the **note** rather than the code exposed the hole: changing `rank 6 of 38` → `rank 5 of 38` passed
+every test, because not one of them read the prose. **Artifact-pinning is necessary and not
+sufficient**; a note-claims suite that only checks artifacts is structurally blind to prose drift,
+which is the entire defect class it exists to catch.
+- Build the expected string **from the artifact** and assert it appears: `f"rank {rank} of {n}" in
+  note`. Hardcoding the string re-creates the drift in the test.
+- **Prove it by mutating the PROSE, not the code.** Four prose-only defects (`rank 5 of 38`,
+  `lowest of all 45`, `7 of 105 windows`, `218 of 218`) each now fail their own guard.
+- Comparisons need whitespace normalization and `^> ` stripping — a hard-wrapped blockquote is
+  formatting; rewording is not. Normalize, don't loosen.
+- **Double-rounding struck a third time**, in this note's own draft: "4.6×" from the rounded
+  0.406/0.089, where the fraction gives 4.549 → **4.5×**. Knowing the rule did not prevent it.
+  State the convention in the note *and* pin the figure with a test that recomputes it.
+
+## A refusal guard must be cheap as well as early (learned 2026-07-22)
+The existing rule is that a refusal runs BEFORE the write it refuses. `convergence.py` added the
+cost corollary: its frozen-artifacts guard was first placed after the three-leg gate, so refusing an
+illegal `--out-dir` would have cost ~4 minutes of Monte Carlo first. A refusal that expensive is one
+people route around. Check it at function entry, and pin the ordering with a test that rigs the
+expensive step to raise if reached. (The mutation proof is unusual and worth recognizing: removing
+that guard makes the refusal tests **hang** rather than fail, because execution falls through into
+the real gate — the hang *is* the evidence.)
+
+## Read-only review systematically mis-adjudicates whether a test can fail (learned 2026-07-22)
+Across this task, five quality gates ran without a Bash tool and reasoned statically. **Three of
+their load-bearing claims were wrong**, each caught by executing it: a mutant reported as
+"survives all 199 tests" actually died (`1 failed, 198 passed`); a `curve.used` conjunct reported as
+differing between two call sites was present in both; a guard reported as fine was blind. They were
+also right about things a reader would miss — one recovered a prior stage's mutation results from
+the session scratchpad and used them to catch a genuine regression. The lesson is not "reviews are
+unreliable" but **weight executed evidence over traced evidence, and re-run any claim that decides
+a gate.** A reviewer without execution should say so explicitly and label each verdict.
