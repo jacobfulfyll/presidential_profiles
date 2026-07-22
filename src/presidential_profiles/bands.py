@@ -127,7 +127,7 @@ value stays recoverable from `disagreement_half_widths()`, which is a pure
 function of the frozen annotation tables.
 
 --------------------------------------------------------------------------
-A known degeneracy at the bottom of the cluster floor
+`interval_unresolvable` — the per-cell gate at the bottom of the cluster floor
 --------------------------------------------------------------------------
 
 A bootstrap over `n` clusters has only `C(2n-1, n)` distinct resamples: 3 at
@@ -135,18 +135,46 @@ n=2, 10 at n=3, 35 at n=4. At the corpus's thinnest period (1785, two speeches)
 a series with zero paragraphs in BOTH speeches therefore produces the same
 replicate every draw, and its percentile interval collapses to `lo = hi = 0` —
 which renders as a confident zero when what it means is "two speeches told us
-nothing". That is NOT the same object as the many legitimate `lo = hi = 0` cells
-where sixty speeches genuinely never touched an issue.
+nothing". That is NOT the same object as the legitimate `lo = hi = 0` cells
+where 13-14 speeches genuinely never touched an issue. **Before this gate runs**
+the Surface A bootstrap produces 19 zero-width cells; 7 of them (1790, 1795,
+1800, 1810 — all `ci_status == "ok"`) are exactly that legitimate finding and are
+published untouched, and the gate below withdraws the other 12. So the SHIPPED
+table contains 7 zero-width Surface A cells, not 19 — 19 is the pre-gate census,
+and quoting it as a property of the artifact is a tense error, not an arithmetic
+one.
 
-The two are distinguishable without new columns: the predicate is
-`ci_status == "low_cluster_caution" and lo == hi`. It matches 12 of the 1,078
-Surface A rows, all of them in 1785 (recomputed from the shipped parquet, not
-estimated). They are left published rather than
-suppressed because the alternative — raising `MIN_CLUSTERS_FOR_CI` to 3 — would
-delete the one period this task set out to recover, and CLAUDE.md's
-paragraph-rate lesson is explicit that raising a floor trades an interval
-problem for a worse representativeness one. Whether to suppress per-cell on a
-distinct-resample floor instead is a design decision, deliberately deferred.
+**The gate is per-cell, and combines "no variation" with "too few clusters".**
+`interval_unresolvable` is True where the bootstrap returned a zero-width
+interval AND the period has fewer than `MIN_CLUSTERS_FOR_RESOLVABLE_CI`
+clusters. Those cells publish `lo = hi = NaN` (and `lo_sampling`/`hi_sampling`
+NaN with them) — the interval is withdrawn, not narrowed. `point` is kept: the
+observed share is a real measurement; only the interval was unresolvable.
+
+`MIN_CLUSTERS_FOR_RESOLVABLE_CI` is DERIVED, not chosen (see
+`_min_clusters_for_resolvable_ci`), and it is a cluster count rather than
+`ci_status`. Two reasons for both choices:
+
+  * `ci_status` fires on `n_speeches < 8` **or** `n_paragraphs < 40`, so the
+    otherwise-tempting predicate `ci_status == "low_cluster_caution" and
+    lo == hi` would also suppress a paragraph-thin but *speech-rich* period,
+    where the resample space is enormous and an all-zero result is a genuine
+    finding. No such period exists in today's corpus, so the two predicates
+    select the same 12 cells — but only one of them says what it means.
+  * The floor itself falls out of the percentile the interval quotes. The most
+    concentrated resample (all `n` draws landing on one cluster) carries
+    probability `n**-n`: 0.25 at n=2, 0.037 at n=3, 0.0039 at n=4. Until that
+    is below `CI_LOW/100 = 0.025`, the 2.5th percentile cannot exclude even the
+    single most extreme resample, so the interval reports the full range of the
+    resample space rather than a 95% region. n=4 is the first n where it can —
+    hence a floor of 4, computed from `CI_LOW` so a retuned percentile moves it
+    instead of silently invalidating it.
+
+Note what is deliberately NOT done: `MIN_CLUSTERS_FOR_CI` stays at 2. Raising it
+would delete the 1785 period entirely, and CLAUDE.md's paragraph-rate lesson is
+explicit that raising a floor trades an interval problem for a worse
+representativeness one. Discipline the interval; the point estimate was never
+the defect.
 
 --------------------------------------------------------------------------
 `ci_status` — the trust gate
@@ -187,6 +215,7 @@ published.
 
 import argparse
 import json
+from math import comb
 from pathlib import Path
 
 import numpy as np
@@ -228,6 +257,75 @@ MIN_CLUSTERS_FOR_CI = 2
 LOW_CLUSTER_CAUTION = 8
 MIN_PERIOD_PARAGRAPHS = 40
 MIN_PAIRED_PARAGRAPHS = 50
+
+
+def distinct_resamples(n_clusters: int) -> int:
+    """`C(2n-1, n)` — how many distinct multisets an n-cluster bootstrap has.
+
+    3 at n=2, 10 at n=3, 35 at n=4, 92,378 at n=10. Published in
+    `bands_meta.json` so the degeneracy gate's premise is legible from the
+    artifact and not only from this module.
+    """
+    return int(comb(2 * n_clusters - 1, n_clusters))
+
+
+# Loop bound for `_min_clusters_for_resolvable_ci`. Unreachable for any
+# positive `ci_low`: `n**-n` first evaluates to exactly 0.0 at n=149, and 0.0 is
+# not greater than any positive threshold, so the search always terminates well
+# below this. Present as a second line of defence, not as a working limit.
+_MAX_CLUSTER_SEARCH = 1000
+
+
+def _min_clusters_for_resolvable_ci(ci_low: float = CI_LOW) -> int:
+    """Fewest clusters at which a `CI_LOW` percentile can exclude anything.
+
+    The most concentrated resample — all `n` draws landing on one cluster —
+    carries probability `n**-n` (0.25 at n=2, 0.037 at n=3, 0.0039 at n=4).
+    While that exceeds `ci_low`, the lower percentile cannot fall inside the
+    resample space's own range: the "95% interval" is just the full span of the
+    resamples, and when every resample agrees it is a zero-width span reported
+    as certainty.
+
+    Derived from `CI_LOW` rather than typed as a literal so that retuning the
+    percentile moves the floor with it instead of quietly invalidating it. On
+    today's constants this returns 4.
+
+    Args:
+        ci_low: Lower percentile, in percent. Must be positive.
+
+    Raises:
+        ValueError: If `ci_low` is not positive. Written as `not (ci_low > 0)`
+            so it also catches NaN, which is the more dangerous input of the
+            two: every comparison against NaN is False, so the loop would exit
+            on its first test and silently return `MIN_CLUSTERS_FOR_CI` — a
+            plausible-looking floor derived from nothing. A non-positive
+            `ci_low` fails louder (the loop never exits) but no less wrongly.
+    """
+    if not (ci_low > 0):
+        raise ValueError(
+            f"ci_low must be a positive percentile, got {ci_low!r}; there is no "
+            "n at which a non-positive percentile can exclude a resample, so "
+            "the floor this derives is undefined rather than large."
+        )
+    n = MIN_CLUSTERS_FOR_CI
+    while n ** (-n) > ci_low / 100.0:
+        n += 1
+        if n > _MAX_CLUSTER_SEARCH:
+            raise ValueError(
+                f"no cluster count <= {_MAX_CLUSTER_SEARCH} makes n**-n fall "
+                f"below ci_low/100 = {ci_low / 100.0!r}. This should be "
+                "unreachable for a positive ci_low; treat it as a bug in the "
+                "derivation rather than as a floor to raise."
+            )
+    return n
+
+
+# A per-CELL floor, and a different quantity from MIN_CLUSTERS_FOR_CI: that one
+# decides whether a bootstrap runs at all, this one decides whether a zero-width
+# result from a bootstrap that DID run can be believed. Never used alone — see
+# `_unresolvable_interval`, which requires zero width as well.
+MIN_CLUSTERS_FOR_RESOLVABLE_CI = _min_clusters_for_resolvable_ci()
+
 LLM_TREATMENT = "raw"
 LLM_LEVEL = "level2"
 
@@ -266,6 +364,7 @@ BANDS_COLUMNS = [
     "n_speeches",
     "n_paired_paragraphs",
     "ci_status",
+    "interval_unresolvable",
     "disagreement_band_applied",
     "disagreement_half_width",
     "ci_components",
@@ -310,6 +409,34 @@ def _ci_status(n_speeches: int, n_paragraphs: int) -> str:
     return "ok"
 
 
+def _unresolvable_interval(
+    lo: np.ndarray, hi: np.ndarray, n_clusters: int
+) -> np.ndarray:
+    """Per-cell mask: the bootstrap ran, returned zero width, and could not have
+    returned anything else.
+
+    BOTH conditions are required, and the conjunction is the whole point. Zero
+    width alone would suppress the legitimate confident zeros — of the 19
+    zero-width Surface A cells this gate is shown (the PRE-gate census; the
+    shipped table keeps 7), 7 sit in `ci_status == "ok"` periods where 13-14
+    speeches genuinely never touched the issue, and those are findings, not
+    artifacts. That 13-14 is the whole range, not a floor: 14 is the largest
+    `n_speeches` on ANY zero-width Surface A cell, flagged or kept. The corpus's
+    per-period maximum is 67, but that period has no zero-width cell — quoting
+    67, or "dozens", would describe evidence this conjunction has never actually
+    had to weigh. Too-few-clusters alone would suppress 1785's
+    Religion & values (0.0–66.7%), whose two speeches disagree and whose
+    enormous band is the honest signal this module exists to draw.
+
+    A NaN bound (the `suppressed_n_floor` case) compares False and is therefore
+    never flagged: there is no interval to withdraw, and `ci_status` already
+    names that cause. Two columns must not claim the same suppression.
+    """
+    if n_clusters >= MIN_CLUSTERS_FOR_RESOLVABLE_CI:
+        return np.zeros(len(lo), dtype=bool)
+    return np.asarray(lo == hi)
+
+
 def bootstrap_corex_periods(
     labels: pd.DataFrame,
     issue_names: list[str],
@@ -328,9 +455,12 @@ def bootstrap_corex_periods(
 
     Returns:
         One row per (issue, period) with `point`, `lo_sampling`, `hi_sampling`
-        as FRACTIONS (not percentages), plus `n_paragraphs`, `n_speeches` and
-        `ci_status`. A period with fewer than `MIN_CLUSTERS_FOR_CI` speeches
-        gets NaN bounds — see the module docstring on why a degenerate
+        as FRACTIONS (not percentages), plus `n_paragraphs`, `n_speeches`,
+        `ci_status` and the per-cell `interval_unresolvable`. A period with
+        fewer than `MIN_CLUSTERS_FOR_CI` speeches gets NaN bounds for every
+        series; an individual cell whose bootstrap returned zero width below
+        `MIN_CLUSTERS_FOR_RESOLVABLE_CI` clusters gets NaN bounds too, and is
+        the one flagged — see the module docstring on why a degenerate
         zero-width interval is worse than none.
     """
     d = labels.assign(period=(labels["year"] // PERIOD_YEARS) * PERIOD_YEARS)
@@ -361,6 +491,13 @@ def bootstrap_corex_periods(
             lo = np.percentile(replicates, CI_LOW, axis=0)
             hi = np.percentile(replicates, CI_HIGH, axis=0)
 
+        # Withdraw the interval where the bootstrap could not resolve one, and
+        # do it HERE rather than at render time: a consumer reading the parquet
+        # without the site's code must not find a fabricated 0.0-0.0 bound.
+        unresolvable = _unresolvable_interval(lo, hi, n_docs)
+        lo = np.where(unresolvable, np.nan, lo)
+        hi = np.where(unresolvable, np.nan, hi)
+
         for i, name in enumerate(issue_names):
             rows.append({
                 "series": name,
@@ -376,6 +513,7 @@ def bootstrap_corex_periods(
                 "n_paragraphs": n_paragraphs,
                 "n_speeches": n_docs,
                 "ci_status": status,
+                "interval_unresolvable": bool(unresolvable[i]),
             })
     return pd.DataFrame(rows)
 
@@ -616,6 +754,33 @@ def llm_bands(taxonomy: dict | None = None) -> pd.DataFrame:
         for s, p in zip(out["n_speeches"], out["n_paragraphs"])
     ]
 
+    # Same per-cell gate as Surface A, computed rather than asserted absent.
+    # Surface B's thinnest era carries 55 speech clusters, so nothing here is
+    # flagged today — but hardcoding False would make that a claim about the
+    # code instead of a fact about the data, and would go stale silently if the
+    # era axis were ever recut. Note it is tested on the SAMPLING interval: the
+    # bootstrap is what did or did not resolve, and a nonzero annotator
+    # half-width added on top would otherwise mask a degenerate one as a real
+    # width.
+    #
+    # Called per row rather than vectorized, deliberately. `_unresolvable_interval`
+    # takes ONE cluster count for a whole array because Surface A calls it once
+    # per period, where that is exactly right; Surface B's cluster count varies
+    # by row. Vectorizing here would mean either changing that signature — a
+    # freshly test-pinned function shared by both surfaces — or inlining the
+    # gate's two conditions a second time, which is how the two surfaces come to
+    # disagree about what "unresolvable" means. 450 scalar calls in a $0 offline
+    # builder is not a cost worth that.
+    unresolvable = np.array([
+        _unresolvable_interval(np.array([lo_s]), np.array([hi_s]), int(n))[0]
+        for lo_s, hi_s, n in zip(
+            out["lo_sampling"], out["hi_sampling"], out["n_speeches"]
+        )
+    ], dtype=bool)
+    out["interval_unresolvable"] = unresolvable
+    out["lo_sampling"] = out["lo_sampling"].where(~unresolvable)
+    out["hi_sampling"] = out["hi_sampling"].where(~unresolvable)
+
     # Two independent preconditions, and they fail for different reasons — so
     # they get different statuses. Collapsing them would report "thin paired
     # sample" for a cell whose paired sample was ample and whose *sampling*
@@ -657,6 +822,7 @@ def build_bands() -> pd.DataFrame:
     out["n_paragraphs"] = out["n_paragraphs"].astype(int)
     out["n_speeches"] = out["n_speeches"].astype(int)
     out["disagreement_band_applied"] = out["disagreement_band_applied"].astype(bool)
+    out["interval_unresolvable"] = out["interval_unresolvable"].astype(bool)
     return out.sort_values(
         ["surface", "series", "period_order"], kind="mergesort"
     ).reset_index(drop=True)
@@ -682,12 +848,85 @@ def write_bands(table: pd.DataFrame, path: Path = BANDS_PATH) -> Path:
     re-derivation in `tests/test_band_charts.py`
     (`TestMetaCoverageFiguresAreNotDrifting`) instead, which is where a drifting
     literal actually gets caught.
+
+    Raises:
+        ValueError: If `CI_LOW` no longer derives the floor the gate applies.
+            Checked FIRST, before any file is touched — see below.
     """
+    # Checked before the mkdir and before the parquet write, deliberately.
+    # `derived_floor` follows LIVE `CI_LOW`; the `predicate` string and
+    # `min_clusters_for_resolvable_ci` in the meta report the IMPORT-BOUND
+    # `MIN_CLUSTERS_FOR_RESOLVABLE_CI`, which is what the gate in
+    # `_unresolvable_interval` actually applies. Unreachable in production —
+    # there is no `--ci-low` flag, so the two are the same object — but a test
+    # that patches `CI_LOW` alone already makes them diverge, and the failure
+    # mode is the self-defeating rationale: a `floor_derivation` block
+    # concluding "n=3 is the first n where it can" printed beside a published
+    # floor of 4. The gate stays truthful either way; the JUSTIFICATION would
+    # be arguing for a different number than the one in force.
+    #
+    # Ordering is the point. This guard used to sit AFTER `to_parquet`, so a
+    # divergent call replaced `data/bands.parquet` and then raised — leaving a
+    # new table on disk beside a sidecar describing the old one. In a repo whose
+    # rule is "a dirty `git status data/bands.parquet` means the numbers moved",
+    # a half-written pair is worse than either writing both or writing neither:
+    # the numbers moved and the provenance did not follow. It depends on nothing
+    # but module constants, so there is no reason for it to run late.
+    derived_floor = _min_clusters_for_resolvable_ci(CI_LOW)
+    if derived_floor != MIN_CLUSTERS_FOR_RESOLVABLE_CI:
+        raise ValueError(
+            f"CI_LOW={CI_LOW} derives a resolvable-CI floor of {derived_floor}, "
+            f"but the gate in force is MIN_CLUSTERS_FOR_RESOLVABLE_CI="
+            f"{MIN_CLUSTERS_FOR_RESOLVABLE_CI}. Writing this meta would publish "
+            "a derivation that argues for a floor the artifact does not use. "
+            "Retune CI_LOW at module scope (so the constant follows it) and "
+            "rebuild, rather than patching one of the two. Nothing has been "
+            "written; neither the parquet nor its sidecar was touched."
+        )
+
     path.parent.mkdir(parents=True, exist_ok=True)
     table.to_parquet(path, index=False)
 
     n_llm = int((table["surface"] == LLM_SURFACE).sum())
     applied = int(table["disagreement_band_applied"].sum())
+
+    # Derived from the table being written wherever it can be; every number
+    # below that IS typed is pinned by a re-derivation test. `bands_meta.json` is
+    # the one new prose block on `topic-chart-upgrades` that shipped with a
+    # wrong number, and the two blocks with a re-derivation stayed correct
+    # (CLAUDE.md, "a provenance artifact's explanatory strings are prose").
+    flagged = {
+        s: int(table.loc[table["surface"] == s, "interval_unresolvable"].sum())
+        for s in (COREX_SURFACE, LLM_SURFACE)
+    }
+    rows_total = {
+        s: int((table["surface"] == s).sum())
+        for s in (COREX_SURFACE, LLM_SURFACE)
+    }
+    flagged_periods = {
+        s: sorted(table.loc[
+            (table["surface"] == s) & table["interval_unresolvable"], "period"
+        ].unique().tolist())
+        for s in (COREX_SURFACE, LLM_SURFACE)
+    }
+    corex = table[table["surface"] == COREX_SURFACE]
+    survivors = corex[corex["lo"].notna() & (corex["lo"] == corex["hi"])]
+    kept_zero_width = int(len(survivors))
+    kept_zero_width_periods = sorted(survivors["period"].unique().tolist())
+
+    # `floor_derivation` below is a pure function of CI_LOW — the ladder, the
+    # threshold AND the conclusion, not just the threshold. Interpolating one
+    # number of an argument and typing the rest is how a rationale ends up
+    # contradicting itself: at CI_LOW = 5.0 a typed ladder reported "0.0039 at
+    # n=4 ... n=4 is the first n where it can" beside a threshold of 0.05, which
+    # its own n=3 rung (0.037) already clears. The block was correct as
+    # published; this keeps it correct after a retune, which is what its closing
+    # sentence promises. `derived_floor` is computed at the top of this function
+    # so its consistency check can run before anything is written.
+    concentration_ladder = ", ".join(
+        f"{n ** (-n):.2g} at n={n}"
+        for n in range(MIN_CLUSTERS_FOR_CI, derived_floor + 1)
+    )
     meta = {
         # No wall-clock stamp, on purpose: every value here is a pure function
         # of the frozen inputs, so a timestamp would make `git status` dirty on
@@ -798,12 +1037,72 @@ def write_bands(table: pd.DataFrame, path: Path = BANDS_PATH) -> Path:
                     "dropped exactly one of 49 five-year periods (1785, 14 "
                     "paragraphs, 2 speeches) and is now a de-emphasis flag",
             "degenerate_interval_predicate": (
-                "ci_status == 'low_cluster_caution' and lo == hi — a bootstrap "
-                "over n clusters has only C(2n-1, n) distinct resamples (3 at "
-                "n=2), so such a cell's zero-width interval means 'too few "
-                "speeches to resolve one', NOT a confident zero. Left published "
-                "rather than suppressed; see the module docstring."
+                "SUPERSEDED by the per-cell `interval_unresolvable` column "
+                "below. Cells matching it no longer publish lo/hi at all: the "
+                "zero-width interval is withdrawn (lo, hi, lo_sampling and "
+                "hi_sampling are all null) and the point estimate is kept."
             ),
+        },
+        "interval_unresolvable": {
+            "column": "interval_unresolvable",
+            "grain": "per CELL (surface, series, period) — unlike ci_status, "
+                     "which is per PERIOD by construction and keeps its own "
+                     "meaning unchanged",
+            "predicate": (
+                "the bootstrap ran and returned a zero-width interval "
+                "(lo_sampling == hi_sampling) in a period with fewer than "
+                f"{MIN_CLUSTERS_FOR_RESOLVABLE_CI} speech clusters"
+            ),
+            "effect": (
+                "lo, hi, lo_sampling and hi_sampling are null; `point` is still "
+                "published, because the observed share is a real measurement "
+                "and only the interval was unresolvable. The charts draw a "
+                "hollow marker at these points so a reader who never hovers can "
+                "still tell them apart from a banded estimate."
+            ),
+            "why_both_conditions": (
+                "zero width ALONE would suppress legitimate confident zeros — "
+                f"{kept_zero_width} of the "
+                f"{kept_zero_width + flagged[COREX_SURFACE]} zero-width "
+                f"corex_issues cells survive this gate, in periods "
+                f"{kept_zero_width_periods} where enough speeches genuinely "
+                "never touched the issue, which is a finding. Too-few-clusters "
+                "ALONE would suppress 1785's Religion & values, whose two "
+                "speeches disagree and whose 0.0-66.7% band is the honest "
+                "signal. Both conditions are required."
+            ),
+            "why_not_ci_status": (
+                "ci_status fires on n_speeches < 8 OR n_paragraphs < 40, so "
+                "'ci_status == low_cluster_caution and lo == hi' would also "
+                "suppress a paragraph-thin but SPEECH-RICH period, where the "
+                "resample space is large and an all-zero result is real. No such "
+                "period exists in this corpus, so the two predicates select the "
+                f"same {flagged[COREX_SURFACE]} cells today — but only the "
+                "cluster-count one says what it means."
+            ),
+            "min_clusters_for_resolvable_ci": MIN_CLUSTERS_FOR_RESOLVABLE_CI,
+            "floor_derivation": (
+                "not chosen: the most concentrated resample (all n draws on one "
+                "cluster) carries probability n**-n = "
+                f"{concentration_ladder}. Until that drops below CI_LOW/100 = "
+                f"{CI_LOW / 100}, the lower percentile cannot exclude even the "
+                "single most extreme resample, so the 'interval' is the full "
+                f"span of the resample space. n={derived_floor} is the first n "
+                "where it can. Computed from CI_LOW by "
+                "bands._min_clusters_for_resolvable_ci, so retuning the "
+                "percentile moves the floor with it."
+            ),
+            "distinct_resamples": {
+                str(n): distinct_resamples(n) for n in (2, 3, 4, 5, 10)
+            },
+            "min_clusters_for_ci_unchanged": (
+                f"MIN_CLUSTERS_FOR_CI stays at {MIN_CLUSTERS_FOR_CI}. Raising it "
+                "to 3 would delete the 1785 period outright; the defect was the "
+                "interval, never the point estimate."
+            ),
+            "rows_flagged": flagged,
+            "rows_total": rows_total,
+            "flagged_periods": flagged_periods,
         },
         "corpus_fingerprint": corpus_fingerprint(),
         "api_calls": 0,
@@ -861,6 +1160,12 @@ def print_checks(table: pd.DataFrame) -> None:
               f"periods: {sub['period'].nunique()}")
         print(f"  ci_status: {sub['ci_status'].value_counts().to_dict()}")
         print(f"  ci_components: {sub['ci_components'].value_counts().to_dict()}")
+        flagged = sub[sub["interval_unresolvable"]]
+        print(f"  interval_unresolvable: {len(flagged)} "
+              f"(periods {sorted(flagged['period'].unique().tolist())})")
+        kept = sub[sub["lo"].notna() & (sub["lo"] == sub["hi"])]
+        print(f"  zero-width intervals KEPT (legitimate): {len(kept)} "
+              f"(periods {sorted(kept['period'].unique().tolist())})")
         print(f"  band width (pp): median {np.nanmedian(width):.2f}  "
               f"max {np.nanmax(width):.2f}")
     corex = table[table["surface"] == COREX_SURFACE]

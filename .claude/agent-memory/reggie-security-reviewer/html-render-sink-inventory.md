@@ -41,6 +41,15 @@ against this table rather than re-tracing. Only flag the unescaped sinks.
   chart title cannot break out. Verified by injecting it into a `yaxis.title`. Note plain
   `json.dumps` does NOT escape `/` — the safety is plotly's, not Python's, so a hand-rolled
   `json.dumps` into a `<script>` block would be a real finding.
+- **Band-chart trace helpers** (`issues_site.unresolved_traces` hovertemplate with `unit=` /
+  `suffix=title` into `<extra>`; `issues_site.band_label` cause-strings into `customdata`;
+  `site._banded_small_multiples` passing panel titles through). Same class as `line_traces` /
+  `_band_hover`: everything lands in plotly *config* and is serialized by `pio.to_json`.
+  Re-verified 2026-07-22 on `suppress-degenerate-band-intervals` by injecting
+  `</script><script>alert(1)</script><img src=x onerror=alert(2)>` as BOTH `unit` and `suffix` —
+  raw payload absent from the JSON, `<` present. `band_label` interpolates only floats and
+  `int(n)`. The ring caption sentences (issue page + `site.SECTIONS`) are **static literals**, no
+  interpolation at all. Do not re-flag any of these.
 - **`issues_site.issue_slug` -> filename**: delegates to `profiles.slug`, which is
   `re.sub(r"[^a-z]+", "-", s.lower()).strip("-")`. Proven: `../../../etc/passwd` -> `etc-passwd`.
   No traversal, no extension control, digits/dots/slashes all gone. Only residual risk is

@@ -60,6 +60,9 @@ site, and say in the test why.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
@@ -92,8 +95,14 @@ def _band(rows: list[dict]) -> pd.DataFrame:
             "lo_sampling": lo,
             "hi_sampling": hi,
             "n_speeches": r.get("n_speeches", 12),
+            "n_paragraphs": r.get("n_paragraphs", 200),
             "ci_status": r.get(
                 "ci_status", "suppressed_n_floor" if missing else "ok"),
+            # Defaults False: a missing interval in this helper means
+            # `suppressed_n_floor` (no bootstrap ran), which is a DIFFERENT
+            # thing from `interval_unresolvable` (a bootstrap ran and resolved
+            # no width). Tests that want the ring must ask for it by name.
+            "interval_unresolvable": r.get("interval_unresolvable", False),
             "ci_components": r.get("ci_components", "sampling_only"),
         })
     return pd.DataFrame(out)
@@ -330,20 +339,414 @@ class TestLineTraces:
         """`ci_status` is the machine-readable trust gate; putting it in the tip
         is what stops a reader treating a cautioned interval as an `ok` one."""
         dotted, _ = S.line_traces(band)
-        assert list(dotted.customdata[0]) == [0.0, 60.0, 2, "low_cluster_caution"]
+        # The interval arrives PRE-FORMATTED in one slot rather than as two
+        # numbers formatted by plotly, because a withdrawn interval has to
+        # render as prose ("not resolvable …") and a `:.1f` directive would
+        # print the literal string `nan` for it. See `issues_site.band_label`.
+        assert list(dotted.customdata[0]) == [
+            "0.0–60.0", 2, "low_cluster_caution"]
         assert "95% band" in dotted.hovertemplate
-        assert "customdata[3]" in dotted.hovertemplate
+        assert "customdata[2]" in dotted.hovertemplate
 
     def test_components_are_shown_only_where_they_vary(self, band):
         """Surface A is permanently `sampling_only`, so printing it on every
         CorEx tip would be noise; Surface B's tip must say which components its
         interval contains."""
         plain, _ = S.line_traces(band)
-        assert plain.customdata.shape[1] == 4
+        assert plain.customdata.shape[1] == 3
         withc, _ = S.line_traces(band, show_components=True)
-        assert withc.customdata.shape[1] == 5
-        assert list(withc.customdata[:, 4]) == ["sampling_only"] * 3
-        assert "customdata[4]" in withc.hovertemplate
+        assert withc.customdata.shape[1] == 4
+        assert list(withc.customdata[:, 3]) == ["sampling_only"] * 3
+        assert "customdata[3]" in withc.hovertemplate
+
+
+# --------------------------------------------------------------------------- #
+# 3b. the withdrawn interval: its tooltip prose and its hollow ring
+# --------------------------------------------------------------------------- #
+class TestBandLabel:
+    """`band_label` formats the interval in Python, and a null bound is null for
+    two different reasons that must not be conflated.
+
+    Only ONE of the three branches is reachable from the shipped artifact today
+    (`suppressed_n_floor` has no rows at all on Surface A after 1785 was
+    recovered), which is exactly why each is pinned here: a dormant branch is
+    where a `:.1f`-on-a-null regression would sit unnoticed until the corpus
+    grew a period that reached it.
+    """
+
+    def test_a_published_interval_renders_as_a_range(self):
+        band = _band([{"x": 1900, "lo": 0.081, "hi": 0.124, "n_speeches": 40}])
+        assert list(S.band_label(band)) == ["8.1–12.4"]
+
+    def test_an_unresolvable_cell_names_the_bootstrap_as_the_cause(self):
+        """"the speeches agree exactly" — a different sentence from "too few
+        speeches to bootstrap", because it is a different failure: here a
+        bootstrap DID run."""
+        band = _band([{"x": 1785, "n_speeches": 2, "point": 0.0,
+                       "interval_unresolvable": True}])
+        (label,) = S.band_label(band)
+        assert label.startswith("not resolvable")
+        assert "2 speeches agree exactly" in label
+        assert "no width to report" in label
+
+    def test_a_suppressed_n_floor_cell_names_the_MISSING_bootstrap_instead(self):
+        """THE DORMANT BRANCH. No shipped row reaches it — every Surface A
+        period has at least two speeches — so nothing else in the suite would
+        notice if it started rendering `nan` or the wrong cause."""
+        band = _band([{"x": 1785, "n_speeches": 1,
+                       "ci_status": "suppressed_n_floor"}])
+        (label,) = S.band_label(band)
+        assert label == "not published — too few speeches to bootstrap"
+
+    def test_the_two_null_causes_render_differently(self):
+        """Both rows have null bounds; only the flag distinguishes them, and the
+        reader must be told which one they are looking at."""
+        band = _band([
+            {"x": 1785, "n_speeches": 1, "ci_status": "suppressed_n_floor"},
+            {"x": 1790, "n_speeches": 3, "interval_unresolvable": True},
+        ])
+        first, second = S.band_label(band)
+        assert first != second
+        assert "not published" in first and "not resolvable" in second
+
+    def test_no_branch_can_ever_emit_the_string_nan(self):
+        """The regression this formatter exists to prevent, demonstrated inline:
+        a plotly `%{customdata[0]:.1f}` on a null renders the literal `nan`, and
+        "95% band nan–nan" reads as a measurement."""
+        assert f"{float('nan'):.1f}" == "nan"  # what the old template did
+        band = _band([
+            {"x": 1785, "n_speeches": 1, "ci_status": "suppressed_n_floor"},
+            {"x": 1790, "n_speeches": 3, "interval_unresolvable": True},
+            {"x": 1900, "lo": 0.1, "hi": 0.2, "n_speeches": 40},
+            {"x": 1905, "lo": 0.1, "hi": np.nan, "n_speeches": 40},
+        ])
+        labels = list(S.band_label(band))
+        assert len(labels) == 4
+        assert not [l for l in labels if "nan" in l.lower()], labels
+
+    def test_the_flag_wins_over_a_half_present_bound(self):
+        """A flagged row nulls all four bounds in `bands.py`, so a flagged row
+        with a surviving `lo` should not exist — but if one ever did, the flag
+        is the more specific claim and must be what the tip reports."""
+        band = _band([{"x": 1785, "lo": 0.0, "hi": 0.0, "n_speeches": 2,
+                       "interval_unresolvable": True}])
+        assert S.band_label(band)[0].startswith("not resolvable")
+
+
+class TestUnresolvedRingTraces:
+    """The hollow ring — the reader-facing half of the change.
+
+    Suppressing a zero-width band changes no pixels (it already occupied none),
+    so without a positive marker the whole feature is invisible. These assert
+    the marker exists, is hollow, and lands on exactly the flagged cells.
+    """
+
+    def test_nothing_flagged_draws_no_ring_at_all(self):
+        """An empty trace would still register as "a marker layer exists" to
+        any later count-based test; returning [] keeps that honest."""
+        band = _band([{"x": 1900, "lo": 0.1, "hi": 0.2},
+                      {"x": 1905, "lo": 0.1, "hi": 0.2}])
+        assert S.unresolved_traces(band) == []
+
+    def test_absent_empty_and_column_less_frames_draw_no_ring(self):
+        assert S.unresolved_traces(None) == []
+        assert S.unresolved_traces(_band([])) == []
+        legacy = _band([{"x": 1900, "lo": 0.1, "hi": 0.2}]).drop(
+            columns=["interval_unresolvable"])
+        assert S.unresolved_traces(legacy) == [], (
+            "a band table written before the column existed must not crash"
+        )
+
+    def test_the_ring_is_hollow_and_sits_at_the_flagged_points(self):
+        band = _band([
+            {"x": 1785, "n_speeches": 2, "n_paragraphs": 14, "point": 0.0,
+             "interval_unresolvable": True},
+            {"x": 1790, "lo": 0.10, "hi": 0.20, "point": 0.15, "n_speeches": 9},
+            {"x": 1795, "n_speeches": 3, "n_paragraphs": 30, "point": 0.25,
+             "interval_unresolvable": True},
+        ])
+        (ring,) = S.unresolved_traces(band)
+        assert ring.mode == "markers"
+        assert ring.marker.symbol == "circle-open"
+        assert ring.showlegend is False
+        # exactly the flagged x's, and the unflagged 1790 is not among them
+        assert list(ring.x) == [1785, 1795]
+        assert list(ring.y) == [0.0, 25.0], "point, in percent"
+
+    def test_the_ring_is_drawn_for_a_NON_ZERO_point_too(self):
+        """`cliponaxis=False` is justified in source by "every flagged cell has
+        point == 0", which is empirical. A flagged cell at a non-zero share is
+        structurally possible (all clusters agreeing at 50% is just as
+        unresolvable), and it must still get a ring at its own height."""
+        band = _band([{"x": 1785, "n_speeches": 3, "n_paragraphs": 30,
+                       "point": 0.5, "interval_unresolvable": True}])
+        (ring,) = S.unresolved_traces(band)
+        assert list(ring.y) == [50.0]
+        assert ring.cliponaxis is False, (
+            "a ring at point == 0 sits on the axis floor and would be cropped"
+        )
+
+    def test_the_hover_names_both_counts_behind_the_suppression(self):
+        band = _band([{"x": 1785, "n_speeches": 2, "n_paragraphs": 14,
+                       "point": 0.0, "interval_unresolvable": True}])
+        (ring,) = S.unresolved_traces(band)
+        assert list(ring.customdata[0]) == [2, 14]
+        assert "no interval" in ring.hovertemplate
+        assert "too few to resolve one" in ring.hovertemplate
+
+    def test_the_marker_size_is_caller_controlled(self):
+        """The dashboard grid draws smaller rings than the single-issue page —
+        the panels are a quarter the width. Both call sites pass it explicitly,
+        so the default must not be silently shared."""
+        band = _band([{"x": 1785, "n_speeches": 2, "point": 0.0,
+                       "interval_unresolvable": True}])
+        assert S.unresolved_traces(band)[0].marker.size == 9
+        assert S.unresolved_traces(band, size=7)[0].marker.size == 7
+
+    def test_a_null_flag_is_treated_as_not_flagged(self):
+        band = _band([{"x": 1900, "lo": 0.1, "hi": 0.2}])
+        band["interval_unresolvable"] = pd.NA
+        assert S.unresolved_traces(band) == []
+
+
+class TestRingAndBandTogether:
+    """The withdrawn cell must route through the existing run-splitting, which
+    was hard-won and heavily tested — the task's own bail condition."""
+
+    @pytest.fixture
+    def band(self) -> pd.DataFrame:
+        return _band([
+            {"x": 1785, "n_speeches": 2, "n_paragraphs": 14, "point": 0.0,
+             "ci_status": "low_cluster_caution", "interval_unresolvable": True},
+            {"x": 1790, "lo": 0.10, "hi": 0.20, "point": 0.15, "n_speeches": 9},
+            {"x": 1795, "lo": 0.11, "hi": 0.19, "point": 0.14, "n_speeches": 11},
+        ])
+
+    def test_no_band_polygon_spans_the_withdrawn_cell(self, band):
+        """Nulling `lo`/`hi` makes the flagged period a gap, and a gap is
+        exactly what the run-splitter already refuses to draw across."""
+        traces = S.band_traces(band)
+        assert len(traces) == 1
+        assert 1785 not in _xs(traces[0])
+        assert min(_xs(traces[0])) == 1790
+
+    def test_the_figure_carries_the_ring_on_top_of_the_line(self, band):
+        """Trace ORDER is the assertion: plotly paints later traces above
+        earlier ones, so a ring added before the trend line would be hidden by
+        it at exactly the point it is meant to annotate."""
+        dots = pd.DataFrame({"x": [1790], "y": [15.0], "name": ["A"], "n": [40]})
+        fig = S.fig_issue_timeline(
+            pd.DataFrame({"year": [1790], "war": [True]}), "war", "War", dots, band)
+        symbols = [t.marker.symbol for t in fig.data if t.mode == "markers"]
+        assert symbols.count("circle-open") == 1
+        ring_at = next(i for i, t in enumerate(fig.data)
+                       if t.mode == "markers" and t.marker.symbol == "circle-open")
+        line_at = max(i for i, t in enumerate(fig.data) if t.mode == "lines")
+        assert ring_at > line_at, "the ring must be painted after the trend line"
+
+    def test_the_unbanded_fallback_draws_no_ring(self, band):
+        """`band=None` renders the pre-band chart; there is no flag to read, and
+        inventing a ring there would mark cells nothing has evaluated."""
+        pl = pd.DataFrame({"year": [1900] * 50, "war": [True] * 25 + [False] * 25})
+        dots = pd.DataFrame({"x": [1900], "y": [50.0], "name": ["A"], "n": [50]})
+        fig = S.fig_issue_timeline(pl, "war", "War", dots, None)
+        assert not [t for t in fig.data
+                    if t.mode == "markers" and t.marker.symbol == "circle-open"]
+
+
+class TestRingCaption:
+    """`render_issue`'s ring sentence is gated on the page actually drawing one.
+
+    A caption describing a marker the reader cannot find is a small lie in the
+    same family as the marker it describes.
+    """
+
+    OWNERS = pd.DataFrame({"share": [12.0, 8.0]},
+                          index=["Washington", "Adams"])
+
+    def _page(self, has_unresolved: bool) -> str:
+        return S.render_issue("War & military", self.OWNERS, go.Figure(), [],
+                              has_unresolved)
+
+    def test_the_sentence_appears_only_where_a_ring_is_drawn(self):
+        assert "A hollow ring marks" in self._page(True)
+        assert "A hollow ring marks" not in self._page(False)
+
+    def test_the_default_is_no_claim(self):
+        """Positional callers predate the parameter; the safe default is the
+        page that promises nothing."""
+        page = S.render_issue("War & military", self.OWNERS, go.Figure(), [])
+        assert "A hollow ring marks" not in page
+
+    def test_the_sentence_says_the_uncertainty_is_unknown_not_small(self):
+        """The distinction the whole task exists to draw. A caption that said
+        "a narrow band" would reintroduce the defect in prose."""
+        page = self._page(True)
+        assert "which is not the same as small" in page
+        assert "its uncertainty is unknown" in page
+
+    def test_the_flag_changes_the_page_in_exactly_one_place(self):
+        """The gate adds a sentence and nothing else — no layout divergence
+        between the pages that draw a ring and the ones that do not.
+
+        Asserted by excising the one slot the note occupies and comparing the
+        remainder byte for byte, rather than by counting tags: a count-based
+        check would pass while the note leaked into a second location.
+        """
+        with_ring, without = self._page(True), self._page(False)
+        assert len(with_ring) > len(without)
+        head, tail = "too thin to trust.", "Each dot is one president's"
+
+        def excise(page: str) -> str:
+            return page[:page.index(head) + len(head)] + page[page.index(tail):]
+
+        assert excise(with_ring) == excise(without)
+        assert "A hollow ring marks" not in excise(with_ring)
+
+
+class TestRenderedDocsMatchTheArtifact:
+    """The `has_unresolved` DERIVATION, checked end to end against `docs/`.
+
+    `render_issue`'s gating is unit-tested above, but the expression that feeds
+    it lives in `write_issue_pages`, which needs the full corpus and is not
+    unit-testable. Hardcoding it to True or False leaves every unit test green
+    — verified by mutation. The committed pages are the seam: for every one of
+    the 16 rendered issues, "does this page promise a ring" must equal "does
+    this issue have a flagged cell in `bands.parquet`", and both sides are
+    recomputed here rather than listed.
+    """
+
+    CAPTION = "A hollow ring marks"
+    DOCS = Path(__file__).resolve().parents[1] / "docs"
+
+    @pytest.fixture(scope="class")
+    def pages(self) -> list[tuple[str, bool, str]]:
+        """(series, has a flagged cell, page text) for every rendered issue."""
+        from presidential_profiles import profiles_site, topic_quality
+
+        table = pd.read_parquet(
+            Path(__file__).resolve().parents[1] / "data" / "bands.parquet")
+        corex = table[table["surface"] == B.COREX_SURFACE]
+        meta = json.loads(
+            (Path(__file__).resolve().parents[1] / "data" / "issues_meta.json"
+             ).read_text())
+        out = []
+        for name in topic_quality.display_issues(meta["issues"]):
+            label = profiles_site.DISCOVERED_LABELS.get(name, name)
+            path = self.DOCS / "issues" / f"{S.issue_slug(label)}.html"
+            flagged = bool(
+                corex.loc[corex["series"] == name, "interval_unresolvable"].any())
+            out.append((name, flagged, path.read_text()))
+        return out
+
+    def test_the_caption_appears_on_exactly_the_pages_that_draw_a_ring(self, pages):
+        assert len(pages) == 16, "every display issue renders a page"
+        promised = {name for name, _, text in pages if self.CAPTION in text}
+        flagged = {name for name, flag, _ in pages if flag}
+        assert promised == flagged
+        # both sides non-trivial: an all-True or all-False derivation would
+        # otherwise satisfy set equality against a degenerate other side.
+        assert 0 < len(flagged) < len(pages), len(flagged)
+
+    def test_each_flagged_page_actually_contains_a_ring_trace(self, pages):
+        """The caption and the marker must not come apart: a page promising a
+        ring whose figure has none is the same lie in the other direction."""
+        for name, flagged, text in pages:
+            assert (text.count("circle-open") == 1) is flagged, name
+
+    def test_the_dashboard_grid_rings_match_the_flagged_display_issues(self, pages):
+        """`index.html` carries one ring trace per flagged panel — the site's
+        second call site, and the one a per-issue-page test cannot cover."""
+        flagged = sum(1 for _, flag, _ in pages if flag)
+        assert flagged == 11
+        assert (self.DOCS / "index.html").read_text().count("circle-open") == flagged
+
+    def test_the_caption_gate_is_computed_from_the_flag_column(self):
+        """A STRUCTURAL stand-in, and the reason it is structural is worth
+        stating.
+
+        The test above compares the committed pages against the committed
+        parquet, which catches the two artifacts drifting apart — the live risk
+        for a checked-in `docs/` tree. What it cannot catch is a SOURCE change
+        made without a site rebuild: hardcode `has_unresolved = True` and every
+        page-based assertion stays green until someone regenerates. Covering
+        that behaviourally means running `write_issue_pages`, which reads three
+        parquets, merges 36k paragraphs and renders 16 pages — far outside this
+        file's "no page is built from the real corpus" budget.
+
+        So the contract is asserted on the expression itself: the gate must be
+        DERIVED from the flag column, not a constant. Mutating it to `and True`
+        or `and False` leaves every other test in both files passing.
+        """
+        import ast
+
+        tree = ast.parse(Path(S.__file__).read_text())
+        fn = next(n for n in ast.walk(tree)
+                  if isinstance(n, ast.FunctionDef) and n.name == "write_issue_pages")
+        assigns = [n for n in ast.walk(fn) if isinstance(n, ast.Assign)
+                   and any(getattr(t, "id", None) == "has_unresolved"
+                           for t in n.targets)]
+        assert len(assigns) == 1, "expected exactly one has_unresolved assignment"
+        value = assigns[0].value
+        assert not isinstance(value, ast.Constant), (
+            "the ring caption is gated on a literal — every page would promise "
+            "a marker, or none would"
+        )
+        source = ast.unparse(value)
+        # The gate may name the flag column directly OR go through the module's
+        # one named predicate for it (`unresolved_mask`, which exists so the
+        # caption gate and the ring-drawing trace cannot drift apart). The
+        # indirection is accepted only after confirming the helper itself still
+        # reads the column — otherwise the derivation could quietly vanish one
+        # level down, which is exactly what this guard exists to prevent.
+        if "interval_unresolvable" not in source:
+            assert "unresolved_mask" in source, source
+            helper = next(
+                (n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)
+                 and n.name == "unresolved_mask"), None)
+            assert helper is not None, (
+                "the gate delegates to unresolved_mask, which does not exist"
+            )
+            # The helper's DOCSTRING is stripped before matching, because it
+            # names the column in prose and would otherwise satisfy this check
+            # on a helper that had stopped reading the column entirely.
+            #
+            # NARROWED, and the narrowing is the honest part: `unresolved_mask`
+            # now also names the column in a missing-column membership check, so
+            # its BODY contains the string twice. Deleting only the real read
+            # therefore leaves this assertion green — re-confirmed by mutation.
+            # What still holds is the check one level up (the caption gate must
+            # not be a literal); what no longer holds is this level's claim to
+            # catch a hollowed-out helper. That mutation is caught behaviourally
+            # instead — it fails 9 tests across this file — so the gap is
+            # covered, but it is covered somewhere else, and saying otherwise
+            # here would be the "guard blind to the defect shape it was written
+            # for" trap CLAUDE.md records rather than an instance of avoiding it.
+            body = [n for n in helper.body
+                    if not (isinstance(n, ast.Expr)
+                            and isinstance(n.value, ast.Constant)
+                            and isinstance(n.value.value, str))]
+            helper_src = "\n".join(ast.unparse(n) for n in body)
+            assert "interval_unresolvable" in helper_src, (
+                "unresolved_mask no longer reads the flag column, so the "
+                f"caption gate is derived from nothing: {helper_src}"
+            )
+        assert ".any()" in source, source
+
+        # and it is passed on to the renderer rather than computed and dropped
+        calls = [n for n in ast.walk(fn) if isinstance(n, ast.Call)
+                 and getattr(n.func, "attr", getattr(n.func, "id", None))
+                 == "render_issue"]
+        assert len(calls) == 1
+        assert "has_unresolved" in ast.unparse(calls[0])
+
+    def test_the_control_page_promises_nothing(self, pages):
+        """Religion & values is the whole task's control: two speeches that
+        disagree, a real 0.0-66.7% band, no ring and no caption."""
+        (_, flagged, text), = [p for p in pages if p[0] == "Religion & values"]
+        assert not flagged
+        assert self.CAPTION not in text
+        assert "circle-open" not in text
 
 
 # --------------------------------------------------------------------------- #
@@ -430,6 +833,7 @@ def _llm_table(rows: list[dict]) -> pd.DataFrame:
             "point": r.get("point", 0.1),
             "n_paragraphs": r.get("n_paragraphs", 100),
             "disagreement_half_width": r.get("hw", 0.01),
+            "interval_unresolvable": r.get("interval_unresolvable", False),
         }
         for r in rows
     ])
@@ -631,6 +1035,45 @@ class TestIssuesDecadeFallback:
     def _fallback_lines(self, fig) -> list:
         return [t for t in fig.data if t.mode == "lines" and t.fill == "tozeroy"]
 
+    @staticmethod
+    def _rings(fig) -> list:
+        return [t for t in fig.data
+                if t.mode == "markers" and t.marker.symbol == "circle-open"]
+
+    def test_the_dashboard_grid_draws_a_smaller_ring_on_every_flagged_panel(
+        self, labels
+    ):
+        """The grid is the second call site, and it passes `size=7` — its panels
+        are a quarter the width of the issue page's chart. A shared default here
+        would put a 9px ring on a 4px dot overlay.
+
+        Every period in this fixture is built from speeches that agree exactly
+        (2 speeches at 1785, 3 at each of 1900/1905 — all below the resolvable
+        floor), so all three periods of all three series are flagged. The
+        precondition is asserted first: if the fixture ever stops producing
+        flagged cells, this test would otherwise pass by drawing nothing.
+        """
+        band_table = B.corex_bands(labels)
+        flagged = band_table[band_table["interval_unresolvable"]]
+        assert len(flagged) == 9, "3 series x 3 all-agreeing periods"
+        assert sorted(flagged["period"].unique()) == ["1785", "1900", "1905"]
+        assert (flagged["n_speeches"] < B.MIN_CLUSTERS_FOR_RESOLVABLE_CI).all()
+
+        fig = site.fig_issues_decade(labels, ["war", "trade"],
+                                     band_table=band_table)
+        rings = self._rings(fig)
+        assert len(rings) == 3, "one ring trace per panel"
+        for ring in rings:
+            assert list(ring.x) == [1785, 1900, 1905]
+            assert ring.marker.size == 7
+            assert ring.cliponaxis is False
+
+    def test_the_fallback_grid_draws_no_rings(self, labels):
+        """`band_table=None` has no flag column to read, so the pre-band chart
+        must not sprout markers for cells nothing evaluated."""
+        fig = site.fig_issues_decade(labels, ["war", "trade"], band_table=None)
+        assert self._rings(fig) == []
+
     def test_the_fallback_still_applies_the_old_forty_paragraph_hard_mask(self, labels):
         """The mask, and the SHARES the surviving periods carry.
 
@@ -695,7 +1138,12 @@ class TestIssuesDecadeFallback:
         for band_table in (None, B.corex_bands(labels)):
             fig = site.fig_issues_decade(labels, ["war", "trade"],
                                          band_table=band_table)
-            markers = [t for t in fig.data if t.mode == "markers"]
+            # Excluding the hollow rings, which are also a marker trace: this
+            # test is about the president-dot overlay, and counting the two
+            # together would make it pass for the wrong reason the moment a
+            # panel gained or lost an unresolvable cell.
+            markers = [t for t in fig.data if t.mode == "markers"
+                       and t.marker.symbol != "circle-open"]
             assert len(markers) == 3, "one dot overlay per panel"
             for trace in markers:
                 # Counted, not merely present: an overlay of ZERO dots is still

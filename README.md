@@ -243,8 +243,20 @@ difference between the two annotators' era shares over the 8,570 paragraphs both
 components resample **speeches**, not paragraphs. `ci_status` is the trust gate — read it before
 `lo`/`hi`, exactly as with `data/combat/` — and thin periods are now shown de-emphasized with wide
 bands rather than dropped from the chart (which recovers exactly one period, 1785).
-`bands_meta.json` records the seed, the composition rule, the cluster floors and why they differ
-from `combat.py`'s, and the caveats on the disagreement half-width in both directions.
+
+The table has a second gate at a finer grain. Over two speeches a bootstrap has only three
+distinct resamples, so when both speeches happen to contain none of an issue every replicate
+returns zero and the cell would publish a zero-width interval — a confident zero that actually
+means "two speeches told us nothing". Those cells are marked `interval_unresolvable`, publish
+**null** bounds rather than a fabricated `0.0`, keep their point estimate (the observed share is
+real; only the interval was unknowable), and render as an **open circle** instead of a point on a
+line, so the signal survives without a hover. The gate is a conjunction — no variation *and* fewer
+than four speeches — precisely so that a well-evidenced zero is not swept up with it: 12 cells,
+all at 1785, are withdrawn, while seven genuine confident zeros at 13–14 speeches keep their tight
+intervals. The four-speech floor is derived from the CI percentile rather than picked, so retuning
+one moves the other. `bands_meta.json` records the seed, the composition rule, that derivation,
+the cluster floors and why they differ from `combat.py`'s, and the caveats on the disagreement
+half-width in both directions.
 
 ## Running it
 
@@ -388,7 +400,7 @@ bare lines.
 | Topic attention | `attention.py` | Per-topic attention curves over the annotated corpus → substantive-year threshold → born/died/persistent/revived lifecycles under three genre treatments, with rename-vs-death from LLM↔CorEx divergence plus in-domain successor detection; speech-clustered bootstrap CIs — standalone, $0, not wired into `pp-analyze` |
 | Method triangulation | `triangulate.py` | Per-speech composition vectors across all three labelers (LLM taxonomy, CorEx legacy, embedding clusters); LLM↔CorEx agreement (Jaccard + kappa) per issue and per era; rename-vs-death detection separating vocabulary drift from real decline; `agreement_drivers()` isolates what actually predicts agreement once the algebraic Jaccard ceiling is controlled for; standalone, not wired into `pp-analyze` |
 | Inter-model agreement | `agreement.py` | Draws a persisted 25% era-stratified sample → Opus 4.8 re-annotates it with byte-identical prompts (model is the only variable) → Cohen's kappa / Jaccard / exact-match / entity-stance agreement per field, overall and by 30-year era bin; flags low-confidence fields, never gates — standalone paid step, no `pp-*` entry point |
-| Chart confidence bands | `bands.py` | Speech-clustered bootstrap over the CorEx issue labels at 5-year grain, reusing `attention.bootstrap_era_shares` for the LLM topic layer rather than re-deriving it → per-surface uncertainty budgets (`sampling_only` for CorEx, which has no annotator to disagree; sampling + measured Sonnet↔Opus gap for the annotated topics) → `ci_status` trust gate and visual de-emphasis in place of the old hard n-mask; standalone $0 script, read by `pp-site` |
+| Chart confidence bands | `bands.py` | Speech-clustered bootstrap over the CorEx issue labels at 5-year grain, reusing `attention.bootstrap_era_shares` for the LLM topic layer rather than re-deriving it → per-surface uncertainty budgets (`sampling_only` for CorEx, which has no annotator to disagree; sampling + measured Sonnet↔Opus gap for the annotated topics) → a per-period `ci_status` trust gate plus a per-cell `interval_unresolvable` flag that withdraws (rather than fabricates) an interval a 2-speech bootstrap could not resolve, drawn as an open circle; visual de-emphasis in place of the old hard n-mask; standalone $0 script, read by `pp-site` |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Era atlas | `eras.py` | 63 z-scored axes (topic/issue mix, style, register, combativeness, speech-type mix) per era/bin/presidency → raw + drift-detrended similarity (reusing `similarity.py`'s adjacent-era-mean trick) → contiguity-constrained periodization vs the historians' eras, checked with an `opponents`-dropped leave-one-out → LLM-written era portraits; standalone, not wired into `pp-analyze` |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |

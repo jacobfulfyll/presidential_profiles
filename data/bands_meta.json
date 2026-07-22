@@ -51,7 +51,39 @@
     },
     "de_emphasis_is_two_sided": "MIN_PERIOD_PARAGRAPHS was the charts' former hard mask and dropped exactly one of 49 periods (1785); LOW_CLUSTER_CAUTION is a new gate that additionally demotes 1820 (277 paragraphs, 7 speeches) from solid to provisional. One period recovered, one newly marked provisional.",
     "note": "MIN_PERIOD_PARAGRAPHS was the charts' former hard mask; it dropped exactly one of 49 five-year periods (1785, 14 paragraphs, 2 speeches) and is now a de-emphasis flag",
-    "degenerate_interval_predicate": "ci_status == 'low_cluster_caution' and lo == hi \u2014 a bootstrap over n clusters has only C(2n-1, n) distinct resamples (3 at n=2), so such a cell's zero-width interval means 'too few speeches to resolve one', NOT a confident zero. Left published rather than suppressed; see the module docstring."
+    "degenerate_interval_predicate": "SUPERSEDED by the per-cell `interval_unresolvable` column below. Cells matching it no longer publish lo/hi at all: the zero-width interval is withdrawn (lo, hi, lo_sampling and hi_sampling are all null) and the point estimate is kept."
+  },
+  "interval_unresolvable": {
+    "column": "interval_unresolvable",
+    "grain": "per CELL (surface, series, period) \u2014 unlike ci_status, which is per PERIOD by construction and keeps its own meaning unchanged",
+    "predicate": "the bootstrap ran and returned a zero-width interval (lo_sampling == hi_sampling) in a period with fewer than 4 speech clusters",
+    "effect": "lo, hi, lo_sampling and hi_sampling are null; `point` is still published, because the observed share is a real measurement and only the interval was unresolvable. The charts draw a hollow marker at these points so a reader who never hovers can still tell them apart from a banded estimate.",
+    "why_both_conditions": "zero width ALONE would suppress legitimate confident zeros \u2014 7 of the 19 zero-width corex_issues cells survive this gate, in periods ['1790', '1795', '1800', '1810'] where enough speeches genuinely never touched the issue, which is a finding. Too-few-clusters ALONE would suppress 1785's Religion & values, whose two speeches disagree and whose 0.0-66.7% band is the honest signal. Both conditions are required.",
+    "why_not_ci_status": "ci_status fires on n_speeches < 8 OR n_paragraphs < 40, so 'ci_status == low_cluster_caution and lo == hi' would also suppress a paragraph-thin but SPEECH-RICH period, where the resample space is large and an all-zero result is real. No such period exists in this corpus, so the two predicates select the same 12 cells today \u2014 but only the cluster-count one says what it means.",
+    "min_clusters_for_resolvable_ci": 4,
+    "floor_derivation": "not chosen: the most concentrated resample (all n draws on one cluster) carries probability n**-n = 0.25 at n=2, 0.037 at n=3, 0.0039 at n=4. Until that drops below CI_LOW/100 = 0.025, the lower percentile cannot exclude even the single most extreme resample, so the 'interval' is the full span of the resample space. n=4 is the first n where it can. Computed from CI_LOW by bands._min_clusters_for_resolvable_ci, so retuning the percentile moves the floor with it.",
+    "distinct_resamples": {
+      "2": 3,
+      "3": 10,
+      "4": 35,
+      "5": 126,
+      "10": 92378
+    },
+    "min_clusters_for_ci_unchanged": "MIN_CLUSTERS_FOR_CI stays at 2. Raising it to 3 would delete the 1785 period outright; the defect was the interval, never the point estimate.",
+    "rows_flagged": {
+      "corex_issues": 12,
+      "llm_topics": 0
+    },
+    "rows_total": {
+      "corex_issues": 1078,
+      "llm_topics": 450
+    },
+    "flagged_periods": {
+      "corex_issues": [
+        "1785"
+      ],
+      "llm_topics": []
+    }
   },
   "corpus_fingerprint": {
     "n_speeches": 1057,

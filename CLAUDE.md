@@ -64,6 +64,35 @@
   **no LLM annotator anywhere in the pipeline** — annotator disagreement is *categorically
   inapplicable* there, not merely absent, which is a different thing from the missing-dependency
   seam above. `llm_topics` rows carry `sampling+annotator_disagreement`.
+- **`bands.parquet` has TWO trust gates, at two different grains.** `ci_status` is per-PERIOD by
+  construction (`_ci_status` takes only `n_speeches`/`n_paragraphs`, so all 22 series in a period
+  share it) and its docstring forbids overloading it — two definitions of one column would make it
+  unreadable to the consumer that keys on it, which is why this became a new column rather than a
+  new `ci_status` value. `interval_unresolvable` is per-CELL: the bootstrap ran, returned a
+  **zero-width** interval, and the period had fewer than `MIN_CLUSTERS_FOR_RESOLVABLE_CI` = 4 speech
+  clusters. Those 12 cells (all at 1785) publish `lo`/`hi`/`lo_sampling`/`hi_sampling` as **null**
+  and keep `point` — the share is real, only the interval was unknowable — and the charts draw a
+  **hollow ring** so a non-hovering reader sees the difference. **A null bound is not a zero
+  bound**: a consumer that fills or coerces null `lo`/`hi` to `0.0` re-creates exactly the
+  fake-precise cell this column exists to withdraw. **The gate is a conjunction and must stay
+  one**: zero-width alone would suppress the 7 legitimate confident zeros at 1790/1795/1800/1810
+  (13-14 speeches that genuinely never touched the issue — a finding); too-few-clusters alone would
+  suppress 1785's Religion & values (0.0-66.7%), whose two speeches disagree and whose enormous
+  band is the honest signal. The floor of 4 is **derived, not chosen** — `n**-n`, the probability of
+  the most concentrated resample, first drops below `CI_LOW/100` at n=4, so that is the first n at
+  which a 2.5th percentile can exclude anything — and it is *computed* by
+  `bands._min_clusters_for_resolvable_ci`, so retuning `CI_LOW` moves the floor with it rather than
+  silently invalidating a hardcoded 4. `MIN_CLUSTERS_FOR_CI` stays at 2, because raising it deletes
+  1785 outright.
+- Two counting traps in that block, both of the bare-count drift class this repo keeps hitting.
+  (a) **12 flagged cells render 11 rings** — `Discovered 4` has `surface: false` in
+  `topic_display_names.json`, so it has no page and no panel. 12 ≠ 11 is correct, not a shortfall.
+  (b) **19 is a pre-gate census, not a property of the shipped table**: before the gate there were
+  19 zero-width `corex_issues` cells (7 kept + 12 withdrawn); the artifact on disk holds **7**.
+  Quoting 19 as what the table contains is a tense error, and it has already been made twice.
+- **Suppressing a zero-width band is a no-op for the reader** — it already occupied zero pixels.
+  Any future "hide the untrustworthy cell" change must add a *positive* marker, or it changes the
+  data and nothing on the page.
 - **`agreement_v1.parquet` is deliberately NOT read by `bands.py`** — a future consumer tempted to
   "wire up the agreement table" needs to know this was considered and rejected on units, not
   overlooked. The fastest check: the table has **no `disagreement_half_width` column at all** — its
@@ -80,10 +109,17 @@
   36,229 paragraphs, 23.7%) and its disagreement is *assumed to transfer* to full-corpus eras;
   within-speech clustering is modelled in the sampling bootstrap but **not** in the half-width.
 - `ci_status` on `bands.parquet` is the trust gate under the same doctrine as `data/combat/` —
-  never read `lo`/`hi` without it. But its constants **shadow `combat.py`'s names with different
+  never read `lo`/`hi` without it, and (since `interval_unresolvable` landed) never assume they are
+  present at all. But its constants **shadow `combat.py`'s names with different
   values** (`MIN_CLUSTERS_FOR_CI` 2 vs 5, `LOW_CLUSTER_CAUTION` 8 vs 20) because the grain differs:
   these guard a 5-year period, combat's guard an era-grain genre stratum. Same column, same
   direction, different thresholds — do not read one artifact's gate across the other.
+- **A refusal guard must run BEFORE the write it refuses.** `bands.py`'s divergence check sat after
+  `to_parquet`, so a "refused" build had already replaced the parquet and left it sitting beside a
+  meta sidecar describing the previous numbers — a state strictly worse than either clean outcome,
+  in a repo whose provenance rule is that a dirty `git status data/` means the numbers moved.
+  Validate first, then write; and when a module emits a table plus a sidecar, they land together or
+  not at all.
 - **The coherence-threshold asymmetry is deliberate, not a bug.** `topic_quality.py` computes
   NPMI for all 22 CorEx topics but the noise gate (`classify_discovered`) applies to the 7
   *discovered* topics only. Four *anchored* issues — Immigration (-0.028), Foreign policy
@@ -206,6 +242,13 @@ common, not their number:
   was in `data/bands_meta.json`, the **only** new prose block without a re-derivation test — the
   two blocks that had one stayed correct. Pin prose numbers wherever they live (meta JSON, module
   docstrings), not only in `notes/`.
+- **Fixing a prose defect in one place is not fixing it — grep the claim everywhere first.** The
+  same false sentence lived in two docstrings; the follow-on task corrected the census in one, and
+  in the same paragraph one line above it shipped a *second* wrong count ("sixty speeches" for
+  cells that sit at 13-14), which then contradicted the CLAUDE.md block the same commit added. A
+  number that justifies a design decision gets restated in every place that decision is explained —
+  module docstring, meta sidecar, CLAUDE.md, README — so the unit of repair is the claim across the
+  tree, never the line you were looking at.
 - **A rationale can be self-defeating, not merely wrong.** That same meta justified diverging from
   `combat.py`'s cluster floors with "the corpus median is ~30 speeches per period". The median is
   20.0 — and at 30 the argument would have pointed the *other* way, i.e. the stated premise would
@@ -258,6 +301,13 @@ pass. The generalizable shape:
   line execute; a source mutant that genuinely breaks the behaviour still leaves the test green. No
   tool in the suite reports this shape — grep for identity comparisons (`is True` / `is False` /
   `is not`) against numpy scalars and rewrite them as `==` / `bool(...)`.
+- **Assert the value, not merely the conclusion it supports.** A docstring claiming `n**-n`
+  underflows "near n=178" (it is 149) survived because the only assertion was
+  `underflow_n < _MAX_CLUSTER_SEARCH` — true of anything under 1000, so the guard could not see a
+  number 29 off. Same family: an equality assertion cannot distinguish a field that was **read**
+  from its source from one that merely happens to **match** it, so proving a constant is genuinely
+  derived (`MIN_CLUSTERS_FOR_RESOLVABLE_CI` from `CI_LOW`) takes a monkeypatch of the source plus a
+  rebuild, never `assert floor == 4`.
 - **A visual check cannot see a point that is outside the axis.** A hardcoded
   `X_RANGE = [1786, 2029]` cropped the 1785 bucket on *both* chart surfaces — the one period the
   whole change existed to stop hiding — and every screenshot review passed, because band, marker

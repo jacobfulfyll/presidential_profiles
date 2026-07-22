@@ -412,8 +412,10 @@ def _banded_small_multiples(panels: list[tuple[str, pd.DataFrame]], rows: int,
 
     `panels` are `(title, band_frame)` where the frame is a `bands.parquet`
     slice (`x`, `point`, `lo`, `hi`, `ci_status`, `n_speeches`). Trace order is
-    band, then line, then dots, because plotly paints later traces on top and a
-    band over its own dots hides them.
+    band, then line, then the unresolved-interval rings, then dots, because
+    plotly paints later traces on top and a band over its own dots hides them.
+    The rings go after the line so they sit on top of the dotted trend they
+    annotate, and before the dots so a president marker is never hidden.
     """
     per_line = 34 if cols <= 3 else 26
     titles = [_wrap_panel_title(t, per_line) for t, _ in panels]
@@ -439,6 +441,15 @@ def _banded_small_multiples(panels: list[tuple[str, pd.DataFrame]], rows: int,
             for trace in issues_site.line_traces(band, unit=unit, width=2,
                                                  suffix=title,
                                                  show_components=show_components):
+                fig.add_trace(trace, row=r + 1, col=c + 1)
+            # The hollow ring for cells whose bootstrap resolved no interval.
+            # A suppressed zero-width band is invisible by definition, so
+            # without this the grid would render the change as no change at
+            # all. Slightly smaller than on the single-issue page: these panels
+            # are a quarter the width.
+            for trace in issues_site.unresolved_traces(band, size=7,
+                                                       unit=unit,
+                                                       suffix=title):
                 fig.add_trace(trace, row=r + 1, col=c + 1)
         top = issues_site.band_y_top(band)
         if dots and title in dots:
@@ -1059,7 +1070,10 @@ SECTIONS = [
      "36,000 paragraph-sized chunks, scored against one issue taxonomy across all eras. "
      "The shaded band around each line is a 95% interval from a bootstrap that resamples "
      "whole speeches - so it balloons where a 5-year period rests on a handful of them - "
-     "and a dotted segment marks periods too thin to read as a trend. These labels come "
+     "a dotted segment marks periods too thin to read as a trend, and a hollow ring "
+     "marks a point with no interval at all: every speech in that period agreed exactly, "
+     "on too few speeches for the agreement to carry information. The share is plotted, "
+     "the uncertainty is unknown - which is not the same as small. These labels come "
      "from a deterministic topic model with no AI annotator in the loop, so the band "
      "covers sampling error only. "
      "Money & banking dies with the gold standard, agriculture fades with the family "

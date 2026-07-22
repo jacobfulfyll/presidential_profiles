@@ -62,6 +62,25 @@ builds and reports but never persists fully green.
 with no restore, so calling it in a test leaks into every later test's repr width.
 Harmless today; worth `monkeypatch.context` if it ever matters.
 
+**`interval_unresolvable` (the per-cell degeneracy gate) seams.** Drive the whole
+gate through `bootstrap_corex_periods` on 2-4 hand-built speeches — the conjunction
+("zero width" AND "n < MIN_CLUSTERS_FOR_RESOLVABLE_CI") needs BOTH arms killed
+separately, and a synthetic n=20 all-zero series is what pins the "legitimate
+confident zero" arm independent of the corpus. A **derived** constant needs several
+inputs to distinguish it from a literal: `_min_clusters_for_resolvable_ci` at
+ci_low ∈ {50, 25, 5, 2.5, 0.1} → {2, 2, 3, 4, 5}, and 25.0 is the exact-equality
+boundary that alone distinguishes `>` from `>=`. For a meta/JSON field that merely
+*equals* a constant, monkeypatch the constant and REBUILD the file — an equality
+assertion cannot tell a read from a coincidence when both sides are 4.
+
+**A committed-`docs/` artifact test cannot see a source mutation.** Comparing
+`docs/issues/*.html` against `data/bands.parquet` is a strong drift check between two
+committed artifacts, but a source-level regression stays green until someone rebuilds
+— confirmed by mutation (`has_unresolved = True` survived it). When the behavioural
+path is too heavy to run (`write_issue_pages` reads 3 parquets and renders 16 pages),
+add an **AST guard** on the expression: assert the assignment is not `ast.Constant`
+and mentions the column and `.any()`. That caught all four call-site mutants.
+
 **`fig_issues_decade(band_table=None)` is cheap to test, contrary to first
 impression**: `issue_df`/`scores` are now dead parameters, and
 `topic_quality.surfaced_discovered()` returns a single extra column, so a synthetic

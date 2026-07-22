@@ -20,6 +20,13 @@ from . import bands, issues, topic_quality
 BAND_FILL = "rgba(109, 167, 236, 0.22)"
 CAUTION_LINE = "rgba(109, 167, 236, 0.55)"
 
+# The hollow marker for `interval_unresolvable` cells. It is drawn UNFILLED
+# against the page, which is the whole signal: a solid dot on the line says "we
+# measured this", a ring says "we measured the share but could not resolve an
+# interval around it". Sized above the president dots (5px on the issue page,
+# 4px in the grid) so it does not read as one of them.
+UNRESOLVED_RING = "rgba(109, 167, 236, 0.95)"
+
 # THE definition of the chart x window, for every issue surface. `site.X_RANGE`
 # is derived from it rather than restating the pair — the same two numbers in two
 # modules is how the lower bound comes to be widened in one place and not the
@@ -173,6 +180,107 @@ def band_traces(band: pd.DataFrame | None) -> list[go.Scatter]:
     return traces
 
 
+def band_label(b: pd.DataFrame) -> np.ndarray:
+    """The interval, as tooltip text — including when there is no interval.
+
+    Formatted in Python rather than by a plotly `:.1f`, because a null bound
+    renders as the literal string `nan` through a numeric format directive and
+    "95% band nan–nan" is worse than useless. A row is null for two different
+    reasons and the tip names which: `interval_unresolvable` (the bootstrap ran
+    and could not resolve a width — see `bands._unresolvable_interval`) and the
+    `suppressed_n_floor` case (no bootstrap ran at all). Conflating them would
+    put the wrong cause in front of the reader.
+    """
+    out = []
+    for lo, hi, unresolvable, n in zip(
+        b["lo"], b["hi"], unresolved_mask(b), b["n_speeches"]
+    ):
+        if bool(unresolvable):
+            out.append(f"not resolvable — {int(n)} speeches agree exactly, "
+                       "so the bootstrap has no width to report")
+        elif pd.isna(lo) or pd.isna(hi):
+            out.append("not published — too few speeches to bootstrap")
+        else:
+            out.append(f"{lo * 100:.1f}–{hi * 100:.1f}")
+    return np.array(out, dtype=object)
+
+
+def unresolved_mask(band: pd.DataFrame) -> pd.Series:
+    """`interval_unresolvable` as a plain boolean mask.
+
+    A null flag reads as False — a slice that lost the column's values means
+    "nothing is KNOWN to be unresolvable", never "everything is". A slice
+    missing the column ENTIRELY reads the same way, so a `bands.parquet`
+    predating the column degrades to "no rings, no ring caption" instead of
+    crashing the whole page. (`bands.load_bands` raises on that schema long
+    before it gets here; this is the hand-built-frame path.)
+
+    Defined once because THREE callers must agree on it: the trace builder that
+    draws the rings, `band_label`'s tooltip text, and `write_issue_pages`'s gate
+    on the caption that explains them. A page promising a marker its chart does
+    not draw is the same species of small lie as the marker's absence, so the
+    three must not be able to drift — nor disagree about how defensive to be on
+    one column, which is how a "legacy frames do not crash" contract comes to
+    hold for one trace and fail on the next one in the same loop.
+    """
+    if "interval_unresolvable" not in band:
+        return pd.Series(False, index=band.index, dtype=bool)
+    return band["interval_unresolvable"].fillna(False).astype(bool)
+
+
+def unresolved_traces(band: pd.DataFrame | None,
+                      size: float = 9,
+                      unit: str = "% of paragraphs",
+                      suffix: str = "") -> list[go.Scatter]:
+    """Hollow rings at cells whose bootstrap could not resolve an interval.
+
+    **This, not the suppression, is the reader-facing half of the change.**
+    Nulling `lo`/`hi` on a zero-width cell removes a band that already occupied
+    zero pixels: on its own it changes literally nothing on the page, and the
+    cell would go on reading as a confidently measured value. The ring is the
+    positive signal — it says "the share is real, the interval is not
+    knowable" without requiring a hover, which touch devices do not have.
+
+    `cliponaxis=False` is load-bearing, not cosmetic. Every flagged cell in this
+    corpus has `point == 0` (they are flagged precisely because every speech in
+    the period agreed at zero), so the ring sits exactly on the axis floor and
+    would otherwise be drawn half-cropped by the plot edge — the same "a visual
+    check cannot see a point that is outside the axis" failure that hid the
+    whole 1785 period once already.
+
+    `unit` and `suffix` are threaded exactly as `line_traces` threads them, and
+    the defaults reproduce today's strings rather than shortening them. A
+    tooltip is published prose: hardcoding "% of paragraphs" here would make
+    this the one trace in the loop that cannot follow a caller onto a different
+    measure, and omitting `suffix` makes it the one tooltip in a 16-panel grid
+    that does not name its own panel — in a small-multiples figure that is the
+    difference between a reader knowing which issue they are hovering and not.
+
+    Returns an empty list when nothing is flagged, so a caller adds no trace
+    rather than an invisible one.
+    """
+    if band is None or band.empty:
+        return []
+    flagged = band[unresolved_mask(band)]
+    if flagged.empty:
+        return []
+    y = (flagged["point"] * 100).to_numpy()
+    return [go.Scatter(
+        x=flagged["x"].to_numpy(), y=y, mode="markers", showlegend=False,
+        cliponaxis=False,
+        marker=dict(symbol="circle-open", size=size,
+                    color=UNRESOLVED_RING,
+                    line=dict(color=UNRESOLVED_RING, width=1.8)),
+        customdata=np.stack([
+            flagged["n_speeches"].to_numpy(),
+            flagged["n_paragraphs"].to_numpy(),
+        ], axis=-1),
+        hovertemplate="%{y:.1f}" + unit + " — no interval<br>"
+                      "%{customdata[0]} speeches, %{customdata[1]} paragraphs: "
+                      "too few to resolve one<extra>" + suffix + "</extra>",
+    )]
+
+
 def _band_hover(b: pd.DataFrame, unit: str,
                 show_components: bool) -> tuple[np.ndarray, str]:
     """Customdata + template putting the interval and its trust gate in the tip.
@@ -182,17 +290,16 @@ def _band_hover(b: pd.DataFrame, unit: str,
     reader treating a `low_cluster_caution` interval as an `ok` one.
     """
     cols = [
-        (b["lo"] * 100).to_numpy(),
-        (b["hi"] * 100).to_numpy(),
+        band_label(b),
         b["n_speeches"].to_numpy(),
         b["ci_status"].to_numpy(),
     ]
     tpl = ("%{y:.1f}" + unit
-           + "<br>95% band %{customdata[0]:.1f}–%{customdata[1]:.1f}"
-           + "<br>%{customdata[2]} speeches · %{customdata[3]}")
+           + "<br>95% band %{customdata[0]}"
+           + "<br>%{customdata[1]} speeches · %{customdata[2]}")
     if show_components:
         cols.append(b["ci_components"].to_numpy())
-        tpl += " · %{customdata[4]}"
+        tpl += " · %{customdata[3]}"
     return np.stack(cols, axis=-1), tpl
 
 
@@ -253,6 +360,10 @@ def fig_issue_timeline(pl: pd.DataFrame, name: str, label: str,
         ))
     else:
         for trace in line_traces(band):
+            fig.add_trace(trace)
+        # After the line, before the president dots: the ring must sit on top of
+        # the dotted trend it annotates, but under nothing that would hide it.
+        for trace in unresolved_traces(band):
             fig.add_trace(trace)
     fig.add_trace(go.Scatter(
         x=pres_dots["x"], y=pres_dots["y"], mode="markers", showlegend=False,
@@ -326,8 +437,21 @@ def _issue_quotes(merged: pd.DataFrame, name: str,
 
 
 def render_issue(label: str, owners, fig: go.Figure,
-                 quotes: list[dict]) -> str:
+                 quotes: list[dict], has_unresolved: bool = False) -> str:
+    """One issue page.
+
+    `has_unresolved` gates the sentence explaining the hollow ring. It is a
+    per-issue fact (11 of the 16 rendered issues have one, all at 1785), and a
+    caption that describes a marker the reader cannot find on this page is a
+    small lie in the same family as the marker itself — so the sentence is
+    printed only where the ring is actually drawn.
+    """
     fig_json = pio.to_json(fig)
+    ring_note = (" A hollow ring marks a point whose interval could not be "
+                 "resolved at all — every speech in that period agreed exactly, "
+                 "on too few speeches for the agreement to mean anything. Its "
+                 "share is plotted; its uncertainty is unknown, which is not "
+                 "the same as small.") if has_unresolved else ""
     owner_rows = []
     max_share = owners["share"].max() or 1
     for pres, row in owners.iterrows():
@@ -387,7 +511,7 @@ def render_issue(label: str, owners, fig: go.Figure,
   <p>Share of presidential speech about {label.lower()}. The shaded band is a
   95% interval from a bootstrap that resamples whole <em>speeches</em>, so it
   widens where a period rests on a handful of them; a dotted line marks periods
-  too thin to trust. Each dot is one president's own share inside one 5-year
+  too thin to trust.{ring_note} Each dot is one president's own share inside one 5-year
   period, for the {MIN_DOT_PARAGRAPHS}-paragraph-and-up cells where they said
   enough to measure. These labels come from a deterministic topic model with no
   AI annotator in the loop, so the band covers sampling error only.</p>
@@ -491,7 +615,10 @@ def write_issue_pages(site_dir, issue_df: pd.DataFrame, issue_meta: dict,
         band = bands.series_band(band_table, bands.COREX_SURFACE, name)
         fig = fig_issue_timeline(pl, name, label, pres_dots, band)
         quotes = _issue_quotes(merged, name, anchors_all[name], titles)
-        page = render_issue(label, owners, fig, quotes)
+        # Derived from the band slice, not from the figure: the caption must
+        # promise the ring on exactly the pages that draw one.
+        has_unresolved = bool(band is not None and unresolved_mask(band).any())
+        page = render_issue(label, owners, fig, quotes, has_unresolved)
         (out_dir / f"{issue_slug(label)}.html").write_text(page)
 
         periods = pl.assign(period=(pl["year"] // 10) * 10)

@@ -68,6 +68,7 @@ explicitly, at the call site, and say in the test why.
 from __future__ import annotations
 
 import hashlib
+import inspect
 import json
 from pathlib import Path
 
@@ -377,11 +378,16 @@ class TestCorexBootstrap:
     def test_shares_are_fractions_not_percentages(self):
         """`bands_meta.json` states the units; the charts multiply by 100. A
         frame that had already been scaled would double-scale on the site."""
+        # Four speeches, not two: at n=2 every speech agreeing at 1.0 is a
+        # DEGENERATE interval and is now withdrawn to NaN, which would make
+        # this units test assert on nothing. `MIN_CLUSTERS_FOR_RESOLVABLE_CI`
+        # speeches keep a real published bound to check the scale of.
         labels = _labels([
-            {"doc": "a", "year": 1900, "n": 50, "hits": {"war": 50}},
-            {"doc": "b", "year": 1901, "n": 50, "hits": {"war": 50}},
+            {"doc": d, "year": 1900 + i, "n": 50, "hits": {"war": 50}}
+            for i, d in enumerate("abcd")
         ])
         out = B.bootstrap_corex_periods(labels, ["war"], n_draws=50)
+        assert not out["interval_unresolvable"].any()
         assert out["point"].max() == pytest.approx(1.0)
         assert out["hi_sampling"].max() <= 1.0
 
@@ -389,6 +395,265 @@ class TestCorexBootstrap:
         labels = _labels([{"doc": "a", "year": 1900, "n": 4, "hits": {"war": 2}}])
         labels["coherence"] = 0.5
         assert B.corex_issue_columns(labels) == ["war", "trade"]
+
+
+# --------------------------------------------------------------------------- #
+# 2b. `interval_unresolvable` — the per-cell degeneracy gate
+# --------------------------------------------------------------------------- #
+class TestResolvableFloorDerivation:
+    """`MIN_CLUSTERS_FOR_RESOLVABLE_CI` is claimed to be DERIVED from `CI_LOW`.
+
+    A single assertion that it equals 4 cannot tell a derivation from a
+    hardcoded 4 that happens to agree — `_min_clusters_for_resolvable_ci` could
+    `return 4` and pass. So the derivation is exercised at several percentiles,
+    which is the only shape of test that distinguishes the two.
+    """
+
+    def test_the_module_constant_is_the_derivation_not_a_literal(self):
+        assert B.MIN_CLUSTERS_FOR_RESOLVABLE_CI == B._min_clusters_for_resolvable_ci(
+            B.CI_LOW)
+        assert B.MIN_CLUSTERS_FOR_RESOLVABLE_CI == 4
+
+    @pytest.mark.parametrize(
+        "ci_low,expected",
+        [
+            # n**-n first drops below ci_low/100 at:
+            (50.0, 2),   # 0.25 < 0.50 already at n=2
+            # EXACT-EQUALITY BOUNDARY: 2**-2 == 25.0/100 to the bit. The loop
+            # condition is strict (`>`), so a probability sitting exactly ON the
+            # percentile counts as excludable and n=2 qualifies. Pinned because
+            # `>` vs `>=` is invisible at every other percentile in this table.
+            (25.0, 2),
+            (5.0, 3),    # 0.25 > 0.05; 0.037 < 0.05
+            (2.5, 4),    # 0.037 > 0.025; 0.0039 < 0.025   <- today's CI_LOW
+            (0.1, 5),    # 0.0039 > 0.001; 0.00032 < 0.001
+        ],
+    )
+    def test_the_floor_tracks_the_percentile_it_is_derived_from(self, ci_low, expected):
+        """Four percentiles, four different floors. A function returning a
+        constant — or one reading `CI_LOW` instead of its argument — fails on
+        every row but the third."""
+        assert B._min_clusters_for_resolvable_ci(ci_low=ci_low) == expected
+
+    def test_the_derivation_matches_its_own_stated_premise(self):
+        """The premise is `n**-n <= ci_low/100`. Asserted directly, so the
+        docstring's arithmetic (0.25 / 0.037 / 0.0039) and the returned floor
+        cannot drift apart."""
+        n = B.MIN_CLUSTERS_FOR_RESOLVABLE_CI
+        assert n ** (-n) <= B.CI_LOW / 100.0, "the floor itself must qualify"
+        assert (n - 1) ** (-(n - 1)) > B.CI_LOW / 100.0, "and be the FIRST that does"
+
+    def test_ci_low_is_positive(self):
+        """The module constant, still pinned as the first line of defence.
+
+        This used to be the ONLY guard: the derivation loop had no cap, so
+        `ci_low = 0` never terminated (`n**-n > 0` is always true) and the test
+        deliberately declined to call the function — a test that hangs is worse
+        than the defect it documents. That reasoning was right, and the guard is
+        kept, but the function now rejects a non-positive percentile itself
+        (below), so the hang is no longer reachable to begin with.
+        """
+        assert B.CI_LOW > 0
+        assert B.CI_HIGH > B.CI_LOW
+
+    @pytest.mark.parametrize("bad", [0.0, -1.0, float("nan")])
+    def test_a_non_positive_percentile_raises_instead_of_looping_forever(self, bad):
+        """The guard that makes the hang unreachable — now safe to execute.
+
+        NaN is included and is the more dangerous of the two shapes. Zero and
+        negatives fail loudly (the old loop simply never exited); NaN fails
+        SILENTLY, because every comparison against NaN is False, so
+        `while n ** (-n) > nan` exits on its first test and the function returns
+        `MIN_CLUSTERS_FOR_CI` — a plausible-looking floor derived from nothing
+        at all. The `not (ci_low > 0)` spelling is what catches all three; a
+        `ci_low <= 0` check would let NaN straight through.
+        """
+        with pytest.raises(ValueError) as err:
+            B._min_clusters_for_resolvable_ci(bad)
+        assert "positive percentile" in str(err.value)
+
+    def test_the_iteration_cap_is_belt_and_braces_not_a_working_limit(self):
+        """The cap must never bind for a percentile anyone could plausibly set.
+
+        `n**-n` first evaluates to exactly 0.0 at n=149, and 0.0 is not greater
+        than any positive threshold, so the search self-terminates far below
+        `_MAX_CLUSTER_SEARCH` even at absurd percentiles. Asserted rather than
+        assumed: a cap that silently became the thing deciding the floor would
+        publish a derived-looking number that is really just the loop bound.
+
+        The underflow point is RE-DERIVED here and pinned into the comment that
+        cites it. Asserting only `< _MAX_CLUSTER_SEARCH` is what let that
+        comment ship saying 178: the conclusion holds for any value under 1000,
+        so a wrong n was invisible to the assertion while remaining the sole
+        quantitative justification for the constant.
+        """
+        n = 2
+        while n ** (-n) > 0.0:
+            n += 1
+        assert n == 149
+        assert (n - 1) ** (-(n - 1)) > 0.0, "n=148 must still be nonzero"
+        assert f"n={n}" in inspect.getsource(B), (
+            f"the comment justifying _MAX_CLUSTER_SEARCH must cite n={n}")
+        assert B._MAX_CLUSTER_SEARCH > 100
+        for ci_low in (1e-10, 1e-100, 5e-300):
+            assert B._min_clusters_for_resolvable_ci(ci_low) < B._MAX_CLUSTER_SEARCH
+
+    @pytest.mark.parametrize(
+        "n,expected", [(2, 3), (3, 10), (4, 35), (5, 126), (10, 92_378)])
+    def test_distinct_resample_counts(self, n, expected):
+        """`C(2n-1, n)`, the premise behind the whole gate: below a handful of
+        clusters the estimator cannot express uncertainty even in principle."""
+        assert B.distinct_resamples(n) == expected
+
+
+class TestUnresolvableGate:
+    """The conjunction — "no variation" AND "too few clusters" — from both sides.
+
+    Every fixture states its own speech count explicitly rather than leaning on
+    a helper default, because the two sides of this gate are distinguished by
+    exactly that number.
+    """
+
+    @staticmethod
+    def _run(specs, issues=("war", "trade")):
+        return B.bootstrap_corex_periods(
+            _labels(specs, issues=issues), list(issues), n_draws=200)
+
+    @staticmethod
+    def _cell(out, series, period):
+        return out[(out["series"] == series) & (out["period"] == period)].iloc[0]
+
+    @pytest.mark.parametrize("n_docs,flagged", [(3, True), (4, False)])
+    def test_the_floor_binds_on_both_sides(self, n_docs, flagged):
+        """n=3 is withdrawn, n=4 is published — the boundary
+        `MIN_CLUSTERS_FOR_RESOLVABLE_CI` names. Both arms run the SAME all-zero
+        data, so the cluster count is the only thing that differs."""
+        out = self._run([
+            {"doc": f"d{k}", "year": 1900 + k, "n": 10, "hits": {"war": 0}}
+            for k in range(n_docs)
+        ])
+        row = self._cell(out, "war", "1900")
+        assert row["n_speeches"] == n_docs
+        assert bool(row["interval_unresolvable"]) is flagged
+        if flagged:
+            assert np.isnan(row["lo_sampling"]) and np.isnan(row["hi_sampling"])
+        else:
+            assert row["lo_sampling"] == 0.0 and row["hi_sampling"] == 0.0
+
+    def test_a_high_n_all_zero_series_keeps_its_confident_zero(self):
+        """SYNTHETIC control, independent of the corpus. Twenty speeches that
+        genuinely never touch an issue are a finding, and the gate must not
+        touch them. The in-corpus evidence (7 such cells at 13-14 speeches) says
+        the same thing but is hostage to the data; this says it structurally."""
+        out = self._run([
+            {"doc": f"d{k}", "year": 1900, "n": 25, "hits": {"war": 0}}
+            for k in range(20)
+        ])
+        row = self._cell(out, "war", "1900")
+        assert row["n_speeches"] == 20
+        assert not bool(row["interval_unresolvable"])
+        assert row["lo_sampling"] == 0.0 and row["hi_sampling"] == 0.0
+        assert row["point"] == 0.0
+
+    def test_a_flagged_cell_may_have_a_NON_ZERO_point(self):
+        """Every flagged cell in today's corpus sits at `point == 0`, which is
+        an accident of the data, not a property of the gate: three speeches
+        agreeing exactly at 50% are just as unresolvable as three agreeing at
+        zero. The point estimate survives — the share was measured, only the
+        interval was not.
+
+        This also covers the empirical premise behind `unresolved_traces`'
+        `cliponaxis=False` comment ("every flagged cell has point == 0"), which
+        would silently stop holding here.
+        """
+        out = self._run([
+            {"doc": f"d{k}", "year": 1900, "n": 10, "hits": {"war": 5}}
+            for k in range(3)
+        ])
+        row = self._cell(out, "war", "1900")
+        assert bool(row["interval_unresolvable"])
+        assert row["point"] == pytest.approx(0.5)
+        assert np.isnan(row["lo_sampling"]) and np.isnan(row["hi_sampling"])
+
+    def test_variation_at_the_same_low_n_is_not_flagged(self):
+        """The Religion & values control, synthetically: two speeches that
+        DISAGREE resolve a real (enormous) width at n=2, and suppressing it
+        would delete the loudest uncertainty signal the module can draw."""
+        out = self._run([
+            {"doc": "a", "year": 1900, "n": 10, "hits": {"war": 10}},
+            {"doc": "b", "year": 1901, "n": 10, "hits": {"war": 0}},
+        ])
+        row = self._cell(out, "war", "1900")
+        assert row["n_speeches"] == 2
+        assert not bool(row["interval_unresolvable"])
+        assert row["hi_sampling"] > row["lo_sampling"]
+
+    def test_the_gate_is_per_cell_not_per_period(self):
+        """One period, two series, one flagged and one not — the property
+        `ci_status` structurally cannot express, and the reason this had to be a
+        new column rather than a third `ci_status` value."""
+        out = self._run([
+            {"doc": "a", "year": 1900, "n": 10, "hits": {"war": 10, "trade": 0}},
+            {"doc": "b", "year": 1901, "n": 10, "hits": {"war": 0, "trade": 0}},
+        ])
+        war, trade = self._cell(out, "war", "1900"), self._cell(out, "trade", "1900")
+        assert war["ci_status"] == trade["ci_status"], "same period, same ci_status"
+        assert not bool(war["interval_unresolvable"])
+        assert bool(trade["interval_unresolvable"])
+
+    def test_a_suppressed_n_floor_cell_is_not_ALSO_flagged(self):
+        """Two columns must not claim the same suppression. Where no bootstrap
+        ran at all, `ci_status` already names the cause and the bounds are
+        already NaN; flagging it too would tell a consumer the bootstrap ran and
+        resolved nothing, which is a different (and false) story."""
+        out = self._run([
+            {"doc": "solo", "year": 1785, "n": 14, "hits": {"war": 0}},
+            {"doc": "a", "year": 1900, "n": 10, "hits": {"war": 0}},
+            {"doc": "b", "year": 1901, "n": 10, "hits": {"war": 1}},
+        ])
+        row = self._cell(out, "war", "1785")
+        assert row["ci_status"] == "suppressed_n_floor"
+        assert not bool(row["interval_unresolvable"])
+        assert np.isnan(row["lo_sampling"])
+
+    def test_the_flag_never_moves_the_point_estimate(self):
+        """Withdrawn interval, retained measurement — asserted against the
+        pooled share computed by hand, not against the function's own output."""
+        out = self._run([
+            {"doc": f"d{k}", "year": 1900, "n": 8, "hits": {"war": 2}}
+            for k in range(3)
+        ])
+        row = self._cell(out, "war", "1900")
+        assert bool(row["interval_unresolvable"])
+        assert row["point"] == pytest.approx(6 / 24)
+
+
+class TestUnresolvableIntervalPredicate:
+    """`_unresolvable_interval` directly, including the NaN case that keeps the
+    two suppression columns from overlapping."""
+
+    def test_below_the_floor_zero_width_cells_are_flagged_elementwise(self):
+        lo = np.array([0.0, 0.1, 0.5])
+        hi = np.array([0.0, 0.4, 0.5])
+        mask = B._unresolvable_interval(lo, hi, n_clusters=2)
+        assert list(mask) == [True, False, True]
+
+    def test_at_or_above_the_floor_nothing_is_flagged(self):
+        lo = hi = np.array([0.0, 0.5])
+        for n in (B.MIN_CLUSTERS_FOR_RESOLVABLE_CI,
+                  B.MIN_CLUSTERS_FOR_RESOLVABLE_CI + 40):
+            assert not B._unresolvable_interval(lo, hi, n_clusters=n).any()
+
+    def test_a_nan_bound_is_never_flagged(self):
+        """`nan == nan` is False, so the `suppressed_n_floor` rows fall out
+        naturally — but naturally is not the same as tested, and a future
+        rewrite using `np.isclose` or a fillna would flag them all."""
+        nan = np.array([np.nan, np.nan])
+        assert not B._unresolvable_interval(nan, nan, n_clusters=2).any()
+
+    def test_the_mask_is_boolean_and_shaped_like_its_input(self):
+        mask = B._unresolvable_interval(np.zeros(5), np.zeros(5), n_clusters=99)
+        assert mask.dtype == bool and mask.shape == (5,)
 
 
 # --------------------------------------------------------------------------- #
@@ -827,6 +1092,54 @@ class TestThreeWayDisagreementStatus:
         statuses = {B.MEASURED, B.NO_INTERVAL, B.THIN_PAIRED, B.NOT_APPLICABLE}
         assert len(statuses) == 4
 
+    def test_an_unresolvable_surface_b_cell_reports_both_the_root_and_the_proximate_cause(
+        self, monkeypatch
+    ):
+        """DORMANT TODAY (Surface B's thinnest era carries dozens of clusters),
+        and therefore worth pinning: no shipped row exercises this interaction.
+
+        Nulling `lo_sampling` happens BEFORE `have_interval` is computed, so a
+        flagged Surface B cell also reports `no_interval_to_widen`. That is
+        coherent — `interval_unresolvable` is the root cause (the bootstrap
+        resolved nothing) and `disagreement_status` the proximate one (there was
+        no interval left to widen) — but it is exactly the kind of two-column
+        interaction that silently inverts in a refactor, so both are asserted
+        together with the half-width still present and unapplied.
+        """
+        out = _drive_llm_bands(
+            monkeypatch,
+            _sampling([{"topic": "Trade", "era": ERA_A, "lo": 0.25, "hi": 0.25}]),
+            _half_widths([{"topic": "Trade", "era": ERA_A, "hw": 0.05,
+                           "available": True}]),
+            n_docs={ERA_A: B.MIN_CLUSTERS_FOR_RESOLVABLE_CI - 1},
+        )
+        row = out.iloc[0]
+        assert bool(row["interval_unresolvable"])
+        assert pd.isna(row["lo_sampling"]) and pd.isna(row["hi_sampling"])
+        assert row["disagreement_status"] == B.NO_INTERVAL
+        assert not bool(row["disagreement_band_applied"])
+        assert row["ci_components"] == "sampling_only"
+        # the point survives, and no half-width is smuggled onto a null bound
+        assert row["point"] == pytest.approx(0.20)
+        assert pd.isna(row["lo"]) and pd.isna(row["hi"])
+
+    def test_a_resolvable_surface_b_cell_at_the_same_low_n_is_untouched(
+        self, monkeypatch
+    ):
+        """The control for the test above: same two clusters, but the bootstrap
+        resolved a real width, so nothing is withdrawn and the annotator
+        component still applies."""
+        out = _drive_llm_bands(
+            monkeypatch,
+            _sampling([{"topic": "Trade", "era": ERA_A, "lo": 0.20, "hi": 0.30}]),
+            _half_widths([{"topic": "Trade", "era": ERA_A, "hw": 0.05}]),
+            n_docs={ERA_A: B.MIN_CLUSTERS_FOR_RESOLVABLE_CI - 1},
+        )
+        row = out.iloc[0]
+        assert not bool(row["interval_unresolvable"])
+        assert row["disagreement_status"] == B.MEASURED
+        assert row["lo"] == pytest.approx(0.15) and row["hi"] == pytest.approx(0.35)
+
 
 class TestLeftMergeGuard:
     """`validate="one_to_one"` on a LEFT merge cannot see diverging key SETS.
@@ -932,6 +1245,13 @@ class TestSchemaAndSeam:
         table = pd.DataFrame({
             "surface": [B.LLM_SURFACE] * 3 + [B.COREX_SURFACE],
             "disagreement_band_applied": [True, True, False, False],
+            # `write_bands` also derives the `interval_unresolvable` block from
+            # the table it is handed, so the minimal frame has to carry those
+            # columns too.
+            "interval_unresolvable": [False] * 4,
+            "period": ["e1", "e2", "e3", "1900"],
+            "lo": [0.1] * 4,
+            "hi": [0.2] * 4,
         })
         path = B.write_bands(table, tmp_path / "bands.parquet")
         meta = json.loads(B.meta_path_for(path).read_text())
@@ -1040,21 +1360,148 @@ class TestShippedArtifact:
         assert (b_width >= b_sampling_width - 1e-12).all()
         assert (b_width > b_sampling_width + 1e-12).sum() > 0
 
-    def test_the_degenerate_interval_predicate_matches_twelve_rows_all_in_1785(
+    def test_the_degenerate_cells_are_flagged_and_carry_no_interval(
         self, shipped
     ):
         """A bootstrap over n clusters has only C(2n-1, n) distinct resamples —
         3 at n=2 — so a 1785 series with zero paragraphs in BOTH speeches
         returns the same replicate every draw and its interval collapses to
-        lo == hi == 0. That is NOT the same object as the many legitimate
-        zero-width cells where sixty speeches genuinely never touched an issue,
-        and the module docstring publishes the count. Recomputed here."""
+        lo == hi == 0. Those 12 cells now WITHDRAW the interval rather than
+        publish a fake-precise zero, and are flagged per-cell. Recomputed from
+        the shipped artifact."""
         a = shipped[shipped["surface"] == B.COREX_SURFACE]
-        degenerate = a[(a["ci_status"] == "low_cluster_caution") & (a["lo"] == a["hi"])]
-        assert len(degenerate) == 12
-        assert set(degenerate["period"]) == {"1785"}
-        assert (degenerate["lo"] == 0).all()
-        assert "12 of the 1,078 Surface A rows" in _prose(B.__doc__)
+        flagged = a[a["interval_unresolvable"]]
+        assert len(flagged) == 12
+        assert set(flagged["period"]) == {"1785"}
+        for col in ("lo", "hi", "lo_sampling", "hi_sampling"):
+            assert flagged[col].isna().all(), col
+        # The point estimate survives: the observed share is a real
+        # measurement, and only the interval was unresolvable.
+        assert flagged["point"].notna().all()
+        # And the OLD predicate now matches nothing, which is the whole change.
+        assert len(a[(a["ci_status"] == "low_cluster_caution")
+                     & (a["lo"] == a["hi"])]) == 0
+
+    def test_a_legitimate_confident_zero_keeps_its_interval(self, shipped):
+        """The gate is a conjunction, and this is the arm that proves it is not
+        'zero width alone'. Seven Surface A cells are zero-width in `ok`
+        periods, where a dozen-plus speeches genuinely never touched the issue
+        — a finding, not an artifact — and they must still publish 0.0-0.0."""
+        a = shipped[shipped["surface"] == B.COREX_SURFACE]
+        kept = a[a["lo"].notna() & (a["lo"] == a["hi"])]
+        assert len(kept) == 7
+        assert not kept["interval_unresolvable"].any()
+        assert (kept["n_speeches"] >= B.MIN_CLUSTERS_FOR_RESOLVABLE_CI).all()
+
+    def test_the_widest_1785_band_is_untouched(self, shipped):
+        """The other control: Religion & values' two speeches DISAGREE, so its
+        bootstrap resolved a real (enormous) width at the same n=2. Suppressing
+        it would delete the corpus's loudest uncertainty signal."""
+        a = shipped[shipped["surface"] == B.COREX_SURFACE]
+        row = a[(a["series"] == "Religion & values")
+                & (a["period"] == "1785")].iloc[0]
+        assert not row["interval_unresolvable"]
+        assert row["lo"] == pytest.approx(0.0)
+        assert row["hi"] == pytest.approx(2 / 3, abs=1e-3)
+
+    def test_every_flagged_cell_in_THIS_corpus_sits_at_zero(self, shipped):
+        """The empirical premise `unresolved_traces` cites to justify
+        `cliponaxis=False`: every flagged ring lands exactly on the axis floor
+        and would be drawn half-cropped without it.
+
+        It is a fact about the data, not about the gate — a cell where all
+        clusters agree at a non-zero share is equally unresolvable (pinned
+        synthetically in `TestUnresolvableGate`). Recorded here so that if the
+        corpus ever produces a non-zero flagged cell, the comment's premise
+        fails visibly rather than the clip setting quietly becoming unjustified.
+        """
+        a = shipped[shipped["surface"] == B.COREX_SURFACE]
+        flagged = a[a["interval_unresolvable"]]
+        assert len(flagged) == 12
+        assert (flagged["point"] == 0.0).all()
+
+    def test_surface_b_has_nothing_to_flag_and_that_is_computed_not_assumed(
+        self, shipped
+    ):
+        """Scope confirmation. Surface B's thinnest era carries far more than
+        `MIN_CLUSTERS_FOR_RESOLVABLE_CI` clusters, so no row is flagged — but
+        the gate still RUNS there, and the cluster margin is asserted rather
+        than the zero count alone. A zero that comes from the gate never firing
+        and a zero that comes from the gate being wired out look identical in
+        the count.
+        """
+        b = shipped[shipped["surface"] == B.LLM_SURFACE]
+        assert not b["interval_unresolvable"].any()
+        assert b["n_speeches"].min() >= B.MIN_CLUSTERS_FOR_RESOLVABLE_CI
+        assert b["lo_sampling"].notna().all()
+
+    def test_the_docstrings_zero_width_census_is_LABELLED_as_a_pre_gate_count(
+        self, shipped
+    ):
+        """19 is the PRE-gate census and both docstrings must say so.
+
+        This test previously pinned the opposite: the module docstring read "the
+        shipped table has 19 zero-width Surface A cells", which is false of the
+        artifact — post-gate it holds 7, the other 12 being null rather than
+        zero-width. The decomposition was always sound (7 kept + 12 withdrawn =
+        19); only the tense was wrong, and both reviewers read past it because
+        every number checked out. **That wording has been fixed. If this test
+        fails, a docstring has regressed to quoting 19 as a property of the
+        shipped table — it does not mean you broke the census.**
+
+        Both places that quote the census are checked, because
+        `_unresolvable_interval`'s docstring carried the same sentence and
+        fixing only the module-level one would leave the claim alive two
+        screens away.
+        """
+        a = shipped[shipped["surface"] == B.COREX_SURFACE]
+        kept = a[a["lo"].notna() & (a["lo"] == a["hi"])]
+        flagged = a[a["interval_unresolvable"]]
+        assert len(kept) == 7, "zero-width cells actually present in the artifact"
+        assert len(flagged) == 12
+        assert len(kept) + len(flagged) == 19, "the pre-gate census"
+
+        module_prose = _prose(B.__doc__)
+        gate_prose = _prose(B._unresolvable_interval.__doc__)
+
+        # The count is still stated — the fix was to label it, not to delete it.
+        assert f"{len(kept) + len(flagged)} zero-width" in module_prose
+        assert f"{len(kept) + len(flagged)} zero-width" in gate_prose
+        # ... and each place says which side of the gate it is counting.
+        assert "Before this gate runs" in module_prose
+        assert f"the SHIPPED table contains {len(kept)} zero-width" in module_prose
+        assert "PRE-gate census" in gate_prose
+        assert f"the shipped table keeps {len(kept)}" in gate_prose
+        # The exact false sentence, refused by name in both.
+        assert "the shipped table has 19 zero-width" not in module_prose
+        assert "the shipped table's 19 zero-width" not in gate_prose
+
+        # the periods it names, re-derived
+        assert sorted(kept["period"].unique()) == ["1790", "1795", "1800", "1810"]
+        assert "(1790, 1795, 1800, 1810" in module_prose
+        assert set(kept["ci_status"]) == {"ok"}, "the docstring calls them all ok"
+
+        # ...and the SPEECH COUNT behind them, which is the conjunction's whole
+        # second arm and was the one part of this census nothing pinned. Both
+        # docstrings shipped a magnitude here instead of a measurement — one
+        # said "sixty speeches", the other "dozens" — while the artifact says
+        # 13-14. That is ~4x and >=24 respectively, on the number that decides
+        # whether "enough speeches agreed for the agreement to mean something".
+        lo_n, hi_n = int(kept["n_speeches"].min()), int(kept["n_speeches"].max())
+        assert (lo_n, hi_n) == (13, 14)
+        assert f"{lo_n}-{hi_n} speeches" in module_prose
+        assert f"{lo_n}-{hi_n} speeches" in gate_prose
+        # 14 is the ceiling over EVERY zero-width cell, kept or withdrawn — so
+        # no larger count can honestly be quoted for this arm. The corpus's
+        # per-period max is far higher (67), but that period has no zero-width
+        # cell, which is exactly the trap the two wrong numbers fell into.
+        zero_width = a[(a["lo"].notna() & (a["lo"] == a["hi"]))
+                       | a["interval_unresolvable"]]
+        assert int(zero_width["n_speeches"].max()) == hi_n
+        assert int(a["n_speeches"].max()) > hi_n
+        for overstatement in ("sixty speeches", "dozens of speeches"):
+            assert overstatement not in module_prose
+            assert overstatement not in gate_prose
 
     def test_the_recovered_period_is_1785_and_it_is_the_only_one(self, shipped):
         """The scope correction, pinned: the former `>= 40` hard mask dropped
@@ -1074,7 +1521,12 @@ class TestShippedArtifact:
         suppressed = shipped[shipped["ci_status"] == "suppressed_n_floor"]
         assert suppressed["lo"].isna().all() and suppressed["hi"].isna().all()
         for status in ("ok", "low_cluster_caution"):
-            live = shipped[shipped["ci_status"] == status]
+            # `interval_unresolvable` is the ONE other way a bound goes missing,
+            # and it is a per-CELL gate rather than the per-period `ci_status`.
+            # Excluded explicitly rather than by loosening the invariant: a
+            # missing bound behind `ok` with no flag on it is still a defect.
+            live = shipped[(shipped["ci_status"] == status)
+                           & ~shipped["interval_unresolvable"]]
             assert live["lo"].notna().all() and live["hi"].notna().all()
         assert set(shipped["ci_status"]) <= {"ok", "low_cluster_caution",
                                              "suppressed_n_floor"}
@@ -1100,6 +1552,227 @@ class TestShippedArtifact:
         assert shipped_meta["bootstrap"]["seed"] == B.BOOTSTRAP_SEED
         assert shipped_meta["bootstrap"]["n_draws"] == B.BOOTSTRAP_DRAWS
         assert shipped_meta["ci_status"]["min_period_paragraphs"] == B.MIN_PERIOD_PARAGRAPHS
+
+    def test_meta_unresolvable_counts_are_derived_from_the_table(
+        self, shipped, shipped_meta
+    ):
+        """The computed half of the new meta block, re-derived from the table it
+        describes. CLAUDE.md: the one prose block that shipped wrong on the
+        previous task was the only one without a re-derivation test."""
+        block = shipped_meta["interval_unresolvable"]
+        for surface in (B.COREX_SURFACE, B.LLM_SURFACE):
+            sub = shipped[shipped["surface"] == surface]
+            assert block["rows_flagged"][surface] == int(
+                sub["interval_unresolvable"].sum())
+            assert block["rows_total"][surface] == len(sub)
+            assert block["flagged_periods"][surface] == sorted(
+                sub.loc[sub["interval_unresolvable"], "period"].unique().tolist())
+        assert block["column"] == "interval_unresolvable"
+        assert block["min_clusters_for_resolvable_ci"] == \
+            B.MIN_CLUSTERS_FOR_RESOLVABLE_CI
+        assert block["distinct_resamples"] == {
+            str(n): B.distinct_resamples(n) for n in (2, 3, 4, 5, 10)}
+
+    def test_meta_unresolvable_prose_numbers_are_all_re_derivable(
+        self, shipped, shipped_meta
+    ):
+        """The TYPED half of the same block — and the reason this test exists.
+
+        The block is written under a source comment claiming its values are
+        "DERIVED from the table being written, never typed". Three of them are
+        in fact typed into the f-strings and can drift from the artifact
+        independently:
+
+          * `0.0-66.7%`, Religion & values' 1785 band — a data-derived bound;
+          * `n_speeches < 8 OR n_paragraphs < 40`, which are `LOW_CLUSTER_CAUTION`
+            and `MIN_PERIOD_PARAGRAPHS` and are available as constants;
+          * `CI_LOW/100 = 0.025` and the `n**-n` ladder in `floor_derivation`.
+
+        Rather than narrow the claim (a source change, out of scope here), every
+        typed number is re-derived so that a drift fails a test instead of
+        shipping. See Discovered Issues for the overstated comment itself.
+        """
+        block = shipped_meta["interval_unresolvable"]
+        a = shipped[shipped["surface"] == B.COREX_SURFACE]
+
+        rv = a[(a["series"] == "Religion & values") & (a["period"] == "1785")].iloc[0]
+        assert f"{rv['lo'] * 100:.1f}-{rv['hi'] * 100:.1f}%" in block[
+            "why_both_conditions"], "the 0.0-66.7% band has moved"
+
+        assert (f"n_speeches < {B.LOW_CLUSTER_CAUTION} OR n_paragraphs < "
+                f"{B.MIN_PERIOD_PARAGRAPHS}") in block["why_not_ci_status"]
+        assert f"same {int(a['interval_unresolvable'].sum())} cells" in block[
+            "why_not_ci_status"]
+
+        kept = int(len(a[a["lo"].notna() & (a["lo"] == a["hi"])]))
+        flagged = int(a["interval_unresolvable"].sum())
+        assert f"{kept} of the {kept + flagged} zero-width" in block[
+            "why_both_conditions"]
+        assert str(sorted(a.loc[a["lo"].notna() & (a["lo"] == a["hi"]),
+                                "period"].unique().tolist())) in block[
+            "why_both_conditions"]
+
+        floor = B.MIN_CLUSTERS_FOR_RESOLVABLE_CI
+        assert f"CI_LOW/100 = {B.CI_LOW / 100}" in block["floor_derivation"]
+        assert f"n={floor} is the first n where it can" in block["floor_derivation"]
+        # The n**-n ladder, each value matched TOGETHER WITH the n it belongs
+        # to: "0.25" alone would match against the wrong row of the ladder.
+        for n in (2, 3, 4):
+            claim = f"{n ** (-n):.2g} at n={n}"
+            assert claim in block["floor_derivation"], claim
+        assert f"fewer than {floor} speech clusters" in block["predicate"]
+        assert f"MIN_CLUSTERS_FOR_CI stays at {B.MIN_CLUSTERS_FOR_CI}" in block[
+            "min_clusters_for_ci_unchanged"]
+
+    def test_the_meta_floor_follows_the_constant_rather_than_agreeing_with_it(
+        self, tmp_path, monkeypatch
+    ):
+        """`block["min_clusters_for_resolvable_ci"] == B.MIN_CLUSTERS_FOR_RESOLVABLE_CI`
+        is belt-and-suspenders: both sides are 4, so a hardcoded `4` in the meta
+        dict satisfies it. Rebuild the meta with the constant MOVED and check
+        the file followed — the only assertion shape that tells a read from a
+        coincidence. The predicate prose is checked too, since it interpolates
+        the same constant separately.
+
+        `CI_LOW` is retuned ALONGSIDE the constant to the percentile that
+        actually derives 9 (`1e-6` puts the threshold between the n=8 and n=9
+        rungs). `write_bands` now refuses to emit a `floor_derivation` block
+        that argues for a different floor than the one in force, so the two can
+        no longer be moved independently — see the divergence assertion at the
+        end, which pins that refusal.
+        """
+        monkeypatch.setattr(B, "CI_LOW", 1e-6)
+        monkeypatch.setattr(B, "MIN_CLUSTERS_FOR_RESOLVABLE_CI", 9)
+        assert B._min_clusters_for_resolvable_ci(1e-6) == 9, (
+            "the retuned percentile must actually derive the patched floor, or "
+            "this test is asserting on an inconsistent pair")
+        table = pd.DataFrame({
+            "surface": [B.COREX_SURFACE, B.LLM_SURFACE],
+            "disagreement_band_applied": [False, True],
+            "interval_unresolvable": [False, False],
+            "period": ["1900", "e1"],
+            "lo": [0.1, 0.1],
+            "hi": [0.2, 0.2],
+        })
+        path = B.write_bands(table, tmp_path / "bands.parquet")
+        block = json.loads(B.meta_path_for(path).read_text())["interval_unresolvable"]
+        assert block["min_clusters_for_resolvable_ci"] == 9
+        assert "fewer than 9 speech clusters" in block["predicate"]
+        assert "MIN_CLUSTERS_FOR_CI stays at 2" in block["min_clusters_for_ci_unchanged"]
+
+        # The guard itself: move ONLY the constant and the derivation would
+        # argue for 4 beside a published floor of 9 — a rationale defeating the
+        # number it exists to support. `write_bands` must refuse BEFORE writing
+        # anything, and both halves of the artifact pair are checked.
+        #
+        # Asserting only on the sidecar is what let the guard ship running after
+        # `to_parquet`: it raised with the meta correctly absent and the PARQUET
+        # already replaced, so the table moved while its provenance still
+        # described the previous one — the one outcome worse than writing both
+        # or writing neither, in a repo whose rule is that a dirty
+        # `git status data/bands.parquet` means the numbers actually moved.
+        monkeypatch.setattr(B, "CI_LOW", 2.5)
+        with pytest.raises(ValueError) as err:
+            B.write_bands(table, tmp_path / "divergent.parquet")
+        assert "argues for a floor the artifact does not use" in str(err.value)
+        assert not (tmp_path / "divergent_meta.json").exists(), (
+            "the refusal must leave no partial meta behind")
+        assert not (tmp_path / "divergent.parquet").exists(), (
+            "the refusal must leave no partial artifact behind, sidecar or table")
+
+    def test_floor_derivation_prose_follows_a_retuned_percentile_end_to_end(
+        self, tmp_path, monkeypatch
+    ):
+        """The whole `floor_derivation` block is a function of `CI_LOW`.
+
+        This test used to pin the OPPOSITE — that only `CI_LOW/100` was
+        interpolated while the `n**-n` ladder and the conclusion were typed, so
+        that at `CI_LOW = 5.0` the block reported a threshold of 0.05 beside
+        "n=4 is the first n where it can", which its own n=3 rung (0.037)
+        already clears. **That defect has been FIXED. If this test fails, the
+        block has regressed to typed literals — it does not mean you broke the
+        derivation.**
+
+        Worth being precise about the defect class, because it changed what the
+        fix had to do: this was typed-vs-derived, NOT the self-defeating
+        rationale CLAUDE.md records from `topic-chart-upgrades`. That one shipped
+        a premise that was false on the day it was written. This block was
+        correct as published and would only have gone wrong after a retune, so
+        the job was to keep it correct rather than to correct it.
+        """
+        monkeypatch.setattr(B, "CI_LOW", 5.0)
+        # The gate constant moves WITH the percentile it is derived from:
+        # `write_bands` refuses to publish a derivation arguing for a floor the
+        # artifact does not apply, so a retune has to move both. Production
+        # moves them together by construction (the constant is computed from
+        # `CI_LOW` at import); only a monkeypatch can separate them.
+        monkeypatch.setattr(B, "MIN_CLUSTERS_FOR_RESOLVABLE_CI", 3)
+        table = pd.DataFrame({
+            "surface": [B.COREX_SURFACE, B.LLM_SURFACE],
+            "disagreement_band_applied": [False, True],
+            "interval_unresolvable": [False, False],
+            "period": ["1900", "e1"],
+            "lo": [0.1, 0.1],
+            "hi": [0.2, 0.2],
+        })
+        path = B.write_bands(table, tmp_path / "bands.parquet")
+        block = json.loads(
+            B.meta_path_for(path).read_text())["interval_unresolvable"]
+        prose = block["floor_derivation"]
+
+        retuned_floor = B._min_clusters_for_resolvable_ci(5.0)
+        assert retuned_floor == 3
+        # The derivation and the PUBLISHED floor agree after the retune — the
+        # property the write-time guard exists to make unfalsifiable.
+        assert block["min_clusters_for_resolvable_ci"] == retuned_floor
+        assert f"fewer than {retuned_floor} speech clusters" in block["predicate"]
+        # threshold, conclusion and ladder now move together ...
+        assert "CI_LOW/100 = 0.05" in prose
+        assert f"n={retuned_floor} is the first n where it can" in prose
+        assert "0.037 at n=3" in prose
+        # ... and the ladder STOPS at the floor rather than reciting a rung the
+        # retuned percentile has made irrelevant. This is the assertion that
+        # catches a re-typed ladder: a frozen ladder still contains the n=3 rung
+        # asserted above, so checking only that would pass on the old string.
+        assert "0.0039 at n=4" not in prose
+        assert "n=4" not in prose
+
+    def test_floor_derivation_block_is_self_consistent_at_the_shipped_percentile(
+        self, shipped_meta
+    ):
+        """The committed artifact's own block, checked against the derivation
+        rather than against a remembered string: the ladder's last rung must be
+        the first one to clear the stated threshold, the rung below it must NOT
+        clear it, and the conclusion must name that same n.
+
+        The retune test above proves the block moves; this proves where it
+        currently sits is right. Neither alone is enough — a block hardcoded to
+        the correct answer passes this one, and a block that moves to the wrong
+        answer passes that one.
+        """
+        block = shipped_meta["interval_unresolvable"]
+        prose = block["floor_derivation"]
+        floor = block["min_clusters_for_resolvable_ci"]
+
+        assert floor == B.MIN_CLUSTERS_FOR_RESOLVABLE_CI
+        assert f"CI_LOW/100 = {B.CI_LOW / 100}" in prose
+        assert f"n={floor} is the first n where it can" in prose
+        assert floor ** (-floor) <= B.CI_LOW / 100
+        assert (floor - 1) ** (-(floor - 1)) > B.CI_LOW / 100
+        assert f"{floor ** (-floor):.2g} at n={floor}" in prose
+        assert f"{(floor - 1) ** (-(floor - 1)):.2g} at n={floor - 1}" in prose
+
+    def test_the_superseded_predicate_prose_no_longer_claims_the_cells_are_published(
+        self, shipped_meta
+    ):
+        """`degenerate_interval_predicate` used to end "Left published rather
+        than suppressed". That sentence became false the moment the cells were
+        withdrawn, and a provenance artifact that describes the opposite of what
+        it contains is worse than one that says nothing."""
+        superseded = shipped_meta["ci_status"]["degenerate_interval_predicate"]
+        assert "Left published rather than suppressed" not in superseded
+        assert "SUPERSEDED" in superseded
+        assert "interval_unresolvable" in superseded
 
     def test_rebuilding_reproduces_the_committed_artifact_byte_for_byte(
         self, real_annotations, tmp_path
@@ -1208,6 +1881,47 @@ class TestCliAndChecks:
         out = capsys.readouterr().out
         assert "wrote" in out
         assert B.COREX_SURFACE not in out
+
+    def test_print_checks_separates_the_flagged_cells_from_the_kept_zero_widths(
+        self, shipped, capsys
+    ):
+        """The operator's view of this task's entire deliverable.
+
+        `print_checks` is where a human sees the gate's effect, and its two new
+        lines report the two halves of the conjunction: cells WITHDRAWN
+        (`interval_unresolvable`) and zero-width cells KEPT because their period
+        had enough clusters. The counts and the periods are re-derived from the
+        table rather than typed, per the repo's provenance-prose doctrine.
+
+        The load-bearing assertion is that the two lines DISAGREE. Both masks
+        are one-line boolean expressions over the same frame, so a copy-paste of
+        the flagged mask into the kept line — or vice versa — is the realistic
+        regression, and it would print two plausible, self-consistent lines that
+        nothing else in the suite reads.
+        """
+        B.print_checks(shipped)
+        out = capsys.readouterr().out
+
+        a = shipped[shipped["surface"] == B.COREX_SURFACE]
+        flagged = a[a["interval_unresolvable"]]
+        kept = a[a["lo"].notna() & (a["lo"] == a["hi"])]
+        assert len(flagged) != len(kept), (
+            "fixture premise: if the two counts coincided this test could not "
+            "tell the two lines apart"
+        )
+        assert set(flagged["period"]).isdisjoint(kept["period"]), (
+            "a period cannot be both, so the two period lists must not overlap"
+        )
+
+        assert (f"interval_unresolvable: {len(flagged)} "
+                f"(periods {sorted(flagged['period'].unique().tolist())})") in out
+        assert (f"zero-width intervals KEPT (legitimate): {len(kept)} "
+                f"(periods {sorted(kept['period'].unique().tolist())})") in out
+
+        # Surface B is computed, not assumed absent — the line must be printed
+        # for it too, reporting zero rather than being skipped.
+        assert out.count("interval_unresolvable:") == 2
+        assert "interval_unresolvable: 0 (periods [])" in out
 
     def test_print_checks_reports_the_thinnest_period_per_issue(self, shipped, capsys):
         B.print_checks(shipped)
