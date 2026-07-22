@@ -2993,3 +2993,47 @@ class TestReducedRunsCannotPublish:
         C.main(["--quiet"])
         assert seen["n_permutations"] == C.N_PERMUTATIONS
         assert seen["out_dir"] is None
+
+
+class TestFrozenArtifactsAreNotAWriteTarget:
+    """SECURITY-REVIEW, 2026-07-22. `--out-dir` (added the same day) accepts an
+    arbitrary path and `mkdir(parents=True)`s it, which made the frozen paid
+    annotations dir reachable as a write target for the first time.
+
+    The refusal is checked BEFORE the three-leg gate, so these tests need no
+    pipeline fixture -- which is itself the property `test_it_refuses_before_
+    paying_for_the_selftest` pins.
+    """
+
+    def test_the_frozen_annotations_dir_is_refused(self):
+        with pytest.raises(ValueError, match="frozen annotations dir"):
+            C.build_convergence(out_dir=C.ANNOTATIONS_DIR, n_permutations=3)
+
+    def test_a_subdirectory_of_it_is_refused_too(self):
+        """The parent check, not just equality -- `manifests/` lives under it."""
+        with pytest.raises(ValueError, match="frozen annotations dir"):
+            C.build_convergence(
+                out_dir=C.ANNOTATIONS_DIR / "manifests", n_permutations=3
+            )
+
+    def test_it_refuses_before_paying_for_the_selftest(self, monkeypatch):
+        """A refusal that costs four minutes of Monte Carlo first is a refusal
+        nobody will keep. `_selftest` is rigged to fail loudly if reached."""
+        def _never_called(*a, **k):
+            raise AssertionError("the gate ran before the write was refused")
+        monkeypatch.setattr(C, "_selftest", _never_called)
+        with pytest.raises(ValueError, match="frozen annotations dir"):
+            C.build_convergence(out_dir=C.ANNOTATIONS_DIR, n_permutations=3)
+
+    def test_an_ordinary_scratch_dir_is_still_allowed(self, tmp_path, tiny_pipeline):
+        """Non-vacuity: it is the frozen dir that is refused, not every out_dir."""
+        C.build_convergence(
+            out_dir=tmp_path / "scratch", n_permutations=3, progress=False
+        )
+        assert (tmp_path / "scratch" / C.META_PATH.name).exists()
+
+    def test_the_default_published_dir_is_still_allowed(self):
+        """The guard must not have caught the layer's own home."""
+        resolved = C.CONVERGENCE_DIR.resolve()
+        frozen = C.ANNOTATIONS_DIR.resolve()
+        assert resolved != frozen and frozen not in resolved.parents

@@ -82,6 +82,7 @@ from .attention import canonical_label_map, load_taxonomy, normalize_topics
 from .corpus import DATA_DIR
 from .eras import check_staleness
 from .llm_annotations import (
+    ANNOTATIONS_DIR,
     corpus_fingerprint,
     load_paragraph_annotations,
     load_speech_annotations,
@@ -1741,6 +1742,25 @@ def build_convergence(
         AssertionError: from `_selftest`, on any failing leg.
         ValueError: on a malformed or mis-targeted `selftest_bypass`.
     """
+    # BEFORE the gate, not after: `--out-dir` accepts an arbitrary path and then
+    # `mkdir(parents=True)`s it, so a fat-finger can drop derived parquets inside
+    # `data/llm_annotations/` -- the FROZEN, provenance-stamped output of paid LLM
+    # runs, whose whole contract is that nothing regenerates into it casually.
+    # Nothing here would overwrite one (the filenames differ), but polluting a
+    # frozen dir with derived output is the confusion its manifests exist to
+    # prevent. `combat.py` guards the same boundary
+    # (`test_no_write_target_lives_under_the_frozen_annotations_dir`).
+    # A refusal must also cost nothing: checked here, it fires immediately rather
+    # than after four minutes of selftest that was always going to be thrown away.
+    if out_dir is not None:
+        resolved, frozen = Path(out_dir).resolve(), ANNOTATIONS_DIR.resolve()
+        if resolved == frozen or frozen in resolved.parents:
+            raise ValueError(
+                "refusing to write derived output into the frozen annotations "
+                f"dir ({ANNOTATIONS_DIR}); those are paid, provenance-stamped "
+                "artifacts."
+            )
+
     if selftest_bypass is None:
         selftest = _selftest(verbose=progress)
     else:
