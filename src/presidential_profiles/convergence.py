@@ -781,6 +781,13 @@ def speech_block_floor(
     dealt = pooled[order]
 
     S = design.n_speeches
+    # Deliberately `np.empty` and NOT `np.full(..., np.nan)` like the two null
+    # arrays. This one is an int64 INDEX array, so it has no NaN sentinel: the
+    # only candidates (-1, 0) are valid indices and would silently select the
+    # wrong speech through `design.starts[speech_ids]`, turning a loud crash into
+    # a quiet wrong row. The loop below writes every slot unconditionally
+    # (`for e in range(n_slots)` covers the full second axis), so no element is
+    # ever read unwritten. Left as-is on purpose — do not "fix" it in a sweep.
     speech_ids = np.empty((n_draws, n_slots, S), dtype=np.int64)
     for e in range(n_slots):
         block = dealt[:, bounds[e]: bounds[e + 1]]

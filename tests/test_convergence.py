@@ -836,13 +836,23 @@ class TestSampler:
         )
         assert [len(thin), len(fat_a), len(fat_b)] == [2, 10, 10]
 
-        _, thin_first = C.speech_block_floor(
+        value_first, thin_first = C.speech_block_floor(
             design, [thin, fat_a, fat_b], np.random.default_rng(0), 400
         )
         _, thin_last = C.speech_block_floor(
             design, [fat_a, fat_b, thin], np.random.default_rng(0), 400
         )
         assert len(thin_first) == len(thin_last) == 3
+        # The per-slot vector must be normalized by "the number of OTHER slots"
+        # (E-1), not by E. Each unordered pair appears in exactly two rows of the
+        # symmetric matrix, so summing the rows double-counts every pair; only
+        # dividing by E-1 makes the mean of `per_slot` equal the scalar mean over
+        # unordered pairs. This is an exact identity under the correct divisor and
+        # is off by a factor (E-1)/E under the wrong one -- a pin on the divisor,
+        # not a tautology. `per_slot` is not a diagnostic: it accumulates into
+        # `pres_floor` -> `mean_speech_block_floor` / `corrected_distance` in
+        # `paradox.parquet`, i.e. the published H2b inference.
+        assert thin_first.mean() == pytest.approx(value_first)
         # The fixture HAS the property: at three slots the entries are not all
         # equal, so an ordering claim about them is not vacuous.
         assert thin_first.max() - thin_first.min() > 0.02, (
@@ -1712,15 +1722,18 @@ class TestTrustGateOnEveryOutputTable:
 
     def test_the_gate_vocabulary_is_literally_one_vocabulary(self):
         """`window_status`, `jackknife_status`, `null_status` and
-        `paradox_table` must not each invent their own words.
+        `paradox_status` must not each invent their own words.
 
-        `paradox_table` is the one of the four that does NOT go through a named
-        `*_status` function — its thresholds are inline in the frame builder —
-        so it is the one most able to drift, and it was previously named in this
-        docstring while being excluded from the union it claims to check.
+        `paradox_table`'s gate used to be an inline `np.where` in the frame
+        builder rather than a named function, which is exactly why it drifted
+        out of this union once already — it was named in this docstring while
+        being excluded from the set the test actually checked. SIMPLIFY extracted
+        it to `paradox_status`, so all four now enter the union the same way and
+        the asymmetry that allowed the drift is gone.
         """
         produced = {C.window_status(n) for n in range(0, 8)}
         produced |= {C.jackknife_status(u, 100) for u in (0, 2, 3, 70, 80, 95, 100)}
+        produced |= {C.paradox_status(n) for n in (0, 1, 2, 3, 9, 10, 11)}
         produced |= {
             C.null_status(rho, v, 100)
             for rho in (-0.5, float("nan"))
@@ -2391,6 +2404,35 @@ class TestBuildConvergence:
         assert all(
             r["in_ends_2014"] == (r["window_end"] <= C.DATING_END_YEAR) for r in rows
         )
+
+    def test_ends_2014_does_not_exist_off_the_rolling_grid(self):
+        """`ends_2014` is a SUBSET of the rolling grid (prereg 7.4), so on any
+        other window kind the treatment must be absent, not silently different.
+
+        SIMPLIFY created this branch when it collapsed two independent copies of
+        the rule into `ends_2014_mask`; the all-False return replaced an inline
+        `design.window_kind == "rolling"` conjunct that only one of the two
+        copies carried. Nothing asserted it, so a mutant returning a live mask
+        here would publish `in_ends_2014=True` on a grid where the prereg says
+        the treatment does not exist. The windows below deliberately END well
+        before 2014, so a rolling-grid mask would mark every one of them True —
+        which is what makes the all-False assertion a fact about the BRANCH
+        rather than about the dates.
+        """
+        curve = _hand_curve(
+            np.linspace(0.9, 0.5, 8), start=np.arange(1800, 1816, 2)
+        )
+        assert (curve.end <= C.DATING_END_YEAR).all(), (
+            "fixture must end before the cutoff, or all-False proves nothing"
+        )
+        assert not C.ends_2014_mask(curve, "nonoverlapping").any()
+        assert C.ends_2014_mask(curve, "rolling").all()
+
+        design = C.build_design(_coextensive_corpus(3), _TINY_ARM)
+        assert design.window_kind == "rolling"
+        nonoverlapping = design._replace(window_kind="nonoverlapping")
+        rows = C._curve_rows(C.ARMS[0], nonoverlapping, curve)
+        assert not any(r["in_ends_2014"] for r in rows)
 
     def test_the_jackknife_is_scored_against_the_ROLLING_grids_null(
         self, tmp_path, tiny_pipeline, monkeypatch
