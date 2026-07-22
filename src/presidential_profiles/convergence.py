@@ -135,6 +135,27 @@ WINDOW_KINDS = ("rolling", "nonoverlapping")
 TREATMENTS = ("all_windows", "ends_2014")
 DATING_END_YEAR = 2014     # the H1 Trump-clause dating procedure (prereg 7.4)
 
+# The ONE trust-gate vocabulary for this whole layer, shared with `combat.py`
+# and `eras.py`. Every table under `data/convergence/` carries a `ci_status`
+# drawn from it on every row, because every one of those tables has rows a
+# consumer could plot: window rows (`window_status`), leave-one-out rows
+# (`jackknife_status`), permutation rows (`null_status`) and president rows
+# (`paradox_table`). A reader must never be able to plot an estimate blind, and
+# must never have to learn a second vocabulary to do it.
+CI_STATUS_VALUES = ("no_data", "suppressed_n_floor", "low_cluster_caution", "ok")
+
+# Jackknife gate. A leave-one-out rho is scored against the FULL-design
+# permutation null, so the comparison is only as good as the agreement between
+# the leave-one-out window set and the full one.
+JACKKNIFE_MIN_WINDOWS = 3          # below this `spearman_rho` is NaN by construction
+JACKKNIFE_SUPPRESS_RETENTION = 0.75
+JACKKNIFE_CAUTION_RETENTION = 0.90
+
+# permutation_null gate: a rho scored against a null whose draws mostly came
+# back NaN is not an inference.
+NULL_SUPPRESS_VALID_FRACTION = 0.75
+NULL_CAUTION_VALID_FRACTION = 0.99
+
 STATISTICS = ("dispersion", "floor_corrected", "excess_ratio", "pair_regression")
 
 
@@ -439,6 +460,63 @@ def window_status(n_eligible: int) -> str:
     if n_eligible < MIN_PRESIDENTS:
         return "suppressed_n_floor"
     if n_eligible < 5:
+        return "low_cluster_caution"
+    return "ok"
+
+
+def n_windows_in_trend(design: Design, drop: int | None = None) -> int:
+    """How many of `design`'s windows enter a trend, optionally dropping one
+    president. Reads the DESIGN only — no sampling, no values — which is what
+    makes it usable as a trust gate rather than as a result.
+    """
+    total = 0
+    for w in design.windows:
+        n = int((w.presidents != drop).sum()) if drop is not None else len(w.presidents)
+        if window_status(n) not in {"no_data", "suppressed_n_floor"}:
+            total += 1
+    return total
+
+
+def jackknife_status(n_windows_used: int, n_windows_full: int) -> str:
+    """The trust gate for one leave-one-president-out row.
+
+    `n_windows_used` on its own is only a proxy. What actually decides whether
+    a jackknife rho may be read is how far the leave-one-out design has drifted
+    from the FULL design, because the row's p-value comes from the full-design
+    permutation null (the declared approximation of prereg 7.1). Deleting a
+    president who was the third eligible one in many windows pushes those
+    windows below the `MIN_PRESIDENTS` floor; the surviving rho is then a
+    different estimand from the null it is being scored against.
+
+    `no_data` = fewer than three windows, where `spearman_rho` is NaN by
+    construction; `suppressed_n_floor` = under 75% of the full design's trend
+    windows survive; `low_cluster_caution` = under 90%; `ok` otherwise.
+    """
+    if n_windows_full <= 0 or n_windows_used < JACKKNIFE_MIN_WINDOWS:
+        return "no_data"
+    retained = n_windows_used / n_windows_full
+    if retained < JACKKNIFE_SUPPRESS_RETENTION:
+        return "suppressed_n_floor"
+    if retained < JACKKNIFE_CAUTION_RETENTION:
+        return "low_cluster_caution"
+    return "ok"
+
+
+def null_status(rho: float, n_valid: int, n_permutations: int) -> str:
+    """The trust gate for one `permutation_null` row.
+
+    A permuted curve can fail to yield a rho (too few usable windows, a
+    constant series), and every such draw is dropped from the null before the
+    p-value is formed. A p computed against a null that mostly evaporated is
+    not an inference, so the surviving fraction is published as a status rather
+    than left for a reader to reconstruct from `n_permutations_valid`.
+    """
+    if not np.isfinite(rho) or n_valid == 0 or n_permutations <= 0:
+        return "no_data"
+    fraction = n_valid / n_permutations
+    if fraction < NULL_SUPPRESS_VALID_FRACTION:
+        return "suppressed_n_floor"
+    if fraction < NULL_CAUTION_VALID_FRACTION:
         return "low_cluster_caution"
     return "ok"
 
@@ -993,6 +1071,7 @@ def null_rows(
             ),
             "n_permutations": n_permutations,
             "n_permutations_valid": int(len(valid)),
+            "ci_status": null_status(rho, len(valid), n_permutations),
             "alpha_one_sided": ALPHA,
             "seed": MASTER_SEED,
             "p_source": "president_permutation",
@@ -1017,8 +1096,15 @@ def jackknife(
     re-permutations is not affordable, and the null's spread is a property of
     the design, which deleting one president barely perturbs. It is recorded on
     every row as `null_source`.
+
+    "Barely perturbs" is exactly the assumption a reader must be able to check,
+    so every row also carries `ci_status` (`jackknife_status`) beside
+    `n_windows_used` / `n_windows_full_design`: a president whose deletion
+    collapses the trend window set is flagged rather than silently plotted
+    against a null that no longer describes its design.
     """
     rows = []
+    n_windows_full = n_windows_in_trend(design)
     for p in ever_eligible(design):
         curve = dispersion_curve(
             design, [MASTER_SEED, arm_index, 0, 900_000 + int(p)], drop=int(p),
@@ -1026,6 +1112,7 @@ def jackknife(
             with_entropy_match=False,
         )
         rho = spearman_rho(curve.center[curve.used], curve.dispersion[curve.used])
+        n_used = int(curve.used.sum())
         rows.append({
             "arm": design.arm,
             "left_out_president": design.presidents[p],
@@ -1035,7 +1122,9 @@ def jackknife(
             "significant_decline": bool(
                 np.isfinite(rho) and rho < 0 and _one_sided_p(rho, null_draws) <= ALPHA
             ),
-            "n_windows_used": int(curve.used.sum()),
+            "n_windows_used": n_used,
+            "n_windows_full_design": n_windows_full,
+            "ci_status": jackknife_status(n_used, n_windows_full),
             "null_source": "full_design_permutation_null",
             "p_source": "president_permutation",
             "scipy_pvalue_used": False,
@@ -1339,6 +1428,7 @@ def _selftest(verbose: bool = True) -> dict:
 
     # ---- legs (a) and (b) -------------------------------------------------
     cluster_rhos, paragraph_rhos, injected_rhos = [], [], []
+    cluster_windows: list[int] = []
     for k in range(SELFTEST_CORPORA):
         null_comp = _synthetic_composition(np.random.default_rng([MASTER_SEED, 101, k]))
         cluster = dispersion_curve(
@@ -1348,6 +1438,7 @@ def _selftest(verbose: bool = True) -> dict:
         cluster_rhos.append(
             spearman_rho(cluster.center[cluster.used], cluster.dispersion[cluster.used])
         )
+        cluster_windows.append(int(cluster.used.sum()))
         paragraph = dispersion_curve(
             _selftest_design(null_comp, eligibility="paragraphs"),
             [MASTER_SEED, 101, k, 2], with_floor=False, with_entropy_match=False,
@@ -1378,7 +1469,13 @@ def _selftest(verbose: bool = True) -> dict:
     results["b_injected_rho"] = rho_injected
     results["b_injected_rho_sd"] = float(np.std(injected_rhos, ddof=1))
     results["corpora"] = SELFTEST_CORPORA
-    results["n_windows"] = int(cluster.used.sum())
+    # Named for what it actually is, and computed without leaking the loop
+    # variable. This was previously published as `n_windows` read off the LAST
+    # leg-(a) corpus's curve after the loop had ended: it read as a property of
+    # the selftest as a whole, and is not one — the 12 corpora differ from each
+    # other and leg (c) uses a shorter timeline entirely.
+    results["a_corpus_windows_in_trend_min"] = int(min(cluster_windows))
+    results["a_corpus_windows_in_trend_max"] = int(max(cluster_windows))
 
     # ---- leg (c): permutation-null size ----------------------------------
     hits, sizes_seen = 0, 0
@@ -1490,19 +1587,58 @@ def _curve_rows(arm: ArmSpec, design: Design, curve: Curve) -> list[dict]:
     return rows
 
 
+SELFTEST_BYPASS_TOKEN = "yes-i-know-this-run-is-not-publishable"
+
+
 def build_convergence(
     out_dir: Path | None = None,
     n_permutations: int = N_PERMUTATIONS,
-    run_selftest: bool = True,
     progress: bool = True,
+    selftest_bypass: str | None = None,
 ) -> dict[str, pd.DataFrame]:
     """Run the whole pre-registered analysis and write `data/convergence/`.
 
     `_selftest` gates everything: if any leg fails this raises before a single
-    real number is computed, and nothing is written.
+    real number is computed and before `out_dir` is even created, so no partial
+    artifact can be left behind. That is the pre-registered bail condition —
+    running an estimator that cannot pass its own null is exactly how the
+    original design got here.
+
+    `selftest_bypass` exists only for tests and development. It is deliberately
+    awkward: it must equal `SELFTEST_BYPASS_TOKEN` verbatim (a bare `True` will
+    not do), and a bypassed run is **forbidden from writing the published
+    layer** — `out_dir` must be given and must not be `CONVERGENCE_DIR`. The
+    meta of a bypassed run records `publishable: False`. There is no way to put
+    an ungated number into `data/convergence/`.
+
+    Raises:
+        AssertionError: from `_selftest`, on any failing leg.
+        ValueError: on a malformed or mis-targeted `selftest_bypass`.
     """
-    selftest = _selftest(verbose=progress) if run_selftest else None
-    out_dir = CONVERGENCE_DIR if out_dir is None else out_dir
+    if selftest_bypass is None:
+        selftest = _selftest(verbose=progress)
+    else:
+        if selftest_bypass != SELFTEST_BYPASS_TOKEN:
+            raise ValueError(
+                "selftest_bypass must be SELFTEST_BYPASS_TOKEN verbatim; "
+                f"got {selftest_bypass!r}. The gate is not a boolean flag on "
+                "purpose — skipping it must be an obviously deliberate act."
+            )
+        if out_dir is None or Path(out_dir).resolve() == CONVERGENCE_DIR.resolve():
+            raise ValueError(
+                "a selftest-bypassed run may never write the published layer "
+                f"({CONVERGENCE_DIR}); pass an explicit scratch out_dir."
+            )
+        selftest = {
+            "ran": False,
+            "bypassed": True,
+            "publishable": False,
+            "note": (
+                "the three-leg gate was bypassed; no number in this directory "
+                "is publishable"
+            ),
+        }
+    out_dir = CONVERGENCE_DIR if out_dir is None else Path(out_dir)
 
     compositions = {
         source: build_compositions(source)
@@ -1526,13 +1662,17 @@ def build_convergence(
         )
         null_rows_all += null_rows(arm, observed, null, n_permutations)
 
+        curves: dict[str, Curve] = {}
         for kind, design in designs.items():
             curve = dispersion_curve(
                 design, [MASTER_SEED, arm_index, WINDOW_KINDS.index(kind), 0]
             )
             curve_rows += _curve_rows(arm, design, curve)
-            if kind == "rolling":
-                rolling_curve, rolling_design = curve, design
+            curves[kind] = curve
+        # Bound explicitly, not left leaking out of the loop above: the previous
+        # spelling worked only because `WINDOW_KINDS[0] == "rolling"` and would
+        # have raised `NameError` at a distance if that tuple were reordered.
+        rolling_curve, rolling_design = curves["rolling"], designs["rolling"]
 
         used = np.array([r["used_in_trend"] for r in curve_rows if
                          r["arm"] == arm.name and r["window_kind"] == "rolling"])
