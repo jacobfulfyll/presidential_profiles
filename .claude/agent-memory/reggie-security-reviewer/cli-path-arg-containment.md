@@ -22,6 +22,12 @@ silently clobbers it, and `mkdir(parents=True)` will happily build arbitrary dir
 Frame it as a fat-finger/integrity guard against a documented repo invariant, and say plainly that it
 is not a security vulnerability. See [[project-attack-surface]].
 
+**The class did NOT recur in `topic-chart-upgrades` (2026-07-21)** — `bands.py::main()` exposes only
+`--quiet`, and `write_bands(table, path=BANDS_PATH)` is called with no path. Its default is bound at
+def time, so patching `B.BANDS_PATH` does not redirect it; the suite handles that correctly by
+monkeypatching `write_bands` itself AND sha256-ing `data/bands.parquet` before/after `main()`
+(`TestCliAndChecks.run_main`). That is the pattern to point at when this class does recur.
+
 **How to apply — where the guard goes:** validate in `main()` (the CLI boundary), NOT in the library
 write function. Library writers are called with `tmp_path` by tests (e.g.
 `test_write_lifecycles_is_byte_identical_on_rerun` passes `tmp_path / "nested" / "one.parquet"`), so a

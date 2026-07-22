@@ -7,4 +7,5 @@
 - [Render vs metric null guard](project_render-vs-metric-null-guard.md) — null-coercion fixes on compute paths miss the sibling render path; per-model ingest routing only unit-tested
 - [Research-report review heuristics](project_research-report-review-heuristics.md) — 13 checks; #5 selective-statistic reuse is the dominant class (9 instances in one task); #5b/#5c: a mechanical sweep does NOT exhaust it — audit the declared scope rules
 - [Research-report review heuristics](project_research-report-review-heuristics.md) — 13 checks; #5 selective-statistic reuse is the dominant class (6 instances in one task) — build the full parquet cell grid and grep the note for every measure
+- [Chart & band review heuristics](project_chart-and-band-review-heuristics.md) — 5 checks for chart/uncertainty-band tasks: artifact rows != rendered panels, new axis ranges, per-key seam absence, hover labels as prose
 - [Analysis-report audit heuristics](project_analysis-report-audit-heuristics.md) — the recurring "true conclusion, invalid justification" defect and the 4 recomputations that catch it

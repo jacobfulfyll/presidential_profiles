@@ -17,4 +17,6 @@
 - [Synthetic corpus with derivable NPMI](feedback_synthetic-corpus-derivable-npmi.md) — 100-doc fixture clears min_df=20/max_df=0.5 and makes every coherence value hand-derivable
 - [triangulate monkeypatch harness](reference_triangulate-monkeypatch-harness.md) — module-constant paths, and default args (N_LEVEL2_TOPICS, NAMES_PATH) that are NOT monkeypatchable
 - [Pin the conclusion, not the shape](feedback_pin-the-conclusion-not-the-shape.md) — "effect does not survive the control" needs the attenuation asserted plus a real-effect contrast fixture
+- [numpy bool identity assertions can never fail](feedback_numpy-bool-identity-assertions.md) — `np.isnan(x) is not expected` is always true; grep for it, coverage and mutation both miss it
+- [bands.py test seams](reference_bands-test-seams.md) — un-redirect ANNOTATIONS_DIR via attention.TAXONOMY_PATH.parent; inject the 3 llm_bands components; build_bands reproduces the shipped parquet byte-for-byte
 - [Report numbers need artifact anchors](feedback_report-numbers-need-artifact-anchors.md) — regression-check published figures against committed data; a mismatched docstring is a coverage hole

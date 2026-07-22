@@ -5,8 +5,10 @@ With --inline, also writes a fully self-contained copy for offline sharing.
 """
 
 import argparse
+import html
 import json
 import re
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -14,7 +16,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.subplots import make_subplots
 
-from . import compare_site, corpus, explorer, indices, issues, issues_site, portraits, profiles, profiles_site, rhetoric, similarity, topic_quality, trends, word_families
+from . import bands, compare_site, corpus, explorer, indices, issues, issues_site, portraits, profiles, profiles_site, rhetoric, similarity, topic_quality, trends, word_families
 from .figures import (
     BASELINE,
     BLUE_RAMP,
@@ -52,7 +54,9 @@ def _layout(**overrides) -> dict:
     return base
 
 
-X_RANGE = [1786, 2029]
+# Derived, not restated: `issues_site` owns the window (see
+# `issues_site.x_range_covering` for why the lower bound is a floor).
+X_RANGE = [issues_site.X_MIN, issues_site.X_MAX]
 
 
 def _stats_yearly(stats: pd.DataFrame, count_col: str, window: int = 5,
@@ -348,39 +352,273 @@ def _small_multiples(panels: list[tuple[str, pd.Series]], rows: int, cols: int,
     return fig
 
 
+# One string for both branches. The dots are per (president, PERIOD) now, and a
+# hover reading "12.3% of their paragraphs" invites a reader to hear a
+# whole-presidency share — a different quantity from the one plotted. The issue
+# pages were updated when the dots changed and the dashboard was not; sharing
+# the constant is what stops the two renderings of one function drifting again.
+DOTS_UNIT = "% of their paragraphs in this period"
+
+
+def _x_range_covering(panels: list[tuple[str, pd.DataFrame | None]]) -> list:
+    """Grid-shaped adapter over `issues_site.x_range_covering`.
+
+    The rule itself lives in `issues_site` next to `X_MIN`/`X_MAX`, so the
+    single-issue figure and both dashboard grids share one implementation
+    instead of two that can drift apart on the bound that matters.
+    """
+    return issues_site.x_range_covering([b for _, b in panels])
+
+
+def _wrap_panel_title(title: str, per_line: int, max_lines: int = 2) -> str:
+    """Word-wrap a subplot title so a long topic name is not clipped mid-word.
+
+    Plotly clips a subplot title at the panel's width, which turned "Partisan
+    Combat, Press Conferences & Media Attacks" into "…& Media Attac" — a string
+    that reads as a rendering bug rather than as a shortened label. Titles are
+    wrapped onto at most `max_lines` lines with `<br>`; anything still over
+    length is truncated with a real ellipsis, which reads as deliberate.
+
+    Only the DISPLAYED title is shortened. The hover tooltip keeps the full
+    name, so nothing is actually lost.
+    """
+    words, lines, current = title.split(), [], ""
+    for word in words:
+        candidate = f"{current} {word}".strip()
+        if current and len(candidate) > per_line:
+            lines.append(current)
+            current = word
+            if len(lines) == max_lines:
+                break
+        else:
+            current = candidate
+    if len(lines) < max_lines:
+        lines.append(current)
+        current = ""
+    if current:                                  # ran out of lines mid-title
+        last = lines[-1]
+        keep = max(0, per_line - 1)
+        lines[-1] = (last[:keep].rstrip() if len(last) > keep else last) + "…"
+    return "<br>".join(line for line in lines if line)
+
+
+def _banded_small_multiples(panels: list[tuple[str, pd.DataFrame]], rows: int,
+                            cols: int, height: int, unit: str,
+                            dots: dict | None = None,
+                            dots_unit: str = "",
+                            x_range: list | None = None,
+                            show_components: bool = False) -> go.Figure:
+    """Small multiples of banded trend lines.
+
+    `panels` are `(title, band_frame)` where the frame is a `bands.parquet`
+    slice (`x`, `point`, `lo`, `hi`, `ci_status`, `n_speeches`). Trace order is
+    band, then line, then dots, because plotly paints later traces on top and a
+    band over its own dots hides them.
+    """
+    per_line = 34 if cols <= 3 else 26
+    titles = [_wrap_panel_title(t, per_line) for t, _ in panels]
+    # A wrapped title grows UPWARD from its panel, so the top row needs more
+    # margin — but only when something actually wrapped, so a grid of short
+    # titles (the 16 CorEx issues) keeps its existing layout untouched.
+    top_margin = 62 if any("<br>" in t for t in titles) else 48
+    fig = make_subplots(rows=rows, cols=cols, shared_xaxes=True,
+                        subplot_titles=titles,
+                        vertical_spacing=0.09, horizontal_spacing=0.06)
+    for k, (title, band) in enumerate(panels):
+        r, c = divmod(k, cols)
+        # `bands.series_band` returns None for a series absent from the table —
+        # the seam's PARTIAL failure mode, which a stale `bands.parquet`
+        # predating a CorEx refit (a renamed or added issue) produces. Whole-file
+        # absence already degrades gracefully and schema drift already raises a
+        # rebuild message; without this, a per-series miss instead died as an
+        # opaque TypeError inside `_band_hover`. The panel keeps its dots and
+        # its title, and simply carries no line.
+        if band is not None and not band.empty:
+            for trace in issues_site.band_traces(band):
+                fig.add_trace(trace, row=r + 1, col=c + 1)
+            for trace in issues_site.line_traces(band, unit=unit, width=2,
+                                                 suffix=title,
+                                                 show_components=show_components):
+                fig.add_trace(trace, row=r + 1, col=c + 1)
+        top = issues_site.band_y_top(band)
+        if dots and title in dots:
+            d = dots[title]
+            fig.add_trace(go.Scatter(
+                x=d["x"], y=d["y"], mode="markers", showlegend=False,
+                marker=dict(color=BLUE_RAMP[5], size=4, opacity=0.4),
+                customdata=d["name"],
+                hovertemplate="<b>%{customdata}</b>: %{y:.1f}" + dots_unit
+                              + "<extra>" + title + "</extra>",
+            ), row=r + 1, col=c + 1)
+            if top is not None and len(d):
+                top = max(top, float(d["y"].max()) * 1.05)
+        # Per-panel ceiling, so one 2-speech period's enormous interval cannot
+        # flatten its neighbours' 240 years of real movement. See
+        # `issues_site.band_y_top` for why overflow is the intended reading.
+        fig.update_yaxes(range=None if top is None else [0, top],
+                         row=r + 1, col=c + 1)
+    fig.update_layout(**_layout(height=height, margin=dict(l=40, r=16, t=top_margin, b=36)))
+    fig.update_xaxes(gridcolor=GRID, linecolor=BASELINE,
+                     tickfont=dict(color=MUTED, size=10), range=x_range)
+    # `rangemode` is the fallback for panels with no band to scale to; it is
+    # inert on the panels that got an explicit [0, top] range above.
+    fig.update_yaxes(gridcolor=GRID, linecolor=BASELINE, rangemode="tozero",
+                     tickfont=dict(color=MUTED, size=10))
+    fig.update_annotations(font=dict(size=12.5, color=INK))
+    return fig
+
+
 def fig_issues_decade(para_labels: pd.DataFrame, issue_names: list[str],
-                      issue_df: pd.DataFrame | None = None,
-                      scores: pd.DataFrame | None = None) -> go.Figure:
-    """Share of paragraphs touching each curated issue, in 5-year periods,
-    with per-president dots (each president's own share, at their term
-    midpoint)."""
+                      band_table: pd.DataFrame | None = None) -> go.Figure:
+    """Share of paragraphs touching each curated issue, in 5-year periods.
+
+    Each panel carries a speech-clustered 95% sampling band and one dot per
+    (president, period). `band_table` is `bands.parquet`; when it is absent the
+    panels fall back to the unbanded line rather than to an invented interval.
+    These are CorEx labels, so the intervals are sampling-only by construction —
+    there is no annotator in that pipeline whose disagreement could widen them.
+    """
     pl = para_labels.copy()
-    pl["period"] = (pl["year"] // 5) * 5
-    counts = pl.groupby("period").size()
-    valid = counts[counts >= 40].index
-    display = topic_quality.display_issues(issue_names)
+    # Resolved once and shared by both branches: a discovered topic's panel
+    # title is its hand-edited display name, and having the two branches look
+    # that up separately is how one of them silently keeps the raw column name.
+    labelled = [(name, profiles_site.DISCOVERED_LABELS.get(name, name))
+                for name in topic_quality.display_issues(issue_names)]
 
-    dots = None
-    if issue_df is not None and scores is not None:
-        d = issue_df.set_index("president")
-        mids = (scores["first_year"] + scores["last_year"]) / 2
-        dots = {}
-        for name in display:
-            label = profiles_site.DISCOVERED_LABELS.get(name, name)
-            dots[label] = pd.DataFrame({
-                "x": mids.values,
-                "y": (d.loc[mids.index, f"share_{name}"] * 100).values,
-                "name": mids.index,
-            })
+    dots = {label: issues_site.president_period_dots(pl, name)
+            for name, label in labelled}
 
-    panels = []
-    for name in display:
-        label = profiles_site.DISCOVERED_LABELS.get(name, name)
-        share = pl.groupby("period")[name].mean() * 100
-        panels.append((label, share.loc[share.index.isin(valid)]))
-    return _small_multiples(panels, rows=4, cols=4, height=880,
-                            hovertemplate="%{y:.1f}% of paragraphs",
-                            dots=dots, dots_unit="% of their speech")
+    if band_table is None:
+        # The `40` stays a bare literal on purpose: this branch preserves the
+        # PRE-BAND behaviour, so it must keep applying the historic hard mask
+        # even if `bands.MIN_PERIOD_PARAGRAPHS` is ever retuned as a
+        # de-emphasis threshold. The period grain is genuinely shared with the
+        # banded branch, so that one does read the constant (as
+        # `issues_site.fig_issue_timeline`'s matching fallback already does).
+        pl["period"] = (pl["year"] // bands.PERIOD_YEARS) * bands.PERIOD_YEARS
+        counts = pl.groupby("period").size()
+        valid = counts[counts >= 40].index
+        panels = []
+        for name, label in labelled:
+            share = pl.groupby("period")[name].mean() * 100
+            panels.append((label, share.loc[share.index.isin(valid)]))
+        return _small_multiples(panels, rows=4, cols=4, height=880,
+                                hovertemplate="%{y:.1f}% of paragraphs",
+                                dots=dots, dots_unit=DOTS_UNIT)
+
+    panels = [(label, bands.series_band(band_table, bands.COREX_SURFACE, name))
+              for name, label in labelled]
+    return _banded_small_multiples(panels, rows=4, cols=4, height=880,
+                                   unit="% of paragraphs", dots=dots,
+                                   dots_unit=DOTS_UNIT,
+                                   x_range=_x_range_covering(panels))
+
+
+def fig_llm_topic_bands(band_table: pd.DataFrame, top_n: int = 12,
+                        rows: int = 4, cols: int = 3) -> go.Figure:
+    """Surface B: the LLM topic layer, banded with BOTH uncertainty sources.
+
+    Unlike the CorEx charts above, these labels were produced by an AI annotator
+    (`paragraph_annotations.topics`, level 2 of `taxonomy_v1`), so a second
+    annotator's disagreement is genuine uncertainty about the plotted quantity
+    and is composed into the band on top of the speech-clustered sampling
+    interval. Panels are the `top_n` topics ranked by share of ALL corpus
+    paragraphs (each era's share weighted by that era's paragraph count, so a
+    topic cannot rank high off one thin era), which makes the selection a
+    property of the data rather than a curated list.
+    """
+    llm = band_table[band_table["surface"] == bands.LLM_SURFACE]
+    weight = llm["point"] * llm["n_paragraphs"]
+    corpus_share = (
+        weight.groupby(llm["series"]).sum()
+        / llm.groupby("series")["n_paragraphs"].sum()
+    )
+    chosen = corpus_share.nlargest(top_n).index.tolist()
+    panels = [
+        (topic, bands.series_band(band_table, bands.LLM_SURFACE, topic))
+        for topic in chosen
+    ]
+    return _banded_small_multiples(panels, rows=rows, cols=cols, height=940,
+                                   unit="% of paragraphs", x_range=X_RANGE,
+                                   show_components=True)
+
+
+def llm_coverage_sentence() -> str:
+    """How much of the corpus the second annotator read, DERIVED from the artifacts.
+
+    The section's prose said "every paragraph … then read again by a second
+    model", whose subject is every paragraph — claiming a fully double-annotated
+    corpus. The second reader covers a quarter of it. That single number governs
+    how much weight the annotator component deserves, and this is the one
+    surface a reader actually sees, so it is stated here rather than left to
+    `bands.py`'s docstring and `bands_meta.json`.
+
+    Derived, not typed: `bands.paired_coverage()` recomputes it from the
+    annotation tables, so the claim cannot drift from the artifact. The transfer
+    assumption is named in the same breath, because a 262-speech measurement is
+    what widens all nine full-corpus era bands.
+    """
+    c = bands.paired_coverage()
+    return (
+        f"That second reading is a sample, not a re-run: it covers "
+        f"{c['n_paired_paragraphs']:,} of {c['n_corpus_paragraphs']:,} "
+        f"paragraphs ({c['paragraph_fraction']:.1%}), drawn as whole speeches "
+        f"- {c['n_paired_speeches']} of {c['n_corpus_speeches']:,} - and the "
+        f"disagreement measured there is assumed to hold for the eras it widens."
+    )
+
+
+def llm_divergence_sentence(band_table: pd.DataFrame) -> str:
+    """The most/least-divergent era sentence, DERIVED from `bands.parquet`.
+
+    Written at render time rather than typed into `SECTIONS`, so the claim
+    cannot drift away from the artifact it describes — the failure mode
+    CLAUDE.md's "published research notes are a deliverable" section documents,
+    where a bare superlative in prose outlives the numbers behind it.
+
+    The aggregation is stated in the sentence itself (a mean across all 50
+    level-2 topics, in percentage points) because a superlative whose
+    aggregation is unstated is not checkable: mean, max and share-weighted
+    rankings need not agree, and a reader must know which one they are reading.
+
+    **The printed number is the FULL annotator-to-annotator gap, not the
+    half-width** — i.e. `2 x disagreement_half_width`, which is
+    `|share_primary - share_secondary|` before it is halved. The stored column
+    is the half-width, because that is what gets added to each SIDE of the band
+    (`bands.py`'s composition rule). Printing the half-width and calling it "the
+    gap between the two readers" would leave a reader off by a factor of two on
+    the one quantity this section exists to expose, so the sentence prints the
+    gap and names the halving explicitly. This is the "prose carries the wrong
+    mechanism while every number is right" defect class from CLAUDE.md; the
+    factor is pinned by test rather than left to the wording.
+    """
+    llm = band_table[band_table["surface"] == bands.LLM_SURFACE]
+    # x200, not x100: x100 converts a fraction to percentage points, x2 undoes
+    # the halving in `bands.disagreement_half_widths`.
+    per_era = (llm.groupby("period")["disagreement_half_width"].mean() * 200)
+    per_era = per_era.dropna()
+    if per_era.empty:
+        return ""
+    top, bottom = per_era.idxmax(), per_era.idxmin()
+    # Each printed value is a PER-ERA mean, so the count must be that era's
+    # own. Counting the union of measured series across all nine eras still
+    # claims 50 while an era that lost one cell to `no_interval_to_widen`
+    # averages 49 — the same off-by-a-topic defect one level further out. When
+    # the eras disagree the count is qualified rather than picking one to
+    # represent both superlatives.
+    counts = llm.groupby("period")["disagreement_half_width"].count()
+    n_top, n_bottom = int(counts[top]), int(counts[bottom])
+    # The two eras average over the same topics today, which is what lets one
+    # count describe both clauses. If they ever diverge, each clause carries its
+    # own — rather than one era's count silently standing in for the other's.
+    tail = (f"({per_era[bottom]:.2f})" if n_top == n_bottom
+            else f"({per_era[bottom]:.2f}, across {n_bottom})")
+    return (
+        f"Averaging across all {n_top} topics, the two readers' topic shares "
+        f"diverge most in {html.escape(top)} — by {per_era[top]:.2f} percentage "
+        f"points of paragraph share per topic, half of which widens each side "
+        f"of the band; they came closest on {html.escape(bottom)} {tail}."
+    )
 
 
 def _president_dots(py: pd.DataFrame, col: str, color: str,
@@ -819,11 +1057,23 @@ SECTIONS = [
      "few years."),
     ("issues", None, "What presidents actually cared about",
      "36,000 paragraph-sized chunks, scored against one issue taxonomy across all eras. "
+     "The shaded band around each line is a 95% interval from a bootstrap that resamples "
+     "whole speeches - so it balloons where a 5-year period rests on a handful of them - "
+     "and a dotted segment marks periods too thin to read as a trend. These labels come "
+     "from a deterministic topic model with no AI annotator in the loop, so the band "
+     "covers sampling error only. "
      "Money & banking dies with the gold standard, agriculture fades with the family "
      "farm, health care and education arrive only in the late twentieth century - and "
      "immigration's 2020s spike exceeds anything in 240 years, including the Ellis "
      "Island era. Every issue has its own page - timeline, owners, and defining "
      "quotes - in the <a href='issues/index.html'>issue profiles</a>."),
+    ("llm_topics", None, "When the labels come from an AI, the AI's doubt is part of the answer",
+     "The same corpus, labeled a second way: every paragraph read by Claude against a "
+     "50-topic taxonomy built from the corpus itself. A <em>sample</em> of those speeches "
+     "was then read again by a second, different model, and where the two disagreed about "
+     "an era that disagreement is added to the band - so these intervals carry two things "
+     "the chart above cannot, sampling error <em>and</em> annotator error. Panels are the "
+     "twelve largest topics by share of all paragraphs, across the nine eras."),
     ("keywords", None, "One word at a time",
      "Raw rates for single terms. “Border” and “immigration” at "
      "all-time highs; “tariff” back from the dead after a century; "
@@ -888,7 +1138,10 @@ def _quotes_html(key: str) -> str:
 
 
 def build_html(figs: dict[str, go.Figure], stats_line: dict, bodies: dict[str, str],
-               inline: bool) -> str:
+               inline: bool, prose_extra: dict[str, str] | None = None) -> str:
+    """`prose_extra` appends a data-derived sentence to a section's prose —
+    see `llm_divergence_sentence` for why that claim is not typed into
+    `SECTIONS` as a literal."""
     from plotly.offline import get_plotlyjs
 
     plotly_src = (
@@ -902,6 +1155,29 @@ def build_html(figs: dict[str, go.Figure], stats_line: dict, bodies: dict[str, s
     # collapsing when its responsive handler re-renders after a window resize.
     parts = []
     for key, chapter, title, prose in SECTIONS:
+        # A section whose figure could not be built is omitted entirely rather
+        # than rendered as an empty box with prose describing a chart that is
+        # not there. `llm_topics` is the live case: it needs data/bands.parquet.
+        # It WARNS rather than dropping quietly: a `SECTIONS` entry that is
+        # prose-only, or whose fig key is misspelled, would otherwise disappear
+        # from the page with no signal.
+        #
+        # It does NOT catch the pre-existing dead `FINDINGS` anchors, and an
+        # earlier version of this comment wrongly claimed it did. `records`,
+        # `kinships` and `naming` are absent from `SECTIONS` ENTIRELY, so this
+        # loop never visits them and the warning fires zero times on a real
+        # build. Catching those needs a check on the rendered ids AFTER the
+        # loop, which belongs to the backlog item that owns them.
+        if key not in figs and key not in bodies:
+            warnings.warn(
+                f"section {key!r} has neither a figure nor a body and was "
+                f"omitted from index.html; any FINDINGS card anchored to "
+                f"#{key} is now a dead link.",
+                RuntimeWarning, stacklevel=2,
+            )
+            continue
+        if prose_extra and prose_extra.get(key):
+            prose = f"{prose} {prose_extra[key]}"
         if chapter:
             parts.append(f'<div class="eyebrow">{chapter}</div>')
         if key in bodies:
@@ -1075,6 +1351,7 @@ def main() -> None:
     py = py[~py["president"].isin(sparse)].reset_index(drop=True)
     faces = portraits.data_uris(list(scores.index))
     issue_df, _ = issues.build_issues()
+    band_table = bands.load_bands()
 
     figs = {
         "map": fig_map(emb),
@@ -1087,9 +1364,20 @@ def main() -> None:
         "hopefear": fig_hope_fear(rates, py),
         "readability": fig_readability(stats),
         "issues": fig_issues_decade(para_labels, issue_meta["issues"],
-                                    issue_df, scores),
+                                    band_table),
         "keywords": fig_keywords(kw, df, scores),
     }
+    prose_extra = {}
+    if band_table is not None:
+        figs["llm_topics"] = fig_llm_topic_bands(band_table)
+        prose_extra["llm_topics"] = " ".join(filter(None, [
+            llm_coverage_sentence(),
+            llm_divergence_sentence(band_table),
+        ]))
+    else:
+        print("  data/bands.parquet absent - charts render unbanded and the "
+              "LLM-topic section is omitted. Build it with "
+              "`python -m presidential_profiles.bands`.")
     bodies = {
         "records": _records_html(compute_records(markers)),
         "kinships": _kinships_html(kinship_pairs(adj), faces),
@@ -1105,7 +1393,8 @@ def main() -> None:
 
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     out = SITE_DIR / "index.html"
-    out.write_text(build_html(figs, stats_line, bodies, inline=False))
+    out.write_text(build_html(figs, stats_line, bodies, inline=False,
+                              prose_extra=prose_extra))
     print(f"wrote {out.relative_to(REPO_ROOT)} ({out.stat().st_size / 1e6:.1f} MB)")
 
     profile_data = profiles.build_profile_data()
@@ -1129,7 +1418,8 @@ def main() -> None:
 
     if args.inline:
         out2 = SITE_DIR / "index_selfcontained.html"
-        out2.write_text(build_html(figs, stats_line, bodies, inline=True))
+        out2.write_text(build_html(figs, stats_line, bodies, inline=True,
+                                   prose_extra=prose_extra))
         print(f"wrote {out2.relative_to(REPO_ROOT)} ({out2.stat().st_size / 1e6:.1f} MB)")
 
 
