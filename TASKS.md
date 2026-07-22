@@ -6,20 +6,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-### suppress-degenerate-band-intervals
-**Task**: Null the interval and mark a hollow point where the bootstrap could not resolve one
-**Pipeline**: code-workflow
-**Branch**: task/suppress-degenerate-band-intervals
-**Worktree**: .worktree/suppress-degenerate-band-intervals
-**Base**: master
-**Started**: 2026-07-21
-**Files**:
-- MOD: src/presidential_profiles/bands.py
-- MOD: src/presidential_profiles/issues_site.py
-- MOD: src/presidential_profiles/site.py
-- MOD: tests/test_bands.py
-- MOD: tests/test_band_charts.py
-
 ### convergence-analysis
 **Task**: Pre-registered test of agenda convergence (rebuilt after adversarial review)
 **Pipeline**: code-workflow
