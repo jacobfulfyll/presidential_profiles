@@ -6,6 +6,20 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+### suppress-degenerate-band-intervals
+**Task**: Null the interval and mark a hollow point where the bootstrap could not resolve one
+**Pipeline**: code-workflow
+**Branch**: task/suppress-degenerate-band-intervals
+**Worktree**: .worktree/suppress-degenerate-band-intervals
+**Base**: master
+**Started**: 2026-07-21
+**Files**:
+- MOD: src/presidential_profiles/bands.py
+- MOD: src/presidential_profiles/issues_site.py
+- MOD: src/presidential_profiles/site.py
+- MOD: tests/test_bands.py
+- MOD: tests/test_band_charts.py
+
 ### convergence-analysis
 **Task**: Pre-registered test of agenda convergence (rebuilt after adversarial review)
 **Pipeline**: code-workflow
@@ -29,8 +43,6 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   files: notes/register-findings-v1.md (MOD), tests/test_register_note_claims.py (MOD)
 
 ### Site Presentation
-- [ ] suppress-degenerate-band-intervals: A bootstrap over n=2 speeches has only C(2n-1,n)=3 distinct resamples, so when both speeches contain zero paragraphs of an issue every replicate returns 0 and the cell publishes `lo == hi == 0.0` — rendering as a CONFIDENT ZERO where it means "two speeches told us nothing". Hits 12 of the 22 series at 1785, the one period `topic-chart-upgrades` existed to recover. Fix: a new PER-CELL column (never overload `ci_status` — its docstring forbids two definitions in one table), a null interval instead of a fabricated 0.0, and a hollow marker on the chart. Note the trap: suppressing the band alone is a no-op for the reader, since a zero-width band already renders as nothing — the marker is the deliverable. Must NOT suppress a legitimate confident zero at high n. Do NOT raise `MIN_CLUSTERS_FOR_CI` (2->3 deletes 1785; combat's 20 would blind 24 of 49 periods). [P3] [moderate] [tier: opus:medium] [code] [planned] [depends: none]
-  files: src/presidential_profiles/bands.py (MOD), src/presidential_profiles/issues_site.py (MOD), src/presidential_profiles/site.py (MOD), tests/test_bands.py (MOD), tests/test_band_charts.py (MOD)
 - [ ] centralize-issue-display-names: `issues + ["Discovered 5"]` is hardcoded in five modules (`profiles.py:281`, `profiles_site.py:334`, `explorer.py:118`, `issues_site.py:247`, `site.py:361` + `site.py:1121`). Deferred from `profile-issue-views` (its acceptance criterion 4) at PICKUP on 2026-07-16: the "centralized names file" that criterion assumed does not exist and is blocked behind `topic-method-comparison`. Note task.md called this "the two hardcoded sites" — it is five. [P3] [moderate] [code] [depends: topic-method-comparison] **LARGELY SUPERSEDED 2026-07-21**: `topic-method-comparison` centralized all six append sites onto `data/topic_display_names.json` behavior-preservingly, and `taxonomy.CROSSWALK_ISSUES` (added 2026-07-20) already provides the centralized legacy-issue list this entry says "does not exist". Residual scope only: the 5 *other* `"Discovered 5"` literals that were deliberately left alone — `profiles_site.py` `DISCOVERED_LABELS`, `explorer.py` inline label ternary, `profiles.py` `_EXTRA_ANCHORS` + `_WAR_SPEC`. Re-groom before picking up; the line numbers in this entry are stale (`profiles.py` is 340 not 281, `profiles_site.py` is 379 not 334).
 
 ### Ungroomed
