@@ -143,6 +143,9 @@ SELFTEST_INJECTED_MAX_RHO = -0.50
 SELFTEST_MAX_SIZE = 0.152  # 3-sigma upper bound at 40 replicates under a true 5%
 
 WINDOW_KINDS = ("rolling", "nonoverlapping")
+# The two rarefaction modes. Only "cluster" may ever produce a published
+# number; "paragraph" exists solely for the _selftest contrast leg.
+RAREFACTIONS = ("cluster", "paragraph")
 TREATMENTS = ("all_windows", "ends_2014")
 DATING_END_YEAR = 2014     # the H1 Trump-clause dating procedure (prereg 7.4)
 
@@ -897,6 +900,15 @@ def dispersion_curve(
     pres_floor = np.zeros(n_pres)
     pres_n = np.zeros(n_pres)
 
+    # Fail CLOSED. An `else` here would send any typo -- "clusterr", "CLUSTER",
+    # "", None -- silently down the paragraph-rarefied path, i.e. would ship the
+    # rho = -0.605 estimator this whole module exists to avoid, with no signal.
+    # `build_design` validates both of its string enums the same way.
+    if rarefaction not in RAREFACTIONS:
+        raise ValueError(
+            f"rarefaction must be one of {sorted(RAREFACTIONS)}, got {rarefaction!r}. "
+            "Refusing to guess: the wrong branch here is the superseded estimator."
+        )
     sampler = (
         draw_compositions if rarefaction == "cluster" else draw_compositions_paragraph
     )
@@ -1066,8 +1078,31 @@ def permutation_null(
     The DESIGN is held exactly fixed — who is eligible in which window, and the
     `ci_status` exclusions — and only the content filling each slot is permuted.
     That is what lets this null absorb window overlap (93% shared content, ~8
-    independent blocks in 240 years), the drifting eligible-president count and
-    the drifting speech supply, none of which any closed-form p-value sees.
+    independent blocks in 240 years) and the drifting eligible-president count,
+    neither of which any closed-form p-value sees.
+
+    IT DOES **NOT** ABSORB THE DRIFTING SPEECH SUPPLY, and an earlier version of
+    this docstring wrongly claimed it did. The observed curve samples each
+    president's IN-WINDOW pool, whose size climbs with time (measured on the real
+    `corex_all` design: mean 17 -> 36 speeches, Spearman vs window centre
+    +0.85). A permuted slot samples the donor's GLOBAL CAREER pool (`:914-917`),
+    and a random bijection over donors decorrelates pool size from window
+    position (the same Spearman falls to +0.06). So the permutation destroys the
+    very supply drift that creates the estimator's residual bias — which is
+    exactly why the null cannot contain it.
+
+    The artifact says so in one column: `selftest.a_cluster_null_rho` is -0.089
+    (the estimator's own centre on true-null corpora) while this null's
+    `null_mean` for `corex_all`/`dispersion` is +0.014. If the bias were absorbed
+    those two would coincide; they differ by essentially the whole bias.
+
+    Consequence, stated plainly because it is load-bearing for the published
+    result: the test is mildly ANTI-conservative toward convergence (measured
+    size ~6.3% at nominal 5% on the run's own window count, vs the 5.0% leg (c)
+    certifies on a shorter corpus). It does not invalidate a NO-CONVERGENCE
+    finding — a residual that makes a decline EASIER to detect, on a run that
+    detected none, leaves the conclusion conservative. It would matter a great
+    deal to a future run that DID find a decline.
 
     Returns:
         `(observed rho per (window_kind, treatment, statistic), null rho draws)`.
@@ -1230,6 +1265,17 @@ def _stylistic_anchor(path: Path | None = None) -> pd.Series:
         return pd.Series(dtype=float)
     emb = pd.read_parquet(path)
     vec_cols = [c for c in emb.columns if c.startswith("e") and c[1:].isdigit()]
+    if not vec_cols:
+        # Guarding the FILE without guarding its COLUMNS was a fabricated
+        # magnitude wearing real provenance: an embeddings parquet whose vectors
+        # are named `dim0/dim1` gives an (n, 0) matrix, so the matmul is a zero
+        # matrix and every president's anchor comes back a confident 0.0 -- while
+        # `paradox_table` still stamps `anchor_source="president_embeddings.parquet"`
+        # because the Series is non-empty. Absent must look absent.
+        raise ValueError(
+            f"{path.name} has no embedding vector columns (expected e0, e1, ...); "
+            "refusing to emit a 0.0 anchor that would be recorded as measured."
+        )
     v = emb[vec_cols].to_numpy(dtype=float)
     v = v / np.linalg.norm(v, axis=1, keepdims=True)
     sim = v @ v.T
@@ -1884,9 +1930,12 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--selftest-only", action="store_true",
                     help="run the three-leg gate and stop")
     ap.add_argument("--permutations", type=int, default=N_PERMUTATIONS,
-                    help="override R (the published artifact uses the "
-                         "pre-registered 2000; lower values are for development "
-                         "only and are recorded in the meta)")
+                    help="override R for development. Requires --out-dir: a "
+                         "run below the pre-registered 2000 may not overwrite "
+                         "the published layer.")
+    ap.add_argument("--out-dir", type=Path, default=None,
+                    help="write somewhere other than data/convergence/ (also "
+                         "makes a determinism check runnable from the CLI)")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args(argv)
 
@@ -1894,8 +1943,23 @@ def main(argv: list[str] | None = None) -> None:
         _selftest(verbose=not args.quiet)
         return
 
+    # The bypass gate is careful that an UNGATED number can never reach
+    # data/convergence/; an under-powered one could still walk straight in,
+    # leaving R recorded in the meta and nothing else to distinguish it. Same
+    # hazard, same answer: refuse, rather than mark it after the fact.
+    writes_published = args.out_dir is None or (
+        args.out_dir.resolve() == CONVERGENCE_DIR.resolve()
+    )
+    if args.permutations != N_PERMUTATIONS and writes_published:
+        ap.error(
+            f"--permutations {args.permutations} != the pre-registered "
+            f"{N_PERMUTATIONS}, so this run is not publishable; pass --out-dir "
+            "to write it somewhere that is not the published layer."
+        )
+
     tables = build_convergence(
-        n_permutations=args.permutations, progress=not args.quiet
+        n_permutations=args.permutations, out_dir=args.out_dir,
+        progress=not args.quiet,
     )
     if args.quiet:
         return

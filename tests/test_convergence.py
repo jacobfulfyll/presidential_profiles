@@ -2584,7 +2584,10 @@ class TestCommandLine:
             C, "build_convergence",
             lambda **kw: {"permutation_null": null_table},
         )
-        C.main(["--permutations", "10"])
+        # No `--permutations` override here: `build_convergence` is stubbed, so R
+        # was always irrelevant to what this test asserts, and a reduced-R run is
+        # now refused against the published layer (see TestReducedRunsCannotPublish).
+        C.main([])
         printed = capsys.readouterr().out
         assert "decision cell: convergence" in printed
         assert C.HEADLINES["convergence"] in printed
@@ -2908,3 +2911,85 @@ class TestRivalHypothesisSeparator:
         assert broadening["cell"] == "broadening"
         assert convergence["cell"] == "convergence"
         assert broadening["headline"] != convergence["headline"]
+
+
+# --------------------------------------------------------------------------
+# fail-closed guards (REVIEW, 2026-07-22)
+#
+# Three places the module failed OPEN. Each would have degraded silently into a
+# wrong-but-plausible published number rather than a crash, which is the shape
+# this project treats as worse than a bug.
+# --------------------------------------------------------------------------
+class TestFailsClosedNotOpen:
+    @pytest.mark.parametrize(
+        "bad", ["clusterr", "CLUSTER", "", "Cluster", "paragraphs", None, 0]
+    )
+    def test_an_unrecognised_rarefaction_raises_instead_of_guessing(self, bad):
+        """It used to be `cluster if x == "cluster" else paragraph`, so ANY typo
+        silently selected the superseded paragraph-rarefied estimator — the
+        rho = -0.605 design this whole module exists to avoid — and published its
+        curve with no signal. `build_design` validates its own string enums, so
+        this was an inconsistency inside one file.
+        """
+        design = C.build_design(_coextensive_corpus(4), _TINY_ARM)
+        with pytest.raises(ValueError, match="rarefaction must be one of"):
+            C.dispersion_curve(design, [7, 7], rarefaction=bad)
+
+    @pytest.mark.parametrize("good", ["cluster", "paragraph"])
+    def test_both_declared_rarefactions_are_still_accepted(self, good):
+        """The control: the guard rejects typos, not the two real modes."""
+        design = C.build_design(_coextensive_corpus(4), _TINY_ARM)
+        curve = C.dispersion_curve(design, [7, 7], rarefaction=good)
+        assert np.isfinite(curve.dispersion[curve.used]).any()
+
+    def test_an_embeddings_file_with_no_vector_columns_raises(self, tmp_path):
+        """Guarding the FILE without guarding its COLUMNS fabricated a magnitude
+        wearing real provenance: vectors named `dim0/dim1` gave an (n, 0) matrix,
+        so every president's anchor came back a confident 0.0 while
+        `paradox_table` still stamped `anchor_source="president_embeddings.parquet"`
+        because the Series was non-empty. Absent must LOOK absent.
+        """
+        path = tmp_path / "president_embeddings.parquet"
+        pd.DataFrame({
+            "president": ["A", "B"], "dim0": [1.0, 0.0], "dim1": [0.0, 1.0],
+        }).to_parquet(path)
+        with pytest.raises(ValueError, match="no embedding vector columns"):
+            C._stylistic_anchor(path)
+
+    def test_a_missing_embeddings_file_still_degrades_quietly(self, tmp_path):
+        """The control that keeps the guard above narrow: a genuinely ABSENT
+        artifact is a declared seam and must stay non-fatal, unlike a present
+        one whose shape is wrong."""
+        assert C._stylistic_anchor(tmp_path / "nope.parquet").empty
+
+
+class TestReducedRunsCannotPublish:
+    def test_an_under_powered_run_is_refused_against_the_published_layer(self):
+        """The bypass gate makes it impossible to put an UNGATED number into
+        `data/convergence/`, but an UNDER-POWERED one could still walk in: R was
+        recorded in the meta and nothing else distinguished R=10 from R=2000.
+        Same hazard, same answer — refuse rather than annotate after the fact.
+        """
+        with pytest.raises(SystemExit):
+            C.main(["--permutations", "10", "--quiet"])
+
+    def test_the_same_run_is_allowed_to_a_scratch_dir(self, tmp_path, monkeypatch):
+        """Non-vacuity: it is the PUBLISHED TARGET that is refused, not the flag.
+        This is also what makes a determinism check runnable from the CLI."""
+        seen = {}
+        monkeypatch.setattr(
+            C, "build_convergence", lambda **kw: seen.update(kw) or {}
+        )
+        C.main(["--permutations", "10", "--out-dir", str(tmp_path), "--quiet"])
+        assert seen["n_permutations"] == 10
+        assert seen["out_dir"] == tmp_path
+
+    def test_the_full_pre_registered_run_still_needs_no_out_dir(self, monkeypatch):
+        """The default path must stay exactly as documented."""
+        seen = {}
+        monkeypatch.setattr(
+            C, "build_convergence", lambda **kw: seen.update(kw) or {}
+        )
+        C.main(["--quiet"])
+        assert seen["n_permutations"] == C.N_PERMUTATIONS
+        assert seen["out_dir"] is None
