@@ -107,6 +107,85 @@ def _coextensive_corpus(
         specs.append((f"P{i}", speech_years, weights))
     return _hand_corpus(specs, n_bins)
 
+
+def _per_speech_corpus(
+    bin_of,
+    n_presidents: int,
+    n_bins: int,
+    *,
+    paras_per_speech: int = 6,
+    speeches_per_president: int = 10,
+    first_year: int = 1800,
+    year_step: int = 6,
+    president_step: int = 0,
+    year_cycle: int | None = None,
+) -> C.Composition:
+    """A corpus whose label is dictated for every single paragraph.
+
+    `bin_of(p, s, i)` gives the bin index of paragraph `i` of president `p`'s
+    speech `s`, or `None` for an UNLABELLED paragraph. `_hand_corpus` draws a
+    president's paragraphs i.i.d. from one weight vector, which cannot express
+    "this SPEECH is internally homogeneous" — and speech-level structure is
+    precisely what the cluster rarefaction and the speech-block floor exist to
+    respect, so the tests that discriminate them need this instead.
+
+    `president_step = 0` makes every president speak in the same years, so
+    eligibility is uniform in every window and a test can talk about what was
+    said rather than about who was in the room.
+    """
+    cycle = year_cycle or speeches_per_president
+    docs, idxs, pres, years, labels = [], [], [], [], []
+    for p in range(n_presidents):
+        for s in range(speeches_per_president):
+            doc = f"P{p:02d}-s{s:04d}"
+            for i in range(paras_per_speech):
+                b = bin_of(p, s, i)
+                docs.append(doc)
+                idxs.append(i)
+                pres.append(f"P{p:02d}")
+                years.append(first_year + president_step * p + year_step * (s % cycle))
+                labels.append([] if b is None else [int(b)])
+    bins = [f"bin{j}" for j in range(n_bins)] + [C.NO_TOPIC]
+    return C.Composition(
+        label_source="synthetic",
+        bins=bins,
+        mass=C._mass_from_label_lists(labels, len(bins)),
+        doc_name=np.array(docs),
+        para_idx=np.array(idxs),
+        president=np.array(pres),
+        year=np.array(years, dtype=np.int64),
+        speech_type=np.array([C.SOTU_TYPE] * len(docs)),
+        n_label_assignments=sum(len(ls) for ls in labels),
+    )
+
+
+def _internally_pure_speeches(n_presidents: int = 3, n_bins: int = 4) -> C.Composition:
+    """Every SPEECH sits entirely in one bin, and consecutive speeches differ.
+
+    Under cluster rarefaction with S=1 a draw is one whole speech, so its
+    composition can only ever be a PURE CORNER. Under paragraph rarefaction the
+    same pool yields mixtures, because it never sees the speech boundary.
+    """
+    return _per_speech_corpus(
+        lambda p, s, i: (p + s) % n_bins, n_presidents, n_bins
+    )
+
+
+def _mutually_disjoint_pure_speeches(n_presidents: int = 2) -> C.Composition:
+    """President `p`'s every speech is entirely bin `p`.
+
+    Internally homogeneous AND mutually disjoint: observed dispersion is exactly
+    1 bit, so anything the speech-block floor does to it is visible.
+    """
+    return _per_speech_corpus(
+        lambda p, s, i: p, n_presidents, n_presidents + 2
+    )
+
+
+# A one-speech arm: S=1 makes "a draw is a whole speech" an observable property
+# rather than a statistical one.
+_ONE_SPEECH_ARM = C.ArmSpec("one_speech", "corex", None, 1, 6, "test")
+
 # --------------------------------------------------------------------------
 # the composition equation (prereg section 3)
 # --------------------------------------------------------------------------
@@ -123,18 +202,47 @@ class TestCompositionEquation:
         assert mass[0, 2] == pytest.approx(0.5)
         assert mass[0, 1] == 0.0
 
+    def test_a_repeated_label_still_leaves_the_paragraph_weighing_one(self):
+        """The equation ACCUMULATES into a bin rather than assigning to it.
+
+        De-duplication upstream means a repeated label should never reach here,
+        so this is the belt to that braces — and it is the difference between a
+        paragraph weighing 1 and weighing 1/k. Overwriting instead of
+        accumulating breaks mass conservation the instant the dedup contract
+        does, which is the failure mode that would be hardest to notice."""
+        mass = C._mass_from_label_lists([[0, 0]], 3)
+        assert mass[0].tolist() == [1.0, 0.0, 0.0]
+        assert mass.sum() == pytest.approx(1.0)
+
     def test_unlabelled_paragraph_lands_in_the_no_topic_bin(self):
         mass = C._mass_from_label_lists([[]], 4)
         assert mass[0, 3] == pytest.approx(1.0)
         assert mass[0, :3].sum() == 0.0
 
-    def test_label_density_alone_cannot_move_the_measure(self):
-        """The whole reason for the 1/k split: the corpus's labels-per-paragraph
-        drifts 1.49 -> 0.83, and a density-sensitive normalization would read
-        that drift as a change in agenda."""
+    def test_every_paragraph_contributes_the_same_total_mass_regardless_of_label_count(
+        self
+    ):
+        """The 1/k split, stated as what it actually buys.
+
+        The corpus's labels-per-paragraph drifts 1.49 -> 0.83, and an unnormalized
+        count would let a paragraph carrying 3 labels outvote one carrying 1.
+        This test was previously named `test_label_density_alone_cannot_move_the
+        _measure`, which its own fixture contradicts: `[0.5, 0.5, 0]` and
+        `[1/3, 1/3, 1/3]` are DIFFERENT distributions with the same sum, and a
+        JSD between them is not zero. Mass conservation is the guarantee; agenda
+        invariance is not. See the boundary test below.
+        """
         sparse = C._mass_from_label_lists([[0], [1]], 3).mean(axis=0)
         dense = C._mass_from_label_lists([[0, 1, 2], [0, 1, 2]], 3).mean(axis=0)
-        assert sparse.sum() == pytest.approx(dense.sum()) == pytest.approx(1.0)
+        assert sparse.sum() == pytest.approx(1.0)
+        assert dense.sum() == pytest.approx(1.0)
+        # The row-level statement, which is the one the equation makes: every
+        # paragraph weighs 1, whatever k is.
+        rows = C._mass_from_label_lists([[0], [0, 1], [0, 1, 2], []], 4)
+        assert rows.sum(axis=1) == pytest.approx(np.ones(4))
+        # ... and the two composition VECTORS above are nonetheless far apart,
+        # which is exactly why mass conservation is not agenda invariance.
+        assert C.pairwise_jsd(np.array([[sparse, dense]]))[0, 0, 1] > 0.05
 
 
 # --------------------------------------------------------------------------
@@ -211,17 +319,28 @@ class TestBuildCompositionsGuards:
         assert comp.mass[:, 0].tolist() == [1.0, 1.0]
 
     def test_duplicate_topic_pairs_are_deduplicated_before_counting(self):
-        issues = _issue_frame(1, per_doc=1)
-        taxonomy = {"level2": [{"name": "Trade", "level1": "Economy"}]}
+        """722 duplicate `(paragraph, topic)` pairs survive normalization on the
+        real corpus, and CLAUDE.md requires the POST-dedup figure to be the one
+        quoted. The second paragraph carries two distinct topics so that
+        `n_label_assignments` (3) cannot be confused with the paragraph count
+        (2) — with one label per paragraph the two are equal and the assertion
+        proves nothing."""
+        issues = _issue_frame(1, per_doc=2)
+        taxonomy = {
+            "level2": [{"name": "Trade", "level1": "Economy"},
+                       {"name": "Tariffs", "level1": "Economy"}],
+        }
         ann = pd.DataFrame({
-            "doc_name": ["doc0"], "para_idx": [0], "topics": [["Trade", "trade"]],
+            "doc_name": ["doc0", "doc0"], "para_idx": [0, 1],
+            "topics": [["Trade", "trade"], ["Trade", "Tariffs"]],
         })
         comp = C.build_compositions(
             "llm", issues=issues, annotations=ann,
             speech_annotations=_speech_frame(1), taxonomy=taxonomy,
         )
-        assert comp.n_label_assignments == 1
-        assert comp.mass[0, 0] == pytest.approx(1.0)
+        assert comp.n_label_assignments == 3        # not 4 raw, and not 2 paragraphs
+        assert comp.mass[0].tolist() == [0.0, 1.0, 0.0]     # Tariffs, Trade, no-topic
+        assert comp.mass[1].tolist() == [0.5, 0.5, 0.0]
 
     def test_an_unknown_label_source_raises(self):
         with pytest.raises(ValueError, match="unknown label_source"):
@@ -295,6 +414,33 @@ class TestWindows:
         assert all(not curve.used[i] for i in suppressed)
         assert all(np.isnan(curve.dispersion[i]) for i in suppressed)
 
+    def test_a_two_president_window_is_suppressed_in_every_window(self):
+        """The test above is only as good as its fixture: on a corpus whose
+        eligible counts never actually hit 2 it asserts nothing. Two coextensive
+        presidents put EVERY window on `suppressed_n_floor`, so the
+        `MIN_PRESIDENTS` floor is exercised rather than assumed. A single pair is
+        not a dispersion; prereg 4.4 keeps it out of every trend.
+        """
+        design = C.build_design(_coextensive_corpus(2), _TINY_ARM)
+        curve = C.dispersion_curve(
+            design, [1, 1], n_draws=2, with_floor=False, with_entropy_match=False
+        )
+        assert set(curve.status) == {"suppressed_n_floor"}
+        assert not curve.used.any()
+        assert np.isnan(curve.dispersion).all()
+        assert C.n_windows_in_trend(design) == 0
+
+    def test_a_three_president_window_does_enter_the_trend(self):
+        """The control. Without it the test above would also pass on a
+        `dispersion_curve` that never uses any window at all."""
+        design = C.build_design(_coextensive_corpus(3), _TINY_ARM)
+        curve = C.dispersion_curve(
+            design, [1, 1], n_draws=2, with_floor=False, with_entropy_match=False
+        )
+        assert set(curve.status) == {"low_cluster_caution"}
+        assert curve.used.all()
+        assert C.n_windows_in_trend(design) == len(design.windows)
+
 
 # --------------------------------------------------------------------------
 # the banned p-value
@@ -313,10 +459,18 @@ class TestWindows:
 # live instance of either; this is guard COMPLETENESS, and every spelling below
 # is proved to fire by mutating it back in.
 
-_SPEARMAN_FUNCTIONS = {"spearmanr"}
+# Every scipy.stats correlation function that returns a `(statistic, pvalue)`
+# pair. The ban is written against `spearmanr` because that is the estimator
+# this module uses, but the DEFECT is "reading element 1 of a scipy correlation
+# result on 93%-overlapping windows" — swapping in `pearsonr` would reproduce it
+# exactly, so the scan covers the family rather than the one live name.
+_SPEARMAN_FUNCTIONS = {"spearmanr", "pearsonr", "kendalltau", "weightedtau"}
 
 
 def _is_spearman_call(node: ast.AST) -> bool:
+    if isinstance(node, ast.NamedExpr):
+        # `(r := spearmanr(a, b))[1]` subscripts the walrus, not the call.
+        node = node.value
     if not isinstance(node, ast.Call):
         return False
     func = node.func
@@ -339,13 +493,19 @@ def _pvalue_reads(source: str) -> list[str]:
     tree = ast.parse(source)
     findings: list[str] = []
 
-    # Names anywhere in the source that hold a spearmanr result.
+    # Names anywhere in the source that hold a spearmanr result. `NamedExpr` is
+    # the walrus (`if (r := spearmanr(a, b))[1] < .05`), which binds exactly the
+    # same way and would otherwise be invisible.
     bound: set[str] = set()
     for node in ast.walk(tree):
         value = getattr(node, "value", None)
-        if not isinstance(node, (ast.Assign, ast.AnnAssign)) or not _is_spearman_call(value):
+        if not isinstance(
+            node, (ast.Assign, ast.AnnAssign, ast.NamedExpr)
+        ) or not _is_spearman_call(value):
             continue
-        targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+        targets = (
+            node.targets if isinstance(node, ast.Assign) else [node.target]
+        )
         for target in targets:
             if isinstance(target, ast.Name):
                 bound.add(target.id)
@@ -410,6 +570,14 @@ class TestSpearmanWrapper:
              "import scipy.stats as st\np = st.spearmanr(a, b)[1]"),
             ("computed subscript index",
              "from scipy.stats import spearmanr\np = spearmanr(a, b)[i]"),
+            ("walrus binding, then subscript",
+             "from scipy.stats import spearmanr\nif (r := spearmanr(a, b))[1] < 0.05:\n    pass"),
+            ("walrus binding, then attribute",
+             "from scipy.stats import spearmanr\nif (r := spearmanr(a, b)).pvalue < 0.05:\n    pass"),
+            ("a different scipy correlation, same defect",
+             "from scipy.stats import pearsonr\np = pearsonr(a, b)[1]"),
+            ("kendalltau attribute",
+             "from scipy.stats import kendalltau\np = kendalltau(a, b).pvalue"),
         ],
     )
     def test_that_the_scan_would_catch_every_defect_spelling(self, spelling, source):
@@ -491,14 +659,64 @@ def _small_design(seed: int = 5) -> C.Design:
 
 
 class TestSampler:
-    def test_cluster_rarefaction_always_uses_exactly_m_paragraphs(self):
-        design = _small_design()
+    def test_a_cluster_draw_is_a_whole_speech_not_loose_paragraphs(self):
+        """THE property this whole task exists to protect.
+
+        Paragraph rarefaction on speech-clustered data returns rho = -0.605 from
+        pure noise; cluster rarefaction is the fix. The previous version of this
+        test asserted only `c.shape` and `c.sum(axis=-1) == 1`, both of which a
+        mean of rows that each sum to 1 satisfies at ANY S and B — so it passed
+        verbatim against `draw_compositions_paragraph`, the broken estimator.
+
+        Here every speech is internally homogeneous and S=1, so a cluster draw
+        is one whole speech and its composition MUST be a pure corner. A sampler
+        that pools the paragraphs first cannot produce that: it mixes the two
+        bins a president's speeches sit in.
+        """
+        design = C.build_design(_internally_pure_speeches(), _ONE_SPEECH_ARM)
         window = next(w for w in design.windows if len(w.presidents) >= 2)
         c = C.draw_compositions(
-            design, list(window.pools), np.random.default_rng(0), 4
+            design, list(window.pools), np.random.default_rng(0), 200
         )
-        assert c.shape == (4, len(window.pools), design.n_bins)
+        assert c.shape == (200, len(window.pools), design.n_bins)
         assert np.allclose(c.sum(axis=-1), 1.0)
+        assert np.isclose(c.max(axis=-1), 1.0).all(), (
+            "a draw mixed two speeches: the sampler is not cluster-rarefying"
+        )
+
+    def test_the_paragraph_rarefied_contrast_really_does_mix_speeches(self):
+        """The counter that keeps the test above from being vacuous: on the same
+        pools the superseded sampler produces mixtures almost every time (0.5%
+        of its 600 slot-draws come out pure, against 100% for the cluster
+        sampler). Without this, `max == 1` might be a property of the fixture."""
+        design = C.build_design(_internally_pure_speeches(), _ONE_SPEECH_ARM)
+        window = next(w for w in design.windows if len(w.presidents) >= 2)
+        c = C.draw_compositions_paragraph(
+            design, list(window.pools), np.random.default_rng(0), 200
+        )
+        assert np.isclose(c.max(axis=-1), 1.0).mean() < 0.05
+
+    def test_a_cluster_draw_averages_exactly_S_times_B_paragraph_rows(self):
+        """m = S*B, pinned from both sides.
+
+        Paragraph `i` of every speech sits in its own bin, so a draw's masses
+        are `count / m`. Integrality of `c * m` pins the denominator to a
+        DIVISOR of m (an S or B larger than the design's would break it), and
+        the presence of an exact `1/m` entry pins it to m itself (a smaller
+        denominator can never produce that value).
+        """
+        design = C.build_design(
+            _per_speech_corpus(lambda p, s, i: i, 3, 8, paras_per_speech=8),
+            C.ArmSpec("m", "corex", None, 2, 3, "test"),
+        )
+        window = next(w for w in design.windows if len(w.presidents) >= 2)
+        c = C.draw_compositions(
+            design, list(window.pools), np.random.default_rng(1), 50
+        )
+        m = design.n_speeches * design.n_paragraphs
+        scaled = c * m
+        assert np.allclose(scaled, np.round(scaled)), "denominator is not a divisor of m"
+        assert np.isclose(scaled, 1.0).any(), "no draw ever weighted one row at 1/m"
 
     def test_draws_are_reproducible_from_the_seed(self):
         design = _small_design()
@@ -512,14 +730,101 @@ class TestSampler:
         b = C.dispersion_curve(design, [7, 8], with_floor=False, with_entropy_match=False)
         assert not np.array_equal(np.nan_to_num(a.dispersion), np.nan_to_num(b.dispersion))
 
-    def test_speech_block_floor_is_finite_and_bounded(self):
-        design = _small_design()
-        window = next(w for w in design.windows if len(w.presidents) >= 3)
-        value, per_slot = C.speech_block_floor(
-            design, list(window.pools), np.random.default_rng(0), 8
+    def _disjoint_floor_design(self) -> tuple[C.Design, list[np.ndarray]]:
+        design = C.build_design(
+            _mutually_disjoint_pure_speeches(), _ONE_SPEECH_ARM
         )
-        assert 0.0 <= value <= 1.0
-        assert len(per_slot) == len(window.pools)
+        window = next(w for w in design.windows if len(w.presidents) >= 2)
+        return design, list(window.pools)
+
+    def test_the_floor_actually_redeals_speeches_between_the_presidents(self):
+        """`0 <= floor <= 1` — what this test used to assert — is guaranteed by
+        the `np.clip` at the end of `pairwise_jsd`, so it could not fail. This
+        one can: two presidents whose speeches are pure and mutually disjoint
+        have an OBSERVED dispersion of exactly 1 bit, and the floor is the
+        dispersion they would show with no agendas at all. A floor that forgot
+        to re-deal would return that same 1.0.
+        """
+        design, pools = self._disjoint_floor_design()
+        observed = C._mean_offdiag(
+            C.pairwise_jsd(
+                C.draw_compositions(design, pools, np.random.default_rng(0), 100)
+            )
+        ).mean()
+        assert observed == pytest.approx(1.0)
+        value, per_slot = C.speech_block_floor(
+            design, pools, np.random.default_rng(0), 200
+        )
+        assert len(per_slot) == len(pools)
+        assert value < 0.8, "the floor did not pool the two presidents' speeches"
+
+    def test_the_floor_deals_WHOLE_SPEECHES_not_loose_paragraphs(self):
+        """The defect the docstring names, made observable.
+
+        With S=1 and internally homogeneous speeches, a whole-block re-deal
+        gives every slot a pure corner, so each draw's pairwise JSD is exactly 0
+        or exactly 1 and the mean over `n_draws` is an exact multiple of
+        `1/n_draws`. A floor that dealt PARAGRAPHS would hand each slot a
+        mixture of both presidents' bins — the measured contrast is 0.580 for
+        the block deal against 0.042 for a paragraph deal, and the paragraph
+        deal's mean is not a multiple of 1/n_draws either.
+        """
+        design, pools = self._disjoint_floor_design()
+        n_draws = 200
+        value, _ = C.speech_block_floor(
+            design, pools, np.random.default_rng(0), n_draws
+        )
+        assert value == pytest.approx(0.580, abs=0.005)   # measured
+        scaled = value * n_draws
+        assert scaled == pytest.approx(round(scaled), abs=1e-3), (
+            "some re-dealt slot was a MIXTURE of bins: the floor is dealing "
+            "paragraphs, not whole speech blocks"
+        )
+
+    def test_the_floor_prices_the_window_it_was_given_not_a_pooled_one(self):
+        """Every eligible president's speeches enter the pool exactly once.
+
+        A slot's own speech count is what decides how much of the pooled supply
+        it re-deals, so a floor that dropped or double-counted a slot's speeches
+        would be pricing a design nobody ran. Asserted through the returned
+        per-slot vector, which must be one entry per slot in the order given.
+        """
+        design, pools = self._disjoint_floor_design()
+        uneven = [design.global_pool[0][:2], design.global_pool[1]]
+        value, per_slot = C.speech_block_floor(
+            design, uneven, np.random.default_rng(0), 200
+        )
+        assert len(per_slot) == len(uneven)
+        # Two slots: each slot's mean distance to "the others" IS the single
+        # pairwise distance, so both entries equal the reported mean.
+        assert per_slot == pytest.approx([value, value], abs=1e-6)
+
+    def test_the_floor_keeps_each_slots_OWN_speech_count_when_it_redeals(self):
+        """A thin slot must stay thin in the floor, or the floor is optimistic
+        exactly where it matters.
+
+        The re-deal pools every eligible speech, but it hands slot `e` a block
+        of `len(pools[e])` of them — so a president with 2 qualifying speeches
+        still draws their S=8 speeches, with replacement, from a 2-speech block
+        and can come back pure. Equalizing the blocks (7/7/7 here) averages that
+        thin slot out and understates the floor: measured 0.260-0.274 across 8
+        seeds at 500 draws for the real deal, against 0.193-0.220 for an
+        equalized one. That is CLAUDE.md's "two floors, two different n's" in
+        the floor's own machinery.
+        """
+        design = C.build_design(
+            _mutually_disjoint_pure_speeches(3),
+            C.ArmSpec("s8", "corex", None, 8, 6, "test"),
+        )
+        pools = [
+            design.global_pool[0][:2], design.global_pool[1], design.global_pool[2]
+        ]
+        assert [len(p) for p in pools] == [2, 10, 10]
+        value, _ = C.speech_block_floor(
+            design, pools, np.random.default_rng(0), 500
+        )
+        assert value == pytest.approx(0.274, abs=0.02)
+        assert value > 0.24, "the thin slot was averaged away: blocks were equalized"
 
     def test_paragraph_eligibility_is_never_stricter_than_speech_eligibility(self):
         """The superseded design's rule admits presidents the pre-registered one
@@ -555,6 +860,59 @@ class TestSampler:
         with pytest.raises(ValueError, match="not grouped by doc_name"):
             C.build_design(shuffled, _TINY_ARM)
 
+    def test_a_speech_with_fewer_than_B_paragraphs_never_qualifies(self):
+        """A speech shorter than B cannot supply B distinct paragraphs, so the
+        sampler would draw the same handful of rows over and over and call it a
+        cluster. The floor is part of the design, not an optimisation: with
+        B one higher than the corpus's speech length NOTHING qualifies, and the
+        arm reports no eligible president rather than a thin one."""
+        comp = _coextensive_corpus(3)   # 10 paragraphs in every speech
+        n_speeches = len(np.unique(comp.doc_name))
+        fits = C.build_design(comp, C.ArmSpec("b10", "corex", None, 2, 10, "test"))
+        too_long = C.build_design(comp, C.ArmSpec("b11", "corex", None, 2, 11, "test"))
+        assert len(fits.qualifying) == n_speeches
+        assert len(too_long.qualifying) == 0
+        assert all(len(w.presidents) == 0 for w in too_long.windows)
+
+    def test_exactly_S_qualifying_speeches_is_eligible_and_S_minus_one_is_not(self):
+        """The pre-registered rule is "at least S", and which side of it the
+        boundary falls on decides who is in the room in the thinnest windows —
+        which is where the `MIN_PRESIDENTS` floor and the whole coverage claim
+        live."""
+        span = list(range(1800, 1861, 2))
+        comp = _hand_corpus([
+            ("P_exactly_S", [1800, 1802], None),
+            ("P_one_short", [1800], None),
+            ("P_spanner", span, None),
+        ], 3)
+        design = C.build_design(comp, _TINY_ARM)      # S = 2
+        first = design.windows[0]
+        assert (first.start, first.end) == (1800, 1829)
+        eligible = {design.presidents[i] for i in first.presidents}
+        assert "P_exactly_S" in eligible
+        assert "P_one_short" not in eligible
+
+    def test_the_observed_curve_samples_the_WINDOWS_pool_not_the_whole_career(self):
+        """A window's estimate must be about that window.
+
+        Here P00 talks bin 0 for the first half of the corpus and bin 1 for the
+        second, while P01 and P02 only ever talk bin 0. In the first window
+        every eligible speech is bin 0, so the observed dispersion is exactly
+        zero. A curve that reached for each president's GLOBAL career pool —
+        which is what the permuted curve deliberately does — reads 0.424 there
+        instead, and the whole rolling grid stops meaning anything.
+        """
+        comp = _per_speech_corpus(
+            lambda p, s, i: 1 if (p == 0 and s >= 5) else 0, 3, 3
+        )
+        design = C.build_design(comp, _TINY_ARM)
+        curve = C.dispersion_curve(
+            design, [6, 1], n_draws=16, with_floor=False, with_entropy_match=False
+        )
+        first = int(np.flatnonzero(curve.used)[0])
+        assert curve.end[first] <= 1829
+        assert curve.dispersion[first] == pytest.approx(0.0, abs=1e-6)
+
     def test_centered_tilts_have_the_intended_mean_at_every_n(self):
         rng = np.random.default_rng(0)
         mu = np.full(6, 1 / 6)
@@ -577,12 +935,125 @@ class TestPermutation:
         assert sorted(donor[pool].tolist()) == sorted(pool.tolist())
 
     def test_donor_map_leaves_never_eligible_presidents_alone(self):
-        design = _small_design()
+        """The donor set is restricted to the ever-eligible presidents so that
+        every slot draws S speeches WITH replacement from a pool guaranteed to
+        hold at least S of them. A one-speech presidency in the donor set would
+        fill a slot from a pool of one — eight identical speeches dressed as a
+        cluster draw.
+
+        The fixture must actually CONTAIN a never-eligible president: on
+        `_small_design()` every president is ever-eligible, so the loop below
+        never executes and the assertion proves nothing.
+        """
+        span = list(range(1800, 1901, 2))
+        comp = _hand_corpus([
+            ("Pa", span, None), ("Pb", span, None), ("Pc", span, None),
+            ("Pz_one_speech", [1830], None),
+        ], 3)
+        design = C.build_design(comp, _TINY_ARM)
         pool = set(C.ever_eligible(design).tolist())
-        donor = C._donor_map(design, np.random.default_rng(0))
-        for i in range(len(design.presidents)):
-            if i not in pool:
+        outsiders = [
+            i for i in range(len(design.presidents)) if i not in pool
+        ]
+        assert [design.presidents[i] for i in outsiders] == ["Pz_one_speech"]
+        assert len(design.global_pool[outsiders[0]]) < _TINY_ARM.n_speeches
+        rng = np.random.default_rng(0)
+        for _ in range(25):
+            donor = C._donor_map(design, rng)
+            for i in outsiders:
                 assert donor[i] == i
+                assert i not in donor[list(pool)].tolist()
+
+    def test_the_donor_map_actually_MOVES_presidents(self):
+        """"Is a bijection" is satisfied by the identity, and an identity donor
+        map would make every null draw a re-run of the observed curve — a null
+        that can never reject, dressed as one that measured 5% size. A uniform
+        random bijection leaves about ONE fixed point however large the pool is;
+        measured over 50 draws on a 10-president pool: min 0 fixed points, mean
+        1.16.
+        """
+        design = _small_design()
+        pool = C.ever_eligible(design)
+        assert len(pool) >= 5
+        rng = np.random.default_rng(0)
+        fixed = [
+            int((C._donor_map(design, rng)[pool] == pool).sum()) for _ in range(50)
+        ]
+        assert min(fixed) < len(pool), "the donor map never moved anybody"
+        assert np.mean(fixed) < 0.5 * len(pool)
+
+    def test_a_permuted_slot_is_filled_from_the_DONORS_pool(self):
+        """The permutation must move CONTENT, not just a label.
+
+        A donor map pointing every slot at one president makes every slot hold
+        the same president's speeches, so dispersion has to collapse to sampling
+        noise (measured max 0.228 against an observed mean of 0.823). A permuted
+        curve that quietly kept each president's own pool would not move at all,
+        and the entire inference — every p-value this module publishes — would
+        be computed against the observed curve itself.
+        """
+        design = C.build_design(
+            _coextensive_corpus(4, distinct_agendas=True), _TINY_ARM
+        )
+        observed = C.dispersion_curve(
+            design, [2, 1], n_draws=8, with_floor=False, with_entropy_match=False
+        )
+        one_donor = np.zeros(len(design.presidents), dtype=np.int64)
+        permuted = C.dispersion_curve(
+            design, [2, 1], donor=one_donor, n_draws=8,
+            with_floor=False, with_entropy_match=False,
+        )
+        assert np.nanmean(observed.dispersion) > 0.6
+        assert np.nanmax(permuted.dispersion[permuted.used]) < 0.35
+
+    def test_permutation_null_computes_every_statistic_it_was_asked_for(self):
+        """`permutation_null` decides for itself whether to compute the floor
+        and the entropy match, from the statistics it was asked for. If either
+        switch were wrong the corresponding rho would come back NaN — silently,
+        on both the observed value and every null draw — and the decision table
+        would never be able to reach the cell that reads it."""
+        design = C.build_design(
+            _coextensive_corpus(5, distinct_agendas=True), _TINY_ARM
+        )
+        observed, null = C.permutation_null(
+            {"rolling": design}, 0, n_permutations=3, n_draws=4, floor_draws=4
+        )
+        for statistic in ("dispersion", "floor_corrected", "excess_ratio"):
+            key = ("rolling", "all_windows", statistic)
+            assert key in observed, statistic
+            assert np.isfinite(observed[key]), statistic
+            assert np.isfinite(null[key]).all(), statistic
+
+    @pytest.mark.parametrize("n_permutations", [1, 3])
+    def test_every_null_draw_is_a_VALID_spearman_rho(self, n_permutations):
+        """Every element of the null is a Spearman rho and therefore lives in
+        [-1, 1]. The arrays are allocated with `np.empty`, so a draw the loop
+        never writes carries recycled memory straight into `_one_sided_p` and
+        the published `null_mean` / `null_sd` / `null_crit_05` — at R=1 the
+        recycled value was observed to be 1829.5, a window centre year from an
+        earlier array. Allocating with `np.full(..., np.nan)` instead would make
+        an unwritten draw structurally visible (it would drop out of the null
+        and downgrade `ci_status` through the existing `n_permutations_valid`
+        path); recommended to SIMPLIFY rather than changed here, because
+        touching `convergence.py` costs a full byte-identity re-run.
+        """
+        design = C.build_design(
+            _coextensive_corpus(5, distinct_agendas=True), _TINY_ARM
+        )
+        _, null = C.permutation_null(
+            {"rolling": design}, 0, n_permutations=n_permutations,
+            n_draws=4, floor_draws=4,
+        )
+        for key, draws in null.items():
+            assert len(draws) == n_permutations, key
+            finite = draws[np.isfinite(draws)]
+            assert np.all(np.abs(finite) <= 1.0), (key, draws)
+        # `pair_regression` is legitimately NaN on this 5-president fixture, so
+        # the sweep above would pass vacuously on an all-NaN array. The three
+        # window statistics must be non-empty for it to have proved anything.
+        for statistic in ("dispersion", "floor_corrected", "excess_ratio"):
+            draws = null[("rolling", "all_windows", statistic)]
+            assert int(np.isfinite(draws).sum()) == n_permutations, statistic
 
     def test_permutation_does_not_change_which_windows_are_used(self):
         """The design is held fixed; only the content moves. If a permutation
@@ -632,6 +1103,79 @@ class TestPermutation:
 # --------------------------------------------------------------------------
 
 
+def _hand_curve(dispersion, *, floor=None, entropy_matched=None, start=None):
+    """A `Curve` whose derived columns are hand-derivable.
+
+    `floor_corrected` and `excess_ratio` are properties, not stored values, and
+    each of them IS a published statistic and a decision-table cell — so they
+    need to be pinned on values a reader can check, not only observed through a
+    full sampling run.
+    """
+    dispersion = np.asarray(dispersion, dtype=float)
+    n = len(dispersion)
+    start = np.arange(1800, 1800 + 2 * n, 2) if start is None else np.asarray(start)
+    z = np.zeros(n)
+    return C.Curve(
+        start=start, end=start + C.WINDOW_LEN - 1,
+        center=start + (C.WINDOW_LEN - 1) / 2.0,
+        n_eligible=np.full(n, 5), status=["ok"] * n, used=np.ones(n, dtype=bool),
+        dispersion=dispersion,
+        entropy_matched=np.ones(n) if entropy_matched is None
+        else np.asarray(entropy_matched, dtype=float),
+        floor=z if floor is None else np.asarray(floor, dtype=float),
+        mean_entropy=z,
+        pair_jsd=np.zeros((2, 2)), pair_year=np.zeros((2, 2)), pair_n=np.zeros((2, 2)),
+        pres_jsd=np.zeros(2), pres_floor=np.zeros(2), pres_n=np.zeros(2),
+    )
+
+
+class TestDerivedCurveStatistics:
+    def test_floor_corrected_subtracts_the_per_window_floor(self):
+        curve = _hand_curve([0.8, 0.6, 0.5], floor=[0.1, 0.2, 0.4])
+        assert curve.floor_corrected == pytest.approx([0.7, 0.4, 0.1])
+
+    def test_a_flat_curve_over_a_rising_floor_is_a_DECLINING_floor_corrected(self):
+        """The `artifact_floor` cell of the decision table exists for exactly
+        this shape, and it is invisible in `dispersion`: nothing about the
+        raw curve moves, and the corrected one falls monotonically."""
+        curve = _hand_curve([0.6] * 5, floor=[0.05, 0.10, 0.15, 0.20, 0.25])
+        stats = C.curve_statistics(curve, "rolling")
+        assert stats[("all_windows", "dispersion")] == pytest.approx(0.0) or np.isnan(
+            stats[("all_windows", "dispersion")]
+        )
+        assert stats[("all_windows", "floor_corrected")] == pytest.approx(-1.0)
+
+    def test_excess_ratio_is_dispersion_over_the_entropy_matched_null(self):
+        curve = _hand_curve([0.8, 0.6], entropy_matched=[0.8, 1.2])
+        assert curve.excess_ratio == pytest.approx([1.0, 0.5])
+
+    def test_excess_ratio_is_nan_where_the_entropy_matched_null_is_zero(self):
+        """Never an inf and never a silent 0: a window whose entropy-matched
+        null vanished has no ratio, and must drop out of the trend rather than
+        dominate it."""
+        curve = _hand_curve([0.8, 0.6], entropy_matched=[0.0, 1.2])
+        assert np.isnan(curve.excess_ratio[0])
+        assert curve.excess_ratio[1] == pytest.approx(0.5)
+
+    def test_ends_2014_selects_on_the_window_END_not_its_START(self):
+        """Prereg 7.4's dating procedure estimates the trend on data ending
+        2014. A mask on the window START would silently admit windows running
+        to 2043 — every one of them containing post-2014 content, which is the
+        one thing the treatment exists to exclude. Here 8 of 20 windows end by
+        2014 while all 20 start by then, and the two masks disagree in SIGN:
+        -1.0 against +0.747.
+        """
+        curve = _hand_curve(
+            np.concatenate([np.linspace(0.9, 0.5, 8), np.linspace(0.55, 2.0, 12)]),
+            start=np.arange(1970, 2010, 2),
+        )
+        assert int((curve.end <= C.DATING_END_YEAR).sum()) == 8
+        assert int((curve.start <= C.DATING_END_YEAR).sum()) == 20
+        stats = C.curve_statistics(curve, "rolling")
+        assert stats[("ends_2014", "dispersion")] == pytest.approx(-1.0)
+        assert stats[("all_windows", "dispersion")] > 0.5
+
+
 class TestCurveStatisticsScopeRules:
     def _curve(self, window_kind: str) -> tuple[C.Curve, str]:
         design = C.build_design(
@@ -664,6 +1208,28 @@ class TestCurveStatisticsScopeRules:
         with pytest.raises(ValueError, match="unknown statistic"):
             C._series_for(curve, "made_up")
 
+    def test_the_pair_regression_averages_over_each_pairs_shared_windows(self):
+        """Prereg 7.6 puts ONE point per president pair: mean pairwise JSD
+        against the mean centre year of the windows the pair shared. The
+        accumulators are SUMS, so the division by `pair_n` is what turns them
+        into that. Pairs share wildly different numbers of windows (1 to 6
+        here), so regressing the raw sums ranks pairs by how long they
+        overlapped rather than by how far apart their agendas were — and flips
+        the answer from rho = -1.0 to rho = +0.943 on this fixture.
+        """
+        iu, ju = np.triu_indices(4, k=1)
+        years = np.array([1800.0, 1810, 1820, 1830, 1840, 1850])
+        jsd = np.array([0.9, 0.8, 0.7, 0.6, 0.5, 0.4])
+        shared = np.array([1.0, 2, 3, 4, 5, 6])
+        pair_jsd, pair_year, pair_n = (np.zeros((4, 4)) for _ in range(3))
+        pair_jsd[iu, ju] = jsd * shared
+        pair_year[iu, ju] = years * shared
+        pair_n[iu, ju] = shared
+        curve = _hand_curve([0.0, 0.0, 0.0])._replace(
+            pair_jsd=pair_jsd, pair_year=pair_year, pair_n=pair_n
+        )
+        assert C._pair_regression_rho(curve) == pytest.approx(-1.0)
+
     def test_the_pair_regression_is_nan_below_three_president_pairs(self):
         design = C.build_design(_coextensive_corpus(2), _TINY_ARM)
         curve = C.dispersion_curve(
@@ -692,6 +1258,50 @@ def _paradox_curve(design: C.Design, pres_jsd, pres_floor, pres_n) -> C.Curve:
         pres_floor=np.asarray(pres_floor, dtype=float),
         pres_n=np.asarray(pres_n, dtype=float),
     )
+
+
+class TestPerPresidentAccumulators:
+    """`paradox_table` publishes `pres_jsd / pres_n` and `n_windows_eligible`
+    straight out of these two arrays, so both have to mean exactly what their
+    names say."""
+
+    def _curve(self) -> tuple[C.Design, C.Curve]:
+        design = C.build_design(_mutually_disjoint_pure_speeches(3), _TINY_ARM)
+        curve = C.dispersion_curve(
+            design, [9, 1], n_draws=4, with_floor=False, with_entropy_match=False
+        )
+        return design, curve
+
+    def test_pres_n_counts_windows_not_president_slots(self):
+        design, curve = self._curve()
+        n_used = int(curve.used.sum())
+        assert n_used == len(design.windows) == 13
+        assert curve.pres_n.tolist() == [float(n_used)] * 3
+
+    def test_pres_jsd_is_the_mean_distance_to_the_OTHERS_not_to_everyone(self):
+        """Three presidents whose agendas are mutually disjoint are exactly one
+        bit apart, so each one's mean distance to the other TWO is 1.0 in every
+        window. Dividing by E instead of E-1 would report 2/3 — every published
+        `mean_jsd_to_contemporaries` deflated by the same factor, and the
+        `corrected_distance` ranking silently re-scaled."""
+        _, curve = self._curve()
+        n_used = float(curve.used.sum())
+        assert curve.pres_jsd == pytest.approx(np.full(3, n_used))
+        assert (curve.pres_jsd / curve.pres_n) == pytest.approx(np.ones(3))
+
+    def test_president_first_year_is_their_FIRST_year_not_their_last(self):
+        """It is published on every jackknife row (`left_out_first_year`) and
+        every paradox row (`first_year`), and it is also what orders the
+        presidents."""
+        comp = _hand_corpus([
+            ("Pa", list(range(1800, 1861, 2)), None),
+            ("Pb", list(range(1810, 1871, 2)), None),
+            ("Pc", list(range(1820, 1881, 2)), None),
+        ], 3)
+        design = C.build_design(comp, _TINY_ARM)
+        assert dict(zip(design.presidents, design.president_first_year.tolist())) == {
+            "Pa": 1800, "Pb": 1810, "Pc": 1820,
+        }
 
 
 class TestParadoxTable:
@@ -833,6 +1443,36 @@ class TestDecisionTable:
         })
         assert C.score_decision_table(table)["cell"] == "convergence"
 
+    @pytest.mark.parametrize("declining_arm", ["corex_all", "corex_sotu"])
+    def test_convergence_needs_BOTH_arms_on_the_entropy_matched_null(
+        self, declining_arm
+    ):
+        """"No vote rule" is a pre-registered commitment (task Key Decisions): a
+        ">= 3 of 4 methods decline" rule fires 12-46% under a true null, and the
+        arms are not independent evidence. One arm clearing the entropy-matched
+        null is therefore NOT convergence — it is broadening. Both arms are
+        parametrized because the previous suite tested only the `corex_all` side
+        of every `and` in this function.
+        """
+        table = _null_table(**{
+            "corex_all.dispersion": True, "corex_sotu.dispersion": True,
+            "corex_all.floor_corrected": True, "corex_sotu.floor_corrected": True,
+            f"{declining_arm}.excess_ratio": True,
+        })
+        assert C.score_decision_table(table)["cell"] == "broadening"
+
+    @pytest.mark.parametrize("surviving_arm", ["corex_all", "corex_sotu"])
+    def test_the_floor_cell_needs_BOTH_arms_to_survive_the_floor(
+        self, surviving_arm
+    ):
+        """The same commitment one rule earlier: a decline that survives the
+        noise floor in one arm only is `artifact_floor`, not evidence."""
+        table = _null_table(**{
+            "corex_all.dispersion": True, "corex_sotu.dispersion": True,
+            f"{surviving_arm}.floor_corrected": True,
+        })
+        assert C.score_decision_table(table)["cell"] == "artifact_floor"
+
     def test_every_cell_has_its_literal_pre_committed_headline(self):
         prereg = (
             C.DATA_DIR.parent / "notes" / "convergence-prereg-v1.md"
@@ -970,7 +1610,13 @@ class TestTrustGateOnEveryOutputTable:
 
     def test_the_gate_vocabulary_is_literally_one_vocabulary(self):
         """`window_status`, `jackknife_status`, `null_status` and
-        `paradox_table` must not each invent their own words."""
+        `paradox_table` must not each invent their own words.
+
+        `paradox_table` is the one of the four that does NOT go through a named
+        `*_status` function — its thresholds are inline in the frame builder —
+        so it is the one most able to drift, and it was previously named in this
+        docstring while being excluded from the union it claims to check.
+        """
         produced = {C.window_status(n) for n in range(0, 8)}
         produced |= {C.jackknife_status(u, 100) for u in (0, 2, 3, 70, 80, 95, 100)}
         produced |= {
@@ -978,6 +1624,17 @@ class TestTrustGateOnEveryOutputTable:
             for rho in (-0.5, float("nan"))
             for v in (0, 50, 90, 100)
         }
+        design = C.build_design(_coextensive_corpus(4), _TINY_ARM)
+        paradox = C.paradox_table(
+            design,
+            _paradox_curve(design, [0.1, 0.2, 0.3, 0.4], [0.0] * 4,
+                           [1.0, 3.0, 10.0, 12.0]),
+            anchor=pd.Series(dtype=float),
+        )
+        assert set(paradox["ci_status"]) == {
+            "suppressed_n_floor", "low_cluster_caution", "ok"
+        }
+        produced |= set(paradox["ci_status"])
         assert produced == set(C.CI_STATUS_VALUES)
 
 
@@ -1024,6 +1681,101 @@ class TestJackknifeTrustGate:
             assert left == full
             assert C.jackknife_status(left, full) == "ok"
 
+    def test_dropping_a_president_removes_THEIR_content_from_every_window(self):
+        """`drop` has to delete a president from the design, not merely from a
+        row label. Three presidents talk only bin 0 and the fourth talks only
+        bin 1, so the whole of the corpus's dispersion is that one president:
+        deleting them takes it to exactly zero, and deleting nobody leaves it at
+        0.5. Every eligible count falls by exactly one.
+        """
+        comp = _per_speech_corpus(lambda p, s, i: 1 if p == 3 else 0, 4, 3)
+        design = C.build_design(comp, _TINY_ARM)
+        assert design.presidents[3] == "P03"
+        full = C.dispersion_curve(
+            design, [8, 1], n_draws=8, with_floor=False, with_entropy_match=False
+        )
+        without = C.dispersion_curve(
+            design, [8, 1], drop=3, n_draws=8,
+            with_floor=False, with_entropy_match=False,
+        )
+        assert np.nanmean(full.dispersion) == pytest.approx(0.5, abs=0.05)
+        assert np.nanmax(without.dispersion[without.used]) == pytest.approx(
+            0.0, abs=1e-6
+        )
+        assert (without.n_eligible == full.n_eligible - 1).all()
+
+    def test_every_jackknife_row_really_leaves_ITS_OWN_president_out(self):
+        """Three coextensive presidents sit exactly on the `MIN_PRESIDENTS`
+        floor, so a row that genuinely dropped its president has NO trend
+        windows left while the full design has 16. A `jackknife` that passed
+        `drop=None` — or a `dispersion_curve` that ignored `drop` — would report
+        all 16 on every row and publish 45 identical copies of the full-corpus
+        rho under 45 different president names.
+        """
+        design = C.build_design(_coextensive_corpus(3), _TINY_ARM)
+        frame = C.jackknife(design, 0, np.linspace(-1, 1, 21), n_draws=4)
+        assert len(frame) == 3
+        assert frame["n_windows_full_design"].eq(C.n_windows_in_trend(design)).all()
+        assert frame["n_windows_full_design"].gt(0).all()
+        assert frame["n_windows_used"].eq(0).all()
+        assert frame["ci_status"].eq("no_data").all()
+
+    def test_leaving_out_different_presidents_gives_different_answers(self):
+        """The counter to the fixture above, on a design where the floor never
+        binds: the rows must still differ from each other, because they are
+        different estimates and not one estimate copied 5 times."""
+        design = C.build_design(
+            _coextensive_corpus(5, distinct_agendas=True), _TINY_ARM
+        )
+        frame = C.jackknife(design, 0, np.linspace(-1, 1, 21), n_draws=8)
+        rhos = frame["rho"].to_numpy()
+        assert np.isfinite(rhos).all()
+        assert rhos.std() > 0.01, "every leave-one-out row returned the same rho"
+
+    def test_a_president_who_is_never_eligible_gets_no_jackknife_row(self):
+        """A president outside the donor set never entered any window, so
+        "leaving them out" is not an estimate — it is the full-design rho with a
+        misleading name on it, scored against the full-design null."""
+        span = list(range(1800, 1861, 2))
+        comp = _hand_corpus([
+            ("Pa", span, None), ("Pb", span, None), ("Pc", span, None),
+            ("Pz_one_speech", [1830], None),
+        ], 3)
+        design = C.build_design(comp, _TINY_ARM)
+        assert "Pz_one_speech" in design.presidents
+        assert design.presidents.index("Pz_one_speech") not in (
+            C.ever_eligible(design).tolist()
+        )
+        frame = C.jackknife(design, 0, np.linspace(-1, 1, 21), n_draws=4)
+        assert set(frame["left_out_president"]) == {"Pa", "Pb", "Pc"}
+
+    def test_the_gate_reads_RETENTION_the_right_way_round(self):
+        """`jackknife_status(used, full)` is not symmetric, and the two
+        arguments are both plain ints — so swapping them at the call site is
+        invisible until a row that should be suppressed publishes as `ok`.
+
+        A, B and C serve the whole 1800-1900 span; D_early only its first
+        thirty years. Three eligible presidents is exactly the floor, so
+        deleting any of A/B/C drops every window D_early does not cover:
+        15 of 36 survive (retention 0.42, `suppressed_n_floor`), while the
+        swapped call reads 36/15 = 2.4 and returns `ok` on all four rows.
+        """
+        span = list(range(1800, 1901, 2))
+        comp = _hand_corpus([
+            ("A", span, None), ("B", span, None), ("C", span, None),
+            ("D_early", list(range(1800, 1831, 2)), None),
+        ], 3)
+        design = C.build_design(comp, _TINY_ARM)
+        assert C.n_windows_in_trend(design) == 36
+        frame = C.jackknife(
+            design, 0, np.linspace(-1, 1, 21), n_draws=4
+        ).set_index("left_out_president")
+        for pivotal in ("A", "B", "C"):
+            assert int(frame.loc[pivotal, "n_windows_used"]) == 15
+            assert frame.loc[pivotal, "ci_status"] == "suppressed_n_floor"
+        assert int(frame.loc["D_early", "n_windows_used"]) == 36
+        assert frame.loc["D_early", "ci_status"] == "ok"
+
     def test_jackknife_frame_carries_the_gate_on_every_row(self):
         design = C.build_design(_coextensive_corpus(6), _TINY_ARM)
         frame = C.jackknife(design, 0, np.linspace(-1, 1, 21), n_draws=4)
@@ -1065,6 +1817,53 @@ class TestPermutationNullTrustGate:
         rows = pd.DataFrame(C.null_rows(C.ARMS[0], observed, null, 10))
         assert _trust_gate_violations({"permutation_null": rows}) == []
         assert rows["ci_status"].iloc[0] == "ok"
+
+    def test_a_significant_RISE_is_never_a_significant_DECLINE(self):
+        """`significant_decline` is what the decision table reads, and the
+        hypothesis is one-sided. A rho sitting BELOW its whole null but on the
+        positive side of zero is a significant result about a corpus getting
+        MORE dispersed; calling it a decline would route an anti-convergence
+        finding straight into the `convergence` cell.
+        """
+        rising = {("rolling", "all_windows", "dispersion"): 0.9}
+        null = {("rolling", "all_windows", "dispersion"): np.linspace(0.95, 1.0, 100)}
+        rows = pd.DataFrame(C.null_rows(C.ARMS[0], rising, null, 100))
+        assert rows["p_one_sided"].iloc[0] <= C.ALPHA   # it IS significant
+        assert rows["rho"].iloc[0] > 0
+        assert not bool(rows["significant_decline"].iloc[0])
+
+    def test_null_crit_05_is_the_LOWER_five_percent_of_the_null(self):
+        """The published critical value, and the number this whole design
+        exists to get right: the honest one-sided 5% cut on these 93%-overlapping
+        windows is rho <= -0.41, not the -0.16 a closed-form p implies. A column
+        reporting the UPPER tail instead would hand a reader a positive
+        threshold to compare a negative rho against."""
+        draws = np.linspace(-1.0, 1.0, 101)
+        rows = pd.DataFrame(C.null_rows(
+            C.ARMS[0],
+            {("rolling", "all_windows", "dispersion"): -0.5},
+            {("rolling", "all_windows", "dispersion"): draws}, 101,
+        ))
+        assert rows["null_crit_05"].iloc[0] == pytest.approx(-0.9)
+        assert rows["null_crit_05"].iloc[0] < rows["null_mean"].iloc[0]
+
+    def test_two_sided_p_centres_on_the_MEDIAN_not_the_mean(self):
+        """A permutation null need not be symmetric, and the two-sided p asks
+        how far the observed value sits from the null's CENTRE. The
+        `[-2,-1,1,2]` fixture above cannot tell the two apart — its mean and
+        median are both 0. On a right-skewed null they differ: median 1.0 gives
+        p = 1.0 for an observed value sitting exactly on it, and a mean-centred
+        version gives 0.833."""
+        skewed = np.array([-1.0, 0.0, 1.0, 2.0, 100.0])
+        assert C._two_sided_p(1.0, skewed) == pytest.approx(1.0)
+
+    def test_a_significant_decline_is_still_flagged(self):
+        """The control: without it the assertion above would also pass on a
+        `significant_decline` hard-wired to False."""
+        falling = {("rolling", "all_windows", "dispersion"): -0.9}
+        null = {("rolling", "all_windows", "dispersion"): np.linspace(-0.2, 0.6, 100)}
+        rows = pd.DataFrame(C.null_rows(C.ARMS[0], falling, null, 100))
+        assert bool(rows["significant_decline"].iloc[0])
 
     def test_a_null_that_mostly_evaporated_is_not_ok(self):
         draws = np.full(10, np.nan)
@@ -1197,6 +1996,36 @@ class TestSelftestItself:
         message = str(excinfo.value)
         assert "a_cluster_flat" in message
         assert "STOP" in message
+
+    def test_leg_a_is_TWO_sided_flat_means_flat_not_merely_not_declining(
+        self, monkeypatch, cheap_selftest
+    ):
+        """Leg (a)'s claim is FLAT on the clustered null, and its check is
+        `|rho| <= threshold` for that reason.
+
+        An estimator that manufactured a strong POSITIVE trend out of a null
+        corpus is exactly as broken as one that manufactured a negative one —
+        it would read a real convergence as flat and this design's whole
+        argument is about estimators that invent trends. A one-sided
+        `rho <= threshold` would wave it through.
+
+        Discriminated at a threshold of 0: the shrunken fixture's leg-(a) rho
+        is -0.123, so `|rho| <= 0` fails (the gate raises) while `rho <= 0`
+        passes. The sign is asserted first, or a future re-seed would make this
+        test silently vacuous.
+        """
+        for name in ("SELFTEST_PARAGRAPH_BIAS_MAX_RHO", "SELFTEST_INJECTED_MAX_RHO",
+                     "SELFTEST_MAX_SIZE", "SELFTEST_CLUSTER_FLAT_MAX_ABS_RHO"):
+            monkeypatch.setattr(C, name, 1.0)
+        baseline = C._selftest(verbose=False)
+        rho = baseline["a_cluster_null_rho"]
+        assert -1.0 < rho < 0.0, (
+            f"fixture drifted: leg (a) rho is {rho}, which cannot separate "
+            "`|rho| <= 0` from `rho <= 0`"
+        )
+        monkeypatch.setattr(C, "SELFTEST_CLUSTER_FLAT_MAX_ABS_RHO", 0.0)
+        with pytest.raises(AssertionError, match="a_cluster_flat"):
+            C._selftest(verbose=False)
 
     def test_a_passing_run_returns_every_leg_and_its_verdict(
         self, monkeypatch, cheap_selftest
@@ -1389,6 +2218,69 @@ class TestBuildConvergence:
         tables = C.build_convergence(out_dir=out, n_permutations=3, progress=False)
         assert set(tables["paradox"]["arm"]) == {"corex_all"}
 
+    def test_the_published_window_rows_report_the_trend_membership_actually_used(
+        self, tmp_path, tiny_pipeline
+    ):
+        """`used_in_trend` is the column a consumer filters on, and it must
+        agree row-for-row with `ci_status`. The committed-artifact sweep cannot
+        see a regression here — it reads a parquet built by an earlier commit —
+        so the check has to run on a freshly built layer."""
+        tables = C.build_convergence(
+            out_dir=tmp_path / "convergence", n_permutations=2, progress=False
+        )
+        curves = tables["dispersion_curves"]
+        blind = curves[curves["ci_status"].isin(["no_data", "suppressed_n_floor"])]
+        assert len(blind) > 0, "fixture no longer produces a suppressed window"
+        assert not blind["used_in_trend"].any()
+        usable = curves[curves["ci_status"].isin(["ok", "low_cluster_caution"])]
+        assert len(usable) > 0
+        assert usable["used_in_trend"].all()
+
+    def test_the_published_in_ends_2014_column_reads_the_window_END(self):
+        """The same rule as `curve_statistics`' `ends_2014` mask, in a second
+        place — so it needs its own guard. A window starting 1984 runs to 2013;
+        one starting 1986 runs to 2015 and carries post-2014 content, which is
+        precisely what the dating procedure excludes."""
+        design = C.build_design(_coextensive_corpus(3), _TINY_ARM)
+        curve = _hand_curve(
+            np.linspace(0.9, 0.5, 20), start=np.arange(1970, 2010, 2)
+        )
+        rows = C._curve_rows(C.ARMS[0], design, curve)
+        assert sum(r["in_ends_2014"] for r in rows) == 8
+        assert all(
+            r["in_ends_2014"] == (r["window_end"] <= C.DATING_END_YEAR) for r in rows
+        )
+
+    def test_the_jackknife_is_scored_against_the_ROLLING_grids_null(
+        self, tmp_path, tiny_pipeline, monkeypatch
+    ):
+        """Every jackknife rho is a rolling-grid statistic and its p comes from
+        the rolling-grid permutation null (`null_source` says so on every row).
+        Scoring it against the 8-window non-overlapping grid's null would
+        compare a 105-window rho against the spread of an 8-window one — the
+        two differ by roughly an order of magnitude in width.
+
+        Detected by making the two nulls trivially distinguishable: every
+        rolling draw is -0.99 (so every observed rho sits above the whole null,
+        p = 1.0) and every non-overlapping draw is +0.99 (p = 1/(R+1)).
+        """
+        real = C.permutation_null
+
+        def tagged(designs, arm_index, **kwargs):
+            observed, null = real(designs, arm_index, **kwargs)
+            for key in null:
+                null[key][:] = -0.99 if key[0] == "rolling" else 0.99
+            return observed, null
+
+        monkeypatch.setattr(C, "permutation_null", tagged)
+        tables = C.build_convergence(
+            out_dir=tmp_path / "convergence", n_permutations=4, progress=False
+        )
+        jack = tables["jackknife"]
+        assert jack["rho"].notna().all()
+        assert jack["rho"].between(-0.9, 0.9).all()
+        assert jack["p_one_sided"].eq(1.0).all()
+
     def test_the_rolling_binding_survives_a_reordered_window_kind_tuple(
         self, tmp_path, tiny_pipeline, monkeypatch
     ):
@@ -1480,29 +2372,40 @@ class TestCommandLine:
 # --------------------------------------------------------------------------
 
 
+_LOOPS = (ast.For, ast.AsyncFor, ast.While)
+
+
 def _loop_leaked_names(func: ast.FunctionDef) -> list[str]:
-    """Names READ at a function's top statement level but bound ONLY inside one
-    of its loops.
+    """Names READ outside every loop in a function but bound ONLY inside one.
 
     That is the shape of the `rolling_curve` / `rolling_design` defect: correct
     today purely because `"rolling"` happens to be in `WINDOW_KINDS`, and a
     `NameError` at a distance — or, worse, a silent reuse of the PREVIOUS arm's
     design — the moment that stops being true.
+
+    Loops are found ANYWHERE in the function, not only at its top statement
+    level: the earlier version classified statements one level deep, so a `for`
+    nested inside an `if`, a `with` or a `try` was invisible to it — and a loop
+    guarded by an `if` is if anything MORE likely to leak, because the guard is
+    another way for the loop body never to run.
     """
+    inside_a_loop: set[int] = set()
+    for loop in (n for n in ast.walk(func) if isinstance(n, _LOOPS)):
+        inside_a_loop.update(id(n) for n in ast.walk(loop))
+
     bound_at_top = {a.arg for a in func.args.args} | {
         a.arg for a in func.args.kwonlyargs
     }
     bound_in_loop: set[str] = set()
     read_at_top: set[str] = set()
-    for stmt in func.body:
-        target = bound_in_loop if isinstance(stmt, (ast.For, ast.While)) else bound_at_top
-        for node in ast.walk(stmt):
-            if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Store):
-                target.add(node.id)
-        if not isinstance(stmt, (ast.For, ast.While)):
-            for node in ast.walk(stmt):
-                if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
-                    read_at_top.add(node.id)
+    for node in ast.walk(func):
+        if not isinstance(node, ast.Name):
+            continue
+        in_loop = id(node) in inside_a_loop
+        if isinstance(node.ctx, ast.Store):
+            (bound_in_loop if in_loop else bound_at_top).add(node.id)
+        elif isinstance(node.ctx, ast.Load) and not in_loop:
+            read_at_top.add(node.id)
     # No allow-list of module globals or builtins: a name that is STORED inside
     # the loop is a local of this function regardless of what else shares its
     # spelling, so subtracting those sets would only hide real leaks.
@@ -1533,6 +2436,30 @@ class TestNoLoopVariableLeaks:
             "    return summarize(rolling_curve, rolling_design)\n"
         )["build"]
         assert _loop_leaked_names(defect) == ["rolling_curve", "rolling_design"]
+
+    @pytest.mark.parametrize(
+        "wrapper",
+        ["    if flag:\n", "    with open(flag) as fh:\n", "    try:\n"],
+    )
+    def test_the_scan_sees_a_loop_nested_inside_another_statement(self, wrapper):
+        """The scan used to classify only top-level statements, so a `for`
+        inside an `if` / `with` / `try` was invisible — and a conditionally
+        entered loop is exactly where a leak bites, because the guard is a
+        second way for the body never to run."""
+        tail = "        pass\n" if wrapper.startswith("    try") else ""
+        suffix = "    except Exception:\n        pass\n" if wrapper.startswith(
+            "    try"
+        ) else ""
+        defect = _function_defs(
+            "def build(flag, items):\n"
+            + wrapper
+            + "        for x in items:\n"
+            "            picked = x\n"
+            + tail
+            + suffix
+            + "    return summarize(picked)\n"
+        )["build"]
+        assert _loop_leaked_names(defect) == ["picked"]
 
     def test_the_scan_does_not_fire_on_the_explicit_binding(self):
         fixed = _function_defs(
@@ -1608,6 +2535,29 @@ def _alike_corpus() -> C.Composition:
     return _hand_corpus(specs, n_bins, seed=0)
 
 
+def _rising_no_topic_corpus(seed: int = 3) -> C.Composition:
+    """Zero real convergence; only the UNLABELLED share drifts, 0 -> 0.9.
+
+    President `p` owns bin `p` and shares no substantive bin with anyone, ever.
+    What rises with time is the fraction of their paragraphs carrying no label
+    at all — the corpus's real 1.49 -> 0.83 labels-per-paragraph drift, in its
+    purest form.
+    """
+    rng = np.random.default_rng(seed)
+    blank = {}
+
+    def bin_of(p, s, i):
+        u = 0.9 * p / (_RIVAL_PRESIDENTS - 1)
+        if (p, s) not in blank:
+            blank[(p, s)] = rng.random(10) < u
+        return None if blank[(p, s)][i] else p
+
+    return _per_speech_corpus(
+        bin_of, _RIVAL_PRESIDENTS, _RIVAL_PRESIDENTS, paras_per_speech=10,
+        speeches_per_president=10, president_step=6, year_step=1, year_cycle=6,
+    )
+
+
 def _rival_curve(comp: C.Composition) -> C.Curve:
     return C.dispersion_curve(
         C._selftest_design(comp), [5, 2, 3], with_floor=False
@@ -1622,56 +2572,98 @@ class TestRivalHypothesisSeparator:
     """The most load-bearing behavioural claim in the module: that
     `excess_ratio` reads "broader" and "more alike" differently."""
 
+    # Every band below is a single-seed magnitude, so the MEASURED value is
+    # recorded beside it: an assertion whose margin nobody wrote down is a
+    # flakiness surface that only shows up as a red build months later. All
+    # values below are from seed `_hand_corpus(seed=0)` x `_rival_curve`'s
+    # `[5, 2, 3]`, 46 used windows.
+
     def test_the_broader_corpus_really_does_broaden(self):
         curve = _rival_curve(_broader_corpus())
         used = curve.used
-        assert used.sum() >= 40
-        assert _rho(curve, curve.mean_entropy) >= 0.9
+        assert used.sum() >= 40                          # measured 46
+        assert _rho(curve, curve.mean_entropy) >= 0.9    # measured +0.9988
         entropy = curve.mean_entropy[used]
+        # measured 0.601 -> 3.940 bits, a 6.56x rise
         assert entropy[-1] > 4 * entropy[0]
 
     def test_broadening_alone_drives_dispersion_down(self):
         """Without this the flat-excess_ratio assertion would be vacuous: there
         would be no decline for the rival null to have to explain away."""
         curve = _rival_curve(_broader_corpus())
-        assert _rho(curve, curve.dispersion) <= -0.9
+        assert _rho(curve, curve.dispersion) <= -0.9     # measured -0.9961
         disp = curve.dispersion[curve.used]
+        # measured 0.988 -> 0.580, a ratio of 0.587
         assert disp[-1] < 0.65 * disp[0]
 
     def test_broadening_alone_leaves_excess_ratio_flat_at_one(self):
-        """THE rival-null test. Every window's observed dispersion is within
-        10% of what the presidents' own breadths already predict, so the design
-        correctly refuses to call this corpus a convergence."""
+        """THE rival-null test: every window's observed dispersion lands within
+        10% of what the presidents' own breadths already predict, so there is no
+        excess for a shared agenda to explain.
+
+        This is a statement about the STATISTIC, not about the decision path.
+        It does not show that `score_decision_table` refuses this corpus — the
+        production guard for that is the permutation null, which asks whether
+        `excess_ratio`'s TREND is significant, and this test asserts nothing
+        about that trend. The asserted band is [0.9, 1.1]; the measured range is
+        [0.959, 1.069], so the margin is about 4 points of headroom on each side.
+        """
         curve = _rival_curve(_broader_corpus())
         ratio = curve.excess_ratio[curve.used]
         assert np.isfinite(ratio).all()
-        assert ratio.min() >= 0.9
-        assert ratio.max() <= 1.1
+        assert ratio.min() >= 0.9      # measured 0.9589
+        assert ratio.max() <= 1.1      # measured 1.0693
 
     def test_the_alike_corpus_holds_breadth_fixed(self):
         curve = _rival_curve(_alike_corpus())
         entropy = curve.mean_entropy[curve.used]
-        assert entropy.max() / entropy.min() <= 1.05
+        assert entropy.max() / entropy.min() <= 1.05     # measured 1.0232
 
     def test_real_alignment_drives_excess_ratio_down_too(self):
         """The counter that proves `excess_ratio` is not simply pinned at 1 by
         construction: on a corpus that DID converge, with breadth held fixed,
         the same statistic collapses."""
         curve = _rival_curve(_alike_corpus())
-        assert _rho(curve, curve.dispersion) <= -0.9
-        assert _rho(curve, curve.excess_ratio) <= -0.8
-        assert curve.excess_ratio[curve.used][-1] <= 0.3
+        assert _rho(curve, curve.dispersion) <= -0.9     # measured -0.9533
+        assert _rho(curve, curve.excess_ratio) <= -0.8   # measured -0.9504
+        assert curve.excess_ratio[curve.used][-1] <= 0.3         # measured 0.188
 
     def test_the_separator_actually_separates(self):
         """The two corpora are indistinguishable on `dispersion` — both decline
         hard — and are told apart only by `excess_ratio`. That is the whole
         reason the entropy-matched null is mandatory."""
         broader, alike = _rival_curve(_broader_corpus()), _rival_curve(_alike_corpus())
-        assert _rho(broader, broader.dispersion) <= -0.9
-        assert _rho(alike, alike.dispersion) <= -0.9
+        assert _rho(broader, broader.dispersion) <= -0.9     # measured -0.9961
+        assert _rho(alike, alike.dispersion) <= -0.9         # measured -0.9533
+        # measured 0.9589 / 0.1880 = 5.10x, against an asserted 3x
         assert broader.excess_ratio[broader.used].min() > 3 * (
             alike.excess_ratio[alike.used].min()
         )
+
+    def test_a_rising_no_topic_share_DOES_move_the_measure(self):
+        """The boundary condition on the composition equation's immunity claim.
+
+        Every paragraph contributing mass 1 makes the measure immune to the
+        number of labels a labelled paragraph carries. It does NOT make it
+        immune to paragraphs carrying NO label: the no-topic bin is a real bin,
+        and presidents drifting into it drift toward each other in it.
+
+        This corpus has zero real convergence — president `p` owns bin `p` and
+        never shares a substantive bin with anybody — and only the UNLABELLED
+        share drifts, 0 -> 0.9. Both `dispersion` and `excess_ratio` collapse
+        anyway (measured rho -0.998 and -0.997; excess_ratio 1.026 -> 0.215),
+        while mean entropy does not even rise monotonically (rho +0.247), so
+        breadth is not what is driving it. `floor_corrected` is what largely
+        absorbs this; `excess_ratio` does not, and prereg section 3's immunity
+        sentence is narrower than it reads.
+        """
+        curve = _rival_curve(_rising_no_topic_corpus())
+        assert curve.used.sum() >= 40
+        assert _rho(curve, curve.dispersion) <= -0.9
+        assert _rho(curve, curve.excess_ratio) <= -0.9
+        ratio = curve.excess_ratio[curve.used]
+        assert ratio[0] == pytest.approx(1.03, abs=0.1)
+        assert ratio[-1] <= 0.3
 
     def test_the_decision_table_reads_the_two_corpora_differently(self):
         """End-to-end: the same evidence pattern each corpus produces routes to
