@@ -156,6 +156,14 @@ JACKKNIFE_CAUTION_RETENTION = 0.90
 NULL_SUPPRESS_VALID_FRACTION = 0.75
 NULL_CAUTION_VALID_FRACTION = 0.99
 
+# paradox_table gate, on the number of windows a president's corrected distance
+# was averaged over. POST-HOC, in the same sense as the JACKKNIFE_* thresholds
+# below: prereg 7.2 fixes the estimand but declares no window floor, and these
+# two numbers were named after the run. They may only downgrade a row, and no
+# pre-registered inference reads them.
+PARADOX_OK_WINDOWS = 10
+PARADOX_CAUTION_WINDOWS = 3
+
 STATISTICS = ("dispersion", "floor_corrected", "excess_ratio", "pair_regression")
 
 
@@ -346,12 +354,11 @@ def build_compositions(
             for raw in base["topics"]
         ]
 
-    n_before = len(base)
+    # No row-count guard here, unlike the keyed merge above: a LEFT merge whose
+    # right side is validated `many_to_one` cannot change the row count — a
+    # duplicated `doc_name` raises `MergeError` first, and an unmatched one
+    # produces a NaN `speech_type`, which the next check refuses.
     base = base.merge(speech, on="doc_name", how="left", validate="many_to_one")
-    if len(base) != n_before:
-        raise ValueError(
-            f"paragraphs x speech_type changed the row count ({n_before} -> {len(base)})"
-        )
     if base["speech_type"].isna().any():
         n_missing = int(base["speech_type"].isna().sum())
         raise ValueError(
@@ -491,6 +498,20 @@ def jackknife_status(n_windows_used: int, n_windows_full: int) -> str:
     `no_data` = fewer than three windows, where `spearman_rho` is NaN by
     construction; `suppressed_n_floor` = under 75% of the full design's trend
     windows survive; `low_cluster_caution` = under 90%; `ok` otherwise.
+
+    **The 0.75 and 0.90 thresholds are POST-HOC, and this is a disclosure, not
+    an apology.** Prereg 7.1 states the approximation ("deleting one president
+    barely perturbs the design") as prose and fixes NO operational threshold;
+    `JACKKNIFE_SUPPRESS_RETENTION` / `JACKKNIFE_CAUTION_RETENTION` were named
+    later, when the retention distribution was already computable — the worst
+    observed retention is **0.913** (Nixon and LBJ on `corex_sotu`, 84/92;
+    Madison on the two 105-window arms, 96/105), so on the real run every row
+    lands `ok`, 1.3 points above the caution line. Two things keep that
+    acceptable and both must stay true: the gate can only ever DOWNGRADE a row,
+    and no pre-registered inference reads it. The pre-registration is NOT to be
+    amended to contain these numbers — the git ordering of its commit is the
+    deliverable, and back-filling a threshold into it would destroy exactly the
+    property it exists to have.
     """
     if n_windows_full <= 0 or n_windows_used < JACKKNIFE_MIN_WINDOWS:
         return "no_data"
@@ -519,6 +540,27 @@ def null_status(rho: float, n_valid: int, n_permutations: int) -> str:
     if fraction < NULL_CAUTION_VALID_FRACTION:
         return "low_cluster_caution"
     return "ok"
+
+
+def paradox_status(n_windows_eligible: int) -> str:
+    """The trust gate for one `paradox_table` president row.
+
+    A president's corrected distance is a mean over the windows they were
+    eligible in, so a president who appears in one window is a single noisy draw
+    dressed as a ranked statistic. `ok` = at least `PARADOX_OK_WINDOWS`;
+    `low_cluster_caution` = at least `PARADOX_CAUTION_WINDOWS`;
+    `suppressed_n_floor` below that.
+
+    The thresholds are **post-hoc** (see `PARADOX_OK_WINDOWS`). This lives here,
+    beside the other three gates, rather than as an inline `np.where` inside
+    `paradox_table` — as an inline expression it was the one gate not reachable
+    by name, which is exactly why it drifted out of the shared vocabulary test.
+    """
+    if n_windows_eligible >= PARADOX_OK_WINDOWS:
+        return "ok"
+    if n_windows_eligible >= PARADOX_CAUTION_WINDOWS:
+        return "low_cluster_caution"
+    return "suppressed_n_floor"
 
 
 def build_design(
@@ -917,6 +959,25 @@ def _series_for(curve: Curve, statistic: str) -> np.ndarray:
     raise ValueError(f"unknown statistic {statistic!r}")
 
 
+def ends_2014_mask(curve: Curve, window_kind: str) -> np.ndarray:
+    """The H1 dating treatment (prereg 7.4), defined ONCE for both consumers.
+
+    A trend-eligible window whose END year is at or before `DATING_END_YEAR`.
+    The rule reads the window END, not its centre or start, so no window
+    containing a Trump year can enter the dating trend. It exists on the rolling
+    grid only — `ends_2014` is a subset of that grid — so any other window kind
+    gets an all-False mask rather than a silently different treatment.
+
+    This is the rule both `curve_statistics` (which forms the rho) and
+    `_curve_rows` (which publishes `in_ends_2014` on every window row) apply.
+    They had independent copies, so each needed its own mutant and its own
+    guard, and the two could drift apart without any test noticing.
+    """
+    if window_kind != "rolling":
+        return np.zeros(len(curve.center), dtype=bool)
+    return curve.used & (curve.end <= DATING_END_YEAR)
+
+
 def _pair_regression_rho(curve: Curve) -> float:
     """Prereg 7.6: mean pairwise JSD against mean shared-window centre year,
     one point per president pair. Power ~53%, stated in advance."""
@@ -942,7 +1003,7 @@ def curve_statistics(curve: Curve, window_kind: str) -> dict[tuple[str, str], fl
     masks = {"all_windows": curve.used}
     if window_kind == "rolling":
         treatments.append("ends_2014")
-        masks["ends_2014"] = curve.used & (curve.end <= DATING_END_YEAR)
+        masks["ends_2014"] = ends_2014_mask(curve, window_kind)
     for treatment in treatments:
         mask = masks[treatment]
         for statistic in ("dispersion", "floor_corrected", "excess_ratio"):
@@ -1007,7 +1068,13 @@ def permutation_null(
             if statistic in statistics:
                 observed[(kind, treatment, statistic)] = rho
 
-    null = {k: np.empty(n_permutations) for k in observed}
+    # NaN-filled, not `np.empty`: every slot is written on a complete run, but
+    # an unwritten slot in an `np.empty` array carries RECYCLED MEMORY straight
+    # into `_one_sided_p` / `null_mean` / `null_sd` / `null_crit_05` (observed
+    # under mutation as 1829.5 — a window-centre year from an earlier array).
+    # With NaN an unwritten draw is structurally visible: it drops out of the
+    # null and downgrades `ci_status` through `n_permutations_valid`.
+    null = {k: np.full(n_permutations, np.nan) for k in observed}
     perm_rng = np.random.default_rng([MASTER_SEED, 7, arm_index])
     for r in range(n_permutations):
         if progress and r % 200 == 0:
@@ -1193,11 +1260,7 @@ def paradox_table(design: Design, curve: Curve, anchor: pd.Series | None = None)
     ])
     out["z_vs_others"] = (d - others_mean) / others_sd
     out["n_presidents_ranked"] = n_all
-    out["ci_status"] = np.where(
-        out["n_windows_eligible"] >= 10, "ok",
-        np.where(out["n_windows_eligible"] >= 3, "low_cluster_caution",
-                 "suppressed_n_floor"),
-    )
+    out["ci_status"] = [paradox_status(n) for n in out["n_windows_eligible"]]
     out["stylistic_similarity_anchor"] = out["president"].map(anchor)
     out["anchor_is_scored"] = False
     out["anchor_source"] = (
@@ -1497,7 +1560,8 @@ def _selftest(verbose: bool = True) -> dict:
             obs_curve.center[obs_curve.used], obs_curve.dispersion[obs_curve.used]
         )
         perm_rng = np.random.default_rng([MASTER_SEED, 404, r])
-        draws = np.empty(SELFTEST_PERMUTATIONS)
+        # NaN-filled, never `np.empty` — same reason as `permutation_null`.
+        draws = np.full(SELFTEST_PERMUTATIONS, np.nan)
         for k in range(SELFTEST_PERMUTATIONS):
             donor = _donor_map(design, perm_rng)
             c = dispersion_curve(
@@ -1555,6 +1619,7 @@ def _selftest(verbose: bool = True) -> dict:
 
 def _curve_rows(arm: ArmSpec, design: Design, curve: Curve) -> list[dict]:
     rows = []
+    in_ends_2014 = ends_2014_mask(curve, design.window_kind)
     for i in range(len(curve.center)):
         rows.append({
             "arm": arm.name,
@@ -1566,10 +1631,7 @@ def _curve_rows(arm: ArmSpec, design: Design, curve: Curve) -> list[dict]:
             "n_eligible_presidents": int(curve.n_eligible[i]),
             "ci_status": curve.status[i],
             "used_in_trend": bool(curve.used[i]),
-            "in_ends_2014": bool(
-                curve.used[i] and curve.end[i] <= DATING_END_YEAR
-                and design.window_kind == "rolling"
-            ),
+            "in_ends_2014": bool(in_ends_2014[i]),
             "dispersion": float(curve.dispersion[i]),
             "entropy_matched": float(curve.entropy_matched[i]),
             "excess_ratio": float(curve.excess_ratio[i]),

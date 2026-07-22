@@ -718,6 +718,34 @@ class TestSampler:
         assert np.allclose(scaled, np.round(scaled)), "denominator is not a divisor of m"
         assert np.isclose(scaled, 1.0).any(), "no draw ever weighted one row at 1/m"
 
+    def test_dispersion_curve_DEFAULTS_to_the_cluster_sampler(self):
+        """The default of `dispersion_curve(rarefaction=...)` decides which
+        estimator every published curve was computed with.
+
+        Flipping it to `"paragraph"` ships the rho = -0.605 sampler — the exact
+        thing this task exists to avoid — into `data/convergence/`, and until
+        now that mutant was killed by ONE test in the whole suite, living in the
+        selftest class where sibling tests monkeypatch the threshold. This is
+        the same claim asserted directly at the call site.
+
+        On internally-pure speeches with S=1 the two samplers disagree by
+        construction (a cluster draw is a whole speech, so a pure corner; the
+        paragraph sampler mixes the bins a president's speeches sit in), so the
+        contrast leg is what keeps the equality from being vacuous.
+        """
+        design = C.build_design(_internally_pure_speeches(), _ONE_SPEECH_ARM)
+        kwargs = dict(n_draws=64, with_floor=False, with_entropy_match=False)
+        default = C.dispersion_curve(design, [11, 1], **kwargs)
+        cluster = C.dispersion_curve(design, [11, 1], rarefaction="cluster", **kwargs)
+        paragraph = C.dispersion_curve(design, [11, 1], rarefaction="paragraph", **kwargs)
+        used = default.used
+        assert used.any(), "the fixture produced no trend window"
+        # the fixture HAS the property: the two samplers genuinely differ here
+        assert not np.allclose(
+            cluster.dispersion[used], paragraph.dispersion[used], atol=0.05
+        ), "this fixture cannot tell the two samplers apart"
+        assert np.array_equal(default.dispersion[used], cluster.dispersion[used])
+
     def test_draws_are_reproducible_from_the_seed(self):
         design = _small_design()
         a = C.dispersion_curve(design, [7, 7], with_floor=False, with_entropy_match=False)
@@ -781,23 +809,47 @@ class TestSampler:
             "paragraphs, not whole speech blocks"
         )
 
-    def test_the_floor_prices_the_window_it_was_given_not_a_pooled_one(self):
-        """Every eligible president's speeches enter the pool exactly once.
+    def test_the_per_slot_floor_resolves_WHICH_slot_it_priced(self):
+        """The returned vector is one entry per slot, IN THE ORDER GIVEN.
 
-        A slot's own speech count is what decides how much of the pooled supply
-        it re-deals, so a floor that dropped or double-counted a slot's speeches
-        would be pricing a design nobody ran. Asserted through the returned
-        per-slot vector, which must be one entry per slot in the order given.
+        The previous version of this test asserted `per_slot == [value, value]`
+        on TWO slots, which is an algebraic identity rather than a behaviour:
+        the JSD is symmetric with an exact-zero diagonal, so at `n_slots == 2`
+        each slot's mean distance to "the others" IS the single pairwise
+        distance, for ANY re-deal — including one that priced the wrong window
+        entirely. It could not fail.
+
+        At three slots the entries genuinely differ, and WHICH one is largest is
+        a fact about the pools this call was handed. The thin slot re-deals a
+        2-speech block, so its S=8 with-replacement picks stay concentrated,
+        while the two 10-speech slots both land near the pooled average and are
+        therefore close to each other. Moving the thin pool to a different slot
+        index must move the largest entry with it; a floor that misindexed slots,
+        or equalized the blocks, or ignored the pools' order, would not.
         """
-        design, pools = self._disjoint_floor_design()
-        uneven = [design.global_pool[0][:2], design.global_pool[1]]
-        value, per_slot = C.speech_block_floor(
-            design, uneven, np.random.default_rng(0), 200
+        design = C.build_design(
+            _mutually_disjoint_pure_speeches(3),
+            C.ArmSpec("s8", "corex", None, 8, 6, "test"),
         )
-        assert len(per_slot) == len(uneven)
-        # Two slots: each slot's mean distance to "the others" IS the single
-        # pairwise distance, so both entries equal the reported mean.
-        assert per_slot == pytest.approx([value, value], abs=1e-6)
+        thin, fat_a, fat_b = (
+            design.global_pool[0][:2], design.global_pool[1], design.global_pool[2]
+        )
+        assert [len(thin), len(fat_a), len(fat_b)] == [2, 10, 10]
+
+        _, thin_first = C.speech_block_floor(
+            design, [thin, fat_a, fat_b], np.random.default_rng(0), 400
+        )
+        _, thin_last = C.speech_block_floor(
+            design, [fat_a, fat_b, thin], np.random.default_rng(0), 400
+        )
+        assert len(thin_first) == len(thin_last) == 3
+        # The fixture HAS the property: at three slots the entries are not all
+        # equal, so an ordering claim about them is not vacuous.
+        assert thin_first.max() - thin_first.min() > 0.02, (
+            "the three slots priced identically; this fixture cannot resolve order"
+        )
+        assert int(np.argmax(thin_first)) == 0
+        assert int(np.argmax(thin_last)) == 2
 
     def test_the_floor_keeps_each_slots_OWN_speech_count_when_it_redeals(self):
         """A thin slot must stay thin in the floor, or the floor is optimistic
@@ -1027,15 +1079,18 @@ class TestPermutation:
     @pytest.mark.parametrize("n_permutations", [1, 3])
     def test_every_null_draw_is_a_VALID_spearman_rho(self, n_permutations):
         """Every element of the null is a Spearman rho and therefore lives in
-        [-1, 1]. The arrays are allocated with `np.empty`, so a draw the loop
-        never writes carries recycled memory straight into `_one_sided_p` and
-        the published `null_mean` / `null_sd` / `null_crit_05` — at R=1 the
-        recycled value was observed to be 1829.5, a window centre year from an
-        earlier array. Allocating with `np.full(..., np.nan)` instead would make
-        an unwritten draw structurally visible (it would drop out of the null
-        and downgrade `ci_status` through the existing `n_permutations_valid`
-        path); recommended to SIMPLIFY rather than changed here, because
-        touching `convergence.py` costs a full byte-identity re-run.
+        [-1, 1].
+
+        The arrays used to be allocated with `np.empty`, so a draw the loop
+        never wrote carried recycled memory straight into `_one_sided_p` and the
+        published `null_mean` / `null_sd` / `null_crit_05` — at R=1 the recycled
+        value was observed to be 1829.5, a window centre year from an earlier
+        array. `permutation_null` now allocates with `np.full(..., np.nan)`, so
+        an unwritten draw is structurally visible: it drops out of the null and
+        downgrades `ci_status` through the existing `n_permutations_valid` path.
+        The change was byte-identical on a complete run, because every slot is
+        written today — this test is what keeps a future slot that is not from
+        being read as a rho.
         """
         design = C.build_design(
             _coextensive_corpus(5, distinct_agendas=True), _TINY_ARM
@@ -1342,6 +1397,24 @@ class TestParadoxTable:
         assert out["rank_corrected"].tolist() == [1, 2, 3, 4]
         assert out["percentile_corrected"].tolist() == [0.25, 0.5, 0.75, 1.0]
 
+    @pytest.mark.parametrize(
+        "n_windows,expected",
+        [
+            (0, "suppressed_n_floor"),
+            (1, "suppressed_n_floor"),
+            (2, "suppressed_n_floor"),          # boundary: 2 is below the floor
+            (3, "low_cluster_caution"),         # boundary: 3 is not below it
+            (9, "low_cluster_caution"),
+            (10, "ok"),                         # boundary: 10 is not below `ok`
+            (11, "ok"),
+        ],
+    )
+    def test_thresholds_are_two_sided_and_hand_derived(self, n_windows, expected):
+        """Both sides of both boundaries, like the jackknife and null gates.
+        The previous coverage was one-sided (only values at or above each cut),
+        so a `>= 3` that had drifted to `>= 2` passed."""
+        assert C.paradox_status(n_windows) == expected
+
     def test_the_trust_gate_reads_windows_eligible(self):
         out = self._table().set_index("president")
         assert out.loc["P0", "ci_status"] == "suppressed_n_floor"   # 1 window
@@ -1517,6 +1590,35 @@ class TestArtifactContract:
         if not C.META_PATH.exists():
             pytest.skip("data/convergence/ has not been generated in this tree")
         assert json.loads(C.META_PATH.read_text())["api_calls"] == 0
+
+    def test_the_committed_artifact_still_carries_the_values_that_were_reported(self):
+        """ONE anchor on the published numbers themselves.
+
+        Every other test in this file runs the estimator on a synthetic corpus,
+        so a change that moved every real number while preserving every
+        synthetic behaviour would go green — that is why one mutant survived the
+        199-test suite as "equivalent": nothing anywhere asserted what
+        `data/convergence/` actually says. These four values are the ones the
+        findings note leads with; if a refactor moves any of them, the artifact
+        and the note have diverged and the run must be re-verified rather than
+        the anchor re-fitted.
+
+        Tolerances are loose enough not to fail on a platform's last ULP and
+        tight enough that no real change hides inside them.
+        """
+        if not (C.META_PATH.exists() and C.PERMUTATION_PATH.exists()):
+            pytest.skip("data/convergence/ has not been generated in this tree")
+        meta = json.loads(C.META_PATH.read_text())
+        assert meta["decision"]["cell"] == "no_convergence"
+        assert meta["selftest"]["c_permutation_size"] == pytest.approx(0.05, abs=1e-9)
+        assert meta["selftest"]["a_cluster_null_rho"] == pytest.approx(
+            -0.0893, abs=5e-4
+        )
+        primary = pd.read_parquet(C.PERMUTATION_PATH).set_index(
+            ["arm", "window_kind", "treatment", "statistic"]
+        ).loc[("corex_all", "rolling", "all_windows", "dispersion")]
+        assert float(primary["rho"]) == pytest.approx(-0.0047, abs=5e-4)
+        assert not bool(primary["significant_decline"])
 
     def test_module_never_imports_anthropic(self):
         """$0 GUARD, scanned over the AST so that the docstring PROMISING it
@@ -1782,6 +1884,45 @@ class TestJackknifeTrustGate:
         assert len(frame) == 6
         assert _trust_gate_violations({"jackknife": frame}) == []
         assert (frame["n_windows_full_design"] == C.n_windows_in_trend(design)).all()
+
+    def test_a_jackknife_RISE_is_never_a_significant_DECLINE(self):
+        """`jackknife` carries its OWN copy of the `significant_decline` rule
+        (`rho < 0` AND `p <= ALPHA`); `null_rows` carries an identical one.
+
+        The `null_rows` copy has two tests and this one had none — the same
+        duplicated-rule class as `ends_2014`, and a duplicated rule is only as
+        guarded as its least-guarded copy. Applied symmetrically here.
+
+        A null whose every draw is +1.0 makes `p_one_sided` significant for
+        EVERY finite rho, so the flag reduces to the sign conjunct alone: the
+        rows that are flagged must be exactly the rows whose rho is negative.
+        A rule missing `rho < 0` would flag all five; a rule hard-wired to False
+        would flag none.
+        """
+        design = C.build_design(
+            _coextensive_corpus(5, distinct_agendas=True), _TINY_ARM
+        )
+        frame = C.jackknife(design, 0, np.full(200, 1.0), n_draws=8)
+        assert frame["p_one_sided"].le(C.ALPHA).all(), "the null did not make p small"
+        # the fixture HAS the property: both signs are present, so neither a
+        # flag-everything nor a flag-nothing rule can pass.
+        assert frame["rho"].lt(0).any() and frame["rho"].gt(0).any()
+        assert (
+            frame["significant_decline"].tolist() == frame["rho"].lt(0).tolist()
+        )
+
+    def test_a_jackknife_rho_that_is_NOT_extreme_is_not_flagged(self):
+        """The other half of the conjunct: a negative rho sitting in the middle
+        of its null is not a significant decline. Without this the test above
+        would also pass on a rule that read the sign and ignored the p."""
+        design = C.build_design(
+            _coextensive_corpus(5, distinct_agendas=True), _TINY_ARM
+        )
+        frame = C.jackknife(design, 0, np.linspace(-1.0, 1.0, 201), n_draws=8)
+        negative = frame[frame["rho"] < 0]
+        assert not negative.empty
+        assert negative["p_one_sided"].gt(C.ALPHA).all()
+        assert not frame["significant_decline"].any()
 
     def test_n_windows_in_trend_reads_the_design_not_the_values(self):
         """It must agree with an actual curve's `used` mask, or the gate would be
@@ -2664,6 +2805,11 @@ class TestRivalHypothesisSeparator:
         ratio = curve.excess_ratio[curve.used]
         assert ratio[0] == pytest.approx(1.03, abs=0.1)
         assert ratio[-1] <= 0.3
+        # The narrated control, now pinned: breadth is NOT what drives this. If
+        # mean entropy fell alongside dispersion, "each agenda got narrower"
+        # would be an equally good reading of the collapse and the docstring's
+        # claim would be wrong. Measured +0.247.
+        assert _rho(curve, curve.mean_entropy) == pytest.approx(0.247, abs=0.05)
 
     def test_the_decision_table_reads_the_two_corpora_differently(self):
         """End-to-end: the same evidence pattern each corpus produces routes to
