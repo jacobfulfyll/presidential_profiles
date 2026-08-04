@@ -654,12 +654,17 @@ class TestRenderedDocsMatchTheArtifact:
         for name, flagged, text in pages:
             assert (text.count("circle-open") == 1) is flagged, name
 
-    def test_the_dashboard_grid_rings_match_the_flagged_display_issues(self, pages):
-        """`index.html` carries one ring trace per flagged panel — the site's
-        second call site, and the one a per-issue-page test cannot cover."""
+    def test_the_story_page_does_not_repeat_the_global_issue_grid(self, pages):
+        """Story V2 keeps the 16 diagnostic panels on their issue pages.
+
+        Repeating the whole grid in the chronological narrative would give
+        every era the same evidence surface and break the era-specific design.
+        """
         flagged = sum(1 for _, flag, _ in pages if flag)
         assert flagged == 11
-        assert (self.DOCS / "index.html").read_text().count("circle-open") == flagged
+        dashboard = (self.DOCS / "index.html").read_text()
+        assert '<section id="issues">' not in dashboard
+        assert "Small multiples · share of paragraphs by year" not in dashboard
 
     def test_the_caption_gate_is_computed_from_the_flag_column(self):
         """A STRUCTURAL stand-in, and the reason it is structural is worth
@@ -1165,45 +1170,58 @@ class TestProseExtraThreading:
         return {k: go.Figure(layout=dict(height=400)) for k in keys}
 
     @pytest.mark.parametrize("inline", [False, True])
-    def test_the_derived_sentence_reaches_the_llm_topics_section(self, inline):
+    def test_the_derived_sentence_reaches_the_named_synthesis_section(self, inline):
         """Both `build_html` call sites pass `prose_extra`, including the
         `--inline` self-contained variant — the parameter most likely to be
         silently dropped, since it is written second and rarely rebuilt."""
         html = site.build_html(
-            self._figs("llm_topics", "issues"), self.STATS, {}, inline=inline,
-            prose_extra={"llm_topics": "DERIVED SENTENCE."},
+            self._figs("written_republic", "synthesis"),
+            self.STATS,
+            {},
+            inline=inline,
+            prose_extra={"synthesis": "DERIVED SENTENCE."},
         )
-        llm_section = html.split('<section id="llm_topics">')[1].split("</section>")[0]
-        assert "DERIVED SENTENCE." in llm_section
+        synthesis = html.split('<section id="synthesis"', 1)[1].split(
+            "</section>", 1
+        )[0]
+        assert "DERIVED SENTENCE." in synthesis
 
     def test_the_sentence_does_not_leak_into_any_other_section(self):
         html = site.build_html(
-            self._figs("llm_topics", "issues", "keywords"), self.STATS, {},
-            inline=False, prose_extra={"llm_topics": "DERIVED SENTENCE."},
+            self._figs("written_republic", "synthesis", "records_appendix"),
+            self.STATS,
+            {},
+            inline=False,
+            prose_extra={"synthesis": "DERIVED SENTENCE."},
         )
         assert html.count("DERIVED SENTENCE.") == 1
-        others = html.split('<section id="llm_topics">')[0] + \
-            html.split('<section id="llm_topics">')[1].split("</section>", 1)[1]
+        before, synthesis_and_after = html.split('<section id="synthesis"', 1)
+        others = before + synthesis_and_after.split("</section>", 1)[1]
         assert "DERIVED SENTENCE." not in others
 
     def test_omitting_prose_extra_entirely_still_builds(self):
-        """The `bands.parquet`-absent path: no derived sentence, and the
-        section's own prose survives intact."""
-        html = site.build_html(self._figs("issues"), self.STATS, {}, inline=False)
-        assert '<section id="issues">' in html
-        assert "36,000 paragraph-sized chunks" in html
+        """No derived sentence is required for the section's own prose."""
+        html = site.build_html(
+            self._figs("written_republic"), self.STATS, {}, inline=False
+        )
+        assert '<section id="written_republic"' in html
+        assert "A constitutional state has to become a country" in html
 
     def test_a_section_with_no_figure_is_omitted_rather_than_left_empty(self):
-        """Prose describing a chart that is not there is worse than no section.
-        `llm_topics` is the live case — it needs `data/bands.parquet`."""
-        html = site.build_html(self._figs("issues"), self.STATS, {}, inline=False)
-        assert '<section id="llm_topics">' not in html
-        assert "the AI's doubt is part of the answer" not in html
+        """Prose describing a chart that is not there is worse than no section."""
+        html = site.build_html(
+            self._figs("written_republic"), self.STATS, {}, inline=False
+        )
+        assert '<section id="synthesis"' not in html
+        assert "what the instruments cannot settle" not in html
 
     def test_an_extra_for_an_omitted_section_does_not_resurrect_it(self):
         html = site.build_html(
-            self._figs("issues"), self.STATS, {}, inline=False,
-            prose_extra={"llm_topics": "DERIVED SENTENCE."},
+            self._figs("written_republic"),
+            self.STATS,
+            {},
+            inline=False,
+            prose_extra={"synthesis": "DERIVED SENTENCE."},
         )
         assert "DERIVED SENTENCE." not in html
 
@@ -1404,14 +1422,13 @@ class TestCoverageSentence:
     def test_the_rendered_section_never_claims_every_paragraph_was_reread(self):
         """The defect verbatim: 'every paragraph ... then read again'. The
         subject of 'read again' must not be the whole corpus."""
-        prose = next(p for k, _, _, p in site.SECTIONS if k == "llm_topics")
+        prose = next(p for k, _, _, p in site.SECTIONS if k == "always_on")
         # The defect verbatim: "every paragraph" was the subject of "read
         # again". Pinning the exact join is what makes this fail if the two
         # clauses are ever spliced back together.
         assert "corpus itself, then read again" not in prose
-        assert "sample" in prose
-        # ... and the corrected subject must actually be there.
-        assert "sample</em> of those speeches" in prose
+        assert "digital platforms intensify pressure" in prose
+        assert "expectations and tempo of presidential communication" in prose
 
 
 class TestMetaCoverageFiguresAreNotDrifting:

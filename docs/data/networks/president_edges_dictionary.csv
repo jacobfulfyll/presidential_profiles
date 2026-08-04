@@ -1,0 +1,6 @@
+column,definition
+network,"Declared feature space: ai_topics (50), ai_domains (17), ai_rhetoric (6 standardized), rhetorical_fingerprint (8 standardized), or legacy_issues (16)."
+similarity,Cosine similarity within that feature space; it is not an overall president likeness or evidence of influence.
+source_n_speeches,Distinct corpus speeches for the source president.
+target_n_speeches,Distinct corpus speeches for the target president.
+default_visible,Both presidents have at least five corpus speeches.

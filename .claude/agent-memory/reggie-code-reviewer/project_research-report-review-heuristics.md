@@ -103,6 +103,43 @@ slightly for the plug-in twin, which proves it is not literally a monotone trans
 - **How to apply:** for each rule, write the one-line pandas check that falsifies it. Also
   check `set(rule-covered cells) ⊇ set(significant unprinted cells)` — the gap is the finding.
 
+**5d. RE-REVIEW: when the sweep is PROMOTED INTO tests/, attack the matcher, not the
+note.** `breadth-depth-register` round 4 shipped `test_every_significant_unprinted_cell_
+falls_inside_a_declared_scope_rule` (444 cells vs the prose, leftovers must sit in a
+declared scope rule). Four mechanical attacks, ~30 min, and they settled it:
+1. **Leave-one-out mutation of the note.** Delete one printed figure whose cell is
+   rule-free (`+0.045` for `non_policy_share` legacy raw) and one whole sentence
+   (`nrc_fear`'s Spearmans); the test must name the exact cell. Both did. This is the
+   only real proof the sweep is non-vacuous — `assert leaked == []` is otherwise
+   indistinguishable from an empty candidate set.
+2. **Drop each prose alias one at a time, then all of them.** A missing alias must fail
+   SAFE. It did: single drops changed nothing, dropping all produced 7 false leaks (the
+   sub-claim-3 tables never write the literal `non_policy_share`). An *over-broad* alias
+   fails unsafe and silently — aliasing `nrc_fear` to `"the"` left the run byte-identical
+   — so alias breadth is the thing to eyeball, not alias presence.
+3. **Re-scope tighter (blank-line block instead of H1/H2 section) and hand-check the
+   flip list.** 29 cells flipped to "unprinted"; every one was genuinely printed in a
+   table whose row label omits the measure name. That converts "the matcher is loose"
+   into "the matcher is loose but not wrong here".
+4. **Maximum bipartite matching, cells ↔ textual occurrences** (`scipy.sparse.csgraph.
+   maximum_bipartite_matching`). If N credited cells cannot be paid for by N *distinct*
+   occurrences, some are credited by a number printed for something else. 13 of 255 had
+   no private occurrence; 5 were rule-free and all 5 verified genuine by eye. It found
+   the two real collisions (1-dp `+6.3` credited `opponents` from the `nostalgia` row).
+- **The 0-dp artifact's siblings.** Dropping 0 dp is not the whole fix; a `>= 2
+  significant digits` filter on every rendering is what kills single-digit matches
+  generally. 1-dp renderings stay load-bearing (64 cells are credited only at 1 dp,
+  because the register tables print at 1 dp) so they cannot just be removed — expect
+  residual same-section cross-measure collisions there and check they land inside a
+  scope rule. Integers can never collide (every rendering carries a ".").
+- **A prose scanner that SKIPS negating segments fails unsafe.** The B2 guard
+  ("nothing the note calls declared is undeclared") skips any segment matching
+  `not/never/no ... declar|undeclared`. Mutating the note to `` `nrc_hope` was **not
+  declared** there while `nrc_fear` was pre-declared as rising `` left the test GREEN —
+  in the exact sentence where the original defect lived. Split segments *at* the
+  negation instead of dropping them. Test this by mutation; the docstring's own
+  "harmless, since only ⊆ is asserted" reasoning does not cover it.
+
 **5b. RE-REVIEW: a new disclosure leaves orphans on the summary surfaces.** When a pass adds a
 counter-datum deep in a section, check it propagated to (a) the summary verdict table, (b) the
 adjudication/"which reading is honest" section, (c) the headline paragraph, (d) the multiplicity

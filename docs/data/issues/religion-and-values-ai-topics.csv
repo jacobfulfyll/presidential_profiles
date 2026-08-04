@@ -1,0 +1,112 @@
+bucket_years,topic,period_start,period_end,share_percent,paragraphs_in_bucket
+10,"Providence, Faith & American Ideals",1790,1799,12.61,341
+10,"Providence, Faith & American Ideals",1800,1809,8.262,351
+10,"Providence, Faith & American Ideals",1810,1819,8.831,385
+10,"Providence, Faith & American Ideals",1820,1829,5.581,645
+10,"Providence, Faith & American Ideals",1830,1839,3.594,1447
+10,"Providence, Faith & American Ideals",1840,1849,3.512,1452
+10,"Providence, Faith & American Ideals",1850,1859,2.762,1593
+10,"Providence, Faith & American Ideals",1860,1869,3.232,1454
+10,"Providence, Faith & American Ideals",1870,1879,2.174,1104
+10,"Providence, Faith & American Ideals",1880,1889,1.813,1434
+10,"Providence, Faith & American Ideals",1890,1899,1.48,1689
+10,"Providence, Faith & American Ideals",1900,1909,3.179,1982
+10,"Providence, Faith & American Ideals",1910,1919,6.892,1393
+10,"Providence, Faith & American Ideals",1920,1929,12.762,1050
+10,"Providence, Faith & American Ideals",1930,1939,12.5,904
+10,"Providence, Faith & American Ideals",1940,1949,15.103,874
+10,"Providence, Faith & American Ideals",1950,1959,8.8,750
+10,"Providence, Faith & American Ideals",1960,1969,9.557,4248
+10,"Providence, Faith & American Ideals",1970,1979,12.034,1637
+10,"Providence, Faith & American Ideals",1980,1989,15.696,2523
+10,"Providence, Faith & American Ideals",1990,1999,12.493,1849
+10,"Providence, Faith & American Ideals",2000,2009,14.953,1498
+10,"Providence, Faith & American Ideals",2010,2019,13.235,2516
+10,"Providence, Faith & American Ideals",2020,2029,9.69,3096
+10,"Commemoration, Eulogy & National Mourning",1790,1799,3.519,341
+10,"Commemoration, Eulogy & National Mourning",1800,1809,0.285,351
+10,"Commemoration, Eulogy & National Mourning",1810,1819,0.26,385
+10,"Commemoration, Eulogy & National Mourning",1820,1829,1.24,645
+10,"Commemoration, Eulogy & National Mourning",1830,1839,0.276,1447
+10,"Commemoration, Eulogy & National Mourning",1840,1849,0.275,1452
+10,"Commemoration, Eulogy & National Mourning",1850,1859,1.507,1593
+10,"Commemoration, Eulogy & National Mourning",1860,1869,0.344,1454
+10,"Commemoration, Eulogy & National Mourning",1870,1879,0.634,1104
+10,"Commemoration, Eulogy & National Mourning",1880,1889,1.534,1434
+10,"Commemoration, Eulogy & National Mourning",1890,1899,0.888,1689
+10,"Commemoration, Eulogy & National Mourning",1900,1909,1.312,1982
+10,"Commemoration, Eulogy & National Mourning",1910,1919,1.22,1393
+10,"Commemoration, Eulogy & National Mourning",1920,1929,4.952,1050
+10,"Commemoration, Eulogy & National Mourning",1930,1939,0.111,904
+10,"Commemoration, Eulogy & National Mourning",1940,1949,1.373,874
+10,"Commemoration, Eulogy & National Mourning",1950,1959,0.533,750
+10,"Commemoration, Eulogy & National Mourning",1960,1969,2.142,4248
+10,"Commemoration, Eulogy & National Mourning",1970,1979,1.222,1637
+10,"Commemoration, Eulogy & National Mourning",1980,1989,3.488,2523
+10,"Commemoration, Eulogy & National Mourning",1990,1999,2.812,1849
+10,"Commemoration, Eulogy & National Mourning",2000,2009,1.602,1498
+10,"Commemoration, Eulogy & National Mourning",2010,2019,3.418,2516
+10,"Commemoration, Eulogy & National Mourning",2020,2029,2.584,3096
+10,Polygamy in the Territories,1790,1799,0.0,341
+10,Polygamy in the Territories,1800,1809,0.0,351
+10,Polygamy in the Territories,1810,1819,0.0,385
+10,Polygamy in the Territories,1820,1829,0.0,645
+10,Polygamy in the Territories,1830,1839,0.0,1447
+10,Polygamy in the Territories,1840,1849,0.0,1452
+10,Polygamy in the Territories,1850,1859,1.193,1593
+10,Polygamy in the Territories,1860,1869,0.138,1454
+10,Polygamy in the Territories,1870,1879,0.906,1104
+10,Polygamy in the Territories,1880,1889,1.813,1434
+10,Polygamy in the Territories,1890,1899,0.178,1689
+10,Polygamy in the Territories,1900,1909,0.05,1982
+10,Polygamy in the Territories,1910,1919,0.0,1393
+10,Polygamy in the Territories,1920,1929,0.0,1050
+10,Polygamy in the Territories,1930,1939,0.0,904
+10,Polygamy in the Territories,1940,1949,0.0,874
+10,Polygamy in the Territories,1950,1959,0.0,750
+10,Polygamy in the Territories,1960,1969,0.0,4248
+10,Polygamy in the Territories,1970,1979,0.0,1637
+10,Polygamy in the Territories,1980,1989,0.0,2523
+10,Polygamy in the Territories,1990,1999,0.0,1849
+10,Polygamy in the Territories,2000,2009,0.0,1498
+10,Polygamy in the Territories,2010,2019,0.0,2516
+10,Polygamy in the Territories,2020,2029,0.0,3096
+20,"Providence, Faith & American Ideals",1780,1799,14.085,355
+20,"Providence, Faith & American Ideals",1800,1819,8.56,736
+20,"Providence, Faith & American Ideals",1820,1839,4.207,2092
+20,"Providence, Faith & American Ideals",1840,1859,3.12,3045
+20,"Providence, Faith & American Ideals",1860,1879,2.776,2558
+20,"Providence, Faith & American Ideals",1880,1899,1.633,3123
+20,"Providence, Faith & American Ideals",1900,1919,4.711,3375
+20,"Providence, Faith & American Ideals",1920,1939,12.641,1954
+20,"Providence, Faith & American Ideals",1940,1959,12.192,1624
+20,"Providence, Faith & American Ideals",1960,1979,10.246,5885
+20,"Providence, Faith & American Ideals",1980,1999,14.341,4372
+20,"Providence, Faith & American Ideals",2000,2019,13.876,4014
+20,"Providence, Faith & American Ideals",2020,2039,9.69,3096
+20,"Commemoration, Eulogy & National Mourning",1780,1799,3.38,355
+20,"Commemoration, Eulogy & National Mourning",1800,1819,0.272,736
+20,"Commemoration, Eulogy & National Mourning",1820,1839,0.574,2092
+20,"Commemoration, Eulogy & National Mourning",1840,1859,0.92,3045
+20,"Commemoration, Eulogy & National Mourning",1860,1879,0.469,2558
+20,"Commemoration, Eulogy & National Mourning",1880,1899,1.185,3123
+20,"Commemoration, Eulogy & National Mourning",1900,1919,1.274,3375
+20,"Commemoration, Eulogy & National Mourning",1920,1939,2.712,1954
+20,"Commemoration, Eulogy & National Mourning",1940,1959,0.985,1624
+20,"Commemoration, Eulogy & National Mourning",1960,1979,1.886,5885
+20,"Commemoration, Eulogy & National Mourning",1980,1999,3.202,4372
+20,"Commemoration, Eulogy & National Mourning",2000,2019,2.74,4014
+20,"Commemoration, Eulogy & National Mourning",2020,2039,2.584,3096
+20,Polygamy in the Territories,1780,1799,0.0,355
+20,Polygamy in the Territories,1800,1819,0.0,736
+20,Polygamy in the Territories,1820,1839,0.0,2092
+20,Polygamy in the Territories,1840,1859,0.624,3045
+20,Polygamy in the Territories,1860,1879,0.469,2558
+20,Polygamy in the Territories,1880,1899,0.929,3123
+20,Polygamy in the Territories,1900,1919,0.03,3375
+20,Polygamy in the Territories,1920,1939,0.0,1954
+20,Polygamy in the Territories,1940,1959,0.0,1624
+20,Polygamy in the Territories,1960,1979,0.0,5885
+20,Polygamy in the Territories,1980,1999,0.0,4372
+20,Polygamy in the Territories,2000,2019,0.0,4014
+20,Polygamy in the Territories,2020,2039,0.0,3096

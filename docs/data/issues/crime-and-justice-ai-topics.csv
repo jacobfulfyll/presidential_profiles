@@ -1,0 +1,112 @@
+bucket_years,topic,period_start,period_end,share_percent,paragraphs_in_bucket
+10,"Crime, Insurrection & Federal Law Enforcement",1790,1799,10.85,341
+10,"Crime, Insurrection & Federal Law Enforcement",1800,1809,6.838,351
+10,"Crime, Insurrection & Federal Law Enforcement",1810,1819,0.779,385
+10,"Crime, Insurrection & Federal Law Enforcement",1820,1829,2.016,645
+10,"Crime, Insurrection & Federal Law Enforcement",1830,1839,2.35,1447
+10,"Crime, Insurrection & Federal Law Enforcement",1840,1849,1.24,1452
+10,"Crime, Insurrection & Federal Law Enforcement",1850,1859,5.399,1593
+10,"Crime, Insurrection & Federal Law Enforcement",1860,1869,5.571,1454
+10,"Crime, Insurrection & Federal Law Enforcement",1870,1879,5.435,1104
+10,"Crime, Insurrection & Federal Law Enforcement",1880,1889,2.51,1434
+10,"Crime, Insurrection & Federal Law Enforcement",1890,1899,3.079,1689
+10,"Crime, Insurrection & Federal Law Enforcement",1900,1909,4.541,1982
+10,"Crime, Insurrection & Federal Law Enforcement",1910,1919,2.369,1393
+10,"Crime, Insurrection & Federal Law Enforcement",1920,1929,4.381,1050
+10,"Crime, Insurrection & Federal Law Enforcement",1930,1939,1.77,904
+10,"Crime, Insurrection & Federal Law Enforcement",1940,1949,0.915,874
+10,"Crime, Insurrection & Federal Law Enforcement",1950,1959,1.733,750
+10,"Crime, Insurrection & Federal Law Enforcement",1960,1969,2.66,4248
+10,"Crime, Insurrection & Federal Law Enforcement",1970,1979,5.254,1637
+10,"Crime, Insurrection & Federal Law Enforcement",1980,1989,3.29,2523
+10,"Crime, Insurrection & Federal Law Enforcement",1990,1999,6.869,1849
+10,"Crime, Insurrection & Federal Law Enforcement",2000,2009,1.736,1498
+10,"Crime, Insurrection & Federal Law Enforcement",2010,2019,5.326,2516
+10,"Crime, Insurrection & Federal Law Enforcement",2020,2029,6.428,3096
+10,Polygamy in the Territories,1790,1799,0.0,341
+10,Polygamy in the Territories,1800,1809,0.0,351
+10,Polygamy in the Territories,1810,1819,0.0,385
+10,Polygamy in the Territories,1820,1829,0.0,645
+10,Polygamy in the Territories,1830,1839,0.0,1447
+10,Polygamy in the Territories,1840,1849,0.0,1452
+10,Polygamy in the Territories,1850,1859,1.193,1593
+10,Polygamy in the Territories,1860,1869,0.138,1454
+10,Polygamy in the Territories,1870,1879,0.906,1104
+10,Polygamy in the Territories,1880,1889,1.813,1434
+10,Polygamy in the Territories,1890,1899,0.178,1689
+10,Polygamy in the Territories,1900,1909,0.05,1982
+10,Polygamy in the Territories,1910,1919,0.0,1393
+10,Polygamy in the Territories,1920,1929,0.0,1050
+10,Polygamy in the Territories,1930,1939,0.0,904
+10,Polygamy in the Territories,1940,1949,0.0,874
+10,Polygamy in the Territories,1950,1959,0.0,750
+10,Polygamy in the Territories,1960,1969,0.0,4248
+10,Polygamy in the Territories,1970,1979,0.0,1637
+10,Polygamy in the Territories,1980,1989,0.0,2523
+10,Polygamy in the Territories,1990,1999,0.0,1849
+10,Polygamy in the Territories,2000,2009,0.0,1498
+10,Polygamy in the Territories,2010,2019,0.0,2516
+10,Polygamy in the Territories,2020,2029,0.0,3096
+10,"Executive Power, Vetoes & the Courts",1790,1799,7.038,341
+10,"Executive Power, Vetoes & the Courts",1800,1809,3.704,351
+10,"Executive Power, Vetoes & the Courts",1810,1819,3.117,385
+10,"Executive Power, Vetoes & the Courts",1820,1829,3.721,645
+10,"Executive Power, Vetoes & the Courts",1830,1839,12.854,1447
+10,"Executive Power, Vetoes & the Courts",1840,1849,8.471,1452
+10,"Executive Power, Vetoes & the Courts",1850,1859,4.018,1593
+10,"Executive Power, Vetoes & the Courts",1860,1869,19.67,1454
+10,"Executive Power, Vetoes & the Courts",1870,1879,7.246,1104
+10,"Executive Power, Vetoes & the Courts",1880,1889,5.927,1434
+10,"Executive Power, Vetoes & the Courts",1890,1899,1.007,1689
+10,"Executive Power, Vetoes & the Courts",1900,1909,3.935,1982
+10,"Executive Power, Vetoes & the Courts",1910,1919,3.877,1393
+10,"Executive Power, Vetoes & the Courts",1920,1929,2.381,1050
+10,"Executive Power, Vetoes & the Courts",1930,1939,6.305,904
+10,"Executive Power, Vetoes & the Courts",1940,1949,1.259,874
+10,"Executive Power, Vetoes & the Courts",1950,1959,2.667,750
+10,"Executive Power, Vetoes & the Courts",1960,1969,1.766,4248
+10,"Executive Power, Vetoes & the Courts",1970,1979,7.575,1637
+10,"Executive Power, Vetoes & the Courts",1980,1989,3.092,2523
+10,"Executive Power, Vetoes & the Courts",1990,1999,1.622,1849
+10,"Executive Power, Vetoes & the Courts",2000,2009,2.27,1498
+10,"Executive Power, Vetoes & the Courts",2010,2019,1.749,2516
+10,"Executive Power, Vetoes & the Courts",2020,2029,3.101,3096
+20,"Crime, Insurrection & Federal Law Enforcement",1780,1799,10.423,355
+20,"Crime, Insurrection & Federal Law Enforcement",1800,1819,3.668,736
+20,"Crime, Insurrection & Federal Law Enforcement",1820,1839,2.247,2092
+20,"Crime, Insurrection & Federal Law Enforcement",1840,1859,3.415,3045
+20,"Crime, Insurrection & Federal Law Enforcement",1860,1879,5.512,2558
+20,"Crime, Insurrection & Federal Law Enforcement",1880,1899,2.818,3123
+20,"Crime, Insurrection & Federal Law Enforcement",1900,1919,3.644,3375
+20,"Crime, Insurrection & Federal Law Enforcement",1920,1939,3.173,1954
+20,"Crime, Insurrection & Federal Law Enforcement",1940,1959,1.293,1624
+20,"Crime, Insurrection & Federal Law Enforcement",1960,1979,3.381,5885
+20,"Crime, Insurrection & Federal Law Enforcement",1980,1999,4.803,4372
+20,"Crime, Insurrection & Federal Law Enforcement",2000,2019,3.986,4014
+20,"Crime, Insurrection & Federal Law Enforcement",2020,2039,6.428,3096
+20,Polygamy in the Territories,1780,1799,0.0,355
+20,Polygamy in the Territories,1800,1819,0.0,736
+20,Polygamy in the Territories,1820,1839,0.0,2092
+20,Polygamy in the Territories,1840,1859,0.624,3045
+20,Polygamy in the Territories,1860,1879,0.469,2558
+20,Polygamy in the Territories,1880,1899,0.929,3123
+20,Polygamy in the Territories,1900,1919,0.03,3375
+20,Polygamy in the Territories,1920,1939,0.0,1954
+20,Polygamy in the Territories,1940,1959,0.0,1624
+20,Polygamy in the Territories,1960,1979,0.0,5885
+20,Polygamy in the Territories,1980,1999,0.0,4372
+20,Polygamy in the Territories,2000,2019,0.0,4014
+20,Polygamy in the Territories,2020,2039,0.0,3096
+20,"Executive Power, Vetoes & the Courts",1780,1799,7.042,355
+20,"Executive Power, Vetoes & the Courts",1800,1819,3.397,736
+20,"Executive Power, Vetoes & the Courts",1820,1839,10.038,2092
+20,"Executive Power, Vetoes & the Courts",1840,1859,6.141,3045
+20,"Executive Power, Vetoes & the Courts",1860,1879,14.308,2558
+20,"Executive Power, Vetoes & the Courts",1880,1899,3.266,3123
+20,"Executive Power, Vetoes & the Courts",1900,1919,3.911,3375
+20,"Executive Power, Vetoes & the Courts",1920,1939,4.197,1954
+20,"Executive Power, Vetoes & the Courts",1940,1959,1.909,1624
+20,"Executive Power, Vetoes & the Courts",1960,1979,3.381,5885
+20,"Executive Power, Vetoes & the Courts",1980,1999,2.47,4372
+20,"Executive Power, Vetoes & the Courts",2000,2019,1.943,4014
+20,"Executive Power, Vetoes & the Courts",2020,2039,3.101,3096

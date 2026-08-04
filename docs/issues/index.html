@@ -21,7 +21,8 @@
   section h2 { font-size: 1.28rem; letter-spacing: -0.01em; }
   section p { color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }
   .chart-scroll { background: var(--surface); border: 1px solid var(--border);
-                   border-radius: 12px; padding: 10px 6px 6px; overflow-x: auto; }
+                   border-radius: 12px; padding: 10px 6px 6px;
+                   overflow-x: auto; overflow-y: hidden; }
   .chart { min-width: 640px; }
   footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
@@ -37,78 +38,198 @@
   .card:hover { border-color: var(--muted); }
   .name { font-weight: 650; }
   .meta { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+  .ai-meta { color:#275d8c; font-size:.78rem; margin-top:7px; }
 </style>
 </head>
-<body>
+<body><style>
+.global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
+backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
+.nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
+align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
+color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+.nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
+background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
+align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
+.nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
+min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
+white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
+.nav-item>a[aria-current=page],.nav-group.nav-group-current>.nav-trigger{
+background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6px;
+border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
+.nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
+.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
+min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
+background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
+padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
+.nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+.nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
+.nav-brand:focus-visible{outline:3px solid #d08b45;outline-offset:2px}
+.footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
+@media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
+.nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
+width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+.nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
+</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="../presidents/index.html">Presidents</a><a href="../issues/index.html" aria-current="page">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+<script>
+(() => {
+  const nav = document.currentScript.previousElementSibling;
+  if (!nav || !nav.matches(".global-nav")) return;
+  document.documentElement.classList.add("nav-enhanced");
+  const groups = [...nav.querySelectorAll(".nav-group")];
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    const submenu = group.querySelector(".nav-submenu");
+    trigger.setAttribute("aria-expanded", "false");
+    submenu.hidden = true;
+    group.classList.remove("is-open");
+    if (restoreFocus) trigger.focus();
+  };
+  const closeOthers = active => groups.forEach(group => {
+    if (group !== active) close(group);
+  });
+  const open = group => {
+    closeOthers(group);
+    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
+    group.querySelector(".nav-submenu").hidden = false;
+    group.classList.add("is-open");
+  };
+  groups.forEach(group => {
+    const trigger = group.querySelector(".nav-trigger");
+    const toggle = () => {
+      if (trigger.getAttribute("aria-expanded") === "true") close(group);
+      else open(group);
+    };
+    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggle();
+    });
+    group.addEventListener("pointerenter", () => {
+      if (finePointer.matches) open(group);
+    });
+    group.addEventListener("pointerleave", () => {
+      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    });
+    group.addEventListener("focusout", () => setTimeout(() => {
+      if (!group.contains(document.activeElement)) close(group);
+    }));
+    group.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      close(group, true);
+    });
+  });
+  document.addEventListener("pointerdown", event => {
+    if (!nav.contains(event.target)) groups.forEach(group => close(group));
+  });
+
+  const setNavHeight = () => {
+    document.documentElement.style.setProperty("--global-nav-height", `${nav.offsetHeight}px`);
+  };
+  setNavHeight();
+  if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
+  else addEventListener("resize", setNavHeight);
+
+})();
+</script>
+
 <header>
-  <p class="crumbs"><a href="../index.html">← Dashboard</a></p>
+  <p class="crumbs"><a href="../index.html">← Dashboard</a> &nbsp;·&nbsp;
+  <a href="../methodology.html">How the AI labels work</a></p>
   <h1>Issue profiles</h1>
   <p class="sub">The biography of every issue: 240 years of attention, the presidents
-  who owned it, and their words at its defining moments.</p>
+  who owned it, their words at its defining moments, and the finer topics from the
+  corpus-derived AI taxonomy that sit inside each broad axis.</p>
   <div class="grid">
 <a class="card" href="economy-and-jobs.html">
-  <div class="name">Economy & jobs</div>
+  <div class="name">Economy &amp; jobs</div>
   <div class="meta">peak: 1930s · top voice: Herbert Hoover</div>
+  <div class="ai-meta">5 finer AI topics</div>
 </a>
 <a class="card" href="taxes-and-budget.html">
-  <div class="name">Taxes & budget</div>
+  <div class="name">Taxes &amp; budget</div>
   <div class="meta">peak: 1830s · top voice: Bill Clinton</div>
+  <div class="ai-meta">2 finer AI topics</div>
 </a>
 <a class="card" href="war-and-military.html">
-  <div class="name">War & military</div>
+  <div class="name">War &amp; military</div>
   <div class="meta">peak: 1940s · top voice: James Madison</div>
+  <div class="ai-meta">7 finer AI topics</div>
 </a>
 <a class="card" href="foreign-policy.html">
   <div class="name">Foreign policy</div>
   <div class="meta">peak: 1840s · top voice: James K. Polk</div>
+  <div class="ai-meta">8 finer AI topics</div>
 </a>
 <a class="card" href="immigration.html">
   <div class="name">Immigration</div>
   <div class="meta">peak: 2010s · top voice: Warren G. Harding</div>
+  <div class="ai-meta">2 finer AI topics</div>
 </a>
 <a class="card" href="civil-rights-and-race.html">
-  <div class="name">Civil rights & race</div>
+  <div class="name">Civil rights &amp; race</div>
   <div class="meta">peak: 1850s · top voice: Abraham Lincoln</div>
+  <div class="ai-meta">6 finer AI topics</div>
 </a>
 <a class="card" href="health-care.html">
   <div class="name">Health care</div>
   <div class="meta">peak: 2000s · top voice: Bill Clinton</div>
+  <div class="ai-meta">1 finer AI topics</div>
 </a>
 <a class="card" href="education.html">
   <div class="name">Education</div>
   <div class="meta">peak: 1990s · top voice: Bill Clinton</div>
+  <div class="ai-meta">3 finer AI topics</div>
 </a>
 <a class="card" href="crime-and-justice.html">
-  <div class="name">Crime & justice</div>
+  <div class="name">Crime &amp; justice</div>
   <div class="meta">peak: 1990s · top voice: Bill Clinton</div>
+  <div class="ai-meta">3 finer AI topics</div>
 </a>
 <a class="card" href="energy-and-environment.html">
-  <div class="name">Energy & environment</div>
+  <div class="name">Energy &amp; environment</div>
   <div class="meta">peak: 1970s · top voice: Gerald Ford</div>
+  <div class="ai-meta">3 finer AI topics</div>
 </a>
 <a class="card" href="trade-and-tariffs.html">
-  <div class="name">Trade & tariffs</div>
+  <div class="name">Trade &amp; tariffs</div>
   <div class="meta">peak: 1910s · top voice: William Taft</div>
+  <div class="ai-meta">3 finer AI topics</div>
 </a>
 <a class="card" href="agriculture.html">
   <div class="name">Agriculture</div>
   <div class="meta">peak: 1930s · top voice: Herbert Hoover</div>
+  <div class="ai-meta">2 finer AI topics</div>
 </a>
 <a class="card" href="religion-and-values.html">
-  <div class="name">Religion & values</div>
+  <div class="name">Religion &amp; values</div>
   <div class="meta">peak: 1780s · top voice: Warren G. Harding</div>
+  <div class="ai-meta">3 finer AI topics</div>
 </a>
 <a class="card" href="money-and-banking.html">
-  <div class="name">Money & banking</div>
+  <div class="name">Money &amp; banking</div>
   <div class="meta">peak: 1830s · top voice: Martin Van Buren</div>
+  <div class="ai-meta">2 finer AI topics</div>
 </a>
 <a class="card" href="infrastructure.html">
   <div class="name">Infrastructure</div>
   <div class="meta">peak: 1800s · top voice: Thomas Jefferson</div>
+  <div class="ai-meta">2 finer AI topics</div>
 </a>
 <a class="card" href="security-and-peace.html">
-  <div class="name">Security & peace</div>
+  <div class="name">Security &amp; peace</div>
   <div class="meta">peak: 1940s · top voice: Harry S. Truman</div>
+  <div class="ai-meta">7 finer AI topics</div>
 </a>
   </div>
 </header>

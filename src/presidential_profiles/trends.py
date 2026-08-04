@@ -85,6 +85,33 @@ def word_counts(texts) -> Counter:
     return c
 
 
+def grouped_word_counts(texts) -> Counter:
+    """Content-word counts collapsed through Explore's word-family map.
+
+    This deliberately shares both spelling normalization and family labels
+    with the grouped Word Explorer. One occurrence still contributes one
+    count; inflected forms such as ``slavery``/``slave``/``slaves`` simply
+    accumulate under the same family label.
+    """
+    c: Counter[str] = Counter()
+    for text in texts:
+        c.update(
+            wf.form_to_node(t)
+            for t in wf.tokenize(text)
+            if len(t) > 2 and t not in ENGLISH_STOP_WORDS and "'" not in t
+        )
+    return c
+
+
+def grouped_word_set(text: str) -> set[str]:
+    """Distinct grouped content-word labels present in one speech."""
+    return {
+        wf.form_to_node(t)
+        for t in wf.tokenize(text)
+        if len(t) > 2 and t not in ENGLISH_STOP_WORDS and "'" not in t
+    }
+
+
 def log_odds_scores(
     c_a: Counter, c_b: Counter, min_count: int = 20, alpha0: float = 500.0
 ) -> pd.DataFrame:
@@ -100,7 +127,12 @@ def log_odds_scores(
         l_b = (c_b[w] + a_w) / (n_b + alpha0 - c_b[w] - a_w)
         delta = np.log(l_a) - np.log(l_b)
         var = 1.0 / (c_a[w] + a_w) + 1.0 / (c_b[w] + a_w)
-        rows.append({"term": w, "z": delta / np.sqrt(var), "count": prior[w]})
+        rows.append({
+            "term": w,
+            "delta": delta,
+            "z": delta / np.sqrt(var),
+            "count": prior[w],
+        })
     return pd.DataFrame(rows).sort_values("z")
 
 

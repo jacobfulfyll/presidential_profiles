@@ -1,0 +1,462 @@
+{
+  "contract": {
+    "contract_path": "notes/annotation-ledger-v1.md",
+    "contract_version": "annotation-ledger-v1",
+    "date": "2026-07-24",
+    "date_precision": "date",
+    "status": "approved"
+  },
+  "items": [
+    {
+      "affected_artifacts": [
+        "notes/annotation-ledger-v1.md"
+      ],
+      "category": "contract_checkpoint",
+      "item_id": "ALRV1-C001",
+      "opened_by": "codex",
+      "question": "Approve the complete annotation-ledger-v1 implementation contract before any Phase 1 code or data work begins?",
+      "required_before": [
+        "implementation",
+        "legacy_backfill",
+        "overlay_labeling",
+        "promotion"
+      ],
+      "resolution": {
+        "authority": "explicit user message: Approve.",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R015",
+        "rationale": "The repository owner explicitly approved the complete contract checkpoint."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future data/annotation_ledger/specs/",
+        "future unified logical tables"
+      ],
+      "category": "architecture",
+      "item_id": "ALRV1-D001",
+      "opened_by": "repository_owner",
+      "question": "Use a provider-neutral, versioned label registry and unified append-only logical tables rather than a constituency-specific or per-run table design?",
+      "required_before": [
+        "implementation"
+      ],
+      "resolution": {
+        "authority": "explicit approved plan in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R001",
+        "rationale": "New ordinary label types must pass through the same core lifecycle without core storage or workflow edits."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "all 15 legacy manifests",
+        "frozen legacy annotation tables",
+        "future sealed legacy runs"
+      ],
+      "category": "legacy_backfill",
+      "item_id": "ALRV1-D002",
+      "opened_by": "repository_owner",
+      "question": "Backfill every surviving legacy label and all 15 manifests while preserving raw values, run IDs, unknown provenance, and date-only precision?",
+      "required_before": [
+        "legacy_backfill"
+      ],
+      "resolution": {
+        "authority": "explicit approved legacy policy in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R002",
+        "rationale": "The append-only ledger must preserve the complete surviving historical record without inventing missing timestamps or responses."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future canonical_label_projection",
+        "future current_labels"
+      ],
+      "category": "canonical_mapping",
+      "item_id": "ALRV1-D003",
+      "opened_by": "repository_owner",
+      "question": "Keep removed duplicate events historical and non-current, never remapping them to retained copies, while carrying forward fingerprint-identical retained labels?",
+      "required_before": [
+        "canonical_projection"
+      ],
+      "resolution": {
+        "authority": "explicit approved canonical projection policy in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R003",
+        "rationale": "The retained copy already has its own labels; removed source material remains historical evidence only."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future label_promotions",
+        "future current_labels"
+      ],
+      "category": "promotion",
+      "item_id": "ALRV1-D004",
+      "opened_by": "repository_owner",
+      "question": "Bootstrap-promote reusable primary legacy labels under the explicit human-approved continuity rule?",
+      "required_before": [
+        "continuity_promotion"
+      ],
+      "resolution": {
+        "authority": "explicit approved continuity rule in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R004",
+        "rationale": "Fingerprint-identical retained text carries forward the existing primary judgment without treating timestamp recency as authority."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future entities label events"
+      ],
+      "category": "legacy_entities",
+      "item_id": "ALRV1-D005",
+      "opened_by": "repository_owner",
+      "question": "Import only surviving legacy entity rows and create no synthetic empty entity responses?",
+      "required_before": [
+        "legacy_backfill"
+      ],
+      "resolution": {
+        "authority": "explicit approved legacy policy in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R005",
+        "rationale": "Row absence cannot be upgraded into a reconstructed model response after intermediate responses were discarded."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future 13-paragraph correction-overlay sealed run",
+        "future overlay promotion batch"
+      ],
+      "category": "correction_overlay",
+      "item_id": "ALRV1-D006",
+      "opened_by": "repository_owner",
+      "question": "Authorize one trusted Codex pass over exactly the 13 corrected transition paragraphs and promote it without representing it as human-validated or independently checked?",
+      "required_before": [
+        "overlay_init",
+        "overlay_labeling",
+        "overlay_promotion"
+      ],
+      "resolution": {
+        "authority": "explicit Phase 1 authorization in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R006",
+        "rationale": "This is a narrow correction overlay using the frozen paragraph-judgment rubric, not broad relabeling or constituency labeling."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future canonical speech projection",
+        "future primary speech promotions"
+      ],
+      "category": "input_mismatch_exception",
+      "item_id": "ALRV1-D007",
+      "opened_by": "repository_owner",
+      "question": "Carry forward the April 3, 1968 press-conference speech labels despite the corrected factual-input mismatch?",
+      "required_before": [
+        "speech_projection",
+        "speech_promotion"
+      ],
+      "resolution": {
+        "authority": "explicit human-approved provisional exception in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R007",
+        "rationale": "Both legacy models agree on speech_type=press_conference_or_interview, audience=press, and medium=press_conference; the mismatch must remain visible in provenance."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future Opus label events",
+        "future current_labels"
+      ],
+      "category": "second_opinion",
+      "item_id": "ALRV1-D008",
+      "opened_by": "repository_owner",
+      "question": "Retain Opus labels as independent second opinions without bootstrap promotion?",
+      "required_before": [
+        "legacy_backfill",
+        "continuity_promotion"
+      ],
+      "resolution": {
+        "authority": "explicit approved canonical projection policy in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R008",
+        "rationale": "Independent labels coexist in history; primary continuity does not make the second opinion current."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future constituencies draft spec",
+        "future empty constituency_claims projection"
+      ],
+      "category": "constituency_scope",
+      "item_id": "ALRV1-D009",
+      "opened_by": "repository_owner",
+      "question": "Keep constituencies at draft/pilot status with an empty schema-valid typed projection and no production dataset in Phase 1?",
+      "required_before": [
+        "spec_registry",
+        "materialization"
+      ],
+      "resolution": {
+        "authority": "explicit approved constituency scope in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R009",
+        "rationale": "A later stratified two-pass pilot and publication gate must precede any frozen constituency v1 or full pass."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future terminal workflow"
+      ],
+      "category": "execution_boundary",
+      "item_id": "ALRV1-D010",
+      "opened_by": "repository_owner",
+      "question": "Keep execution outside the ledger so core terminal code has no provider client, credentials, model choice, invocation, or network path?",
+      "required_before": [
+        "terminal_workflow"
+      ],
+      "resolution": {
+        "authority": "explicit approved terminal workflow in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R010",
+        "rationale": "All future adapters must use the same assignment and ingestion path."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future sealed runs",
+        "future materialized generations",
+        "future promotion batches"
+      ],
+      "category": "atomicity",
+      "item_id": "ALRV1-D011",
+      "opened_by": "repository_owner",
+      "question": "Use immutable sealed artifact sets and complete content-addressed materialization/promotion publications so failures cannot expose partial replacement?",
+      "required_before": [
+        "sealing",
+        "materialization",
+        "promotion"
+      ],
+      "resolution": {
+        "authority": "explicit approved storage model in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "approved",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R011",
+        "rationale": "Sealed artifacts are history; Parquet is deterministically rebuildable derived state."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future legacy run limitations"
+      ],
+      "category": "provenance_limitation",
+      "item_id": "ALRV1-P001",
+      "opened_by": "repository_owner",
+      "question": "Accept that backfill preserves surviving final labels but cannot recreate discarded intermediate model responses?",
+      "required_before": [
+        "legacy_backfill"
+      ],
+      "resolution": {
+        "authority": "explicit approved legacy policy in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "accepted_limitation",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R012",
+        "rationale": "The limitation must be recorded rather than filled with invented response artifacts."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "accepted_limitation"
+    },
+    {
+      "affected_artifacts": [
+        "future legacy timestamps",
+        "future reasoning-effort provenance"
+      ],
+      "category": "provenance_limitation",
+      "item_id": "ALRV1-P002",
+      "opened_by": "repository_owner",
+      "question": "Keep unknown legacy assignment/label timestamps null and infer effort only on exact prompt-hash matches?",
+      "required_before": [
+        "legacy_backfill"
+      ],
+      "resolution": {
+        "authority": "explicit approved legacy policy in user request dated 2026-07-24",
+        "decided_by": "repository_owner",
+        "decision": "accepted_limitation",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R013",
+        "rationale": "Date precision and inferred provenance must not be upgraded to timestamps or direct observation."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "accepted_limitation"
+    },
+    {
+      "affected_artifacts": [
+        "future invocation-tone legacy run"
+      ],
+      "category": "provenance_limitation",
+      "item_id": "ALRV1-P003",
+      "opened_by": "repository_owner",
+      "question": "Record invocation-tone prompt/cost as unknown and treat its surviving hash as a method-string hash rather than a prompt hash?",
+      "required_before": [
+        "legacy_backfill"
+      ],
+      "resolution": {
+        "authority": "frozen invocation-tone manifest plus approved unknown-provenance policy",
+        "decided_by": "repository_owner",
+        "decision": "accepted_limitation",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R014",
+        "rationale": "The legacy artifact predates the provenance layer and must remain honest about what did not survive."
+      },
+      "source_authority": "user request dated 2026-07-24",
+      "status": "accepted_limitation"
+    },
+    {
+      "affected_artifacts": [
+        "future 13-paragraph correction-overlay run"
+      ],
+      "category": "execution_gate",
+      "item_id": "ALRV1-G001",
+      "opened_by": "repository_owner",
+      "question": "Does the Codex runtime expose an exact enough model identity for the correction overlay?",
+      "required_before": [
+        "first_overlay_assignment"
+      ],
+      "resolution": {
+        "authority": "exact Codex runtime metadata exposed for the active turn",
+        "decided_by": "codex_local_recorder",
+        "decision": "satisfied",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R016",
+        "rationale": "Runtime metadata exposed model gpt-5.6-sol and reasoning effort xhigh before the first overlay assignment was rendered."
+      },
+      "source_authority": "explicit overlay model-identity gate in user request dated 2026-07-24",
+      "status": "satisfied"
+    },
+    {
+      "affected_artifacts": [
+        "data/annotation_ledger/work/correction-overlay-13-codex-20260724"
+      ],
+      "category": "overlay_recovery",
+      "item_id": "ALRV1-I001",
+      "opened_by": "codex_local_workflow",
+      "question": "How should the refused mixed-speech frozen-v1 assignment be recovered?",
+      "required_before": [
+        "overlay_labeling"
+      ],
+      "resolution": {
+        "authority": "annotation-ledger-v1 recovery rule and frozen v1 response schema",
+        "decided_by": "codex_local_workflow",
+        "decision": "abandon_and_create_recovery_run",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R017",
+        "rationale": "The invalid scheduler batch wrote no response or label event. Preserve it as abandoned work, constrain future frozen-v1 assignments to one speech, and use a new run ID."
+      },
+      "source_authority": "pre-write ingest refusal",
+      "status": "abandon_and_create_recovery_run"
+    },
+    {
+      "affected_artifacts": [
+        "data/annotation_ledger/input_inventories"
+      ],
+      "category": "input_inventory_recovery",
+      "item_id": "ALRV1-I002",
+      "opened_by": "codex_final_audit",
+      "question": "How should the omitted correction-layer files be added to the frozen-input inventory without mutating sealed runs?",
+      "required_before": [
+        "phase1_completion"
+      ],
+      "resolution": {
+        "authority": "annotation-ledger-v1 append-only recovery design",
+        "decided_by": "codex_final_audit",
+        "decision": "publish_superseding_complete_inventory",
+        "resolution_date": "2026-07-24",
+        "resolution_date_precision": "date",
+        "resolution_id": "ALRV1-R018",
+        "rationale": "Do not mutate sealed run inventories. Validate correction outputs against meta_v1 SHA-256 values and append a complete content-addressed inventory covering every paid, correction, raw, and normalized source file."
+      },
+      "source_authority": "annotation-ledger-v1 complete frozen-input inventory rule",
+      "status": "publish_superseding_complete_inventory"
+    }
+  ],
+  "queue_version": "annotation-ledger-review-queue-v1",
+  "schema": {
+    "item_statuses": [
+      "pending_review",
+      "approved",
+      "rejected",
+      "deferred",
+      "accepted_limitation",
+      "pending_execution_evidence",
+      "satisfied",
+      "abandon_and_create_recovery_run",
+      "publish_superseding_complete_inventory"
+    ],
+    "resolution_rule": "An item is resolved only by an explicit resolution record carrying authority, deciding identity, decision, date/time precision, and rationale. No status may be inferred silently."
+  }
+}

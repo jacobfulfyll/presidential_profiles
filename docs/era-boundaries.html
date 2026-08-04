@@ -1,0 +1,503 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How we chose the eras · Presidential Profiles</title>
+<meta name="description" content="The historical judgment, clustering, and every-year transition analysis behind the Presidential Profiles era boundaries.">
+<style>
+  :root {
+    --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
+    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--page); color: var(--ink);
+         font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.55; }
+  header { max-width: 980px; margin: 0 auto; padding: 48px 20px 8px; }
+  header h1 { font-size: 2rem; letter-spacing: -0.02em; }
+  header p.sub { color: var(--ink2); margin-top: 10px; max-width: 46rem; }
+  main { max-width: 980px; margin: 0 auto; padding: 8px 20px 40px; }
+  section { margin-top: 44px; }
+  section h2 { font-size: 1.28rem; letter-spacing: -0.01em; }
+  section p { color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }
+  .chart-scroll { background: var(--surface); border: 1px solid var(--border);
+                   border-radius: 12px; padding: 10px 6px 6px;
+                   overflow-x: auto; overflow-y: hidden; }
+  .chart { min-width: 640px; }
+  footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
+            border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--ink2); }
+
+
+.global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
+backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
+.nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
+align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
+color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+.nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
+background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
+align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
+.nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
+min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
+white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
+.nav-item>a[aria-current=page],.nav-group.nav-group-current>.nav-trigger{
+background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6px;
+border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
+.nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
+.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
+min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
+background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
+padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
+.nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+.nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
+.nav-brand:focus-visible{outline:3px solid #d08b45;outline-offset:2px}
+.footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
+@media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
+.nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
+width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+.nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
+
+header,main,footer{max-width:1120px}header{padding-top:48px}
+.kicker{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;font-weight:780;color:#32658d}
+header h1{font-size:clamp(2.35rem,6vw,4.8rem);line-height:1.01;max-width:900px;margin-top:12px}
+header .sub{font-size:1.08rem;max-width:800px}
+.status{display:inline-block;margin-top:20px;padding:7px 11px;border-radius:999px;background:#e8f1f7;color:#244e6e;font-size:.78rem;font-weight:740}
+.answer{background:#172a38;color:#fff;border-radius:20px;padding:24px;margin-top:28px}
+.answer h2{font-size:1.42rem}.answer p{color:#d9e2e8;max-width:820px;margin-top:8px}
+.era-strip{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:5px;margin-top:18px;overflow-x:auto;padding-bottom:4px}
+.era-chip{min-width:0;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:10px}
+.era-chip strong,.era-chip span{display:block}.era-chip strong{font-size:.76rem;white-space:nowrap}.era-chip span{font-size:.68rem;color:#d9e2e8;margin-top:4px;line-height:1.3}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.principle{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px}
+.principle strong{display:block}.principle p{font-size:.88rem;margin:5px 0 0}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px;margin-top:18px}
+.chart-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.chart-head p{margin:5px 0 0}label{font-size:.78rem;color:var(--muted);font-weight:700}
+select{display:block;width:min(390px,100%);max-width:100%;margin-top:5px;padding:8px 30px 8px 10px;border:1px solid var(--border);border-radius:9px;background:#fff;font:inherit}
+.chart-shell{overflow-x:auto;overflow-y:hidden;margin-top:10px}.boundary-chart{min-width:760px;height:520px}
+.chart-note{font-size:.82rem;color:var(--muted);margin-top:8px}
+.callout{border-left:4px solid #6b9fc5;background:#edf4f8;border-radius:0 12px 12px 0;padding:15px 17px;margin:20px 0}
+.callout p{margin:0;max-width:none}code{font-size:.88em}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;margin-top:18px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:850px}th,td{padding:13px 14px;border-bottom:1px solid var(--grid);vertical-align:top;text-align:left;font-size:.88rem}
+thead th{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}tbody tr:last-child>*{border-bottom:0}
+tbody th{width:180px}tbody th span,td small{display:block;color:var(--muted);font-weight:450;margin-top:4px}
+td small a{color:#275d8c}details{margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+summary{cursor:pointer;font-weight:720}.method-list{padding-left:22px;margin-top:12px;color:var(--ink2)}.method-list li{margin:8px 0}
+.method-list+details pre,details pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.receipt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.receipt{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}.receipt strong,.receipt code{display:block}.receipt p{font-size:.84rem;margin:5px 0 0}
+.case-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.case{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:17px}
+.case h3{margin:0;font-size:1rem}.case p{font-size:.88rem;margin:7px 0 0}
+@media(max-width:900px){.era-strip{grid-template-columns:repeat(9,125px)}}
+@media(max-width:800px){.principles,.receipt-grid,.case-grid{grid-template-columns:1fr}header,main{padding-left:16px;padding-right:16px}}
+</style></head><body><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div><div class="nav-item nav-group nav-group-current" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="data-quality.html">Data Quality</a><a href="methodology.html">Methods</a><a href="era-boundaries.html" aria-current="page">Era Choices</a></div></div></div></div></nav>
+<script>
+(() => {
+  const nav = document.currentScript.previousElementSibling;
+  if (!nav || !nav.matches(".global-nav")) return;
+  document.documentElement.classList.add("nav-enhanced");
+  const groups = [...nav.querySelectorAll(".nav-group")];
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    const submenu = group.querySelector(".nav-submenu");
+    trigger.setAttribute("aria-expanded", "false");
+    submenu.hidden = true;
+    group.classList.remove("is-open");
+    if (restoreFocus) trigger.focus();
+  };
+  const closeOthers = active => groups.forEach(group => {
+    if (group !== active) close(group);
+  });
+  const open = group => {
+    closeOthers(group);
+    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
+    group.querySelector(".nav-submenu").hidden = false;
+    group.classList.add("is-open");
+  };
+  groups.forEach(group => {
+    const trigger = group.querySelector(".nav-trigger");
+    const toggle = () => {
+      if (trigger.getAttribute("aria-expanded") === "true") close(group);
+      else open(group);
+    };
+    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggle();
+    });
+    group.addEventListener("pointerenter", () => {
+      if (finePointer.matches) open(group);
+    });
+    group.addEventListener("pointerleave", () => {
+      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    });
+    group.addEventListener("focusout", () => setTimeout(() => {
+      if (!group.contains(document.activeElement)) close(group);
+    }));
+    group.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      close(group, true);
+    });
+  });
+  document.addEventListener("pointerdown", event => {
+    if (!nav.contains(event.target)) groups.forEach(group => close(group));
+  });
+
+  const setNavHeight = () => {
+    document.documentElement.style.setProperty("--global-nav-height", `${nav.offsetHeight}px`);
+  };
+  setNavHeight();
+  if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
+  else addEventListener("resize", setNavHeight);
+
+})();
+</script>
+
+<header><div class="kicker">Methods · editorial periodization</div>
+<h1>How we chose the eras</h1>
+<p class="sub">The primary result divides presidential-cycle fingerprints into nine persistent
+rhetorical regimes. Every-year four- and eight-year comparisons then show abrupt transition
+mountains inside that complete solution. Historical judgment resolves only the few close calls.</p>
+<span class="status">Recommended scheme · live story ranges not yet migrated</span>
+</header><main>
+<div class="answer"><h2>The data-first recommendation</h2><p>The complete mathematical optimum
+starts at 1789, 1805, 1849, 1869, 1913, 1937, 1953, 1981, 2017. The reviewed scheme moves only
+1805 to Madison's 1809 accession, represents the 1849 cycle with the Compromise of 1850, and moves
+1937 to FDR's 1933 accession. After adopting Grant's 1869 accession instead of 1878, its total
+within-era variation is only 0.5% above the optimum.</p>
+<div class="era-strip"><div class="era-chip"><strong>1789–1808</strong>
+<span>Establishing the republic</span></div><div class="era-chip"><strong>1809–1849</strong>
+<span>The continental republic</span></div><div class="era-chip"><strong>1850–1868</strong>
+<span>Sectional crisis, Civil War, and constitutional rupture</span></div><div class="era-chip"><strong>1869–1912</strong>
+<span>The administrative-industrial order</span></div><div class="era-chip"><strong>1913–1932</strong>
+<span>Reform, world war, and the interwar order</span></div><div class="era-chip"><strong>1933–1952</strong>
+<span>New Deal, world war, and postwar settlement</span></div><div class="era-chip"><strong>1953–1980</strong>
+<span>Mature Cold War and the broadcast presidency</span></div><div class="era-chip"><strong>1981–2016</strong>
+<span>Conservative turn and the always-on presidency</span></div><div class="era-chip"><strong>2017–2026</strong>
+<span>Platform-era intensification</span></div></div></div>
+
+<section><h2>Three measurements answer three different questions</h2>
+<div class="principles"><div class="principle"><strong>Persistent regimes choose the cuts</strong>
+<p>An exactly-nine-segment optimization minimizes variation within contiguous four-year
+presidential-cycle units and prevents eras shorter than three units.</p></div>
+<div class="principle"><strong>Combined ranks measure abruptness</strong><p>Every candidate year
+gets four- and eight-year percentile ranks. Their average reveals broad transition mountains
+without letting one window length dictate the order.</p></div>
+<div class="principle"><strong>Robustness tests the zone</strong><p>The full partition is repeated
+without each axis group and without the date-bounded opponents marker. Exact accessions resolve
+only close zones such as 1805–09 and 1933–37.</p></div></div></section>
+
+<section><h2>Graph 1 · Abrupt change is not the same as a new era</h2>
+<p>The light lines rank the four- and eight-year before/after distances separately; the dark line
+averages their percentiles. High means more abrupt measured change, not greater historical
+importance or confidence. Adjacent high years often belong to one transition mountain.</p>
+<div class="chart-card"><div class="chart-head"><div><strong>Every-year consensus abruptness</strong>
+<p>Recommended starts are labeled. Hover reports all three ranks.</p></div></div>
+<div class="chart-shell"><div id="sliding-chart" class="boundary-chart" role="img"
+aria-label="Four-year, eight-year, and combined transition percentile rankings"></div></div>
+<p class="chart-note">The raw combined top eight collapse into the early republic and the
+Depression–war–postwar mountain. That is why annual rank diagnoses shocks but does not select the
+complete partition.</p></div></section>
+
+<section><h2>Graph 2 · Which cuts create persistent regimes?</h2>
+<p>Four-year presidential-cycle fingerprints are divided into exactly nine contiguous segments,
+each at least three units long. The selector below removes one measurement family at a time. A
+cut that remains near the same year is more stable than an isolated annual peak.</p>
+<div class="chart-card"><div class="chart-head"><div><strong>Optimal nine-era partition</strong>
+<p>Diamonds are the mathematical cuts; dotted guides are the reviewed exact starts.</p></div>
+<div><label for="cluster-condition">Robustness view</label><select id="cluster-condition">
+<option value="full">All 63 axes</option><option value="drop_topic">Without topics</option><option value="drop_combat">Without combat labels</option><option value="drop_register">Without proposal/value register</option><option value="drop_marker">Without dictionary markers</option><option value="drop_stat">Without readability and pronouns</option><option value="drop_genre">Without speech type</option><option value="drop_opponents">Without the date-bounded opponents marker</option></select></div></div><div class="chart-shell"><div id="cluster-chart"
+class="boundary-chart" role="img" aria-label="Optimal persistent-regime boundaries"></div></div>
+<p id="cluster-status" class="chart-note" aria-live="polite">Showing all 63 axes.</p></div>
+<div class="callout"><p><strong>Why did 1872 appear before?</strong> The old eight-year grid had
+one unit for 1864–71 and labeled the next unit 1872. It could not test 1869 or 1870. The four-year
+partition starts the new regime at 1869, the every-year curve peaks in 1869–70, and Grant was
+inaugurated on March 4, 1869. There was no presidential change in 1870.</p></div></section>
+
+<section><h2>How the close exact-year calls were resolved</h2>
+<div class="case-grid">
+<article class="case"><h3>1809 · Madison takes office</h3><p>The full optimum is 1805, but moving
+the cut to Madison's March 4, 1809 accession adds only
+0.06% to the total
+objective. Across the zone, founding-era ceremonial, faith, Native-affairs, and constitutional
+subjects recede while banking, trade, and internal improvements rise. The data does not resolve
+an exact year within that presidential term, so 1809 is the legible tie-break.</p></article>
+<article class="case"><h3>1869 · Grant takes office</h3><p>This is not a tie-break. Civil-rights
+and immigration topics fall from 30.7% before the cut to 6.7% after it; constitutional-order
+topics fall from 34.0% to 17.3%; proposal register rises from 15.1% to 29.5%; and trade and tariff
+topics rise from 3.2% to 13.6%. Reconstruction continues historically, but does not appear as a
+separate persistent presidential-speech regime.</p></article>
+<article class="case"><h3>1933 · FDR takes office</h3><p>The nine-era optimum is 1937, while the
+single strongest division of the whole series is 1933 and dropping the
+topic axes also returns
+1933. The later crest captures the fuller move toward confrontation, broadcast leadership, and
+war mobilization. The New Deal–war chapter therefore begins at FDR's March 4, 1933 accession,
+costing 0.45% in complete-partition fit.</p></article>
+<article class="case"><h3>2017 · platform-era intensification</h3><p>Seven of eight specifications
+return 2017; only removing the entire marker family moves the cut to 2013. After 2017, boosters,
+hype, us-versus-them language, zero-sum framing, party attacks, and enemy naming all rise. Genre
+accounts for only about 5% of the separation, so 2017 is the sustained regime break rather than
+merely a change in the corpus's speech-type mix.</p></article>
+</div>
+<div class="callout"><p><strong>Who owns a speech in an accession year?</strong>
+The speech keeps its real date, but an outgoing president’s speech belongs to the story regime
+that presidency is closing. Jefferson’s April 1809 Albemarle County message therefore remains
+with the founding; Madison’s March and November speeches open the continental-republic record.
+The same rule assigns any Johnson speech in 1869 to the preceding crisis era (the current corpus
+contains only Grant in 1869), Truman’s January 1953 address to the New Deal–war settlement,
+Carter’s January 1981 address to the mature Cold War, and Obama’s January 2017 address to the
+always-on era. The 1850 boundary is historical rather than an accession boundary, so it receives
+no outgoing-president override. This governs story ownership only; it does not alter dates or the
+boundary analysis.</p></div></section>
+
+<section><h2>The choice for each era</h2>
+<p>The right column keeps abruptness rank separate from the persistent-regime decision. “Local
+peak” means the strongest combined percentile within four years; robustness recurrence counts
+the full and seven axis-removal partitions. Transition zones are not confidence intervals.</p>
+<div class="table-wrap"><table><thead><tr><th>Recommended era</th><th>Historical judgment</th>
+<th>What the corpus says</th></tr></thead><tbody><tr><th scope="row"><strong>1789–1808</strong>
+<span>Establishing the republic</span></th>
+<td>The first administrations establish sovereignty, federal capacity, finance, and the country&#x27;s governing routines. Ending after Jefferson keeps the founding problem distinct from Madison&#x27;s war presidency.<small>Historical receipt: <a href="https://millercenter.org/the-presidency/presidential-speeches/april-30-1789-first-inaugural-address">Washington&#x27;s 1789 inaugural</a></small></td>
+<td>The corpus starts here, so there is no before/after score. The first internal transition is tested at 1809.<small>Transition zone: Corpus begins</small></td></tr><tr><th scope="row"><strong>1809–1849</strong>
+<span>The continental republic</span></th>
+<td>Madison&#x27;s March 4 accession supplies the exact presidential boundary inside the data-derived 1805–09 zone. Treaties and diplomacy connect renewed conflict with Britain and the War of 1812 to postwar state-building, federal-policy conflict, removal, annexation, and continental conquest.<small>Historical receipt: <a href="https://millercenter.org/the-presidency/presidential-speeches/march-4-1809-first-inaugural-address">Madison&#x27;s 1809 inaugural</a></small></td>
+<td>Combined abruptness rank 57 of 223. The strongest combined score within ±4 years is 1807. The full persistent-regime optimum starts at 1805; the nearby zone recurs in 8 of 8 specifications.<small>Transition zone: 1805–1809</small></td></tr><tr><th scope="row"><strong>1850–1868</strong>
+<span>Sectional crisis, Civil War, and constitutional rupture</span></th>
+<td>Territorial acquisition ends in 1848, but the Compromise of 1850 turns the status of the acquired lands into a national governing settlement—and exposes how little had been settled. The chapter continues through emancipation, Civil War, and the Johnson conflict.<small>Historical receipt: <a href="https://www.archives.gov/milestone-documents/compromise-of-1850">National Archives: Compromise of 1850</a></small></td>
+<td>Combined abruptness rank 62 of 223. The strongest combined score within ±4 years is 1854. The full persistent-regime optimum starts at 1849; the nearby zone recurs in 7 of 8 specifications.<small>Transition zone: 1848–1852</small></td></tr><tr><th scope="row"><strong>1869–1912</strong>
+<span>The administrative-industrial order</span></th>
+<td>Grant&#x27;s accession is both the data-optimal four-year start and a presidential boundary. Reconstruction continues, but it does not form its own presidential-speech regime: the measured agenda turns toward program administration, trade, and the developing industrial state.<small>Historical receipt: <a href="https://millercenter.org/the-presidency/presidential-speeches/march-4-1869-first-inaugural-address">Grant&#x27;s 1869 inaugural</a></small></td>
+<td>Combined abruptness rank 25 of 223. The exact year is also the strongest combined score within ±4 years. The full persistent-regime optimum starts at 1869; the nearby zone recurs in 8 of 8 specifications.<small>Transition zone: 1869–1870</small></td></tr><tr><th scope="row"><strong>1913–1932</strong>
+<span>Reform, world war, and the interwar order</span></th>
+<td>Wilson&#x27;s accession supplies a clean institutional and presidential start for a period spanning reform, World War I, the 1920s order, and its collapse under Hoover.<small>Historical receipt: <a href="https://millercenter.org/the-presidency/presidential-speeches/march-4-1913-first-inaugural-address">Wilson&#x27;s 1913 inaugural</a></small></td>
+<td>Combined abruptness rank 13 of 223. The exact year is also the strongest combined score within ±4 years. The full persistent-regime optimum starts at 1913; the nearby zone recurs in 8 of 8 specifications.<small>Transition zone: 1913–1916</small></td></tr><tr><th scope="row"><strong>1933–1952</strong>
+<span>New Deal, world war, and postwar settlement</span></th>
+<td>FDR&#x27;s accession is the historically legible break: emergency government and the New Deal lead into global war, while Truman carries the wartime state into the first postwar settlement.<small>Historical receipt: <a href="https://www.archives.gov/education/lessons/fdr-inaugural">National Archives: FDR&#x27;s 1933 inaugural</a></small></td>
+<td>Combined abruptness rank 40 of 223. The strongest combined score within ±4 years is 1930. The full persistent-regime optimum starts at 1937; the nearby zone recurs in 8 of 8 specifications.<small>Transition zone: 1929–1940</small></td></tr><tr><th scope="row"><strong>1953–1980</strong>
+<span>Mature Cold War and the broadcast presidency</span></th>
+<td>Eisenhower&#x27;s accession and the Korean armistice provide a defensible start for the mature Cold War order. The period runs through Carter, keeping the Reagan turn visible rather than splitting at 1989.<small>Historical receipt: <a href="https://history.state.gov/historicaldocuments/frus1952-54v15p2/comp1">State Department: Korean armistice, 1953</a></small></td>
+<td>Combined abruptness rank 7 of 223. The strongest combined score within ±4 years is 1949. The full persistent-regime optimum starts at 1953; the nearby zone recurs in 8 of 8 specifications.<small>Transition zone: 1946–1953</small></td></tr><tr><th scope="row"><strong>1981–2016</strong>
+<span>Conservative turn and the always-on presidency</span></th>
+<td>Reagan&#x27;s accession is a clearer rhetorical and political boundary than 1989. This longer period can contain both the Cold War&#x27;s end and the post-Cold War, cable, permanent-campaign, and early digital phases.<small>Historical receipt: <a href="https://millercenter.org/the-presidency/presidential-speeches/january-20-1981-first-inaugural-address">Reagan&#x27;s 1981 inaugural</a></small></td>
+<td>Combined abruptness rank 108 of 223. The exact year is also the strongest combined score within ±4 years. The full persistent-regime optimum starts at 1981; the nearby zone recurs in 7 of 8 specifications.<small>Transition zone: 1981</small></td></tr><tr><th scope="row"><strong>2017–2026</strong>
+<span>Platform-era intensification</span></th>
+<td>Trump&#x27;s accession is the editorial start of an intensification, not the invention of platform politics. The measured transition is broad enough that the exact presidential boundary remains a historical choice.<small>Historical receipt: <a href="https://millercenter.org/the-presidency/presidential-speeches/january-20-2017-inaugural-address">Trump&#x27;s 2017 inaugural</a></small></td>
+<td>Combined abruptness rank 41 of 223. The strongest combined score within ±4 years is 2018. The full persistent-regime optimum starts at 2017; the nearby zone recurs in 8 of 8 specifications.<small>Transition zone: 2013–2018</small></td></tr></tbody></table></div>
+<details><summary>Open the compact boundary audit table</summary><div class="table-wrap">
+<table><thead><tr><th>Editorial start</th><th>Combined rank</th><th>Local peak ±4</th>
+<th>Full optimum</th><th>Robust zone</th><th>Specifications near zone</th></tr></thead>
+<tbody><tr><th scope="row">1809</th>
+<td>57 of 223</td><td>1807</td>
+<td>1805</td><td>1805–1809</td>
+<td>8 of 8</td></tr><tr><th scope="row">1850</th>
+<td>62 of 223</td><td>1854</td>
+<td>1849</td><td>1849</td>
+<td>7 of 8</td></tr><tr><th scope="row">1869</th>
+<td>25 of 223</td><td>1869</td>
+<td>1869</td><td>1869</td>
+<td>8 of 8</td></tr><tr><th scope="row">1913</th>
+<td>13 of 223</td><td>1913</td>
+<td>1913</td><td>1913</td>
+<td>8 of 8</td></tr><tr><th scope="row">1933</th>
+<td>40 of 223</td><td>1930</td>
+<td>1937</td><td>1933–1937</td>
+<td>8 of 8</td></tr><tr><th scope="row">1953</th>
+<td>7 of 223</td><td>1949</td>
+<td>1953</td><td>1953</td>
+<td>8 of 8</td></tr><tr><th scope="row">1981</th>
+<td>108 of 223</td><td>1981</td>
+<td>1981</td><td>1981</td>
+<td>7 of 8</td></tr><tr><th scope="row">2017</th>
+<td>41 of 223</td><td>2018</td>
+<td>2017</td><td>2013–2017</td>
+<td>8 of 8</td></tr></tbody></table></div><p class="chart-note">The eight
+specifications are the full 63-axis model, six leave-one-axis-group-out reruns, and a rerun
+without the availability-bounded opponents marker.</p></details>
+</section>
+
+<section><h2>What is inside the fingerprint</h2><ol class="method-list">
+<li><strong>63 axes:</strong> 17 topic domains, 3 combat labels, 3 proposal/value register shares,
+19 declared dictionary markers, 11 readability/pronoun/modal statistics, and 10 assigned speech
+types.</li><li><strong>Standardization:</strong> each axis is z-scored with population standard
+deviation across the units being compared. The sliding score uses the governed eight-year-bin
+standard deviations so a percentage share and a per-thousand-word rate can coexist.</li>
+<li><strong>Contiguity and duration:</strong> dynamic programming considers the whole sequence,
+allows only adjacent four-year units in a segment, requests exactly nine segments, and requires
+at least three units per segment.</li><li><strong>Robustness:</strong> the persistent-regime graph
+removes each axis group and the availability-bounded <code>opponents</code> marker. The
+every-year graph retains annual resolution with symmetric four- and eight-year windows.</li>
+<li><strong>Statistical status:</strong> all results are descriptive over the curated Miller Center
+formal-speech corpus. AI labels are measurements, not ground truth; neither graph measures policy
+effect, public opinion, or historical causation.</li></ol></section>
+
+<section><h2>Reproduce and inspect the work</h2><div class="receipt-grid">
+<div class="receipt"><strong>Original fingerprints</strong><code>data/eras/fine_fingerprints.parquet</code>
+<p>31 eight-year bins and 45 presidencies over the same 63 measures.</p></div>
+<div class="receipt"><strong>Original clustering</strong><code>data/eras/periodization.parquet</code>
+<p>Every boundary at k=2–12 for bin and presidency grains.</p></div>
+<div class="receipt"><strong>Every-year windows</strong><code>data/era_boundaries/sliding_scores.parquet</code>
+<p><a href="data/era-boundary-sliding-scores.csv">Download both raw window series</a>.</p></div>
+<div class="receipt"><strong>Combined ranking</strong><code>data/era_boundaries/consensus_scores.parquet</code>
+<p><a href="data/era-boundary-consensus-scores.csv">Download the common-year percentiles</a>.</p></div>
+<div class="receipt"><strong>Four-year units</strong><code>data/era_boundaries/cycle4_fingerprints.parquet</code>
+<p><a href="data/era-boundary-cycle4-fingerprints.csv">Download all 63-axis unit fingerprints</a>.</p></div>
+<div class="receipt"><strong>Persistent-regime reruns</strong><code>data/era_boundaries/segmentation.parquet</code>
+<p><a href="data/era-boundary-segmentation.csv">Download full and axis-removal partitions</a>.</p></div>
+</div><details><summary>Machine-readable method receipt</summary><pre>{
+  &quot;schema_version&quot;: &quot;era-boundaries-v2&quot;,
+  &quot;status&quot;: &quot;descriptive corpus periodization; reviewed exact dates may snap a stable transition zone to a presidential or institutional boundary&quot;,
+  &quot;window_years_each_side&quot;: 8,
+  &quot;window_options_each_side&quot;: [
+    4,
+    8
+  ],
+  &quot;primary_cluster_count&quot;: 9,
+  &quot;cluster_count_range&quot;: [
+    2,
+    12
+  ],
+  &quot;minimum_segment_units&quot;: 3,
+  &quot;cycle_anchor_year&quot;: 1789,
+  &quot;data_optimal_grid_starts&quot;: [
+    1789,
+    1805,
+    1849,
+    1869,
+    1913,
+    1937,
+    1953,
+    1981,
+    2017
+  ],
+  &quot;single_split_start&quot;: 1933,
+  &quot;single_split_objective&quot;: 2711.87711408533,
+  &quot;reviewed_grid_starts&quot;: [
+    1789,
+    1809,
+    1849,
+    1869,
+    1913,
+    1933,
+    1953,
+    1981,
+    2017
+  ],
+  &quot;reviewed_adjustments&quot;: [
+    {
+      &quot;data_start&quot;: 1805,
+      &quot;reviewed_start&quot;: 1809,
+      &quot;objective_penalty&quot;: 1.0044290462656136,
+      &quot;penalty_pct_of_optimum&quot;: 0.05808895365958003
+    },
+    {
+      &quot;data_start&quot;: 1937,
+      &quot;reviewed_start&quot;: 1933,
+      &quot;objective_penalty&quot;: 7.851046344545466,
+      &quot;penalty_pct_of_optimum&quot;: 0.454048067390233
+    }
+  ],
+  &quot;optimal_partition_objective&quot;: 1729.1222908780405,
+  &quot;reviewed_partition_objective&quot;: 1737.9777662688516,
+  &quot;reviewed_excess_objective_pct&quot;: 0.5121370210498188,
+  &quot;axis_groups&quot;: [
+    &quot;topic&quot;,
+    &quot;combat&quot;,
+    &quot;register&quot;,
+    &quot;marker&quot;,
+    &quot;stat&quot;,
+    &quot;genre&quot;
+  ],
+  &quot;n_axes&quot;: 63,
+  &quot;sliding_method&quot;: &quot;For every calendar year b, compare symmetric four-year and eight-year windows on the same raw fingerprint; standardize axis differences by population SD across the governed eight-year bins; each score is the Euclidean norm.&quot;,
+  &quot;consensus_method&quot;: &quot;Convert the complete four- and eight-year score rankings to percentiles on their common candidate years and average them.&quot;,
+  &quot;segmentation_method&quot;: &quot;Build non-overlapping four-year presidential-cycle fingerprints anchored at 1789; z-score each axis across cycles; use dynamic programming to minimize total within-segment squared distance for exactly nine contiguous segments of at least three cycle units; repeat while omitting each axis group and the opponents marker.&quot;,
+  &quot;cluster_method&quot;: &quot;Contiguity-constrained Ward clustering on raw z-scored bin fingerprints, repeated at k=2..12 in full and leave-one-group-out forms.&quot;,
+  &quot;corpus_fingerprint&quot;: {
+    &quot;n_speeches&quot;: 1057,
+    &quot;n_paragraphs&quot;: 36229,
+    &quot;doc_name_sha256&quot;: &quot;23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc&quot;
+  },
+  &quot;source_sha256&quot;: {
+    &quot;fine_fingerprints.parquet&quot;: &quot;eaf998bb35cbf30d6dbdc55936b0b1fd62581481d887c0af348ecd1703a62eee&quot;,
+    &quot;periodization.parquet&quot;: &quot;86c47eda12b752fc624bb8af2b52e3911e44d1a4293a1ada786db791c1f7df23&quot;,
+    &quot;eras_meta.json&quot;: &quot;e70c37059909ca1e6ea4f28e57d65557250510568eab8b9439201c8839aa7ec1&quot;
+  },
+  &quot;api_calls&quot;: 0
+}</pre></details></section>
+</main><footer><p>Presidential Profiles · Miller Center formal presidential-speech corpus ·
+historical event links are orientation receipts, not causal claims.</p><p class="footer-feedback"><a href="feedback.html">Feedback and accuracy →</a></p></footer>
+<script src="assets/plotly-3.0.1.min.js"></script><script>
+const SEGMENTATION={"full": [{"segment_start": 1805, "segment_index": 1, "objective": 1729.1222908780405}, {"segment_start": 1849, "segment_index": 2, "objective": 1729.1222908780405}, {"segment_start": 1869, "segment_index": 3, "objective": 1729.1222908780405}, {"segment_start": 1913, "segment_index": 4, "objective": 1729.1222908780405}, {"segment_start": 1937, "segment_index": 5, "objective": 1729.1222908780405}, {"segment_start": 1953, "segment_index": 6, "objective": 1729.1222908780405}, {"segment_start": 1981, "segment_index": 7, "objective": 1729.1222908780405}, {"segment_start": 2017, "segment_index": 8, "objective": 1729.1222908780405}], "drop_topic": [{"segment_start": 1805, "segment_index": 1, "objective": 1170.3581475300775}, {"segment_start": 1829, "segment_index": 2, "objective": 1170.3581475300775}, {"segment_start": 1869, "segment_index": 3, "objective": 1170.3581475300775}, {"segment_start": 1913, "segment_index": 4, "objective": 1170.3581475300775}, {"segment_start": 1933, "segment_index": 5, "objective": 1170.3581475300775}, {"segment_start": 1953, "segment_index": 6, "objective": 1170.3581475300775}, {"segment_start": 1981, "segment_index": 7, "objective": 1170.3581475300775}, {"segment_start": 2017, "segment_index": 8, "objective": 1170.3581475300775}], "drop_combat": [{"segment_start": 1805, "segment_index": 1, "objective": 1644.4271470824553}, {"segment_start": 1849, "segment_index": 2, "objective": 1644.4271470824553}, {"segment_start": 1869, "segment_index": 3, "objective": 1644.4271470824553}, {"segment_start": 1913, "segment_index": 4, "objective": 1644.4271470824553}, {"segment_start": 1937, "segment_index": 5, "objective": 1644.4271470824553}, {"segment_start": 1953, "segment_index": 6, "objective": 1644.4271470824553}, {"segment_start": 1981, "segment_index": 7, "objective": 1644.4271470824553}, {"segment_start": 2017, "segment_index": 8, "objective": 1644.4271470824553}], "drop_register": [{"segment_start": 1809, "segment_index": 1, "objective": 1652.7186258015452}, {"segment_start": 1849, "segment_index": 2, "objective": 1652.7186258015452}, {"segment_start": 1869, "segment_index": 3, "objective": 1652.7186258015452}, {"segment_start": 1913, "segment_index": 4, "objective": 1652.7186258015452}, {"segment_start": 1937, "segment_index": 5, "objective": 1652.7186258015452}, {"segment_start": 1953, "segment_index": 6, "objective": 1652.7186258015452}, {"segment_start": 1981, "segment_index": 7, "objective": 1652.7186258015452}, {"segment_start": 2017, "segment_index": 8, "objective": 1652.7186258015452}], "drop_marker": [{"segment_start": 1809, "segment_index": 1, "objective": 1321.9009721311127}, {"segment_start": 1829, "segment_index": 2, "objective": 1321.9009721311127}, {"segment_start": 1849, "segment_index": 3, "objective": 1321.9009721311127}, {"segment_start": 1869, "segment_index": 4, "objective": 1321.9009721311127}, {"segment_start": 1913, "segment_index": 5, "objective": 1321.9009721311127}, {"segment_start": 1937, "segment_index": 6, "objective": 1321.9009721311127}, {"segment_start": 1953, "segment_index": 7, "objective": 1321.9009721311127}, {"segment_start": 2013, "segment_index": 8, "objective": 1321.9009721311127}], "drop_stat": [{"segment_start": 1809, "segment_index": 1, "objective": 1471.3412967023996}, {"segment_start": 1849, "segment_index": 2, "objective": 1471.3412967023996}, {"segment_start": 1869, "segment_index": 3, "objective": 1471.3412967023996}, {"segment_start": 1913, "segment_index": 4, "objective": 1471.3412967023996}, {"segment_start": 1937, "segment_index": 5, "objective": 1471.3412967023996}, {"segment_start": 1953, "segment_index": 6, "objective": 1471.3412967023996}, {"segment_start": 1981, "segment_index": 7, "objective": 1471.3412967023996}, {"segment_start": 2017, "segment_index": 8, "objective": 1471.3412967023996}], "drop_genre": [{"segment_start": 1809, "segment_index": 1, "objective": 1343.023012530245}, {"segment_start": 1849, "segment_index": 2, "objective": 1343.023012530245}, {"segment_start": 1869, "segment_index": 3, "objective": 1343.023012530245}, {"segment_start": 1913, "segment_index": 4, "objective": 1343.023012530245}, {"segment_start": 1937, "segment_index": 5, "objective": 1343.023012530245}, {"segment_start": 1953, "segment_index": 6, "objective": 1343.023012530245}, {"segment_start": 1981, "segment_index": 7, "objective": 1343.023012530245}, {"segment_start": 2017, "segment_index": 8, "objective": 1343.023012530245}], "drop_opponents": [{"segment_start": 1805, "segment_index": 1, "objective": 1699.4600338824323}, {"segment_start": 1849, "segment_index": 2, "objective": 1699.4600338824323}, {"segment_start": 1869, "segment_index": 3, "objective": 1699.4600338824323}, {"segment_start": 1913, "segment_index": 4, "objective": 1699.4600338824323}, {"segment_start": 1937, "segment_index": 5, "objective": 1699.4600338824323}, {"segment_start": 1953, "segment_index": 6, "objective": 1699.4600338824323}, {"segment_start": 1981, "segment_index": 7, "objective": 1699.4600338824323}, {"segment_start": 2017, "segment_index": 8, "objective": 1699.4600338824323}]};
+const CONDITION_LABELS={"full": "All 63 axes", "drop_topic": "Without topics", "drop_combat": "Without combat labels", "drop_register": "Without proposal/value register", "drop_marker": "Without dictionary markers", "drop_stat": "Without readability and pronouns", "drop_genre": "Without speech type", "drop_opponents": "Without the date-bounded opponents marker"};
+const SLIDING=[{"boundary_year": 1797, "percentile_4": 0.9826086956521739, "percentile_8": 0.8873873873873874, "consensus": 0.9349980415197807, "rank_4": 5, "rank_8": 26, "consensus_rank": 8}, {"boundary_year": 1798, "percentile_4": 0.9434782608695652, "percentile_8": 0.8243243243243243, "consensus": 0.8839012925969447, "rank_4": 14, "rank_8": 40, "consensus_rank": 18}, {"boundary_year": 1799, "percentile_4": 0.908695652173913, "percentile_8": 0.8378378378378378, "consensus": 0.8732667450058754, "rank_4": 22, "rank_8": 37, "consensus_rank": 20}, {"boundary_year": 1800, "percentile_4": 0.8478260869565217, "percentile_8": 0.7792792792792793, "consensus": 0.8135526831179005, "rank_4": 36, "rank_8": 50, "consensus_rank": 39}, {"boundary_year": 1801, "percentile_4": 0.9652173913043478, "percentile_8": 0.8918918918918919, "consensus": 0.9285546415981198, "rank_4": 9, "rank_8": 25, "consensus_rank": 10}, {"boundary_year": 1802, "percentile_4": 0.9391304347826087, "percentile_8": 0.8648648648648649, "consensus": 0.9019976498237368, "rank_4": 15, "rank_8": 31, "consensus_rank": 15}, {"boundary_year": 1803, "percentile_4": 0.9478260869565217, "percentile_8": 0.9819819819819819, "consensus": 0.9649040344692519, "rank_4": 13, "rank_8": 5, "consensus_rank": 1}, {"boundary_year": 1804, "percentile_4": 0.7478260869565218, "percentile_8": 0.9144144144144144, "consensus": 0.831120250685468, "rank_4": 59, "rank_8": 20, "consensus_rank": 29}, {"boundary_year": 1805, "percentile_4": 0.7565217391304347, "percentile_8": 0.8018018018018018, "consensus": 0.7791617704661182, "rank_4": 57, "rank_8": 45, "consensus_rank": 47}, {"boundary_year": 1806, "percentile_4": 0.7260869565217392, "percentile_8": 0.9099099099099099, "consensus": 0.8179984332158245, "rank_4": 64, "rank_8": 21, "consensus_rank": 35}, {"boundary_year": 1807, "percentile_4": 0.7304347826086957, "percentile_8": 0.990990990990991, "consensus": 0.8607128867998433, "rank_4": 63, "rank_8": 3, "consensus_rank": 23}, {"boundary_year": 1808, "percentile_4": 0.5869565217391304, "percentile_8": 0.8828828828828829, "consensus": 0.7349197023110066, "rank_4": 96, "rank_8": 27, "consensus_rank": 52}, {"boundary_year": 1809, "percentile_4": 0.5739130434782609, "percentile_8": 0.8558558558558559, "consensus": 0.7148844496670583, "rank_4": 99, "rank_8": 33, "consensus_rank": 57}, {"boundary_year": 1810, "percentile_4": 0.6869565217391305, "percentile_8": 0.5810810810810811, "consensus": 0.6340188014101058, "rank_4": 73, "rank_8": 94, "consensus_rank": 82}, {"boundary_year": 1811, "percentile_4": 0.782608695652174, "percentile_8": 0.49549549549549554, "consensus": 0.6390520955738348, "rank_4": 51, "rank_8": 113, "consensus_rank": 79}, {"boundary_year": 1812, "percentile_4": 0.5913043478260869, "percentile_8": 0.2702702702702703, "consensus": 0.4307873090481786, "rank_4": 95, "rank_8": 163, "consensus_rank": 125}, {"boundary_year": 1813, "percentile_4": 0.5260869565217392, "percentile_8": 0.4054054054054054, "consensus": 0.4657461809635723, "rank_4": 110, "rank_8": 133, "consensus_rank": 115}, {"boundary_year": 1814, "percentile_4": 0.8434782608695652, "percentile_8": 0.5675675675675675, "consensus": 0.7055229142185664, "rank_4": 37, "rank_8": 97, "consensus_rank": 59}, {"boundary_year": 1815, "percentile_4": 0.9304347826086956, "percentile_8": 0.8783783783783784, "consensus": 0.9044065804935371, "rank_4": 17, "rank_8": 28, "consensus_rank": 14}, {"boundary_year": 1816, "percentile_4": 0.8782608695652174, "percentile_8": 0.6981981981981982, "consensus": 0.7882295338817078, "rank_4": 29, "rank_8": 68, "consensus_rank": 43}, {"boundary_year": 1817, "percentile_4": 0.6956521739130435, "percentile_8": 0.7477477477477478, "consensus": 0.7216999608303956, "rank_4": 71, "rank_8": 57, "consensus_rank": 55}, {"boundary_year": 1818, "percentile_4": 0.7043478260869565, "percentile_8": 0.4369369369369369, "consensus": 0.5706423815119467, "rank_4": 69, "rank_8": 126, "consensus_rank": 97}, {"boundary_year": 1819, "percentile_4": 0.4043478260869565, "percentile_8": 0.4279279279279279, "consensus": 0.4161378770074422, "rank_4": 138, "rank_8": 128, "consensus_rank": 128}, {"boundary_year": 1820, "percentile_4": 0.06521739130434778, "percentile_8": 0.30180180180180183, "consensus": 0.1835095965530748, "rank_4": 216, "rank_8": 156, "consensus_rank": 191}, {"boundary_year": 1821, "percentile_4": 0.004347826086956497, "percentile_8": 0.2207207207207207, "consensus": 0.11253427340383859, "rank_4": 230, "rank_8": 174, "consensus_rank": 210}, {"boundary_year": 1822, "percentile_4": 0.491304347826087, "percentile_8": 0.16666666666666663, "consensus": 0.3289855072463768, "rank_4": 118, "rank_8": 186, "consensus_rank": 148}, {"boundary_year": 1823, "percentile_4": 0.34782608695652173, "percentile_8": 0.18018018018018023, "consensus": 0.264003133568351, "rank_4": 151, "rank_8": 183, "consensus_rank": 165}, {"boundary_year": 1824, "percentile_4": 0.26086956521739135, "percentile_8": 0.13963963963963966, "consensus": 0.2002546024285155, "rank_4": 171, "rank_8": 192, "consensus_rank": 183}, {"boundary_year": 1825, "percentile_4": 0.22173913043478266, "percentile_8": 0.45495495495495497, "consensus": 0.3383470426948688, "rank_4": 180, "rank_8": 122, "consensus_rank": 146}, {"boundary_year": 1826, "percentile_4": 0.16521739130434787, "percentile_8": 0.572072072072072, "consensus": 0.36864473168820994, "rank_4": 193, "rank_8": 96, "consensus_rank": 140}, {"boundary_year": 1827, "percentile_4": 0.16086956521739126, "percentile_8": 0.6801801801801801, "consensus": 0.4205248726987857, "rank_4": 194, "rank_8": 72, "consensus_rank": 127}, {"boundary_year": 1828, "percentile_4": 0.20869565217391306, "percentile_8": 0.6531531531531531, "consensus": 0.4309244026635331, "rank_4": 183, "rank_8": 78, "consensus_rank": 124}, {"boundary_year": 1829, "percentile_4": 0.7739130434782608, "percentile_8": 0.6756756756756757, "consensus": 0.7247943595769683, "rank_4": 53, "rank_8": 73, "consensus_rank": 54}, {"boundary_year": 1830, "percentile_4": 0.6478260869565218, "percentile_8": 0.6891891891891893, "consensus": 0.6685076380728555, "rank_4": 82, "rank_8": 70, "consensus_rank": 69}, {"boundary_year": 1831, "percentile_4": 0.6086956521739131, "percentile_8": 0.7072072072072072, "consensus": 0.6579514296905602, "rank_4": 91, "rank_8": 66, "consensus_rank": 75}, {"boundary_year": 1832, "percentile_4": 0.6043478260869566, "percentile_8": 0.7252252252252251, "consensus": 0.6647865256560909, "rank_4": 92, "rank_8": 62, "consensus_rank": 73}, {"boundary_year": 1833, "percentile_4": 0.6695652173913044, "percentile_8": 0.6621621621621622, "consensus": 0.6658636897767333, "rank_4": 77, "rank_8": 76, "consensus_rank": 72}, {"boundary_year": 1834, "percentile_4": 0.4826086956521739, "percentile_8": 0.34684684684684686, "consensus": 0.4147277712495104, "rank_4": 120, "rank_8": 146, "consensus_rank": 129}, {"boundary_year": 1835, "percentile_4": 0.5478260869565217, "percentile_8": 0.36036036036036034, "consensus": 0.454093223658441, "rank_4": 105, "rank_8": 143, "consensus_rank": 119}, {"boundary_year": 1836, "percentile_4": 0.5652173913043479, "percentile_8": 0.3648648648648649, "consensus": 0.4650411280846064, "rank_4": 101, "rank_8": 142, "consensus_rank": 117}, {"boundary_year": 1837, "percentile_4": 0.4, "percentile_8": 0.19819819819819817, "consensus": 0.2990990990990991, "rank_4": 139, "rank_8": 179, "consensus_rank": 157}, {"boundary_year": 1838, "percentile_4": 0.23913043478260865, "percentile_8": 0.1216216216216216, "consensus": 0.18037602820211512, "rank_4": 176, "rank_8": 196, "consensus_rank": 192}, {"boundary_year": 1839, "percentile_4": 0.24782608695652175, "percentile_8": 0.16216216216216217, "consensus": 0.20499412455934196, "rank_4": 174, "rank_8": 187, "consensus_rank": 181}, {"boundary_year": 1840, "percentile_4": 0.3652173913043478, "percentile_8": 0.29729729729729726, "consensus": 0.33125734430082254, "rank_4": 147, "rank_8": 157, "consensus_rank": 147}, {"boundary_year": 1841, "percentile_4": 0.4608695652173913, "percentile_8": 0.1711711711711712, "consensus": 0.31602036819428125, "rank_4": 125, "rank_8": 185, "consensus_rank": 152}, {"boundary_year": 1842, "percentile_4": 0.3913043478260869, "percentile_8": 0.3513513513513513, "consensus": 0.3713278495887191, "rank_4": 141, "rank_8": 145, "consensus_rank": 139}, {"boundary_year": 1843, "percentile_4": 0.27826086956521734, "percentile_8": 0.3063063063063063, "consensus": 0.2922835879357618, "rank_4": 167, "rank_8": 155, "consensus_rank": 158}, {"boundary_year": 1844, "percentile_4": 0.4130434782608695, "percentile_8": 0.39639639639639634, "consensus": 0.40471993732863293, "rank_4": 136, "rank_8": 135, "consensus_rank": 132}, {"boundary_year": 1845, "percentile_4": 0.30434782608695654, "percentile_8": 0.4144144144144144, "consensus": 0.35938112025068547, "rank_4": 161, "rank_8": 131, "consensus_rank": 143}, {"boundary_year": 1846, "percentile_4": 0.04347826086956519, "percentile_8": 0.25225225225225223, "consensus": 0.1478652565609087, "rank_4": 221, "rank_8": 167, "consensus_rank": 199}, {"boundary_year": 1847, "percentile_4": 0.0304347826086957, "percentile_8": 0.44594594594594594, "consensus": 0.23819036427732082, "rank_4": 224, "rank_8": 124, "consensus_rank": 171}, {"boundary_year": 1848, "percentile_4": 0.28695652173913044, "percentile_8": 0.5315315315315315, "consensus": 0.409244026635331, "rank_4": 165, "rank_8": 105, "consensus_rank": 130}, {"boundary_year": 1849, "percentile_4": 0.6782608695652175, "percentile_8": 0.5630630630630631, "consensus": 0.6206619663141403, "rank_4": 75, "rank_8": 98, "consensus_rank": 85}, {"boundary_year": 1850, "percentile_4": 0.7956521739130434, "percentile_8": 0.5990990990990991, "consensus": 0.6973756365060713, "rank_4": 48, "rank_8": 90, "consensus_rank": 62}, {"boundary_year": 1851, "percentile_4": 0.7173913043478262, "percentile_8": 0.5405405405405406, "consensus": 0.6289659224441834, "rank_4": 66, "rank_8": 103, "consensus_rank": 84}, {"boundary_year": 1852, "percentile_4": 0.7782608695652173, "percentile_8": 0.48198198198198194, "consensus": 0.6301214257735996, "rank_4": 52, "rank_8": 116, "consensus_rank": 83}, {"boundary_year": 1853, "percentile_4": 0.8304347826086956, "percentile_8": 0.527027027027027, "consensus": 0.6787309048178614, "rank_4": 40, "rank_8": 106, "consensus_rank": 66}, {"boundary_year": 1854, "percentile_4": 0.8608695652173913, "percentile_8": 0.5360360360360361, "consensus": 0.6984528006267137, "rank_4": 33, "rank_8": 104, "consensus_rank": 61}, {"boundary_year": 1855, "percentile_4": 0.4347826086956522, "percentile_8": 0.13063063063063063, "consensus": 0.2827066196631414, "rank_4": 131, "rank_8": 194, "consensus_rank": 161}, {"boundary_year": 1856, "percentile_4": 0.4956521739130435, "percentile_8": 0.15315315315315314, "consensus": 0.3244026635330983, "rank_4": 117, "rank_8": 189, "consensus_rank": 149}, {"boundary_year": 1857, "percentile_4": 0.14347826086956517, "percentile_8": 0.22522522522522526, "consensus": 0.1843517430473952, "rank_4": 198, "rank_8": 173, "consensus_rank": 189}, {"boundary_year": 1858, "percentile_4": 0.19999999999999996, "percentile_8": 0.18918918918918914, "consensus": 0.19459459459459455, "rank_4": 185, "rank_8": 181, "consensus_rank": 185}, {"boundary_year": 1859, "percentile_4": 0.05652173913043479, "percentile_8": 0.18468468468468469, "consensus": 0.12060321190755974, "rank_4": 218, "rank_8": 182, "consensus_rank": 207}, {"boundary_year": 1860, "percentile_4": 0.021739130434782594, "percentile_8": 0.3198198198198198, "consensus": 0.17077947512730118, "rank_4": 226, "rank_8": 152, "consensus_rank": 195}, {"boundary_year": 1861, "percentile_4": 0.17826086956521736, "percentile_8": 0.46846846846846846, "consensus": 0.3233646690168429, "rank_4": 190, "rank_8": 119, "consensus_rank": 150}, {"boundary_year": 1862, "percentile_4": 0.6304347826086957, "percentile_8": 0.5585585585585586, "consensus": 0.5944966705836272, "rank_4": 86, "rank_8": 99, "consensus_rank": 91}, {"boundary_year": 1863, "percentile_4": 0.8652173913043478, "percentile_8": 0.5135135135135135, "consensus": 0.6893654524089307, "rank_4": 32, "rank_8": 109, "consensus_rank": 64}, {"boundary_year": 1864, "percentile_4": 0.7695652173913043, "percentile_8": 0.5, "consensus": 0.6347826086956522, "rank_4": 54, "rank_8": 112, "consensus_rank": 81}, {"boundary_year": 1865, "percentile_4": 0.7347826086956522, "percentile_8": 0.5855855855855856, "consensus": 0.6601840971406189, "rank_4": 62, "rank_8": 93, "consensus_rank": 74}, {"boundary_year": 1866, "percentile_4": 0.8217391304347826, "percentile_8": 0.4774774774774775, "consensus": 0.64960830395613, "rank_4": 42, "rank_8": 117, "consensus_rank": 77}, {"boundary_year": 1867, "percentile_4": 0.5217391304347826, "percentile_8": 0.20270270270270274, "consensus": 0.36222091656874267, "rank_4": 111, "rank_8": 178, "consensus_rank": 142}, {"boundary_year": 1868, "percentile_4": 0.7913043478260869, "percentile_8": 0.7297297297297297, "consensus": 0.7605170387779083, "rank_4": 49, "rank_8": 61, "consensus_rank": 49}, {"boundary_year": 1869, "percentile_4": 0.8869565217391304, "percentile_8": 0.8198198198198199, "consensus": 0.8533881707794752, "rank_4": 27, "rank_8": 41, "consensus_rank": 25}, {"boundary_year": 1870, "percentile_4": 0.9, "percentile_8": 0.7342342342342343, "consensus": 0.8171171171171172, "rank_4": 24, "rank_8": 60, "consensus_rank": 36}, {"boundary_year": 1871, "percentile_4": 0.6217391304347826, "percentile_8": 0.7117117117117118, "consensus": 0.6667254210732472, "rank_4": 88, "rank_8": 65, "consensus_rank": 71}, {"boundary_year": 1872, "percentile_4": 0.30869565217391304, "percentile_8": 0.4504504504504504, "consensus": 0.3795730513121817, "rank_4": 160, "rank_8": 123, "consensus_rank": 136}, {"boundary_year": 1873, "percentile_4": 0.19565217391304346, "percentile_8": 0.28828828828828834, "consensus": 0.2419702311006659, "rank_4": 186, "rank_8": 159, "consensus_rank": 168}, {"boundary_year": 1874, "percentile_4": 0.11739130434782608, "percentile_8": 0.1576576576576577, "consensus": 0.1375244810027419, "rank_4": 204, "rank_8": 188, "consensus_rank": 203}, {"boundary_year": 1875, "percentile_4": 0.0, "percentile_8": 0.04504504504504503, "consensus": 0.022522522522522515, "rank_4": 231, "rank_8": 213, "consensus_rank": 221}, {"boundary_year": 1876, "percentile_4": 0.3521739130434782, "percentile_8": 0.10360360360360366, "consensus": 0.22788875832354094, "rank_4": 150, "rank_8": 200, "consensus_rank": 174}, {"boundary_year": 1877, "percentile_4": 0.4260869565217391, "percentile_8": 0.17567567567567566, "consensus": 0.3008813160987074, "rank_4": 133, "rank_8": 184, "consensus_rank": 155}, {"boundary_year": 1878, "percentile_4": 0.26521739130434785, "percentile_8": 0.0855855855855856, "consensus": 0.17540148844496672, "rank_4": 170, "rank_8": 204, "consensus_rank": 193}, {"boundary_year": 1879, "percentile_4": 0.33043478260869563, "percentile_8": 0.013513513513513487, "consensus": 0.17197414806110456, "rank_4": 155, "rank_8": 220, "consensus_rank": 194}, {"boundary_year": 1880, "percentile_4": 0.09565217391304348, "percentile_8": 0.0045045045045044585, "consensus": 0.05007833920877397, "rank_4": 209, "rank_8": 222, "consensus_rank": 215}, {"boundary_year": 1881, "percentile_4": 0.27391304347826084, "percentile_8": 0.11261261261261257, "consensus": 0.1932628280454367, "rank_4": 168, "rank_8": 198, "consensus_rank": 188}, {"boundary_year": 1882, "percentile_4": 0.13478260869565217, "percentile_8": 0.10810810810810811, "consensus": 0.12144535840188014, "rank_4": 200, "rank_8": 199, "consensus_rank": 205}, {"boundary_year": 1883, "percentile_4": 0.4478260869565217, "percentile_8": 0.28378378378378377, "consensus": 0.36580493537015274, "rank_4": 128, "rank_8": 160, "consensus_rank": 141}, {"boundary_year": 1884, "percentile_4": 0.05217391304347829, "percentile_8": 0.22972972972972971, "consensus": 0.140951821386604, "rank_4": 219, "rank_8": 172, "consensus_rank": 202}, {"boundary_year": 1885, "percentile_4": 0.32173913043478264, "percentile_8": 0.2792792792792793, "consensus": 0.300509204857031, "rank_4": 157, "rank_8": 161, "consensus_rank": 156}, {"boundary_year": 1886, "percentile_4": 0.32608695652173914, "percentile_8": 0.21171171171171166, "consensus": 0.2688993341167254, "rank_4": 156, "rank_8": 176, "consensus_rank": 164}, {"boundary_year": 1887, "percentile_4": 0.5043478260869565, "percentile_8": 0.1351351351351351, "consensus": 0.3197414806110458, "rank_4": 115, "rank_8": 193, "consensus_rank": 151}, {"boundary_year": 1888, "percentile_4": 0.3826086956521739, "percentile_8": 0.09909909909909909, "consensus": 0.2408538973756365, "rank_4": 143, "rank_8": 201, "consensus_rank": 170}, {"boundary_year": 1889, "percentile_4": 0.33478260869565213, "percentile_8": 0.27477477477477474, "consensus": 0.30477869173521344, "rank_4": 154, "rank_8": 162, "consensus_rank": 154}, {"boundary_year": 1890, "percentile_4": 0.5695652173913044, "percentile_8": 0.31081081081081086, "consensus": 0.4401880141010576, "rank_4": 100, "rank_8": 154, "consensus_rank": 121}, {"boundary_year": 1891, "percentile_4": 0.7130434782608696, "percentile_8": 0.3783783783783784, "consensus": 0.545710928319624, "rank_4": 67, "rank_8": 139, "consensus_rank": 104}, {"boundary_year": 1892, "percentile_4": 0.6652173913043478, "percentile_8": 0.2657657657657657, "consensus": 0.46549157853505674, "rank_4": 78, "rank_8": 164, "consensus_rank": 116}, {"boundary_year": 1893, "percentile_4": 0.19130434782608696, "percentile_8": 0.09459459459459463, "consensus": 0.1429494712103408, "rank_4": 187, "rank_8": 202, "consensus_rank": 201}, {"boundary_year": 1894, "percentile_4": 0.07826086956521738, "percentile_8": 0.009009009009009028, "consensus": 0.043634939287113206, "rank_4": 213, "rank_8": 221, "consensus_rank": 217}, {"boundary_year": 1895, "percentile_4": 0.008695652173912993, "percentile_8": 0.03153153153153154, "consensus": 0.020113591852722268, "rank_4": 229, "rank_8": 216, "consensus_rank": 222}, {"boundary_year": 1896, "percentile_4": 0.03913043478260869, "percentile_8": 0.018018018018018056, "consensus": 0.028574226400313374, "rank_4": 222, "rank_8": 219, "consensus_rank": 219}, {"boundary_year": 1897, "percentile_4": 0.09999999999999998, "percentile_8": 0.04054054054054057, "consensus": 0.07027027027027027, "rank_4": 208, "rank_8": 214, "consensus_rank": 212}, {"boundary_year": 1898, "percentile_4": 0.22608695652173916, "percentile_8": 0.2072072072072072, "consensus": 0.21664708186447318, "rank_4": 179, "rank_8": 177, "consensus_rank": 177}, {"boundary_year": 1899, "percentile_4": 0.408695652173913, "percentile_8": 0.3873873873873874, "consensus": 0.3980415197806502, "rank_4": 137, "rank_8": 137, "consensus_rank": 133}, {"boundary_year": 1900, "percentile_4": 0.10434782608695647, "percentile_8": 0.509009009009009, "consensus": 0.30667841754798275, "rank_4": 207, "rank_8": 110, "consensus_rank": 153}, {"boundary_year": 1901, "percentile_4": 0.4217391304347826, "percentile_8": 0.8063063063063063, "consensus": 0.6140227183705445, "rank_4": 134, "rank_8": 44, "consensus_rank": 86}, {"boundary_year": 1902, "percentile_4": 0.11304347826086958, "percentile_8": 0.36936936936936937, "consensus": 0.24120642381511948, "rank_4": 205, "rank_8": 141, "consensus_rank": 169}, {"boundary_year": 1903, "percentile_4": 0.15217391304347827, "percentile_8": 0.2432432432432432, "consensus": 0.19770857814336074, "rank_4": 196, "rank_8": 169, "consensus_rank": 184}, {"boundary_year": 1904, "percentile_4": 0.13913043478260867, "percentile_8": 0.24774774774774777, "consensus": 0.19343909126517822, "rank_4": 199, "rank_8": 168, "consensus_rank": 187}, {"boundary_year": 1905, "percentile_4": 0.08695652173913049, "percentile_8": 0.14414414414414412, "consensus": 0.1155503329416373, "rank_4": 211, "rank_8": 191, "consensus_rank": 209}, {"boundary_year": 1906, "percentile_4": 0.06956521739130439, "percentile_8": 0.06756756756756754, "consensus": 0.06856639247943597, "rank_4": 215, "rank_8": 208, "consensus_rank": 213}, {"boundary_year": 1907, "percentile_4": 0.25217391304347825, "percentile_8": 0.0495495495495496, "consensus": 0.15086173129651392, "rank_4": 173, "rank_8": 212, "consensus_rank": 197}, {"boundary_year": 1908, "percentile_4": 0.33913043478260874, "percentile_8": 0.07657657657657657, "consensus": 0.20785350567959265, "rank_4": 153, "rank_8": 206, "consensus_rank": 180}, {"boundary_year": 1909, "percentile_4": 0.5521739130434782, "percentile_8": 0.32432432432432434, "consensus": 0.43824911868390126, "rank_4": 104, "rank_8": 151, "consensus_rank": 122}, {"boundary_year": 1910, "percentile_4": 0.21739130434782605, "percentile_8": 0.07207207207207211, "consensus": 0.14473168820994908, "rank_4": 181, "rank_8": 207, "consensus_rank": 200}, {"boundary_year": 1911, "percentile_4": 0.30000000000000004, "percentile_8": 0.26126126126126126, "consensus": 0.28063063063063065, "rank_4": 162, "rank_8": 165, "consensus_rank": 162}, {"boundary_year": 1912, "percentile_4": 0.5608695652173913, "percentile_8": 0.5765765765765766, "consensus": 0.5687230708969839, "rank_4": 102, "rank_8": 95, "consensus_rank": 98}, {"boundary_year": 1913, "percentile_4": 0.9217391304347826, "percentile_8": 0.9189189189189189, "consensus": 0.9203290246768507, "rank_4": 19, "rank_8": 19, "consensus_rank": 13}, {"boundary_year": 1914, "percentile_4": 0.8695652173913043, "percentile_8": 0.9054054054054054, "consensus": 0.8874853113983548, "rank_4": 31, "rank_8": 22, "consensus_rank": 17}, {"boundary_year": 1915, "percentile_4": 0.7869565217391304, "percentile_8": 0.9324324324324325, "consensus": 0.8596944770857815, "rank_4": 50, "rank_8": 16, "consensus_rank": 24}, {"boundary_year": 1916, "percentile_4": 0.7434782608695651, "percentile_8": 0.9009009009009009, "consensus": 0.8221895808852331, "rank_4": 60, "rank_8": 23, "consensus_rank": 33}, {"boundary_year": 1917, "percentile_4": 0.6608695652173913, "percentile_8": 0.8423423423423424, "consensus": 0.7516059537798668, "rank_4": 79, "rank_8": 36, "consensus_rank": 50}, {"boundary_year": 1918, "percentile_4": 0.4695652173913043, "percentile_8": 0.6441441441441442, "consensus": 0.5568546807677243, "rank_4": 123, "rank_8": 80, "consensus_rank": 102}, {"boundary_year": 1919, "percentile_4": 0.6739130434782609, "percentile_8": 0.6846846846846847, "consensus": 0.6792988640814728, "rank_4": 76, "rank_8": 71, "consensus_rank": 65}, {"boundary_year": 1920, "percentile_4": 0.7086956521739131, "percentile_8": 0.6261261261261262, "consensus": 0.6674108891500197, "rank_4": 68, "rank_8": 84, "consensus_rank": 70}, {"boundary_year": 1921, "percentile_4": 0.8521739130434782, "percentile_8": 0.7882882882882882, "consensus": 0.8202311006658832, "rank_4": 35, "rank_8": 48, "consensus_rank": 34}, {"boundary_year": 1922, "percentile_4": 0.6260869565217391, "percentile_8": 0.7837837837837838, "consensus": 0.7049353701527614, "rank_4": 87, "rank_8": 49, "consensus_rank": 60}, {"boundary_year": 1923, "percentile_4": 0.8347826086956522, "percentile_8": 0.8108108108108107, "consensus": 0.8227967097532315, "rank_4": 39, "rank_8": 43, "consensus_rank": 32}, {"boundary_year": 1924, "percentile_4": 0.8260869565217391, "percentile_8": 0.7432432432432432, "consensus": 0.7846650998824911, "rank_4": 41, "rank_8": 58, "consensus_rank": 44}, {"boundary_year": 1925, "percentile_4": 0.5565217391304348, "percentile_8": 0.6036036036036037, "consensus": 0.5800626713670192, "rank_4": 103, "rank_8": 89, "consensus_rank": 94}, {"boundary_year": 1926, "percentile_4": 0.18260869565217386, "percentile_8": 0.3918918918918919, "consensus": 0.28725029377203287, "rank_4": 189, "rank_8": 136, "consensus_rank": 159}, {"boundary_year": 1927, "percentile_4": 0.6521739130434783, "percentile_8": 0.7657657657657657, "consensus": 0.708969839404622, "rank_4": 81, "rank_8": 53, "consensus_rank": 58}, {"boundary_year": 1928, "percentile_4": 0.8043478260869565, "percentile_8": 0.8693693693693694, "consensus": 0.836858597728163, "rank_4": 46, "rank_8": 30, "consensus_rank": 27}, {"boundary_year": 1929, "percentile_4": 0.9130434782608696, "percentile_8": 0.9369369369369369, "consensus": 0.9249902075989033, "rank_4": 21, "rank_8": 15, "consensus_rank": 12}, {"boundary_year": 1930, "percentile_4": 0.8826086956521739, "percentile_8": 0.9684684684684685, "consensus": 0.9255385820603212, "rank_4": 28, "rank_8": 8, "consensus_rank": 11}, {"boundary_year": 1931, "percentile_4": 0.817391304347826, "percentile_8": 0.9594594594594594, "consensus": 0.8884253819036427, "rank_4": 43, "rank_8": 10, "consensus_rank": 16}, {"boundary_year": 1932, "percentile_4": 0.7608695652173914, "percentile_8": 0.972972972972973, "consensus": 0.8669212690951822, "rank_4": 56, "rank_8": 7, "consensus_rank": 22}, {"boundary_year": 1933, "percentile_4": 0.7391304347826086, "percentile_8": 0.8603603603603603, "consensus": 0.7997453975714846, "rank_4": 61, "rank_8": 32, "consensus_rank": 40}, {"boundary_year": 1934, "percentile_4": 0.6391304347826087, "percentile_8": 0.9279279279279279, "consensus": 0.7835291813552683, "rank_4": 84, "rank_8": 17, "consensus_rank": 45}, {"boundary_year": 1935, "percentile_4": 0.6, "percentile_8": 0.9414414414414415, "consensus": 0.7707207207207207, "rank_4": 93, "rank_8": 14, "consensus_rank": 48}, {"boundary_year": 1936, "percentile_4": 0.6173913043478261, "percentile_8": 0.963963963963964, "consensus": 0.790677634155895, "rank_4": 89, "rank_8": 9, "consensus_rank": 42}, {"boundary_year": 1937, "percentile_4": 0.5173913043478261, "percentile_8": 0.9774774774774775, "consensus": 0.7474343909126517, "rank_4": 112, "rank_8": 6, "consensus_rank": 51}, {"boundary_year": 1938, "percentile_4": 0.7521739130434782, "percentile_8": 0.9864864864864865, "consensus": 0.8693301997649824, "rank_4": 58, "rank_8": 4, "consensus_rank": 21}, {"boundary_year": 1939, "percentile_4": 0.8913043478260869, "percentile_8": 1.0, "consensus": 0.9456521739130435, "rank_4": 26, "rank_8": 1, "consensus_rank": 5}, {"boundary_year": 1940, "percentile_4": 0.8739130434782609, "percentile_8": 0.9954954954954955, "consensus": 0.9347042694868782, "rank_4": 30, "rank_8": 2, "consensus_rank": 9}, {"boundary_year": 1941, "percentile_4": 0.4565217391304348, "percentile_8": 0.8153153153153153, "consensus": 0.6359185272228751, "rank_4": 126, "rank_8": 42, "consensus_rank": 80}, {"boundary_year": 1942, "percentile_4": 0.20434782608695656, "percentile_8": 0.21621621621621623, "consensus": 0.2102820211515864, "rank_4": 184, "rank_8": 175, "consensus_rank": 179}, {"boundary_year": 1943, "percentile_4": 0.35652173913043483, "percentile_8": 0.3288288288288288, "consensus": 0.3426752839796318, "rank_4": 149, "rank_8": 150, "consensus_rank": 144}, {"boundary_year": 1944, "percentile_4": 0.5782608695652174, "percentile_8": 0.6216216216216216, "consensus": 0.5999412455934194, "rank_4": 98, "rank_8": 85, "consensus_rank": 90}, {"boundary_year": 1945, "percentile_4": 0.7652173913043478, "percentile_8": 0.9234234234234234, "consensus": 0.8443204073638857, "rank_4": 55, "rank_8": 18, "consensus_rank": 26}, {"boundary_year": 1946, "percentile_4": 0.9739130434782609, "percentile_8": 0.954954954954955, "consensus": 0.964433999216608, "rank_4": 7, "rank_8": 11, "consensus_rank": 2}, {"boundary_year": 1947, "percentile_4": 0.9695652173913043, "percentile_8": 0.9504504504504504, "consensus": 0.9600078339208773, "rank_4": 8, "rank_8": 12, "consensus_rank": 4}, {"boundary_year": 1948, "percentile_4": 0.9782608695652174, "percentile_8": 0.9459459459459459, "consensus": 0.9621034077555817, "rank_4": 6, "rank_8": 13, "consensus_rank": 3}, {"boundary_year": 1949, "percentile_4": 0.991304347826087, "percentile_8": 0.8963963963963963, "consensus": 0.9438503721112417, "rank_4": 3, "rank_8": 24, "consensus_rank": 6}, {"boundary_year": 1950, "percentile_4": 0.8565217391304347, "percentile_8": 0.7927927927927928, "consensus": 0.8246572659616138, "rank_4": 34, "rank_8": 47, "consensus_rank": 31}, {"boundary_year": 1951, "percentile_4": 0.8956521739130435, "percentile_8": 0.6711711711711712, "consensus": 0.7834116725421074, "rank_4": 25, "rank_8": 74, "consensus_rank": 46}, {"boundary_year": 1952, "percentile_4": 0.9608695652173913, "percentile_8": 0.7972972972972973, "consensus": 0.8790834312573443, "rank_4": 10, "rank_8": 46, "consensus_rank": 19}, {"boundary_year": 1953, "percentile_4": 1.0, "percentile_8": 0.8738738738738738, "consensus": 0.9369369369369369, "rank_4": 1, "rank_8": 29, "consensus_rank": 7}, {"boundary_year": 1954, "percentile_4": 0.9347826086956522, "percentile_8": 0.6936936936936937, "consensus": 0.814238151194673, "rank_4": 16, "rank_8": 69, "consensus_rank": 38}, {"boundary_year": 1955, "percentile_4": 0.7, "percentile_8": 0.37387387387387383, "consensus": 0.5369369369369369, "rank_4": 70, "rank_8": 140, "consensus_rank": 106}, {"boundary_year": 1956, "percentile_4": 0.4304347826086956, "percentile_8": 0.49099099099099097, "consensus": 0.4607128867998433, "rank_4": 132, "rank_8": 114, "consensus_rank": 118}, {"boundary_year": 1957, "percentile_4": 0.9260869565217391, "percentile_8": 0.42342342342342343, "consensus": 0.6747551899725812, "rank_4": 18, "rank_8": 129, "consensus_rank": 67}, {"boundary_year": 1958, "percentile_4": 0.808695652173913, "percentile_8": 0.4864864864864865, "consensus": 0.6475910693301998, "rank_4": 45, "rank_8": 115, "consensus_rank": 78}, {"boundary_year": 1959, "percentile_4": 0.6565217391304348, "percentile_8": 0.545045045045045, "consensus": 0.6007833920877399, "rank_4": 80, "rank_8": 102, "consensus_rank": 89}, {"boundary_year": 1960, "percentile_4": 0.5, "percentile_8": 0.7162162162162162, "consensus": 0.6081081081081081, "rank_4": 116, "rank_8": 64, "consensus_rank": 87}, {"boundary_year": 1961, "percentile_4": 0.7217391304347827, "percentile_8": 0.7207207207207207, "consensus": 0.7212299255777517, "rank_4": 65, "rank_8": 63, "consensus_rank": 56}, {"boundary_year": 1962, "percentile_4": 0.4521739130434783, "percentile_8": 0.6126126126126126, "consensus": 0.5323932628280454, "rank_4": 127, "rank_8": 87, "consensus_rank": 107}, {"boundary_year": 1963, "percentile_4": 0.508695652173913, "percentile_8": 0.6351351351351351, "consensus": 0.571915393654524, "rank_4": 114, "rank_8": 82, "consensus_rank": 96}, {"boundary_year": 1964, "percentile_4": 0.682608695652174, "percentile_8": 0.7747747747747747, "consensus": 0.7286917352134743, "rank_4": 74, "rank_8": 51, "consensus_rank": 53}, {"boundary_year": 1965, "percentile_4": 0.37826086956521743, "percentile_8": 0.38288288288288286, "consensus": 0.38057187622405014, "rank_4": 144, "rank_8": 138, "consensus_rank": 135}, {"boundary_year": 1966, "percentile_4": 0.013043478260869601, "percentile_8": 0.058558558558558516, "consensus": 0.03580101840971406, "rank_4": 228, "rank_8": 210, "consensus_rank": 218}, {"boundary_year": 1967, "percentile_4": 0.017391304347826098, "percentile_8": 0.036036036036036, "consensus": 0.02671367019193105, "rank_4": 227, "rank_8": 215, "consensus_rank": 220}, {"boundary_year": 1968, "percentile_4": 0.6434782608695653, "percentile_8": 0.40990990990990994, "consensus": 0.5266940853897376, "rank_4": 83, "rank_8": 132, "consensus_rank": 109}, {"boundary_year": 1969, "percentile_4": 0.5826086956521739, "percentile_8": 0.5495495495495495, "consensus": 0.5660791226008617, "rank_4": 97, "rank_8": 101, "consensus_rank": 99}, {"boundary_year": 1970, "percentile_4": 0.4391304347826087, "percentile_8": 0.5225225225225225, "consensus": 0.4808264786525656, "rank_4": 130, "rank_8": 107, "consensus_rank": 112}, {"boundary_year": 1971, "percentile_4": 0.34347826086956523, "percentile_8": 0.6171171171171171, "consensus": 0.4802976889933412, "rank_4": 152, "rank_8": 86, "consensus_rank": 113}, {"boundary_year": 1972, "percentile_4": 0.10869565217391308, "percentile_8": 0.7567567567567568, "consensus": 0.43272620446533494, "rank_4": 206, "rank_8": 55, "consensus_rank": 123}, {"boundary_year": 1973, "percentile_4": 0.5304347826086957, "percentile_8": 0.8513513513513513, "consensus": 0.6908930669800235, "rank_4": 109, "rank_8": 34, "consensus_rank": 63}, {"boundary_year": 1974, "percentile_4": 0.5130434782608695, "percentile_8": 0.6396396396396397, "consensus": 0.5763415589502545, "rank_4": 113, "rank_8": 81, "consensus_rank": 95}, {"boundary_year": 1975, "percentile_4": 0.3695652173913043, "percentile_8": 0.472972972972973, "consensus": 0.4212690951821387, "rank_4": 146, "rank_8": 118, "consensus_rank": 126}, {"boundary_year": 1976, "percentile_4": 0.4434782608695652, "percentile_8": 0.33783783783783783, "consensus": 0.3906580493537015, "rank_4": 129, "rank_8": 148, "consensus_rank": 134}, {"boundary_year": 1977, "percentile_4": 0.12608695652173918, "percentile_8": 0.14864864864864868, "consensus": 0.13736780258519393, "rank_4": 202, "rank_8": 190, "consensus_rank": 204}, {"boundary_year": 1978, "percentile_4": 0.08260869565217388, "percentile_8": 0.3558558558558559, "consensus": 0.21923227575401488, "rank_4": 212, "rank_8": 144, "consensus_rank": 176}, {"boundary_year": 1979, "percentile_4": 0.07391304347826089, "percentile_8": 0.4009009009009009, "consensus": 0.2374069721895809, "rank_4": 214, "rank_8": 134, "consensus_rank": 172}, {"boundary_year": 1980, "percentile_4": 0.3739130434782608, "percentile_8": 0.4414414414414415, "consensus": 0.40767724245985115, "rank_4": 145, "rank_8": 125, "consensus_rank": 131}, {"boundary_year": 1981, "percentile_4": 0.5391304347826087, "percentile_8": 0.5180180180180181, "consensus": 0.5285742264003134, "rank_4": 107, "rank_8": 108, "consensus_rank": 108}, {"boundary_year": 1982, "percentile_4": 0.29130434782608694, "percentile_8": 0.45945945945945943, "consensus": 0.3753819036427732, "rank_4": 164, "rank_8": 121, "consensus_rank": 137}, {"boundary_year": 1983, "percentile_4": 0.23043478260869565, "percentile_8": 0.3153153153153153, "consensus": 0.2728750489620055, "rank_4": 178, "rank_8": 153, "consensus_rank": 163}, {"boundary_year": 1984, "percentile_4": 0.25652173913043474, "percentile_8": 0.08108108108108103, "consensus": 0.1688014101057579, "rank_4": 172, "rank_8": 205, "consensus_rank": 196}, {"boundary_year": 1985, "percentile_4": 0.02608695652173909, "percentile_8": 0.0, "consensus": 0.013043478260869545, "rank_4": 225, "rank_8": 223, "consensus_rank": 223}, {"boundary_year": 1986, "percentile_4": 0.09130434782608698, "percentile_8": 0.022522522522522515, "consensus": 0.05691343517430475, "rank_4": 210, "rank_8": 218, "consensus_rank": 214}, {"boundary_year": 1987, "percentile_4": 0.23478260869565215, "percentile_8": 0.06306306306306309, "consensus": 0.14892283587935762, "rank_4": 177, "rank_8": 209, "consensus_rank": 198}, {"boundary_year": 1988, "percentile_4": 0.36086956521739133, "percentile_8": 0.09009009009009006, "consensus": 0.2254798276537407, "rank_4": 148, "rank_8": 203, "consensus_rank": 175}, {"boundary_year": 1989, "percentile_4": 0.12173913043478257, "percentile_8": 0.11711711711711714, "consensus": 0.11942812377594986, "rank_4": 203, "rank_8": 197, "consensus_rank": 208}, {"boundary_year": 1990, "percentile_4": 0.18695652173913047, "percentile_8": 0.23423423423423428, "consensus": 0.21059537798668237, "rank_4": 188, "rank_8": 171, "consensus_rank": 178}, {"boundary_year": 1991, "percentile_4": 0.13043478260869568, "percentile_8": 0.2567567567567568, "consensus": 0.19359576968272624, "rank_4": 201, "rank_8": 166, "consensus_rank": 186}, {"boundary_year": 1992, "percentile_4": 0.16956521739130437, "percentile_8": 0.2927927927927928, "consensus": 0.23117900509204858, "rank_4": 192, "rank_8": 158, "consensus_rank": 173}, {"boundary_year": 1993, "percentile_4": 0.26956521739130435, "percentile_8": 0.23873873873873874, "consensus": 0.25415197806502154, "rank_4": 169, "rank_8": 170, "consensus_rank": 167}, {"boundary_year": 1994, "percentile_4": 0.28260869565217395, "percentile_8": 0.12612612612612617, "consensus": 0.20436741088915006, "rank_4": 166, "rank_8": 195, "consensus_rank": 182}, {"boundary_year": 1995, "percentile_4": 0.15652173913043477, "percentile_8": 0.05405405405405406, "consensus": 0.10528789659224441, "rank_4": 195, "rank_8": 211, "consensus_rank": 211}, {"boundary_year": 1996, "percentile_4": 0.060869565217391286, "percentile_8": 0.027027027027026973, "consensus": 0.04394829612220913, "rank_4": 217, "rank_8": 217, "consensus_rank": 216}, {"boundary_year": 1997, "percentile_4": 0.4652173913043478, "percentile_8": 0.5045045045045045, "consensus": 0.48486094790442613, "rank_4": 124, "rank_8": 111, "consensus_rank": 111}, {"boundary_year": 1998, "percentile_4": 0.3956521739130435, "percentile_8": 0.5540540540540541, "consensus": 0.4748531139835488, "rank_4": 140, "rank_8": 100, "consensus_rank": 114}, {"boundary_year": 1999, "percentile_4": 0.5434782608695652, "percentile_8": 0.7612612612612613, "consensus": 0.6523697610654132, "rank_4": 106, "rank_8": 54, "consensus_rank": 76}, {"boundary_year": 2000, "percentile_4": 0.8, "percentile_8": 0.8288288288288288, "consensus": 0.8144144144144144, "rank_4": 47, "rank_8": 39, "consensus_rank": 37}, {"boundary_year": 2001, "percentile_4": 0.8391304347826087, "percentile_8": 0.8333333333333334, "consensus": 0.836231884057971, "rank_4": 38, "rank_8": 38, "consensus_rank": 28}, {"boundary_year": 2002, "percentile_4": 0.4782608695652174, "percentile_8": 0.6306306306306306, "consensus": 0.5544457500979241, "rank_4": 121, "rank_8": 83, "consensus_rank": 103}, {"boundary_year": 2003, "percentile_4": 0.034782608695652195, "percentile_8": 0.33333333333333337, "consensus": 0.18405797101449278, "rank_4": 223, "rank_8": 149, "consensus_rank": 190}, {"boundary_year": 2004, "percentile_4": 0.047826086956521685, "percentile_8": 0.1936936936936937, "consensus": 0.1207598903251077, "rank_4": 220, "rank_8": 180, "consensus_rank": 206}, {"boundary_year": 2005, "percentile_4": 0.17391304347826086, "percentile_8": 0.3423423423423423, "consensus": 0.2581276929103016, "rank_4": 191, "rank_8": 147, "consensus_rank": 166}, {"boundary_year": 2006, "percentile_4": 0.21304347826086956, "percentile_8": 0.463963963963964, "consensus": 0.3385037211124168, "rank_4": 182, "rank_8": 120, "consensus_rank": 145}, {"boundary_year": 2007, "percentile_4": 0.5347826086956522, "percentile_8": 0.5945945945945945, "consensus": 0.5646886016451234, "rank_4": 108, "rank_8": 91, "consensus_rank": 100}, {"boundary_year": 2008, "percentile_4": 0.4739130434782609, "percentile_8": 0.7027027027027026, "consensus": 0.5883078730904818, "rank_4": 122, "rank_8": 67, "consensus_rank": 93}, {"boundary_year": 2009, "percentile_4": 0.4173913043478261, "percentile_8": 0.7702702702702703, "consensus": 0.5938307873090483, "rank_4": 135, "rank_8": 52, "consensus_rank": 92}, {"boundary_year": 2010, "percentile_4": 0.29565217391304344, "percentile_8": 0.6081081081081081, "consensus": 0.4518801410105758, "rank_4": 163, "rank_8": 88, "consensus_rank": 120}, {"boundary_year": 2011, "percentile_4": 0.14782608695652177, "percentile_8": 0.41891891891891897, "consensus": 0.28337250293772037, "rank_4": 197, "rank_8": 130, "consensus_rank": 160}, {"boundary_year": 2012, "percentile_4": 0.31739130434782614, "percentile_8": 0.43243243243243246, "consensus": 0.3749118683901293, "rank_4": 158, "rank_8": 127, "consensus_rank": 138}, {"boundary_year": 2013, "percentile_4": 0.24347826086956526, "percentile_8": 0.8468468468468469, "consensus": 0.5451625538582061, "rank_4": 175, "rank_8": 35, "consensus_rank": 105}, {"boundary_year": 2014, "percentile_4": 0.3869565217391304, "percentile_8": 0.7387387387387387, "consensus": 0.5628476302389346, "rank_4": 142, "rank_8": 59, "consensus_rank": 101}, {"boundary_year": 2015, "percentile_4": 0.31304347826086953, "percentile_8": 0.6576576576576576, "consensus": 0.48535056795926357, "rank_4": 159, "rank_8": 77, "consensus_rank": 110}, {"boundary_year": 2016, "percentile_4": 0.691304347826087, "percentile_8": 0.6486486486486487, "consensus": 0.6699764982373678, "rank_4": 72, "rank_8": 79, "consensus_rank": 68}, {"boundary_year": 2017, "percentile_4": 0.9173913043478261, "percentile_8": 0.6666666666666667, "consensus": 0.7920289855072464, "rank_4": 20, "rank_8": 75, "consensus_rank": 41}, {"boundary_year": 2018, "percentile_4": 0.9043478260869565, "percentile_8": 0.7522522522522522, "consensus": 0.8283000391696044, "rank_4": 23, "rank_8": 56, "consensus_rank": 30}, {"boundary_year": 2019, "percentile_4": 0.6130434782608696, "percentile_8": 0.5900900900900901, "consensus": 0.6015667841754798, "rank_4": 90, "rank_8": 92, "consensus_rank": 88}];
+const CHOSEN=[{"year": 1809, "score": 0.7148844496670583, "label": "1809", "rank": 57, "persistent_start": 1805, "recurrence": 8}, {"year": 1850, "score": 0.6973756365060713, "label": "1850", "rank": 62, "persistent_start": 1849, "recurrence": 7}, {"year": 1869, "score": 0.8533881707794752, "label": "1869", "rank": 25, "persistent_start": 1869, "recurrence": 8}, {"year": 1913, "score": 0.9203290246768507, "label": "1913", "rank": 13, "persistent_start": 1913, "recurrence": 8}, {"year": 1933, "score": 0.7997453975714846, "label": "1933", "rank": 40, "persistent_start": 1937, "recurrence": 8}, {"year": 1953, "score": 0.9369369369369369, "label": "1953", "rank": 7, "persistent_start": 1953, "recurrence": 8}, {"year": 1981, "score": 0.5285742264003134, "label": "1981", "rank": 108, "persistent_start": 1981, "recurrence": 7}, {"year": 2017, "score": 0.7920289855072464, "label": "2017", "rank": 41, "persistent_start": 2017, "recurrence": 8}];
+const EDITORIAL_STARTS=[1809, 1850, 1869, 1913, 1933, 1953, 1981, 2017];
+const base={template:"simple_white",paper_bgcolor:"#fff",plot_bgcolor:"#fff",
+font:{family:"system-ui",color:"#24313d"},margin:{l:62,r:28,t:26,b:62},
+hoverlabel:{font:{family:"system-ui"}}};
+function editorialShapes(){
+ return EDITORIAL_STARTS.map(y=>({type:"line",xref:"x",yref:"paper",x0:y,x1:y,y0:0,y1:1,
+ line:{color:"rgba(173,117,63,.24)",width:1,dash:"dot"},layer:"below"}));
+}
+function drawCluster(condition){
+ const rows=SEGMENTATION[condition]||[];
+ Plotly.react("cluster-chart",[
+  {type:"scatter",mode:"markers+text",x:rows.map(r=>r.segment_start),
+    y:rows.map(()=>1),text:rows.map(r=>String(r.segment_start)),textposition:"top center",
+    textfont:{size:11,color:"#172a38"},
+    marker:{size:15,color:"#172a38",symbol:"diamond",line:{color:"#fff",width:1.5}},
+    customdata:rows.map(r=>[r.segment_index,r.objective]),
+    hovertemplate:"Persistent-regime start: %{x}<br>Segment %{customdata[0]} of 9"+
+    "<br>partition objective: %{customdata[1]:.1f}<extra></extra>"}
+ ],{...base,height:300,showlegend:false,shapes:editorialShapes(),
+ xaxis:{title:"four-year-unit boundary",range:[1780,2028],dtick:20,
+ gridcolor:"#e8eaec",zeroline:false},yaxis:{visible:false,range:[.75,1.25]}},
+ {displayModeBar:false,responsive:true});
+ document.getElementById("cluster-status").textContent="Showing "+CONDITION_LABELS[condition]+
+  ". Dotted guides are the reviewed exact starts; the 1850 guide represents the 1849–52 cycle.";
+}
+drawCluster("full");
+document.getElementById("cluster-condition").addEventListener("change",e=>drawCluster(e.target.value));
+Plotly.newPlot("sliding-chart",[
+ {type:"scatter",mode:"lines",name:"Four-year windows",
+ x:SLIDING.map(r=>r.boundary_year),y:SLIDING.map(r=>r.percentile_4*100),
+ line:{color:"#a9c3d5",width:1.4},customdata:SLIDING.map(r=>r.rank_4),
+ hovertemplate:"Boundary: %{x}<br>four-year percentile: %{y:.1f}"+
+ "<br>rank %{customdata} of 231<extra></extra>"},
+ {type:"scatter",mode:"lines",name:"Eight-year windows",
+ x:SLIDING.map(r=>r.boundary_year),y:SLIDING.map(r=>r.percentile_8*100),
+ line:{color:"#d5b796",width:1.4},customdata:SLIDING.map(r=>r.rank_8),
+ hovertemplate:"Boundary: %{x}<br>eight-year percentile: %{y:.1f}"+
+ "<br>rank %{customdata} of 223<extra></extra>"},
+ {type:"scatter",mode:"lines",name:"Combined rank",
+ x:SLIDING.map(r=>r.boundary_year),y:SLIDING.map(r=>r.consensus*100),
+ line:{color:"#172a38",width:2.6},
+ customdata:SLIDING.map(r=>r.consensus_rank),
+ hovertemplate:"Boundary: %{x}<br>combined percentile: %{y:.1f}"+
+ "<br>combined rank %{customdata} of 223<extra></extra>"},
+ {type:"scatter",mode:"markers+text",name:"Reviewed starts",
+ x:CHOSEN.map(r=>r.year),y:CHOSEN.map(r=>r.score*100),
+ text:CHOSEN.map(r=>r.label),textposition:CHOSEN.map((r,i)=>i%2?"bottom center":"top center"),
+ textfont:{size:11,color:"#7f5730"},marker:{size:9,color:"#ad753f",symbol:"diamond",
+ line:{color:"#fff",width:1}},
+ customdata:CHOSEN.map(r=>[r.rank,r.persistent_start,r.recurrence]),
+ hovertemplate:"Reviewed start: %{x}<br>combined percentile: %{y:.1f}"+
+ "<br>combined rank %{customdata[0]} of 223"+
+ "<br>full persistent start: %{customdata[1]}"+
+ "<br>nearby in %{customdata[2]} of 8 specifications<extra></extra>"}
+],{...base,height:520,showlegend:true,shapes:editorialShapes(),
+xaxis:{title:"candidate boundary year",range:[1788,2021],dtick:20,gridcolor:"#e8eaec",
+zeroline:false},yaxis:{title:"abruptness percentile (high = sharper change)",range:[0,105],
+gridcolor:"#e8eaec",zeroline:false},legend:{orientation:"h",y:1.13,x:0}},
+{displayModeBar:false,responsive:true});
+</script></body></html>

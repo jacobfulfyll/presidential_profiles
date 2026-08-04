@@ -102,6 +102,7 @@ SPEECH_ANNOTATIONS_PATH = ANNOTATIONS_DIR / "speech_annotations.parquet"
 
 REGISTER_DIR = DATA_DIR / "register"
 TRENDS_PATH = REGISTER_DIR / "trends.parquet"
+TRENDS_20000_PATH = REGISTER_DIR / "trends_20000.parquet"
 
 # --------------------------------------------------------------------------
 # analysis parameters
@@ -132,7 +133,7 @@ MIN_CELL_SPEECHES = 3
 # rather than let them spike a chart).
 MIN_YEAR_PARAGRAPHS = 30
 
-N_BOOTSTRAP = 2_000
+N_BOOTSTRAP = 20_000
 BOOTSTRAP_SEED = 20260721
 CI_ALPHA = 0.05
 
@@ -1512,11 +1513,17 @@ def era_counts(panel: SpeechPanel) -> pd.DataFrame:
     return grouped.reset_index()
 
 
-def write_trends(trends: pd.DataFrame) -> Path:
-    """Write `data/register/trends.parquet`, creating the directory if needed."""
+def write_trends(trends: pd.DataFrame, path: Path | None = None) -> Path:
+    """Write a register table, retaining the v1 2,000-draw artifact by default."""
     REGISTER_DIR.mkdir(parents=True, exist_ok=True)
-    trends.to_parquet(TRENDS_PATH, index=False)
-    return TRENDS_PATH
+    if path is None:
+        upgraded = ("n_bootstrap" in trends and
+                    pd.to_numeric(trends["n_bootstrap"], errors="coerce").max() >= 20_000)
+        destination = TRENDS_20000_PATH if upgraded else TRENDS_PATH
+    else:
+        destination = path
+    trends.to_parquet(destination, index=False)
+    return destination
 
 
 def main() -> int:
@@ -1542,6 +1549,8 @@ def main() -> int:
         inputs.taxonomy,
     )
     trends = build_trends(panel, n_bootstrap=args.n_bootstrap, seed=args.seed)
+    # The 2,000-draw v1 table remains frozen because its exact intervals are
+    # cited by the v1 analytical note. The upgraded default publishes beside it.
     path = write_trends(trends)
     print(f"wrote {len(trends):,} rows to {path}")
     return 0

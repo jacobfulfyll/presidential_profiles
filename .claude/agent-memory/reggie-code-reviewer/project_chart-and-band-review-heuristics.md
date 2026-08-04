@@ -40,4 +40,35 @@ says the corpus was "read again by a second model" without the fraction overstat
 component's basis. **How to apply:** any rendered sentence about Sonnet-vs-Opus must carry the
 subsample size or an explicit "a sample of".
 
+**6. An ILLUSTRATIVE magnitude survives the census correction placed next to it.**
+`suppress-degenerate-band-intervals` rewrote the exact docstring line that read "the many
+legitimate `lo=hi=0` cells where **sixty speeches** genuinely never touched an issue" in order to
+append a correct 7/12/19 census — and left "sixty" standing, though those 7 cells sit at 13-14
+speeches. A sibling new docstring said "dozens of speeches" for the same 7. Both read as rhetoric,
+not as claims, which is why three prior reviewers passed them. **How to apply:** when a diff adds
+an enumeration to a paragraph, re-read the *unchanged* clauses of that same paragraph against the
+new numbers — the vague magnitude is where the defect hides once the precise one is fixed.
+
+**7. Side-claims of pure arithmetic in new comments are never checked by anyone.**
+The same diff justified a loop cap with "`n**-n` underflows to exactly 0.0 near n=178" (it is
+n=149), repeated verbatim in a test docstring. The conclusion was unaffected, so no test could
+catch it. **How to apply:** any float/combinatorial assertion in a new comment is a 5-second
+Python one-liner — run it, especially where it is the sole justification for a constant.
+
+**8. A "refuse to write" guard added late in a writer leaves a partial artifact.**
+`bands.write_bands` calls `table.to_parquet(path)` on line 853 and the new self-consistency guard
+raises on line 902 — so the refusal leaves an orphaned parquet beside a stale sidecar, the one
+state worse than either extreme in a repo whose doctrine is "a dirty `git status` means the
+numbers moved". The test asserted only "no partial *meta*". **How to apply:** for any guard added
+to a multi-file writer, check its line number against every `write`/`to_parquet` call in the same
+function, and read the test's assertion against the *set* of outputs, not the one it names.
+
+**9. Centralising a column read into a helper can widen an AST/source guard's blind spot.**
+Moving `band["interval_unresolvable"]` into `unresolved_mask` added `if "interval_unresolvable"
+not in band:` to that helper — so the guard asserting the helper "still reads the column" is now
+satisfied by the membership string alone, and passes on a body mutated to `return
+pd.Series(False, ...)`. Nine behavioural tests still catch it, so it is INFO, not a finding.
+**How to apply:** when a refactor adds a string literal of the column name to a function a
+source-inspection test guards, re-run the original mutation — the guard may have gone quietly soft.
+
 Related: [[project_research-report-review-heuristics]], [[project_threshold-anchoring-value]].

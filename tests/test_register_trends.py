@@ -851,7 +851,7 @@ class TestBuildTrends:
         """Spec anchor: the committed `trends.parquet` records these, so a change
         silently invalidates every interval already published against them."""
         assert R.BOOTSTRAP_SEED == 20260721
-        assert R.N_BOOTSTRAP == 2_000
+        assert R.N_BOOTSTRAP == 20_000
 
     def test_intervals_bracket_the_point_estimate_on_a_well_sampled_measure(
         self, register_panel

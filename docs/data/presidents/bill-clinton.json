@@ -1,0 +1,1475 @@
+{
+  "schema_version": "president-profile-v3",
+  "president": "Bill Clinton",
+  "slug": "bill-clinton",
+  "party": "Democratic",
+  "years": {
+    "first": 1993,
+    "last": 2001
+  },
+  "sample": {
+    "n_speeches": 39,
+    "n_words": 152433,
+    "thin_record": false,
+    "warning": null
+  },
+  "rhetorical_radar": [
+    {
+      "key": "hope",
+      "label": "Hope",
+      "absolute": 605.7909688305353,
+      "percentile": 13.333333333333334
+    },
+    {
+      "key": "fear",
+      "label": "Fear appeal",
+      "absolute": 253.29721392838073,
+      "percentile": 20.0
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "absolute": 0.9003595274781715,
+      "percentile": 100.0
+    },
+    {
+      "key": "us_vs_them",
+      "label": "Us vs them",
+      "absolute": 80.34590262261153,
+      "percentile": 84.44444444444444
+    },
+    {
+      "key": "self_reference",
+      "label": "Self-reference",
+      "absolute": 0.3339342045966652,
+      "percentile": 37.77777777777778
+    },
+    {
+      "key": "formality",
+      "label": "Formality",
+      "absolute": 9.688615904798203,
+      "percentile": 13.333333333333334
+    },
+    {
+      "key": "vocabulary",
+      "label": "Vocabulary",
+      "absolute": 0.4088543046357616,
+      "percentile": 44.44444444444444
+    },
+    {
+      "key": "religiosity",
+      "label": "Religiosity",
+      "absolute": 11.139013571141387,
+      "percentile": 71.11111111111111
+    }
+  ],
+  "raw_stats": {
+    "party": "Democratic",
+    "first_year": 1993,
+    "last_year": 2001,
+    "n_speeches": 39,
+    "n_words": 152433,
+    "boosters": 15.489160882948081,
+    "hedges": 9.886698435924307,
+    "concessives": 2.90009820787113,
+    "assertive_modals": 100.05338817155399,
+    "need_to": 21.289357298690344,
+    "united_states": 6.854777582240853,
+    "america": 88.0575274026325,
+    "nostalgia": 15.15960426841727,
+    "future": 18.455170413725373,
+    "religiosity": 11.139013571141387,
+    "god_bless": 2.3068963017156716,
+    "us_them": 80.34590262261153,
+    "superlatives": 15.423249560041919,
+    "opponents": 5.6024624470237745,
+    "hype": 9.35940785267501,
+    "doom": 4.020590697275885,
+    "mechanism": 18.389259090819213,
+    "nrc_hope": 605.7909688305353,
+    "nrc_fear": 253.29721392838073,
+    "certainty": 0.9003595274781715,
+    "fk_grade": 9.688615904798203,
+    "self_reference": 0.3339342045966652,
+    "ttr": 0.4088543046357616,
+    "pct_hope": 13.333333333333334,
+    "pct_fear": 20.0,
+    "pct_certainty": 100.0,
+    "pct_us_vs_them": 84.44444444444444,
+    "pct_self_reference": 37.77777777777778,
+    "pct_formality": 13.333333333333334,
+    "pct_vocabulary": 44.44444444444444,
+    "pct_religiosity": 71.11111111111111
+  },
+  "legacy_issue_attention": [
+    {
+      "key": "Economy & jobs",
+      "label": "Economy & jobs",
+      "share": 0.2733,
+      "era_relative_difference": 7.7151
+    },
+    {
+      "key": "Taxes & budget",
+      "label": "Taxes & budget",
+      "share": 0.1964,
+      "era_relative_difference": 7.045
+    },
+    {
+      "key": "War & military",
+      "label": "War & military",
+      "share": 0.1638,
+      "era_relative_difference": -2.8931
+    },
+    {
+      "key": "Foreign policy",
+      "label": "Foreign policy",
+      "share": 0.0707,
+      "era_relative_difference": -5.9038
+    },
+    {
+      "key": "Immigration",
+      "label": "Immigration",
+      "share": 0.021,
+      "era_relative_difference": -1.263
+    },
+    {
+      "key": "Civil rights & race",
+      "label": "Civil rights & race",
+      "share": 0.0567,
+      "era_relative_difference": 3.0214
+    },
+    {
+      "key": "Health care",
+      "label": "Health care",
+      "share": 0.1553,
+      "era_relative_difference": 7.6267
+    },
+    {
+      "key": "Education",
+      "label": "Education",
+      "share": 0.1584,
+      "era_relative_difference": 9.9801
+    },
+    {
+      "key": "Crime & justice",
+      "label": "Crime & justice",
+      "share": 0.1444,
+      "era_relative_difference": 8.3566
+    },
+    {
+      "key": "Energy & environment",
+      "label": "Energy & environment",
+      "share": 0.0497,
+      "era_relative_difference": -1.8646
+    },
+    {
+      "key": "Trade & tariffs",
+      "label": "Trade & tariffs",
+      "share": 0.059,
+      "era_relative_difference": 1.1197
+    },
+    {
+      "key": "Agriculture",
+      "label": "Agriculture",
+      "share": 0.014,
+      "era_relative_difference": 0.0629
+    },
+    {
+      "key": "Religion & values",
+      "label": "Religion & values",
+      "share": 0.0769,
+      "era_relative_difference": 0.7257
+    },
+    {
+      "key": "Money & banking",
+      "label": "Money & banking",
+      "share": 0.0326,
+      "era_relative_difference": -2.0893
+    },
+    {
+      "key": "Infrastructure",
+      "label": "Infrastructure",
+      "share": 0.0179,
+      "era_relative_difference": -0.387
+    },
+    {
+      "key": "Discovered 5",
+      "label": "Security & peace",
+      "share": 0.2073,
+      "era_relative_difference": -10.3955
+    }
+  ],
+  "issue_evidence": {
+    "cards": [
+      {
+        "issue": "Education",
+        "rel": 9.980141703017242,
+        "share": 0.15838509316770186,
+        "base": 0.04372188026166883,
+        "topic_of_day": false,
+        "words": [
+          "children",
+          "parents",
+          "college",
+          "child"
+        ],
+        "quote": "We have to ask more in our schools of our students, our teachers, our principals, our parents.",
+        "cite": "Address Before a Joint Session of Congress, 1993",
+        "stance": null
+      },
+      {
+        "issue": "Crime & justice",
+        "rel": 8.356608162680851,
+        "share": 0.14440993788819875,
+        "base": 0.0537690800187695,
+        "topic_of_day": false,
+        "words": [
+          "crime",
+          "community",
+          "challenge"
+        ],
+        "quote": "Three strikes, and you are out.&quot; Second, we must take serious steps to reduce violence and prevent crime, beginning with more police officers and more community policing.",
+        "cite": "State of the Union Address, 1994",
+        "stance": null
+      },
+      {
+        "issue": "Economy & jobs",
+        "rel": 7.715050339426585,
+        "share": 0.2732919254658385,
+        "base": 0.15846421375141462,
+        "topic_of_day": false,
+        "words": [
+          "health",
+          "welfare"
+        ],
+        "quote": "Look at the facts, just look at the facts: 4.4 million Americans now living in a home of their own for the first time; hundreds of thousands of women have started their own new businesses; more minorities own businesses than ever before; record numbers of new small businesses and exports.",
+        "cite": "Remarks at the Democratic National Convention, 1996",
+        "stance": null
+      },
+      {
+        "issue": "Health care",
+        "rel": 7.626683613824826,
+        "share": 0.15527950310559005,
+        "base": 0.04546081868116702,
+        "topic_of_day": false,
+        "words": [
+          "care"
+        ],
+        "quote": "To those who would cut Medicare without protecting seniors, I say the solution to today&#x27;s squeeze on middle-class working people&#x27;s health care is not to put the squeeze on middle-class retired people&#x27;s health care.",
+        "cite": "State of the Union Address, 1994",
+        "stance": null
+      }
+    ],
+    "voice": [
+      "americans",
+      "century",
+      "senator",
+      "work",
+      "people",
+      "dole",
+      "america",
+      "ask"
+    ],
+    "n_speeches": 39,
+    "n_paragraphs": 1288,
+    "low_confidence": false
+  },
+  "ai": {
+    "n_paragraphs": 1288,
+    "n_speeches": 39,
+    "low_confidence": false,
+    "top_topics": [
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "definition": "Anti-poverty programs, welfare reform to reward work, the minimum wage, and helping families toward self-sufficiency.",
+        "share": 14.52,
+        "rel": 10.38,
+        "n": 187
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "definition": "Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.",
+        "share": 14.13,
+        "rel": 2.39,
+        "n": 182
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "definition": "Health insurance coverage and costs, Medicare and drug coverage, and the Social Security old-age system.",
+        "share": 13.74,
+        "rel": 7.16,
+        "n": 177
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "definition": "Suppression of domestic insurrection and combinations against federal law, and the administration of justice through courts, penitentiaries, and law-enforcement agencies.",
+        "share": 9.32,
+        "rel": 5.4,
+        "n": 120
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "definition": "Federal action to end racial denial of the vote and secure equal rights, combat discrimination, and include the disabled and minorities in American life.",
+        "share": 9.16,
+        "rel": 5.69,
+        "n": 118
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "definition": "Modern fiscal debates over tax cuts and incentives, budget deficits and inflation, spending controls, and balancing the budget.",
+        "share": 8.93,
+        "rel": -0.82,
+        "n": 115
+      }
+    ],
+    "distinctive_topics": [
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "definition": "Anti-poverty programs, welfare reform to reward work, the minimum wage, and helping families toward self-sufficiency.",
+        "share": 14.52,
+        "rel": 10.38,
+        "n": 187
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "definition": "Health insurance coverage and costs, Medicare and drug coverage, and the Social Security old-age system.",
+        "share": 13.74,
+        "rel": 7.16,
+        "n": 177
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "definition": "Federal action to end racial denial of the vote and secure equal rights, combat discrimination, and include the disabled and minorities in American life.",
+        "share": 9.16,
+        "rel": 5.69,
+        "n": 118
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "definition": "Suppression of domestic insurrection and combinations against federal law, and the administration of justice through courts, penitentiaries, and law-enforcement agencies.",
+        "share": 9.32,
+        "rel": 5.4,
+        "n": 120
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "definition": "Relations between labor and capital, the right to organize, wages and labor legislation, child labor, and urban tenement and social-welfare reform.",
+        "share": 4.81,
+        "rel": 3.2,
+        "n": 62
+      }
+    ],
+    "domains": [
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 34.39,
+        "rel": 15.92
+      },
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 16.46,
+        "rel": -9.37
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 14.13,
+        "rel": 2.39
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 9.86,
+        "rel": -9.67
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 9.86,
+        "rel": 2.87
+      }
+    ],
+    "topic_attention": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.078,
+        "rel": 0.078,
+        "n": 1
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 4.348,
+        "rel": -1.87,
+        "n": 56
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.022,
+        "n": 0
+      },
+      {
+        "name": "Monroe Doctrine & Latin American Policy",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 1.32,
+        "rel": -0.367,
+        "n": 17
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 4.581,
+        "rel": -3.319,
+        "n": 59
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 1.708,
+        "rel": -2.734,
+        "n": 22
+      },
+      {
+        "name": "Middle East & Israel",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 2.019,
+        "rel": -2.315,
+        "n": 26
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 7.376,
+        "rel": -1.222,
+        "n": 95
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "share": 5.59,
+        "rel": -2.31,
+        "n": 72
+      },
+      {
+        "name": "Early Naval Wars: Barbary & the War of 1812",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.068,
+        "n": 0
+      },
+      {
+        "name": "Mexican War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "share": 0.155,
+        "rel": 0.068,
+        "n": 2
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "share": 0.932,
+        "rel": 0.271,
+        "n": 12
+      },
+      {
+        "name": "Vietnam War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -2.622,
+        "n": 0
+      },
+      {
+        "name": "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "domain": "War & Military Affairs",
+        "share": 3.96,
+        "rel": -6.043,
+        "n": 51
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "share": 0.0,
+        "rel": -0.073,
+        "n": 0
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "share": 0.155,
+        "rel": -1.102,
+        "n": 2
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 3.106,
+        "rel": 1.007,
+        "n": 40
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 0.0,
+        "rel": -0.591,
+        "n": 0
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "share": 1.165,
+        "rel": 0.732,
+        "n": 15
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "share": 8.929,
+        "rel": -0.82,
+        "n": 115
+      },
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.155,
+        "rel": -0.371,
+        "n": 2
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 4.814,
+        "rel": 3.196,
+        "n": 62
+      },
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 14.519,
+        "rel": 10.383,
+        "n": 187
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 13.742,
+        "rel": 7.162,
+        "n": 177
+      },
+      {
+        "name": "Prosperity, Jobs & the Middle Class",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 7.997,
+        "rel": -0.041,
+        "n": 103
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.155,
+        "rel": 0.111,
+        "n": 2
+      },
+      {
+        "name": "Agriculture & Farm Prices",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.311,
+        "rel": -1.077,
+        "n": 4
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "share": 2.95,
+        "rel": 0.805,
+        "n": 38
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 1.863,
+        "rel": -4.776,
+        "n": 24
+      },
+      {
+        "name": "Space Exploration",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.466,
+        "rel": -0.176,
+        "n": 6
+      },
+      {
+        "name": "Slavery, Emancipation & Sectionalism",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.388,
+        "rel": 0.225,
+        "n": 5
+      },
+      {
+        "name": "Reconstruction & Southern Self-Government",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Chinese Immigration & Exclusion",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "share": 9.161,
+        "rel": 5.695,
+        "n": 118
+      },
+      {
+        "name": "Immigration & Border Security",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.776,
+        "rel": -2.788,
+        "n": 10
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "share": 0.311,
+        "rel": 0.311,
+        "n": 4
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "share": 9.317,
+        "rel": 5.403,
+        "n": 120
+      },
+      {
+        "name": "Polygamy in the Territories",
+        "domain": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.699,
+        "rel": 0.14,
+        "n": 9
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.932,
+        "rel": 0.265,
+        "n": 12
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.398,
+        "rel": -2.19,
+        "n": 18
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.0,
+        "rel": -0.222,
+        "n": 0
+      },
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.087,
+        "rel": 0.171,
+        "n": 14
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "share": 3.804,
+        "rel": 2.045,
+        "n": 49
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "share": 1.32,
+        "rel": -1.441,
+        "n": 17
+      },
+      {
+        "name": "Personal Narrative, Storytelling & Boasting",
+        "domain": "Personal Narrative & Reflection",
+        "share": 3.183,
+        "rel": 0.538,
+        "n": 41
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "share": 3.416,
+        "rel": 1.761,
+        "n": 44
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "share": 14.13,
+        "rel": 2.389,
+        "n": 182
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "share": 4.425,
+        "rel": -3.735,
+        "n": 57
+      }
+    ],
+    "domain_attention": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 16.46,
+        "rel": -9.37
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 9.86,
+        "rel": -9.668
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 0.155,
+        "rel": -1.175
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 3.106,
+        "rel": 0.422
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 9.86,
+        "rel": -0.191
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 34.394,
+        "rel": 15.921
+      },
+      {
+        "name": "Agriculture, Land & Environment",
+        "share": 3.416,
+        "rel": -0.065
+      },
+      {
+        "name": "Infrastructure & Internal Improvements",
+        "share": 2.174,
+        "rel": -4.968
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 9.86,
+        "rel": 2.873
+      },
+      {
+        "name": "Indian & Tribal Affairs",
+        "share": 0.311,
+        "rel": 0.311
+      },
+      {
+        "name": "Law, Crime & Justice",
+        "share": 9.317,
+        "rel": 5.403
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 3.571,
+        "rel": -2.255
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 3.804,
+        "rel": 2.045
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 4.503,
+        "rel": -0.824
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 3.416,
+        "rel": 1.761
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 14.13,
+        "rel": 2.389
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 4.425,
+        "rel": -3.735
+      }
+    ],
+    "flags": {
+      "party_attack": 9.01,
+      "enemy_naming": 16.23,
+      "zero_sum": 2.56
+    },
+    "proposal_values": {
+      "proposal": 24.15,
+      "values": 31.83,
+      "mixed": 29.11,
+      "neither": 14.91
+    },
+    "speech_types": [
+      {
+        "name": "Public remarks / address",
+        "value": 48.72
+      },
+      {
+        "name": "State of the Union / annual message",
+        "value": 20.51
+      },
+      {
+        "name": "Campaign / debate",
+        "value": 7.69
+      },
+      {
+        "name": "Eulogy or commemoration",
+        "value": 7.69
+      }
+    ],
+    "adversaries": [
+      {
+        "name": "Bill Clinton",
+        "n": 42
+      },
+      {
+        "name": "Bob Dole",
+        "n": 29
+      },
+      {
+        "name": "Slobodan Milosevic",
+        "n": 12
+      },
+      {
+        "name": "Saddam Hussein",
+        "n": 9
+      },
+      {
+        "name": "North Korea",
+        "n": 7
+      }
+    ],
+    "ai_radar": {
+      "party_attack": {
+        "absolute": 9.006,
+        "percentile": 78.6
+      },
+      "enemy_naming": {
+        "absolute": 16.227,
+        "percentile": 40.5
+      },
+      "zero_sum": {
+        "absolute": 2.562,
+        "percentile": 16.7
+      },
+      "proposal": {
+        "absolute": 24.146,
+        "percentile": 71.4
+      },
+      "values": {
+        "absolute": 31.832,
+        "percentile": 52.4
+      },
+      "topic_breadth": {
+        "absolute": 23.608,
+        "percentile": 92.9
+      }
+    }
+  },
+  "distinctive_vocabulary": [
+    {
+      "president": "Bill Clinton",
+      "term": "children",
+      "z": 33.250932397144545,
+      "rank": 0
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "americans",
+      "z": 27.17266926962864,
+      "rank": 1
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "care",
+      "z": 26.93281816569942,
+      "rank": 2
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "century",
+      "z": 26.63137029831638,
+      "rank": 3
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "health",
+      "z": 25.61295106395316,
+      "rank": 4
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "senator",
+      "z": 24.18150890981561,
+      "rank": 5
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "parents",
+      "z": 23.49299452812767,
+      "rank": 6
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "work",
+      "z": 23.099860071993508,
+      "rank": 7
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "people",
+      "z": 22.97961556364038,
+      "rank": 8
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "college",
+      "z": 22.37520294675933,
+      "rank": 9
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "dole",
+      "z": 21.192861899273414,
+      "rank": 10
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "child",
+      "z": 20.951350044643057,
+      "rank": 11
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "america",
+      "z": 19.014407979502863,
+      "rank": 12
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "crime",
+      "z": 18.70778730699428,
+      "rank": 13
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "community",
+      "z": 18.494531362119652,
+      "rank": 14
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "welfare",
+      "z": 18.453435276900077,
+      "rank": 15
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "ask",
+      "z": 18.343596076543204,
+      "rank": 16
+    },
+    {
+      "president": "Bill Clinton",
+      "term": "challenge",
+      "z": 17.944192668601858,
+      "rank": 17
+    }
+  ],
+  "signature_speeches": [
+    {
+      "title": "April 23, 1995: Time for Healing Ceremony",
+      "year": 1995,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-23-1995-time-healing-ceremony"
+    },
+    {
+      "title": "November 3, 1996: Remarks to the Congregation of St. Paul's AME Church",
+      "year": 1996,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-3-1996-remarks-congregation-st-pauls-ame-church"
+    },
+    {
+      "title": "June 6, 1994: Remarks at the U.S. National Cemetery",
+      "year": 1994,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-6-1994-remarks-us-national-cemetery"
+    },
+    {
+      "title": "August 29, 1996: Remarks at the Democratic National Convention",
+      "year": 1996,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-29-1996-remarks-democratic-national-convention"
+    },
+    {
+      "title": "January 27, 1998: State of the Union Address",
+      "year": 1998,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-27-1998-state-union-address"
+    }
+  ],
+  "legacy_invocations": {
+    "invokes": [
+      {
+        "target": "Harry S. Truman",
+        "n": 9,
+        "pos": 2,
+        "neg": 5
+      },
+      {
+        "target": "Abraham Lincoln",
+        "n": 7,
+        "pos": 5,
+        "neg": 0
+      },
+      {
+        "target": "John F. Kennedy",
+        "n": 7,
+        "pos": 7,
+        "neg": 0
+      },
+      {
+        "target": "Thomas Jefferson",
+        "n": 5,
+        "pos": 3,
+        "neg": 2
+      },
+      {
+        "target": "Richard M. Nixon",
+        "n": 5,
+        "pos": 5,
+        "neg": 0
+      }
+    ],
+    "invoked_by": {
+      "total": 16,
+      "pos": 13,
+      "neg": 1
+    }
+  },
+  "classified_invocations": [
+    {
+      "target": "John F. Kennedy",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 7
+    },
+    {
+      "target": "George H. W. Bush",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 5
+    },
+    {
+      "target": "Harry S. Truman",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 5
+    },
+    {
+      "target": "Franklin D. Roosevelt",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 4
+    },
+    {
+      "target": "Thomas Jefferson",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 4
+    },
+    {
+      "target": "Abraham Lincoln",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 3
+    },
+    {
+      "target": "Richard M. Nixon",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 3
+    },
+    {
+      "target": "Lyndon B. Johnson",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 2
+    },
+    {
+      "target": "Franklin D. Roosevelt",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Dwight D. Eisenhower",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Jimmy Carter",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "George Washington",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Ronald Reagan",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Richard M. Nixon",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Andrew Jackson",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Lyndon B. Johnson",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Lyndon B. Johnson",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Theodore Roosevelt",
+      "function": "institutional precedent",
+      "stance": "mixed",
+      "mentions": 1
+    },
+    {
+      "target": "Theodore Roosevelt",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Theodore Roosevelt",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Thomas Jefferson",
+      "function": "historical comparison",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "John F. Kennedy",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Jimmy Carter",
+      "function": "ceremonial/biographical",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "John F. Kennedy",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Jimmy Carter",
+      "function": "ceremonial/biographical",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Abraham Lincoln",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Harry S. Truman",
+      "function": "policy inheritance",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Harry S. Truman",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Harry S. Truman",
+      "function": "institutional precedent",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Harry S. Truman",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "George H. W. Bush",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Franklin D. Roosevelt",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Franklin D. Roosevelt",
+      "function": "institutional precedent",
+      "stance": "mixed",
+      "mentions": 1
+    },
+    {
+      "target": "Dwight D. Eisenhower",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Abraham Lincoln",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Woodrow Wilson",
+      "function": "institutional precedent",
+      "stance": "mixed",
+      "mentions": 1
+    }
+  ],
+  "voice_neighbors": [
+    [
+      "Ronald Reagan",
+      0.4411942438820257
+    ],
+    [
+      "James A. Garfield",
+      0.28063396892461584
+    ],
+    [
+      "Barack Obama",
+      0.23690477655078213
+    ]
+  ],
+  "agenda_neighbors": [
+    [
+      "Barack Obama",
+      0.9901510957258023
+    ],
+    [
+      "Joe Biden",
+      0.973908653680614
+    ],
+    [
+      "George H. W. Bush",
+      0.9671290429261764
+    ]
+  ],
+  "feature_neighbors": {
+    "ai_topics": [
+      {
+        "president": "Barack Obama",
+        "similarity": 0.8784
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.8053
+      },
+      {
+        "president": "George H. W. Bush",
+        "similarity": 0.7594
+      },
+      {
+        "president": "Jimmy Carter",
+        "similarity": 0.7385
+      },
+      {
+        "president": "Donald Trump",
+        "similarity": 0.7246
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.7086
+      }
+    ],
+    "ai_domains": [
+      {
+        "president": "Barack Obama",
+        "similarity": 0.9641
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.9105
+      },
+      {
+        "president": "Donald Trump",
+        "similarity": 0.8739
+      },
+      {
+        "president": "Herbert Hoover",
+        "similarity": 0.8687
+      },
+      {
+        "president": "Warren G. Harding",
+        "similarity": 0.8324
+      },
+      {
+        "president": "Jimmy Carter",
+        "similarity": 0.8231
+      }
+    ],
+    "ai_rhetoric": [
+      {
+        "president": "Gerald Ford",
+        "similarity": 0.722
+      },
+      {
+        "president": "Barack Obama",
+        "similarity": 0.6706
+      },
+      {
+        "president": "Jimmy Carter",
+        "similarity": 0.6654
+      },
+      {
+        "president": "George H. W. Bush",
+        "similarity": 0.6328
+      },
+      {
+        "president": "Herbert Hoover",
+        "similarity": 0.5764
+      },
+      {
+        "president": "Calvin Coolidge",
+        "similarity": 0.5744
+      }
+    ],
+    "rhetorical_fingerprint": [
+      {
+        "president": "George H. W. Bush",
+        "similarity": 0.8665
+      },
+      {
+        "president": "Barack Obama",
+        "similarity": 0.8345
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.7848
+      },
+      {
+        "president": "Donald Trump",
+        "similarity": 0.7707
+      },
+      {
+        "president": "Lyndon B. Johnson",
+        "similarity": 0.7023
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.6421
+      }
+    ],
+    "legacy_issues": [
+      {
+        "president": "Barack Obama",
+        "similarity": 0.9902
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.9739
+      },
+      {
+        "president": "George H. W. Bush",
+        "similarity": 0.9671
+      },
+      {
+        "president": "Donald Trump",
+        "similarity": 0.9632
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.9534
+      },
+      {
+        "president": "Jimmy Carter",
+        "similarity": 0.9516
+      }
+    ]
+  },
+  "context_specific": {
+    "profile_only": [],
+    "compare_only": []
+  }
+}

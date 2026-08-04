@@ -1,0 +1,1 @@
+{"schema_version":"invocation-edge-v2","primary_key":["speaker","target"],"required":["raw_mentions","distinct_speeches","distinct_speakers","mentions_per_100_speeches","function_mix","stance_mix","evidence_status"]}

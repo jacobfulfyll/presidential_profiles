@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the AI labels were made - Presidential Profiles</title>
+<meta name="description" content="Illustrated methodology for the corpus-derived taxonomy and AI annotation layer behind Presidential Profiles.">
+<style>
+
+  :root {
+    --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
+    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--page); color: var(--ink);
+         font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.55; }
+  header { max-width: 980px; margin: 0 auto; padding: 48px 20px 8px; }
+  header h1 { font-size: 2rem; letter-spacing: -0.02em; }
+  header p.sub { color: var(--ink2); margin-top: 10px; max-width: 46rem; }
+  main { max-width: 980px; margin: 0 auto; padding: 8px 20px 40px; }
+  section { margin-top: 44px; }
+  section h2 { font-size: 1.28rem; letter-spacing: -0.01em; }
+  section p { color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }
+  .chart-scroll { background: var(--surface); border: 1px solid var(--border);
+                   border-radius: 12px; padding: 10px 6px 6px;
+                   overflow-x: auto; overflow-y: hidden; }
+  .chart { min-width: 640px; }
+  footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
+            border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--ink2); }
+
+  header, main, footer { max-width: 1040px; }
+  header { padding-top: 38px; }
+  .crumbs { margin-bottom: 22px; font-size: .88rem; } .crumbs a { color:var(--ink2); }
+  .kicker { color:#275d8c; font-weight:750; letter-spacing:.08em; text-transform:uppercase; font-size:.76rem; }
+  header h1 { font-size:clamp(2.2rem,6vw,4.5rem); line-height:1.02; max-width:850px; margin-top:12px; }
+  header .sub { font-size:1.08rem; max-width:760px; }
+  .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-top:28px; }
+  .stat { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px; }
+  .stat strong { display:block; font-size:1.65rem; } .stat span { color:var(--muted); font-size:.82rem; }
+  article { max-width:760px; } article h2 { font-size:1.7rem; margin-top:58px; letter-spacing:-.02em; }
+  article h3 { font-size:1.12rem; margin-top:30px; } article p, article li { color:var(--ink2); }
+  article p { margin-top:10px; } article ul, article ol { padding-left:22px; margin-top:12px; }
+  .wide { width:min(1040px,calc(100vw - 40px)); margin-top:24px; }
+  .diagram { display:block; width:100%; height:auto; background:var(--surface); border:1px solid var(--border); border-radius:18px; }
+  .diagram .node rect,.diagram .lane>rect { fill:#fff; stroke:#d7d9dd; stroke-width:2; }
+  .diagram .node.accent rect { fill:#eef6ff; stroke:#8bb9e8; } .diagram .node.dark rect { fill:#17202a; stroke:#17202a; }
+  .diagram text { font-family:system-ui,sans-serif; font-size:16px; font-weight:700; text-anchor:middle; fill:#17202a; }
+  .diagram .small { font-size:12px; font-weight:500; fill:#6b7280; } .diagram .dark text { fill:#fff; }
+  .diagram .dark .small { fill:#d1d5db; } .diagram .lane-title { text-anchor:start; font-size:19px; }
+  .diagram .pill rect { stroke-width:1.5; } .diagram .pill.on rect { fill:#eef8f2; stroke:#70aa85; }
+  .diagram .pill.off rect { fill:#f8f1f1; stroke:#bc8b8b; stroke-dasharray:6 5; }
+  .diagram .pill text { font-size:14px; } .diagram .caption { text-anchor:start; font-size:13px; font-weight:500; fill:#6b7280; }
+  .callout { border-left:4px solid #6da7ec; background:#f1f6fc; border-radius:0 12px 12px 0; padding:16px 18px; margin:20px 0; }
+  .callout p { margin:0; } .rubrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:18px; }
+  .rubric { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px; }
+  .rubric code { font-weight:750; color:#275d8c; } .rubric p { font-size:.88rem; margin-top:7px; }
+  .metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin-top:18px; }
+  .metric { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px; }
+  .metric span,.metric small { display:block; color:var(--muted); font-size:.78rem; } .metric strong { font-size:1.35rem; display:block; margin:4px 0; }
+  .tax-atlas { margin-top:18px; } .tax-domain { background:var(--surface); border:1px solid var(--border); border-radius:12px; margin:8px 0; padding:0 16px; }
+  .tax-domain summary { cursor:pointer; display:flex; justify-content:space-between; gap:20px; padding:15px 0; font-weight:700; }
+  .tax-kind { color:var(--muted); font-size:.76rem; font-weight:500; } .tax-domain>p { margin:0 0 12px; font-size:.9rem; }
+  .tax-domain ul { margin:0 0 18px; } .tax-domain li { margin:10px 0; } .tax-domain li span { display:block; font-size:.86rem; }
+  .method-table { width:100%; border-collapse:collapse; margin-top:16px; background:var(--surface); }
+  .method-table th,.method-table td { border:1px solid var(--border); padding:10px; text-align:left; font-size:.86rem; vertical-align:top; }
+  .method-table th { color:var(--muted); }
+  .method-chart { width:min(1040px,calc(100vw - 40px));height:430px;margin:20px 0; }
+  @media(max-width:680px){ .diagram text { font-size:12px; } .diagram .small,.diagram .caption { font-size:9px; } .diagram .lane-title { font-size:14px; } }
+</style></head><body><style>
+.global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
+backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
+.nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
+align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
+color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+.nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
+background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
+align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
+.nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
+min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
+white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
+.nav-item>a[aria-current=page],.nav-group.nav-group-current>.nav-trigger{
+background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6px;
+border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
+.nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
+.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
+min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
+background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
+padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
+.nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+.nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
+.nav-brand:focus-visible{outline:3px solid #d08b45;outline-offset:2px}
+.footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
+@media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
+.nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
+width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+.nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
+</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div><div class="nav-item nav-group nav-group-current" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="data-quality.html">Data Quality</a><a href="methodology.html" aria-current="page">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+<script>
+(() => {
+  const nav = document.currentScript.previousElementSibling;
+  if (!nav || !nav.matches(".global-nav")) return;
+  document.documentElement.classList.add("nav-enhanced");
+  const groups = [...nav.querySelectorAll(".nav-group")];
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    const submenu = group.querySelector(".nav-submenu");
+    trigger.setAttribute("aria-expanded", "false");
+    submenu.hidden = true;
+    group.classList.remove("is-open");
+    if (restoreFocus) trigger.focus();
+  };
+  const closeOthers = active => groups.forEach(group => {
+    if (group !== active) close(group);
+  });
+  const open = group => {
+    closeOthers(group);
+    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
+    group.querySelector(".nav-submenu").hidden = false;
+    group.classList.add("is-open");
+  };
+  groups.forEach(group => {
+    const trigger = group.querySelector(".nav-trigger");
+    const toggle = () => {
+      if (trigger.getAttribute("aria-expanded") === "true") close(group);
+      else open(group);
+    };
+    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggle();
+    });
+    group.addEventListener("pointerenter", () => {
+      if (finePointer.matches) open(group);
+    });
+    group.addEventListener("pointerleave", () => {
+      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    });
+    group.addEventListener("focusout", () => setTimeout(() => {
+      if (!group.contains(document.activeElement)) close(group);
+    }));
+    group.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      close(group, true);
+    });
+  });
+  document.addEventListener("pointerdown", event => {
+    if (!nav.contains(event.target)) groups.forEach(group => close(group));
+  });
+
+  const setNavHeight = () => {
+    document.documentElement.style.setProperty("--global-nav-height", `${nav.offsetHeight}px`);
+  };
+  setNavHeight();
+  if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
+  else addEventListener("resize", setNavHeight);
+
+})();
+</script>
+
+<header><p class="crumbs"><a href="index.html">← Dashboard</a> &nbsp;·&nbsp;
+<a href="compare.html">Compare presidents</a> &nbsp;·&nbsp; <a href="presidents/index.html">Profiles</a></p>
+<div class="kicker">Methods article · AI label layer</div><h1>How a speech becomes a label</h1>
+<p class="sub">The topic names were discovered from this corpus before the full annotation
+pass. The model did not receive a president's identity when making subjective judgments.
+Every label is keyed back to its paragraph, and a second model measures where the first one
+is uncertain.</p><div class="stat-grid">
+<div class="stat"><strong>36,229</strong><span>paragraphs, 100% covered</span></div>
+<div class="stat"><strong>50</strong><span>fine-grained topics</span></div>
+<div class="stat"><strong>17</strong><span>broad domains</span></div>
+<div class="stat"><strong>52,133</strong><span>distinct topic assignments</span></div>
+<div class="stat"><strong>27,214</strong><span>named-entity rows</span></div>
+</div><div id="method-coverage" class="method-chart"
+aria-label="Primary and second-opinion paragraph coverage"></div></header><main><article>
+<h2>First: what “AI-labeled” means here</h2>
+<p>There are two measurement layers on this website. The original issue charts use a seeded,
+deterministic CorEx topic model with hand-written anchor words. The newer layer uses a
+corpus-derived taxonomy and Claude to read paragraphs semantically. The old layer remains
+visible as an independent instrument; it is not relabeled as AI work after the fact.
+<a href="label-models.html"><strong>See the complete CorEx derivation and the
+side-by-side model comparison →</strong></a></p>
+<div class="callout"><p><strong>The unit is the paragraph.</strong> A speech can cover several
+subjects, switch from policy to ceremony, or name an adversary once. Paragraph-sized units keep
+those changes visible. All joins use <code>(doc_name, para_idx)</code>, never row position.</p></div>
+</article><div class="wide"><svg class="diagram" viewBox="0 0 1160 430" role="img"
+ aria-labelledby="pipeline-title pipeline-desc">
+<title id="pipeline-title">From speeches to AI labels</title>
+<desc id="pipeline-desc">A seven-stage flow from the Miller Center corpus through paragraph
+segmentation, unsupervised clusters, era-isolated topic proposals, a frozen taxonomy,
+masked full-corpus annotation, and a second-opinion audit.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7"
+ markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#6b7280"/></marker></defs>
+<g fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)">
+ <path d="M150 105H205"/><path d="M350 105H405"/><path d="M550 105H605"/>
+ <path d="M750 105H805"/><path d="M950 105H1005"/>
+ <path d="M1080 165V245H885"/><path d="M805 315H750"/>
+</g>
+<g class="node"><rect x="20" y="45" width="130" height="120" rx="18"/>
+ <text x="85" y="82">1,057 speeches</text><text x="85" y="108">4.2M words</text>
+ <text class="small" x="85" y="138">source corpus</text></g>
+<g class="node"><rect x="205" y="45" width="145" height="120" rx="18"/>
+ <text x="278" y="82">36,229</text><text x="278" y="108">paragraphs</text>
+ <text class="small" x="278" y="138">stable keyed units</text></g>
+<g class="node"><rect x="405" y="45" width="145" height="120" rx="18"/>
+ <text x="478" y="82">Embeddings</text><text x="478" y="108">+ k=40</text>
+ <text class="small" x="478" y="138">no topic names yet</text></g>
+<g class="node accent"><rect x="605" y="45" width="145" height="120" rx="18"/>
+ <text x="678" y="82">9 isolated</text><text x="678" y="108">era proposals</text>
+ <text class="small" x="678" y="138">anachronism guard</text></g>
+<g class="node accent"><rect x="805" y="45" width="145" height="120" rx="18"/>
+ <text x="878" y="82">17 domains</text><text x="878" y="108">50 topics</text>
+ <text class="small" x="878" y="138">frozen taxonomy</text></g>
+<g class="node"><rect x="1005" y="45" width="135" height="120" rx="18"/>
+ <text x="1072" y="82">Held-out</text><text x="1072" y="108">coverage</text>
+ <text class="small" x="1072" y="138">200 paragraphs</text></g>
+<g class="node dark"><rect x="805" y="245" width="270" height="140" rx="20"/>
+ <text x="940" y="285">Masked full-corpus pass</text><text x="940" y="315">topics · flags · values · entities</text>
+ <text class="small" x="940" y="348">text + decade only</text></g>
+<g class="node"><rect x="550" y="245" width="200" height="140" rx="20"/>
+ <text x="650" y="285">Second opinion</text><text x="650" y="315">same prompts</text>
+ <text class="small" x="650" y="348">different model · 25% sample</text></g>
+</svg></div><article>
+<h2>How the 50 topics were arrived at</h2>
+<ol><li><strong>Find the blind spots.</strong> The 15 anchored issues left 10,381 of 36,229
+paragraphs without a match. Those missing paragraphs were deliberately oversampled.</li>
+<li><strong>Let language cluster before naming it.</strong> Every paragraph was embedded with
+<code>minishlab/potion-base-8M</code>, normalized, and clustered with seeded MiniBatchKMeans at
+k=40. c-TF-IDF terms described what distinguished each cluster; the clusters were evidence,
+not final topics.</li><li><strong>Isolate eras.</strong> Nine 30-year samples were drawn with
+80 paragraphs per era and roughly half from the old taxonomy's blind mass. Each era proposal
+saw only its own paragraphs, dominant clusters, and terms. The 1800s proposal could not borrow
+“health care” from a modern sample.</li><li><strong>Merge once, then freeze.</strong> Opus merged
+the era proposals into 17 domains and 50 period-aware topics, then produced a many-to-many
+crosswalk to the 16 existing issue pages.</li><li><strong>Test what was not used to build it.</strong>
+A held-out set of 200 paragraphs—100 from the former blind mass—was labeled against the frozen
+list. Coverage reached 100%, above the pre-registered 90% gate. The taxonomy was then frozen
+before the 36,229-paragraph pass.</li></ol>
+<p>The taxonomy-generation run used claude-opus-4-8 (+ claude-sonnet-5 for coverage), 22 API
+requests, and recorded $2.4404 in actual usage-derived cost.</p>
+</article><div class="wide"><svg class="diagram" viewBox="0 0 1160 420" role="img"
+ aria-labelledby="mask-title mask-desc">
+<title id="mask-title">Two passes use different evidence</title>
+<desc id="mask-desc">The judgment pass hides president, party, and title while showing
+paragraph text and decade. The factual speech pass shows title, year, and opening paragraphs.</desc>
+<g class="lane"><rect x="25" y="35" width="535" height="340" rx="24"/>
+ <text class="lane-title" x="60" y="82">Paragraph judgment · masked</text>
+ <g class="pill on"><rect x="60" y="112" width="205" height="48" rx="24"/><text x="162" y="142">paragraph text</text></g>
+ <g class="pill on"><rect x="285" y="112" width="205" height="48" rx="24"/><text x="387" y="142">speech decade</text></g>
+ <g class="pill off"><rect x="60" y="180" width="205" height="48" rx="24"/><text x="162" y="210">president hidden</text></g>
+ <g class="pill off"><rect x="285" y="180" width="205" height="48" rx="24"/><text x="387" y="210">party hidden</text></g>
+ <g class="pill off"><rect x="60" y="248" width="430" height="48" rx="24"/><text x="275" y="278">speech title hidden</text></g>
+ <text class="caption" x="60" y="334">Used for topics, combat flags, proposal/values, entities</text></g>
+<g class="lane"><rect x="600" y="35" width="535" height="340" rx="24"/>
+ <text class="lane-title" x="635" y="82">Speech facts · unmasked</text>
+ <g class="pill on"><rect x="635" y="112" width="205" height="48" rx="24"/><text x="737" y="142">speech title</text></g>
+ <g class="pill on"><rect x="860" y="112" width="205" height="48" rx="24"/><text x="962" y="142">year</text></g>
+ <g class="pill on"><rect x="635" y="180" width="430" height="48" rx="24"/><text x="850" y="210">first five paragraphs</text></g>
+ <text class="caption" x="635" y="274">Used for speech type, audience, and medium</text>
+ <text class="caption" x="635" y="310">The title is evidence here—not a source of reputational bias.</text></g>
+</svg></div><article>
+<h2>What the annotator saw—and what it did not</h2>
+<p>The subjective paragraph pass received the paragraph text and its decade. President, party,
+and speech title were withheld. The decade allowed the rubric to judge combativeness against the
+speech's own era instead of silently imposing 2026 norms.</p><p>A second factual pass used the
+opposite policy: title, year, and the first five paragraphs were shown because those are direct
+evidence for speech type, audience, and medium. Masking a title like “Fourth Annual Message”
+would remove the best factual clue without reducing reputational bias.</p>
+<h3>The closed rubric</h3><p>Structured output allowed only the following fields and closed
+enum values. Unknown topic strings could not be invented by the model.</p>
+<div class="rubrics"><div class="rubric"><code>topics</code><p>Zero or more names from the frozen 50-topic list. No label is forced when none fits; several may apply.</p></div><div class="rubric"><code>party_attack</code><p>True only when a partisan actor is identifiable and the text imputes fault, failure, or bad motive.</p></div><div class="rubric"><code>enemy_naming</code><p>True only when a specific person, group, nation, or institution is framed as an adversary or threat.</p></div><div class="rubric"><code>zero_sum</code><p>True only when the paragraph itself frames gains as requiring another side&#x27;s loss—not merely when conflict is mentioned.</p></div><div class="rubric"><code>proposal</code><p>A concrete policy, program, law, appropriation, or course of action is urged.</p></div><div class="rubric"><code>values</code><p>Principles, identity, faith, gratitude, or civic virtue appear without a concrete policy ask.</p></div><div class="rubric"><code>mixed</code><p>A substantial concrete ask and a substantial values appeal both appear.</p></div><div class="rubric"><code>neither</code><p>Narrative, procedure, ceremony, factual reporting, or rebuttal that fits neither side.</p></div><div class="rubric"><code>entities</code><p>Specific actors are extracted with person/group/nation/institution/other and adversarial/favorable/neutral stance.</p></div></div>
+<h2>How every paragraph was labeled</h2>
+<p>Claude Sonnet 5 annotated all 36,229 paragraphs. Each request carried an exact
+count contract and the paragraph keys it had to return. Some long structured arrays stopped
+early, so incomplete speeches were never marked done: they were retried through seven rounds
+with smaller chunks until paragraph and speech coverage both reached 100%. Thirty-two speeches
+needed partial-speech chunk context; that amendment is recorded rather than hidden.</p>
+<p>The final table contains 52,133 distinct paragraph-topic pairs, or
+1.439 topics per paragraph. Labels are multi-label, so shares across topics do
+not sum to 100%. The denominator always includes the 404 paragraphs
+(1.12%) assigned no topic. Case variants are mapped to the canonical 50 names,
+and duplicate paragraph-topic pairs are removed before counting.</p>
+<h2>Quality checks and the second opinion</h2>
+<p>Coverage alone is not accuracy. A persisted, era-stratified sample of 266 speeches was read
+again by Claude Opus 4.8 using byte-identical prompts. The model was the only intended variable.
+Agreement is published field by field; no disagreement score is used to erase labels.</p>
+<div class="metrics"><div class="metric"><span>Topic sets</span><strong>67.8%</strong>
+<small>mean per-paragraph Jaccard · n=8,570</small></div><div class="metric"><span>Partisan attack</span><strong>κ 0.72</strong>
+<small>chance-corrected agreement · n=8,570</small></div><div class="metric"><span>Named adversary</span><strong>κ 0.78</strong>
+<small>chance-corrected agreement · n=8,570</small></div><div class="metric"><span>Zero-sum framing</span><strong>κ 0.49</strong>
+<small>chance-corrected agreement · n=8,570</small></div><div class="metric"><span>Proposal / values</span><strong>72.0%</strong>
+<small>exact match · n=8,570</small></div><div class="metric"><span>Speech type</span><strong>κ 0.95</strong>
+<small>chance-corrected agreement · n=266</small></div><div class="metric"><span>Entity stance</span><strong>88.1%</strong>
+<small>agreement where names matched · n=4,147</small></div></div>
+<div id="method-agreement" class="method-chart" aria-label="Agreement audit measures"></div>
+<div class="callout"><p><strong>These bars are not one league table.</strong> Topic-set
+Jaccard, binary-label κ, exact match, and matched-name stance agreement answer different
+questions. The shared 0–1 axis makes their scale visible; each tooltip retains the metric
+type.</p></div>
+<p>Those figures are reliability evidence, not human ground truth. Topic Jaccard is set overlap
+for a multi-label field; Cohen's kappa corrects categorical agreement for chance; exact match is
+used for the four-way proposal/values field. Entity-name matching is particularly strict because
+two models may choose different spans for the same actor; stance agreement is reported only on
+matched names.</p>
+<h2>How uncertainty reaches the charts</h2>
+<p>Trend bands resample whole speeches, not individual paragraphs, because paragraphs inside one
+speech are correlated. AI-topic trend bands combine that sampling interval with the measured
+half-gap between the primary and second-opinion labelers in the same reporting era. Thin periods
+are dotted; cells whose interval cannot be resolved receive a hollow ring. A point estimate may
+still be real while its uncertainty is unknown.</p>
+<h2>Where the labels appear</h2><ul><li><strong>Dashboard:</strong> AI topic trends carry sampling
+and annotator-disagreement bands.</li><li><strong>President profiles:</strong> top topics, distinctive
+topics, proposal/values mix, combat flags, genres, and named adversaries.</li><li><strong>Comparison:</strong>
+the same rates are aligned across two or three presidents.</li><li><strong>Issue pages:</strong> each
+broad legacy issue shows the finer AI topics in its crosswalk.</li><li><strong>Explorer:</strong> all
+50 AI topics can be overlaid against any word or phrase.</li></ul>
+<h2>Limitations that remain visible</h2><ul><li>The Miller Center collection is curated and not
+exhaustive; this is presidential formal speech, not every rally, interview, tweet, or private
+conversation.</li><li>The taxonomy is frozen for comparability and therefore retains known gaps,
+including no standalone education topic and no modern monetary-policy topic.</li><li>Era tags reduce
+anachronism; they do not eliminate every historically implausible assignment.</li><li>Inter-model
+agreement is not human validation. Zero-sum framing is the least stable binary flag here
+(κ 0.49), so it should be read with more caution than speech type (κ 0.95).</li>
+<li>President-level percentages are descriptive. Thin records are marked rather than promoted as
+precise estimates.</li></ul>
+<h2>The complete frozen taxonomy</h2><p>Open any domain to inspect its definition and every
+level-2 topic available to the annotator. Policy and non-policy domains are both first class.</p>
+<div class="tax-atlas"><details class="tax-domain">
+<summary><span>Foreign Relations &amp; Diplomacy</span><span class="tax-kind">policy · 8 topics</span></summary>
+<p>Conduct of relations with other nations: treaties, diplomacy, neutrality, alliances, hemispheric and great-power policy, foreign aid, and international organizations.</p><ul><li><strong>Neutral Rights &amp; Maritime Depredations</strong>
+  <span>Protests against violations of American neutral commerce and the impressment of seamen by European belligerents during the era of the Napoleonic wars.</span></li><li><strong>Treaties, Diplomacy &amp; International Arbitration</strong>
+  <span>General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.</span></li><li><strong>Relations with Spain, Mexico &amp; Territorial Claims</strong>
+  <span>Boundary disputes, treaties, spoliation claims, and grievances with Spain and Mexico over Florida, Texas, and other borderlands.</span></li><li><strong>Monroe Doctrine &amp; Latin American Policy</strong>
+  <span>Assertion of hemispheric primacy and non-interference, sympathy for and relations with Latin American republics, and intervention in the Western Hemisphere.</span></li><li><strong>Cold War &amp; Great-Power Rivalry</strong>
+  <span>The global contest with Soviet and Chinese communism and later confrontation and negotiation with great-power rivals and rogue regimes over security and influence.</span></li><li><strong>Nuclear Weapons &amp; Arms Control</strong>
+  <span>The danger of nuclear war and fallout, superpower vulnerability, and efforts to limit or reduce nuclear arms through negotiation and treaties.</span></li><li><strong>Middle East &amp; Israel</strong>
+  <span>U.S. commitment to Israel&#x27;s security, the Israeli-Palestinian conflict, and pursuit of Arab-Israeli peace and regional diplomacy.</span></li><li><strong>World Order, Foreign Aid &amp; Democracy Promotion</strong>
+  <span>The United Nations and international order, economic assistance to developing nations, and the conviction that America should spread liberty and democracy abroad.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>War &amp; Military Affairs</span><span class="tax-kind">policy · 7 topics</span></summary>
+<p>The waging of wars and military campaigns, reports on operations, and the raising, equipping, and honoring of the armed forces and veterans.</p><ul><li><strong>Military Preparedness, Armed Forces &amp; Veterans</strong>
+  <span>Organizing and equipping the militia, army, and navy, fortifications and armament, readiness in peacetime, and the care and honoring of veterans and service members.</span></li><li><strong>Early Naval Wars: Barbary &amp; the War of 1812</strong>
+  <span>Naval operations against the Barbary powers and the conduct of the War of 1812 with Britain, including maritime independence and honorable peace.</span></li><li><strong>Mexican War</strong>
+  <span>The military conflict with Mexico, its justification through claims and annexation, and the conduct and settlement of the war.</span></li><li><strong>World War I Mobilization &amp; War Aims</strong>
+  <span>America&#x27;s entry into the European war, the draft and supply machinery, and the assertion of unselfish national ideals and purposes.</span></li><li><strong>World War II Military Operations</strong>
+  <span>Reports on the progress of the Second World War, battles in the Pacific and Europe, casualties, and the strategy of defeating Germany and Japan.</span></li><li><strong>Vietnam War</strong>
+  <span>Justification of U.S. involvement in South Vietnam, war conduct and troop levels, prisoners, and the search for a negotiated peace.</span></li><li><strong>Iraq, Gulf Wars, the War on Terror &amp; Interventions</strong>
+  <span>Confronting Iraqi aggression and terrorism, combating al Qaeda and weapons of mass destruction, and armed interventions and peacekeeping in trouble spots.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Money, Banking &amp; Currency</span><span class="tax-kind">policy · 2 topics</span></summary>
+<p>Monetary policy, coinage and the mint, specie, paper currency, the gold standard, national and state banks, and financial crises.</p><ul><li><strong>Coinage, Currency &amp; Specie</strong>
+  <span>The mint and coinage, gold and silver, specie versus paper money, the gold standard, and the free-silver and specie-resumption debates.</span></li><li><strong>National Bank &amp; Banking Crises</strong>
+  <span>Controversies over a national bank, deposit of public revenues, bank regulation, protection of deposits, and financial panics and revulsions.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Trade, Commerce &amp; Tariffs</span><span class="tax-kind">policy · 2 topics</span></summary>
+<p>Regulation of foreign and interstate commerce, tariffs, reciprocity, navigation laws, and control of corporate monopoly.</p><ul><li><strong>Tariffs, Reciprocity &amp; Navigation Laws</strong>
+  <span>Import duties and protective tariffs, reciprocal trade and navigation treaties, tonnage, and disputes over trade practices with foreign rivals.</span></li><li><strong>Trusts, Corporations &amp; Antitrust</strong>
+  <span>Concern over concentrated corporate wealth and monopoly and proposals for federal supervision or regulation of interstate business.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Public Finance &amp; Taxation</span><span class="tax-kind">policy · 2 topics</span></summary>
+<p>Government revenue, the public debt, appropriations, taxes, budgets, deficits, and federal spending.</p><ul><li><strong>Public Debt, Revenue &amp; Treasury Finance</strong>
+  <span>Receipts and expenditures, reduction of the national debt, surplus revenue, and the general fiscal condition of the Treasury.</span></li><li><strong>Taxes, Budget Deficits &amp; Federal Spending</strong>
+  <span>Modern fiscal debates over tax cuts and incentives, budget deficits and inflation, spending controls, and balancing the budget.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Economy, Labor &amp; Social Welfare</span><span class="tax-kind">policy · 5 topics</span></summary>
+<p>The general economic condition, employment, wages and labor relations, poverty and welfare, health and old-age security, and prosperity of ordinary Americans.</p><ul><li><strong>Great Depression Recovery</strong>
+  <span>Federal and voluntary responses to the economic collapse of the 1930s, including relief, public works, and recovery measures.</span></li><li><strong>Labor, Wages &amp; Working Conditions</strong>
+  <span>Relations between labor and capital, the right to organize, wages and labor legislation, child labor, and urban tenement and social-welfare reform.</span></li><li><strong>Welfare, Poverty &amp; Economic Opportunity</strong>
+  <span>Anti-poverty programs, welfare reform to reward work, the minimum wage, and helping families toward self-sufficiency.</span></li><li><strong>Health Care, Medicare &amp; Social Security</strong>
+  <span>Health insurance coverage and costs, Medicare and drug coverage, and the Social Security old-age system.</span></li><li><strong>Prosperity, Jobs &amp; the Middle Class</strong>
+  <span>Assessment of the nation&#x27;s economic condition and appeals about jobs, growth, and security for working and middle-class families.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Agriculture, Land &amp; Environment</span><span class="tax-kind">policy · 3 topics</span></summary>
+<p>Farming and farm prices, disposal and settlement of public lands, and conservation of natural resources and the environment.</p><ul><li><strong>Public Lands &amp; Homestead Settlement</strong>
+  <span>Survey, sale, pricing, preemption, and distribution of public lands, protection of settlers, and operation of the homestead system.</span></li><li><strong>Agriculture &amp; Farm Prices</strong>
+  <span>Development of farming, agricultural research and markets, farm credit and cooperatives, and the economic condition of farmers.</span></li><li><strong>Conservation &amp; the Environment</strong>
+  <span>Conservation of forests, water power, and public resources and later programs to clean the nation&#x27;s air and water and preserve parklands.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Infrastructure &amp; Internal Improvements</span><span class="tax-kind">policy · 2 topics</span></summary>
+<p>Federal support for roads, canals, harbors, energy, and other public works and large-scale national development projects.</p><ul><li><strong>Internal Improvements, Energy &amp; Infrastructure</strong>
+  <span>Federal support for roads, canals, harbors, energy production and pipelines, and rebuilding the nation&#x27;s infrastructure, including constitutional debate over such works.</span></li><li><strong>Space Exploration</strong>
+  <span>The race to lead in space, the drive to reach the moon, and investment in rockets and satellites in competition with the Soviets.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Civil Rights &amp; Immigration</span><span class="tax-kind">policy · 5 topics</span></summary>
+<p>Slavery and emancipation, racial equality and voting rights, discrimination, and the admission and treatment of immigrants.</p><ul><li><strong>Slavery, Emancipation &amp; Sectionalism</strong>
+  <span>Disputes over slavery in the territories and sectional compromise, and the emancipation, colonization, and new civil status of the freedmen.</span></li><li><strong>Reconstruction &amp; Southern Self-Government</strong>
+  <span>Pacification of the former Confederate states, restoration of local self-government, and protection of citizens&#x27; rights after the war.</span></li><li><strong>Chinese Immigration &amp; Exclusion</strong>
+  <span>The character of Chinese immigration and contract labor, registration and passport proposals, race prejudice, and mob violence against Chinese laborers.</span></li><li><strong>Civil Rights, Voting Rights &amp; Discrimination</strong>
+  <span>Federal action to end racial denial of the vote and secure equal rights, combat discrimination, and include the disabled and minorities in American life.</span></li><li><strong>Immigration &amp; Border Security</strong>
+  <span>Welcoming or restricting immigrants, border walls and enforcement, deportation and detention, and framing immigration as a security concern.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Indian &amp; Tribal Affairs</span><span class="tax-kind">policy · 1 topics</span></summary>
+<p>Relations with Indian tribes: treaties, hostilities, removal, reservations, allotment, and efforts at assimilation.</p><ul><li><strong>Indian Affairs, Removal &amp; Allotment</strong>
+  <span>Relations with Indian tribes: frontier hostilities and treaties, efforts to &#x27;civilize&#x27; them, removal beyond the states, reservation policy, and allotment of lands in severalty.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Law, Crime &amp; Justice</span><span class="tax-kind">policy · 2 topics</span></summary>
+<p>Enforcement of federal law, suppression of insurrection, crime and courts, and morals legislation in the Territories.</p><ul><li><strong>Crime, Insurrection &amp; Federal Law Enforcement</strong>
+  <span>Suppression of domestic insurrection and combinations against federal law, and the administration of justice through courts, penitentiaries, and law-enforcement agencies.</span></li><li><strong>Polygamy in the Territories</strong>
+  <span>Legislation aimed at suppressing polygamy and bigamy in Utah and other Territories through marriage records, witness rules, and voting and office restrictions.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Constitutional Order &amp; Governance</span><span class="tax-kind">policy · 5 topics</span></summary>
+<p>The constitutional structure of the government: federalism and union, executive power, civil-service reform, territorial organization and statehood, and the integrity of elections.</p><ul><li><strong>Constitutional Union &amp; Federalism</strong>
+  <span>Reflections on the constitutional compact, the balance between state sovereignty and federal authority, secession, and preservation of the Union.</span></li><li><strong>Civil Service Reform &amp; the Merit System</strong>
+  <span>Competitive examinations, boards of examiners, merit-based appointment and promotion, and freeing offices from patronage.</span></li><li><strong>Executive Power, Vetoes &amp; the Courts</strong>
+  <span>Assertions of presidential constitutional duties, the veto and removal powers, interbranch relations, and reform of the federal judiciary.</span></li><li><strong>Territorial Organization, Statehood &amp; Insular Governance</strong>
+  <span>Establishing governments for new territories, fixing boundaries and admitting states, and administering overseas dependencies such as the Philippines, Cuba, and Puerto Rico.</span></li><li><strong>Elections &amp; Voting Integrity</strong>
+  <span>Federal supervision of elections and enforcement laws, disputed vote-counting, and modern controversies over voting rights and ballot integrity.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Ceremonial &amp; Commemorative Address</span><span class="tax-kind">non-policy · 1 topics</span></summary>
+<p>Non-policy ceremonial speech: eulogies, tributes to founders and heroes, anniversary commemorations, and national mourning.</p><ul><li><strong>Commemoration, Eulogy &amp; National Mourning</strong>
+  <span>Ceremonial tributes to founders and heroes, eulogies for departed statesmen, anniversary commemorations, and consoling the nation in mourning.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Personal Narrative &amp; Reflection</span><span class="tax-kind">non-policy · 2 topics</span></summary>
+<p>Non-policy personal speech: the president&#x27;s humility about office, autobiographical storytelling, humor, and boasting of achievements.</p><ul><li><strong>Presidential Humility &amp; Reflection on Office</strong>
+  <span>The chief executive&#x27;s diffidence about his qualifications, gratitude for public trust, and reflection on entering or leaving the office.</span></li><li><strong>Personal Narrative, Storytelling &amp; Boasting</strong>
+  <span>Autobiographical accounts of humble origins and family, anecdotes and humor, and self-congratulatory boasting of achievements.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Procedural &amp; Administrative</span><span class="tax-kind">non-policy · 1 topics</span></summary>
+<p>Non-policy housekeeping: routine departmental reports, postal operations, and the mechanics of executive-legislative business.</p><ul><li><strong>Executive Departments, Postal &amp; Administrative Housekeeping</strong>
+  <span>Routine departmental reports, statistics, and recommendations, the operation of the Post Office, and other administrative housekeeping of the executive branch.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Faith &amp; National Values</span><span class="tax-kind">non-policy · 1 topics</span></summary>
+<p>Non-policy appeals to Providence, faith, patriotism, civic ideals, and the shared moral character of the nation.</p><ul><li><strong>Providence, Faith &amp; American Ideals</strong>
+  <span>Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.</span></li></ul></details>
+<details class="tax-domain">
+<summary><span>Partisan &amp; Media Combat</span><span class="tax-kind">non-policy · 1 topics</span></summary>
+<p>Non-policy political combat: attacks on opponents and parties, campaign debate, press-conference exchanges, and clashes with the media.</p><ul><li><strong>Partisan Combat, Press Conferences &amp; Media Attacks</strong>
+  <span>Attacks on opponents and parties, campaign debate and defense of one&#x27;s record, the give-and-take of televised news conferences, and clashes with the press.</span></li></ul></details></div>
+<h2>Provenance</h2><table class="method-table"><thead><tr><th>Stage</th><th>Models</th><th>Requests</th><th>Actual recorded cost</th></tr></thead><tbody>
+<tr><td>Taxonomy + crosswalk</td><td>claude-opus-4-8 (+ claude-sonnet-5 for coverage)</td><td>22</td><td>$2.4404</td></tr>
+<tr><td>Primary full annotation and convergence</td><td>claude-sonnet-5</td><td>2,580</td><td>$38.0947</td></tr>
+<tr><td>Second-opinion sample</td><td>claude-opus-4-8</td><td>618</td><td>$30.5211</td></tr>
+</tbody></table><p>Every output row carries a <code>run_id</code> that points to a manifest with
+model, prompt version and hash, batch ID, tokens, cost, and corpus fingerprint. The frozen paid
+artifacts are read-only inputs to this site build.</p>
+</article></main><footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public
+Affairs, University of Virginia</a>. Source code and full research notes:
+<a href="https://github.com/jacobfulfyll/presidential_profiles">Presidential Profiles</a>.</p><p class="footer-feedback"><a href="feedback.html">Feedback and accuracy →</a></p></footer>
+<script src="assets/plotly-3.0.1.min.js"></script><script>
+const MA=[{"label": "Topic sets", "value": 0.6776990609546035, "measure": "mean Jaccard"}, {"label": "Partisan attack", "value": 0.7159493500826851, "measure": "Cohen\u2019s \u03ba"}, {"label": "Named adversary", "value": 0.7789382356539741, "measure": "Cohen\u2019s \u03ba"}, {"label": "Zero-sum", "value": 0.48916430875165706, "measure": "Cohen\u2019s \u03ba"}, {"label": "Proposal / values", "value": 0.7203033838973162, "measure": "exact match"}, {"label": "Speech type", "value": 0.9539911787598374, "measure": "Cohen\u2019s \u03ba"}, {"label": "Entity stance", "value": 0.8808777429467085, "measure": "matched-name agreement"}];
+const methodBase={template:"simple_white",paper_bgcolor:"#fff",plot_bgcolor:"#fff",
+ font:{family:"system-ui",color:"#24313d"},margin:{l:64,r:24,t:38,b:80}};
+Plotly.newPlot("method-coverage",[{type:"bar",x:["Primary label pass","Paired second opinion"],
+ y:[36229,8570],marker:{color:["#2d6f9d","#b17a43"]},
+ text:[36229,8570],textposition:"outside",
+ hovertemplate:"%{x}<br>%{y:,} paragraphs<extra></extra>"}],
+ {...methodBase,height:430,yaxis:{title:"paragraphs",gridcolor:"#e7e9eb"},
+ title:{text:"How much of the corpus each judgment pass covers",font:{size:16}}},
+ {displayModeBar:false,responsive:true});
+Plotly.newPlot("method-agreement",[{type:"bar",x:MA.map(x=>x.label),y:MA.map(x=>x.value),
+ customdata:MA.map(x=>x.measure),
+ marker:{color:MA.map(x=>x.label==="Zero-sum"?"#b17a43":"#2d6f9d")},
+ hovertemplate:"%{x}<br>%{customdata}: %{y:.3f}<extra></extra>"}],
+ {...methodBase,height:430,yaxis:{title:"reported agreement (0–1)",range:[0,1],gridcolor:"#e7e9eb"},
+ title:{text:"Second-opinion reliability audit",font:{size:16}}},
+ {displayModeBar:false,responsive:true});
+</script>
+</body></html>

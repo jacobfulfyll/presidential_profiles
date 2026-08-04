@@ -8,14 +8,6 @@
     "artifact-design": {
       "runs": 1,
       "last": "2026-07-11"
-    },
-    "claude-api": {
-      "runs": 9,
-      "last": "2026-07-21"
-    },
-    "reggie-code-workflow": {
-      "runs": 1,
-      "last": "2026-07-13"
     }
   },
   "tool_searches": {
@@ -24,28 +16,12 @@
       "last": "2026-07-11"
     },
     "TaskStop": {
-      "searches": 2,
-      "last": "2026-07-19"
+      "searches": 1,
+      "last": "2026-07-11"
     },
     "plugin_chrome-devtools-mcp_chrome-devtools": {
       "searches": 2,
       "last": "2026-07-11"
-    },
-    "SendMessage": {
-      "searches": 9,
-      "last": "2026-07-21"
-    },
-    "TaskOutput,TaskList": {
-      "searches": 1,
-      "last": "2026-07-13"
-    },
-    "Monitor": {
-      "searches": 13,
-      "last": "2026-07-21"
-    },
-    "claude-in-chrome": {
-      "searches": 1,
-      "last": "2026-07-14"
     }
   }
 }

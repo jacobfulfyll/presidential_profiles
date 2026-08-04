@@ -7,8 +7,17 @@ metadata:
 
 A recurring shape in `presidential_profiles`: a NEW `src/presidential_profiles/<x>.py` that reads
 the frozen paid parquets under `data/llm_annotations/`, computes stats, and writes derived tables
-under its own `data/<x>/`. Seen in `agreement.py` (2026-07-21) and `combat.py`
-(`combativeness-over-time`, 2026-07-21). Both PASSed. Expect more (era-atlas, charts).
+under its own `data/<x>/`. Seen in `agreement.py` (2026-07-21), `combat.py`
+(`combativeness-over-time`, 2026-07-21) and `register.py` (`breadth-depth-register`, 2026-07-21).
+All PASSed. Expect more (era-atlas, charts).
+
+**`register.py` is the cleanest instance so far and is the one to diff future modules against:**
+no path CLI arg (see [[cli-path-arg-containment]]), and its committed `data/register/trends.parquet`
+holds **zero free-text corpus strings** — the only string columns are 5 controlled vocabularies
+(`unit`/`measure`/`taxonomy`/`genre_treatment`/`statistic`, all module constants), everything else is
+numeric. No `doc_name`, no `president`, no `text`. That makes the standing forward-looking
+HTML-escape note below **inapplicable to this artifact**, unlike `agreement.py`'s. Check the
+committed schema before repeating the note.
 
 **Why:** every one of these claims "$0, no API calls" in its docstring, and a docstring is not
 evidence. The top risk the pipeline names is a future refactor quietly coupling one of these to

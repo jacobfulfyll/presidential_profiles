@@ -1,0 +1,1300 @@
+{
+  "schema_version": "president-profile-v3",
+  "president": "Rutherford B. Hayes",
+  "slug": "rutherford-b-hayes",
+  "party": "Republican",
+  "years": {
+    "first": 1877,
+    "last": 1881
+  },
+  "sample": {
+    "n_speeches": 16,
+    "n_words": 67983,
+    "thin_record": false,
+    "warning": null
+  },
+  "rhetorical_radar": [
+    {
+      "key": "hope",
+      "label": "Hope",
+      "absolute": 707.3297265248648,
+      "percentile": 75.55555555555556
+    },
+    {
+      "key": "fear",
+      "label": "Fear appeal",
+      "absolute": 259.9866597494998,
+      "percentile": 28.888888888888886
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "absolute": 0.5550239234449761,
+      "percentile": 40.0
+    },
+    {
+      "key": "us_vs_them",
+      "label": "Us vs them",
+      "absolute": 41.65122656192099,
+      "percentile": 22.22222222222222
+    },
+    {
+      "key": "self_reference",
+      "label": "Self-reference",
+      "absolute": 0.5207100591715976,
+      "percentile": 84.44444444444444
+    },
+    {
+      "key": "formality",
+      "label": "Formality",
+      "absolute": 18.47891740112813,
+      "percentile": 68.88888888888889
+    },
+    {
+      "key": "vocabulary",
+      "label": "Vocabulary",
+      "absolute": 0.3924029850746268,
+      "percentile": 15.555555555555555
+    },
+    {
+      "key": "religiosity",
+      "label": "Religiosity",
+      "absolute": 3.8538501445193805,
+      "percentile": 13.333333333333334
+    }
+  ],
+  "raw_stats": {
+    "party": "Republican",
+    "first_year": 1877,
+    "last_year": 1881,
+    "n_speeches": 16,
+    "n_words": 67983,
+    "boosters": 4.446750166753131,
+    "hedges": 32.609501222856295,
+    "concessives": 8.745275327947825,
+    "assertive_modals": 47.135551767583195,
+    "need_to": 0.8893500333506262,
+    "united_states": 47.43200177870006,
+    "america": 9.931075372415327,
+    "nostalgia": 6.077225227895946,
+    "future": 3.557400133402505,
+    "religiosity": 3.8538501445193805,
+    "god_bless": 0.0,
+    "us_them": 41.65122656192099,
+    "superlatives": 5.7807752167790705,
+    "opponents": 3.409175127844067,
+    "hype": 1.3340250500259394,
+    "doom": 1.3340250500259394,
+    "mechanism": 94.7157785518417,
+    "nrc_hope": 707.3297265248648,
+    "nrc_fear": 259.9866597494998,
+    "certainty": 0.5550239234449761,
+    "fk_grade": 18.47891740112813,
+    "self_reference": 0.5207100591715976,
+    "ttr": 0.3924029850746268,
+    "pct_hope": 75.55555555555556,
+    "pct_fear": 28.888888888888886,
+    "pct_certainty": 40.0,
+    "pct_us_vs_them": 22.22222222222222,
+    "pct_self_reference": 84.44444444444444,
+    "pct_formality": 68.88888888888889,
+    "pct_vocabulary": 15.555555555555555,
+    "pct_religiosity": 13.333333333333334
+  },
+  "legacy_issue_attention": [
+    {
+      "key": "Economy & jobs",
+      "label": "Economy & jobs",
+      "share": 0.13,
+      "era_relative_difference": 1.1762
+    },
+    {
+      "key": "Taxes & budget",
+      "label": "Taxes & budget",
+      "share": 0.17,
+      "era_relative_difference": 6.7761
+    },
+    {
+      "key": "War & military",
+      "label": "War & military",
+      "share": 0.2,
+      "era_relative_difference": -1.7692
+    },
+    {
+      "key": "Foreign policy",
+      "label": "Foreign policy",
+      "share": 0.21,
+      "era_relative_difference": 0.2503
+    },
+    {
+      "key": "Immigration",
+      "label": "Immigration",
+      "share": 0.07,
+      "era_relative_difference": 3.1544
+    },
+    {
+      "key": "Civil rights & race",
+      "label": "Civil rights & race",
+      "share": 0.054,
+      "era_relative_difference": -1.7713
+    },
+    {
+      "key": "Health care",
+      "label": "Health care",
+      "share": 0.028,
+      "era_relative_difference": 1.4739
+    },
+    {
+      "key": "Education",
+      "label": "Education",
+      "share": 0.056,
+      "era_relative_difference": 3.0038
+    },
+    {
+      "key": "Crime & justice",
+      "label": "Crime & justice",
+      "share": 0.08,
+      "era_relative_difference": 2.3134
+    },
+    {
+      "key": "Energy & environment",
+      "label": "Energy & environment",
+      "share": 0.016,
+      "era_relative_difference": 0.6079
+    },
+    {
+      "key": "Trade & tariffs",
+      "label": "Trade & tariffs",
+      "share": 0.106,
+      "era_relative_difference": -2.4918
+    },
+    {
+      "key": "Agriculture",
+      "label": "Agriculture",
+      "share": 0.036,
+      "era_relative_difference": 1.0782
+    },
+    {
+      "key": "Religion & values",
+      "label": "Religion & values",
+      "share": 0.042,
+      "era_relative_difference": -1.3896
+    },
+    {
+      "key": "Money & banking",
+      "label": "Money & banking",
+      "share": 0.094,
+      "era_relative_difference": 2.9088
+    },
+    {
+      "key": "Infrastructure",
+      "label": "Infrastructure",
+      "share": 0.098,
+      "era_relative_difference": -5.2112
+    },
+    {
+      "key": "Discovered 5",
+      "label": "Security & peace",
+      "share": 0.04,
+      "era_relative_difference": -2.1779
+    }
+  ],
+  "issue_evidence": {
+    "cards": [
+      {
+        "issue": "Taxes & budget",
+        "rel": 6.776102581365845,
+        "share": 0.17,
+        "base": 0.1078417842060228,
+        "topic_of_day": false,
+        "words": [
+          "appropriations",
+          "attention"
+        ],
+        "quote": "A tax of 10 cents a pound on tea and 2 cents a pound on coffee would produce a revenue exceeding $12,000,000, and thus enable Congress to repeal a multitude of annoying taxes yielding a revenue not exceeding that sum.",
+        "cite": "First Annual Message, 1877",
+        "stance": null
+      },
+      {
+        "issue": "Immigration",
+        "rel": 3.154409043180295,
+        "share": 0.07,
+        "base": 0.026994948797924315,
+        "topic_of_day": false,
+        "words": [],
+        "quote": "To the House of Representatives: After a very careful consideration of House bill 2423, entitled &quot;An act to restrict the immigration of Chinese to the United States,&quot; I herewith return it to the House of Representatives, in which it originated, with my objections to its passage.",
+        "cite": "Veto Message Regarding Immigration Legislation, 1879",
+        "stance": "mostly about welcoming"
+      },
+      {
+        "issue": "Education",
+        "rel": 3.003762380507723,
+        "share": 0.056,
+        "base": 0.04372188026166883,
+        "topic_of_day": false,
+        "words": [
+          "indian"
+        ],
+        "quote": "The success of the public schools of the District of Columbia, and the progress made, under the intelligent direction of the board of education and the superintendent, in supplying the educational requirements of the District with thoroughly trained and efficient teachers, is very gratifying.",
+        "cite": "Fourth Annual Message, 1880",
+        "stance": null
+      },
+      {
+        "issue": "Money & banking",
+        "rel": 2.908788226584111,
+        "share": 0.094,
+        "base": 0.05603246018383063,
+        "topic_of_day": false,
+        "words": [
+          "coinage",
+          "silver",
+          "tender",
+          "coin",
+          "section"
+        ],
+        "quote": "During the year prior to the passage of the bill authorizing its coinage the market value of the silver which it contained was from 90 to 92 cents as compared with the standard gold dollar.",
+        "cite": "Fourth Annual Message, 1880",
+        "stance": null
+      }
+    ],
+    "voice": [
+      "elections",
+      "election",
+      "marshals",
+      "statutes",
+      "deputy",
+      "laws",
+      "sec",
+      "deputies"
+    ],
+    "n_speeches": 16,
+    "n_paragraphs": 500,
+    "low_confidence": false
+  },
+  "ai": {
+    "n_paragraphs": 500,
+    "n_speeches": 16,
+    "low_confidence": false,
+    "top_topics": [
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Federal supervision of elections and enforcement laws, disputed vote-counting, and modern controversies over voting rights and ballot integrity.",
+        "share": 15.2,
+        "rel": 11.49,
+        "n": 76
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Assertions of presidential constitutional duties, the veto and removal powers, interbranch relations, and reform of the federal judiciary.",
+        "share": 12.4,
+        "rel": 5.22,
+        "n": 62
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.",
+        "share": 12.0,
+        "rel": -2.29,
+        "n": 60
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "definition": "Routine departmental reports, statistics, and recommendations, the operation of the Post Office, and other administrative housekeeping of the executive branch.",
+        "share": 10.4,
+        "rel": 4.15,
+        "n": 52
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Competitive examinations, boards of examiners, merit-based appointment and promotion, and freeing offices from patronage.",
+        "share": 9.6,
+        "rel": 6.49,
+        "n": 48
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "definition": "The mint and coinage, gold and silver, specie versus paper money, the gold standard, and the free-silver and specie-resumption debates.",
+        "share": 8.0,
+        "rel": 3.17,
+        "n": 40
+      }
+    ],
+    "distinctive_topics": [
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Federal supervision of elections and enforcement laws, disputed vote-counting, and modern controversies over voting rights and ballot integrity.",
+        "share": 15.2,
+        "rel": 11.49,
+        "n": 76
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Competitive examinations, boards of examiners, merit-based appointment and promotion, and freeing offices from patronage.",
+        "share": 9.6,
+        "rel": 6.49,
+        "n": 48
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Assertions of presidential constitutional duties, the veto and removal powers, interbranch relations, and reform of the federal judiciary.",
+        "share": 12.4,
+        "rel": 5.22,
+        "n": 62
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "definition": "Relations with Indian tribes: frontier hostilities and treaties, efforts to 'civilize' them, removal beyond the states, reservation policy, and allotment of lands in severalty.",
+        "share": 7.6,
+        "rel": 4.68,
+        "n": 38
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "definition": "Routine departmental reports, statistics, and recommendations, the operation of the Post Office, and other administrative housekeeping of the executive branch.",
+        "share": 10.4,
+        "rel": 4.15,
+        "n": 52
+      }
+    ],
+    "domains": [
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 36.4,
+        "rel": 10.01
+      },
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 16.6,
+        "rel": -7.21
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 10.4,
+        "rel": 4.15
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 10.2,
+        "rel": -2.79
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 9.6,
+        "rel": 2.88
+      }
+    ],
+    "topic_attention": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.6,
+        "rel": -1.573,
+        "n": 3
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 12.0,
+        "rel": -2.291,
+        "n": 60
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 3.0,
+        "rel": -1.464,
+        "n": 15
+      },
+      {
+        "name": "Monroe Doctrine & Latin American Policy",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 3.4,
+        "rel": -4.65,
+        "n": 17
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.02,
+        "n": 0
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Middle East & Israel",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.007,
+        "n": 0
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.049,
+        "n": 0
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "share": 7.2,
+        "rel": -0.719,
+        "n": 36
+      },
+      {
+        "name": "Early Naval Wars: Barbary & the War of 1812",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.115,
+        "n": 0
+      },
+      {
+        "name": "Mexican War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.066,
+        "n": 0
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.013,
+        "n": 0
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.007,
+        "n": 0
+      },
+      {
+        "name": "Vietnam War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "share": 8.0,
+        "rel": 3.166,
+        "n": 40
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "share": 2.0,
+        "rel": -0.862,
+        "n": 10
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 4.0,
+        "rel": -3.454,
+        "n": 20
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 0.0,
+        "rel": -1.89,
+        "n": 0
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "share": 7.8,
+        "rel": 0.856,
+        "n": 39
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "share": 0.0,
+        "rel": -0.563,
+        "n": 0
+      },
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.08,
+        "n": 0
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.2,
+        "rel": -1.817,
+        "n": 1
+      },
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.035,
+        "n": 0
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.013,
+        "n": 0
+      },
+      {
+        "name": "Prosperity, Jobs & the Middle Class",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.2,
+        "rel": -0.285,
+        "n": 1
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "share": 2.2,
+        "rel": 0.069,
+        "n": 11
+      },
+      {
+        "name": "Agriculture & Farm Prices",
+        "domain": "Agriculture, Land & Environment",
+        "share": 2.2,
+        "rel": 0.21,
+        "n": 11
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "share": 1.2,
+        "rel": 0.116,
+        "n": 6
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 4.8,
+        "rel": -1.259,
+        "n": 24
+      },
+      {
+        "name": "Space Exploration",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Slavery, Emancipation & Sectionalism",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.2,
+        "rel": -4.344,
+        "n": 1
+      },
+      {
+        "name": "Reconstruction & Southern Self-Government",
+        "domain": "Civil Rights & Immigration",
+        "share": 3.8,
+        "rel": -1.471,
+        "n": 19
+      },
+      {
+        "name": "Chinese Immigration & Exclusion",
+        "domain": "Civil Rights & Immigration",
+        "share": 3.4,
+        "rel": 2.251,
+        "n": 17
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "share": 4.2,
+        "rel": 1.675,
+        "n": 21
+      },
+      {
+        "name": "Immigration & Border Security",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.96,
+        "n": 0
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "share": 7.6,
+        "rel": 4.685,
+        "n": 38
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "share": 4.4,
+        "rel": 0.577,
+        "n": 22
+      },
+      {
+        "name": "Polygamy in the Territories",
+        "domain": "Law, Crime & Justice",
+        "share": 1.2,
+        "rel": -0.278,
+        "n": 6
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "share": 5.4,
+        "rel": -2.545,
+        "n": 27
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "share": 9.6,
+        "rel": 6.487,
+        "n": 48
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "share": 12.4,
+        "rel": 5.22,
+        "n": 62
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "share": 2.0,
+        "rel": -3.872,
+        "n": 10
+      },
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "share": 15.2,
+        "rel": 11.495,
+        "n": 76
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "share": 0.2,
+        "rel": -1.272,
+        "n": 1
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "share": 0.4,
+        "rel": -0.576,
+        "n": 2
+      },
+      {
+        "name": "Personal Narrative, Storytelling & Boasting",
+        "domain": "Personal Narrative & Reflection",
+        "share": 0.0,
+        "rel": -0.02,
+        "n": 0
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "share": 10.4,
+        "rel": 4.148,
+        "n": 52
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "share": 1.4,
+        "rel": -1.672,
+        "n": 7
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "share": 0.2,
+        "rel": -0.144,
+        "n": 1
+      }
+    ],
+    "domain_attention": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 16.6,
+        "rel": -7.209
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 7.2,
+        "rel": -0.858
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 9.6,
+        "rel": 2.884
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 4.0,
+        "rel": -5.232
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 7.8,
+        "rel": 0.464
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 0.4,
+        "rel": -2.075
+      },
+      {
+        "name": "Agriculture, Land & Environment",
+        "share": 4.4,
+        "rel": -0.606
+      },
+      {
+        "name": "Infrastructure & Internal Improvements",
+        "share": 4.8,
+        "rel": -1.259
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 10.2,
+        "rel": -2.794
+      },
+      {
+        "name": "Indian & Tribal Affairs",
+        "share": 7.6,
+        "rel": 4.685
+      },
+      {
+        "name": "Law, Crime & Justice",
+        "share": 5.6,
+        "rel": 0.533
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 36.4,
+        "rel": 10.014
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 0.2,
+        "rel": -1.272
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 0.4,
+        "rel": -0.596
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 10.4,
+        "rel": 4.148
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 1.4,
+        "rel": -1.672
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 0.2,
+        "rel": -0.144
+      }
+    ],
+    "flags": {
+      "party_attack": 4.2,
+      "enemy_naming": 8.0,
+      "zero_sum": 4.0
+    },
+    "proposal_values": {
+      "proposal": 25.6,
+      "values": 19.0,
+      "mixed": 15.2,
+      "neither": 40.2
+    },
+    "speech_types": [
+      {
+        "name": "Veto / signing statement",
+        "value": 43.75
+      },
+      {
+        "name": "State of the Union / annual message",
+        "value": 25.0
+      },
+      {
+        "name": "Proclamation",
+        "value": 12.5
+      },
+      {
+        "name": "Inaugural address",
+        "value": 6.25
+      }
+    ],
+    "adversaries": [
+      {
+        "name": "House of Representatives",
+        "n": 7
+      },
+      {
+        "name": "Congress",
+        "n": 4
+      },
+      {
+        "name": "citizens of Utah",
+        "n": 2
+      },
+      {
+        "name": "Mormon sect",
+        "n": 2
+      },
+      {
+        "name": "Victoria",
+        "n": 2
+      }
+    ],
+    "ai_radar": {
+      "party_attack": {
+        "absolute": 4.2,
+        "percentile": 59.5
+      },
+      "enemy_naming": {
+        "absolute": 8.0,
+        "percentile": 9.5
+      },
+      "zero_sum": {
+        "absolute": 4.0,
+        "percentile": 40.5
+      },
+      "proposal": {
+        "absolute": 25.6,
+        "percentile": 78.6
+      },
+      "values": {
+        "absolute": 19.0,
+        "percentile": 16.7
+      },
+      "topic_breadth": {
+        "absolute": 21.131,
+        "percentile": 64.3
+      }
+    }
+  },
+  "distinctive_vocabulary": [
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "elections",
+      "z": 27.401547616427813,
+      "rank": 0
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "coinage",
+      "z": 17.2998340780675,
+      "rank": 1
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "election",
+      "z": 17.215190301530463,
+      "rank": 2
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "silver",
+      "z": 16.960809322377887,
+      "rank": 3
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "marshals",
+      "z": 15.954486061562037,
+      "rank": 4
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "statutes",
+      "z": 15.242136094307277,
+      "rank": 5
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "deputy",
+      "z": 15.219366592025871,
+      "rank": 6
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "indian",
+      "z": 14.621840832077018,
+      "rank": 7
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "laws",
+      "z": 14.485686842678874,
+      "rank": 8
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "appropriations",
+      "z": 14.409823707235425,
+      "rank": 9
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "tender",
+      "z": 13.996287218982273,
+      "rank": 10
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "sec",
+      "z": 13.734171359886256,
+      "rank": 11
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "attention",
+      "z": 13.603158521728183,
+      "rank": 12
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "coin",
+      "z": 13.347990424258029,
+      "rank": 13
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "deputies",
+      "z": 13.186799206782336,
+      "rank": 14
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "appropriation",
+      "z": 13.094509401108414,
+      "rank": 15
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "section",
+      "z": 12.80835462203908,
+      "rank": 16
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "term": "congressional",
+      "z": 12.650745512807273,
+      "rank": 17
+    }
+  ],
+  "signature_speeches": [
+    {
+      "title": "June 15, 1880: Veto Message Regarding Military Legislation",
+      "year": 1880,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-15-1880-veto-message-regarding-military-legislation"
+    },
+    {
+      "title": "May 29, 1879: Veto Messages Regarding Appropriations Legislation",
+      "year": 1879,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-29-1879-veto-messages-regarding-appropriations-legislation"
+    },
+    {
+      "title": "April 29, 1879: Veto of Army Appropriations Bill",
+      "year": 1879,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-29-1879-veto-army-appropriations-bill"
+    },
+    {
+      "title": "June 22, 1877: Prohibition of Federal Employees\u2019 Political Involvement",
+      "year": 1877,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-22-1877-prohibition-federal-employees-political"
+    },
+    {
+      "title": "February 8, 1878: Veto of Bland-Allison Act",
+      "year": 1878,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-8-1878-veto-bland-allison-act"
+    }
+  ],
+  "legacy_invocations": {
+    "invokes": [
+      {
+        "target": "Abraham Lincoln",
+        "n": 3,
+        "pos": 3,
+        "neg": 0
+      },
+      {
+        "target": "George Washington",
+        "n": 2,
+        "pos": 1,
+        "neg": 0
+      },
+      {
+        "target": "Thomas Jefferson",
+        "n": 2,
+        "pos": 1,
+        "neg": 1
+      },
+      {
+        "target": "Andrew Jackson",
+        "n": 1,
+        "pos": 1,
+        "neg": 0
+      },
+      {
+        "target": "Ulysses S. Grant",
+        "n": 1,
+        "pos": 0,
+        "neg": 1
+      }
+    ],
+    "invoked_by": null
+  },
+  "classified_invocations": [
+    {
+      "target": "Abraham Lincoln",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Abraham Lincoln",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Andrew Jackson",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "George Washington",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "George Washington",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Thomas Jefferson",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Thomas Jefferson",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Ulysses S. Grant",
+      "function": "legacy/inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    }
+  ],
+  "voice_neighbors": [
+    [
+      "William Taft",
+      0.41851862991094496
+    ],
+    [
+      "Andrew Johnson",
+      0.40899402540067914
+    ],
+    [
+      "Herbert Hoover",
+      0.3085829691052791
+    ]
+  ],
+  "agenda_neighbors": [
+    [
+      "Grover Cleveland",
+      0.9909188590285569
+    ],
+    [
+      "Ulysses S. Grant",
+      0.9887423934173301
+    ],
+    [
+      "Chester A. Arthur",
+      0.9853860623128851
+    ]
+  ],
+  "feature_neighbors": {
+    "ai_topics": [
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.7959
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.7741
+      },
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.7724
+      },
+      {
+        "president": "Benjamin Harrison",
+        "similarity": 0.7208
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.6873
+      },
+      {
+        "president": "John Tyler",
+        "similarity": 0.654
+      }
+    ],
+    "ai_domains": [
+      {
+        "president": "James Buchanan",
+        "similarity": 0.9519
+      },
+      {
+        "president": "Andrew Jackson",
+        "similarity": 0.9272
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.8746
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.8656
+      },
+      {
+        "president": "Franklin Pierce",
+        "similarity": 0.8577
+      },
+      {
+        "president": "Andrew Johnson",
+        "similarity": 0.8489
+      }
+    ],
+    "ai_rhetoric": [
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.9376
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.9342
+      },
+      {
+        "president": "William Taft",
+        "similarity": 0.8769
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.8713
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.8237
+      },
+      {
+        "president": "William McKinley",
+        "similarity": 0.7578
+      }
+    ],
+    "rhetorical_fingerprint": [
+      {
+        "president": "William Taft",
+        "similarity": 0.9533
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.8841
+      },
+      {
+        "president": "John Tyler",
+        "similarity": 0.8245
+      },
+      {
+        "president": "Andrew Jackson",
+        "similarity": 0.7818
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.7758
+      },
+      {
+        "president": "Andrew Johnson",
+        "similarity": 0.7172
+      }
+    ],
+    "legacy_issues": [
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.9909
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.9887
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.9854
+      },
+      {
+        "president": "Benjamin Harrison",
+        "similarity": 0.9816
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.9792
+      },
+      {
+        "president": "William McKinley",
+        "similarity": 0.9777
+      }
+    ]
+  },
+  "context_specific": {
+    "profile_only": [],
+    "compare_only": []
+  }
+}

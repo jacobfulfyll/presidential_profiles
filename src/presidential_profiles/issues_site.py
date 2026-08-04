@@ -1,16 +1,17 @@
 """Issue profile pages: the biography of each issue across 240 years."""
 
 import html as html_mod
+import json
 
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.io as pio
 
-from .figures import BASELINE, BLUE_RAMP, GRID, INK, MUTED, SURFACE
+from .figures import BASELINE, BLUE_RAMP, GRID, INK, INK2, MUTED, SURFACE
 from .profiles import MILLER_URL, _EXTRA_ANCHORS, _pick_sentence, slug
 from .site_style import FONT, PAGE_CSS
-from . import bands, issues, topic_quality
+from . import ai_labels, bands, issues, metrics, topic_quality
 
 # Bands are drawn UNDER the trend line at low opacity: the 16-panel
 # small-multiples grid on the dashboard reuses these traces, and a heavier fill
@@ -437,7 +438,11 @@ def _issue_quotes(merged: pd.DataFrame, name: str,
 
 
 def render_issue(label: str, owners, fig: go.Figure,
-                 quotes: list[dict], has_unresolved: bool = False) -> str:
+                 quotes: list[dict], has_unresolved: bool = False,
+                 ai_topics: list[dict] | None = None,
+                 chart_download: str | None = None,
+                 ai_topic_series: dict[str, dict] | None = None,
+                 ai_download: str | None = None) -> str:
     """One issue page.
 
     `has_unresolved` gates the sentence explaining the hollow ring. It is a
@@ -446,6 +451,8 @@ def render_issue(label: str, owners, fig: go.Figure,
     small lie in the same family as the marker itself — so the sentence is
     printed only where the ring is actually drawn.
     """
+    label_html = html_mod.escape(label)
+    label_lower_html = html_mod.escape(label.lower())
     fig_json = pio.to_json(fig)
     ring_note = (" A hollow ring marks a point whose interval could not be "
                  "resolved at all — every speech in that period agreed exactly, "
@@ -467,13 +474,51 @@ def render_issue(label: str, owners, fig: go.Figure,
 <p>“{q["quote"]}”</p>
 <cite><a href="{q["url"]}" target="_blank" rel="noopener">{q["cite"]}</a></cite>
 </blockquote>""" for q in quotes)
+    ai_topics = ai_topics or []
+    ai_topics_html = "".join(
+        f"""<div class="ai-topic-card"><div class="q-label">{html_mod.escape(t['level1'])}</div>
+<h3>{html_mod.escape(t['name'])}</h3><p>{html_mod.escape(t['definition'])}</p></div>"""
+        for t in ai_topics
+    )
+    ai_topic_series = ai_topic_series or {}
+    available_topics = list(next(iter(ai_topic_series.values()), {}))
+    topic_checks = "".join(
+        f'<label><input type="checkbox" value="{html_mod.escape(name, quote=True)}" '
+        f'{"checked" if i < 3 else ""}> {html_mod.escape(name)}</label>'
+        for i, name in enumerate(available_topics)
+    )
+    fine_topic_view = f"""<div class="fine-topic-view">
+    <div class="fine-topic-heading"><div><h3>Compare periods, not jagged annual lines</h3>
+    <p>Start with three topics. Add as many as you need: the view changes to a heatmap
+    when grouped bars would become crowded.</p></div>
+    <div class="fine-topic-settings"><label>Bucket size <select id="fine-topic-bucket">
+      <option value="20" selected>20 years</option><option value="10">10 years</option>
+    </select></label><label>View <select id="fine-topic-mode">
+      <option value="auto" selected>Auto</option><option value="bars">Grouped bars</option>
+      <option value="heatmap">Heatmap</option>
+    </select></label></div></div>
+    <details class="topic-picker"><summary>Choose fine topics
+      <span id="fine-topic-count">3 selected</span></summary>
+      <div class="topic-picker-actions"><button type="button" id="fine-topic-all">Select all</button>
+      <button type="button" id="fine-topic-clear">Clear</button></div>
+      <fieldset id="fine-topic-controls"><legend class="sr-only">Fine AI topics to display</legend>
+        {topic_checks}
+      </fieldset>
+    </details>
+    <p id="fine-topic-message" class="dim" aria-live="polite"></p>
+    <div class="chart-scroll"><div class="chart" id="fine-topic-chart" style="height:520px"></div></div>
+    {metrics.lesson_html("paragraph_share")}
+    <details><summary>Inspect the evidence</summary><p><a href="{ai_download}" download>
+    Download the fine-topic series CSV →</a>. These are exploratory AI labels and use
+    all eligible paragraphs in each year.</p></details>
+  </div>""" if ai_topic_series else '<p class="dim">No mapped fine-topic series are available.</p>'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{label} - Presidential Profiles</title>
+<title>{label_html} - Presidential Profiles</title>
 <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
 <style>
 {PAGE_CSS}
@@ -496,19 +541,45 @@ def render_issue(label: str, owners, fig: go.Figure,
   blockquote cite {{ display: block; font-style: normal; font-size: 0.82rem;
                      margin-top: 8px; }}
   blockquote cite a {{ color: var(--muted); }}
+  .ai-note {{ background:#eef6ff; border:1px solid #c9def3; border-radius:12px;
+              padding:13px 16px; max-width:none; }}
+  .ai-topic-grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; }}
+  .ai-topic-card {{ background:var(--surface); border:1px solid var(--border);
+                    border-radius:12px; padding:14px 16px; }}
+  .ai-topic-card h3 {{ font-size:.95rem; margin-top:3px; }}
+  .ai-topic-card p {{ font-size:.84rem; margin:6px 0 0; }}
+  .fine-topic-view {{ margin-top:20px;padding-top:18px;border-top:1px solid var(--grid); }}
+  .fine-topic-heading {{ display:flex;justify-content:space-between;gap:18px;align-items:end; }}
+  .fine-topic-heading p {{ margin-bottom:0; }}
+  .fine-topic-settings {{ display:flex;gap:8px;flex-wrap:wrap; }}
+  .fine-topic-heading select {{ padding:7px 9px;border:1px solid var(--border);
+                                border-radius:8px;background:var(--surface);font:inherit; }}
+  .topic-picker {{ border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin:12px 0; }}
+  .topic-picker summary {{ cursor:pointer;font-weight:650; }}
+  .topic-picker summary span {{ color:var(--muted);font-weight:500;font-size:.8rem;margin-left:8px; }}
+  .topic-picker-actions {{ display:flex;gap:7px;margin:12px 0 4px; }}
+  .topic-picker-actions button {{ border:1px solid var(--border);background:var(--surface);
+                                  border-radius:8px;padding:6px 10px;cursor:pointer; }}
+  #fine-topic-controls {{ display:flex;flex-wrap:wrap;gap:8px 12px;border:0;padding:0;margin:12px 0; }}
+  #fine-topic-controls label {{ background:var(--surface);border:1px solid var(--border);
+                                border-radius:999px;padding:6px 10px;font-size:.82rem;cursor:pointer; }}
+  #fine-topic-controls input {{ accent-color:#275d8c; }}
+  .sr-only {{ position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+              clip:rect(0,0,0,0);white-space:nowrap;border:0; }}
 </style>
 </head>
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All issues</a> &nbsp;·&nbsp;
      <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
-     <a href="../presidents/index.html">Presidents</a></p>
-  <h1>{label}</h1>
+     <a href="../presidents/index.html">Presidents</a> &nbsp;·&nbsp;
+     <a href="../methodology.html">How the AI labels work</a></p>
+  <h1>{label_html}</h1>
 </header>
 <main>
 <section>
   <h2>240 years of attention</h2>
-  <p>Share of presidential speech about {label.lower()}. The shaded band is a
+  <p>Share of presidential speech about {label_lower_html}. The shaded band is a
   95% interval from a bootstrap that resamples whole <em>speeches</em>, so it
   widens where a period rests on a handful of them; a dotted line marks periods
   too thin to trust.{ring_note} Each dot is one president's own share inside one 5-year
@@ -516,6 +587,19 @@ def render_issue(label: str, owners, fig: go.Figure,
   enough to measure. These labels come from a deterministic topic model with no
   AI annotator in the loop, so the band covers sampling error only.</p>
   <div class="chart-scroll"><div class="chart" id="chart" style="height:380px"></div></div>
+  {metrics.lesson_html("confidence_interval")}
+  <details><summary>Inspect the evidence</summary><p><a href="{chart_download}" download>
+  Download this chart's complete CSV →</a>. The quotation section below provides
+  source-speech excerpts.</p></details>
+</section>
+<section>
+  <h2>The finer AI-labeled topics inside this issue</h2>
+  <p class="ai-note">This page's trend remains the independent deterministic issue model.
+  The corpus-derived AI taxonomy splits the broad axis into the topics below; the crosswalk
+  is many-to-many, so one fine topic may contribute to more than one broad issue.
+  <a href="../label-models.html">Compare the CorEx and LLM instruments in detail →</a></p>
+  {fine_topic_view}
+  <div class="ai-topic-grid">{ai_topics_html}</div>
 </section>
 <section>
   <h2>Who owned it</h2>
@@ -529,11 +613,60 @@ def render_issue(label: str, owners, fig: go.Figure,
 </main>
 <footer>
   <p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
-  University of Virginia</a>.</p>
+  University of Virginia</a>. <a href="../methodology.html">AI label method</a>.</p>
 </footer>
 <script>
   const FIG = {fig_json};
   Plotly.newPlot("chart", FIG.data, FIG.layout, {{displayModeBar: false, responsive: true}});
+  const AI_TOPIC_SERIES = {json.dumps(ai_topic_series)};
+  const FINE_COLORS = ["#275d8c","#c06b35","#60936a","#9b67a5",
+    "#af8a32","#397d79","#9b4e50","#697c9f","#805f48","#6d7c49"];
+  function drawFineTopics() {{
+    const target = document.getElementById("fine-topic-chart");
+    if (!target) return;
+    const bucket = document.getElementById("fine-topic-bucket").value;
+    const source = AI_TOPIC_SERIES[bucket] || {{}};
+    const selected = [...document.querySelectorAll("#fine-topic-controls input:checked")].map(x => x.value);
+    document.getElementById("fine-topic-count").textContent = `${{selected.length}} selected`;
+    const requested = document.getElementById("fine-topic-mode").value;
+    const mode = requested === "auto" ? (selected.length > 8 ? "heatmap" : "bars") : requested;
+    const periods = selected.length && source[selected[0]]
+      ? source[selected[0]].x.map(start => bucket === "20" ? `${{start}}–${{start+19}}` : `${{start}}s`) : [];
+    const traces = mode === "heatmap" ? [{{
+      type:"heatmap",x:periods,y:selected,z:selected.map(name => source[name].v),
+      customdata:selected.map(name => source[name].n),
+      colorscale:[[0,"#f6f1e9"],[.35,"#b9cfde"],[1,"#275d8c"]],
+      colorbar:{{title:"% of<br>paragraphs"}},
+      hovertemplate:"%{{y}}<br>%{{x}}<br>%{{z:.1f}}% of paragraphs<br>%{{customdata}} paragraphs<extra></extra>"
+    }}] : selected.map((name, i) => ({{
+      type:"bar",name,x:periods,y:source[name].v,customdata:source[name].n,
+      marker:{{color:FINE_COLORS[i % FINE_COLORS.length]}},
+      hovertemplate:"%{{x}}<br>%{{y:.1f}}% of paragraphs<br>%{{customdata}} paragraphs in bucket<extra>"+name+"</extra>"
+    }}));
+    const heatmap = mode === "heatmap";
+    document.getElementById("fine-topic-message").textContent =
+      selected.length === 0 ? "Choose at least one topic." :
+      heatmap && requested === "auto" ? "Heatmap selected automatically because more than eight topics are visible." : "";
+    Plotly.react(target,traces,{{
+      template:"simple_white",paper_bgcolor:"{SURFACE}",plot_bgcolor:"{SURFACE}",
+      font:{{family:"{FONT}",color:"{INK2}"}},
+      barmode:"group",height:Math.max(520,heatmap ? 170 + selected.length*28 : 520),
+      margin:{{l:heatmap?210:58,r:24,t:28,b:110}},
+      xaxis:{{type:"category",tickangle:-45,gridcolor:"{GRID}"}},
+      yaxis:heatmap?{{automargin:true}}:{{title:"% of paragraphs",rangemode:"tozero",gridcolor:"{GRID}"}},
+      legend:{{orientation:"h",y:1.08}},showlegend:!heatmap
+    }},{{displayModeBar:false,responsive:true}});
+  }}
+  document.querySelectorAll("#fine-topic-controls input").forEach(x => x.addEventListener("change",drawFineTopics));
+  document.getElementById("fine-topic-bucket")?.addEventListener("change",drawFineTopics);
+  document.getElementById("fine-topic-mode")?.addEventListener("change",drawFineTopics);
+  document.getElementById("fine-topic-all")?.addEventListener("click",() => {{
+    document.querySelectorAll("#fine-topic-controls input").forEach(x => x.checked=true); drawFineTopics();
+  }});
+  document.getElementById("fine-topic-clear")?.addEventListener("click",() => {{
+    document.querySelectorAll("#fine-topic-controls input").forEach(x => x.checked=false); drawFineTopics();
+  }});
+  drawFineTopics();
 </script>
 </body>
 </html>
@@ -542,8 +675,9 @@ def render_issue(label: str, owners, fig: go.Figure,
 
 def render_issue_index(entries: list[dict]) -> str:
     cards = "\n".join(f"""<a class="card" href="{e["slug"]}.html">
-  <div class="name">{e["label"]}</div>
+  <div class="name">{html_mod.escape(e["label"])}</div>
   <div class="meta">peak: {e["peak"]}s · top voice: {e["top"]}</div>
+  <div class="ai-meta">{e.get("n_ai_topics", 0)} finer AI topics</div>
 </a>""" for e in entries)
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -563,14 +697,17 @@ def render_issue_index(entries: list[dict]) -> str:
   .card:hover {{ border-color: var(--muted); }}
   .name {{ font-weight: 650; }}
   .meta {{ color: var(--muted); font-size: 0.8rem; margin-top: 4px; }}
+  .ai-meta {{ color:#275d8c; font-size:.78rem; margin-top:7px; }}
 </style>
 </head>
 <body>
 <header>
-  <p class="crumbs"><a href="../index.html">← Dashboard</a></p>
+  <p class="crumbs"><a href="../index.html">← Dashboard</a> &nbsp;·&nbsp;
+  <a href="../methodology.html">How the AI labels work</a></p>
   <h1>Issue profiles</h1>
   <p class="sub">The biography of every issue: 240 years of attention, the presidents
-  who owned it, and their words at its defining moments.</p>
+  who owned it, their words at its defining moments, and the finer topics from the
+  corpus-derived AI taxonomy that sit inside each broad axis.</p>
   <div class="grid">
 {cards}
   </div>
@@ -581,7 +718,8 @@ def render_issue_index(entries: list[dict]) -> str:
 
 
 def write_issue_pages(site_dir, issue_df: pd.DataFrame, issue_meta: dict,
-                      scores: pd.DataFrame, faces: dict) -> None:
+                      scores: pd.DataFrame, faces: dict,
+                      ai_data: dict | None = None) -> None:
     from .fetch import PARAGRAPHS_PATH
     from . import profiles_site
 
@@ -603,8 +741,16 @@ def write_issue_pages(site_dir, issue_df: pd.DataFrame, issue_meta: dict,
 
     out_dir = site_dir / "issues"
     out_dir.mkdir(parents=True, exist_ok=True)
+    chart_dir = site_dir / "data" / "issues"
+    chart_dir.mkdir(parents=True, exist_ok=True)
     display = topic_quality.display_issues(issue_meta["issues"])
     band_table = bands.load_bands()
+    ai_data = ai_labels.build_ai_data() if ai_data is None else ai_data
+    crosswalk = ai_labels.issue_crosswalk(ai_data)
+    all_ai_buckets = {
+        str(bucket): ai_labels.topic_bucket_series(ai_data, bucket)
+        for bucket in (10, 20)
+    }
     entries = []
     for name in display:
         label = profiles_site.DISCOVERED_LABELS.get(name, name)
@@ -618,12 +764,57 @@ def write_issue_pages(site_dir, issue_df: pd.DataFrame, issue_meta: dict,
         # Derived from the band slice, not from the figure: the caption must
         # promise the ring on exactly the pages that draw one.
         has_unresolved = bool(band is not None and unresolved_mask(band).any())
-        page = render_issue(label, owners, fig, quotes, has_unresolved)
-        (out_dir / f"{issue_slug(label)}.html").write_text(page)
+        ai_topics = crosswalk.get(label, [])
+        fine_series = {
+            bucket: {
+                topic["name"]: series[topic["name"]]
+                for topic in ai_topics
+                if topic["name"] in series
+            }
+            for bucket, series in all_ai_buckets.items()
+        }
+        slug_name = issue_slug(label)
+        chart_rows = []
+        for trace in fig.data:
+            trace_name = str(trace.name or "unnamed")
+            xs = list(trace.x) if trace.x is not None else []
+            ys = list(trace.y) if trace.y is not None else []
+            for x_value, y_value in zip(xs, ys):
+                chart_rows.append({
+                    "series": trace_name, "x": x_value, "value": y_value,
+                    "source_issue": name,
+                })
+        pd.DataFrame(chart_rows).to_csv(chart_dir / f"{slug_name}.csv", index=False)
+        fine_rows = [
+            {
+                "bucket_years": int(bucket),
+                "topic": topic,
+                "period_start": period,
+                "period_end": period + int(bucket) - 1,
+                "share_percent": value,
+                "paragraphs_in_bucket": n,
+            }
+            for bucket, topics in fine_series.items()
+            for topic, series in topics.items()
+            for period, value, n in zip(series["x"], series["v"], series["n"])
+        ]
+        pd.DataFrame(
+            fine_rows, columns=[
+                "bucket_years", "topic", "period_start", "period_end",
+                "share_percent", "paragraphs_in_bucket",
+            ]
+        ).to_csv(chart_dir / f"{slug_name}-ai-topics.csv", index=False)
+        page = render_issue(
+            label, owners, fig, quotes, has_unresolved, ai_topics,
+            f"../data/issues/{slug_name}.csv",
+            fine_series, f"../data/issues/{slug_name}-ai-topics.csv",
+        )
+        (out_dir / f"{slug_name}.html").write_text(page)
 
         periods = pl.assign(period=(pl["year"] // 10) * 10)
         peak = int(periods.groupby("period")[name].mean().idxmax())
-        entries.append({"slug": issue_slug(label), "label": label,
-                        "peak": peak, "top": owners.index[0]})
+        entries.append({"slug": slug_name, "label": label,
+                        "peak": peak, "top": owners.index[0],
+                        "n_ai_topics": len(ai_topics)})
     (out_dir / "index.html").write_text(render_issue_index(entries))
     print(f"  wrote {len(display)} issue pages + index to docs/issues/")

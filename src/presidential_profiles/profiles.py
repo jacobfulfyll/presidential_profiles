@@ -78,6 +78,56 @@ RADAR_AXES = [
     ("vocabulary", "Vocabulary"),
     ("religiosity", "Religiosity"),
 ]
+RADAR_VALUE_COLUMNS = {
+    "hope": "nrc_hope",
+    "fear": "nrc_fear",
+    "certainty": "certainty",
+    "us_vs_them": "us_them",
+    "self_reference": "self_reference",
+    "formality": "fk_grade",
+    "vocabulary": "ttr",
+    "religiosity": "religiosity",
+}
+
+FEATURE_SIMILARITY = {
+    "ai_topics": {
+        "label": "Fine AI topic mix",
+        "short": "AI topics",
+        "description": "Cosine similarity across all 50 AI-labeled topic shares.",
+        "standardized": False,
+    },
+    "ai_domains": {
+        "label": "Broad AI domain mix",
+        "short": "AI domains",
+        "description": "Cosine similarity across the 17 broad AI topic domains.",
+        "standardized": False,
+    },
+    "ai_rhetoric": {
+        "label": "AI rhetoric profile",
+        "short": "AI rhetoric",
+        "description": (
+            "Cosine similarity across six standardized measures: partisan attack, "
+            "enemy naming, zero-sum framing, proposals, values, and topic breadth."
+        ),
+        "standardized": True,
+    },
+    "rhetorical_fingerprint": {
+        "label": "Rhetorical fingerprint",
+        "short": "Rhetorical fingerprint",
+        "description": (
+            "Cosine similarity across eight standardized, named lexical measures: "
+            "hope, fear, certainty, us-versus-them, self-reference, formality, "
+            "vocabulary, and religiosity."
+        ),
+        "standardized": True,
+    },
+    "legacy_issues": {
+        "label": "Legacy issue mix",
+        "short": "Legacy issues",
+        "description": "Cosine similarity across the 16 deterministic CorEx issue shares.",
+        "standardized": False,
+    },
+}
 
 
 def slug(president: str) -> str:
@@ -198,6 +248,112 @@ def neighbors(adj: pd.DataFrame, issue_df: pd.DataFrame) -> tuple[dict, dict]:
         agenda[p] = [(agenda_names[j], float(agenda_sim[i, j]))
                      for j in order if j != i][:3]
     return voice, agenda
+
+
+def _named_feature_neighbors(
+    frame: pd.DataFrame,
+    counts: pd.Series,
+    *,
+    standardized: bool,
+    top_n: int = 6,
+) -> dict[str, list[dict]]:
+    """Nearest presidents in a small, declared feature space.
+
+    Topic and issue shares remain non-negative and are compared as compositions.
+    Rhetorical measures have unlike units, so they are standardized against the
+    presidents with at least five speeches before cosine similarity is computed.
+    Thin presidents remain queryable, but only adequately sampled presidents can
+    be returned as ranked neighbors.
+    """
+    frame = frame.astype(float).replace([np.inf, -np.inf], np.nan).fillna(0)
+    eligible = counts.reindex(frame.index).fillna(0).ge(SPARSE_MIN_SPEECHES)
+    reference = frame.loc[eligible]
+    values = frame.to_numpy(float)
+    if standardized:
+        center = reference.mean(axis=0).to_numpy(float)
+        spread = reference.std(axis=0, ddof=0).replace(0, 1).to_numpy(float)
+        values = (values - center) / spread
+    norms = np.linalg.norm(values, axis=1, keepdims=True)
+    normalized = values / np.where(norms == 0, 1, norms)
+    similarities = normalized @ normalized.T
+    names = frame.index.tolist()
+    candidate_positions = np.flatnonzero(eligible.to_numpy())
+    output: dict[str, list[dict]] = {}
+    for i, president in enumerate(names):
+        ranked = sorted(
+            (
+                (float(similarities[i, j]), names[j])
+                for j in candidate_positions
+                if j != i and np.isfinite(similarities[i, j])
+            ),
+            reverse=True,
+        )[:top_n]
+        output[president] = [
+            {"president": other, "similarity": round(score, 4)}
+            for score, other in ranked
+        ]
+    return output
+
+
+def feature_neighbors(data: dict, ai_data: dict) -> dict[str, dict[str, list[dict]]]:
+    """Five interpretable president-similarity views used across the site."""
+    scores = data["scores"]
+    names = scores.index.tolist()
+    counts = scores["n_speeches"]
+    ai_by = ai_data["by_president"]
+    topic_names = [entry["name"] for entry in ai_data["taxonomy"]["level2"]]
+    domain_names = [entry["name"] for entry in ai_data["taxonomy"]["level1"]]
+
+    def attention_frame(key: str, labels: list[str]) -> pd.DataFrame:
+        return pd.DataFrame.from_dict({
+            president: {
+                item["name"]: float(item["share"])
+                for item in ai_by[president][key]
+            }
+            for president in names
+        }, orient="index").reindex(index=names, columns=labels, fill_value=0)
+
+    topic_frame = attention_frame("topic_attention", topic_names)
+    domain_frame = attention_frame("domain_attention", domain_names)
+    ai_rhetoric = pd.DataFrame.from_dict({
+        president: {
+            "party_attack": ai_by[president]["flags"]["party_attack"],
+            "enemy_naming": ai_by[president]["flags"]["enemy_naming"],
+            "zero_sum": ai_by[president]["flags"]["zero_sum"],
+            "proposal": ai_by[president]["proposal_values"]["proposal"],
+            "values": ai_by[president]["proposal_values"]["values"],
+            "topic_breadth": ai_by[president]["ai_radar"]["topic_breadth"]["absolute"],
+        }
+        for president in names
+    }, orient="index")
+    fingerprint = scores[
+        [RADAR_VALUE_COLUMNS[key] for key, _ in RADAR_AXES]
+    ].copy()
+    issue_columns = [column for column in data["issues"] if column.startswith("share_")]
+    legacy = data["issues"].reindex(names)[issue_columns].copy()
+
+    frames = {
+        "ai_topics": topic_frame,
+        "ai_domains": domain_frame,
+        "ai_rhetoric": ai_rhetoric,
+        "rhetorical_fingerprint": fingerprint,
+        "legacy_issues": legacy,
+    }
+    by_category = {
+        key: _named_feature_neighbors(
+            frame,
+            counts,
+            standardized=bool(FEATURE_SIMILARITY[key]["standardized"]),
+        )
+        for key, frame in frames.items()
+    }
+    return {
+        president: {
+            key: by_category[key].get(president, [])
+            for key in FEATURE_SIMILARITY
+        }
+        for president in names
+    }
 
 
 # Anchor words for the one discovered topic promoted to the taxonomy display.
@@ -444,6 +600,23 @@ def build_profile_data(force: bool = False) -> dict:
     invokes, invoked_by = invocations(df)
     voice, agenda = neighbors(adj, issue_df)
     cards = issue_cards(df, distinctive, issue_df.set_index("president"), issue_meta)
+    invocation_v2 = {}
+    candidate_path = DATA_DIR / "invocations_v2" / "candidates.parquet"
+    label_path = DATA_DIR / "invocations_v2" / "classifications.parquet"
+    if candidate_path.exists() and label_path.exists():
+        candidates = pd.read_parquet(candidate_path)
+        labels = pd.read_parquet(label_path)
+        classified = candidates.merge(labels, on="candidate_id", validate="one_to_one")
+        classified = classified[
+            classified.excluded_reason.eq("")
+            & classified.speaker.ne(classified.target)
+            & classified.target_status.eq("former_president")
+        ]
+        for president, group in classified.groupby("speaker"):
+            summary = (group.groupby(["target", "function", "stance"]).size()
+                       .rename("mentions").reset_index()
+                       .sort_values("mentions", ascending=False))
+            invocation_v2[president] = summary.to_dict("records")
 
     return {
         "df": df,
@@ -458,4 +631,5 @@ def build_profile_data(force: bool = False) -> dict:
         "voice_neighbors": voice,
         "agenda_neighbors": agenda,
         "issue_cards": cards,
+        "invocation_v2": invocation_v2,
     }

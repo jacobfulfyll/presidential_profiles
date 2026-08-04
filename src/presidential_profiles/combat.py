@@ -1472,7 +1472,9 @@ def build_combativeness(
         },
         "annotator_disagreement": {
             "applied": bands is not None,
-            "source": str(AGREEMENT_PATH.relative_to(DATA_DIR.parent)),
+            # Keep the public artifact identifier stable when tests (or callers)
+            # redirect the physical input path to an isolated workspace.
+            "source": "data/llm_annotations/agreement_v1.parquet",
             "status": (
                 "ABSENT — intervals contain sampling error only. Pending "
                 "inter-model-agreement-check."

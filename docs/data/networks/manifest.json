@@ -1,0 +1,27 @@
+{
+  "schema_version": "network-atlas-v2",
+  "layout_seed": 20260722,
+  "default_support": {
+    "paragraphs": 20,
+    "speeches": 5
+  },
+  "taxonomy": "taxonomy_v1",
+  "era_axis": [
+    "The founding",
+    "Expansion",
+    "Civil War & Reconstruction",
+    "The Gilded Age",
+    "Progressives & Depression",
+    "War & New Deal",
+    "The Cold War",
+    "Post-Cold War",
+    "The present era"
+  ],
+  "president_similarity_spaces": {
+    "ai_topics": 50,
+    "ai_domains": 17,
+    "ai_rhetoric": 6,
+    "rhetorical_fingerprint": 8,
+    "legacy_issues": 16
+  }
+}

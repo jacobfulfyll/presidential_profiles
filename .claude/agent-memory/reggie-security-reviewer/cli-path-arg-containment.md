@@ -27,6 +27,13 @@ is not a security vulnerability. See [[project-attack-surface]].
 def time, so patching `B.BANDS_PATH` does not redirect it; the suite handles that correctly by
 monkeypatching `write_bands` itself AND sha256-ing `data/bands.parquet` before/after `main()`
 (`TestCliAndChecks.run_main`). That is the pattern to point at when this class does recur.
+**The pattern is NOT universal — check before assuming it.** `register.py`
+(`breadth-depth-register`, 2026-07-21) is the first of these modules with a CLI that takes **no path
+argument at all**: `main()` exposes only `--n-bootstrap` / `--seed`, both `type=int`, and
+`write_trends()` targets the module constant `TRENDS_PATH`. Every `Path` join in the module is
+`<module constant> / <string literal>`. Nothing to report — say so in one line rather than
+manufacturing the finding out of habit. This is the shape to hold up as the fix when the pattern
+recurs.
 
 **How to apply — where the guard goes:** validate in `main()` (the CLI boundary), NOT in the library
 write function. Library writers are called with `tmp_path` by tests (e.g.

@@ -21,7 +21,8 @@
   section h2 { font-size: 1.28rem; letter-spacing: -0.01em; }
   section p { color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }
   .chart-scroll { background: var(--surface); border: 1px solid var(--border);
-                   border-radius: 12px; padding: 10px 6px 6px; overflow-x: auto; }
+                   border-radius: 12px; padding: 10px 6px 6px;
+                   overflow-x: auto; overflow-y: hidden; }
   .chart { min-width: 640px; }
   footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
@@ -39,246 +40,352 @@
   .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
   .meta { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
   .issue { color: var(--ink2); font-size: 0.83rem; margin-top: 8px; }
+  .issue span,.ai-issue span { color:var(--muted); font-size:.68rem; text-transform:uppercase;
+                               letter-spacing:.05em; margin-right:4px; }
+  .ai-issue { color:#275d8c; font-size:.82rem; margin-top:9px; }
 </style>
 </head>
-<body>
+<body><style>
+.global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
+backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
+.nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
+align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
+color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+.nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
+background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
+align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
+.nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
+min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
+white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
+.nav-item>a[aria-current=page],.nav-group.nav-group-current>.nav-trigger{
+background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6px;
+border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
+.nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
+.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
+min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
+background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
+padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
+.nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+.nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
+.nav-brand:focus-visible{outline:3px solid #d08b45;outline-offset:2px}
+.footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
+@media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
+.nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
+width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+.nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
+</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="../presidents/index.html" aria-current="page">Presidents</a><a href="../issues/index.html">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+<script>
+(() => {
+  const nav = document.currentScript.previousElementSibling;
+  if (!nav || !nav.matches(".global-nav")) return;
+  document.documentElement.classList.add("nav-enhanced");
+  const groups = [...nav.querySelectorAll(".nav-group")];
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    const submenu = group.querySelector(".nav-submenu");
+    trigger.setAttribute("aria-expanded", "false");
+    submenu.hidden = true;
+    group.classList.remove("is-open");
+    if (restoreFocus) trigger.focus();
+  };
+  const closeOthers = active => groups.forEach(group => {
+    if (group !== active) close(group);
+  });
+  const open = group => {
+    closeOthers(group);
+    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
+    group.querySelector(".nav-submenu").hidden = false;
+    group.classList.add("is-open");
+  };
+  groups.forEach(group => {
+    const trigger = group.querySelector(".nav-trigger");
+    const toggle = () => {
+      if (trigger.getAttribute("aria-expanded") === "true") close(group);
+      else open(group);
+    };
+    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggle();
+    });
+    group.addEventListener("pointerenter", () => {
+      if (finePointer.matches) open(group);
+    });
+    group.addEventListener("pointerleave", () => {
+      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    });
+    group.addEventListener("focusout", () => setTimeout(() => {
+      if (!group.contains(document.activeElement)) close(group);
+    }));
+    group.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      close(group, true);
+    });
+  });
+  document.addEventListener("pointerdown", event => {
+    if (!nav.contains(event.target)) groups.forEach(group => close(group));
+  });
+
+  const setNavHeight = () => {
+    document.documentElement.style.setProperty("--global-nav-height", `${nav.offsetHeight}px`);
+  };
+  setNavHeight();
+  if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
+  else addEventListener("resize", setNavHeight);
+
+})();
+</script>
+
 <header>
-  <p class="crumbs"><a href="../index.html">← Dashboard</a></p>
+  <p class="crumbs"><a href="../index.html">← Dashboard</a> &nbsp;·&nbsp;
+  <a href="../compare.html">Compare</a> &nbsp;·&nbsp;
+  <a href="../methodology.html">How the AI labels work</a></p>
   <h1>President Profiles</h1>
-  <p class="sub">Every president's rhetorical fingerprint, the issues they pressed
-  harder than their contemporaries, their distinctive vocabulary, and the speeches
-  that define them. Card badge: the issue they emphasized most vs their era.</p>
+  <p class="sub">Every president's rhetorical fingerprint, AI-labeled topics and
+  paragraph judgments, legacy issue emphasis, distinctive vocabulary, and defining
+  speeches. Each card shows both measurement layers rather than blending them.</p>
   <div class="grid">
 <a class="card" href="george-washington.html">
   <div class="name"><span class="dot" style="background:#898781"></span>George Washington</div>
   <div class="meta">1789–1796 · 21 speeches</div>
-  <div class="issue">↑ Crime & justice</div>
+  <div class="ai-issue"><span>AI topic</span> Indian Affairs, Removal &amp; Allotment</div><div class="issue"><span>Legacy issue</span> ↑ Crime &amp; justice</div>
 </a>
 <a class="card" href="john-adams.html">
   <div class="name"><span class="dot" style="background:#4a3aa7"></span>John Adams</div>
   <div class="meta">1797–1800 · 9 speeches</div>
-  <div class="issue">↑ Foreign policy</div>
+  <div class="ai-issue"><span>AI topic</span> Neutral Rights &amp; Maritime Depredations</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
 </a>
 <a class="card" href="thomas-jefferson.html">
   <div class="name"><span class="dot" style="background:#1baf7a"></span>Thomas Jefferson</div>
   <div class="meta">1801–1809 · 24 speeches</div>
-  <div class="issue">↑ Infrastructure</div>
+  <div class="ai-issue"><span>AI topic</span> Indian Affairs, Removal &amp; Allotment</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
 </a>
 <a class="card" href="james-madison.html">
   <div class="name"><span class="dot" style="background:#1baf7a"></span>James Madison</div>
   <div class="meta">1809–1817 · 21 speeches</div>
-  <div class="issue">↑ War & military</div>
+  <div class="ai-issue"><span>AI topic</span> Early Naval Wars: Barbary &amp; the War of 1812</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
 </a>
 <a class="card" href="james-monroe.html">
   <div class="name"><span class="dot" style="background:#1baf7a"></span>James Monroe</div>
   <div class="meta">1817–1824 · 10 speeches</div>
-  <div class="issue">↑ Infrastructure</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
 </a>
 <a class="card" href="john-quincy-adams.html">
   <div class="name"><span class="dot" style="background:#1baf7a"></span>John Quincy Adams</div>
   <div class="meta">1821–1828 · 8 speeches</div>
-  <div class="issue">↑ Infrastructure</div>
+  <div class="ai-issue"><span>AI topic</span> Tariffs, Reciprocity &amp; Navigation Laws</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
 </a>
 <a class="card" href="andrew-jackson.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Andrew Jackson</div>
   <div class="meta">1829–1837 · 26 speeches</div>
-  <div class="issue">↑ Money & banking</div>
+  <div class="ai-issue"><span>AI topic</span> Constitutional Union &amp; Federalism</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
 </a>
 <a class="card" href="martin-van-buren.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Martin Van Buren</div>
   <div class="meta">1837–1841 · 10 speeches</div>
-  <div class="issue">↑ Money & banking</div>
+  <div class="ai-issue"><span>AI topic</span> National Bank &amp; Banking Crises</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
 </a>
 <a class="card" href="william-harrison.html">
   <div class="name"><span class="dot" style="background:#eda100"></span>William Harrison</div>
   <div class="meta">1841–1841 · 1 speeches</div>
-  <div class="issue">↑ Money & banking</div>
+  <div class="ai-issue"><span>AI topic</span> Executive Power, Vetoes &amp; the Courts</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
 </a>
 <a class="card" href="john-tyler.html">
   <div class="name"><span class="dot" style="background:#eda100"></span>John Tyler</div>
   <div class="meta">1841–1845 · 18 speeches</div>
-  <div class="issue">↑ Money & banking</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
 </a>
 <a class="card" href="james-k-polk.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>James K. Polk</div>
   <div class="meta">1845–1849 · 25 speeches</div>
-  <div class="issue">↑ War & military</div>
+  <div class="ai-issue"><span>AI topic</span> Mexican War</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
 </a>
 <a class="card" href="zachary-taylor.html">
   <div class="name"><span class="dot" style="background:#eda100"></span>Zachary Taylor</div>
   <div class="meta">1849–1850 · 4 speeches</div>
-  <div class="issue">↑ Foreign policy</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
 </a>
 <a class="card" href="millard-fillmore.html">
   <div class="name"><span class="dot" style="background:#eda100"></span>Millard Fillmore</div>
   <div class="meta">1850–1852 · 7 speeches</div>
-  <div class="issue">↑ Infrastructure</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
 </a>
 <a class="card" href="abraham-lincoln.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Abraham Lincoln</div>
   <div class="meta">1852–1865 · 15 speeches</div>
-  <div class="issue">↑ Civil rights & race</div>
+  <div class="ai-issue"><span>AI topic</span> Slavery, Emancipation &amp; Sectionalism</div><div class="issue"><span>Legacy issue</span> ↑ Civil rights &amp; race</div>
 </a>
 <a class="card" href="franklin-pierce.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Franklin Pierce</div>
   <div class="meta">1853–1856 · 15 speeches</div>
-  <div class="issue">↑ Infrastructure</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
 </a>
 <a class="card" href="james-buchanan.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>James Buchanan</div>
   <div class="meta">1857–1861 · 14 speeches</div>
-  <div class="issue">↑ War & military</div>
+  <div class="ai-issue"><span>AI topic</span> Constitutional Union &amp; Federalism</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
 </a>
 <a class="card" href="andrew-johnson.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Andrew Johnson</div>
   <div class="meta">1865–1868 · 31 speeches</div>
-  <div class="issue">↑ War & military</div>
+  <div class="ai-issue"><span>AI topic</span> Reconstruction &amp; Southern Self-Government</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
 </a>
 <a class="card" href="ulysses-s-grant.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Ulysses S. Grant</div>
   <div class="meta">1869–1877 · 32 speeches</div>
-  <div class="issue">↑ Money & banking</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
 </a>
 <a class="card" href="rutherford-b-hayes.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Rutherford B. Hayes</div>
   <div class="meta">1877–1881 · 16 speeches</div>
-  <div class="issue">↑ Taxes & budget</div>
+  <div class="ai-issue"><span>AI topic</span> Elections &amp; Voting Integrity</div><div class="issue"><span>Legacy issue</span> ↑ Taxes &amp; budget</div>
 </a>
 <a class="card" href="james-a-garfield.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>James A. Garfield</div>
   <div class="meta">1881–1881 · 1 speeches</div>
-  <div class="issue">↑ Civil rights & race</div>
+  <div class="ai-issue"><span>AI topic</span> Constitutional Union &amp; Federalism</div><div class="issue"><span>Legacy issue</span> ↑ Civil rights &amp; race</div>
 </a>
 <a class="card" href="chester-a-arthur.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Chester A. Arthur</div>
   <div class="meta">1881–1884 · 11 speeches</div>
-  <div class="issue">↑ Foreign policy</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
 </a>
 <a class="card" href="grover-cleveland.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Grover Cleveland</div>
   <div class="meta">1885–1897 · 32 speeches</div>
-  <div class="issue">↑ Money & banking</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
 </a>
 <a class="card" href="benjamin-harrison.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Benjamin Harrison</div>
   <div class="meta">1889–1893 · 16 speeches</div>
-  <div class="issue">↑ Trade & tariffs</div>
+  <div class="ai-issue"><span>AI topic</span> Tariffs, Reciprocity &amp; Navigation Laws</div><div class="issue"><span>Legacy issue</span> ↑ Trade &amp; tariffs</div>
 </a>
 <a class="card" href="william-mckinley.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>William McKinley</div>
   <div class="meta">1897–1901 · 14 speeches</div>
-  <div class="issue">↑ Foreign policy</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
 </a>
 <a class="card" href="theodore-roosevelt.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Theodore Roosevelt</div>
   <div class="meta">1901–1908 · 22 speeches</div>
-  <div class="issue">↑ Infrastructure</div>
+  <div class="ai-issue"><span>AI topic</span> Military Preparedness, Armed Forces &amp; Veterans</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
 </a>
 <a class="card" href="william-taft.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>William Taft</div>
   <div class="meta">1909–1912 · 12 speeches</div>
-  <div class="issue">↑ Trade & tariffs</div>
+  <div class="ai-issue"><span>AI topic</span> Tariffs, Reciprocity &amp; Navigation Laws</div><div class="issue"><span>Legacy issue</span> ↑ Trade &amp; tariffs</div>
 </a>
 <a class="card" href="woodrow-wilson.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Woodrow Wilson</div>
   <div class="meta">1913–1920 · 33 speeches</div>
-  <div class="issue">↑ Security & peace</div>
+  <div class="ai-issue"><span>AI topic</span> World War I Mobilization &amp; War Aims</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
 </a>
 <a class="card" href="warren-g-harding.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Warren G. Harding</div>
   <div class="meta">1917–1922 · 18 speeches</div>
-  <div class="issue">↑ Security & peace</div>
+  <div class="ai-issue"><span>AI topic</span> Providence, Faith &amp; American Ideals</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
 </a>
 <a class="card" href="calvin-coolidge.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Calvin Coolidge</div>
   <div class="meta">1923–1928 · 12 speeches</div>
-  <div class="issue">↑ Taxes & budget</div>
+  <div class="ai-issue"><span>AI topic</span> Internal Improvements, Energy &amp; Infrastructure</div><div class="issue"><span>Legacy issue</span> ↑ Taxes &amp; budget</div>
 </a>
 <a class="card" href="herbert-hoover.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Herbert Hoover</div>
   <div class="meta">1928–1932 · 30 speeches</div>
-  <div class="issue">↑ Economy & jobs</div>
+  <div class="ai-issue"><span>AI topic</span> Great Depression Recovery</div><div class="issue"><span>Legacy issue</span> ↑ Economy &amp; jobs</div>
 </a>
 <a class="card" href="franklin-d-roosevelt.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Franklin D. Roosevelt</div>
   <div class="meta">1933–1945 · 49 speeches</div>
-  <div class="issue">↑ Security & peace</div>
+  <div class="ai-issue"><span>AI topic</span> World War II Military Operations</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
 </a>
 <a class="card" href="harry-s-truman.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Harry S. Truman</div>
   <div class="meta">1945–1953 · 19 speeches</div>
-  <div class="issue">↑ Security & peace</div>
+  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
 </a>
 <a class="card" href="richard-m-nixon.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Richard M. Nixon</div>
   <div class="meta">1952–1974 · 23 speeches</div>
-  <div class="issue">↑ War & military</div>
+  <div class="ai-issue"><span>AI topic</span> Vietnam War</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
 </a>
 <a class="card" href="dwight-d-eisenhower.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Dwight D. Eisenhower</div>
   <div class="meta">1953–1961 · 15 speeches</div>
-  <div class="issue">↑ Economy & jobs</div>
+  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ Economy &amp; jobs</div>
 </a>
 <a class="card" href="john-f-kennedy.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>John F. Kennedy</div>
   <div class="meta">1960–1963 · 44 speeches</div>
-  <div class="issue">↑ Security & peace</div>
+  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
 </a>
 <a class="card" href="lyndon-b-johnson.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Lyndon B. Johnson</div>
   <div class="meta">1963–1969 · 71 speeches</div>
-  <div class="issue">↑ Crime & justice</div>
+  <div class="ai-issue"><span>AI topic</span> Vietnam War</div><div class="issue"><span>Legacy issue</span> ↑ Crime &amp; justice</div>
 </a>
 <a class="card" href="ronald-reagan.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Ronald Reagan</div>
   <div class="meta">1964–1989 · 60 speeches</div>
-  <div class="issue">↑ Taxes & budget</div>
+  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ Taxes &amp; budget</div>
 </a>
 <a class="card" href="gerald-ford.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Gerald Ford</div>
   <div class="meta">1974–1977 · 14 speeches</div>
-  <div class="issue">↑ Foreign policy</div>
+  <div class="ai-issue"><span>AI topic</span> Providence, Faith &amp; American Ideals</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
 </a>
 <a class="card" href="jimmy-carter.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Jimmy Carter</div>
   <div class="meta">1976–1981 · 22 speeches</div>
-  <div class="issue">↑ Money & banking</div>
+  <div class="ai-issue"><span>AI topic</span> Taxes, Budget Deficits &amp; Federal Spending</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
 </a>
 <a class="card" href="george-h-w-bush.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>George H. W. Bush</div>
   <div class="meta">1988–1993 · 23 speeches</div>
-  <div class="issue">↑ War & military</div>
+  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
 </a>
 <a class="card" href="bill-clinton.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Bill Clinton</div>
   <div class="meta">1993–2001 · 39 speeches</div>
-  <div class="issue">↑ Education</div>
+  <div class="ai-issue"><span>AI topic</span> Welfare, Poverty &amp; Economic Opportunity</div><div class="issue"><span>Legacy issue</span> ↑ Education</div>
 </a>
 <a class="card" href="george-w-bush.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>George W. Bush</div>
   <div class="meta">2001–2009 · 38 speeches</div>
-  <div class="issue">↑ Security & peace</div>
+  <div class="ai-issue"><span>AI topic</span> Iraq, Gulf Wars, the War on Terror &amp; Interventions</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
 </a>
 <a class="card" href="barack-obama.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Barack Obama</div>
   <div class="meta">2008–2017 · 51 speeches</div>
-  <div class="issue">↑ Economy & jobs</div>
+  <div class="ai-issue"><span>AI topic</span> Providence, Faith &amp; American Ideals</div><div class="issue"><span>Legacy issue</span> ↑ Economy &amp; jobs</div>
 </a>
 <a class="card" href="donald-trump.html">
   <div class="name"><span class="dot" style="background:#e34948"></span>Donald Trump</div>
   <div class="meta">2017–2026 · 53 speeches</div>
-  <div class="issue">↑ Immigration</div>
+  <div class="ai-issue"><span>AI topic</span> Partisan Combat, Press Conferences &amp; Media Attacks</div><div class="issue"><span>Legacy issue</span> ↑ Immigration</div>
 </a>
 <a class="card" href="joe-biden.html">
   <div class="name"><span class="dot" style="background:#2a78d6"></span>Joe Biden</div>
   <div class="meta">2021–2025 · 28 speeches</div>
-  <div class="issue">↑ War & military</div>
+  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
 </a>
   </div>
 </header>
 <footer>
   <p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
-  University of Virginia</a>.</p>
-</footer>
+  University of Virginia</a>. <a href="../methodology.html">AI labeling method</a>.</p>
+<p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer>
 </body>
 </html>

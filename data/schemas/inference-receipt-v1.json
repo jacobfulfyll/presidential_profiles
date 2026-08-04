@@ -1,0 +1,1 @@
+{"schema_version":"inference-receipt-v1","primary_key":["analysis","metric","treatment","taxonomy"],"required":["estimate","unit","interval_low","interval_high","p_value","p_adjusted","p_resolution","test_family","bootstrap_unit","bootstrap_draws","treatment","taxonomy","n_speeches","status","caveat"]}

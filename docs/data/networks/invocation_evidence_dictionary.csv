@@ -1,0 +1,8 @@
+column,definition
+candidate_id,Stable semantic identifier for the extracted mention.
+function,Exploratory AI classification of what the invocation does.
+stance,Exploratory AI classification of the speaker's stance.
+evidence_span,Verbatim evidence used for the classification.
+quotation_status,Whether the mention occurs in narration or a deliberate quotation.
+target_status,The target president's chronological status on the speech date.
+evidence_status,Validation status of the classification.

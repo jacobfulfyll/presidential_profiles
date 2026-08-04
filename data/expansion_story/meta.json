@@ -1,0 +1,431 @@
+{
+  "artifact": "data/expansion_story/period_metrics.parquet",
+  "input_fingerprints": {
+    "paragraphs": {
+      "path": "data/paragraphs.parquet",
+      "sha256": "7f647adbde21bedb8ffa9ef65b2e5a14e87ebddf8918febe511992700264e4d3"
+    },
+    "paragraph_issues": {
+      "path": "data/paragraph_issues.parquet",
+      "sha256": "de110914fecca39d648a4967a539095827bf4923c16afac7d578353cbe5ed297"
+    },
+    "speeches": {
+      "path": "data/speeches.parquet",
+      "sha256": "065c24997b03483a1fc7bc689144699a505b627ab95ab1eb79d02c54f86348b5"
+    },
+    "taxonomy": {
+      "path": "data/llm_annotations/taxonomy_v1.json",
+      "sha256": "042fc959a64108cfa426e8463b72e2e56a66944cb32460173f711a668cc440dd"
+    },
+    "primary_annotations": {
+      "path": "data/llm_annotations/paragraph_annotations.parquet",
+      "sha256": "52ff6e8a90188f001241ffb3ac96046b019dd70d7b6b3cfa9954d3d60c9a4227"
+    },
+    "secondary_annotations": {
+      "path": "data/llm_annotations/paragraph_annotations__opus4-8.parquet",
+      "sha256": "f7456d8a1aa13cb905cfa8f2947de2d62f56ba1de43939e241ba106629634f44"
+    },
+    "paragraph_entities": {
+      "path": "data/llm_annotations/paragraph_entities.parquet",
+      "sha256": "ade6e4f03c7ff2c1806a365b3a7feeed752ec9e64e1d3e0edb8192d89fee67ff"
+    }
+  },
+  "periods": [
+    {
+      "label": "1816–20",
+      "start": 1816,
+      "end": 1820,
+      "is_preview": false
+    },
+    {
+      "label": "1821–25",
+      "start": 1821,
+      "end": 1825,
+      "is_preview": false
+    },
+    {
+      "label": "1826–30",
+      "start": 1826,
+      "end": 1830,
+      "is_preview": false
+    },
+    {
+      "label": "1831–35",
+      "start": 1831,
+      "end": 1835,
+      "is_preview": false
+    },
+    {
+      "label": "1836–40",
+      "start": 1836,
+      "end": 1840,
+      "is_preview": false
+    },
+    {
+      "label": "1841–45",
+      "start": 1841,
+      "end": 1845,
+      "is_preview": false
+    },
+    {
+      "label": "1846–49",
+      "start": 1846,
+      "end": 1849,
+      "is_preview": false
+    },
+    {
+      "label": "1850–54",
+      "start": 1850,
+      "end": 1854,
+      "is_preview": true
+    }
+  ],
+  "topic_unions": {
+    "Diplomacy and treaties": [
+      "Treaties, Diplomacy & International Arbitration"
+    ],
+    "Federal finance": [
+      "Public Debt, Revenue & Treasury Finance"
+    ],
+    "Tariffs": [
+      "Tariffs, Reciprocity & Navigation Laws"
+    ],
+    "Banking": [
+      "National Bank & Banking Crises"
+    ],
+    "Territorial expansion": [
+      "Relations with Spain, Mexico & Territorial Claims",
+      "Territorial Organization, Statehood & Insular Governance",
+      "Mexican War",
+      "Indian Affairs, Removal & Allotment",
+      "Public Lands & Homestead Settlement"
+    ],
+    "↳ External acquisition": [
+      "Relations with Spain, Mexico & Territorial Claims",
+      "Territorial Organization, Statehood & Insular Governance",
+      "Mexican War"
+    ],
+    "↳ Native removal and settlement": [
+      "Indian Affairs, Removal & Allotment",
+      "Public Lands & Homestead Settlement"
+    ],
+    "Slavery and sectionalism": [
+      "Slavery, Emancipation & Sectionalism"
+    ]
+  },
+  "denominator": "Every unique (doc_name, para_idx) paragraph key in the period, including paragraphs assigned no topic.",
+  "normalization": {
+    "rule": "taxonomy_v1-backed casefold normalization; unknown labels raise; duplicate canonical labels within a paragraph are removed",
+    "composite_rule": "A paragraph counts once when it carries one or more constituent labels; marginal topic intervals are never combined.",
+    "year_source": "paragraph_issues.parquet keyed by (doc_name, para_idx)"
+  },
+  "bootstrap": {
+    "unit": "speech (doc_name)",
+    "draws": 500,
+    "seed": 20260721,
+    "seed_scope": "[seed, period_start]",
+    "percentiles": [
+      2.5,
+      97.5
+    ]
+  },
+  "confidence_gates": {
+    "min_speeches_for_ci": 2,
+    "low_cluster_caution": 8,
+    "min_period_paragraphs": 40,
+    "min_clusters_for_resolvable_ci": 4,
+    "interval_unresolvable_is_separate": true
+  },
+  "paired_model": {
+    "primary": "paragraph_annotations.parquet",
+    "secondary": "paragraph_annotations__opus4-8.parquet",
+    "n_paired_paragraphs": 8570,
+    "n_corpus_paragraphs": 36229,
+    "coverage_fraction": 0.2365508294460239,
+    "min_paired_paragraphs_per_period": 50,
+    "composition_rule": "Published bounds widen sampling bounds by the paired-model half-range when paired support and a sampling interval exist; bounds never narrow."
+  },
+  "story_details": {
+    "receipts": [
+      {
+        "group": "monroe",
+        "doc_name": "/the-presidency/presidential-speeches/december-2-1817-first-annual-message",
+        "para_idx": 1,
+        "excerpt": "an arrangement which had been commenced by my predecessor with the British government for the reduction of the naval force by Great Britain and the United States on the lakes has been concluded",
+        "reason": "postwar diplomacy",
+        "title": "December 2, 1817: First Annual Message",
+        "president": "James Monroe",
+        "year": 1817
+      },
+      {
+        "group": "monroe",
+        "doc_name": "/the-presidency/presidential-speeches/december-2-1817-first-annual-message",
+        "para_idx": 15,
+        "excerpt": "the receipts from those lands will annually add to the public revenue the sum of $1.5 million",
+        "reason": "public credit and land revenue",
+        "title": "December 2, 1817: First Annual Message",
+        "president": "James Monroe",
+        "year": 1817
+      },
+      {
+        "group": "monroe",
+        "doc_name": "/the-presidency/presidential-speeches/december-2-1817-first-annual-message",
+        "para_idx": 18,
+        "excerpt": "By these purchases the Indian title, with moderate reservations, has been extinguished",
+        "reason": "Native land acquisition",
+        "title": "December 2, 1817: First Annual Message",
+        "president": "James Monroe",
+        "year": 1817
+      },
+      {
+        "group": "monroe",
+        "doc_name": "/the-presidency/presidential-speeches/december-2-1817-first-annual-message",
+        "para_idx": 22,
+        "excerpt": "Several new states have been admitted into our Union to the west and south, and territorial governments, happily organized",
+        "reason": "settlement and territorial administration",
+        "title": "December 2, 1817: First Annual Message",
+        "president": "James Monroe",
+        "year": 1817
+      },
+      {
+        "group": "jackson",
+        "doc_name": "/the-presidency/presidential-speeches/july-10-1832-bank-veto",
+        "para_idx": 0,
+        "excerpt": "some of the powers and privileges possessed by the existing bank are unauthorized by the Constitution, subversive of the rights of the States, and dangerous to the liberties of the people",
+        "reason": "Bank Veto",
+        "title": "July 10, 1832: Bank Veto",
+        "president": "Andrew Jackson",
+        "year": 1832
+      },
+      {
+        "group": "jackson",
+        "doc_name": "/the-presidency/presidential-speeches/december-10-1832-nullification-proclamation",
+        "para_idx": 53,
+        "excerpt": "Disunion by armed force is treason.",
+        "reason": "Nullification Proclamation",
+        "title": "December 10, 1832: Nullification Proclamation",
+        "president": "Andrew Jackson",
+        "year": 1832
+      },
+      {
+        "group": "jackson",
+        "doc_name": "/the-presidency/presidential-speeches/february-15-1832-message-regarding-indian-removal",
+        "para_idx": 0,
+        "excerpt": "all the arrangements necessary to the complete execution of the plan of removal",
+        "reason": "administrative removal message",
+        "title": "February 15, 1832: Message Regarding Indian Removal",
+        "president": "Andrew Jackson",
+        "year": 1832
+      },
+      {
+        "group": "polk",
+        "doc_name": "/the-presidency/presidential-speeches/may-13-1846-announcement-war-mexico",
+        "para_idx": 0,
+        "excerpt": "by the act of the Republic of Mexico a state of war exists between that Government and the United States",
+        "reason": "War Message",
+        "title": "May 13, 1846: Announcement of War with Mexico",
+        "president": "James K. Polk",
+        "year": 1846
+      },
+      {
+        "group": "polk",
+        "doc_name": "/the-presidency/presidential-speeches/august-14-1848-message-regarding-slavery-territories",
+        "para_idx": 2,
+        "excerpt": "This question is slavery.",
+        "reason": "sectional hinge in the acquired territories",
+        "title": "August 14, 1848: Message Regarding Slavery in the Territories",
+        "president": "James K. Polk",
+        "year": 1848
+      }
+    ],
+    "jackson_character": {
+      "bank_veto": {
+        "doc_name": "/the-presidency/presidential-speeches/july-10-1832-bank-veto",
+        "n_enemy_naming": 30,
+        "n_paragraphs": 56,
+        "share": 0.5357142857142857
+      },
+      "nullification_proclamation": {
+        "doc_name": "/the-presidency/presidential-speeches/december-10-1832-nullification-proclamation",
+        "n_enemy_naming": 31,
+        "n_paragraphs": 60,
+        "share": 0.5166666666666667
+      },
+      "removal_message": {
+        "doc_name": "/the-presidency/presidential-speeches/february-15-1832-message-regarding-indian-removal",
+        "n_enemy_naming": 0,
+        "n_paragraphs": 3,
+        "share": 0.0
+      }
+    },
+    "entity_annotations": {
+      "1831–35": {
+        "period": "1831–35",
+        "dominant_type": "institution",
+        "dominant_type_mentions": 154,
+        "n_adversarial_mentions": 290,
+        "dominant_type_share": 0.5310344827586206,
+        "recurring_names": [
+          {
+            "entity": "Bank of the United States",
+            "mentions": 105
+          },
+          {
+            "entity": "Senate",
+            "mentions": 36
+          }
+        ]
+      },
+      "1846–49": {
+        "period": "1846–49",
+        "dominant_type": "nation",
+        "dominant_type_mentions": 149,
+        "n_adversarial_mentions": 193,
+        "dominant_type_share": 0.772020725388601,
+        "recurring_names": [
+          {
+            "entity": "Mexico",
+            "mentions": 126
+          }
+        ]
+      }
+    }
+  },
+  "artifact_schema": [
+    {
+      "name": "period",
+      "dtype": "str",
+      "description": "Fixed displayed period label."
+    },
+    {
+      "name": "period_order",
+      "dtype": "int64",
+      "description": "Zero-based left-to-right column order."
+    },
+    {
+      "name": "period_start",
+      "dtype": "int64",
+      "description": "Inclusive first year."
+    },
+    {
+      "name": "period_end",
+      "dtype": "int64",
+      "description": "Inclusive last year."
+    },
+    {
+      "name": "is_preview",
+      "dtype": "bool",
+      "description": "True only for the 1850–1854 next-era coda."
+    },
+    {
+      "name": "row_kind",
+      "dtype": "str",
+      "description": "topic_union or adversary_rate."
+    },
+    {
+      "name": "row_order",
+      "dtype": "int64",
+      "description": "Zero-based vertical order; adversary follows the eight topic rows."
+    },
+    {
+      "name": "display_row",
+      "dtype": "str",
+      "description": "Reader-facing row label."
+    },
+    {
+      "name": "constituent_labels",
+      "dtype": "str",
+      "description": "JSON array of exact topic labels, or enemy_naming=True."
+    },
+    {
+      "name": "point",
+      "dtype": "float64",
+      "description": "Observed share as a fraction of all period paragraphs."
+    },
+    {
+      "name": "n_labeled_paragraphs",
+      "dtype": "int64",
+      "description": "Unique numerator paragraph keys."
+    },
+    {
+      "name": "lo_sampling",
+      "dtype": "float64",
+      "description": "Speech-clustered sampling lower bound, fraction."
+    },
+    {
+      "name": "hi_sampling",
+      "dtype": "float64",
+      "description": "Speech-clustered sampling upper bound, fraction."
+    },
+    {
+      "name": "lo",
+      "dtype": "float64",
+      "description": "Published lower bound after disagreement widening, fraction."
+    },
+    {
+      "name": "hi",
+      "dtype": "float64",
+      "description": "Published upper bound after disagreement widening, fraction."
+    },
+    {
+      "name": "n_paragraphs",
+      "dtype": "int64",
+      "description": "All period paragraphs, including topic-free paragraphs."
+    },
+    {
+      "name": "n_speeches",
+      "dtype": "int64",
+      "description": "Distinct speech clusters in the period."
+    },
+    {
+      "name": "n_paired_paragraphs",
+      "dtype": "int64",
+      "description": "Paragraphs labeled by both models in the period."
+    },
+    {
+      "name": "paired_primary_share",
+      "dtype": "float64",
+      "description": "Primary-model share on the paired subset."
+    },
+    {
+      "name": "paired_secondary_share",
+      "dtype": "float64",
+      "description": "Secondary-model share on the paired subset."
+    },
+    {
+      "name": "ci_status",
+      "dtype": "str",
+      "description": "Existing period-level cluster/paragraph support gate."
+    },
+    {
+      "name": "interval_unresolvable",
+      "dtype": "bool",
+      "description": "Existing per-cell unresolved-bootstrap gate."
+    },
+    {
+      "name": "disagreement_band_applied",
+      "dtype": "bool",
+      "description": "Whether measured model disagreement widened the interval."
+    },
+    {
+      "name": "disagreement_half_width",
+      "dtype": "float64",
+      "description": "Half-range between paired-model shares, fraction."
+    },
+    {
+      "name": "ci_components",
+      "dtype": "str",
+      "description": "sampling_only or sampling+annotator_disagreement."
+    },
+    {
+      "name": "disagreement_status",
+      "dtype": "str",
+      "description": "Reason disagreement was applied or unavailable."
+    },
+    {
+      "name": "agreement_source",
+      "dtype": "str",
+      "description": "Named primary and secondary annotation artifacts."
+    }
+  ]
+}

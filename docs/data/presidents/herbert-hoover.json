@@ -1,0 +1,1339 @@
+{
+  "schema_version": "president-profile-v3",
+  "president": "Herbert Hoover",
+  "slug": "herbert-hoover",
+  "party": "Republican",
+  "years": {
+    "first": 1928,
+    "last": 1932
+  },
+  "sample": {
+    "n_speeches": 30,
+    "n_words": 89893,
+    "thin_record": false,
+    "warning": null
+  },
+  "rhetorical_radar": [
+    {
+      "key": "hope",
+      "label": "Hope",
+      "absolute": 674.5969459829137,
+      "percentile": 53.333333333333336
+    },
+    {
+      "key": "fear",
+      "label": "Fear appeal",
+      "absolute": 292.8448101890262,
+      "percentile": 71.11111111111111
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "absolute": 0.6217672413793104,
+      "percentile": 53.333333333333336
+    },
+    {
+      "key": "us_vs_them",
+      "label": "Us vs them",
+      "absolute": 53.70316388994775,
+      "percentile": 37.77777777777778
+    },
+    {
+      "key": "self_reference",
+      "label": "Self-reference",
+      "absolute": 0.3396013538924408,
+      "percentile": 42.22222222222222
+    },
+    {
+      "key": "formality",
+      "label": "Formality",
+      "absolute": 14.199329994768647,
+      "percentile": 42.22222222222222
+    },
+    {
+      "key": "vocabulary",
+      "label": "Vocabulary",
+      "absolute": 0.4098539325842697,
+      "percentile": 46.666666666666664
+    },
+    {
+      "key": "religiosity",
+      "label": "Religiosity",
+      "absolute": 4.933067246675786,
+      "percentile": 22.22222222222222
+    }
+  ],
+  "raw_stats": {
+    "party": "Republican",
+    "first_year": 1928,
+    "last_year": 1932,
+    "n_speeches": 30,
+    "n_words": 89893,
+    "boosters": 9.417673834562862,
+    "hedges": 24.665336233378927,
+    "concessives": 14.687086575330179,
+    "assertive_modals": 55.27277619570823,
+    "need_to": 2.1301881292463616,
+    "united_states": 18.050541516245488,
+    "america": 31.952821938695426,
+    "nostalgia": 10.426710316837454,
+    "future": 10.31459515214028,
+    "religiosity": 4.933067246675786,
+    "god_bless": 0.0,
+    "us_them": 53.70316388994775,
+    "superlatives": 4.596721752584254,
+    "opponents": 5.269412740767317,
+    "hype": 6.7269098818306166,
+    "doom": 12.332668116689463,
+    "mechanism": 33.74666457385026,
+    "nrc_hope": 674.5969459829137,
+    "nrc_fear": 292.8448101890262,
+    "certainty": 0.6217672413793104,
+    "fk_grade": 14.199329994768647,
+    "self_reference": 0.3396013538924408,
+    "ttr": 0.4098539325842697,
+    "pct_hope": 53.333333333333336,
+    "pct_fear": 71.11111111111111,
+    "pct_certainty": 53.333333333333336,
+    "pct_us_vs_them": 37.77777777777778,
+    "pct_self_reference": 42.22222222222222,
+    "pct_formality": 42.22222222222222,
+    "pct_vocabulary": 46.666666666666664,
+    "pct_religiosity": 22.22222222222222
+  },
+  "legacy_issue_attention": [
+    {
+      "key": "Economy & jobs",
+      "label": "Economy & jobs",
+      "share": 0.3797,
+      "era_relative_difference": 19.7044
+    },
+    {
+      "key": "Taxes & budget",
+      "label": "Taxes & budget",
+      "share": 0.1261,
+      "era_relative_difference": 5.7802
+    },
+    {
+      "key": "War & military",
+      "label": "War & military",
+      "share": 0.1562,
+      "era_relative_difference": -15.2443
+    },
+    {
+      "key": "Foreign policy",
+      "label": "Foreign policy",
+      "share": 0.1648,
+      "era_relative_difference": 2.8733
+    },
+    {
+      "key": "Immigration",
+      "label": "Immigration",
+      "share": 0.0301,
+      "era_relative_difference": 0.2247
+    },
+    {
+      "key": "Civil rights & race",
+      "label": "Civil rights & race",
+      "share": 0.0473,
+      "era_relative_difference": 0.8607
+    },
+    {
+      "key": "Health care",
+      "label": "Health care",
+      "share": 0.0745,
+      "era_relative_difference": 5.2636
+    },
+    {
+      "key": "Education",
+      "label": "Education",
+      "share": 0.0344,
+      "era_relative_difference": 0.2557
+    },
+    {
+      "key": "Crime & justice",
+      "label": "Crime & justice",
+      "share": 0.0258,
+      "era_relative_difference": -0.7608
+    },
+    {
+      "key": "Energy & environment",
+      "label": "Energy & environment",
+      "share": 0.0158,
+      "era_relative_difference": -2.1774
+    },
+    {
+      "key": "Trade & tariffs",
+      "label": "Trade & tariffs",
+      "share": 0.1748,
+      "era_relative_difference": 6.451
+    },
+    {
+      "key": "Agriculture",
+      "label": "Agriculture",
+      "share": 0.1533,
+      "era_relative_difference": 9.3903
+    },
+    {
+      "key": "Religion & values",
+      "label": "Religion & values",
+      "share": 0.0802,
+      "era_relative_difference": -0.8201
+    },
+    {
+      "key": "Money & banking",
+      "label": "Money & banking",
+      "share": 0.1189,
+      "era_relative_difference": 7.7645
+    },
+    {
+      "key": "Infrastructure",
+      "label": "Infrastructure",
+      "share": 0.0688,
+      "era_relative_difference": -3.3806
+    },
+    {
+      "key": "Discovered 5",
+      "label": "Security & peace",
+      "share": 0.1218,
+      "era_relative_difference": -15.9231
+    }
+  ],
+  "issue_evidence": {
+    "cards": [
+      {
+        "issue": "Economy & jobs",
+        "rel": 19.704423493827434,
+        "share": 0.37965616045845274,
+        "base": 0.15846421375141462,
+        "topic_of_day": false,
+        "words": [
+          "employment",
+          "business",
+          "normal",
+          "credit"
+        ],
+        "quote": "The natural result was the tendency of business agencies throughout the country to pause in their plans and proposals for continuation and extension of their businesses, and this hesitation unchecked could in itself intensify into a depression with widespread unemployment and suffering.",
+        "cite": "First State of the Union Address, 1929",
+        "stance": null
+      },
+      {
+        "issue": "Agriculture",
+        "rel": 9.390319336179523,
+        "share": 0.15329512893982808,
+        "base": 0.027602197134891936,
+        "topic_of_day": false,
+        "words": [
+          "depression",
+          "tariff",
+          "democratic",
+          "banks",
+          "relief"
+        ],
+        "quote": "To meet the emergencies in agriculture the loans authorized by Congress for rehabilitation in the drought areas have enabled farmers to produce abundant crops in those districts.",
+        "cite": "Third State of the Union Address, 1931",
+        "stance": null
+      },
+      {
+        "issue": "Money & banking",
+        "rel": 7.764515616736498,
+        "share": 0.11891117478510028,
+        "base": 0.05603246018383063,
+        "topic_of_day": false,
+        "words": [
+          "economic",
+          "recovery"
+        ],
+        "quote": "To some degree, however, this movement of chain or group banking is a groping for stronger support to the banks and a more secure basis for these institutions.",
+        "cite": "First State of the Union Address, 1929",
+        "stance": null
+      },
+      {
+        "issue": "Trade & tariffs",
+        "rel": 6.451045857844124,
+        "share": 0.17478510028653296,
+        "base": 0.09067321758812001,
+        "topic_of_day": false,
+        "words": [
+          "tariffs",
+          "farm"
+        ],
+        "quote": "Such a tariff not only protects the farmer in our domestic market but it also stimulates him to diversify his crops and to grow products that he could not otherwise produce, and thus lessens his dependence upon exports to foreign markets.",
+        "cite": "First State of the Union Address, 1929",
+        "stance": "mostly protectionist"
+      }
+    ],
+    "voice": [
+      "federal",
+      "distress",
+      "agencies",
+      "tons",
+      "candidate"
+    ],
+    "n_speeches": 30,
+    "n_paragraphs": 698,
+    "low_confidence": false
+  },
+  "ai": {
+    "n_paragraphs": 698,
+    "n_speeches": 30,
+    "low_confidence": false,
+    "top_topics": [
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "definition": "Federal and voluntary responses to the economic collapse of the 1930s, including relief, public works, and recovery measures.",
+        "share": 20.2,
+        "rel": 17.66,
+        "n": 141
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "definition": "Controversies over a national bank, deposit of public revenues, bank regulation, protection of deposits, and financial panics and revulsions.",
+        "share": 10.6,
+        "rel": 8.74,
+        "n": 74
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "definition": "Federal support for roads, canals, harbors, energy production and pipelines, and rebuilding the nation's infrastructure, including constitutional debate over such works.",
+        "share": 10.03,
+        "rel": 3.09,
+        "n": 70
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "definition": "Import duties and protective tariffs, reciprocal trade and navigation treaties, tonnage, and disputes over trade practices with foreign rivals.",
+        "share": 10.03,
+        "rel": 4.33,
+        "n": 70
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.",
+        "share": 9.74,
+        "rel": -1.44,
+        "n": 68
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "definition": "Receipts and expenditures, reduction of the national debt, surplus revenue, and the general fiscal condition of the Treasury.",
+        "share": 9.6,
+        "rel": 5.72,
+        "n": 67
+      }
+    ],
+    "distinctive_topics": [
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "definition": "Federal and voluntary responses to the economic collapse of the 1930s, including relief, public works, and recovery measures.",
+        "share": 20.2,
+        "rel": 17.66,
+        "n": 141
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "definition": "Controversies over a national bank, deposit of public revenues, bank regulation, protection of deposits, and financial panics and revulsions.",
+        "share": 10.6,
+        "rel": 8.74,
+        "n": 74
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "definition": "Receipts and expenditures, reduction of the national debt, surplus revenue, and the general fiscal condition of the Treasury.",
+        "share": 9.6,
+        "rel": 5.72,
+        "n": 67
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "definition": "Attacks on opponents and parties, campaign debate and defense of one's record, the give-and-take of televised news conferences, and clashes with the press.",
+        "share": 9.46,
+        "rel": 4.64,
+        "n": 66
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "definition": "Import duties and protective tariffs, reciprocal trade and navigation treaties, tonnage, and disputes over trade practices with foreign rivals.",
+        "share": 10.03,
+        "rel": 4.33,
+        "n": 70
+      }
+    ],
+    "domains": [
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 30.37,
+        "rel": 18.18
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 13.61,
+        "rel": 7.31
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 12.46,
+        "rel": 3.25
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 12.32,
+        "rel": 10.25
+      },
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 11.17,
+        "rel": -13.96
+      }
+    ],
+    "topic_attention": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -1.212,
+        "n": 0
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 9.742,
+        "rel": -1.438,
+        "n": 68
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.143,
+        "rel": -0.749,
+        "n": 1
+      },
+      {
+        "name": "Monroe Doctrine & Latin American Policy",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 1.146,
+        "rel": -2.118,
+        "n": 8
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.43,
+        "rel": -4.819,
+        "n": 3
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.43,
+        "rel": -1.724,
+        "n": 3
+      },
+      {
+        "name": "Middle East & Israel",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.638,
+        "n": 0
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.86,
+        "rel": -5.294,
+        "n": 6
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "share": 6.734,
+        "rel": -1.822,
+        "n": 47
+      },
+      {
+        "name": "Early Naval Wars: Barbary & the War of 1812",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.11,
+        "n": 0
+      },
+      {
+        "name": "Mexican War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "share": 1.003,
+        "rel": -4.21,
+        "n": 7
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "share": 0.287,
+        "rel": -8.741,
+        "n": 2
+      },
+      {
+        "name": "Vietnam War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -4.415,
+        "n": 0
+      },
+      {
+        "name": "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "share": 2.006,
+        "rel": 1.666,
+        "n": 14
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "share": 10.602,
+        "rel": 8.745,
+        "n": 74
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 10.029,
+        "rel": 4.331,
+        "n": 70
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 2.436,
+        "rel": -1.419,
+        "n": 17
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "share": 9.599,
+        "rel": 5.723,
+        "n": 67
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "share": 5.444,
+        "rel": 2.508,
+        "n": 38
+      },
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 20.201,
+        "rel": 17.655,
+        "n": 141
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 3.725,
+        "rel": -3.444,
+        "n": 26
+      },
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 5.301,
+        "rel": 3.429,
+        "n": 37
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.716,
+        "rel": -0.085,
+        "n": 5
+      },
+      {
+        "name": "Prosperity, Jobs & the Middle Class",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 4.011,
+        "rel": 1.729,
+        "n": 28
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "share": 1.003,
+        "rel": -0.398,
+        "n": 7
+      },
+      {
+        "name": "Agriculture & Farm Prices",
+        "domain": "Agriculture, Land & Environment",
+        "share": 7.45,
+        "rel": 2.786,
+        "n": 52
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "share": 1.146,
+        "rel": -1.058,
+        "n": 8
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 10.029,
+        "rel": 3.093,
+        "n": 70
+      },
+      {
+        "name": "Space Exploration",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": -0.165,
+        "n": 0
+      },
+      {
+        "name": "Slavery, Emancipation & Sectionalism",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.143,
+        "rel": 0.008,
+        "n": 1
+      },
+      {
+        "name": "Reconstruction & Southern Self-Government",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.029,
+        "n": 0
+      },
+      {
+        "name": "Chinese Immigration & Exclusion",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.044,
+        "n": 0
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.287,
+        "rel": -0.783,
+        "n": 2
+      },
+      {
+        "name": "Immigration & Border Security",
+        "domain": "Civil Rights & Immigration",
+        "share": 1.576,
+        "rel": 0.666,
+        "n": 11
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "share": 0.0,
+        "rel": -0.175,
+        "n": 0
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "share": 4.441,
+        "rel": 1.577,
+        "n": 31
+      },
+      {
+        "name": "Polygamy in the Territories",
+        "domain": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.146,
+        "rel": -1.941,
+        "n": 8
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.716,
+        "rel": -0.762,
+        "n": 5
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "share": 3.152,
+        "rel": -1.161,
+        "n": 22
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.143,
+        "rel": -1.313,
+        "n": 1
+      },
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.0,
+        "rel": -0.744,
+        "n": 0
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "share": 0.573,
+        "rel": -1.878,
+        "n": 4
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "share": 1.289,
+        "rel": -1.789,
+        "n": 9
+      },
+      {
+        "name": "Personal Narrative, Storytelling & Boasting",
+        "domain": "Personal Narrative & Reflection",
+        "share": 0.43,
+        "rel": -1.407,
+        "n": 3
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "share": 5.301,
+        "rel": 1.879,
+        "n": 37
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "share": 9.312,
+        "rel": -3.264,
+        "n": 65
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "share": 9.456,
+        "rel": 4.639,
+        "n": 66
+      }
+    ],
+    "domain_attention": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 11.175,
+        "rel": -13.963
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 8.023,
+        "rel": -17.485
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 12.321,
+        "rel": 10.247
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 12.464,
+        "rel": 3.254
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 13.61,
+        "rel": 7.311
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 30.372,
+        "rel": 18.181
+      },
+      {
+        "name": "Agriculture, Land & Environment",
+        "share": 9.169,
+        "rel": 1.764
+      },
+      {
+        "name": "Infrastructure & Internal Improvements",
+        "share": 10.029,
+        "rel": 2.956
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 2.006,
+        "rel": -0.153
+      },
+      {
+        "name": "Indian & Tribal Affairs",
+        "share": 0.0,
+        "rel": -0.175
+      },
+      {
+        "name": "Law, Crime & Justice",
+        "share": 4.441,
+        "rel": 1.577
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 5.158,
+        "rel": -5.585
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 0.573,
+        "rel": -1.878
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 1.719,
+        "rel": -3.05
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 5.301,
+        "rel": 1.879
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 9.312,
+        "rel": -3.264
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 9.456,
+        "rel": 4.639
+      }
+    ],
+    "flags": {
+      "party_attack": 19.77,
+      "enemy_naming": 20.92,
+      "zero_sum": 5.16
+    },
+    "proposal_values": {
+      "proposal": 18.91,
+      "values": 28.22,
+      "mixed": 21.49,
+      "neither": 31.38
+    },
+    "speech_types": [
+      {
+        "name": "Press conference / interview",
+        "value": 20.0
+      },
+      {
+        "name": "Special message to congress",
+        "value": 20.0
+      },
+      {
+        "name": "Campaign / debate",
+        "value": 16.67
+      },
+      {
+        "name": "Public remarks / address",
+        "value": 16.67
+      }
+    ],
+    "adversaries": [
+      {
+        "name": "Democratic candidate",
+        "n": 25
+      },
+      {
+        "name": "Democratic Party",
+        "n": 23
+      },
+      {
+        "name": "the Governor",
+        "n": 19
+      },
+      {
+        "name": "Democratic House of Representatives",
+        "n": 11
+      },
+      {
+        "name": "opponents",
+        "n": 11
+      }
+    ],
+    "ai_radar": {
+      "party_attack": {
+        "absolute": 19.771,
+        "percentile": 100.0
+      },
+      "enemy_naming": {
+        "absolute": 20.917,
+        "percentile": 59.5
+      },
+      "zero_sum": {
+        "absolute": 5.158,
+        "percentile": 54.8
+      },
+      "proposal": {
+        "absolute": 18.911,
+        "percentile": 47.6
+      },
+      "values": {
+        "absolute": 28.223,
+        "percentile": 42.9
+      },
+      "topic_breadth": {
+        "absolute": 22.034,
+        "percentile": 66.7
+      }
+    }
+  },
+  "distinctive_vocabulary": [
+    {
+      "president": "Herbert Hoover",
+      "term": "depression",
+      "z": 24.4021472933242,
+      "rank": 0
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "tariff",
+      "z": 21.969394433450038,
+      "rank": 1
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "employment",
+      "z": 21.550901183217025,
+      "rank": 2
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "federal",
+      "z": 20.652734124742896,
+      "rank": 3
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "democratic",
+      "z": 20.19022667164196,
+      "rank": 4
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "business",
+      "z": 18.85699832869227,
+      "rank": 5
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "economic",
+      "z": 18.605248063887412,
+      "rank": 6
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "normal",
+      "z": 18.545510904399787,
+      "rank": 7
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "distress",
+      "z": 18.437692784550336,
+      "rank": 8
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "agencies",
+      "z": 18.341425819076367,
+      "rank": 9
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "recovery",
+      "z": 17.245213821464766,
+      "rank": 10
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "banks",
+      "z": 17.149125652875753,
+      "rank": 11
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "credit",
+      "z": 16.950512934144992,
+      "rank": 12
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "tons",
+      "z": 15.996482458575063,
+      "rank": 13
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "relief",
+      "z": 15.685592870743815,
+      "rank": 14
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "candidate",
+      "z": 15.416941996576371,
+      "rank": 15
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "tariffs",
+      "z": 15.284272432211992,
+      "rank": 16
+    },
+    {
+      "president": "Herbert Hoover",
+      "term": "farm",
+      "z": 15.14072341225518,
+      "rank": 17
+    }
+  ],
+  "signature_speeches": [
+    {
+      "title": "March 7, 1930: Statement Regarding Business and Unemployment",
+      "year": 1930,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-7-1930-statement-regarding-business-and-unemployment"
+    },
+    {
+      "title": "December 2, 1930: Second State of the Union address.",
+      "year": 1930,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-2-1930-second-state-union-address"
+    },
+    {
+      "title": "October 25, 1929: Message Regarding \u201cBlack Thursday\u201d",
+      "year": 1929,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-25-1929-message-regarding-black-thursday"
+    },
+    {
+      "title": "October 2, 1930: Address to the American Bankers\u2019 Association.",
+      "year": 1930,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-2-1930-address-american-bankers-association"
+    },
+    {
+      "title": "February 26, 1931: Veto Messages Regarding Emergency Adjusted Compensation Act",
+      "year": 1931,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-26-1931-veto-messages-regarding-emergency-adjusted"
+    }
+  ],
+  "legacy_invocations": {
+    "invokes": [
+      {
+        "target": "George Washington",
+        "n": 4,
+        "pos": 2,
+        "neg": 1
+      },
+      {
+        "target": "Theodore Roosevelt",
+        "n": 3,
+        "pos": 2,
+        "neg": 0
+      },
+      {
+        "target": "Abraham Lincoln",
+        "n": 2,
+        "pos": 2,
+        "neg": 0
+      },
+      {
+        "target": "Woodrow Wilson",
+        "n": 1,
+        "pos": 1,
+        "neg": 0
+      }
+    ],
+    "invoked_by": null
+  },
+  "classified_invocations": [
+    {
+      "target": "Theodore Roosevelt",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 5
+    },
+    {
+      "target": "George Washington",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 3
+    },
+    {
+      "target": "Calvin Coolidge",
+      "function": "institutional precedent",
+      "stance": "positive",
+      "mentions": 2
+    },
+    {
+      "target": "Grover Cleveland",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Theodore Roosevelt",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "William McKinley",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "William Taft",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Calvin Coolidge",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Calvin Coolidge",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "George Washington",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "James Monroe",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "John Adams",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Thomas Jefferson",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Warren G. Harding",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Woodrow Wilson",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    }
+  ],
+  "voice_neighbors": [
+    [
+      "William McKinley",
+      0.5245635774654698
+    ],
+    [
+      "Jimmy Carter",
+      0.40244767327157865
+    ],
+    [
+      "Franklin Pierce",
+      0.3936848671590298
+    ]
+  ],
+  "agenda_neighbors": [
+    [
+      "Calvin Coolidge",
+      0.9503509130089192
+    ],
+    [
+      "Theodore Roosevelt",
+      0.9282907182990094
+    ],
+    [
+      "Woodrow Wilson",
+      0.9023199241726583
+    ]
+  ],
+  "feature_neighbors": {
+    "ai_topics": [
+      {
+        "president": "Calvin Coolidge",
+        "similarity": 0.6489
+      },
+      {
+        "president": "Warren G. Harding",
+        "similarity": 0.6253
+      },
+      {
+        "president": "Benjamin Harrison",
+        "similarity": 0.586
+      },
+      {
+        "president": "John Quincy Adams",
+        "similarity": 0.5795
+      },
+      {
+        "president": "William Taft",
+        "similarity": 0.5753
+      },
+      {
+        "president": "John Tyler",
+        "similarity": 0.5639
+      }
+    ],
+    "ai_domains": [
+      {
+        "president": "Barack Obama",
+        "similarity": 0.8806
+      },
+      {
+        "president": "Bill Clinton",
+        "similarity": 0.8687
+      },
+      {
+        "president": "Warren G. Harding",
+        "similarity": 0.8086
+      },
+      {
+        "president": "Donald Trump",
+        "similarity": 0.7945
+      },
+      {
+        "president": "Jimmy Carter",
+        "similarity": 0.786
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.7784
+      }
+    ],
+    "ai_rhetoric": [
+      {
+        "president": "Jimmy Carter",
+        "similarity": 0.9462
+      },
+      {
+        "president": "George H. W. Bush",
+        "similarity": 0.8934
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.647
+      },
+      {
+        "president": "Donald Trump",
+        "similarity": 0.6359
+      },
+      {
+        "president": "Bill Clinton",
+        "similarity": 0.5764
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.434
+      }
+    ],
+    "rhetorical_fingerprint": [
+      {
+        "president": "Theodore Roosevelt",
+        "similarity": 0.8493
+      },
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.7013
+      },
+      {
+        "president": "Benjamin Harrison",
+        "similarity": 0.6793
+      },
+      {
+        "president": "William McKinley",
+        "similarity": 0.6209
+      },
+      {
+        "president": "John F. Kennedy",
+        "similarity": 0.6122
+      },
+      {
+        "president": "Calvin Coolidge",
+        "similarity": 0.4159
+      }
+    ],
+    "legacy_issues": [
+      {
+        "president": "Calvin Coolidge",
+        "similarity": 0.9504
+      },
+      {
+        "president": "Theodore Roosevelt",
+        "similarity": 0.9283
+      },
+      {
+        "president": "Woodrow Wilson",
+        "similarity": 0.9023
+      },
+      {
+        "president": "Warren G. Harding",
+        "similarity": 0.8856
+      },
+      {
+        "president": "William Taft",
+        "similarity": 0.8745
+      },
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.8468
+      }
+    ]
+  },
+  "context_specific": {
+    "profile_only": [],
+    "compare_only": []
+  }
+}

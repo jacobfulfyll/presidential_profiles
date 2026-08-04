@@ -8,4 +8,6 @@
 - [Re-verifying findings notes](verification-findings-notes.md) — recipe + the error classes that survive correction passes when auditing notes/*-findings-v1.md against a parquet
 - [Verify triangulate](verification-triangulate.md) — triangulate.run() row counts, names-file degradation matrix, slug collision, $0 API proof
 - [Verify bands + banded charts](verification-bands.md) — recompute the annotator half-width independently; decode plotly `FIG =` binary traces; headless-Chrome screenshots when browser MCP is absent
+- [Verify convergence](verification-convergence.md) — 19-min $0 regeneration; prereg-vs-artifact scoring recipe; the transitive-anthropic hole the module's own AST guard cannot see
 - [Perturb/restore discipline](feedback_perturb-restore-discipline.md) — sha-verify restores of committed artifacts; a chained perturb+move silently restores the perturbed copy
+- [Verify agreement layer](verification-agreement-layer.md) — offline verify of Opus-vs-Sonnet inter-model agreement: sample determinism, coverage math, kappa-0 base rates, qa-mutates-committed-file gotcha, spend

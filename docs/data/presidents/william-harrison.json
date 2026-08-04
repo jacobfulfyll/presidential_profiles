@@ -1,0 +1,1173 @@
+{
+  "schema_version": "president-profile-v3",
+  "president": "William Harrison",
+  "slug": "william-harrison",
+  "party": "Whig",
+  "years": {
+    "first": 1841,
+    "last": 1841
+  },
+  "sample": {
+    "n_speeches": 1,
+    "n_words": 8457,
+    "thin_record": true,
+    "warning": "Fewer than five corpus speeches: visible, but not ranked as a precise outlier."
+  },
+  "rhetorical_radar": [
+    {
+      "key": "hope",
+      "label": "Hope",
+      "absolute": 588.7220711668047,
+      "percentile": 8.88888888888889
+    },
+    {
+      "key": "fear",
+      "label": "Fear appeal",
+      "absolute": 286.0858257477243,
+      "percentile": 57.77777777777777
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "absolute": 0.41605839416058393,
+      "percentile": 2.2222222222222223
+    },
+    {
+      "key": "us_vs_them",
+      "label": "Us vs them",
+      "absolute": 67.38385151909209,
+      "percentile": 62.22222222222222
+    },
+    {
+      "key": "self_reference",
+      "label": "Self-reference",
+      "absolute": 0.5166666666666667,
+      "percentile": 82.22222222222221
+    },
+    {
+      "key": "formality",
+      "label": "Formality",
+      "absolute": 19.435445594076842,
+      "percentile": 77.77777777777779
+    },
+    {
+      "key": "vocabulary",
+      "label": "Vocabulary",
+      "absolute": 0.410125,
+      "percentile": 48.888888888888886
+    },
+    {
+      "key": "religiosity",
+      "label": "Religiosity",
+      "absolute": 9.45738266934626,
+      "percentile": 60.0
+    }
+  ],
+  "raw_stats": {
+    "party": "Whig",
+    "first_year": 1841,
+    "last_year": 1841,
+    "n_speeches": 1,
+    "n_words": 8457,
+    "boosters": 24.82562950703393,
+    "hedges": 60.290814517082396,
+    "concessives": 34.28301217638019,
+    "assertive_modals": 42.55822201205816,
+    "need_to": 0.0,
+    "united_states": 10.63955550301454,
+    "america": 8.275209835677977,
+    "nostalgia": 3.546518501004847,
+    "future": 2.364345667336565,
+    "religiosity": 9.45738266934626,
+    "god_bless": 0.0,
+    "us_them": 67.38385151909209,
+    "superlatives": 14.186074004019387,
+    "opponents": 3.546518501004847,
+    "hype": 5.910864168341412,
+    "doom": 3.546518501004847,
+    "mechanism": 11.821728336682824,
+    "nrc_hope": 588.7220711668047,
+    "nrc_fear": 286.0858257477243,
+    "certainty": 0.41605839416058393,
+    "fk_grade": 19.435445594076842,
+    "self_reference": 0.5166666666666667,
+    "ttr": 0.410125,
+    "pct_hope": 8.88888888888889,
+    "pct_fear": 57.77777777777777,
+    "pct_certainty": 2.2222222222222223,
+    "pct_us_vs_them": 62.22222222222222,
+    "pct_self_reference": 82.22222222222221,
+    "pct_formality": 77.77777777777779,
+    "pct_vocabulary": 48.888888888888886,
+    "pct_religiosity": 60.0
+  },
+  "legacy_issue_attention": [
+    {
+      "key": "Economy & jobs",
+      "label": "Economy & jobs",
+      "share": 0.0526,
+      "era_relative_difference": -4.7924
+    },
+    {
+      "key": "Taxes & budget",
+      "label": "Taxes & budget",
+      "share": 0.0175,
+      "era_relative_difference": -11.5789
+    },
+    {
+      "key": "War & military",
+      "label": "War & military",
+      "share": 0.0877,
+      "era_relative_difference": -15.0833
+    },
+    {
+      "key": "Foreign policy",
+      "label": "Foreign policy",
+      "share": 0.1404,
+      "era_relative_difference": -10.957
+    },
+    {
+      "key": "Immigration",
+      "label": "Immigration",
+      "share": 0.0,
+      "era_relative_difference": -1.0134
+    },
+    {
+      "key": "Civil rights & race",
+      "label": "Civil rights & race",
+      "share": 0.0175,
+      "era_relative_difference": -4.8083
+    },
+    {
+      "key": "Health care",
+      "label": "Health care",
+      "share": 0.0351,
+      "era_relative_difference": 2.4862
+    },
+    {
+      "key": "Education",
+      "label": "Education",
+      "share": 0.0,
+      "era_relative_difference": -1.1339
+    },
+    {
+      "key": "Crime & justice",
+      "label": "Crime & justice",
+      "share": 0.0526,
+      "era_relative_difference": 1.839
+    },
+    {
+      "key": "Energy & environment",
+      "label": "Energy & environment",
+      "share": 0.0175,
+      "era_relative_difference": 1.0583
+    },
+    {
+      "key": "Trade & tariffs",
+      "label": "Trade & tariffs",
+      "share": 0.0,
+      "era_relative_difference": -14.4272
+    },
+    {
+      "key": "Agriculture",
+      "label": "Agriculture",
+      "share": 0.0,
+      "era_relative_difference": -1.4104
+    },
+    {
+      "key": "Religion & values",
+      "label": "Religion & values",
+      "share": 0.0351,
+      "era_relative_difference": -0.9199
+    },
+    {
+      "key": "Money & banking",
+      "label": "Money & banking",
+      "share": 0.0877,
+      "era_relative_difference": 2.0923
+    },
+    {
+      "key": "Infrastructure",
+      "label": "Infrastructure",
+      "share": 0.0,
+      "era_relative_difference": -16.2489
+    },
+    {
+      "key": "Discovered 5",
+      "label": "Security & peace",
+      "share": 0.0351,
+      "era_relative_difference": -1.7357
+    }
+  ],
+  "issue_evidence": {
+    "cards": [
+      {
+        "issue": "Money & banking",
+        "rel": 2.0922855757574674,
+        "share": 0.08771929824561403,
+        "base": 0.05603246018383063,
+        "topic_of_day": false,
+        "words": [
+          "roman",
+          "character",
+          "metallic"
+        ],
+        "quote": "Or if there is a process by which the character of the country for generosity and nobleness of feeling may be destroyed by the great increase and neck toleration of usury, it is an exclusive metallic currency.",
+        "cite": "Inaugural Address, 1841",
+        "stance": null
+      }
+    ],
+    "voice": [
+      "constitution",
+      "power",
+      "executive",
+      "confederacy",
+      "aristocracy",
+      "spirit",
+      "liberty",
+      "instrument"
+    ],
+    "n_speeches": 1,
+    "n_paragraphs": 57,
+    "low_confidence": true
+  },
+  "ai": {
+    "n_paragraphs": 57,
+    "n_speeches": 1,
+    "low_confidence": true,
+    "top_topics": [
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Assertions of presidential constitutional duties, the veto and removal powers, interbranch relations, and reform of the federal judiciary.",
+        "share": 42.11,
+        "rel": 33.66,
+        "n": 24
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Reflections on the constitutional compact, the balance between state sovereignty and federal authority, secession, and preservation of the Union.",
+        "share": 40.35,
+        "rel": 28.09,
+        "n": 23
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "definition": "Attacks on opponents and parties, campaign debate and defense of one's record, the give-and-take of televised news conferences, and clashes with the press.",
+        "share": 10.53,
+        "rel": 10.49,
+        "n": 6
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "definition": "Controversies over a national bank, deposit of public revenues, bank regulation, protection of deposits, and financial panics and revulsions.",
+        "share": 8.77,
+        "rel": 2.09,
+        "n": 5
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "definition": "The chief executive's diffidence about his qualifications, gratitude for public trust, and reflection on entering or leaving the office.",
+        "share": 7.02,
+        "rel": 5.86,
+        "n": 4
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Establishing governments for new territories, fixing boundaries and admitting states, and administering overseas dependencies such as the Philippines, Cuba, and Puerto Rico.",
+        "share": 7.02,
+        "rel": 1.41,
+        "n": 4
+      }
+    ],
+    "distinctive_topics": [
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Assertions of presidential constitutional duties, the veto and removal powers, interbranch relations, and reform of the federal judiciary.",
+        "share": 42.11,
+        "rel": 33.66,
+        "n": 24
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Reflections on the constitutional compact, the balance between state sovereignty and federal authority, secession, and preservation of the Union.",
+        "share": 40.35,
+        "rel": 28.09,
+        "n": 23
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "definition": "Attacks on opponents and parties, campaign debate and defense of one's record, the give-and-take of televised news conferences, and clashes with the press.",
+        "share": 10.53,
+        "rel": 10.49,
+        "n": 6
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "definition": "The chief executive's diffidence about his qualifications, gratitude for public trust, and reflection on entering or leaving the office.",
+        "share": 7.02,
+        "rel": 5.86,
+        "n": 4
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "definition": "Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.",
+        "share": 7.02,
+        "rel": 3.11,
+        "n": 4
+      }
+    ],
+    "domains": [
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 78.95,
+        "rel": 53.45
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 10.53,
+        "rel": 10.49
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 10.53,
+        "rel": 2.62
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 7.02,
+        "rel": 3.11
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 7.02,
+        "rel": 5.74
+      }
+    ],
+    "topic_attention": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -2.598,
+        "n": 0
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 3.509,
+        "rel": -12.86,
+        "n": 2
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -8.531,
+        "n": 0
+      },
+      {
+        "name": "Monroe Doctrine & Latin American Policy",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -6.77,
+        "n": 0
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.012,
+        "n": 0
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Middle East & Israel",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "share": 1.754,
+        "rel": -6.923,
+        "n": 1
+      },
+      {
+        "name": "Early Naval Wars: Barbary & the War of 1812",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.573,
+        "n": 0
+      },
+      {
+        "name": "Mexican War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -2.626,
+        "n": 0
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.01,
+        "n": 0
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.01,
+        "n": 0
+      },
+      {
+        "name": "Vietnam War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "share": 3.509,
+        "rel": 1.7,
+        "n": 2
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "share": 8.772,
+        "rel": 2.091,
+        "n": 5
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 0.0,
+        "rel": -7.314,
+        "n": 0
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 0.0,
+        "rel": -0.026,
+        "n": 0
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "share": 1.754,
+        "rel": -6.96,
+        "n": 1
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "share": 0.0,
+        "rel": -0.259,
+        "n": 0
+      },
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.085,
+        "n": 0
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.327,
+        "n": 0
+      },
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.03,
+        "n": 0
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Prosperity, Jobs & the Middle Class",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.064,
+        "n": 0
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": -3.337,
+        "n": 0
+      },
+      {
+        "name": "Agriculture & Farm Prices",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": -1.035,
+        "n": 0
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": -0.116,
+        "n": 0
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": -6.526,
+        "n": 0
+      },
+      {
+        "name": "Space Exploration",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Slavery, Emancipation & Sectionalism",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -9.407,
+        "n": 0
+      },
+      {
+        "name": "Reconstruction & Southern Self-Government",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -2.925,
+        "n": 0
+      },
+      {
+        "name": "Chinese Immigration & Exclusion",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.529,
+        "n": 0
+      },
+      {
+        "name": "Immigration & Border Security",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.073,
+        "n": 0
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "share": 1.754,
+        "rel": -2.549,
+        "n": 1
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": -3.942,
+        "n": 0
+      },
+      {
+        "name": "Polygamy in the Territories",
+        "domain": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": -0.28,
+        "n": 0
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "share": 40.351,
+        "rel": 28.086,
+        "n": 23
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "share": 3.509,
+        "rel": 3.147,
+        "n": 2
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "share": 42.105,
+        "rel": 33.66,
+        "n": 24
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "share": 7.018,
+        "rel": 1.414,
+        "n": 4
+      },
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.0,
+        "rel": -1.2,
+        "n": 0
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "share": 0.0,
+        "rel": -0.669,
+        "n": 0
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "share": 7.018,
+        "rel": 5.858,
+        "n": 4
+      },
+      {
+        "name": "Personal Narrative, Storytelling & Boasting",
+        "domain": "Personal Narrative & Reflection",
+        "share": 0.0,
+        "rel": -0.121,
+        "n": 0
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "share": 0.0,
+        "rel": -5.241,
+        "n": 0
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "share": 7.018,
+        "rel": 3.115,
+        "n": 4
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "share": 10.526,
+        "rel": 10.491,
+        "n": 6
+      }
+    ],
+    "domain_attention": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 3.509,
+        "rel": -24.311
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 1.754,
+        "rel": -9.395
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 10.526,
+        "rel": 2.618
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 0.0,
+        "rel": -7.34
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 1.754,
+        "rel": -7.061
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.499
+      },
+      {
+        "name": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": -4.345
+      },
+      {
+        "name": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": -6.526
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -12.422
+      },
+      {
+        "name": "Indian & Tribal Affairs",
+        "share": 1.754,
+        "rel": -2.549
+      },
+      {
+        "name": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": -4.062
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 78.947,
+        "rel": 53.452
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 0.0,
+        "rel": -0.669
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 7.018,
+        "rel": 5.737
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 0.0,
+        "rel": -5.241
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 7.018,
+        "rel": 3.115
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 10.526,
+        "rel": 10.491
+      }
+    ],
+    "flags": {
+      "party_attack": 8.77,
+      "enemy_naming": 10.53,
+      "zero_sum": 1.75
+    },
+    "proposal_values": {
+      "proposal": 5.26,
+      "values": 89.47,
+      "mixed": 5.26,
+      "neither": 0.0
+    },
+    "speech_types": [
+      {
+        "name": "Inaugural address",
+        "value": 100.0
+      },
+      {
+        "name": "Campaign / debate",
+        "value": 0.0
+      },
+      {
+        "name": "Eulogy or commemoration",
+        "value": 0.0
+      },
+      {
+        "name": "Other",
+        "value": 0.0
+      }
+    ],
+    "adversaries": [
+      {
+        "name": "Bolivar",
+        "n": 1
+      },
+      {
+        "name": "Caesar",
+        "n": 1
+      },
+      {
+        "name": "Cromwell",
+        "n": 1
+      },
+      {
+        "name": "Executive party",
+        "n": 1
+      },
+      {
+        "name": "parties",
+        "n": 1
+      }
+    ],
+    "ai_radar": {
+      "party_attack": {
+        "absolute": 8.772,
+        "percentile": null
+      },
+      "enemy_naming": {
+        "absolute": 10.526,
+        "percentile": null
+      },
+      "zero_sum": {
+        "absolute": 1.754,
+        "percentile": null
+      },
+      "proposal": {
+        "absolute": 5.263,
+        "percentile": null
+      },
+      "values": {
+        "absolute": 89.474,
+        "percentile": null
+      },
+      "topic_breadth": {
+        "absolute": 7.315,
+        "percentile": null
+      }
+    }
+  },
+  "distinctive_vocabulary": [
+    {
+      "president": "William Harrison",
+      "term": "constitution",
+      "z": 11.442851189348543,
+      "rank": 0
+    },
+    {
+      "president": "William Harrison",
+      "term": "power",
+      "z": 11.359148670340455,
+      "rank": 1
+    },
+    {
+      "president": "William Harrison",
+      "term": "roman",
+      "z": 11.328251865068566,
+      "rank": 2
+    },
+    {
+      "president": "William Harrison",
+      "term": "executive",
+      "z": 10.201252546182456,
+      "rank": 3
+    },
+    {
+      "president": "William Harrison",
+      "term": "confederacy",
+      "z": 9.332103032535436,
+      "rank": 4
+    },
+    {
+      "president": "William Harrison",
+      "term": "aristocracy",
+      "z": 8.747396530256543,
+      "rank": 5
+    },
+    {
+      "president": "William Harrison",
+      "term": "spirit",
+      "z": 8.653798231647913,
+      "rank": 6
+    },
+    {
+      "president": "William Harrison",
+      "term": "liberty",
+      "z": 8.641562761149089,
+      "rank": 7
+    },
+    {
+      "president": "William Harrison",
+      "term": "instrument",
+      "z": 8.56911258110087,
+      "rank": 8
+    },
+    {
+      "president": "William Harrison",
+      "term": "conceive",
+      "z": 8.507914875117732,
+      "rank": 9
+    },
+    {
+      "president": "William Harrison",
+      "term": "character",
+      "z": 7.955949492908333,
+      "rank": 10
+    },
+    {
+      "president": "William Harrison",
+      "term": "observable",
+      "z": 7.714165991005633,
+      "rank": 11
+    },
+    {
+      "president": "William Harrison",
+      "term": "granted",
+      "z": 7.319125803479185,
+      "rank": 12
+    },
+    {
+      "president": "William Harrison",
+      "term": "citizens",
+      "z": 7.231675808070413,
+      "rank": 13
+    },
+    {
+      "president": "William Harrison",
+      "term": "remark",
+      "z": 7.193745054806398,
+      "rank": 14
+    },
+    {
+      "president": "William Harrison",
+      "term": "metallic",
+      "z": 7.1151003115270495,
+      "rank": 15
+    },
+    {
+      "president": "William Harrison",
+      "term": "grant",
+      "z": 6.969882602015771,
+      "rank": 16
+    },
+    {
+      "president": "William Harrison",
+      "term": "tendency",
+      "z": 6.859294140793929,
+      "rank": 17
+    }
+  ],
+  "signature_speeches": [
+    {
+      "title": "March 4, 1841: Inaugural Address",
+      "year": 1841,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1841-inaugural-address"
+    }
+  ],
+  "legacy_invocations": {
+    "invokes": [],
+    "invoked_by": null
+  },
+  "classified_invocations": [
+    {
+      "target": "Thomas Jefferson",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 4
+    },
+    {
+      "target": "James Madison",
+      "function": "institutional precedent",
+      "stance": "positive",
+      "mentions": 1
+    }
+  ],
+  "voice_neighbors": [
+    [
+      "Woodrow Wilson",
+      0.45530851364956226
+    ],
+    [
+      "George Washington",
+      0.40868973805687636
+    ],
+    [
+      "Warren G. Harding",
+      0.3855996130824862
+    ]
+  ],
+  "agenda_neighbors": [
+    [
+      "George Washington",
+      0.9683300404290871
+    ],
+    [
+      "Andrew Jackson",
+      0.9559480737943895
+    ],
+    [
+      "Franklin Pierce",
+      0.9464695585083726
+    ]
+  ],
+  "feature_neighbors": {
+    "ai_topics": [
+      {
+        "president": "Andrew Jackson",
+        "similarity": 0.7134
+      },
+      {
+        "president": "Andrew Johnson",
+        "similarity": 0.6538
+      },
+      {
+        "president": "James Buchanan",
+        "similarity": 0.578
+      },
+      {
+        "president": "George Washington",
+        "similarity": 0.5061
+      },
+      {
+        "president": "Rutherford B. Hayes",
+        "similarity": 0.448
+      },
+      {
+        "president": "Franklin Pierce",
+        "similarity": 0.4036
+      }
+    ],
+    "ai_domains": [
+      {
+        "president": "Rutherford B. Hayes",
+        "similarity": 0.8179
+      },
+      {
+        "president": "Andrew Jackson",
+        "similarity": 0.7974
+      },
+      {
+        "president": "Andrew Johnson",
+        "similarity": 0.7667
+      },
+      {
+        "president": "James Buchanan",
+        "similarity": 0.7435
+      },
+      {
+        "president": "Franklin Pierce",
+        "similarity": 0.5829
+      },
+      {
+        "president": "George Washington",
+        "similarity": 0.5795
+      }
+    ],
+    "ai_rhetoric": [
+      {
+        "president": "George Washington",
+        "similarity": 0.6916
+      },
+      {
+        "president": "Warren G. Harding",
+        "similarity": 0.6868
+      },
+      {
+        "president": "Andrew Jackson",
+        "similarity": 0.5496
+      },
+      {
+        "president": "James Buchanan",
+        "similarity": 0.5053
+      },
+      {
+        "president": "Abraham Lincoln",
+        "similarity": 0.4874
+      },
+      {
+        "president": "John Adams",
+        "similarity": 0.4848
+      }
+    ],
+    "rhetorical_fingerprint": [
+      {
+        "president": "Franklin Pierce",
+        "similarity": 0.7288
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.7283
+      },
+      {
+        "president": "John Tyler",
+        "similarity": 0.7252
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.6666
+      },
+      {
+        "president": "James Buchanan",
+        "similarity": 0.6544
+      },
+      {
+        "president": "Martin Van Buren",
+        "similarity": 0.5528
+      }
+    ],
+    "legacy_issues": [
+      {
+        "president": "George Washington",
+        "similarity": 0.9683
+      },
+      {
+        "president": "Andrew Jackson",
+        "similarity": 0.9559
+      },
+      {
+        "president": "Franklin Pierce",
+        "similarity": 0.9465
+      },
+      {
+        "president": "James Buchanan",
+        "similarity": 0.9443
+      },
+      {
+        "president": "John Tyler",
+        "similarity": 0.9305
+      },
+      {
+        "president": "Martin Van Buren",
+        "similarity": 0.9304
+      }
+    ]
+  },
+  "context_specific": {
+    "profile_only": [],
+    "compare_only": []
+  }
+}

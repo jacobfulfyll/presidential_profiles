@@ -101,6 +101,14 @@ share a `(doc_name, para_idx)` key — join on it rather than assuming row order
 keyed the same way; `paragraph_clusters_meta.json` carries each cluster's size, top terms, and
 NPMI coherence.
 
+`data/era_boundaries/` is the deterministic `$0` review layer behind the site's
+“Era Choices” page. `sliding_scores.parquet` tests every possible calendar-year
+boundary by comparing the preceding eight years with the following eight years
+on the Era Atlas's same 63-axis fingerprint; `cluster_stability.parquet` repeats
+contiguity-constrained Ward clustering from k=2 through k=12 with each axis group
+removed in turn. These distances describe rhetorical transition zones. Exact
+chapter years remain historical/editorial judgments, not algorithmic output.
+
 LLM-derived annotations live separately under `data/llm_annotations/`, keyed by `doc_name` or
 `(doc_name, para_idx)` — never by row order — with every row's `run_id` pointing at a manifest
 (model, prompt version + hash, batch id, token counts, cost, corpus fingerprint) so any
@@ -132,7 +140,10 @@ against researcher degrees of freedom, so the taxonomy can't be quietly reshaped
 an annotation run later finds. Provenance (models, prompt hash, exact sample IDs, actual cost)
 lives in `data/llm_annotations/manifests/taxonomy-v1-20260719.json`.
 
-`data/register/trends.parquet` (16,243 rows) holds how the formal presidential record's
+`data/register/trends.parquet` (16,243 rows) preserves the original 2,000-draw registered
+trend artifact; `data/register/trends_20000.parquet` is the publication inference rebuild with
+20,000 bootstrap draws and a no-change-surprise resolution floor of 0.005%. The tables hold how
+the formal presidential record's
 breadth, depth, and register moved across 240 years — issue entropy, label density,
 non-policy share, proposal-vs-values ratio, and 13 style markers — each computed under three
 genre treatments (raw / SOTU-only / genre-standardized) and against both taxonomies (the
@@ -258,6 +269,134 @@ one moves the other. `bands_meta.json` records the seed, the composition rule, t
 the cluster floors and why they differ from `combat.py`'s, and the caveats on the disagreement
 half-width in both directions.
 
+`data/expansion_story/period_metrics.parquet` is the deterministic evidence layer for the
+1816–1849 story chapter plus its fixed 1850–54 preview. It holds eight exact taxonomy-backed
+topic rows and an aligned `enemy_naming` rate over the same eight period columns, with every
+denominator retaining topic-free paragraphs. Composite expansion rows are de-duplicated
+paragraph-level unions. Each cell carries a 500-draw speech-clustered interval, the existing
+support gates, and a paired-model half-range that may widen but never narrow the sampling bounds.
+`meta.json` records input fingerprints, union definitions, validated receipt keys, derived
+Jackson/entity annotations, paired coverage, and the artifact schema. Rebuild both files
+byte-for-byte with `python -m presidential_profiles.expansion_story`; the command is local,
+deterministic, and makes no API calls.
+
+### Reusable era profiles
+
+`src/presidential_profiles/era_profiles.py` is the shared data layer for the
+nine Era Profile screens. It derives the same contract for every canonical
+`trends.ERAS` band—metadata, presidents, claimed constituents, named
+adversaries, corpus footprint, major topics, distinctive words, and governing
+channels—from the keyed corpus and annotation artifacts. Use
+`load_era_profile("expansion")` to select one record by stable key, or
+`load_all_era_profiles()` for the ordered nine-era mapping. The site build
+publishes the same records to `docs/data/era_profiles.json`; one
+era-agnostic renderer in `site.py` displays them. The `era-profile-v4`
+contract keeps calendar boundaries intact while assigning an outgoing
+president's accession-year speech to the story regime that presidency closes.
+Distinctive vocabulary uses the same grouped word-family map and spelling
+normalization as Explore, so inflections such as `slavery`, `slave`, and
+`slaves` contribute to one family; named-entity overrides give fragments such
+as `qaeda` the public family label `al-qaeda`. President-name terms are
+excluded before ranking, so names such as Kennedy, Nixon, Bush, and Trump
+cannot occupy an era's distinctive-word podium. Rank starts from the informative-prior
+log-odds effect size, caps additional ranking credit above a 25× concentration,
+and multiplies it by an evidence weight `1 - exp(-era_uses / 100)` that is
+nearly saturated by 500 uses. The visible `× other eras` remains the uncapped
+raw rate comparison. Eligibility still requires at least 50 corpus uses,
+presence in 10 era speeches, and presence under two era presidents. Each Story
+card stays deliberately compact: rank, focal-era uses, and the family’s
+per-word rate as `× other eras`. The fuller method and eligibility rules begin
+collapsed below the cards. Each presidential portrait on the Era Profile is a
+direct, keyboard-accessible link to that president's generated profile page.
+Distinctive terms use container-relative type, remain on one line, and shrink
+with the Corpus Footprint card at narrow widths. Uses and `× other eras` occupy
+separate lines. In the two-column Era Profile grid, Corpus Footprint and Major
+Topics share the same row height; opening the disclosure grows both sides of
+that row together.
+
+### Reusable era visualizations
+
+`src/presidential_profiles/era_visualizations.py` is the parallel shared data
+layer for Presidential Agendas and Adversary Network. It exact-key joins the
+corpus to the frozen paragraph, speech, entity, and taxonomy artifacts, then
+derives one identical contract for every canonical era. The four-view Story
+workspace displays Adversaries for every era. Presidential Agendas and the
+communication-route summary remain in the published contract for audit and
+compatibility but are no longer Story views. Use
+`load_era_visualization("cold-war")` for one era or
+`load_all_era_visualizations()` for the ordered nine-era mapping. The site
+build publishes the inputs to `docs/data/era_visualizations.json` under the
+`era-visualizations-v8` schema. Adversary networks expose each president,
+named opponent, and connection as a keyboard-focusable target. Hovering,
+focusing, or clicking any target emphasizes its connected president/opponent
+path and dims unrelated nodes and lines. Presidential Agendas use one non-exclusive
+paragraph-presence measure everywhere. Each president receives an individual
+vertical card containing only the five policy domains appearing in the
+largest shares of that president's paragraphs. Every priority keeps its rank,
+stable-color bar, exact percentage, and taxonomy definition together. Bar
+lengths are normalized to the leading domain within that card to emphasize the
+shape of the individual agenda; the printed percentages preserve the values
+that can be compared across presidents. Multi-label paragraphs receive full
+credit in every applicable domain, so the five shares can exceed 100% in
+total. `Remaining policy`, `Non-policy`, and the former text-alternative table
+are not displayed. The full taxonomy definition remains in each priority's
+accessible label while its visible description is clamped to one line; hover,
+keyboard focus, or a click reveals the full definition in place. Measure,
+selection, and raw-word weighting notes begin collapsed under a native
+disclosure; opening it grows the enclosing workspace, and the Measure/Evidence
+receipts follow it without bottom-anchored empty space. The active Agenda screen
+is content-sized rather than inheriting the taller Era Profile floor. Era
+displays with up to three supported presidents fit in place. When an era has
+more than three, the cards remain in one horizontally scrollable row with three
+visible at desktop width and one at mobile width. Unassigned paragraphs, all 12
+policy domains, and paired raw-word-presence shares remain published in the
+JSON contract for audit rather than being reclassified or repeated on screen.
+Presidents with fewer than five corpus speeches remain visible under thin
+support in the same card design but
+are separated from the supported records. Long-run effective-topic breadth is
+intentionally reserved for a later synthesis view.
+
+### Reusable era contextualizations
+
+`src/presidential_profiles/era_contextualizations.py` supplies Era Defined and
+Era Echoes for all nine chronological eras. Every Era Defined view uses the
+same four-line graph across the shared nine-era paragraph-share axis. Founding
+and the Continental Republic retain their historically declared topic
+families; the other seven eras use the first four Major Topics selected by the
+Era Profile contract. The focal era is highlighted. Each graph begins at zero
+and ends at the next five-point mark above its largest observed value rather
+than at 100%. Hovering a line isolates it, and hovering or focusing a point
+reveals its exact percentage. Multi-label paragraphs can enter more than one
+line, so the measures are independent rather than parts of a 100% whole.
+
+Era Echoes publishes and renders two directional networks. `Invoked by` shows
+later presidents invoking presidents from the focal era; `Invoking` shows
+focal-era presidents invoking earlier presidents. A direct two-button switch
+changes direction without leaving the graph. Each direction has its own
+connection-weighted gravity layout, so planet area, satellite area, and
+position reflect only the selected evidence. The Founding has no earlier era
+to invoke and the present has no later era to invoke it, so the structurally
+impossible direction is disabled. Every uncollapsed president-speaking →
+assigned-topic → president-invoked path remains in the published data.
+
+The retained Topic Life layer follows each profile's six Major Topics across
+the same axis, but it is not a Story view; its governed data remains published
+for reuse and audit. Optional `Reframes as…` claims load from the separate,
+fingerprinted, visibly unvalidated annotation history at
+`data/contextualization/topic_life_annotations_v1.json`. The source evidence
+also retains invocation function and stance, but the current graph does not
+encode those fields. The UI distinguishes named presidential references from
+broader historical allusions that are not yet annotated. Use
+`load_era_contextualization("founding")` or
+`load_all_era_contextualizations()`; the build publishes the ordered contract
+to `docs/data/era_contextualizations.json` under
+`era-contextualizations-v10`. Every chronological Story era now has the same
+three-part presentation: its title, one introductory summary, and a shared
+workspace with four direct views—Era Profile, Era Defined, Adversaries, and
+Era Echoes. Legacy chapter-specific charts, quotations, event callouts, and
+supporting prose are not rendered on the Story page; the governed analytical
+functions and data remain available for tests and reuse.
+
 ## Running it
 
 Requires [uv](https://docs.astral.sh/uv/). Then:
@@ -267,9 +406,129 @@ uv sync                 # install pinned environment (Python 3.12)
 uv run pp-fetch         # download + normalize the corpus  -> data/speeches.parquet
 uv run pp-analyze       # full pipeline                    -> outputs/
 uv run pp-site          # interactive dashboard            -> docs/index.html
+
+python -m presidential_profiles.coverage_pressure  # registered breadth/depth analysis
+python -m presidential_profiles.inference          # common frequentist receipt table
+python -m presidential_profiles.invocations status # resumable invocation-v2 workflow
+python -m presidential_profiles.networks           # deterministic Network Atlas artifacts
+python -m presidential_profiles.expansion_story    # second-era story evidence layer
+python -m presidential_profiles.annotation_refresh list-bundles
+python -m presidential_profiles.annotation_refresh validate-registry
 ```
 
 Tests: `uv sync --extra dev && uv run pytest`.
+
+The annotation-refresh commands above are provider-neutral inspection operations.
+They validate the additive label-spec and bundle registries and list bundle
+eligibility; they do not invoke a model or initialize a campaign. The approved
+design and remaining human checkpoints are in
+[`notes/annotation-refresh-campaign-v1.md`](notes/annotation-refresh-campaign-v1.md).
+Stage 2 planning is complete under `ARCV1-RES003` and `ARCV1-RES004`. It published
+content-addressed 722-row combined, 144-row diagnostic, and 240-row reference
+selections plus a non-executable plan fixing 182/182/36 assignments. The exact
+3,359,122-token pilot estimate exceeds the preliminary estimate by 24.87%, so
+`ARCV1-G002` required—and now has—explicit approval through `ARCV1-RES006`.
+`ARCV1-G001` is satisfied by the exact `gpt-5.6-sol`/`high` receipt in
+`ARCV1-RES007`; `ARCV1-G006` is approved through `ARCV1-RES008`; and
+`ARCV1-RES009` records assignment-free initialization of the exact campaign and
+its 144/722/722 child runs. Those pilot runs, a fresh 240-subject independent
+reference, and the 708-dispute adjudication are now sealed. The owner removed
+first-response validity from the decision set before reference labeling through
+`ARCV1-RES010`; the content-addressed amendment leaves every other gate
+unchanged. Evaluation
+`eval_bbb2212dea6936070b23bff11100615c602396b72d2fe6058cc707864f060b61`
+passed 114/150 gates and failed 36, so `ARCV1-RES011` rejects the V2
+specification/bundle freeze. Current labels and the active materialized
+generation remain unchanged. The separate invocation-tone audit proposal
+`ARCV1-D018` remains pending explicit owner approval or revision.
+
+`ARCV1-RES012` separately authorizes a planning-only, provisional Sol corpus
+layer without making the failed candidate production-eligible. Run:
+
+```bash
+arch -x86_64 .venv/bin/python -m presidential_profiles.annotation_refresh \
+  plan-provisional-corpus --approval-id ARCV1-RES012
+```
+
+The command is offline and non-executable: it publishes only a reuse manifest,
+fresh-selection artifact, and composite plan. The evaluated 240 paragraphs reuse
+their 972 unanimous and 708 adjudicated final fields; the remaining 35,154
+canonical paragraphs, including the other 482 pilot paragraphs, are selected for
+a possible later exact `gpt-5.6-sol`/`high` pass. The plan fixes 9,186 assignments
+and an 81,663,911-input-token proxy with an 89,830,303 ceiling. It does not
+initialize a campaign or run, issue an assignment, invoke a provider, write a
+response, seal, promote, materialize, generate the site, or deploy.
+
+The plan was subsequently authorized for exact provisional execution and
+completed under the owner resolutions recorded in
+[`notes/annotation-refresh-campaign-v1.md`](notes/annotation-refresh-campaign-v1.md).
+The full fresh assignment partition passed audit, the sealed result was combined
+with the evaluated reuse layer, and the resulting composite verifies without
+missing or duplicate field keys. It remains provisional, non-promoted, and
+ineligible for production materialization. The heavyweight control plane under
+`data/annotation_ledger/` is intentionally excluded from the GitHub Pages
+release; current primary labels and frozen paid artifacts remain unchanged.
+
+The generated site now includes a nine-era chronological story with a
+continuous timeline rail and a deliberately uniform three-part chapter
+structure: title, introductory summary, and one reusable single-stage era
+frame. The standalone Summary page contains the full-record comparisons and
+post-story evidence appendix. Every era frame has four peer tabs:
+Era Profile, Era Defined, Adversaries, and Era Echoes. Only one view occupies
+the stage at a time. The profile names
+presidents and adversaries, lists six Major Topics, and shows
+that 1789–1808 supplies 5.1% of corpus speeches and 1.9% of corpus paragraphs. Promoted
+constituency claims replace the visibly pending illustrative fallback automatically; the fallback
+does not infer Native peoples as a constituency. The Founding Era Defined
+screen compares four declared topic unions in the Founding aggregate with an
+equal-era mean of the other
+eight eras: independence abroad (26.4% vs 11.0%), Native nations and
+continental power (18.3% vs 1.5%), holding the union together (20.8% vs
+12.5%), and financing government (12.3% vs 15.8%). Those overlapping Founding
+shares sum to 77.9%, while 485 of 682 paragraphs (71.1%) contain at least one
+of the four families; the equal-era historical figures are 40.8% summed and
+38.9% deduplicated. The former standalone Topic Life trajectories remain in
+the published contextualization contract for redesign work but are not
+rendered. Era Echoes follows
+the exact president–topic–president paths found in 218 distinct later
+paragraphs that explicitly name Founding presidents; the visible graph makes
+Washington, Adams, and Jefferson chronological
+gravity anchors, scales their planet area by connected reference paragraphs,
+and places all 32 connected later presidents and all 40 assigned topics by
+their weighted pull toward those anchors without dropping the full path
+contract. Collective references
+such as “the Founders” or the Constitution remain outside the current
+evidence. The nine-era
+audience/medium comparison appears in the synthesis
+as a size-scaled emoji constellation instead of interrupting the first era. Exact counts, shares,
+raw-label groupings, statistical status, and tabular fallbacks remain available. The expansion
+chapter aligns an eight-row topic matrix with
+episodic adversary-naming bars
+across seven historical periods and a fixed-scale 1850–54 preview, backed by speech-clustered
+intervals, paired-model status, keyed corpus receipts, and a complete tabular fallback. Every
+chapter prints a data-derived takeaway; focused annual views expose thin support while
+broader comparisons retain their declared grain and baseline. The site also includes unified
+president/compare data, editable Explore presets, metric lessons, Methods, Data Quality, Era
+Choices, and Feedback pages. The global navigation groups Presidents and Issues under Profiles,
+and Data Quality, Methods, and Era Choices under Data; Feedback remains in every page footer.
+The standalone `summary.html` now reads the whole chronology as five aggregate arguments about
+America's prepared presidential record: the shift from Congress and written messages to the
+public and performed forms; changing enemy categories plus combat framing at era and president
+grain; future and backward-looking appeal with an explicit founding-dictionary audit; Hope
+divided by Doom with non-causal event guides; and a concluding changed/persisted/uncertain audit.
+The all-president legal/procedural-versus-hype scatter and national-naming crossover remain
+inspectable. The page explicitly demotes post–Civil War topic breadth to a limitation because the
+visible expansion occurs mainly before 1860; it no longer publishes the weak lifecycle display or
+the separate-axis rhetorical-weather map. Exploratory and descriptive evidence remain labeled.
+Summary does not remain embedded in `index.html`; the end of the ninth era links forward to it, and the former
+`index.html#synthesis` and `#records_appendix` deep links redirect to their new locations.
+`pp-site` validates every generated navigation link, in-page anchor,
+JSON shard, and registered substantive metric; it exits non-zero if any check fails. For a local
+preview:
+
+```bash
+python -m http.server 8010 --bind 127.0.0.1 --directory docs
+```
 
 `pp-analyze --force` recomputes the cached intermediate tables. The spaCy tagging pass over
 4.2M words takes a few minutes; everything else is seconds.
@@ -315,8 +574,9 @@ point and is not part of `pp-analyze` — but unlike its neighbors `annotate.py`
 `taxonomy.py`, it makes **no API calls at all**: every input (`paragraphs.parquet`,
 `paragraph_issues.parquet`, the frozen `taxonomy_v1.json` and annotation parquets,
 `speech_stats.parquet`) is already on disk, so it costs nothing and reruns are free.
-Deterministic — the default seed reproduces `data/register/trends.parquet` byte-for-byte —
-and takes about 6 seconds; `--n-bootstrap` and `--seed` override the 2,000-replicate default.
+Deterministic — the default seed reproduces `data/register/trends_20000.parquet` byte-for-byte.
+`--n-bootstrap` and `--seed` override the 20,000-replicate publication default; runs below
+20,000 retain the legacy output path so the original registered artifact remains unchanged.
 
 `python -m presidential_profiles.combat` builds `data/combat/` from the frozen annotations. Like
 `taxonomy.py` it has no `pp-*` entry point and is not part of `pp-analyze` — but for the opposite
@@ -383,6 +643,54 @@ speech-clustered bootstrap for exactly that quantity. `--quiet` writes the outpu
 printing the checks. If the table is missing, the site still builds — the charts simply render as
 bare lines.
 
+`python -m presidential_profiles.coverage_pressure` implements the preregistered coverage-pressure
+test in [`notes/coverage-pressure-prereg-v1.md`](notes/coverage-pressure-prereg-v1.md). The
+comparable sample is State of the Union/annual messages with at least 12 paragraphs. It compares
+the pooled 1860/1890/1920 eras with 1950/1980/2010 using effective topics for breadth and
+length-biased topic-episode words for depth, resampling presidents and then speeches 20,000
+times. All-speech, genre-standardized, and controlled sensitivity arms, every secondary
+outcome, exclusions, and the Holm-adjusted joint decision ship in `data/coverage_pressure/`.
+
+`python -m presidential_profiles.inference` combines coverage pressure, register, and
+combativeness into `data/inference_receipts.parquet` and CSV. Each row carries the estimate,
+unit, interval, raw and family-adjusted p-values, resolution, sample counts, bootstrap design,
+test status, and caveats. The site describes p-values only as no-change surprise rates: a
+4.2% rate means results this extreme occur about four times per 100 repetitions under the
+declared no-change model, not that the finding has a 4.2% chance of being random.
+
+`python -m presidential_profiles.invocations` preserves the legacy 101-row artifact and builds
+the separate `data/invocations_v2/` lineage dataset. Its `extract`, `next-batch`,
+`import-batch`, `status`, `audit`, `classify-all`, and `build-edges` commands use stable
+candidate IDs, corpus fingerprints, fixed function/stance enums, evidence spans, and
+batch checksums. The current 4,439 eligible candidates have exploratory AI classifications;
+they are explicitly not human-validated. Excluded candidates remain in the audit artifact.
+
+`python -m presidential_profiles.networks` writes topic co-occurrence at both taxonomy levels,
+speech-type enrichment, invocation edges and source evidence, and rhetorical-voice/agenda
+president networks to `data/networks/`. NetworkX layouts use a fixed seed; Plotly filters do
+not move nodes. CSV fallbacks and dictionaries accompany the browser-ready JSON shards.
+
+## Publishing
+
+GitHub Pages serves this project from `master:/docs`. The Python generator owns
+that directory and writes an empty `docs/.nojekyll` marker so GitHub serves the
+prebuilt static files without Jekyll processing.
+
+Public releases follow
+[`notes/github-pages-release-plan-v1.md`](notes/github-pages-release-plan-v1.md):
+run the full tests and canonical build, parse every generated inline script,
+stage only the declared release allowlist, and run the staged-tree audit before
+opening a pull request. Never use `git add -A` for this repository; the local
+annotation control plane is intentionally outside the Pages release.
+
+```bash
+arch -x86_64 .venv/bin/python -m pytest -q
+arch -x86_64 .venv/bin/python -m presidential_profiles.site
+node scripts/validate_inline_js.mjs docs
+git diff --check
+python3 scripts/audit_github_release.py origin/master  # after explicit staging
+```
+
 ## How it works
 
 | Stage | Module | Method |
@@ -401,11 +709,16 @@ bare lines.
 | Method triangulation | `triangulate.py` | Per-speech composition vectors across all three labelers (LLM taxonomy, CorEx legacy, embedding clusters); LLM↔CorEx agreement (Jaccard + kappa) per issue and per era; rename-vs-death detection separating vocabulary drift from real decline; `agreement_drivers()` isolates what actually predicts agreement once the algebraic Jaccard ceiling is controlled for; standalone, not wired into `pp-analyze` |
 | Inter-model agreement | `agreement.py` | Draws a persisted 25% era-stratified sample → Opus 4.8 re-annotates it with byte-identical prompts (model is the only variable) → Cohen's kappa / Jaccard / exact-match / entity-stance agreement per field, overall and by 30-year era bin; flags low-confidence fields, never gates — standalone paid step, no `pp-*` entry point |
 | Chart confidence bands | `bands.py` | Speech-clustered bootstrap over the CorEx issue labels at 5-year grain, reusing `attention.bootstrap_era_shares` for the LLM topic layer rather than re-deriving it → per-surface uncertainty budgets (`sampling_only` for CorEx, which has no annotator to disagree; sampling + measured Sonnet↔Opus gap for the annotated topics) → a per-period `ci_status` trust gate plus a per-cell `interval_unresolvable` flag that withdraws (rather than fabricates) an interval a 2-speech bootstrap could not resolve, drawn as an open circle; visual de-emphasis in place of the old hard n-mask; standalone $0 script, read by `pp-site` |
+| Coverage pressure | `coverage_pressure.py` | Preregistered effective-topic breadth and length-biased episode depth; hierarchical president→speech bootstrap, Holm joint decision, complete sensitivity arms and secondary outcomes |
+| Expansion story | `expansion_story.py` | Eight exact topic unions plus aligned enemy-naming rates over fixed 1816–1854 period columns; all-paragraph denominators, speech-clustered intervals, paired-model widening, keyed receipts, and deterministic provenance |
+| Inference receipts | `inference.py` | Common frequentist receipt schema across registered trends, combativeness, and coverage pressure, including no-change-surprise resolution floors and declared multiplicity families |
+| Invocation v2 | `invocations.py` | Complete date-aware president aliases → stable mention candidates → resumable evidence-bound classification → audit queues and normalized edges; exploratory AI labels remain visibly not human-validated |
+| Network artifacts | `networks.py` | Topic/domain co-occurrence by era and speech type, speech-type enrichment, invocation evidence, and rhetorical/agenda president similarity with deterministic NetworkX layouts |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Era atlas | `eras.py` | 63 z-scored axes (topic/issue mix, style, register, combativeness, speech-type mix) per era/bin/presidency → raw + drift-detrended similarity (reusing `similarity.py`'s adjacent-era-mean trick) → contiguity-constrained periodization vs the historians' eras, checked with an `opponents`-dropped leave-one-out → LLM-written era portraits; standalone, not wired into `pp-analyze` |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
-| Profiles | `profiles.py` | Fingerprint percentiles, dual-axis issue cards (raw share of paragraphs + era-relative emphasis, "topic of the day" flag), distinctive vocabulary, signature speeches, invocations |
-| Site & figures | `site.py`, `figures.py` | plotly dashboard + 45 profile pages; validated palette |
+| Profiles | `profiles.py`, `ai_labels.py` | Shared profile/compare payload: rhetorical and AI radar values, detailed/broad attention, proposal/values and speech-type distributions, distinctive vocabulary, signatures, adversaries, invocations, neighbors, and thin-record warnings |
+| Site & figures | `site.py`, `figures.py`, `expansion_site.py` | Nine-era chronological story with a timeline rail; a founding chapter organized around overlapping governing problems, aligned audience/medium composition, and persistence-ranked topic threads; an expansion-era topic matrix with an aligned adversary strip and documentary receipts; data-derived chapter takeaways, focused/full-history controls, accessible event callouts and compact evidence inspectors; synthesis and post-story evidence appendix; 45 profiles; compare and Explore tools; disclosure-based global navigation; metric lessons; quality/feedback pages; deterministic build and link/anchor/data validation |
 
 Emotion scores use the [NRC Emotion Lexicon](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm)
 (Mohammad & Turney), downloaded on first run for research use with attribution.

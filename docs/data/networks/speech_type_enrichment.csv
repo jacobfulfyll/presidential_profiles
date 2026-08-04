@@ -1,0 +1,592 @@
+taxonomy_level,speech_type,topic,n_speeches_with_topic,n_speeches_in_type,topic_rate,overall_rate,lift
+level2,campaign_or_debate,Agriculture & Farm Prices,31,70,0.44285714285714284,0.23935666982024598,1.850197628458498
+level2,campaign_or_debate,"Civil Rights, Voting Rights & Discrimination",34,70,0.4857142857142857,0.25260170293282874,1.9228464419475657
+level2,campaign_or_debate,Civil Service Reform & the Merit System,12,70,0.17142857142857143,0.12866603595080417,1.3323529411764705
+level2,campaign_or_debate,"Coinage, Currency & Specie",9,70,0.12857142857142856,0.12582781456953643,1.0218045112781953
+level2,campaign_or_debate,Cold War & Great-Power Rivalry,41,70,0.5857142857142857,0.3273415326395459,1.7893063583815028
+level2,campaign_or_debate,"Commemoration, Eulogy & National Mourning",15,70,0.21428571428571427,0.23273415326395458,0.9207317073170731
+level2,campaign_or_debate,Conservation & the Environment,27,70,0.38571428571428573,0.19489120151371808,1.979126213592233
+level2,campaign_or_debate,Constitutional Union & Federalism,22,70,0.3142857142857143,0.2535477767265847,1.23955223880597
+level2,campaign_or_debate,"Crime, Insurrection & Federal Law Enforcement",26,70,0.37142857142857144,0.3197729422894986,1.1615384615384616
+level2,campaign_or_debate,Elections & Voting Integrity,20,70,0.2857142857142857,0.16367076631977295,1.7456647398843927
+level2,campaign_or_debate,"Executive Departments, Postal & Administrative Housekeeping",14,70,0.2,0.33112582781456956,0.604
+level2,campaign_or_debate,"Executive Power, Vetoes & the Courts",31,70,0.44285714285714284,0.4011352885525071,1.1040094339622641
+level2,campaign_or_debate,Great Depression Recovery,17,70,0.24285714285714285,0.08230842005676443,2.950574712643678
+level2,campaign_or_debate,"Health Care, Medicare & Social Security",32,70,0.45714285714285713,0.18448438978240303,2.477948717948718
+level2,campaign_or_debate,Immigration & Border Security,15,70,0.21428571428571427,0.1456953642384106,1.4707792207792207
+level2,campaign_or_debate,"Indian Affairs, Removal & Allotment",1,70,0.014285714285714285,0.152317880794702,0.09378881987577639
+level2,campaign_or_debate,"Internal Improvements, Energy & Infrastructure",32,70,0.45714285714285713,0.34815515610217596,1.3130434782608695
+level2,campaign_or_debate,"Iraq, Gulf Wars, the War on Terror & Interventions",16,70,0.22857142857142856,0.13434247871333965,1.701408450704225
+level2,campaign_or_debate,"Labor, Wages & Working Conditions",38,70,0.5428571428571428,0.25922421948912017,2.0941605839416058
+level2,campaign_or_debate,Mexican War,1,70,0.014285714285714285,0.023651844843897825,0.604
+level2,campaign_or_debate,Middle East & Israel,19,70,0.2714285714285714,0.13718070009460737,1.9786206896551723
+level2,campaign_or_debate,"Military Preparedness, Armed Forces & Veterans",44,70,0.6285714285714286,0.5789971617786187,1.0856209150326797
+level2,campaign_or_debate,Monroe Doctrine & Latin American Policy,21,70,0.3,0.30179754020813626,0.9940438871473353
+level2,campaign_or_debate,National Bank & Banking Crises,16,70,0.22857142857142856,0.17975402081362346,1.271578947368421
+level2,campaign_or_debate,Neutral Rights & Maritime Depredations,2,70,0.02857142857142857,0.11258278145695365,0.253781512605042
+level2,campaign_or_debate,Nuclear Weapons & Arms Control,28,70,0.4,0.22421948912015138,1.7839662447257385
+level2,campaign_or_debate,"Partisan Combat, Press Conferences & Media Attacks",53,70,0.7571428571428571,0.2412488174077578,3.1384313725490194
+level2,campaign_or_debate,"Personal Narrative, Storytelling & Boasting",32,70,0.45714285714285713,0.17407757805108798,2.626086956521739
+level2,campaign_or_debate,Presidential Humility & Reflection on Office,51,70,0.7285714285714285,0.32355723746452225,2.251754385964912
+level2,campaign_or_debate,"Prosperity, Jobs & the Middle Class",47,70,0.6714285714285714,0.29990539262062443,2.2388012618296527
+level2,campaign_or_debate,"Providence, Faith & American Ideals",64,70,0.9142857142857143,0.7303689687795648,1.2518134715025906
+level2,campaign_or_debate,"Public Debt, Revenue & Treasury Finance",15,70,0.21428571428571427,0.2980132450331126,0.7190476190476189
+level2,campaign_or_debate,Public Lands & Homestead Settlement,7,70,0.1,0.1400189214758751,0.7141891891891893
+level2,campaign_or_debate,Reconstruction & Southern Self-Government,1,70,0.014285714285714285,0.04919583727530748,0.29038461538461535
+level2,campaign_or_debate,"Relations with Spain, Mexico & Territorial Claims",4,70,0.05714285714285714,0.14853358561967833,0.3847133757961783
+level2,campaign_or_debate,"Slavery, Emancipation & Sectionalism",6,70,0.08571428571428572,0.09082308420056764,0.94375
+level2,campaign_or_debate,Space Exploration,6,70,0.08571428571428572,0.08325449385052035,1.0295454545454545
+level2,campaign_or_debate,"Tariffs, Reciprocity & Navigation Laws",23,70,0.32857142857142857,0.3424787133396405,0.9593922651933702
+level2,campaign_or_debate,"Taxes, Budget Deficits & Federal Spending",35,70,0.5,0.2876064333017975,1.7384868421052633
+level2,campaign_or_debate,"Territorial Organization, Statehood & Insular Governance",8,70,0.11428571428571428,0.15042573320719016,0.7597484276729559
+level2,campaign_or_debate,"Treaties, Diplomacy & International Arbitration",28,70,0.4,0.510879848628193,0.782962962962963
+level2,campaign_or_debate,"Trusts, Corporations & Antitrust",15,70,0.21428571428571427,0.10879848628192999,1.9695652173913043
+level2,campaign_or_debate,Vietnam War,14,70,0.2,0.13718070009460737,1.4579310344827587
+level2,campaign_or_debate,"Welfare, Poverty & Economic Opportunity",36,70,0.5142857142857142,0.22232734153263956,2.3131914893617016
+level2,campaign_or_debate,"World Order, Foreign Aid & Democracy Promotion",29,70,0.4142857142857143,0.30368968779564803,1.3641744548286607
+level2,campaign_or_debate,World War I Mobilization & War Aims,11,70,0.15714285714285714,0.052980132450331126,2.9660714285714285
+level2,campaign_or_debate,World War II Military Operations,9,70,0.12857142857142856,0.11069063386944182,1.1615384615384614
+level2,eulogy_or_commemoration,Agriculture & Farm Prices,1,31,0.03225806451612903,0.23935666982024598,0.13476985847252326
+level2,eulogy_or_commemoration,"Civil Rights, Voting Rights & Discrimination",9,31,0.2903225806451613,0.25260170293282874,1.1493294671982603
+level2,eulogy_or_commemoration,Civil Service Reform & the Merit System,1,31,0.03225806451612903,0.12866603595080417,0.25071157495256163
+level2,eulogy_or_commemoration,Cold War & Great-Power Rivalry,9,31,0.2903225806451613,0.3273415326395459,0.8869103113928771
+level2,eulogy_or_commemoration,"Commemoration, Eulogy & National Mourning",29,31,0.9354838709677419,0.23273415326395458,4.0195384211906635
+level2,eulogy_or_commemoration,Conservation & the Environment,1,31,0.03225806451612903,0.19489120151371808,0.16551832132790478
+level2,eulogy_or_commemoration,Constitutional Union & Federalism,9,31,0.2903225806451613,0.2535477767265847,1.145040924410207
+level2,eulogy_or_commemoration,"Crime, Insurrection & Federal Law Enforcement",10,31,0.3225806451612903,0.3197729422894986,1.0087803015842718
+level2,eulogy_or_commemoration,Early Naval Wars: Barbary & the War of 1812,2,31,0.06451612903225806,0.06149479659413434,1.0491315136476427
+level2,eulogy_or_commemoration,Elections & Voting Integrity,5,31,0.16129032258064516,0.16367076631977295,0.9854559015476412
+level2,eulogy_or_commemoration,"Executive Departments, Postal & Administrative Housekeeping",2,31,0.06451612903225806,0.33112582781456956,0.19483870967741934
+level2,eulogy_or_commemoration,"Executive Power, Vetoes & the Courts",4,31,0.12903225806451613,0.4011352885525071,0.3216676810712112
+level2,eulogy_or_commemoration,Great Depression Recovery,2,31,0.06451612903225806,0.08230842005676443,0.7838338895068594
+level2,eulogy_or_commemoration,"Health Care, Medicare & Social Security",4,31,0.12903225806451613,0.18448438978240303,0.6994210090984284
+level2,eulogy_or_commemoration,Immigration & Border Security,2,31,0.06451612903225806,0.1456953642384106,0.44281524926686217
+level2,eulogy_or_commemoration,"Internal Improvements, Energy & Infrastructure",5,31,0.16129032258064516,0.34815515610217596,0.4632713884992987
+level2,eulogy_or_commemoration,"Iraq, Gulf Wars, the War on Terror & Interventions",2,31,0.06451612903225806,0.13434247871333965,0.4802362562471603
+level2,eulogy_or_commemoration,"Labor, Wages & Working Conditions",3,31,0.0967741935483871,0.25922421948912017,0.3733223451848363
+level2,eulogy_or_commemoration,Middle East & Israel,3,31,0.0967741935483871,0.13718070009460737,0.7054505005561735
+level2,eulogy_or_commemoration,"Military Preparedness, Armed Forces & Veterans",9,31,0.2903225806451613,0.5789971617786187,0.5014231499051234
+level2,eulogy_or_commemoration,Monroe Doctrine & Latin American Policy,4,31,0.12903225806451613,0.30179754020813626,0.4275457579128324
+level2,eulogy_or_commemoration,National Bank & Banking Crises,2,31,0.06451612903225806,0.17975402081362346,0.3589134125636672
+level2,eulogy_or_commemoration,Nuclear Weapons & Arms Control,2,31,0.06451612903225806,0.22421948912015138,0.2877364910847965
+level2,eulogy_or_commemoration,"Partisan Combat, Press Conferences & Media Attacks",4,31,0.12903225806451613,0.2412488174077578,0.5348513598987982
+level2,eulogy_or_commemoration,"Personal Narrative, Storytelling & Boasting",8,31,0.25806451612903225,0.17407757805108798,1.482468443197756
+level2,eulogy_or_commemoration,Presidential Humility & Reflection on Office,10,31,0.3225806451612903,0.32355723746452225,0.9969817015657422
+level2,eulogy_or_commemoration,"Prosperity, Jobs & the Middle Class",3,31,0.0967741935483871,0.29990539262062443,0.32268240561717715
+level2,eulogy_or_commemoration,"Providence, Faith & American Ideals",30,31,0.967741935483871,0.7303689687795648,1.3250041785057665
+level2,eulogy_or_commemoration,"Public Debt, Revenue & Treasury Finance",1,31,0.03225806451612903,0.2980132450331126,0.10824372759856629
+level2,eulogy_or_commemoration,Public Lands & Homestead Settlement,2,31,0.06451612903225806,0.1400189214758751,0.460767218831735
+level2,eulogy_or_commemoration,"Relations with Spain, Mexico & Territorial Claims",1,31,0.03225806451612903,0.14853358561967833,0.217176905691391
+level2,eulogy_or_commemoration,"Slavery, Emancipation & Sectionalism",5,31,0.16129032258064516,0.09082308420056764,1.7758736559139785
+level2,eulogy_or_commemoration,Space Exploration,2,31,0.06451612903225806,0.08325449385052035,0.7749266862170087
+level2,eulogy_or_commemoration,"Tariffs, Reciprocity & Navigation Laws",2,31,0.06451612903225806,0.3424787133396405,0.18837996792015685
+level2,eulogy_or_commemoration,"Taxes, Budget Deficits & Federal Spending",2,31,0.06451612903225806,0.2876064333017975,0.22432088285229201
+level2,eulogy_or_commemoration,"Territorial Organization, Statehood & Insular Governance",1,31,0.03225806451612903,0.15042573320719016,0.2144451207141408
+level2,eulogy_or_commemoration,"Treaties, Diplomacy & International Arbitration",6,31,0.1935483870967742,0.510879848628193,0.37885304659498203
+level2,eulogy_or_commemoration,"Trusts, Corporations & Antitrust",1,31,0.03225806451612903,0.10879848628192999,0.29649368863955117
+level2,eulogy_or_commemoration,Vietnam War,1,31,0.03225806451612903,0.13718070009460737,0.23515016685205786
+level2,eulogy_or_commemoration,"Welfare, Poverty & Economic Opportunity",7,31,0.22580645161290322,0.22232734153263956,1.0156485929993135
+level2,eulogy_or_commemoration,"World Order, Foreign Aid & Democracy Promotion",7,31,0.22580645161290322,0.30368968779564803,0.7435433624761331
+level2,eulogy_or_commemoration,World War I Mobilization & War Aims,3,31,0.0967741935483871,0.052980132450331126,1.8266129032258065
+level2,eulogy_or_commemoration,World War II Military Operations,4,31,0.12903225806451613,0.11069063386944182,1.165701681830714
+level2,inaugural_address,Agriculture & Farm Prices,10,62,0.16129032258064516,0.23935666982024598,0.6738492923626164
+level2,inaugural_address,Chinese Immigration & Exclusion,2,62,0.03225806451612903,0.02838221381267739,1.1365591397849462
+level2,inaugural_address,"Civil Rights, Voting Rights & Discrimination",21,62,0.3387096774193548,0.25260170293282874,1.3408843783979703
+level2,inaugural_address,Civil Service Reform & the Merit System,18,62,0.2903225806451613,0.12866603595080417,2.256404174573055
+level2,inaugural_address,"Coinage, Currency & Specie",10,62,0.16129032258064516,0.12582781456953643,1.2818336162988115
+level2,inaugural_address,Cold War & Great-Power Rivalry,19,62,0.3064516129032258,0.3273415326395459,0.9361831064702592
+level2,inaugural_address,"Commemoration, Eulogy & National Mourning",15,62,0.24193548387096775,0.23273415326395458,1.0395357985837923
+level2,inaugural_address,Conservation & the Environment,8,62,0.12903225806451613,0.19489120151371808,0.6620732853116191
+level2,inaugural_address,Constitutional Union & Federalism,40,62,0.6451612903225806,0.2535477767265847,2.5445353875782377
+level2,inaugural_address,"Crime, Insurrection & Federal Law Enforcement",14,62,0.22580645161290322,0.3197729422894986,0.7061462111089902
+level2,inaugural_address,Early Naval Wars: Barbary & the War of 1812,5,62,0.08064516129032258,0.06149479659413434,1.3114143920595533
+level2,inaugural_address,Elections & Voting Integrity,12,62,0.1935483870967742,0.16367076631977295,1.1825470818571693
+level2,inaugural_address,"Executive Departments, Postal & Administrative Housekeeping",8,62,0.12903225806451613,0.33112582781456956,0.3896774193548387
+level2,inaugural_address,"Executive Power, Vetoes & the Courts",32,62,0.5161290322580645,0.4011352885525071,1.2866707242848447
+level2,inaugural_address,Great Depression Recovery,5,62,0.08064516129032258,0.08230842005676443,0.9797923618835742
+level2,inaugural_address,"Health Care, Medicare & Social Security",9,62,0.14516129032258066,0.18448438978240303,0.786848635235732
+level2,inaugural_address,Immigration & Border Security,8,62,0.12903225806451613,0.1456953642384106,0.8856304985337243
+level2,inaugural_address,"Indian Affairs, Removal & Allotment",12,62,0.1935483870967742,0.152317880794702,1.270687237026648
+level2,inaugural_address,"Internal Improvements, Energy & Infrastructure",19,62,0.3064516129032258,0.34815515610217596,0.8802156381486677
+level2,inaugural_address,"Iraq, Gulf Wars, the War on Terror & Interventions",5,62,0.08064516129032258,0.13434247871333965,0.6002953203089504
+level2,inaugural_address,"Labor, Wages & Working Conditions",12,62,0.1935483870967742,0.25922421948912017,0.7466446903696726
+level2,inaugural_address,Mexican War,1,62,0.016129032258064516,0.023651844843897825,0.6819354838709677
+level2,inaugural_address,Middle East & Israel,2,62,0.03225806451612903,0.13718070009460737,0.23515016685205786
+level2,inaugural_address,"Military Preparedness, Armed Forces & Veterans",39,62,0.6290322580645161,0.5789971617786187,1.086416824794434
+level2,inaugural_address,Monroe Doctrine & Latin American Policy,20,62,0.3225806451612903,0.30179754020813626,1.068864394782081
+level2,inaugural_address,National Bank & Banking Crises,11,62,0.1774193548387097,0.17975402081362346,0.9870118845500849
+level2,inaugural_address,Neutral Rights & Maritime Depredations,10,62,0.16129032258064516,0.11258278145695365,1.4326375711574952
+level2,inaugural_address,Nuclear Weapons & Arms Control,12,62,0.1935483870967742,0.22421948912015138,0.8632094732543895
+level2,inaugural_address,"Partisan Combat, Press Conferences & Media Attacks",12,62,0.1935483870967742,0.2412488174077578,0.8022770398481973
+level2,inaugural_address,"Personal Narrative, Storytelling & Boasting",1,62,0.016129032258064516,0.17407757805108798,0.09265427769985975
+level2,inaugural_address,Polygamy in the Territories,2,62,0.03225806451612903,0.019867549668874173,1.6236559139784945
+level2,inaugural_address,Presidential Humility & Reflection on Office,56,62,0.9032258064516129,0.32355723746452225,2.7915487643840784
+level2,inaugural_address,"Prosperity, Jobs & the Middle Class",20,62,0.3225806451612903,0.29990539262062443,1.0756080187239239
+level2,inaugural_address,"Providence, Faith & American Ideals",60,62,0.967741935483871,0.7303689687795648,1.3250041785057665
+level2,inaugural_address,"Public Debt, Revenue & Treasury Finance",29,62,0.46774193548387094,0.2980132450331126,1.5695340501792112
+level2,inaugural_address,Public Lands & Homestead Settlement,6,62,0.0967741935483871,0.1400189214758751,0.6911508282476024
+level2,inaugural_address,Reconstruction & Southern Self-Government,6,62,0.0967741935483871,0.04919583727530748,1.9671215880893298
+level2,inaugural_address,"Relations with Spain, Mexico & Territorial Claims",6,62,0.0967741935483871,0.14853358561967833,0.651530717074173
+level2,inaugural_address,"Slavery, Emancipation & Sectionalism",14,62,0.22580645161290322,0.09082308420056764,2.48622311827957
+level2,inaugural_address,Space Exploration,5,62,0.08064516129032258,0.08325449385052035,0.9686583577712609
+level2,inaugural_address,"Tariffs, Reciprocity & Navigation Laws",23,62,0.3709677419354839,0.3424787133396405,1.0831848155409018
+level2,inaugural_address,"Taxes, Budget Deficits & Federal Spending",13,62,0.20967741935483872,0.2876064333017975,0.7290428692699491
+level2,inaugural_address,"Territorial Organization, Statehood & Insular Governance",11,62,0.1774193548387097,0.15042573320719016,1.1794481639277745
+level2,inaugural_address,"Treaties, Diplomacy & International Arbitration",39,62,0.6290322580645161,0.510879848628193,1.2312724014336918
+level2,inaugural_address,"Trusts, Corporations & Antitrust",8,62,0.12903225806451613,0.10879848628192999,1.1859747545582047
+level2,inaugural_address,Vietnam War,6,62,0.0967741935483871,0.13718070009460737,0.7054505005561735
+level2,inaugural_address,"Welfare, Poverty & Economic Opportunity",17,62,0.27419354838709675,0.22232734153263956,1.2332875772134522
+level2,inaugural_address,"World Order, Foreign Aid & Democracy Promotion",23,62,0.3709677419354839,0.30368968779564803,1.221535524067933
+level2,inaugural_address,World War I Mobilization & War Aims,3,62,0.04838709677419355,0.052980132450331126,0.9133064516129032
+level2,inaugural_address,World War II Military Operations,8,62,0.12903225806451613,0.11069063386944182,1.165701681830714
+level2,other,Agriculture & Farm Prices,1,8,0.125,0.23935666982024598,0.5222332015810277
+level2,other,Civil Service Reform & the Merit System,2,8,0.25,0.12866603595080417,1.9430147058823528
+level2,other,"Coinage, Currency & Specie",1,8,0.125,0.12582781456953643,0.9934210526315789
+level2,other,Cold War & Great-Power Rivalry,1,8,0.125,0.3273415326395459,0.38186416184971095
+level2,other,Constitutional Union & Federalism,2,8,0.25,0.2535477767265847,0.9860074626865671
+level2,other,"Crime, Insurrection & Federal Law Enforcement",1,8,0.125,0.3197729422894986,0.3909023668639053
+level2,other,Elections & Voting Integrity,1,8,0.125,0.16367076631977295,0.7637283236994219
+level2,other,"Executive Power, Vetoes & the Courts",2,8,0.25,0.4011352885525071,0.6232311320754718
+level2,other,"Indian Affairs, Removal & Allotment",2,8,0.25,0.152317880794702,1.641304347826087
+level2,other,"Internal Improvements, Energy & Infrastructure",2,8,0.25,0.34815515610217596,0.7180706521739131
+level2,other,"Labor, Wages & Working Conditions",1,8,0.125,0.25922421948912017,0.4822080291970803
+level2,other,"Military Preparedness, Armed Forces & Veterans",2,8,0.25,0.5789971617786187,0.431781045751634
+level2,other,National Bank & Banking Crises,1,8,0.125,0.17975402081362346,0.6953947368421053
+level2,other,Neutral Rights & Maritime Depredations,1,8,0.125,0.11258278145695365,1.1102941176470587
+level2,other,Nuclear Weapons & Arms Control,1,8,0.125,0.22421948912015138,0.5574894514767932
+level2,other,Presidential Humility & Reflection on Office,3,8,0.375,0.32355723746452225,1.1589912280701753
+level2,other,"Providence, Faith & American Ideals",5,8,0.625,0.7303689687795648,0.8557318652849741
+level2,other,"Public Debt, Revenue & Treasury Finance",2,8,0.25,0.2980132450331126,0.8388888888888888
+level2,other,"Tariffs, Reciprocity & Navigation Laws",2,8,0.25,0.3424787133396405,0.7299723756906078
+level2,other,"Treaties, Diplomacy & International Arbitration",4,8,0.5,0.510879848628193,0.9787037037037036
+level2,other,"Trusts, Corporations & Antitrust",1,8,0.125,0.10879848628192999,1.1489130434782608
+level2,other,"World Order, Foreign Aid & Democracy Promotion",1,8,0.125,0.30368968779564803,0.41160436137071654
+level2,other,World War II Military Operations,1,8,0.125,0.11069063386944182,1.1292735042735043
+level2,press_conference_or_interview,Agriculture & Farm Prices,19,47,0.40425531914893614,0.23935666982024598,1.6889243966024723
+level2,press_conference_or_interview,"Civil Rights, Voting Rights & Discrimination",29,47,0.6170212765957447,0.25260170293282874,2.442664754163679
+level2,press_conference_or_interview,Civil Service Reform & the Merit System,5,47,0.10638297872340426,0.12866603595080417,0.8268147684605757
+level2,press_conference_or_interview,"Coinage, Currency & Specie",2,47,0.0425531914893617,0.12582781456953643,0.3381858902575588
+level2,press_conference_or_interview,Cold War & Great-Power Rivalry,35,47,0.7446808510638298,0.3273415326395459,2.27493543229615
+level2,press_conference_or_interview,"Commemoration, Eulogy & National Mourning",6,47,0.1276595744680851,0.23273415326395458,0.5485210171250648
+level2,press_conference_or_interview,Conservation & the Environment,10,47,0.2127659574468085,0.19489120151371808,1.0917165874819252
+level2,press_conference_or_interview,Constitutional Union & Federalism,3,47,0.06382978723404255,0.2535477767265847,0.2517465862178469
+level2,press_conference_or_interview,"Crime, Insurrection & Federal Law Enforcement",15,47,0.3191489361702128,0.3197729422894986,0.9980485962482689
+level2,press_conference_or_interview,Early Naval Wars: Barbary & the War of 1812,1,47,0.02127659574468085,0.06149479659413434,0.3459901800327332
+level2,press_conference_or_interview,Elections & Voting Integrity,15,47,0.3191489361702128,0.16367076631977295,1.9499446562538434
+level2,press_conference_or_interview,"Executive Departments, Postal & Administrative Housekeeping",22,47,0.46808510638297873,0.33112582781456956,1.4136170212765957
+level2,press_conference_or_interview,"Executive Power, Vetoes & the Courts",20,47,0.425531914893617,0.4011352885525071,1.0608189482135688
+level2,press_conference_or_interview,Great Depression Recovery,9,47,0.19148936170212766,0.08230842005676443,2.326485693323551
+level2,press_conference_or_interview,"Health Care, Medicare & Social Security",20,47,0.425531914893617,0.18448438978240303,2.3066012002182217
+level2,press_conference_or_interview,Immigration & Border Security,10,47,0.2127659574468085,0.1456953642384106,1.460348162475822
+level2,press_conference_or_interview,"Internal Improvements, Energy & Infrastructure",25,47,0.5319148936170213,0.34815515610217596,1.5278098982423682
+level2,press_conference_or_interview,"Iraq, Gulf Wars, the War on Terror & Interventions",5,47,0.10638297872340426,0.13434247871333965,0.7918789331735091
+level2,press_conference_or_interview,"Labor, Wages & Working Conditions",17,47,0.3617021276595745,0.25922421948912017,1.395325361080913
+level2,press_conference_or_interview,Mexican War,1,47,0.02127659574468085,0.023651844843897825,0.8995744680851063
+level2,press_conference_or_interview,Middle East & Israel,10,47,0.2127659574468085,0.13718070009460737,1.550990462215701
+level2,press_conference_or_interview,"Military Preparedness, Armed Forces & Veterans",36,47,0.7659574468085106,0.5789971617786187,1.3229036295369212
+level2,press_conference_or_interview,Monroe Doctrine & Latin American Policy,19,47,0.40425531914893614,0.30179754020813626,1.3394917628226504
+level2,press_conference_or_interview,National Bank & Banking Crises,12,47,0.2553191489361702,0.17975402081362346,1.420380739081747
+level2,press_conference_or_interview,Nuclear Weapons & Arms Control,24,47,0.5106382978723404,0.22421948912015138,2.277403716671155
+level2,press_conference_or_interview,"Partisan Combat, Press Conferences & Media Attacks",39,47,0.8297872340425532,0.2412488174077578,3.439549436795995
+level2,press_conference_or_interview,"Personal Narrative, Storytelling & Boasting",11,47,0.23404255319148937,0.17407757805108798,1.344472710453284
+level2,press_conference_or_interview,Presidential Humility & Reflection on Office,16,47,0.3404255319148936,0.32355723746452225,1.0521338808012939
+level2,press_conference_or_interview,"Prosperity, Jobs & the Middle Class",28,47,0.5957446808510638,0.29990539262062443,1.98644204309014
+level2,press_conference_or_interview,"Providence, Faith & American Ideals",20,47,0.425531914893617,0.7303689687795648,0.5826259508323228
+level2,press_conference_or_interview,"Public Debt, Revenue & Treasury Finance",9,47,0.19148936170212766,0.2980132450331126,0.6425531914893616
+level2,press_conference_or_interview,Public Lands & Homestead Settlement,1,47,0.02127659574468085,0.1400189214758751,0.1519551466359977
+level2,press_conference_or_interview,"Relations with Spain, Mexico & Territorial Claims",1,47,0.02127659574468085,0.14853358561967833,0.14324434205176853
+level2,press_conference_or_interview,"Slavery, Emancipation & Sectionalism",1,47,0.02127659574468085,0.09082308420056764,0.23426418439716312
+level2,press_conference_or_interview,Space Exploration,7,47,0.14893617021276595,0.08325449385052035,1.7889264990328817
+level2,press_conference_or_interview,"Tariffs, Reciprocity & Navigation Laws",17,47,0.3617021276595745,0.3424787133396405,1.0561302456800283
+level2,press_conference_or_interview,"Taxes, Budget Deficits & Federal Spending",31,47,0.6595744680851063,0.2876064333017975,2.2933230683090704
+level2,press_conference_or_interview,"Territorial Organization, Statehood & Insular Governance",3,47,0.06382978723404255,0.15042573320719016,0.4243275792854275
+level2,press_conference_or_interview,"Treaties, Diplomacy & International Arbitration",30,47,0.6382978723404256,0.510879848628193,1.2494089834515367
+level2,press_conference_or_interview,"Trusts, Corporations & Antitrust",2,47,0.0425531914893617,0.10879848628192999,0.3911193339500462
+level2,press_conference_or_interview,Vietnam War,26,47,0.5531914893617021,0.13718070009460737,4.032575201760822
+level2,press_conference_or_interview,"Welfare, Poverty & Economic Opportunity",21,47,0.44680851063829785,0.22232734153263956,2.009687641466727
+level2,press_conference_or_interview,"World Order, Foreign Aid & Democracy Promotion",22,47,0.46808510638297873,0.30368968779564803,1.5413269702392791
+level2,press_conference_or_interview,World War I Mobilization & War Aims,1,47,0.02127659574468085,0.052980132450331126,0.4015957446808511
+level2,press_conference_or_interview,World War II Military Operations,3,47,0.06382978723404255,0.11069063386944182,0.5766503000545553
+level2,proclamation,"Civil Rights, Voting Rights & Discrimination",1,63,0.015873015873015872,0.25260170293282874,0.0628381190178943
+level2,proclamation,Civil Service Reform & the Merit System,1,63,0.015873015873015872,0.12866603595080417,0.12336601307189542
+level2,proclamation,Cold War & Great-Power Rivalry,1,63,0.015873015873015872,0.3273415326395459,0.04849068721901091
+level2,proclamation,"Commemoration, Eulogy & National Mourning",4,63,0.06349206349206349,0.23273415326395458,0.2728093947606143
+level2,proclamation,Constitutional Union & Federalism,13,63,0.20634920634920634,0.2535477767265847,0.8138474295190712
+level2,proclamation,"Crime, Insurrection & Federal Law Enforcement",31,63,0.49206349206349204,0.3197729422894986,1.5387902695595002
+level2,proclamation,Early Naval Wars: Barbary & the War of 1812,4,63,0.06349206349206349,0.06149479659413434,1.0324786324786324
+level2,proclamation,Elections & Voting Integrity,1,63,0.015873015873015872,0.16367076631977295,0.09698137443802182
+level2,proclamation,"Executive Departments, Postal & Administrative Housekeeping",23,63,0.36507936507936506,0.33112582781456956,1.1025396825396825
+level2,proclamation,"Executive Power, Vetoes & the Courts",9,63,0.14285714285714285,0.4011352885525071,0.3561320754716981
+level2,proclamation,Immigration & Border Security,1,63,0.015873015873015872,0.1456953642384106,0.10894660894660894
+level2,proclamation,"Indian Affairs, Removal & Allotment",4,63,0.06349206349206349,0.152317880794702,0.41683919944789505
+level2,proclamation,"Iraq, Gulf Wars, the War on Terror & Interventions",1,63,0.015873015873015872,0.13434247871333965,0.11815336463223786
+level2,proclamation,"Labor, Wages & Working Conditions",1,63,0.015873015873015872,0.25922421948912017,0.06123276561232765
+level2,proclamation,Mexican War,2,63,0.031746031746031744,0.023651844843897825,1.3422222222222222
+level2,proclamation,"Military Preparedness, Armed Forces & Veterans",8,63,0.12698412698412698,0.5789971617786187,0.21931735657225854
+level2,proclamation,Monroe Doctrine & Latin American Policy,2,63,0.031746031746031744,0.30179754020813626,0.10518982932776035
+level2,proclamation,Neutral Rights & Maritime Depredations,8,63,0.12698412698412698,0.11258278145695365,1.1279178338001865
+level2,proclamation,Nuclear Weapons & Arms Control,1,63,0.015873015873015872,0.22421948912015138,0.0707923112986404
+level2,proclamation,"Partisan Combat, Press Conferences & Media Attacks",1,63,0.015873015873015872,0.2412488174077578,0.06579520697167755
+level2,proclamation,Presidential Humility & Reflection on Office,1,63,0.015873015873015872,0.32355723746452225,0.04905782975958414
+level2,proclamation,"Prosperity, Jobs & the Middle Class",1,63,0.015873015873015872,0.29990539262062443,0.05292674377847879
+level2,proclamation,"Providence, Faith & American Ideals",16,63,0.25396825396825395,0.7303689687795648,0.34772596430627517
+level2,proclamation,"Public Debt, Revenue & Treasury Finance",3,63,0.047619047619047616,0.2980132450331126,0.15978835978835976
+level2,proclamation,Public Lands & Homestead Settlement,1,63,0.015873015873015872,0.1400189214758751,0.11336336336336336
+level2,proclamation,Reconstruction & Southern Self-Government,13,63,0.20634920634920634,0.04919583727530748,4.194444444444444
+level2,proclamation,"Relations with Spain, Mexico & Territorial Claims",8,63,0.12698412698412698,0.14853358561967833,0.8549186128803963
+level2,proclamation,"Slavery, Emancipation & Sectionalism",5,63,0.07936507936507936,0.09082308420056764,0.8738425925925926
+level2,proclamation,"Tariffs, Reciprocity & Navigation Laws",6,63,0.09523809523809523,0.3424787133396405,0.27808471454880296
+level2,proclamation,"Taxes, Budget Deficits & Federal Spending",1,63,0.015873015873015872,0.2876064333017975,0.055190058479532164
+level2,proclamation,"Territorial Organization, Statehood & Insular Governance",7,63,0.1111111111111111,0.15042573320719016,0.7386443046820405
+level2,proclamation,"Treaties, Diplomacy & International Arbitration",13,63,0.20634920634920634,0.510879848628193,0.40390946502057606
+level2,proclamation,Vietnam War,1,63,0.015873015873015872,0.13718070009460737,0.1157088122605364
+level2,proclamation,World War I Mobilization & War Aims,2,63,0.031746031746031744,0.052980132450331126,0.5992063492063492
+level2,proclamation,World War II Military Operations,1,63,0.015873015873015872,0.11069063386944182,0.14339981006647673
+level2,public_remarks_or_address,Agriculture & Farm Prices,49,328,0.14939024390243902,0.23935666982024598,0.6241323628651306
+level2,public_remarks_or_address,"Civil Rights, Voting Rights & Discrimination",76,328,0.23170731707317074,0.25260170293282874,0.9172832739563351
+level2,public_remarks_or_address,Civil Service Reform & the Merit System,14,328,0.042682926829268296,0.12866603595080417,0.3317342180774749
+level2,public_remarks_or_address,"Coinage, Currency & Specie",10,328,0.03048780487804878,0.12582781456953643,0.24229781771501924
+level2,public_remarks_or_address,Cold War & Great-Power Rivalry,146,328,0.4451219512195122,0.3273415326395459,1.3598089665867756
+level2,public_remarks_or_address,"Commemoration, Eulogy & National Mourning",94,328,0.2865853658536585,0.23273415326395458,1.2313850882411264
+level2,public_remarks_or_address,Conservation & the Environment,43,328,0.13109756097560976,0.19489120151371808,0.6726704949088326
+level2,public_remarks_or_address,Constitutional Union & Federalism,36,328,0.10975609756097561,0.2535477767265847,0.4328813250819075
+level2,public_remarks_or_address,"Crime, Insurrection & Federal Law Enforcement",63,328,0.19207317073170732,0.3197729422894986,0.600654856400635
+level2,public_remarks_or_address,Early Naval Wars: Barbary & the War of 1812,7,328,0.021341463414634148,0.06149479659413434,0.34704502814258914
+level2,public_remarks_or_address,Elections & Voting Integrity,25,328,0.07621951219512195,0.16367076631977295,0.4656880022557451
+level2,public_remarks_or_address,"Executive Departments, Postal & Administrative Housekeeping",53,328,0.16158536585365854,0.33112582781456956,0.48798780487804877
+level2,public_remarks_or_address,"Executive Power, Vetoes & the Courts",75,328,0.22865853658536586,0.4011352885525071,0.570028474459273
+level2,public_remarks_or_address,Great Depression Recovery,30,328,0.09146341463414634,0.08230842005676443,1.1112279226240538
+level2,public_remarks_or_address,"Health Care, Medicare & Social Security",51,328,0.15548780487804878,0.18448438978240303,0.8428236397748593
+level2,public_remarks_or_address,Immigration & Border Security,30,328,0.09146341463414634,0.1456953642384106,0.6277716186252772
+level2,public_remarks_or_address,"Indian Affairs, Removal & Allotment",6,328,0.018292682926829267,0.152317880794702,0.12009544008483562
+level2,public_remarks_or_address,"Internal Improvements, Energy & Infrastructure",75,328,0.22865853658536586,0.34815515610217596,0.656771937963945
+level2,public_remarks_or_address,"Iraq, Gulf Wars, the War on Terror & Interventions",73,328,0.2225609756097561,0.13434247871333965,1.656668670559945
+level2,public_remarks_or_address,"Labor, Wages & Working Conditions",69,328,0.21036585365853658,0.25922421948912017,0.8115208296243546
+level2,public_remarks_or_address,Middle East & Israel,58,328,0.17682926829268292,0.13718070009460737,1.2890243902439025
+level2,public_remarks_or_address,"Military Preparedness, Armed Forces & Veterans",191,328,0.5823170731707317,0.5789971617786187,1.0057338992507572
+level2,public_remarks_or_address,Monroe Doctrine & Latin American Policy,60,328,0.18292682926829268,0.30179754020813626,0.606124321431302
+level2,public_remarks_or_address,National Bank & Banking Crises,24,328,0.07317073170731707,0.17975402081362346,0.40706033376123235
+level2,public_remarks_or_address,Neutral Rights & Maritime Depredations,3,328,0.009146341463414634,0.11258278145695365,0.08124103299856528
+level2,public_remarks_or_address,Nuclear Weapons & Arms Control,91,328,0.2774390243902439,0.22421948912015138,1.23735463620459
+level2,public_remarks_or_address,"Partisan Combat, Press Conferences & Media Attacks",96,328,0.2926829268292683,0.2412488174077578,1.2131994261119081
+level2,public_remarks_or_address,"Personal Narrative, Storytelling & Boasting",94,328,0.2865853658536585,0.17407757805108798,1.6463083244962884
+level2,public_remarks_or_address,Presidential Humility & Reflection on Office,108,328,0.32926829268292684,0.32355723746452225,1.0176508344030808
+level2,public_remarks_or_address,"Prosperity, Jobs & the Middle Class",101,328,0.3079268292682927,0.29990539262062443,1.0267465568977456
+level2,public_remarks_or_address,"Providence, Faith & American Ideals",296,328,0.9024390243902439,0.7303689687795648,1.235593327435865
+level2,public_remarks_or_address,"Public Debt, Revenue & Treasury Finance",22,328,0.06707317073170732,0.2980132450331126,0.22506775067750678
+level2,public_remarks_or_address,Public Lands & Homestead Settlement,8,328,0.024390243902439025,0.1400189214758751,0.17419248516809493
+level2,public_remarks_or_address,"Relations with Spain, Mexico & Territorial Claims",3,328,0.009146341463414634,0.14853358561967833,0.061577598260059034
+level2,public_remarks_or_address,"Slavery, Emancipation & Sectionalism",13,328,0.039634146341463415,0.09082308420056764,0.4363884654471545
+level2,public_remarks_or_address,Space Exploration,32,328,0.0975609756097561,0.08325449385052035,1.171840354767184
+level2,public_remarks_or_address,"Tariffs, Reciprocity & Navigation Laws",50,328,0.1524390243902439,0.3424787133396405,0.4451051071284194
+level2,public_remarks_or_address,"Taxes, Budget Deficits & Federal Spending",81,328,0.24695121951219512,0.2876064333017975,0.8586428915275995
+level2,public_remarks_or_address,"Territorial Organization, Statehood & Insular Governance",7,328,0.021341463414634148,0.15042573320719016,0.14187375364319682
+level2,public_remarks_or_address,"Treaties, Diplomacy & International Arbitration",151,328,0.4603658536585366,0.510879848628193,0.901123532068654
+level2,public_remarks_or_address,"Trusts, Corporations & Antitrust",21,328,0.06402439024390244,0.10879848628192999,0.5884676564156945
+level2,public_remarks_or_address,Vietnam War,63,328,0.19207317073170732,0.13718070009460737,1.4001471825063079
+level2,public_remarks_or_address,"Welfare, Poverty & Economic Opportunity",61,328,0.18597560975609756,0.22232734153263956,0.8364945511157239
+level2,public_remarks_or_address,"World Order, Foreign Aid & Democracy Promotion",143,328,0.43597560975609756,0.30368968779564803,1.4355956994149381
+level2,public_remarks_or_address,World War I Mobilization & War Aims,15,328,0.04573170731707317,0.052980132450331126,0.8631859756097561
+level2,public_remarks_or_address,World War II Military Operations,65,328,0.19817073170731708,0.11069063386944182,1.7903116531165313
+level2,special_message_to_congress,Agriculture & Farm Prices,15,165,0.09090909090909091,0.23935666982024598,0.37980596478620193
+level2,special_message_to_congress,Chinese Immigration & Exclusion,2,165,0.012121212121212121,0.02838221381267739,0.42707070707070705
+level2,special_message_to_congress,"Civil Rights, Voting Rights & Discrimination",9,165,0.05454545454545454,0.25260170293282874,0.21593462717058223
+level2,special_message_to_congress,Civil Service Reform & the Merit System,7,165,0.04242424242424243,0.12866603595080417,0.3297237076648841
+level2,special_message_to_congress,"Coinage, Currency & Specie",12,165,0.07272727272727272,0.12582781456953643,0.5779904306220095
+level2,special_message_to_congress,Cold War & Great-Power Rivalry,14,165,0.08484848484848485,0.3273415326395459,0.25920476440707657
+level2,special_message_to_congress,"Commemoration, Eulogy & National Mourning",6,165,0.03636363636363636,0.23273415326395458,0.15624538063562454
+level2,special_message_to_congress,Conservation & the Environment,8,165,0.048484848484848485,0.19489120151371808,0.2487790526625478
+level2,special_message_to_congress,Constitutional Union & Federalism,32,165,0.19393939393939394,0.2535477767265847,0.7649027589326096
+level2,special_message_to_congress,"Crime, Insurrection & Federal Law Enforcement",31,165,0.18787878787878787,0.3197729422894986,0.5875381029227182
+level2,special_message_to_congress,Early Naval Wars: Barbary & the War of 1812,5,165,0.030303030303030304,0.06149479659413434,0.4927738927738928
+level2,special_message_to_congress,Elections & Voting Integrity,10,165,0.06060606060606061,0.16367076631977295,0.3702925205815379
+level2,special_message_to_congress,"Executive Departments, Postal & Administrative Housekeeping",41,165,0.24848484848484848,0.33112582781456956,0.7504242424242423
+level2,special_message_to_congress,"Executive Power, Vetoes & the Courts",58,165,0.3515151515151515,0.4011352885525071,0.8763007432818753
+level2,special_message_to_congress,Great Depression Recovery,4,165,0.024242424242424242,0.08230842005676443,0.294531522117729
+level2,special_message_to_congress,"Health Care, Medicare & Social Security",3,165,0.01818181818181818,0.18448438978240303,0.09855477855477855
+level2,special_message_to_congress,Immigration & Border Security,4,165,0.024242424242424242,0.1456953642384106,0.16639118457300275
+level2,special_message_to_congress,"Indian Affairs, Removal & Allotment",14,165,0.08484848484848485,0.152317880794702,0.5570487483530963
+level2,special_message_to_congress,"Internal Improvements, Energy & Infrastructure",23,165,0.1393939393939394,0.34815515610217596,0.40037878787878795
+level2,special_message_to_congress,"Iraq, Gulf Wars, the War on Terror & Interventions",4,165,0.024242424242424242,0.13434247871333965,0.1804524114383269
+level2,special_message_to_congress,"Labor, Wages & Working Conditions",16,165,0.09696969696969697,0.25922421948912017,0.3740765317407653
+level2,special_message_to_congress,Mexican War,11,165,0.06666666666666667,0.023651844843897825,2.8186666666666667
+level2,special_message_to_congress,Middle East & Israel,9,165,0.05454545454545454,0.13718070009460737,0.3976175548589342
+level2,special_message_to_congress,"Military Preparedness, Armed Forces & Veterans",61,165,0.3696969696969697,0.5789971617786187,0.6385125767478709
+level2,special_message_to_congress,Monroe Doctrine & Latin American Policy,36,165,0.21818181818181817,0.30179754020813626,0.7229410088344257
+level2,special_message_to_congress,National Bank & Banking Crises,18,165,0.10909090909090909,0.17975402081362346,0.60688995215311
+level2,special_message_to_congress,Neutral Rights & Maritime Depredations,17,165,0.10303030303030303,0.11258278145695365,0.915151515151515
+level2,special_message_to_congress,Nuclear Weapons & Arms Control,7,165,0.04242424242424243,0.22421948912015138,0.18920854110727528
+level2,special_message_to_congress,"Partisan Combat, Press Conferences & Media Attacks",11,165,0.06666666666666667,0.2412488174077578,0.27633986928104576
+level2,special_message_to_congress,"Personal Narrative, Storytelling & Boasting",3,165,0.01818181818181818,0.17407757805108798,0.10444664031620553
+level2,special_message_to_congress,Polygamy in the Territories,1,165,0.006060606060606061,0.019867549668874173,0.305050505050505
+level2,special_message_to_congress,Presidential Humility & Reflection on Office,16,165,0.09696969696969697,0.32355723746452225,0.29969874180400496
+level2,special_message_to_congress,"Prosperity, Jobs & the Middle Class",8,165,0.048484848484848485,0.29990539262062443,0.1616671446324443
+level2,special_message_to_congress,"Providence, Faith & American Ideals",60,165,0.36363636363636365,0.7303689687795648,0.49788035798398494
+level2,special_message_to_congress,"Public Debt, Revenue & Treasury Finance",42,165,0.2545454545454545,0.2980132450331126,0.854141414141414
+level2,special_message_to_congress,Public Lands & Homestead Settlement,15,165,0.09090909090909091,0.1400189214758751,0.6492628992628994
+level2,special_message_to_congress,Reconstruction & Southern Self-Government,6,165,0.03636363636363636,0.04919583727530748,0.7391608391608391
+level2,special_message_to_congress,"Relations with Spain, Mexico & Territorial Claims",30,165,0.18181818181818182,0.14853358561967833,1.2240880138969312
+level2,special_message_to_congress,"Slavery, Emancipation & Sectionalism",12,165,0.07272727272727272,0.09082308420056764,0.8007575757575757
+level2,special_message_to_congress,Space Exploration,2,165,0.012121212121212121,0.08325449385052035,0.1455922865013774
+level2,special_message_to_congress,"Tariffs, Reciprocity & Navigation Laws",47,165,0.28484848484848485,0.3424787133396405,0.8317261007868744
+level2,special_message_to_congress,"Taxes, Budget Deficits & Federal Spending",15,165,0.09090909090909091,0.2876064333017975,0.31608851674641153
+level2,special_message_to_congress,"Territorial Organization, Statehood & Insular Governance",17,165,0.10303030303030303,0.15042573320719016,0.684924718886983
+level2,special_message_to_congress,"Treaties, Diplomacy & International Arbitration",82,165,0.49696969696969695,0.510879848628193,0.9727721661054993
+level2,special_message_to_congress,"Trusts, Corporations & Antitrust",12,165,0.07272727272727272,0.10879848628192999,0.6684584980237154
+level2,special_message_to_congress,Vietnam War,5,165,0.030303030303030304,0.13718070009460737,0.22089864158829678
+level2,special_message_to_congress,"Welfare, Poverty & Economic Opportunity",5,165,0.030303030303030304,0.22232734153263956,0.1362991618310767
+level2,special_message_to_congress,"World Order, Foreign Aid & Democracy Promotion",16,165,0.09696969696969697,0.30368968779564803,0.31930520154819225
+level2,special_message_to_congress,World War I Mobilization & War Aims,8,165,0.048484848484848485,0.052980132450331126,0.9151515151515152
+level2,special_message_to_congress,World War II Military Operations,12,165,0.07272727272727272,0.11069063386944182,0.657031857031857
+level2,state_of_the_union_or_annual_message,Agriculture & Farm Prices,125,218,0.573394495412844,0.23935666982024598,2.3955651448670996
+level2,state_of_the_union_or_annual_message,Chinese Immigration & Exclusion,23,218,0.10550458715596331,0.02838221381267739,3.717278287461774
+level2,state_of_the_union_or_annual_message,"Civil Rights, Voting Rights & Discrimination",76,218,0.3486238532110092,0.25260170293282874,1.3801326323746694
+level2,state_of_the_union_or_annual_message,Civil Service Reform & the Merit System,74,218,0.3394495412844037,0.12866603595080417,2.638221802482461
+level2,state_of_the_union_or_annual_message,"Coinage, Currency & Specie",81,218,0.37155963302752293,0.12582781456953643,2.95292129406084
+level2,state_of_the_union_or_annual_message,Cold War & Great-Power Rivalry,77,218,0.3532110091743119,0.3273415326395459,1.0790290077955136
+level2,state_of_the_union_or_annual_message,"Commemoration, Eulogy & National Mourning",77,218,0.3532110091743119,0.23273415326395458,1.5176586857611696
+level2,state_of_the_union_or_annual_message,Conservation & the Environment,107,218,0.4908256880733945,0.19489120151371808,2.518459962590184
+level2,state_of_the_union_or_annual_message,Constitutional Union & Federalism,84,218,0.3853211009174312,0.2535477767265847,1.5197179241407641
+level2,state_of_the_union_or_annual_message,"Crime, Insurrection & Federal Law Enforcement",137,218,0.6284403669724771,0.3197729422894986,1.9652706150589
+level2,state_of_the_union_or_annual_message,Early Naval Wars: Barbary & the War of 1812,40,218,0.1834862385321101,0.06149479659413434,2.9837685250529287
+level2,state_of_the_union_or_annual_message,Elections & Voting Integrity,73,218,0.3348623853211009,0.16367076631977295,2.0459511056901944
+level2,state_of_the_union_or_annual_message,"Executive Departments, Postal & Administrative Housekeeping",170,218,0.7798165137614679,0.33112582781456956,2.355045871559633
+level2,state_of_the_union_or_annual_message,"Executive Power, Vetoes & the Courts",144,218,0.6605504587155964,0.4011352885525071,1.6467024407131732
+level2,state_of_the_union_or_annual_message,Great Depression Recovery,18,218,0.08256880733944955,0.08230842005676443,1.0031635558367604
+level2,state_of_the_union_or_annual_message,"Health Care, Medicare & Social Security",72,218,0.3302752293577982,0.18448438978240303,1.7902611150317573
+level2,state_of_the_union_or_annual_message,Immigration & Border Security,81,218,0.37155963302752293,0.1456953642384106,2.5502502085070895
+level2,state_of_the_union_or_annual_message,"Indian Affairs, Removal & Allotment",122,218,0.5596330275229358,0.152317880794702,3.6741124850418827
+level2,state_of_the_union_or_annual_message,"Internal Improvements, Energy & Infrastructure",176,218,0.8073394495412844,0.34815515610217596,2.3189070602313526
+level2,state_of_the_union_or_annual_message,"Iraq, Gulf Wars, the War on Terror & Interventions",35,218,0.16055045871559634,0.13434247871333965,1.1950833441013051
+level2,state_of_the_union_or_annual_message,"Labor, Wages & Working Conditions",106,218,0.48623853211009177,0.25922421948912017,1.8757449943079088
+level2,state_of_the_union_or_annual_message,Mexican War,7,218,0.03211009174311927,0.023651844843897825,1.3576146788990826
+level2,state_of_the_union_or_annual_message,Middle East & Israel,44,218,0.2018348623853211,0.13718070009460737,1.4713065485605823
+level2,state_of_the_union_or_annual_message,"Military Preparedness, Armed Forces & Veterans",212,218,0.9724770642201835,0.5789971617786187,1.6795886550338792
+level2,state_of_the_union_or_annual_message,Monroe Doctrine & Latin American Policy,154,218,0.7064220183486238,0.30179754020813626,2.340714963619108
+level2,state_of_the_union_or_annual_message,National Bank & Banking Crises,98,218,0.44954128440366975,0.17975402081362346,2.5008691453404155
+level2,state_of_the_union_or_annual_message,Neutral Rights & Maritime Depredations,77,218,0.3532110091743119,0.11258278145695365,3.137344846195359
+level2,state_of_the_union_or_annual_message,Nuclear Weapons & Arms Control,70,218,0.3211009174311927,0.22421948912015138,1.4320829946192855
+level2,state_of_the_union_or_annual_message,"Partisan Combat, Press Conferences & Media Attacks",36,218,0.1651376146788991,0.2412488174077578,0.6845116028062601
+level2,state_of_the_union_or_annual_message,"Personal Narrative, Storytelling & Boasting",31,218,0.14220183486238533,0.17407757805108798,0.816887714399681
+level2,state_of_the_union_or_annual_message,Polygamy in the Territories,18,218,0.08256880733944955,0.019867549668874173,4.155963302752293
+level2,state_of_the_union_or_annual_message,Presidential Humility & Reflection on Office,78,218,0.3577981651376147,0.32355723746452225,1.1058264928375985
+level2,state_of_the_union_or_annual_message,"Prosperity, Jobs & the Middle Class",101,218,0.463302752293578,0.29990539262062443,1.5448296819378924
+level2,state_of_the_union_or_annual_message,"Providence, Faith & American Ideals",197,218,0.9036697247706422,0.7303689687795648,1.2372783666872653
+level2,state_of_the_union_or_annual_message,"Public Debt, Revenue & Treasury Finance",171,218,0.7844036697247706,0.2980132450331126,2.632110091743119
+level2,state_of_the_union_or_annual_message,Public Lands & Homestead Settlement,105,218,0.481651376146789,0.1400189214758751,3.439902058021324
+level2,state_of_the_union_or_annual_message,Reconstruction & Southern Self-Government,17,218,0.0779816513761468,0.04919583727530748,1.5851270289343684
+level2,state_of_the_union_or_annual_message,"Relations with Spain, Mexico & Territorial Claims",103,218,0.4724770642201835,0.14853358561967833,3.1809443113422544
+level2,state_of_the_union_or_annual_message,"Slavery, Emancipation & Sectionalism",35,218,0.16055045871559634,0.09082308420056764,1.7677274464831805
+level2,state_of_the_union_or_annual_message,Space Exploration,34,218,0.1559633027522936,0.08325449385052035,1.8733319432860718
+level2,state_of_the_union_or_annual_message,"Tariffs, Reciprocity & Navigation Laws",183,218,0.8394495412844036,0.3424787133396405,2.4510999036950682
+level2,state_of_the_union_or_annual_message,"Taxes, Budget Deficits & Federal Spending",115,218,0.5275229357798165,0.2876064333017975,1.8341833655239015
+level2,state_of_the_union_or_annual_message,"Territorial Organization, Statehood & Insular Governance",101,218,0.463302752293578,0.15042573320719016,3.0799434539264903
+level2,state_of_the_union_or_annual_message,"Treaties, Diplomacy & International Arbitration",181,218,0.8302752293577982,0.510879848628193,1.6251868841318382
+level2,state_of_the_union_or_annual_message,"Trusts, Corporations & Antitrust",55,218,0.25229357798165136,0.10879848628192999,2.318907060231352
+level2,state_of_the_union_or_annual_message,Vietnam War,28,218,0.12844036697247707,0.13718070009460737,0.9362859854476433
+level2,state_of_the_union_or_annual_message,"Welfare, Poverty & Economic Opportunity",77,218,0.3532110091743119,0.22232734153263956,1.5886980284989263
+level2,state_of_the_union_or_annual_message,"World Order, Foreign Aid & Democracy Promotion",79,218,0.3623853211009174,0.30368968779564803,1.1932750292949212
+level2,state_of_the_union_or_annual_message,World War I Mobilization & War Aims,13,218,0.05963302752293578,0.052980132450331126,1.125573394495413
+level2,state_of_the_union_or_annual_message,World War II Military Operations,14,218,0.06422018348623854,0.11069063386944182,0.5801772132047361
+level2,veto_or_signing_statement,Agriculture & Farm Prices,2,65,0.03076923076923077,0.23935666982024598,0.12854971115840683
+level2,veto_or_signing_statement,Chinese Immigration & Exclusion,3,65,0.046153846153846156,0.02838221381267739,1.626153846153846
+level2,veto_or_signing_statement,"Civil Rights, Voting Rights & Discrimination",12,65,0.18461538461538463,0.25260170293282874,0.7308556611927399
+level2,veto_or_signing_statement,Civil Service Reform & the Merit System,2,65,0.03076923076923077,0.12866603595080417,0.23914027149321268
+level2,veto_or_signing_statement,"Coinage, Currency & Specie",8,65,0.12307692307692308,0.12582781456953643,0.9781376518218624
+level2,veto_or_signing_statement,Cold War & Great-Power Rivalry,3,65,0.046153846153846156,0.3273415326395459,0.14099599822143175
+level2,veto_or_signing_statement,Conservation & the Environment,2,65,0.03076923076923077,0.19489120151371808,0.1578790141896938
+level2,veto_or_signing_statement,Constitutional Union & Federalism,27,65,0.4153846153846154,0.2535477767265847,1.638289322617681
+level2,veto_or_signing_statement,"Crime, Insurrection & Federal Law Enforcement",10,65,0.15384615384615385,0.3197729422894986,0.4811106053709604
+level2,veto_or_signing_statement,Early Naval Wars: Barbary & the War of 1812,1,65,0.015384615384615385,0.06149479659413434,0.2501775147928994
+level2,veto_or_signing_statement,Elections & Voting Integrity,11,65,0.16923076923076924,0.16367076631977295,1.033970653623833
+level2,veto_or_signing_statement,"Executive Departments, Postal & Administrative Housekeeping",17,65,0.26153846153846155,0.33112582781456956,0.7898461538461539
+level2,veto_or_signing_statement,"Executive Power, Vetoes & the Courts",49,65,0.7538461538461538,0.4011352885525071,1.8792815674891148
+level2,veto_or_signing_statement,Great Depression Recovery,2,65,0.03076923076923077,0.08230842005676443,0.3738284703801945
+level2,veto_or_signing_statement,"Health Care, Medicare & Social Security",4,65,0.06153846153846154,0.18448438978240303,0.3335700197238659
+level2,veto_or_signing_statement,Immigration & Border Security,3,65,0.046153846153846156,0.1456953642384106,0.3167832167832168
+level2,veto_or_signing_statement,"Internal Improvements, Energy & Infrastructure",11,65,0.16923076923076924,0.34815515610217596,0.4860785953177258
+level2,veto_or_signing_statement,"Iraq, Gulf Wars, the War on Terror & Interventions",1,65,0.015384615384615385,0.13434247871333965,0.11451787648970747
+level2,veto_or_signing_statement,"Labor, Wages & Working Conditions",11,65,0.16923076923076924,0.25922421948912017,0.652835485682201
+level2,veto_or_signing_statement,Mexican War,2,65,0.03076923076923077,0.023651844843897825,1.3009230769230768
+level2,veto_or_signing_statement,"Military Preparedness, Armed Forces & Veterans",10,65,0.15384615384615385,0.5789971617786187,0.2657114127702363
+level2,veto_or_signing_statement,Monroe Doctrine & Latin American Policy,3,65,0.046153846153846156,0.30179754020813626,0.15292982879189776
+level2,veto_or_signing_statement,National Bank & Banking Crises,8,65,0.12307692307692308,0.17975402081362346,0.6846963562753037
+level2,veto_or_signing_statement,Neutral Rights & Maritime Depredations,1,65,0.015384615384615385,0.11258278145695365,0.13665158371040725
+level2,veto_or_signing_statement,Nuclear Weapons & Arms Control,1,65,0.015384615384615385,0.22421948912015138,0.06861408633560533
+level2,veto_or_signing_statement,"Partisan Combat, Press Conferences & Media Attacks",3,65,0.046153846153846156,0.2412488174077578,0.19131221719457014
+level2,veto_or_signing_statement,"Personal Narrative, Storytelling & Boasting",4,65,0.06153846153846154,0.17407757805108798,0.35351170568561874
+level2,veto_or_signing_statement,Presidential Humility & Reflection on Office,3,65,0.046153846153846156,0.32355723746452225,0.1426450742240216
+level2,veto_or_signing_statement,"Prosperity, Jobs & the Middle Class",8,65,0.12307692307692308,0.29990539262062443,0.4103858286823586
+level2,veto_or_signing_statement,"Providence, Faith & American Ideals",24,65,0.36923076923076925,0.7303689687795648,0.5055400557991232
+level2,veto_or_signing_statement,"Public Debt, Revenue & Treasury Finance",21,65,0.3230769230769231,0.2980132450331126,1.0841025641025641
+level2,veto_or_signing_statement,Public Lands & Homestead Settlement,3,65,0.046153846153846156,0.1400189214758751,0.32962577962577966
+level2,veto_or_signing_statement,Reconstruction & Southern Self-Government,9,65,0.13846153846153847,0.04919583727530748,2.8144970414201183
+level2,veto_or_signing_statement,"Relations with Spain, Mexico & Territorial Claims",1,65,0.015384615384615385,0.14853358561967833,0.1035766780989711
+level2,veto_or_signing_statement,"Slavery, Emancipation & Sectionalism",5,65,0.07692307692307693,0.09082308420056764,0.8469551282051283
+level2,veto_or_signing_statement,"Tariffs, Reciprocity & Navigation Laws",9,65,0.13846153846153847,0.3424787133396405,0.4042923926901828
+level2,veto_or_signing_statement,"Taxes, Budget Deficits & Federal Spending",11,65,0.16923076923076924,0.2876064333017975,0.5884109311740892
+level2,veto_or_signing_statement,"Territorial Organization, Statehood & Insular Governance",4,65,0.06153846153846154,0.15042573320719016,0.4090953072085148
+level2,veto_or_signing_statement,"Treaties, Diplomacy & International Arbitration",6,65,0.09230769230769231,0.510879848628193,0.18068376068376069
+level2,veto_or_signing_statement,Vietnam War,1,65,0.015384615384615385,0.13718070009460737,0.11214854111405838
+level2,veto_or_signing_statement,"Welfare, Poverty & Economic Opportunity",11,65,0.16923076923076924,0.22232734153263956,0.7611783960720131
+level2,veto_or_signing_statement,"World Order, Foreign Aid & Democracy Promotion",1,65,0.015384615384615385,0.30368968779564803,0.050658998322549734
+level1,campaign_or_debate,"Agriculture, Land & Environment",44,70,0.6285714285714286,0.3793755912961211,1.656857855361596
+level1,campaign_or_debate,Ceremonial & Commemorative Address,15,70,0.21428571428571427,0.23273415326395458,0.9207317073170731
+level1,campaign_or_debate,Civil Rights & Immigration,43,70,0.6142857142857143,0.39829706717123936,1.5422802850356296
+level1,campaign_or_debate,Constitutional Order & Governance,50,70,0.7142857142857143,0.5714285714285714,1.25
+level1,campaign_or_debate,"Economy, Labor & Social Welfare",58,70,0.8285714285714286,0.44087038789025546,1.8793991416309013
+level1,campaign_or_debate,Faith & National Values,64,70,0.9142857142857143,0.7303689687795648,1.2518134715025906
+level1,campaign_or_debate,Foreign Relations & Diplomacy,56,70,0.8,0.7010406811731315,1.141160593792173
+level1,campaign_or_debate,Indian & Tribal Affairs,1,70,0.014285714285714285,0.152317880794702,0.09378881987577639
+level1,campaign_or_debate,Infrastructure & Internal Improvements,34,70,0.4857142857142857,0.380321665089877,1.2771144278606965
+level1,campaign_or_debate,"Law, Crime & Justice",26,70,0.37142857142857144,0.3226111636707663,1.1513196480938417
+level1,campaign_or_debate,"Money, Banking & Currency",19,70,0.2714285714285714,0.22138126773888364,1.226068376068376
+level1,campaign_or_debate,Partisan & Media Combat,53,70,0.7571428571428571,0.2412488174077578,3.1384313725490194
+level1,campaign_or_debate,Personal Narrative & Reflection,56,70,0.8,0.39072847682119205,2.047457627118644
+level1,campaign_or_debate,Procedural & Administrative,14,70,0.2,0.33112582781456956,0.604
+level1,campaign_or_debate,Public Finance & Taxation,38,70,0.5428571428571428,0.46830652790917693,1.159191919191919
+level1,campaign_or_debate,"Trade, Commerce & Tariffs",27,70,0.38571428571428573,0.3718070009460738,1.037404580152672
+level1,campaign_or_debate,War & Military Affairs,55,70,0.7857142857142857,0.663197729422895,1.1847360912981455
+level1,eulogy_or_commemoration,"Agriculture, Land & Environment",4,31,0.12903225806451613,0.3793755912961211,0.34011744831469715
+level1,eulogy_or_commemoration,Ceremonial & Commemorative Address,29,31,0.9354838709677419,0.23273415326395458,4.0195384211906635
+level1,eulogy_or_commemoration,Civil Rights & Immigration,10,31,0.3225806451612903,0.39829706717123936,0.8098996245498429
+level1,eulogy_or_commemoration,Constitutional Order & Governance,13,31,0.41935483870967744,0.5714285714285714,0.7338709677419355
+level1,eulogy_or_commemoration,"Economy, Labor & Social Welfare",8,31,0.25806451612903225,0.44087038789025546,0.5853523466703585
+level1,eulogy_or_commemoration,Faith & National Values,30,31,0.967741935483871,0.7303689687795648,1.3250041785057665
+level1,eulogy_or_commemoration,Foreign Relations & Diplomacy,13,31,0.41935483870967744,0.7010406811731315,0.5981890209394455
+level1,eulogy_or_commemoration,Infrastructure & Internal Improvements,6,31,0.1935483870967742,0.380321665089877,0.5089070775156476
+level1,eulogy_or_commemoration,"Law, Crime & Justice",10,31,0.3225806451612903,0.3226111636707663,0.9999054015703339
+level1,eulogy_or_commemoration,"Money, Banking & Currency",2,31,0.06451612903225806,0.22138126773888364,0.2914254204576785
+level1,eulogy_or_commemoration,Partisan & Media Combat,4,31,0.12903225806451613,0.2412488174077578,0.5348513598987982
+level1,eulogy_or_commemoration,Personal Narrative & Reflection,14,31,0.45161290322580644,0.39072847682119205,1.1558228540185893
+level1,eulogy_or_commemoration,Procedural & Administrative,2,31,0.06451612903225806,0.33112582781456956,0.19483870967741934
+level1,eulogy_or_commemoration,Public Finance & Taxation,3,31,0.0967741935483871,0.46830652790917693,0.20664711632453567
+level1,eulogy_or_commemoration,"Trade, Commerce & Tariffs",3,31,0.0967741935483871,0.3718070009460738,0.2602807190347205
+level1,eulogy_or_commemoration,War & Military Affairs,14,31,0.45161290322580644,0.663197729422895,0.6809626800423358
+level1,inaugural_address,"Agriculture, Land & Environment",21,62,0.3387096774193548,0.3793755912961211,0.89280830182608
+level1,inaugural_address,Ceremonial & Commemorative Address,15,62,0.24193548387096775,0.23273415326395458,1.0395357985837923
+level1,inaugural_address,Civil Rights & Immigration,29,62,0.46774193548387094,0.39829706717123936,1.1743544555972723
+level1,inaugural_address,Constitutional Order & Governance,46,62,0.7419354838709677,0.5714285714285714,1.2983870967741937
+level1,inaugural_address,"Economy, Labor & Social Welfare",29,62,0.46774193548387094,0.44087038789025546,1.0609511283400248
+level1,inaugural_address,Faith & National Values,60,62,0.967741935483871,0.7303689687795648,1.3250041785057665
+level1,inaugural_address,Foreign Relations & Diplomacy,54,62,0.8709677419354839,0.7010406811731315,1.2423925819511559
+level1,inaugural_address,Indian & Tribal Affairs,12,62,0.1935483870967742,0.152317880794702,1.270687237026648
+level1,inaugural_address,Infrastructure & Internal Improvements,22,62,0.3548387096774194,0.380321665089877,0.9329963087786872
+level1,inaugural_address,"Law, Crime & Justice",16,62,0.25806451612903225,0.3226111636707663,0.7999243212562671
+level1,inaugural_address,"Money, Banking & Currency",14,62,0.22580645161290322,0.22138126773888364,1.0199889716018748
+level1,inaugural_address,Partisan & Media Combat,12,62,0.1935483870967742,0.2412488174077578,0.8022770398481973
+level1,inaugural_address,Personal Narrative & Reflection,56,62,0.9032258064516129,0.39072847682119205,2.3116457080371786
+level1,inaugural_address,Procedural & Administrative,8,62,0.12903225806451613,0.33112582781456956,0.3896774193548387
+level1,inaugural_address,Public Finance & Taxation,35,62,0.5645161290322581,0.46830652790917693,1.205441511893125
+level1,inaugural_address,"Trade, Commerce & Tariffs",25,62,0.4032258064516129,0.3718070009460738,1.0845029959780021
+level1,inaugural_address,War & Military Affairs,45,62,0.7258064516129032,0.663197729422895,1.0944043072108969
+level1,other,"Agriculture, Land & Environment",1,8,0.125,0.3793755912961211,0.3294887780548629
+level1,other,Constitutional Order & Governance,4,8,0.5,0.5714285714285714,0.875
+level1,other,"Economy, Labor & Social Welfare",1,8,0.125,0.44087038789025546,0.2835300429184549
+level1,other,Faith & National Values,5,8,0.625,0.7303689687795648,0.8557318652849741
+level1,other,Foreign Relations & Diplomacy,4,8,0.5,0.7010406811731315,0.713225371120108
+level1,other,Indian & Tribal Affairs,2,8,0.25,0.152317880794702,1.641304347826087
+level1,other,Infrastructure & Internal Improvements,2,8,0.25,0.380321665089877,0.6573383084577115
+level1,other,"Law, Crime & Justice",1,8,0.125,0.3226111636707663,0.3874633431085044
+level1,other,"Money, Banking & Currency",1,8,0.125,0.22138126773888364,0.5646367521367521
+level1,other,Personal Narrative & Reflection,3,8,0.375,0.39072847682119205,0.9597457627118644
+level1,other,Public Finance & Taxation,2,8,0.25,0.46830652790917693,0.5338383838383838
+level1,other,"Trade, Commerce & Tariffs",2,8,0.25,0.3718070009460738,0.6723918575063613
+level1,other,War & Military Affairs,3,8,0.375,0.663197729422895,0.5654422253922967
+level1,press_conference_or_interview,"Agriculture, Land & Environment",25,47,0.5319148936170213,0.3793755912961211,1.4020799066164376
+level1,press_conference_or_interview,Ceremonial & Commemorative Address,6,47,0.1276595744680851,0.23273415326395458,0.5485210171250648
+level1,press_conference_or_interview,Civil Rights & Immigration,34,47,0.723404255319149,0.39829706717123936,1.8162429878202861
+level1,press_conference_or_interview,Constitutional Order & Governance,29,47,0.6170212765957447,0.5714285714285714,1.0797872340425532
+level1,press_conference_or_interview,"Economy, Labor & Social Welfare",36,47,0.7659574468085106,0.44087038789025546,1.7373755821386174
+level1,press_conference_or_interview,Faith & National Values,20,47,0.425531914893617,0.7303689687795648,0.5826259508323228
+level1,press_conference_or_interview,Foreign Relations & Diplomacy,38,47,0.8085106382978723,0.7010406811731315,1.1533006001091108
+level1,press_conference_or_interview,Infrastructure & Internal Improvements,28,47,0.5957446808510638,0.380321665089877,1.5664232031332697
+level1,press_conference_or_interview,"Law, Crime & Justice",15,47,0.3191489361702128,0.3226111636707663,0.9892681100642666
+level1,press_conference_or_interview,"Money, Banking & Currency",13,47,0.2765957446808511,0.22138126773888364,1.2494089834515367
+level1,press_conference_or_interview,Partisan & Media Combat,39,47,0.8297872340425532,0.2412488174077578,3.439549436795995
+level1,press_conference_or_interview,Personal Narrative & Reflection,20,47,0.425531914893617,0.39072847682119205,1.0890732059141723
+level1,press_conference_or_interview,Procedural & Administrative,22,47,0.46808510638297873,0.33112582781456956,1.4136170212765957
+level1,press_conference_or_interview,Public Finance & Taxation,32,47,0.6808510638297872,0.46830652790917693,1.4538577261981516
+level1,press_conference_or_interview,"Trade, Commerce & Tariffs",18,47,0.3829787234042553,0.3718070009460738,1.030047100860809
+level1,press_conference_or_interview,War & Military Affairs,40,47,0.851063829787234,0.663197729422895,1.2832731356420919
+level1,proclamation,"Agriculture, Land & Environment",1,63,0.015873015873015872,0.3793755912961211,0.04183984483236353
+level1,proclamation,Ceremonial & Commemorative Address,4,63,0.06349206349206349,0.23273415326395458,0.2728093947606143
+level1,proclamation,Civil Rights & Immigration,16,63,0.25396825396825395,0.39829706717123936,0.6376352599630509
+level1,proclamation,Constitutional Order & Governance,22,63,0.3492063492063492,0.5714285714285714,0.6111111111111112
+level1,proclamation,"Economy, Labor & Social Welfare",2,63,0.031746031746031744,0.44087038789025546,0.0720076299475441
+level1,proclamation,Faith & National Values,16,63,0.25396825396825395,0.7303689687795648,0.34772596430627517
+level1,proclamation,Foreign Relations & Diplomacy,21,63,0.3333333333333333,0.7010406811731315,0.47548358074673863
+level1,proclamation,Indian & Tribal Affairs,4,63,0.06349206349206349,0.152317880794702,0.41683919944789505
+level1,proclamation,"Law, Crime & Justice",31,63,0.49206349206349204,0.3226111636707663,1.5252525252525253
+level1,proclamation,Partisan & Media Combat,1,63,0.015873015873015872,0.2412488174077578,0.06579520697167755
+level1,proclamation,Personal Narrative & Reflection,1,63,0.015873015873015872,0.39072847682119205,0.040624159268227066
+level1,proclamation,Procedural & Administrative,23,63,0.36507936507936506,0.33112582781456956,1.1025396825396825
+level1,proclamation,Public Finance & Taxation,3,63,0.047619047619047616,0.46830652790917693,0.10168350168350168
+level1,proclamation,"Trade, Commerce & Tariffs",6,63,0.09523809523809523,0.3718070009460738,0.2561492790500424
+level1,proclamation,War & Military Affairs,15,63,0.23809523809523808,0.663197729422895,0.35901093675701373
+level1,public_remarks_or_address,"Agriculture, Land & Environment",80,328,0.24390243902439024,0.3793755912961211,0.6429049327899763
+level1,public_remarks_or_address,Ceremonial & Commemorative Address,94,328,0.2865853658536585,0.23273415326395458,1.2313850882411264
+level1,public_remarks_or_address,Civil Rights & Immigration,101,328,0.3079268292682927,0.39829706717123936,0.7731084525809628
+level1,public_remarks_or_address,Constitutional Order & Governance,112,328,0.34146341463414637,0.5714285714285714,0.5975609756097562
+level1,public_remarks_or_address,"Economy, Labor & Social Welfare",154,328,0.4695121951219512,0.44087038789025546,1.0649665026693185
+level1,public_remarks_or_address,Faith & National Values,296,328,0.9024390243902439,0.7303689687795648,1.235593327435865
+level1,public_remarks_or_address,Foreign Relations & Diplomacy,232,328,0.7073170731707317,0.7010406811731315,1.0089529640235675
+level1,public_remarks_or_address,Indian & Tribal Affairs,6,328,0.018292682926829267,0.152317880794702,0.12009544008483562
+level1,public_remarks_or_address,Infrastructure & Internal Improvements,93,328,0.28353658536585363,0.380321665089877,0.7455178376410628
+level1,public_remarks_or_address,"Law, Crime & Justice",63,328,0.19207317073170732,0.3226111636707663,0.5953705028252629
+level1,public_remarks_or_address,"Money, Banking & Currency",29,328,0.08841463414634146,0.22138126773888364,0.39937721492599537
+level1,public_remarks_or_address,Partisan & Media Combat,96,328,0.2926829268292683,0.2412488174077578,1.2131994261119081
+level1,public_remarks_or_address,Personal Narrative & Reflection,149,328,0.45426829268292684,0.39072847682119205,1.1626188507647788
+level1,public_remarks_or_address,Procedural & Administrative,53,328,0.16158536585365854,0.33112582781456956,0.48798780487804877
+level1,public_remarks_or_address,Public Finance & Taxation,89,328,0.27134146341463417,0.46830652790917693,0.579409953190441
+level1,public_remarks_or_address,"Trade, Commerce & Tariffs",61,328,0.18597560975609756,0.3718070009460738,0.5001939427791224
+level1,public_remarks_or_address,War & Military Affairs,224,328,0.6829268292682927,0.663197729422895,1.0297484429908494
+level1,special_message_to_congress,"Agriculture, Land & Environment",31,165,0.18787878787878787,0.3793755912961211,0.49523161792488474
+level1,special_message_to_congress,Ceremonial & Commemorative Address,6,165,0.03636363636363636,0.23273415326395458,0.15624538063562454
+level1,special_message_to_congress,Civil Rights & Immigration,28,165,0.1696969696969697,0.39829706717123936,0.4260562873389477
+level1,special_message_to_congress,Constitutional Order & Governance,79,165,0.47878787878787876,0.5714285714285714,0.8378787878787879
+level1,special_message_to_congress,"Economy, Labor & Social Welfare",24,165,0.14545454545454545,0.44087038789025546,0.329925868123293
+level1,special_message_to_congress,Faith & National Values,60,165,0.36363636363636365,0.7303689687795648,0.49788035798398494
+level1,special_message_to_congress,Foreign Relations & Diplomacy,98,165,0.593939393939394,0.7010406811731315,0.8472252893305526
+level1,special_message_to_congress,Indian & Tribal Affairs,14,165,0.08484848484848485,0.152317880794702,0.5570487483530963
+level1,special_message_to_congress,Infrastructure & Internal Improvements,24,165,0.14545454545454545,0.380321665089877,0.3824513794663048
+level1,special_message_to_congress,"Law, Crime & Justice",31,165,0.18787878787878787,0.3226111636707663,0.5823691460055096
+level1,special_message_to_congress,"Money, Banking & Currency",21,165,0.12727272727272726,0.22138126773888364,0.5749028749028748
+level1,special_message_to_congress,Partisan & Media Combat,11,165,0.06666666666666667,0.2412488174077578,0.27633986928104576
+level1,special_message_to_congress,Personal Narrative & Reflection,17,165,0.10303030303030303,0.39072847682119205,0.26368772470467383
+level1,special_message_to_congress,Procedural & Administrative,41,165,0.24848484848484848,0.33112582781456956,0.7504242424242423
+level1,special_message_to_congress,Public Finance & Taxation,50,165,0.30303030303030304,0.46830652790917693,0.6470768288950107
+level1,special_message_to_congress,"Trade, Commerce & Tariffs",50,165,0.30303030303030304,0.3718070009460738,0.8150204333410441
+level1,special_message_to_congress,War & Military Affairs,75,165,0.45454545454545453,0.663197729422895,0.6853845156270263
+level1,state_of_the_union_or_annual_message,"Agriculture, Land & Environment",187,218,0.8577981651376146,0.3793755912961211,2.2610789539911686
+level1,state_of_the_union_or_annual_message,Ceremonial & Commemorative Address,77,218,0.3532110091743119,0.23273415326395458,1.5176586857611696
+level1,state_of_the_union_or_annual_message,Civil Rights & Immigration,138,218,0.6330275229357798,0.39829706717123936,1.589335134781756
+level1,state_of_the_union_or_annual_message,Constitutional Order & Governance,197,218,0.9036697247706422,0.5714285714285714,1.581422018348624
+level1,state_of_the_union_or_annual_message,"Economy, Labor & Social Welfare",134,218,0.6146788990825688,0.44087038789025546,1.3942394771035949
+level1,state_of_the_union_or_annual_message,Faith & National Values,197,218,0.9036697247706422,0.7303689687795648,1.2372783666872653
+level1,state_of_the_union_or_annual_message,Foreign Relations & Diplomacy,215,218,0.9862385321100917,0.7010406811731315,1.4068206861543415
+level1,state_of_the_union_or_annual_message,Indian & Tribal Affairs,122,218,0.5596330275229358,0.152317880794702,3.6741124850418827
+level1,state_of_the_union_or_annual_message,Infrastructure & Internal Improvements,182,218,0.8348623853211009,0.380321665089877,2.1951481126477703
+level1,state_of_the_union_or_annual_message,"Law, Crime & Justice",138,218,0.6330275229357798,0.3226111636707663,1.9621996825311416
+level1,state_of_the_union_or_annual_message,"Money, Banking & Currency",124,218,0.5688073394495413,0.22138126773888364,2.5693562299066888
+level1,state_of_the_union_or_annual_message,Partisan & Media Combat,36,218,0.1651376146788991,0.2412488174077578,0.6845116028062601
+level1,state_of_the_union_or_annual_message,Personal Narrative & Reflection,90,218,0.41284403669724773,0.39072847682119205,1.0566008396827866
+level1,state_of_the_union_or_annual_message,Procedural & Administrative,170,218,0.7798165137614679,0.33112582781456956,2.355045871559633
+level1,state_of_the_union_or_annual_message,Public Finance & Taxation,214,218,0.981651376146789,0.46830652790917693,2.096172736539709
+level1,state_of_the_union_or_annual_message,"Trade, Commerce & Tariffs",192,218,0.8807339449541285,0.3718070009460738,2.3687933328664474
+level1,state_of_the_union_or_annual_message,War & Military Affairs,216,218,0.9908256880733946,0.663197729422895,1.4940124854401968
+level1,veto_or_signing_statement,"Agriculture, Land & Environment",7,65,0.1076923076923077,0.3793755912961211,0.28386725493957415
+level1,veto_or_signing_statement,Civil Rights & Immigration,22,65,0.3384615384615385,0.39829706717123936,0.8497716060661429
+level1,veto_or_signing_statement,Constitutional Order & Governance,52,65,0.8,0.5714285714285714,1.4000000000000001
+level1,veto_or_signing_statement,"Economy, Labor & Social Welfare",20,65,0.3076923076923077,0.44087038789025546,0.6979201056454275
+level1,veto_or_signing_statement,Faith & National Values,24,65,0.36923076923076925,0.7303689687795648,0.5055400557991232
+level1,veto_or_signing_statement,Foreign Relations & Diplomacy,10,65,0.15384615384615385,0.7010406811731315,0.21945396034464862
+level1,veto_or_signing_statement,Infrastructure & Internal Improvements,11,65,0.16923076923076924,0.380321665089877,0.4449674703406047
+level1,veto_or_signing_statement,"Law, Crime & Justice",10,65,0.15384615384615385,0.3226111636707663,0.4768779607489285
+level1,veto_or_signing_statement,"Money, Banking & Currency",11,65,0.16923076923076924,0.22138126773888364,0.764431295200526
+level1,veto_or_signing_statement,Partisan & Media Combat,3,65,0.046153846153846156,0.2412488174077578,0.19131221719457014
+level1,veto_or_signing_statement,Personal Narrative & Reflection,7,65,0.1076923076923077,0.39072847682119205,0.27561929595827905
+level1,veto_or_signing_statement,Procedural & Administrative,17,65,0.26153846153846155,0.33112582781456956,0.7898461538461539
+level1,veto_or_signing_statement,Public Finance & Taxation,29,65,0.4461538461538462,0.46830652790917693,0.9526961926961928
+level1,veto_or_signing_statement,"Trade, Commerce & Tariffs",9,65,0.13846153846153847,0.3718070009460738,0.37240164415736937
+level1,veto_or_signing_statement,War & Military Affairs,14,65,0.2153846153846154,0.663197729422895,0.32476681663557555

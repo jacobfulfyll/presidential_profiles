@@ -1,0 +1,1289 @@
+{
+  "schema_version": "president-profile-v3",
+  "president": "William Taft",
+  "slug": "william-taft",
+  "party": "Republican",
+  "years": {
+    "first": 1909,
+    "last": 1912
+  },
+  "sample": {
+    "n_speeches": 12,
+    "n_words": 121276,
+    "thin_record": false,
+    "warning": null
+  },
+  "rhetorical_radar": [
+    {
+      "key": "hope",
+      "label": "Hope",
+      "absolute": 689.9523513569505,
+      "percentile": 64.44444444444444
+    },
+    {
+      "key": "fear",
+      "label": "Fear appeal",
+      "absolute": 259.45721980526207,
+      "percentile": 26.666666666666668
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "absolute": 0.5690265486725664,
+      "percentile": 46.666666666666664
+    },
+    {
+      "key": "us_vs_them",
+      "label": "Us vs them",
+      "absolute": 37.62171120778952,
+      "percentile": 13.333333333333334
+    },
+    {
+      "key": "self_reference",
+      "label": "Self-reference",
+      "absolute": 0.5686630369026013,
+      "percentile": 93.33333333333333
+    },
+    {
+      "key": "formality",
+      "label": "Formality",
+      "absolute": 17.964475667837107,
+      "percentile": 62.22222222222222
+    },
+    {
+      "key": "vocabulary",
+      "label": "Vocabulary",
+      "absolute": 0.39895833333333336,
+      "percentile": 26.666666666666668
+    },
+    {
+      "key": "religiosity",
+      "label": "Religiosity",
+      "absolute": 1.0772736689455147,
+      "percentile": 2.2222222222222223
+    }
+  ],
+  "raw_stats": {
+    "party": "Republican",
+    "first_year": 1909,
+    "last_year": 1912,
+    "n_speeches": 12,
+    "n_words": 121276,
+    "boosters": 8.286720530350115,
+    "hedges": 30.826600372902426,
+    "concessives": 9.52972860990263,
+    "assertive_modals": 44.99689247980112,
+    "need_to": 1.2430080795525171,
+    "united_states": 27.59477936606588,
+    "america": 27.843380981976384,
+    "nostalgia": 3.148953801533043,
+    "future": 4.309094675782059,
+    "religiosity": 1.0772736689455147,
+    "god_bless": 0.0,
+    "us_them": 37.62171120778952,
+    "superlatives": 7.2923140667081,
+    "opponents": 1.9888129272840271,
+    "hype": 2.7346177750155376,
+    "doom": 2.1545473378910294,
+    "mechanism": 61.570333540501345,
+    "nrc_hope": 689.9523513569505,
+    "nrc_fear": 259.45721980526207,
+    "certainty": 0.5690265486725664,
+    "fk_grade": 17.964475667837107,
+    "self_reference": 0.5686630369026013,
+    "ttr": 0.39895833333333336,
+    "pct_hope": 64.44444444444444,
+    "pct_fear": 26.666666666666668,
+    "pct_certainty": 46.666666666666664,
+    "pct_us_vs_them": 13.333333333333334,
+    "pct_self_reference": 93.33333333333333,
+    "pct_formality": 62.22222222222222,
+    "pct_vocabulary": 26.666666666666668,
+    "pct_religiosity": 2.2222222222222223
+  },
+  "legacy_issue_attention": [
+    {
+      "key": "Economy & jobs",
+      "label": "Economy & jobs",
+      "share": 0.2136,
+      "era_relative_difference": 1.386
+    },
+    {
+      "key": "Taxes & budget",
+      "label": "Taxes & budget",
+      "share": 0.0908,
+      "era_relative_difference": 0.5354
+    },
+    {
+      "key": "War & military",
+      "label": "War & military",
+      "share": 0.16,
+      "era_relative_difference": -9.4895
+    },
+    {
+      "key": "Foreign policy",
+      "label": "Foreign policy",
+      "share": 0.2312,
+      "era_relative_difference": 7.3806
+    },
+    {
+      "key": "Immigration",
+      "label": "Immigration",
+      "share": 0.033,
+      "era_relative_difference": -0.5098
+    },
+    {
+      "key": "Civil rights & race",
+      "label": "Civil rights & race",
+      "share": 0.0423,
+      "era_relative_difference": 0.3503
+    },
+    {
+      "key": "Health care",
+      "label": "Health care",
+      "share": 0.0175,
+      "era_relative_difference": -0.8863
+    },
+    {
+      "key": "Education",
+      "label": "Education",
+      "share": 0.0206,
+      "era_relative_difference": -1.1269
+    },
+    {
+      "key": "Crime & justice",
+      "label": "Crime & justice",
+      "share": 0.0568,
+      "era_relative_difference": 1.0151
+    },
+    {
+      "key": "Energy & environment",
+      "label": "Energy & environment",
+      "share": 0.0547,
+      "era_relative_difference": 3.3463
+    },
+    {
+      "key": "Trade & tariffs",
+      "label": "Trade & tariffs",
+      "share": 0.289,
+      "era_relative_difference": 15.0865
+    },
+    {
+      "key": "Agriculture",
+      "label": "Agriculture",
+      "share": 0.0361,
+      "era_relative_difference": -3.5142
+    },
+    {
+      "key": "Religion & values",
+      "label": "Religion & values",
+      "share": 0.0186,
+      "era_relative_difference": -4.8328
+    },
+    {
+      "key": "Money & banking",
+      "label": "Money & banking",
+      "share": 0.0588,
+      "era_relative_difference": -0.7984
+    },
+    {
+      "key": "Infrastructure",
+      "label": "Infrastructure",
+      "share": 0.1744,
+      "era_relative_difference": 3.6932
+    },
+    {
+      "key": "Discovered 5",
+      "label": "Security & peace",
+      "share": 0.0495,
+      "era_relative_difference": -10.7822
+    }
+  ],
+  "issue_evidence": {
+    "cards": [
+      {
+        "issue": "Trade & tariffs",
+        "rel": 15.08647700803722,
+        "share": 0.2889576883384933,
+        "base": 0.09067321758812001,
+        "topic_of_day": false,
+        "words": [
+          "tariff",
+          "interstate",
+          "commerce",
+          "wool",
+          "business"
+        ],
+        "quote": "The Department of Commerce and Labor has arranged to give publicity to the expected arrival and the itinerary of consular officers and commercial agents while on leave in the United States, in order that trade organizations may arrange for conferences with them.",
+        "cite": "Third Annual Message, 1911",
+        "stance": "mostly free-trade"
+      },
+      {
+        "issue": "Foreign policy",
+        "rel": 7.380553011626912,
+        "share": 0.23116615067079463,
+        "base": 0.1530265809158409,
+        "topic_of_day": false,
+        "words": [
+          "trade"
+        ],
+        "quote": "Through the newly created Division of Information the foreign service is kept fully informed of what transpires from day to day in the international relations of the country, and contemporary foreign comment affecting American interests is promptly brought to the attention of the department.",
+        "cite": "Fourth Annual Message, 1912",
+        "stance": null
+      },
+      {
+        "issue": "Infrastructure",
+        "rel": 3.693166289198746,
+        "share": 0.17440660474716202,
+        "base": 0.08255817163046178,
+        "topic_of_day": false,
+        "words": [
+          "canal"
+        ],
+        "quote": "The Interstate Commerce Commission has recommended appropriations for the purpose of enabling it to enter upon a valuation of all railroads.",
+        "cite": "Second Annual Message, 1910",
+        "stance": null
+      },
+      {
+        "issue": "Energy & environment",
+        "rel": 3.346265571459919,
+        "share": 0.054695562435500514,
+        "base": 0.027795412514836183,
+        "topic_of_day": false,
+        "words": [
+          "statute"
+        ],
+        "quote": "of it is being treated scientifically and with a view to the maintenance of the forests.",
+        "cite": "Message Regarding Environmental Preservation, 1910",
+        "stance": null
+      }
+    ],
+    "voice": [
+      "department",
+      "court",
+      "schedule",
+      "commission",
+      "estimates",
+      "cost",
+      "procedure",
+      "antitrust"
+    ],
+    "n_speeches": 12,
+    "n_paragraphs": 969,
+    "low_confidence": false
+  },
+  "ai": {
+    "n_paragraphs": 969,
+    "n_speeches": 12,
+    "low_confidence": false,
+    "top_topics": [
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "definition": "Import duties and protective tariffs, reciprocal trade and navigation treaties, tonnage, and disputes over trade practices with foreign rivals.",
+        "share": 18.89,
+        "rel": 10.87,
+        "n": 183
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.",
+        "share": 14.65,
+        "rel": 0.76,
+        "n": 142
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "definition": "Concern over concentrated corporate wealth and monopoly and proposals for federal supervision or regulation of interstate business.",
+        "share": 13.11,
+        "rel": 9.57,
+        "n": 127
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "definition": "Routine departmental reports, statistics, and recommendations, the operation of the Post Office, and other administrative housekeeping of the executive branch.",
+        "share": 10.01,
+        "rel": 5.21,
+        "n": 97
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "definition": "Organizing and equipping the militia, army, and navy, fortifications and armament, readiness in peacetime, and the care and honoring of veterans and service members.",
+        "share": 10.01,
+        "rel": 0.39,
+        "n": 97
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "definition": "Federal support for roads, canals, harbors, energy production and pipelines, and rebuilding the nation's infrastructure, including constitutional debate over such works.",
+        "share": 7.64,
+        "rel": 0.2,
+        "n": 74
+      }
+    ],
+    "distinctive_topics": [
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "definition": "Import duties and protective tariffs, reciprocal trade and navigation treaties, tonnage, and disputes over trade practices with foreign rivals.",
+        "share": 18.89,
+        "rel": 10.87,
+        "n": 183
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "definition": "Concern over concentrated corporate wealth and monopoly and proposals for federal supervision or regulation of interstate business.",
+        "share": 13.11,
+        "rel": 9.57,
+        "n": 127
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "definition": "Routine departmental reports, statistics, and recommendations, the operation of the Post Office, and other administrative housekeeping of the executive branch.",
+        "share": 10.01,
+        "rel": 5.21,
+        "n": 97
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Assertions of presidential constitutional duties, the veto and removal powers, interbranch relations, and reform of the federal judiciary.",
+        "share": 5.47,
+        "rel": 2.72,
+        "n": 53
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "definition": "Conservation of forests, water power, and public resources and later programs to clean the nation's air and water and preserve parklands.",
+        "share": 4.23,
+        "rel": 2.24,
+        "n": 41
+      }
+    ],
+    "domains": [
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 31.27,
+        "rel": 20.02
+      },
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 21.57,
+        "rel": -0.93
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 14.55,
+        "rel": 2.31
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 10.11,
+        "rel": -8.18
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 10.01,
+        "rel": 5.21
+      }
+    ],
+    "topic_attention": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.103,
+        "rel": -1.545,
+        "n": 1
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 14.654,
+        "rel": 0.755,
+        "n": 142
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 2.27,
+        "rel": 0.114,
+        "n": 22
+      },
+      {
+        "name": "Monroe Doctrine & Latin American Policy",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 5.986,
+        "rel": 0.238,
+        "n": 58
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.103,
+        "rel": -0.316,
+        "n": 1
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.199,
+        "n": 0
+      },
+      {
+        "name": "Middle East & Israel",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.018,
+        "n": 0
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.206,
+        "rel": -1.826,
+        "n": 2
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "share": 10.01,
+        "rel": 0.387,
+        "n": 97
+      },
+      {
+        "name": "Early Naval Wars: Barbary & the War of 1812",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.121,
+        "n": 0
+      },
+      {
+        "name": "Mexican War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.016,
+        "n": 0
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "share": 0.103,
+        "rel": -4.066,
+        "n": 1
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -5.207,
+        "n": 0
+      },
+      {
+        "name": "Vietnam War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "share": 0.516,
+        "rel": -2.45,
+        "n": 5
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "share": 3.199,
+        "rel": -0.342,
+        "n": 31
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 18.885,
+        "rel": 10.87,
+        "n": 183
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 13.106,
+        "rel": 9.566,
+        "n": 127
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "share": 5.366,
+        "rel": -0.299,
+        "n": 52
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "share": 1.032,
+        "rel": -1.317,
+        "n": 10
+      },
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -4.044,
+        "n": 0
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 2.477,
+        "rel": -4.395,
+        "n": 24
+      },
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.103,
+        "rel": -1.259,
+        "n": 1
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.103,
+        "rel": -0.216,
+        "n": 1
+      },
+      {
+        "name": "Prosperity, Jobs & the Middle Class",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.31,
+        "rel": -1.5,
+        "n": 3
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "share": 2.477,
+        "rel": 0.529,
+        "n": 24
+      },
+      {
+        "name": "Agriculture & Farm Prices",
+        "domain": "Agriculture, Land & Environment",
+        "share": 2.477,
+        "rel": -2.811,
+        "n": 24
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "share": 4.231,
+        "rel": 2.243,
+        "n": 41
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 7.637,
+        "rel": 0.204,
+        "n": 74
+      },
+      {
+        "name": "Space Exploration",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Slavery, Emancipation & Sectionalism",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.206,
+        "rel": -0.007,
+        "n": 2
+      },
+      {
+        "name": "Reconstruction & Southern Self-Government",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.206,
+        "rel": 0.171,
+        "n": 2
+      },
+      {
+        "name": "Chinese Immigration & Exclusion",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.31,
+        "rel": -0.248,
+        "n": 3
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.826,
+        "rel": 0.106,
+        "n": 8
+      },
+      {
+        "name": "Immigration & Border Security",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.516,
+        "rel": -0.947,
+        "n": 5
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "share": 0.206,
+        "rel": -1.586,
+        "n": 2
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "share": 1.651,
+        "rel": -1.665,
+        "n": 16
+      },
+      {
+        "name": "Polygamy in the Territories",
+        "domain": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": -0.137,
+        "n": 0
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.206,
+        "rel": -2.333,
+        "n": 2
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "share": 3.612,
+        "rel": 1.351,
+        "n": 35
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "share": 5.47,
+        "rel": 2.718,
+        "n": 53
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "share": 5.366,
+        "rel": 1.415,
+        "n": 52
+      },
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.206,
+        "rel": -0.941,
+        "n": 2
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "share": 0.516,
+        "rel": -1.411,
+        "n": 5
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "share": 0.103,
+        "rel": -1.461,
+        "n": 1
+      },
+      {
+        "name": "Personal Narrative, Storytelling & Boasting",
+        "domain": "Personal Narrative & Reflection",
+        "share": 0.0,
+        "rel": -0.481,
+        "n": 0
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "share": 10.01,
+        "rel": 5.206,
+        "n": 97
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "share": 0.516,
+        "rel": -8.409,
+        "n": 5
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "share": 0.0,
+        "rel": -2.441,
+        "n": 0
+      }
+    ],
+    "domain_attention": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 21.569,
+        "rel": -0.932
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 10.114,
+        "rel": -8.178
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 3.612,
+        "rel": -2.363
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 31.269,
+        "rel": 20.023
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 6.295,
+        "rel": -1.106
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 2.89,
+        "rel": -9.445
+      },
+      {
+        "name": "Agriculture, Land & Environment",
+        "share": 7.946,
+        "rel": -0.589
+      },
+      {
+        "name": "Infrastructure & Internal Improvements",
+        "share": 7.637,
+        "rel": 0.204
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 1.858,
+        "rel": -1.008
+      },
+      {
+        "name": "Indian & Tribal Affairs",
+        "share": 0.206,
+        "rel": -1.586
+      },
+      {
+        "name": "Law, Crime & Justice",
+        "share": 1.651,
+        "rel": -1.784
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 14.551,
+        "rel": 2.314
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 0.516,
+        "rel": -1.411
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 0.103,
+        "rel": -1.922
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 10.01,
+        "rel": 5.206
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 0.516,
+        "rel": -8.409
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 0.0,
+        "rel": -2.441
+      }
+    ],
+    "flags": {
+      "party_attack": 0.62,
+      "enemy_naming": 2.99,
+      "zero_sum": 1.55
+    },
+    "proposal_values": {
+      "proposal": 37.67,
+      "values": 10.11,
+      "mixed": 9.8,
+      "neither": 42.41
+    },
+    "speech_types": [
+      {
+        "name": "Special message to congress",
+        "value": 50.0
+      },
+      {
+        "name": "State of the Union / annual message",
+        "value": 33.33
+      },
+      {
+        "name": "Inaugural address",
+        "value": 8.33
+      },
+      {
+        "name": "Public remarks / address",
+        "value": 8.33
+      }
+    ],
+    "adversaries": [
+      {
+        "name": "Zelaya Government",
+        "n": 2
+      },
+      {
+        "name": "Congress",
+        "n": 2
+      },
+      {
+        "name": "Sugar Trust",
+        "n": 2
+      },
+      {
+        "name": "Standard Oil",
+        "n": 2
+      },
+      {
+        "name": "General Zelaya",
+        "n": 2
+      }
+    ],
+    "ai_radar": {
+      "party_attack": {
+        "absolute": 0.619,
+        "percentile": 16.7
+      },
+      "enemy_naming": {
+        "absolute": 2.993,
+        "percentile": 2.4
+      },
+      "zero_sum": {
+        "absolute": 1.548,
+        "percentile": 7.1
+      },
+      "proposal": {
+        "absolute": 37.668,
+        "percentile": 97.6
+      },
+      "values": {
+        "absolute": 10.114,
+        "percentile": 2.4
+      },
+      "topic_breadth": {
+        "absolute": 17.507,
+        "percentile": 35.7
+      }
+    }
+  },
+  "distinctive_vocabulary": [
+    {
+      "president": "William Taft",
+      "term": "tariff",
+      "z": 28.92915745294814,
+      "rank": 0
+    },
+    {
+      "president": "William Taft",
+      "term": "interstate",
+      "z": 22.694174358898977,
+      "rank": 1
+    },
+    {
+      "president": "William Taft",
+      "term": "canal",
+      "z": 22.48750725819237,
+      "rank": 2
+    },
+    {
+      "president": "William Taft",
+      "term": "department",
+      "z": 22.13229889771052,
+      "rank": 3
+    },
+    {
+      "president": "William Taft",
+      "term": "statute",
+      "z": 21.52438573375651,
+      "rank": 4
+    },
+    {
+      "president": "William Taft",
+      "term": "court",
+      "z": 20.622196403743548,
+      "rank": 5
+    },
+    {
+      "president": "William Taft",
+      "term": "schedule",
+      "z": 20.132988025184765,
+      "rank": 6
+    },
+    {
+      "president": "William Taft",
+      "term": "commerce",
+      "z": 17.154247169654198,
+      "rank": 7
+    },
+    {
+      "president": "William Taft",
+      "term": "commission",
+      "z": 16.31875995076487,
+      "rank": 8
+    },
+    {
+      "president": "William Taft",
+      "term": "estimates",
+      "z": 16.039970840049858,
+      "rank": 9
+    },
+    {
+      "president": "William Taft",
+      "term": "wool",
+      "z": 15.853315909919463,
+      "rank": 10
+    },
+    {
+      "president": "William Taft",
+      "term": "business",
+      "z": 15.451090122059028,
+      "rank": 11
+    },
+    {
+      "president": "William Taft",
+      "term": "cost",
+      "z": 15.382595538737911,
+      "rank": 12
+    },
+    {
+      "president": "William Taft",
+      "term": "procedure",
+      "z": 15.172330775474427,
+      "rank": 13
+    },
+    {
+      "president": "William Taft",
+      "term": "trade",
+      "z": 14.858687847680219,
+      "rank": 14
+    },
+    {
+      "president": "William Taft",
+      "term": "antitrust",
+      "z": 14.351280228251548,
+      "rank": 15
+    },
+    {
+      "president": "William Taft",
+      "term": "law",
+      "z": 14.343631404128752,
+      "rank": 16
+    },
+    {
+      "president": "William Taft",
+      "term": "postal",
+      "z": 13.715135233687187,
+      "rank": 17
+    }
+  ],
+  "signature_speeches": [
+    {
+      "title": "December 7, 1909: First Annual Message",
+      "year": 1909,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-7-1909-first-annual-message"
+    },
+    {
+      "title": "January 26, 1911: Special Message on Canadian Reciprocity",
+      "year": 1911,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-26-1911-special-message-canadian-reciprocity"
+    },
+    {
+      "title": "January 26, 1911: Message Regarding US-Canadian Relations",
+      "year": 1911,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-26-1911-message-regarding-us-canadian-relations"
+    },
+    {
+      "title": "December 5, 1911: Third Annual Message",
+      "year": 1911,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-5-1911-third-annual-message"
+    },
+    {
+      "title": "December 6, 1910: Second Annual Message",
+      "year": 1910,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-6-1910-second-annual-message"
+    }
+  ],
+  "legacy_invocations": {
+    "invokes": [
+      {
+        "target": "Abraham Lincoln",
+        "n": 4,
+        "pos": 4,
+        "neg": 0
+      },
+      {
+        "target": "Ulysses S. Grant",
+        "n": 1,
+        "pos": 0,
+        "neg": 1
+      }
+    ],
+    "invoked_by": null
+  },
+  "classified_invocations": [
+    {
+      "target": "Abraham Lincoln",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Theodore Roosevelt",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Chester A. Arthur",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "George Washington",
+      "function": "historical comparison",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "Grover Cleveland",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "James Monroe",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "James Monroe",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "James Monroe",
+      "function": "policy inheritance",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Ulysses S. Grant",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    }
+  ],
+  "voice_neighbors": [
+    [
+      "Rutherford B. Hayes",
+      0.41851862991094496
+    ],
+    [
+      "Jimmy Carter",
+      0.40149725318991036
+    ],
+    [
+      "Franklin Pierce",
+      0.3877618352439183
+    ]
+  ],
+  "agenda_neighbors": [
+    [
+      "Benjamin Harrison",
+      0.9902955394987827
+    ],
+    [
+      "Grover Cleveland",
+      0.9793190971359208
+    ],
+    [
+      "Rutherford B. Hayes",
+      0.9669732116432965
+    ]
+  ],
+  "feature_neighbors": {
+    "ai_topics": [
+      {
+        "president": "Theodore Roosevelt",
+        "similarity": 0.8443
+      },
+      {
+        "president": "Benjamin Harrison",
+        "similarity": 0.8423
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.82
+      },
+      {
+        "president": "John Quincy Adams",
+        "similarity": 0.8087
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.7622
+      },
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.7618
+      }
+    ],
+    "ai_domains": [
+      {
+        "president": "Benjamin Harrison",
+        "similarity": 0.9266
+      },
+      {
+        "president": "Theodore Roosevelt",
+        "similarity": 0.9177
+      },
+      {
+        "president": "John Quincy Adams",
+        "similarity": 0.8934
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.8375
+      },
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.8188
+      },
+      {
+        "president": "William McKinley",
+        "similarity": 0.8085
+      }
+    ],
+    "ai_rhetoric": [
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.9893
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.9502
+      },
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.9368
+      },
+      {
+        "president": "William McKinley",
+        "similarity": 0.8832
+      },
+      {
+        "president": "Rutherford B. Hayes",
+        "similarity": 0.8769
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.829
+      }
+    ],
+    "rhetorical_fingerprint": [
+      {
+        "president": "Rutherford B. Hayes",
+        "similarity": 0.9533
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.899
+      },
+      {
+        "president": "John Tyler",
+        "similarity": 0.8884
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.7951
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.7304
+      },
+      {
+        "president": "Benjamin Harrison",
+        "similarity": 0.68
+      }
+    ],
+    "legacy_issues": [
+      {
+        "president": "Benjamin Harrison",
+        "similarity": 0.9903
+      },
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.9793
+      },
+      {
+        "president": "Rutherford B. Hayes",
+        "similarity": 0.967
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.9664
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.9658
+      },
+      {
+        "president": "Theodore Roosevelt",
+        "similarity": 0.9554
+      }
+    ]
+  },
+  "context_specific": {
+    "profile_only": [],
+    "compare_only": []
+  }
+}

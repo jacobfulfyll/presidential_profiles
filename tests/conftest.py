@@ -129,6 +129,14 @@ def redirect_annotation_dirs(tmp_path, monkeypatch):
     monkeypatch.setattr(ann, "MANIFESTS_DIR", root / "manifests")
     monkeypatch.setattr(ann, "RUNS_DIR", root / "runs")
     monkeypatch.setattr(ann, "INVOCATION_TONE_PATH", root / "invocation_tone.parquet")
+    # These analysis modules bind the agreement path at import time. The
+    # agreement artifact is now committed, so leaving the constants pointed at
+    # the real tree makes synthetic tests accidentally consume production data
+    # (or fail because they expected the former absent-artifact state).
+    from presidential_profiles import agreement, ai_labels, combat, eras
+    for module in (agreement, ai_labels, combat, eras):
+        if hasattr(module, "AGREEMENT_PATH"):
+            monkeypatch.setattr(module, "AGREEMENT_PATH", root / "agreement_v1.parquet")
     return root
 
 

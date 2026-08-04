@@ -20,3 +20,8 @@
 - [numpy bool identity assertions can never fail](feedback_numpy-bool-identity-assertions.md) — `np.isnan(x) is not expected` is always true; grep for it, coverage and mutation both miss it
 - [bands.py test seams](reference_bands-test-seams.md) — un-redirect ANNOTATIONS_DIR via attention.TAXONOMY_PATH.parent; inject the 3 llm_bands components; build_bands reproduces the shipped parquet byte-for-byte
 - [Report numbers need artifact anchors](feedback_report-numbers-need-artifact-anchors.md) — regression-check published figures against committed data; a mismatched docstring is a coverage hole
+- [Kappa metric-test blind spots](feedback_kappa-metric-test-blind-spots.md) — isnan doesn't pin the degenerate guard (sklearn warns); {1.0,-1.0,NaN} doesn't prove chance-correction — add imbalanced high-agreement/negative-kappa witness
+- [eras.py test seams](reference_eras-test-seams.md) — injectable inputs, the conftest ANNOTATIONS_DIR redirect trap, LOO identity+counter pattern, real-corpus anchors
+- [convergence.py test seams](reference_convergence-test-seams.md) — hand-built Composition, tiny S=2xB=2 arm, signature-bound DRAWS trap, the ALIKE/BROADER rival-null corpus pair
+- [Structural guards scan the whole module](feedback_structural-guards-scan-the-whole-module.md) — write AST/registry sweeps over every function or output table, not the one instance named; it found a second live leak
+- [Mutation-test for assertions that cannot fail](feedback_mutation-test-for-assertions-that-cannot-fail.md) — 99% coverage let 30/62 mutants through; the six recurring vacuity shapes and the runner that finds them

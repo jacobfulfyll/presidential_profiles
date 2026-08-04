@@ -119,6 +119,31 @@ def test_normalize_folds_archaic_spellings():
     # survives as its own token (it would otherwise fragment to "to" + "day").
     assert wf.tokenize("To-day and co-operation") == ["today", "and", "cooperation"]
     assert wf.tokenize("national defence") == ["national", "defense"]
+    assert wf.tokenize("South Viet-Nam and Viet Nam") == [
+        "south", "vietnam", "and", "vietnam"
+    ]
+
+
+@needs_map
+def test_al_qaeda_uses_the_organization_name_as_its_group_label():
+    from presidential_profiles import trends
+
+    assert wf.form_to_node("qaeda") == "al-qaeda"
+    counts = trends.grouped_word_counts(["al-Qaeda and al Qaeda"])
+    assert counts["al-qaeda"] == 2
+    assert counts["qaeda"] == 0
+
+
+@needs_map
+def test_grouped_counts_share_explore_word_families():
+    from presidential_profiles import trends
+
+    counts = trends.grouped_word_counts([
+        "Slavery, one slave, and two slaves."
+    ])
+    assert counts["slavery"] == 3
+    assert counts["slave"] == 0
+    assert counts["slaves"] == 0
 
 
 def test_form_to_node_is_identity_for_ungrouped_words():

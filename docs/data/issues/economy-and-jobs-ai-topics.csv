@@ -1,0 +1,186 @@
+bucket_years,topic,period_start,period_end,share_percent,paragraphs_in_bucket
+10,Great Depression Recovery,1790,1799,0.0,341
+10,Great Depression Recovery,1800,1809,0.0,351
+10,Great Depression Recovery,1810,1819,0.0,385
+10,Great Depression Recovery,1820,1829,0.0,645
+10,Great Depression Recovery,1830,1839,0.069,1447
+10,Great Depression Recovery,1840,1849,0.0,1452
+10,Great Depression Recovery,1850,1859,0.314,1593
+10,Great Depression Recovery,1860,1869,0.0,1454
+10,Great Depression Recovery,1870,1879,0.0,1104
+10,Great Depression Recovery,1880,1889,0.0,1434
+10,Great Depression Recovery,1890,1899,0.0,1689
+10,Great Depression Recovery,1900,1909,0.0,1982
+10,Great Depression Recovery,1910,1919,0.0,1393
+10,Great Depression Recovery,1920,1929,0.381,1050
+10,Great Depression Recovery,1930,1939,33.407,904
+10,Great Depression Recovery,1940,1949,0.801,874
+10,Great Depression Recovery,1950,1959,0.933,750
+10,Great Depression Recovery,1960,1969,0.094,4248
+10,Great Depression Recovery,1970,1979,0.305,1637
+10,Great Depression Recovery,1980,1989,0.277,2523
+10,Great Depression Recovery,1990,1999,0.108,1849
+10,Great Depression Recovery,2000,2009,1.335,1498
+10,Great Depression Recovery,2010,2019,0.477,2516
+10,Great Depression Recovery,2020,2029,1.163,3096
+10,"Labor, Wages & Working Conditions",1790,1799,0.0,341
+10,"Labor, Wages & Working Conditions",1800,1809,0.0,351
+10,"Labor, Wages & Working Conditions",1810,1819,0.26,385
+10,"Labor, Wages & Working Conditions",1820,1829,0.0,645
+10,"Labor, Wages & Working Conditions",1830,1839,0.415,1447
+10,"Labor, Wages & Working Conditions",1840,1849,0.344,1452
+10,"Labor, Wages & Working Conditions",1850,1859,0.063,1593
+10,"Labor, Wages & Working Conditions",1860,1869,1.238,1454
+10,"Labor, Wages & Working Conditions",1870,1879,0.543,1104
+10,"Labor, Wages & Working Conditions",1880,1889,1.813,1434
+10,"Labor, Wages & Working Conditions",1890,1899,2.072,1689
+10,"Labor, Wages & Working Conditions",1900,1909,8.375,1982
+10,"Labor, Wages & Working Conditions",1910,1919,4.953,1393
+10,"Labor, Wages & Working Conditions",1920,1929,6.952,1050
+10,"Labor, Wages & Working Conditions",1930,1939,11.283,904
+10,"Labor, Wages & Working Conditions",1940,1949,7.323,874
+10,"Labor, Wages & Working Conditions",1950,1959,4.4,750
+10,"Labor, Wages & Working Conditions",1960,1969,2.637,4248
+10,"Labor, Wages & Working Conditions",1970,1979,1.588,1637
+10,"Labor, Wages & Working Conditions",1980,1989,1.823,2523
+10,"Labor, Wages & Working Conditions",1990,1999,3.515,1849
+10,"Labor, Wages & Working Conditions",2000,2009,1.268,1498
+10,"Labor, Wages & Working Conditions",2010,2019,3.219,2516
+10,"Labor, Wages & Working Conditions",2020,2029,1.324,3096
+10,"Welfare, Poverty & Economic Opportunity",1790,1799,0.0,341
+10,"Welfare, Poverty & Economic Opportunity",1800,1809,0.0,351
+10,"Welfare, Poverty & Economic Opportunity",1810,1819,0.0,385
+10,"Welfare, Poverty & Economic Opportunity",1820,1829,0.0,645
+10,"Welfare, Poverty & Economic Opportunity",1830,1839,0.069,1447
+10,"Welfare, Poverty & Economic Opportunity",1840,1849,0.0,1452
+10,"Welfare, Poverty & Economic Opportunity",1850,1859,0.0,1593
+10,"Welfare, Poverty & Economic Opportunity",1860,1869,0.138,1454
+10,"Welfare, Poverty & Economic Opportunity",1870,1879,0.0,1104
+10,"Welfare, Poverty & Economic Opportunity",1880,1889,0.07,1434
+10,"Welfare, Poverty & Economic Opportunity",1890,1899,0.0,1689
+10,"Welfare, Poverty & Economic Opportunity",1900,1909,0.0,1982
+10,"Welfare, Poverty & Economic Opportunity",1910,1919,0.144,1393
+10,"Welfare, Poverty & Economic Opportunity",1920,1929,1.333,1050
+10,"Welfare, Poverty & Economic Opportunity",1930,1939,6.084,904
+10,"Welfare, Poverty & Economic Opportunity",1940,1949,2.517,874
+10,"Welfare, Poverty & Economic Opportunity",1950,1959,3.2,750
+10,"Welfare, Poverty & Economic Opportunity",1960,1969,5.014,4248
+10,"Welfare, Poverty & Economic Opportunity",1970,1979,4.093,1637
+10,"Welfare, Poverty & Economic Opportunity",1980,1989,4.439,2523
+10,"Welfare, Poverty & Economic Opportunity",1990,1999,10.005,1849
+10,"Welfare, Poverty & Economic Opportunity",2000,2009,5.474,1498
+10,"Welfare, Poverty & Economic Opportunity",2010,2019,4.769,2516
+10,"Welfare, Poverty & Economic Opportunity",2020,2029,2.003,3096
+10,"Prosperity, Jobs & the Middle Class",1790,1799,0.0,341
+10,"Prosperity, Jobs & the Middle Class",1800,1809,0.0,351
+10,"Prosperity, Jobs & the Middle Class",1810,1819,0.26,385
+10,"Prosperity, Jobs & the Middle Class",1820,1829,0.155,645
+10,"Prosperity, Jobs & the Middle Class",1830,1839,0.069,1447
+10,"Prosperity, Jobs & the Middle Class",1840,1849,0.069,1452
+10,"Prosperity, Jobs & the Middle Class",1850,1859,0.0,1593
+10,"Prosperity, Jobs & the Middle Class",1860,1869,0.069,1454
+10,"Prosperity, Jobs & the Middle Class",1870,1879,0.181,1104
+10,"Prosperity, Jobs & the Middle Class",1880,1889,0.349,1434
+10,"Prosperity, Jobs & the Middle Class",1890,1899,1.066,1689
+10,"Prosperity, Jobs & the Middle Class",1900,1909,0.757,1982
+10,"Prosperity, Jobs & the Middle Class",1910,1919,0.359,1393
+10,"Prosperity, Jobs & the Middle Class",1920,1929,4.19,1050
+10,"Prosperity, Jobs & the Middle Class",1930,1939,2.102,904
+10,"Prosperity, Jobs & the Middle Class",1940,1949,1.373,874
+10,"Prosperity, Jobs & the Middle Class",1950,1959,5.6,750
+10,"Prosperity, Jobs & the Middle Class",1960,1969,3.955,4248
+10,"Prosperity, Jobs & the Middle Class",1970,1979,7.758,1637
+10,"Prosperity, Jobs & the Middle Class",1980,1989,6.461,2523
+10,"Prosperity, Jobs & the Middle Class",1990,1999,8.112,1849
+10,"Prosperity, Jobs & the Middle Class",2000,2009,5.874,1498
+10,"Prosperity, Jobs & the Middle Class",2010,2019,11.606,2516
+10,"Prosperity, Jobs & the Middle Class",2020,2029,7.3,3096
+10,"Trusts, Corporations & Antitrust",1790,1799,0.0,341
+10,"Trusts, Corporations & Antitrust",1800,1809,0.0,351
+10,"Trusts, Corporations & Antitrust",1810,1819,0.0,385
+10,"Trusts, Corporations & Antitrust",1820,1829,0.0,645
+10,"Trusts, Corporations & Antitrust",1830,1839,0.138,1447
+10,"Trusts, Corporations & Antitrust",1840,1849,0.0,1452
+10,"Trusts, Corporations & Antitrust",1850,1859,0.0,1593
+10,"Trusts, Corporations & Antitrust",1860,1869,0.069,1454
+10,"Trusts, Corporations & Antitrust",1870,1879,0.634,1104
+10,"Trusts, Corporations & Antitrust",1880,1889,1.534,1434
+10,"Trusts, Corporations & Antitrust",1890,1899,1.243,1689
+10,"Trusts, Corporations & Antitrust",1900,1909,10.848,1982
+10,"Trusts, Corporations & Antitrust",1910,1919,11.055,1393
+10,"Trusts, Corporations & Antitrust",1920,1929,2.571,1050
+10,"Trusts, Corporations & Antitrust",1930,1939,2.987,904
+10,"Trusts, Corporations & Antitrust",1940,1949,0.458,874
+10,"Trusts, Corporations & Antitrust",1950,1959,0.8,750
+10,"Trusts, Corporations & Antitrust",1960,1969,0.094,4248
+10,"Trusts, Corporations & Antitrust",1970,1979,0.733,1637
+10,"Trusts, Corporations & Antitrust",1980,1989,0.119,2523
+10,"Trusts, Corporations & Antitrust",1990,1999,0.0,1849
+10,"Trusts, Corporations & Antitrust",2000,2009,0.401,1498
+10,"Trusts, Corporations & Antitrust",2010,2019,1.192,2516
+10,"Trusts, Corporations & Antitrust",2020,2029,0.84,3096
+20,Great Depression Recovery,1780,1799,0.0,355
+20,Great Depression Recovery,1800,1819,0.0,736
+20,Great Depression Recovery,1820,1839,0.048,2092
+20,Great Depression Recovery,1840,1859,0.164,3045
+20,Great Depression Recovery,1860,1879,0.0,2558
+20,Great Depression Recovery,1880,1899,0.0,3123
+20,Great Depression Recovery,1900,1919,0.0,3375
+20,Great Depression Recovery,1920,1939,15.66,1954
+20,Great Depression Recovery,1940,1959,0.862,1624
+20,Great Depression Recovery,1960,1979,0.153,5885
+20,Great Depression Recovery,1980,1999,0.206,4372
+20,Great Depression Recovery,2000,2019,0.797,4014
+20,Great Depression Recovery,2020,2039,1.163,3096
+20,"Labor, Wages & Working Conditions",1780,1799,0.0,355
+20,"Labor, Wages & Working Conditions",1800,1819,0.136,736
+20,"Labor, Wages & Working Conditions",1820,1839,0.287,2092
+20,"Labor, Wages & Working Conditions",1840,1859,0.197,3045
+20,"Labor, Wages & Working Conditions",1860,1879,0.938,2558
+20,"Labor, Wages & Working Conditions",1880,1899,1.953,3123
+20,"Labor, Wages & Working Conditions",1900,1919,6.963,3375
+20,"Labor, Wages & Working Conditions",1920,1939,8.956,1954
+20,"Labor, Wages & Working Conditions",1940,1959,5.973,1624
+20,"Labor, Wages & Working Conditions",1960,1979,2.345,5885
+20,"Labor, Wages & Working Conditions",1980,1999,2.539,4372
+20,"Labor, Wages & Working Conditions",2000,2019,2.491,4014
+20,"Labor, Wages & Working Conditions",2020,2039,1.324,3096
+20,"Welfare, Poverty & Economic Opportunity",1780,1799,0.0,355
+20,"Welfare, Poverty & Economic Opportunity",1800,1819,0.0,736
+20,"Welfare, Poverty & Economic Opportunity",1820,1839,0.048,2092
+20,"Welfare, Poverty & Economic Opportunity",1840,1859,0.0,3045
+20,"Welfare, Poverty & Economic Opportunity",1860,1879,0.078,2558
+20,"Welfare, Poverty & Economic Opportunity",1880,1899,0.032,3123
+20,"Welfare, Poverty & Economic Opportunity",1900,1919,0.059,3375
+20,"Welfare, Poverty & Economic Opportunity",1920,1939,3.531,1954
+20,"Welfare, Poverty & Economic Opportunity",1940,1959,2.833,1624
+20,"Welfare, Poverty & Economic Opportunity",1960,1979,4.758,5885
+20,"Welfare, Poverty & Economic Opportunity",1980,1999,6.793,4372
+20,"Welfare, Poverty & Economic Opportunity",2000,2019,5.032,4014
+20,"Welfare, Poverty & Economic Opportunity",2020,2039,2.003,3096
+20,"Prosperity, Jobs & the Middle Class",1780,1799,0.0,355
+20,"Prosperity, Jobs & the Middle Class",1800,1819,0.136,736
+20,"Prosperity, Jobs & the Middle Class",1820,1839,0.096,2092
+20,"Prosperity, Jobs & the Middle Class",1840,1859,0.033,3045
+20,"Prosperity, Jobs & the Middle Class",1860,1879,0.117,2558
+20,"Prosperity, Jobs & the Middle Class",1880,1899,0.736,3123
+20,"Prosperity, Jobs & the Middle Class",1900,1919,0.593,3375
+20,"Prosperity, Jobs & the Middle Class",1920,1939,3.224,1954
+20,"Prosperity, Jobs & the Middle Class",1940,1959,3.325,1624
+20,"Prosperity, Jobs & the Middle Class",1960,1979,5.013,5885
+20,"Prosperity, Jobs & the Middle Class",1980,1999,7.159,4372
+20,"Prosperity, Jobs & the Middle Class",2000,2019,9.467,4014
+20,"Prosperity, Jobs & the Middle Class",2020,2039,7.3,3096
+20,"Trusts, Corporations & Antitrust",1780,1799,0.0,355
+20,"Trusts, Corporations & Antitrust",1800,1819,0.0,736
+20,"Trusts, Corporations & Antitrust",1820,1839,0.096,2092
+20,"Trusts, Corporations & Antitrust",1840,1859,0.0,3045
+20,"Trusts, Corporations & Antitrust",1860,1879,0.313,2558
+20,"Trusts, Corporations & Antitrust",1880,1899,1.377,3123
+20,"Trusts, Corporations & Antitrust",1900,1919,10.933,3375
+20,"Trusts, Corporations & Antitrust",1920,1939,2.764,1954
+20,"Trusts, Corporations & Antitrust",1940,1959,0.616,1624
+20,"Trusts, Corporations & Antitrust",1960,1979,0.272,5885
+20,"Trusts, Corporations & Antitrust",1980,1999,0.069,4372
+20,"Trusts, Corporations & Antitrust",2000,2019,0.897,4014
+20,"Trusts, Corporations & Antitrust",2020,2039,0.84,3096

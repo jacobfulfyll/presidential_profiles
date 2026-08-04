@@ -6,20 +6,340 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-(none)
+- [ ] publish-current-site-to-github-pages: Execute the owner-authorized
+  `notes/github-pages-release-plan-v1.md` contract. Publish the generator,
+  governed small artifacts, and rebuilt `docs/` through the existing
+  `master:/docs` Pages source; enforce the staged allowlist and size boundary;
+  keep `data/annotation_ledger/`, `.codex/operators/`, and tool telemetry out of
+  the release; verify the merged commit and public routes before completion.
+  [P1] [high] [release]
+- [x] refine-america-summary-page: Implemented the V2 Summary contract in
+  `notes/summary-redesign-v2.md`: demoted weak postwar topic breadth, removed
+  topic lifecycle and weather-map displays, clarified communication, added
+  nine-era adversary categories and a president conflict view, redesigned era
+  selection, removed combat whiskers, audited founding nostalgia terms, and
+  corrected the ratio to Hope/Doom. All 2,591 tests and the canonical site,
+  JavaScript, desktop, and 390px gates pass. [P1] [high] [completed]
+- [x] annotation-refresh-provisional-corpus-execution: Exact plan
+  `pcplan_541b52ab42e978227017f4d2ca5f67d7e624e5a4d76b8b256b8fb371577427bf`
+  was authorized by `ARCV1-RES014`/`ARCV1-RES016` and initialized as campaign
+  `pcamp_ce0ff257543c3a342d96147b9e5e46953ca7016aab9bf29f1c6f1b573100939b`.
+  The locked partition verifies at 9,186 assignments, 35,154 fresh subjects,
+  and 81,663,911 input-proxy tokens. Owner-authorized `ARCV1-RES020` and
+  `ARCV1-RES021`/`ARCV1-RES023` added recorded, separately hashed
+  validator-feedback repair paths while keeping all results provisional. The
+  campaign stopped under `ARCV1-RES024` at assignment 8177. Owner-authorized
+  `ARCV1-RES025` added the bounded automatic targeted-literal fourth-attempt
+  path. `ARCV1-RES026` then raised the conservative ceiling to 93,000,000 and
+  authorized scoped recovery of seven terminal assignments; `ARCV1-RES027`
+  recorded the final owner-approved docs-only protected-state overlay. All
+  9,186 assignments / 35,154 fresh subjects / 246,078 fresh fields passed
+  audit with 1,047 invalid attempts preserved and 91,043,250 proxy tokens
+  reserved. Sealed artifact set
+  `d0bd31e73e652faa4a9e5d3c2bb89ee2c30de28b99d411ff460b10441d38d484`
+  and verified non-promoted composite
+  `pcomp_a8580fb16926dbe523cd6a9e1ceed165b99f2f0f5828f031b49c8e6f4bc5d02b`
+  cover 35,394 total subjects / 247,758 fields with zero missing or duplicate
+  keys. No promotion, production materialization, site generation, deployment,
+  or frozen paid-artifact change occurred. [P1] [high] [completed]
 
 ---
 
 ## Backlog
+
+### Annotation refresh
+
+- [x] annotation-refresh-provisional-corpus-planner: Completed under
+  planning-only `ARCV1-RES012`. Published immutable reuse manifest
+  `reuse_d5f9059121d080eab7ae31f0b4cdcf2d1be9c5bf8d3b1a6d411a4598f3ad7ec1`
+  with 972 derived unanimous and 708 resolved adjudicated fields over the exact
+  240-subject evaluation sample; fresh selection
+  `fresh_1ab0bf0f22825aa61e83e54744d90bf0b23793e748e3d71d7801f8e8b9533cd3`
+  contains the exact other 35,154 current canonical paragraphs and all other
+  482 pilot paragraphs in 9,186 deterministic batches; and non-executable plan
+  `pcplan_541b52ab42e978227017f4d2ca5f67d7e624e5a4d76b8b256b8fb371577427bf`
+  locks exact `gpt-5.6-sol`/`high`, source seals, hashes, assembly rules, and an
+  81,663,911-token input estimate with an 89,830,303 ceiling. No executable
+  state or current-label/materialization change was created at the planning
+  checkpoint. `ARCV1-G007` was later authorized through `ARCV1-RES014` and
+  `ARCV1-RES016`; the separate active execution task now records the
+  `ARCV1-RES017` integrity stop. Verification passed 10 focused planner tests,
+  all 61
+  annotation-refresh/workflow/ledger tests, compilation, registry validation,
+  idempotent replanning, side-effect auditing, and whitespace checks. The full
+  suite had 2,497 passes and one documented unrelated story-page copy failure.
+  [P1] [high] [planning]
+- [x] annotation-refresh-stage3-pilot-evaluation: Completed the authorized
+  provider-neutral Stage 3 sequence after `ARCV1-RES010` removed
+  first-response validity pre-results. Sealed the 144/722/722 pilot children,
+  completed and sealed a fresh 240-subject independent reference, published
+  five hash-only comparisons, completed and sealed fresh adjudication of all
+  708 disputes across 236 subjects, and published all 708 append-only
+  decisions. Deterministic evaluation
+  `eval_bbb2212dea6936070b23bff11100615c602396b72d2fe6058cc707864f060b61`
+  passed 114/150 gates and failed 36. `ARCV1-RES011` therefore rejects
+  `ARCV1-G003`; no V2 spec/bundle or passing campaign outcome was frozen, and
+  no full shadow, promotion, materialization, site build, or deployment ran.
+  Invocation proposal `ARCV1-D018` remains pending owner approval or revision.
+  [P1] [high] [evaluation]
+- [x] annotation-refresh-stage3-first-response-provenance: `ARCV1-B001` blocked
+  pilot sealing and evaluation. The three completed child runs pass registry-v2
+  structural audit at 144/144, 722/722, and 722/722 subjects, with 36/182/182
+  accepted responses and 31 valid combined runtime/blindness receipts. However,
+  the provider-neutral ingest path persists only accepted responses and no
+  authoritative attempt/rejection log exists, so the frozen first-response
+  schema-validity numerator and denominator cannot be reconstructed. Do not
+  infer first-response validity from the accepted response. Do not label the
+  reference, seal a child, compare, evaluate, adjudicate, freeze, or seal the
+  campaign unless authoritative pre-existing evidence resolves the blocker.
+  `ARCV1-RES010` superseded the requirement before reference labeling or
+  evaluation, removing the absolute threshold and both derived margins without
+  asserting that the missing history exists. All remaining gates are unchanged
+  and Stage 3 may resume. [P1] [high] [provenance]
+  [depends: ARCV1-B001]
+- [x] annotation-refresh-stage2-pilot-plan: Completed under `ARCV1-RES003` and
+  `ARCV1-RES004`. The amended sampler persisted exact 482-core / 722-combined,
+  144-diagnostic, and 240-reference content-addressed selections. Shared-context
+  rendering and persisted batch partitioning are tested; the non-executable plan
+  fixes 182/182/36 assignments and a 3,359,122-token pilot estimate with a
+  3,695,035-token ceiling. `ARCV1-G002` is approved through `ARCV1-RES006`;
+  `ARCV1-G001` and `ARCV1-G006` are satisfied/approved through
+  `ARCV1-RES007`/`ARCV1-RES008`, and `ARCV1-RES009` records initialization of
+  the exact 144/722/722 campaign with zero assignments, responses, or events.
+  The later child execution and Stage 3 evaluation completed after
+  `ARCV1-RES010` superseded the provenance gate; the pilot failed 36/150 frozen
+  gates under `ARCV1-RES011`. Stage 1 and current labels remain fixed. [P1]
+  [high] [code]
+  [depends: satisfied ARCV1-I001, satisfied ARCV1-D016]
 
 ### Analysis & Findings
 - [ ] restructure-register-findings-note: `notes/register-findings-v1.md` is correct but misshapen — 1,367 lines, with "Method notes that change the numbers" running ~290 lines before the first finding, and ~16 "an earlier draft said..." disclosures because four corrective rounds ADDED to the prose rather than substituting into it. REVIEW round 4 adjudicated this as shape-not-accuracy and explicitly NOT a blocker: the summary of verdicts is at L31 and a reader who reads 55 lines has the whole answer. Estimated under 900 lines without deleting a fact (method notes -> appendix, draft history -> a changelog section). Two things the task MUST inherit: (a) the completeness sweep is coupled to the note's H1/H2 heading structure, so moving prose re-scopes the matcher — it fails SAFE (spurious leaks), so this is a CI guard, not a hazard; (b) `self_reference` is the one measure whose 5 significant cells have no printed home outside "Method notes" — if that section moves, its numbers move with it or it gets its own section. ~360 test anchors in `tests/test_register_note_claims.py` pin the note's printed figures and will need updating in lockstep. [P3] [moderate] [tier: opus:medium] [code] [depends: none]
   files: notes/register-findings-v1.md (MOD), tests/test_register_note_claims.py (MOD)
 
 ### Site Presentation
+- [x] canonicalize-al-qaeda-family-label: Added a shared named-entity label
+  override so grouped Era Profile and Explore vocabulary display `Al-Qaeda`
+  instead of `Qaeda`, while both hyphenated and spaced spellings continue to
+  count in the same family. All 68 focused tests and the canonical
+  73-HTML/165-JSON build pass. (Era Profile label follow-up, 2026-08-03)
+- [x] exclude-president-names-and-link-era-portraits: Excluded every
+  president-name term from Corpus Footprint's distinctive-vocabulary ranking,
+  rather than special-casing Kennedy, Nixon, Bush, and Trump; made every Era
+  Profile portrait a keyboard-accessible link to the corresponding president
+  profile; and bumped the public profile schema to v4. The 116-test broader
+  suite, canonical 73-HTML/165-JSON build, static script parsing, and browser
+  click-through QA pass. (Era Profile follow-up,
+  2026-08-03)
+- [x] group-and-saturate-era-distinctive-vocabulary: Reused Explore's audited
+  word-family map and spelling normalization for every Corpus Footprint,
+  combined slavery/slave/slaves, replaced indefinitely increasing z-rank with
+  a capped effect-size rank whose evidence weight saturates, and promoted the
+  combined slavery family to rank #1 for 1850–1868; public profile schema is
+  now v3. The 115-test broader suite, canonical 73-HTML/165-JSON build, static
+  JavaScript parsing, and desktop visual QA pass; no frozen-annotation changes.
+  (Corpus Footprint ranking conversation, 2026-08-03)
+- [x] equalize-footprint-and-major-topics-cards: Restored equal-height
+  Corpus Footprint and Major Topics cards in the two-column Era Profile row;
+  moved each `× other eras` value onto its own line beneath uses; and preserved
+  equal synchronized growth when the ranking disclosure opens. Browser QA
+  measures both cards at 234.37px closed and 244.91px open, with a contained
+  230px phone fallback and no overflow. (Corpus Footprint follow-up,
+  2026-08-03)
+- [x] simplify-corpus-footprint-rank-cards-and-collapse-height: Restored the
+  literal `× other eras` label; reduced each distinctive-word card to rank,
+  focal-era uses, and the relative-rate multiplier; removed visible evidence
+  and speech-count copy; and made the Corpus Footprint article content-sized
+  while closed so only opening its method disclosure adds height. Desktop and
+  390px browser checks confirm 199→245px and 204→259px closed/open growth,
+  respectively, with no page overflow. (Corpus Footprint follow-up,
+  2026-08-03)
+- [x] compress-corpus-footprint-distinctive-words: Replaced wrapping
+  distinctive-word labels with single-line container-responsive type; replaced
+  the abstract displayed z score with explicit concentration plus era-use and
+  speech evidence; moved the ranking method and eligibility rules into a
+  collapsed disclosure; and changed Era Profile rows from a fixed height to a
+  230px minimum so opening the disclosure grows rather than clips its card.
+  All 72 relevant Story/profile/site tests, the canonical build, and
+  desktop/single-column/390px browser QA pass. (Corpus Footprint follow-up,
+  2026-08-03)
+- [x] clarify-distinctive-word-ranking-and-link-adversary-hover: Made every
+  Adversary Network president, opponent, and connecting line an accessible
+  hover/focus/click target whose full connected path stays bright while
+  unrelated marks dim. Made Corpus Footprint terms resize and wrap against the
+  actual card width. Kept the governed informative-prior log-odds ranking and
+  now prints its evidence score beside the raw era-versus-other-eras ratio, so
+  cases such as Constitution (rank 1, score 48.5, 6.9×) versus Slavery (rank 2,
+  score 37.9, 44.4×) explain rather than contradict the ranking. Three new
+  regression contracts, all 2,582 repository tests, the canonical build,
+  static JavaScript parsing, and desktop/390px browser QA pass. (Story profile
+  and adversary conversation, 2026-08-03)
+- [x] simplify-story-to-three-part-era-structure: Every chronological era now
+  renders only its title block, one historical introductory summary, and the
+  shared four-view workspace. Founding uses the same workspace path as the
+  other eight eras. Legacy chapter graphs, quotations, event callouts,
+  supporting prose, dynamic metric-takeaway appendices, and Story-only Plotly
+  payloads are removed from the generated page while their governed source
+  functions and data remain intact. The full 2,579-test suite, canonical
+  73-HTML/165-JSON build, static JavaScript parsing, and desktop/390px browser
+  QA pass. (Story structure conversation, 2026-07-31)
+- [x] split-summary-into-standalone-page: Generated `summary.html` as the
+  dedicated home for Synthesis and the Extreme Speeches appendix; removed both
+  sections and their Plotly payloads from `index.html`; linked the end of the
+  ninth era forward to Summary; changed the global navigation to a real page;
+  and preserved legacy `index.html#synthesis` / `#records_appendix` links with
+  redirects. Story and Summary now have independent current navigation states,
+  document titles, section routes, and regression coverage. (Story structure
+  conversation, 2026-07-31)
+- [x] move-long-run-comparisons-to-summary: Moved the all-president
+  legal/procedural-versus-hype scatter and the 1880–1932 national-naming
+  crossover out of their individual chronology chapters and into Summary,
+  alongside the existing reviewed-era hype-versus-doom map. Preserved the era
+  highlight controls, exact values, explanations, evidence receipts, and chart
+  interactions; added location and composition contracts so all three
+  comparisons render exactly once. (Story visualization conversation,
+  2026-07-31)
+- [x] standardize-era-graph-workspaces: Replaced the nested
+  Era Profile / Visualize / Contextualize structure with four direct peer views
+  in every era: Era Profile, Era Defined, Adversaries, and Era Echoes. Extended
+  the Founding combined-trajectory grammar to all nine Era Defined views,
+  retaining the historically declared Founding and Continental Republic
+  families and using each later profile's four leading topics. Added a direct
+  directional Era Echoes switch between later presidents `Invoked by` the era
+  and focal-era presidents `Invoking` earlier presidents; each direction has
+  its own gravity layout, with impossible edge-era directions disabled.
+  Presidential Agendas remain in the governed visualization contract but are
+  no longer rendered in the Story workspace.
+  (Story visualization conversation, 2026-07-30)
+- [ ] publish-era-constituency-categories: Replace the pending/illustrative
+  constituency state in all nine shared Era Profile screens with the leading
+  five promoted `group_type` categories, measured as non-exclusive
+  paragraph-level unions over each era's complete canonical denominator.
+  Publish exact paragraph share, paragraph and speech support, a conservative
+  one-speech `episodic` flag, observed relation/stance values, and one
+  deterministic keyed receipt per row under a collapsed accessible
+  Measure/Evidence disclosure. Do not rank raw `group_text`: the candidate
+  explicitly provides no authoritative `normalized_group`, and the sealed
+  literal layer is highly fragmented. Entry is blocked until an owner-approved
+  disposition yields a production-eligible promoted/materialized projection
+  with zero `unclear` rows and until the Story inputs use the same corrected
+  canonical corpus fingerprint. The site must never read the provisional
+  composite directly or mix its 35,394 canonical paragraph keys with the
+  current 36,229-paragraph legacy profile denominator. Full contract, refusal
+  tests, renderer behavior, verification, and scope boundaries:
+  `notes/era-profile-constituencies-plan-v1.md`.
+  [P1] [high] [code]
+  [depends: owner-approved constituency production eligibility;
+  canonical Story-input migration]
+  files: src/presidential_profiles/era_profiles.py (MOD),
+  src/presidential_profiles/site.py (MOD), tests/test_era_profiles.py (MOD),
+  tests/test_founding_story.py (MOD), tests/test_annotation_ledger.py (MOD if
+  prerequisite materialization changes it), tests/test_site_validation.py
+  (MOD as needed), README.md (MOD), docs/ (GEN)
+- [x] redesign-presidential-agendas: Replaced the comparison matrix in every
+  era with individual vertical agenda cards. Each card contains only that
+  president's five leading policy domains and keeps the rank, stable-color
+  bar, exact paragraph-presence percentage, and taxonomy description together.
+  Bars scale to the leader within each card to foreground the shape of that
+  president's agenda; printed percentages preserve the comparable values.
+  Remaining policy and Non-policy are removed from both the graphic and exact
+  fallback. The former on-screen text-alternative table is also removed;
+  definitions are clamped to one visible line and the measure/selection/
+  weighting explanation starts collapsed. Full definitions reveal from the
+  one-line summary on hover, keyboard focus, or click, and the Measure/Evidence
+  receipts now follow that disclosure without a flex-created blank band. The
+  active Agenda workspace is content-sized and therefore grows naturally with
+  the disclosure instead of retaining the taller Era Profile floor.
+  Supported-card sets above three presidents use one horizontal row showing
+  three cards at desktop width and one at mobile width. Multi-label paragraphs
+  still receive full credit in every applicable domain; unassigned coverage,
+  all-domain paragraph/raw-word sensitivity values, and the separate
+  thin-president disclosure remain published in the contract.
+  (Story visualization conversation, 2026-07-29)
+- [x] redesign-founding-era-defined-from-topic-life: Replaced the Founding
+  benchmark-only display with one combined four-line trajectory graph. The
+  approved topic families now share a zero-based 0–35% axis whose ceiling is
+  the next five-point mark above the observed 31.5% maximum. The compact key
+  contains only family names, line hover isolates a trajectory, point hover
+  reveals its percentage, endpoint labels omit values, and methodology starts
+  collapsed; the redundant exact table and reserved receipt gap are removed
+  without promoting unvalidated reframe hypotheses. Exact values remain
+  attached to points and in the governed contract. The governed Topic Life data
+  remains published.
+  (Story visualization conversation, 2026-07-29)
+- [ ] evaluate-era-echoes-invocation-function: Decide whether Era Echoes should
+  add the existing invocation `function` and `stance` fields. The current
+  graph already preserves the exact speaker → assigned paragraph topic →
+  invoked former-president paths, but it does not encode how the invocation
+  functioned or the stance toward the named president. Any redesign must keep
+  paragraph evidence and exploratory/not-human-validated status visible and
+  avoid overloading the gravity layout. (Story visualization conversation,
+  2026-07-29)
 - [ ] centralize-issue-display-names: `issues + ["Discovered 5"]` is hardcoded in five modules (`profiles.py:281`, `profiles_site.py:334`, `explorer.py:118`, `issues_site.py:247`, `site.py:361` + `site.py:1121`). Deferred from `profile-issue-views` (its acceptance criterion 4) at PICKUP on 2026-07-16: the "centralized names file" that criterion assumed does not exist and is blocked behind `topic-method-comparison`. Note task.md called this "the two hardcoded sites" — it is five. [P3] [moderate] [code] [depends: topic-method-comparison] **LARGELY SUPERSEDED 2026-07-21**: `topic-method-comparison` centralized all six append sites onto `data/topic_display_names.json` behavior-preservingly, and `taxonomy.CROSSWALK_ISSUES` (added 2026-07-20) already provides the centralized legacy-issue list this entry says "does not exist". Residual scope only: the 5 *other* `"Discovered 5"` literals that were deliberately left alone — `profiles_site.py` `DISCOVERED_LABELS`, `explorer.py` inline label ternary, `profiles.py` `_EXTRA_ANCHORS` + `_WAR_SPEC`. Re-groom before picking up; the line numbers in this entry are stale (`profiles.py` is 340 not 281, `profiles_site.py` is 379 not 334).
 
 ### Ungroomed
+- [x] move-agenda-breadth-to-synthesis: Rebuilt Summary around six aggregate
+  arguments. The agenda chapter shows all nine annual-message breadth blocks,
+  the governed +2.17 modern-minus-postbellum registered receipt, and all 17
+  Level-1 lifecycles across nine Story eras without treating breadth as quality
+  or attributing the result to 2017. Audience/medium rivers, proposal/value
+  stance, improved all-president era presets, adversary succession plus combat
+  rates, future/nostalgia, and guarded event-annotated hype÷doom now lead to the
+  existing weather map and concluding audit. Ten Summary charts mount; the
+  canonical 73-HTML/165-JSON build, static JavaScript parsing, all 2,589 tests,
+  and desktop/390px browser QA pass. Frozen annotations were not changed and
+  nothing was deployed. (Summary-page conversation, 2026-08-03)
+- [ ] embed-era-choice-receipt-in-the-story: Add a compact later-story chart
+  showing where the nine chapter starts came from and which decisions were
+  mathematical optima versus historically reviewed exact-year tie-breaks.
+  Reuse the governed four-year/eight-year abruptness ranks, persistent-regime
+  segmentation, axis-removal robustness, and reviewed adjustment costs already
+  published on `era-boundaries.html`; do not create a second periodization
+  method. The chart should make the 1809, 1850, 1869, 1933, and 2017 calls
+  legible without interrupting the chronology, and link to the full methods
+  page for the 63-axis details. (Era-boundary design conversation, 2026-07-26)
+- [ ] annotate-referenced-regions-and-groups: Add paired geographic-region and
+  referenced-group/entity fields to a future paragraph annotation run so the site
+  can measure which places, political entities, and collective groups presidents
+  explicitly mention over time. This should support a defensible long-run European
+  series as well as groups or entities such as Native peoples and nations, Barbary
+  states, alliances, institutions, factions, and demographic or social groups.
+  Before grooming, decide the annotation grain, multi-label ontology, and entity
+  types; distinguish explicit textual reference from inferred geopolitical
+  relevance; and keep the normalized group/entity separate from its regional
+  attribute because a group can span regions. Normalize historical entities and
+  aliases such as Great Britain/UK, Prussia/Germany, Austria-Hungary, Soviet
+  Union/Russia, Yugoslavia, the Ottoman Empire/Turkey, and named Native nations
+  without collapsing their distinct identities. The design must preserve raw
+  mention and stance evidence, validate both group/entity and region assignments
+  against `paragraph_entities.parquet`, measure independent-model agreement, and
+  publish denominators/provenance suitable for comparing attention across eras.
+  Do not retrofit or hand-edit the current frozen paid annotation artifacts.
+  (Founding-section design conversation, 2026-07-25)
+- [ ] validate-topic-life-reframing-hypotheses: Review the separate
+  `data/contextualization/topic_life_annotations_v1.json` editorial history
+  before the remaining finance claim can move from `unvalidated`. The
+  specialized Barbary/War of 1812 → broader War & Military Affairs candidate
+  is now `rejected`: its nine-era Spearman correlation is -0.08 and the
+  successor declines rather than grows from the Founding to the present. The
+  debt/revenue/Treasury → taxes/deficits/spending candidate passes the
+  display-only cutoff but remains unvalidated. Human validation must
+  distinguish label replacement from substantive historical continuity,
+  inspect paragraph-level evidence on both sides of the proposed transition,
+  and record an accept/reject decision with rationale. The quantitative gate
+  is not historical validation. Do not edit the frozen paid annotation
+  artifacts.
+  (Contextualize-era design conversation, 2026-07-26)
+- [ ] gilded-age-procedural-culmination: Revisit the 1878–1900 story chapter as the likely
+  culmination of the nineteenth-century rise in the declared legal/procedural word family,
+  centered especially on Rutherford B. Hayes and the early 1880s, followed by a broad long-run
+  decline. This is explicitly out of scope for the founding-section redesign. Before grooming,
+  re-derive the pattern from `data/speech_markers.parquet` at president, centered five-year, named
+  era, and genre-controlled registered grains; distinguish an era-level rise and decline from a
+  monotonic yearly claim; decide how the Hayes/Gilded interpretation relates to the existing
+  high-procedural/low-hype comparison; and preserve the caveat that declared vocabulary does not
+  measure competence, productivity, policy depth, or enacted law. (Founding-section design
+  conversation, 2026-07-23)
+
 Discovered during build-annotation-provenance-layer (2026-07-14). Not fixed — logged only.
 - [ ] np-empty-on-published-arrays: `attention.py:1309` allocates `replicates = np.empty((n_draws, *observed.shape))` for a bootstrap replicate array — the identical defect class `convergence-analysis` fixed at its own two sites (`np.empty` → `np.full(R, np.nan)`). Any draw the loop fails to write carries **recycled memory** into a published interval; under mutation the convergence copy was observed carrying **1829.5**, a window-centre year, into `null_mean`/`null_sd`/`null_crit_05`. Byte-identical to fix while every slot is written, which is the case today. Convention now established in `convergence.py:1071-1077`: NaN-fill any float accumulator whose elements are read back, and comment any `np.empty` deliberately retained (int index arrays have no NaN sentinel — see `convergence.py:784`). Sweep the other derived modules (`combat.py`, `eras.py`, `bands.py`) for the same shape. (SIMPLIFY judge, convergence-analysis, 2026-07-21)
 - [ ] convergence-duplicated-rule-sweep: `convergence.py:923` carries a **second copy** of the `E-1` divisor rule already at `:797` (guarded — mutant C12 dies on `test_pres_jsd_is_the_mean_distance_to_the_OTHERS_not_to_everyone`). That makes **three** duplicated-rule pairs found in this one module: `ends_2014` (two sites, each needed its own mutant; collapsed into `ends_2014_mask` by SIMPLIFY), `significant_decline` (`null_rows` had two tests, the `jackknife:1122-1124` copy had zero until QUALITY-CHECK), and now the divisor. Each pair was found by mutation one at a time. A deliberate sweep for remaining duplicated expressions is cheaper than finding the fourth the same way. (SIMPLIFY judge, convergence-analysis, 2026-07-21)
@@ -121,3 +441,7 @@ Discovered during build-annotation-provenance-layer (2026-07-14). Not fixed — 
 - [ ] eras-single-unit-nan-poisons-axis: `eras.zscore` computes column mean/std over all units, so ONE NaN cell (e.g. a future 0-sentence speech giving NaN fk_grade) makes the whole axis NaN-sigma and silently drops it for every unit — corpus-wide signal loss from one degenerate row. No NaN exists today (verified 0 at every grain). Per-cell NaN handling vs column drop is a methodological decision, not a cleanup. (REVIEW, era-atlas, 2026-07-21)
 - [ ] consolidate-derived-layer-duplicates: three scope-forced copies now exist across derived layers — `eras.detrend_local_mean` re-implements `similarity.build_adjusted`'s 24yr-window+4-nearest loop; `_require_full_merge` has a 3rd verbatim copy (taxonomy/combat/eras); `eras` EXEMPLAR_MIN/MAX_WORDS value-copies combat's 20/200 (docstring now says so honestly). Consolidate into a neutral shared module in one pass. Overlaps `require-full-merge-is-private-and-expensive` and `register-imports-drag-in-corex` — fix together. Also fold in: `eras.generate_portraits` re-reads paragraphs.parquet 9x and double-loads the master frame on the one-time paid path (negligible today). (REVIEW, era-atlas, 2026-07-21)
 - [ ] eras-staleness-guard-checks-combat-only: `eras.check_staleness` compares the live corpus fingerprint against `combat_meta.json` ONLY, though the module equally consumes `data/register/trends.parquet`, `data/attention/`, and the frozen annotation layer (whose manifests carry `corpus_fingerprint`) — and it WARNS rather than refuses. Extends `derived-tables-go-stale-against-corpus-refresh`: the consumer-side check exists now but covers one of four inputs. (REVIEW discovered, era-atlas, 2026-07-21)
+- [ ] classify-era-party-from-annotation-features: supervised classification (gradient boosting / logistic regression) predicting era or party from the LLM-annotated speech features, with interpretable feature importances as the deliverable — which rhetoric features separate eras is a finding, not just a model. Portfolio motive: makes a current, clickable classical-ML claim for the website's modeling story. (surfaced from personal_website modeling-inventory interview, 2026-07-24)
+- [ ] regress-approval-movement-on-speech-annotations: regression of approval-rating movement on time-aligned speech annotation features, with honest small-n treatment (regularization, uncertainty reported). Scope decision at grooming: which approval series, what alignment window. (surfaced from personal_website modeling-inventory interview, 2026-07-24)
+- [ ] model-topic-drift-across-eras: topic modeling (LDA/NMF family) over the speech corpus with drift across named eras as the object of study — reuses Jacob's bootcamp-era topic-modeling skill on this corpus; relate findings to the existing declared-word-family era work rather than duplicating it. (surfaced from personal_website modeling-inventory interview, 2026-07-24)
+- [ ] meta-analyze-llm-annotation-snapshots: treat the frozen annotation snapshots themselves as data — agreement/drift between annotation model versions over time, per feature and per era. Doubles as LLM-evaluation methodology work (the most current shade of the modeling story) and as a robustness audit of every downstream analysis that consumes the annotations. (surfaced from personal_website modeling-inventory interview, 2026-07-24)

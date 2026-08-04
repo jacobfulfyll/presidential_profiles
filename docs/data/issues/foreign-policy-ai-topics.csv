@@ -1,0 +1,297 @@
+bucket_years,topic,period_start,period_end,share_percent,paragraphs_in_bucket
+10,Neutral Rights & Maritime Depredations,1790,1799,16.716,341
+10,Neutral Rights & Maritime Depredations,1800,1809,13.675,351
+10,Neutral Rights & Maritime Depredations,1810,1819,16.104,385
+10,Neutral Rights & Maritime Depredations,1820,1829,4.806,645
+10,Neutral Rights & Maritime Depredations,1830,1839,0.829,1447
+10,Neutral Rights & Maritime Depredations,1840,1849,2.273,1452
+10,Neutral Rights & Maritime Depredations,1850,1859,3.264,1593
+10,Neutral Rights & Maritime Depredations,1860,1869,1.169,1454
+10,Neutral Rights & Maritime Depredations,1870,1879,2.536,1104
+10,Neutral Rights & Maritime Depredations,1880,1889,0.349,1434
+10,Neutral Rights & Maritime Depredations,1890,1899,2.191,1689
+10,Neutral Rights & Maritime Depredations,1900,1909,0.656,1982
+10,Neutral Rights & Maritime Depredations,1910,1919,3.302,1393
+10,Neutral Rights & Maritime Depredations,1920,1929,0.0,1050
+10,Neutral Rights & Maritime Depredations,1930,1939,0.0,904
+10,Neutral Rights & Maritime Depredations,1940,1949,1.716,874
+10,Neutral Rights & Maritime Depredations,1950,1959,0.0,750
+10,Neutral Rights & Maritime Depredations,1960,1969,0.0,4248
+10,Neutral Rights & Maritime Depredations,1970,1979,0.061,1637
+10,Neutral Rights & Maritime Depredations,1980,1989,0.0,2523
+10,Neutral Rights & Maritime Depredations,1990,1999,0.054,1849
+10,Neutral Rights & Maritime Depredations,2000,2009,0.0,1498
+10,Neutral Rights & Maritime Depredations,2010,2019,0.0,2516
+10,Neutral Rights & Maritime Depredations,2020,2029,0.0,3096
+10,"Treaties, Diplomacy & International Arbitration",1790,1799,21.114,341
+10,"Treaties, Diplomacy & International Arbitration",1800,1809,12.251,351
+10,"Treaties, Diplomacy & International Arbitration",1810,1819,17.922,385
+10,"Treaties, Diplomacy & International Arbitration",1820,1829,19.38,645
+10,"Treaties, Diplomacy & International Arbitration",1830,1839,14.651,1447
+10,"Treaties, Diplomacy & International Arbitration",1840,1849,18.182,1452
+10,"Treaties, Diplomacy & International Arbitration",1850,1859,12.429,1593
+10,"Treaties, Diplomacy & International Arbitration",1860,1869,7.909,1454
+10,"Treaties, Diplomacy & International Arbitration",1870,1879,17.029,1104
+10,"Treaties, Diplomacy & International Arbitration",1880,1889,15.063,1434
+10,"Treaties, Diplomacy & International Arbitration",1890,1899,21.196,1689
+10,"Treaties, Diplomacy & International Arbitration",1900,1909,12.815,1982
+10,"Treaties, Diplomacy & International Arbitration",1910,1919,13.065,1393
+10,"Treaties, Diplomacy & International Arbitration",1920,1929,13.714,1050
+10,"Treaties, Diplomacy & International Arbitration",1930,1939,6.969,904
+10,"Treaties, Diplomacy & International Arbitration",1940,1949,10.984,874
+10,"Treaties, Diplomacy & International Arbitration",1950,1959,5.733,750
+10,"Treaties, Diplomacy & International Arbitration",1960,1969,7.203,4248
+10,"Treaties, Diplomacy & International Arbitration",1970,1979,7.392,1637
+10,"Treaties, Diplomacy & International Arbitration",1980,1989,5.034,2523
+10,"Treaties, Diplomacy & International Arbitration",1990,1999,9.194,1849
+10,"Treaties, Diplomacy & International Arbitration",2000,2009,2.537,1498
+10,"Treaties, Diplomacy & International Arbitration",2010,2019,1.749,2516
+10,"Treaties, Diplomacy & International Arbitration",2020,2029,2.939,3096
+10,"Relations with Spain, Mexico & Territorial Claims",1790,1799,2.053,341
+10,"Relations with Spain, Mexico & Territorial Claims",1800,1809,7.977,351
+10,"Relations with Spain, Mexico & Territorial Claims",1810,1819,12.468,385
+10,"Relations with Spain, Mexico & Territorial Claims",1820,1829,5.426,645
+10,"Relations with Spain, Mexico & Territorial Claims",1830,1839,3.732,1447
+10,"Relations with Spain, Mexico & Territorial Claims",1840,1849,15.358,1452
+10,"Relations with Spain, Mexico & Territorial Claims",1850,1859,8.349,1593
+10,"Relations with Spain, Mexico & Territorial Claims",1860,1869,1.444,1454
+10,"Relations with Spain, Mexico & Territorial Claims",1870,1879,6.431,1104
+10,"Relations with Spain, Mexico & Territorial Claims",1880,1889,2.789,1434
+10,"Relations with Spain, Mexico & Territorial Claims",1890,1899,6.631,1689
+10,"Relations with Spain, Mexico & Territorial Claims",1900,1909,0.505,1982
+10,"Relations with Spain, Mexico & Territorial Claims",1910,1919,2.943,1393
+10,"Relations with Spain, Mexico & Territorial Claims",1920,1929,0.571,1050
+10,"Relations with Spain, Mexico & Territorial Claims",1930,1939,0.0,904
+10,"Relations with Spain, Mexico & Territorial Claims",1940,1949,0.0,874
+10,"Relations with Spain, Mexico & Territorial Claims",1950,1959,0.0,750
+10,"Relations with Spain, Mexico & Territorial Claims",1960,1969,0.024,4248
+10,"Relations with Spain, Mexico & Territorial Claims",1970,1979,0.0,1637
+10,"Relations with Spain, Mexico & Territorial Claims",1980,1989,0.0,2523
+10,"Relations with Spain, Mexico & Territorial Claims",1990,1999,0.0,1849
+10,"Relations with Spain, Mexico & Territorial Claims",2000,2009,0.067,1498
+10,"Relations with Spain, Mexico & Territorial Claims",2010,2019,0.04,2516
+10,"Relations with Spain, Mexico & Territorial Claims",2020,2029,0.0,3096
+10,Monroe Doctrine & Latin American Policy,1790,1799,0.0,341
+10,Monroe Doctrine & Latin American Policy,1800,1809,0.285,351
+10,Monroe Doctrine & Latin American Policy,1810,1819,3.117,385
+10,Monroe Doctrine & Latin American Policy,1820,1829,10.078,645
+10,Monroe Doctrine & Latin American Policy,1830,1839,2.626,1447
+10,Monroe Doctrine & Latin American Policy,1840,1849,3.581,1452
+10,Monroe Doctrine & Latin American Policy,1850,1859,9.102,1593
+10,Monroe Doctrine & Latin American Policy,1860,1869,3.576,1454
+10,Monroe Doctrine & Latin American Policy,1870,1879,8.062,1104
+10,Monroe Doctrine & Latin American Policy,1880,1889,4.533,1434
+10,Monroe Doctrine & Latin American Policy,1890,1899,9.355,1689
+10,Monroe Doctrine & Latin American Policy,1900,1909,10.192,1982
+10,Monroe Doctrine & Latin American Policy,1910,1919,6.246,1393
+10,Monroe Doctrine & Latin American Policy,1920,1929,2.857,1050
+10,Monroe Doctrine & Latin American Policy,1930,1939,1.217,904
+10,Monroe Doctrine & Latin American Policy,1940,1949,3.318,874
+10,Monroe Doctrine & Latin American Policy,1950,1959,1.067,750
+10,Monroe Doctrine & Latin American Policy,1960,1969,5.461,4248
+10,Monroe Doctrine & Latin American Policy,1970,1979,2.199,1637
+10,Monroe Doctrine & Latin American Policy,1980,1989,5.39,2523
+10,Monroe Doctrine & Latin American Policy,1990,1999,1.514,1849
+10,Monroe Doctrine & Latin American Policy,2000,2009,0.334,1498
+10,Monroe Doctrine & Latin American Policy,2010,2019,1.908,2516
+10,Monroe Doctrine & Latin American Policy,2020,2029,1.26,3096
+10,Cold War & Great-Power Rivalry,1790,1799,0.0,341
+10,Cold War & Great-Power Rivalry,1800,1809,0.0,351
+10,Cold War & Great-Power Rivalry,1810,1819,0.0,385
+10,Cold War & Great-Power Rivalry,1820,1829,0.0,645
+10,Cold War & Great-Power Rivalry,1830,1839,0.0,1447
+10,Cold War & Great-Power Rivalry,1840,1849,0.069,1452
+10,Cold War & Great-Power Rivalry,1850,1859,0.0,1593
+10,Cold War & Great-Power Rivalry,1860,1869,0.0,1454
+10,Cold War & Great-Power Rivalry,1870,1879,0.0,1104
+10,Cold War & Great-Power Rivalry,1880,1889,0.0,1434
+10,Cold War & Great-Power Rivalry,1890,1899,0.0,1689
+10,Cold War & Great-Power Rivalry,1900,1909,0.151,1982
+10,Cold War & Great-Power Rivalry,1910,1919,0.287,1393
+10,Cold War & Great-Power Rivalry,1920,1929,0.762,1050
+10,Cold War & Great-Power Rivalry,1930,1939,0.221,904
+10,Cold War & Great-Power Rivalry,1940,1949,4.233,874
+10,Cold War & Great-Power Rivalry,1950,1959,25.333,750
+10,Cold War & Great-Power Rivalry,1960,1969,20.268,4248
+10,Cold War & Great-Power Rivalry,1970,1979,10.018,1637
+10,Cold War & Great-Power Rivalry,1980,1989,17.4,2523
+10,Cold War & Great-Power Rivalry,1990,1999,7.031,1849
+10,Cold War & Great-Power Rivalry,2000,2009,3.271,1498
+10,Cold War & Great-Power Rivalry,2010,2019,4.889,2516
+10,Cold War & Great-Power Rivalry,2020,2029,10.336,3096
+10,Nuclear Weapons & Arms Control,1790,1799,0.0,341
+10,Nuclear Weapons & Arms Control,1800,1809,0.0,351
+10,Nuclear Weapons & Arms Control,1810,1819,0.0,385
+10,Nuclear Weapons & Arms Control,1820,1829,0.0,645
+10,Nuclear Weapons & Arms Control,1830,1839,0.0,1447
+10,Nuclear Weapons & Arms Control,1840,1849,0.0,1452
+10,Nuclear Weapons & Arms Control,1850,1859,0.0,1593
+10,Nuclear Weapons & Arms Control,1860,1869,0.0,1454
+10,Nuclear Weapons & Arms Control,1870,1879,0.0,1104
+10,Nuclear Weapons & Arms Control,1880,1889,0.0,1434
+10,Nuclear Weapons & Arms Control,1890,1899,0.0,1689
+10,Nuclear Weapons & Arms Control,1900,1909,0.0,1982
+10,Nuclear Weapons & Arms Control,1910,1919,0.0,1393
+10,Nuclear Weapons & Arms Control,1920,1929,0.667,1050
+10,Nuclear Weapons & Arms Control,1930,1939,0.221,904
+10,Nuclear Weapons & Arms Control,1940,1949,3.089,874
+10,Nuclear Weapons & Arms Control,1950,1959,8.933,750
+10,Nuclear Weapons & Arms Control,1960,1969,5.885,4248
+10,Nuclear Weapons & Arms Control,1970,1979,5.192,1637
+10,Nuclear Weapons & Arms Control,1980,1989,11.375,2523
+10,Nuclear Weapons & Arms Control,1990,1999,3.569,1849
+10,Nuclear Weapons & Arms Control,2000,2009,2.47,1498
+10,Nuclear Weapons & Arms Control,2010,2019,2.266,2516
+10,Nuclear Weapons & Arms Control,2020,2029,1.389,3096
+10,Middle East & Israel,1790,1799,0.0,341
+10,Middle East & Israel,1800,1809,0.0,351
+10,Middle East & Israel,1810,1819,0.0,385
+10,Middle East & Israel,1820,1829,0.0,645
+10,Middle East & Israel,1830,1839,0.0,1447
+10,Middle East & Israel,1840,1849,0.0,1452
+10,Middle East & Israel,1850,1859,0.0,1593
+10,Middle East & Israel,1860,1869,0.0,1454
+10,Middle East & Israel,1870,1879,0.0,1104
+10,Middle East & Israel,1880,1889,0.0,1434
+10,Middle East & Israel,1890,1899,0.059,1689
+10,Middle East & Israel,1900,1909,0.0,1982
+10,Middle East & Israel,1910,1919,0.0,1393
+10,Middle East & Israel,1920,1929,0.0,1050
+10,Middle East & Israel,1930,1939,0.0,904
+10,Middle East & Israel,1940,1949,0.458,874
+10,Middle East & Israel,1950,1959,3.333,750
+10,Middle East & Israel,1960,1969,0.494,4248
+10,Middle East & Israel,1970,1979,4.643,1637
+10,Middle East & Israel,1980,1989,5.628,2523
+10,Middle East & Israel,1990,1999,2.271,1849
+10,Middle East & Israel,2000,2009,4.94,1498
+10,Middle East & Israel,2010,2019,5.485,2516
+10,Middle East & Israel,2020,2029,3.133,3096
+10,"World Order, Foreign Aid & Democracy Promotion",1790,1799,0.0,341
+10,"World Order, Foreign Aid & Democracy Promotion",1800,1809,0.0,351
+10,"World Order, Foreign Aid & Democracy Promotion",1810,1819,0.0,385
+10,"World Order, Foreign Aid & Democracy Promotion",1820,1829,0.0,645
+10,"World Order, Foreign Aid & Democracy Promotion",1830,1839,0.0,1447
+10,"World Order, Foreign Aid & Democracy Promotion",1840,1849,0.0,1452
+10,"World Order, Foreign Aid & Democracy Promotion",1850,1859,0.0,1593
+10,"World Order, Foreign Aid & Democracy Promotion",1860,1869,0.0,1454
+10,"World Order, Foreign Aid & Democracy Promotion",1870,1879,0.0,1104
+10,"World Order, Foreign Aid & Democracy Promotion",1880,1889,0.0,1434
+10,"World Order, Foreign Aid & Democracy Promotion",1890,1899,0.059,1689
+10,"World Order, Foreign Aid & Democracy Promotion",1900,1909,0.202,1982
+10,"World Order, Foreign Aid & Democracy Promotion",1910,1919,2.082,1393
+10,"World Order, Foreign Aid & Democracy Promotion",1920,1929,3.429,1050
+10,"World Order, Foreign Aid & Democracy Promotion",1930,1939,0.553,904
+10,"World Order, Foreign Aid & Democracy Promotion",1940,1949,12.128,874
+10,"World Order, Foreign Aid & Democracy Promotion",1950,1959,11.733,750
+10,"World Order, Foreign Aid & Democracy Promotion",1960,1969,9.251,4248
+10,"World Order, Foreign Aid & Democracy Promotion",1970,1979,7.819,1637
+10,"World Order, Foreign Aid & Democracy Promotion",1980,1989,4.518,2523
+10,"World Order, Foreign Aid & Democracy Promotion",1990,1999,8.653,1849
+10,"World Order, Foreign Aid & Democracy Promotion",2000,2009,11.816,1498
+10,"World Order, Foreign Aid & Democracy Promotion",2010,2019,7.234,2516
+10,"World Order, Foreign Aid & Democracy Promotion",2020,2029,3.488,3096
+20,Neutral Rights & Maritime Depredations,1780,1799,16.056,355
+20,Neutral Rights & Maritime Depredations,1800,1819,14.946,736
+20,Neutral Rights & Maritime Depredations,1820,1839,2.055,2092
+20,Neutral Rights & Maritime Depredations,1840,1859,2.791,3045
+20,Neutral Rights & Maritime Depredations,1860,1879,1.759,2558
+20,Neutral Rights & Maritime Depredations,1880,1899,1.345,3123
+20,Neutral Rights & Maritime Depredations,1900,1919,1.748,3375
+20,Neutral Rights & Maritime Depredations,1920,1939,0.0,1954
+20,Neutral Rights & Maritime Depredations,1940,1959,0.924,1624
+20,Neutral Rights & Maritime Depredations,1960,1979,0.017,5885
+20,Neutral Rights & Maritime Depredations,1980,1999,0.023,4372
+20,Neutral Rights & Maritime Depredations,2000,2019,0.0,4014
+20,Neutral Rights & Maritime Depredations,2020,2039,0.0,3096
+20,"Treaties, Diplomacy & International Arbitration",1780,1799,20.282,355
+20,"Treaties, Diplomacy & International Arbitration",1800,1819,15.217,736
+20,"Treaties, Diplomacy & International Arbitration",1820,1839,16.109,2092
+20,"Treaties, Diplomacy & International Arbitration",1840,1859,15.172,3045
+20,"Treaties, Diplomacy & International Arbitration",1860,1879,11.845,2558
+20,"Treaties, Diplomacy & International Arbitration",1880,1899,18.38,3123
+20,"Treaties, Diplomacy & International Arbitration",1900,1919,12.919,3375
+20,"Treaties, Diplomacy & International Arbitration",1920,1939,10.594,1954
+20,"Treaties, Diplomacy & International Arbitration",1940,1959,8.559,1624
+20,"Treaties, Diplomacy & International Arbitration",1960,1979,7.256,5885
+20,"Treaties, Diplomacy & International Arbitration",1980,1999,6.793,4372
+20,"Treaties, Diplomacy & International Arbitration",2000,2019,2.043,4014
+20,"Treaties, Diplomacy & International Arbitration",2020,2039,2.939,3096
+20,"Relations with Spain, Mexico & Territorial Claims",1780,1799,1.972,355
+20,"Relations with Spain, Mexico & Territorial Claims",1800,1819,10.326,736
+20,"Relations with Spain, Mexico & Territorial Claims",1820,1839,4.254,2092
+20,"Relations with Spain, Mexico & Territorial Claims",1840,1859,11.691,3045
+20,"Relations with Spain, Mexico & Territorial Claims",1860,1879,3.597,2558
+20,"Relations with Spain, Mexico & Territorial Claims",1880,1899,4.867,3123
+20,"Relations with Spain, Mexico & Territorial Claims",1900,1919,1.511,3375
+20,"Relations with Spain, Mexico & Territorial Claims",1920,1939,0.307,1954
+20,"Relations with Spain, Mexico & Territorial Claims",1940,1959,0.0,1624
+20,"Relations with Spain, Mexico & Territorial Claims",1960,1979,0.017,5885
+20,"Relations with Spain, Mexico & Territorial Claims",1980,1999,0.0,4372
+20,"Relations with Spain, Mexico & Territorial Claims",2000,2019,0.05,4014
+20,"Relations with Spain, Mexico & Territorial Claims",2020,2039,0.0,3096
+20,Monroe Doctrine & Latin American Policy,1780,1799,0.0,355
+20,Monroe Doctrine & Latin American Policy,1800,1819,1.766,736
+20,Monroe Doctrine & Latin American Policy,1820,1839,4.924,2092
+20,Monroe Doctrine & Latin American Policy,1840,1859,6.47,3045
+20,Monroe Doctrine & Latin American Policy,1860,1879,5.512,2558
+20,Monroe Doctrine & Latin American Policy,1880,1899,7.141,3123
+20,Monroe Doctrine & Latin American Policy,1900,1919,8.563,3375
+20,Monroe Doctrine & Latin American Policy,1920,1939,2.098,1954
+20,Monroe Doctrine & Latin American Policy,1940,1959,2.278,1624
+20,Monroe Doctrine & Latin American Policy,1960,1979,4.554,5885
+20,Monroe Doctrine & Latin American Policy,1980,1999,3.751,4372
+20,Monroe Doctrine & Latin American Policy,2000,2019,1.32,4014
+20,Monroe Doctrine & Latin American Policy,2020,2039,1.26,3096
+20,Cold War & Great-Power Rivalry,1780,1799,0.0,355
+20,Cold War & Great-Power Rivalry,1800,1819,0.0,736
+20,Cold War & Great-Power Rivalry,1820,1839,0.0,2092
+20,Cold War & Great-Power Rivalry,1840,1859,0.033,3045
+20,Cold War & Great-Power Rivalry,1860,1879,0.0,2558
+20,Cold War & Great-Power Rivalry,1880,1899,0.0,3123
+20,Cold War & Great-Power Rivalry,1900,1919,0.207,3375
+20,Cold War & Great-Power Rivalry,1920,1939,0.512,1954
+20,Cold War & Great-Power Rivalry,1940,1959,13.978,1624
+20,Cold War & Great-Power Rivalry,1960,1979,17.417,5885
+20,Cold War & Great-Power Rivalry,1980,1999,13.015,4372
+20,Cold War & Great-Power Rivalry,2000,2019,4.285,4014
+20,Cold War & Great-Power Rivalry,2020,2039,10.336,3096
+20,Nuclear Weapons & Arms Control,1780,1799,0.0,355
+20,Nuclear Weapons & Arms Control,1800,1819,0.0,736
+20,Nuclear Weapons & Arms Control,1820,1839,0.0,2092
+20,Nuclear Weapons & Arms Control,1840,1859,0.0,3045
+20,Nuclear Weapons & Arms Control,1860,1879,0.0,2558
+20,Nuclear Weapons & Arms Control,1880,1899,0.0,3123
+20,Nuclear Weapons & Arms Control,1900,1919,0.0,3375
+20,Nuclear Weapons & Arms Control,1920,1939,0.461,1954
+20,Nuclear Weapons & Arms Control,1940,1959,5.788,1624
+20,Nuclear Weapons & Arms Control,1960,1979,5.692,5885
+20,Nuclear Weapons & Arms Control,1980,1999,8.074,4372
+20,Nuclear Weapons & Arms Control,2000,2019,2.342,4014
+20,Nuclear Weapons & Arms Control,2020,2039,1.389,3096
+20,Middle East & Israel,1780,1799,0.0,355
+20,Middle East & Israel,1800,1819,0.0,736
+20,Middle East & Israel,1820,1839,0.0,2092
+20,Middle East & Israel,1840,1859,0.0,3045
+20,Middle East & Israel,1860,1879,0.0,2558
+20,Middle East & Israel,1880,1899,0.032,3123
+20,Middle East & Israel,1900,1919,0.0,3375
+20,Middle East & Israel,1920,1939,0.0,1954
+20,Middle East & Israel,1940,1959,1.786,1624
+20,Middle East & Israel,1960,1979,1.648,5885
+20,Middle East & Israel,1980,1999,4.209,4372
+20,Middle East & Israel,2000,2019,5.282,4014
+20,Middle East & Israel,2020,2039,3.133,3096
+20,"World Order, Foreign Aid & Democracy Promotion",1780,1799,0.0,355
+20,"World Order, Foreign Aid & Democracy Promotion",1800,1819,0.0,736
+20,"World Order, Foreign Aid & Democracy Promotion",1820,1839,0.0,2092
+20,"World Order, Foreign Aid & Democracy Promotion",1840,1859,0.0,3045
+20,"World Order, Foreign Aid & Democracy Promotion",1860,1879,0.0,2558
+20,"World Order, Foreign Aid & Democracy Promotion",1880,1899,0.032,3123
+20,"World Order, Foreign Aid & Democracy Promotion",1900,1919,0.978,3375
+20,"World Order, Foreign Aid & Democracy Promotion",1920,1939,2.098,1954
+20,"World Order, Foreign Aid & Democracy Promotion",1940,1959,11.946,1624
+20,"World Order, Foreign Aid & Democracy Promotion",1960,1979,8.853,5885
+20,"World Order, Foreign Aid & Democracy Promotion",1980,1999,6.267,4372
+20,"World Order, Foreign Aid & Democracy Promotion",2000,2019,8.944,4014
+20,"World Order, Foreign Aid & Democracy Promotion",2020,2039,3.488,3096

@@ -63,6 +63,52 @@ def clean_transcript(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+def clean_html_paragraphs(html_text: str) -> list[str]:
+    """Return the non-empty source paragraphs used by the analytical chunker."""
+    paragraphs = [clean_transcript(p) for p in re.split(r"</p>", html_text)]
+    return [p for p in paragraphs if p]
+
+
+def chunk_paragraphs(paragraphs: list[str]) -> list[str]:
+    """Merge source paragraphs into stable topic-sized analytical chunks."""
+    chunks: list[str] = []
+    current: list[str] = []
+    current_words = 0
+    for paragraph in paragraphs:
+        current.append(paragraph)
+        current_words += len(paragraph.split())
+        if current_words >= MIN_CHUNK_WORDS:
+            chunks.append(" ".join(current))
+            current, current_words = [], 0
+    if current:
+        tail = " ".join(current)
+        if chunks and len(tail.split()) < MIN_CHUNK_WORDS:
+            chunks[-1] += " " + tail
+        else:
+            chunks.append(tail)
+
+    # Cap oversized chunks (written 19th-century messages have huge
+    # paragraphs) by splitting on sentence boundaries.
+    final: list[str] = []
+    for chunk in chunks:
+        words = chunk.split()
+        if len(words) <= MAX_CHUNK_WORDS:
+            final.append(chunk)
+            continue
+        sentences = re.split(r"(?<=[.!?]) ", chunk)
+        current_sentences: list[str] = []
+        current_words = 0
+        for sentence in sentences:
+            current_sentences.append(sentence)
+            current_words += len(sentence.split())
+            if current_words >= MIN_CHUNK_WORDS * 2:
+                final.append(" ".join(current_sentences))
+                current_sentences, current_words = [], 0
+        if current_sentences:
+            final.append(" ".join(current_sentences))
+    return final
+
+
 def parse(tgz_path: Path) -> pd.DataFrame:
     """Parse every speech JSON in the tarball into one tidy DataFrame."""
     records = []
@@ -113,44 +159,10 @@ def parse_paragraphs(tgz_path: Path, speeches: pd.DataFrame) -> pd.DataFrame:
             doc_name = doc.get("doc_name")
             if doc_name not in valid:
                 continue
-            html_text = doc.get("transcript_html") or ""
-            paras = [clean_transcript(p) for p in re.split(r"</p>", html_text)]
-            paras = [p for p in paras if p]
-
-            chunks: list[str] = []
-            current: list[str] = []
-            current_words = 0
-            for p in paras:
-                current.append(p)
-                current_words += len(p.split())
-                if current_words >= MIN_CHUNK_WORDS:
-                    chunks.append(" ".join(current))
-                    current, current_words = [], 0
-            if current:
-                tail = " ".join(current)
-                if chunks and len(tail.split()) < MIN_CHUNK_WORDS:
-                    chunks[-1] += " " + tail
-                else:
-                    chunks.append(tail)
-
-            # Cap oversized chunks (written 19th-century messages have huge
-            # paragraphs) by splitting on sentence boundaries.
-            final: list[str] = []
-            for c in chunks:
-                words = c.split()
-                if len(words) <= MAX_CHUNK_WORDS:
-                    final.append(c)
-                    continue
-                sentences = re.split(r"(?<=[.!?]) ", c)
-                cur, n = [], 0
-                for s in sentences:
-                    cur.append(s)
-                    n += len(s.split())
-                    if n >= MIN_CHUNK_WORDS * 2:
-                        final.append(" ".join(cur))
-                        cur, n = [], 0
-                if cur:
-                    final.append(" ".join(cur))
+            source_paragraphs = clean_html_paragraphs(
+                doc.get("transcript_html") or ""
+            )
+            final = chunk_paragraphs(source_paragraphs)
 
             for i, chunk in enumerate(final):
                 rows.append({"doc_name": doc_name, "para_idx": i, "text": chunk})

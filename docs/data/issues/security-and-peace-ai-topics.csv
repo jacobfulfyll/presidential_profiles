@@ -1,0 +1,260 @@
+bucket_years,topic,period_start,period_end,share_percent,paragraphs_in_bucket
+10,Cold War & Great-Power Rivalry,1790,1799,0.0,341
+10,Cold War & Great-Power Rivalry,1800,1809,0.0,351
+10,Cold War & Great-Power Rivalry,1810,1819,0.0,385
+10,Cold War & Great-Power Rivalry,1820,1829,0.0,645
+10,Cold War & Great-Power Rivalry,1830,1839,0.0,1447
+10,Cold War & Great-Power Rivalry,1840,1849,0.069,1452
+10,Cold War & Great-Power Rivalry,1850,1859,0.0,1593
+10,Cold War & Great-Power Rivalry,1860,1869,0.0,1454
+10,Cold War & Great-Power Rivalry,1870,1879,0.0,1104
+10,Cold War & Great-Power Rivalry,1880,1889,0.0,1434
+10,Cold War & Great-Power Rivalry,1890,1899,0.0,1689
+10,Cold War & Great-Power Rivalry,1900,1909,0.151,1982
+10,Cold War & Great-Power Rivalry,1910,1919,0.287,1393
+10,Cold War & Great-Power Rivalry,1920,1929,0.762,1050
+10,Cold War & Great-Power Rivalry,1930,1939,0.221,904
+10,Cold War & Great-Power Rivalry,1940,1949,4.233,874
+10,Cold War & Great-Power Rivalry,1950,1959,25.333,750
+10,Cold War & Great-Power Rivalry,1960,1969,20.268,4248
+10,Cold War & Great-Power Rivalry,1970,1979,10.018,1637
+10,Cold War & Great-Power Rivalry,1980,1989,17.4,2523
+10,Cold War & Great-Power Rivalry,1990,1999,7.031,1849
+10,Cold War & Great-Power Rivalry,2000,2009,3.271,1498
+10,Cold War & Great-Power Rivalry,2010,2019,4.889,2516
+10,Cold War & Great-Power Rivalry,2020,2029,10.336,3096
+10,Nuclear Weapons & Arms Control,1790,1799,0.0,341
+10,Nuclear Weapons & Arms Control,1800,1809,0.0,351
+10,Nuclear Weapons & Arms Control,1810,1819,0.0,385
+10,Nuclear Weapons & Arms Control,1820,1829,0.0,645
+10,Nuclear Weapons & Arms Control,1830,1839,0.0,1447
+10,Nuclear Weapons & Arms Control,1840,1849,0.0,1452
+10,Nuclear Weapons & Arms Control,1850,1859,0.0,1593
+10,Nuclear Weapons & Arms Control,1860,1869,0.0,1454
+10,Nuclear Weapons & Arms Control,1870,1879,0.0,1104
+10,Nuclear Weapons & Arms Control,1880,1889,0.0,1434
+10,Nuclear Weapons & Arms Control,1890,1899,0.0,1689
+10,Nuclear Weapons & Arms Control,1900,1909,0.0,1982
+10,Nuclear Weapons & Arms Control,1910,1919,0.0,1393
+10,Nuclear Weapons & Arms Control,1920,1929,0.667,1050
+10,Nuclear Weapons & Arms Control,1930,1939,0.221,904
+10,Nuclear Weapons & Arms Control,1940,1949,3.089,874
+10,Nuclear Weapons & Arms Control,1950,1959,8.933,750
+10,Nuclear Weapons & Arms Control,1960,1969,5.885,4248
+10,Nuclear Weapons & Arms Control,1970,1979,5.192,1637
+10,Nuclear Weapons & Arms Control,1980,1989,11.375,2523
+10,Nuclear Weapons & Arms Control,1990,1999,3.569,1849
+10,Nuclear Weapons & Arms Control,2000,2009,2.47,1498
+10,Nuclear Weapons & Arms Control,2010,2019,2.266,2516
+10,Nuclear Weapons & Arms Control,2020,2029,1.389,3096
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1790,1799,0.0,341
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1800,1809,0.0,351
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1810,1819,0.0,385
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1820,1829,0.0,645
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1830,1839,0.0,1447
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1840,1849,0.0,1452
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1850,1859,0.0,1593
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1860,1869,0.0,1454
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1870,1879,0.0,1104
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1880,1889,0.0,1434
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1890,1899,0.0,1689
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1900,1909,0.0,1982
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1910,1919,0.0,1393
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1920,1929,0.0,1050
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1930,1939,0.0,904
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1940,1949,0.0,874
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1950,1959,0.0,750
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1960,1969,0.024,4248
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1970,1979,0.0,1637
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1980,1989,3.805,2523
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",1990,1999,7.518,1849
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",2000,2009,27.437,1498
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",2010,2019,6.717,2516
+10,"Iraq, Gulf Wars, the War on Terror & Interventions",2020,2029,5.523,3096
+10,"Military Preparedness, Armed Forces & Veterans",1790,1799,12.61,341
+10,"Military Preparedness, Armed Forces & Veterans",1800,1809,18.234,351
+10,"Military Preparedness, Armed Forces & Veterans",1810,1819,16.623,385
+10,"Military Preparedness, Armed Forces & Veterans",1820,1829,17.829,645
+10,"Military Preparedness, Armed Forces & Veterans",1830,1839,4.354,1447
+10,"Military Preparedness, Armed Forces & Veterans",1840,1849,8.815,1452
+10,"Military Preparedness, Armed Forces & Veterans",1850,1859,6.717,1593
+10,"Military Preparedness, Armed Forces & Veterans",1860,1869,5.708,1454
+10,"Military Preparedness, Armed Forces & Veterans",1870,1879,8.062,1104
+10,"Military Preparedness, Armed Forces & Veterans",1880,1889,9.623,1434
+10,"Military Preparedness, Armed Forces & Veterans",1890,1899,10.243,1689
+10,"Military Preparedness, Armed Forces & Veterans",1900,1909,12.311,1982
+10,"Military Preparedness, Armed Forces & Veterans",1910,1919,9.404,1393
+10,"Military Preparedness, Armed Forces & Veterans",1920,1929,8.762,1050
+10,"Military Preparedness, Armed Forces & Veterans",1930,1939,4.093,904
+10,"Military Preparedness, Armed Forces & Veterans",1940,1949,16.133,874
+10,"Military Preparedness, Armed Forces & Veterans",1950,1959,14.267,750
+10,"Military Preparedness, Armed Forces & Veterans",1960,1969,6.874,4248
+10,"Military Preparedness, Armed Forces & Veterans",1970,1979,5.437,1637
+10,"Military Preparedness, Armed Forces & Veterans",1980,1989,9.512,2523
+10,"Military Preparedness, Armed Forces & Veterans",1990,1999,7.734,1849
+10,"Military Preparedness, Armed Forces & Veterans",2000,2009,8.144,1498
+10,"Military Preparedness, Armed Forces & Veterans",2010,2019,6.002,2516
+10,"Military Preparedness, Armed Forces & Veterans",2020,2029,8.915,3096
+10,"World Order, Foreign Aid & Democracy Promotion",1790,1799,0.0,341
+10,"World Order, Foreign Aid & Democracy Promotion",1800,1809,0.0,351
+10,"World Order, Foreign Aid & Democracy Promotion",1810,1819,0.0,385
+10,"World Order, Foreign Aid & Democracy Promotion",1820,1829,0.0,645
+10,"World Order, Foreign Aid & Democracy Promotion",1830,1839,0.0,1447
+10,"World Order, Foreign Aid & Democracy Promotion",1840,1849,0.0,1452
+10,"World Order, Foreign Aid & Democracy Promotion",1850,1859,0.0,1593
+10,"World Order, Foreign Aid & Democracy Promotion",1860,1869,0.0,1454
+10,"World Order, Foreign Aid & Democracy Promotion",1870,1879,0.0,1104
+10,"World Order, Foreign Aid & Democracy Promotion",1880,1889,0.0,1434
+10,"World Order, Foreign Aid & Democracy Promotion",1890,1899,0.059,1689
+10,"World Order, Foreign Aid & Democracy Promotion",1900,1909,0.202,1982
+10,"World Order, Foreign Aid & Democracy Promotion",1910,1919,2.082,1393
+10,"World Order, Foreign Aid & Democracy Promotion",1920,1929,3.429,1050
+10,"World Order, Foreign Aid & Democracy Promotion",1930,1939,0.553,904
+10,"World Order, Foreign Aid & Democracy Promotion",1940,1949,12.128,874
+10,"World Order, Foreign Aid & Democracy Promotion",1950,1959,11.733,750
+10,"World Order, Foreign Aid & Democracy Promotion",1960,1969,9.251,4248
+10,"World Order, Foreign Aid & Democracy Promotion",1970,1979,7.819,1637
+10,"World Order, Foreign Aid & Democracy Promotion",1980,1989,4.518,2523
+10,"World Order, Foreign Aid & Democracy Promotion",1990,1999,8.653,1849
+10,"World Order, Foreign Aid & Democracy Promotion",2000,2009,11.816,1498
+10,"World Order, Foreign Aid & Democracy Promotion",2010,2019,7.234,2516
+10,"World Order, Foreign Aid & Democracy Promotion",2020,2029,3.488,3096
+10,"Treaties, Diplomacy & International Arbitration",1790,1799,21.114,341
+10,"Treaties, Diplomacy & International Arbitration",1800,1809,12.251,351
+10,"Treaties, Diplomacy & International Arbitration",1810,1819,17.922,385
+10,"Treaties, Diplomacy & International Arbitration",1820,1829,19.38,645
+10,"Treaties, Diplomacy & International Arbitration",1830,1839,14.651,1447
+10,"Treaties, Diplomacy & International Arbitration",1840,1849,18.182,1452
+10,"Treaties, Diplomacy & International Arbitration",1850,1859,12.429,1593
+10,"Treaties, Diplomacy & International Arbitration",1860,1869,7.909,1454
+10,"Treaties, Diplomacy & International Arbitration",1870,1879,17.029,1104
+10,"Treaties, Diplomacy & International Arbitration",1880,1889,15.063,1434
+10,"Treaties, Diplomacy & International Arbitration",1890,1899,21.196,1689
+10,"Treaties, Diplomacy & International Arbitration",1900,1909,12.815,1982
+10,"Treaties, Diplomacy & International Arbitration",1910,1919,13.065,1393
+10,"Treaties, Diplomacy & International Arbitration",1920,1929,13.714,1050
+10,"Treaties, Diplomacy & International Arbitration",1930,1939,6.969,904
+10,"Treaties, Diplomacy & International Arbitration",1940,1949,10.984,874
+10,"Treaties, Diplomacy & International Arbitration",1950,1959,5.733,750
+10,"Treaties, Diplomacy & International Arbitration",1960,1969,7.203,4248
+10,"Treaties, Diplomacy & International Arbitration",1970,1979,7.392,1637
+10,"Treaties, Diplomacy & International Arbitration",1980,1989,5.034,2523
+10,"Treaties, Diplomacy & International Arbitration",1990,1999,9.194,1849
+10,"Treaties, Diplomacy & International Arbitration",2000,2009,2.537,1498
+10,"Treaties, Diplomacy & International Arbitration",2010,2019,1.749,2516
+10,"Treaties, Diplomacy & International Arbitration",2020,2029,2.939,3096
+10,Immigration & Border Security,1790,1799,0.0,341
+10,Immigration & Border Security,1800,1809,0.285,351
+10,Immigration & Border Security,1810,1819,0.0,385
+10,Immigration & Border Security,1820,1829,0.0,645
+10,Immigration & Border Security,1830,1839,0.0,1447
+10,Immigration & Border Security,1840,1849,0.0,1452
+10,Immigration & Border Security,1850,1859,0.063,1593
+10,Immigration & Border Security,1860,1869,0.344,1454
+10,Immigration & Border Security,1870,1879,1.54,1104
+10,Immigration & Border Security,1880,1889,0.907,1434
+10,Immigration & Border Security,1890,1899,1.303,1689
+10,Immigration & Border Security,1900,1909,2.018,1982
+10,Immigration & Border Security,1910,1919,0.79,1393
+10,Immigration & Border Security,1920,1929,1.714,1050
+10,Immigration & Border Security,1930,1939,0.996,904
+10,Immigration & Border Security,1940,1949,0.114,874
+10,Immigration & Border Security,1950,1959,1.067,750
+10,Immigration & Border Security,1960,1969,0.094,4248
+10,Immigration & Border Security,1970,1979,0.061,1637
+10,Immigration & Border Security,1980,1989,0.753,2523
+10,Immigration & Border Security,1990,1999,0.487,1849
+10,Immigration & Border Security,2000,2009,4.94,1498
+10,Immigration & Border Security,2010,2019,10.175,2516
+10,Immigration & Border Security,2020,2029,5.685,3096
+20,Cold War & Great-Power Rivalry,1780,1799,0.0,355
+20,Cold War & Great-Power Rivalry,1800,1819,0.0,736
+20,Cold War & Great-Power Rivalry,1820,1839,0.0,2092
+20,Cold War & Great-Power Rivalry,1840,1859,0.033,3045
+20,Cold War & Great-Power Rivalry,1860,1879,0.0,2558
+20,Cold War & Great-Power Rivalry,1880,1899,0.0,3123
+20,Cold War & Great-Power Rivalry,1900,1919,0.207,3375
+20,Cold War & Great-Power Rivalry,1920,1939,0.512,1954
+20,Cold War & Great-Power Rivalry,1940,1959,13.978,1624
+20,Cold War & Great-Power Rivalry,1960,1979,17.417,5885
+20,Cold War & Great-Power Rivalry,1980,1999,13.015,4372
+20,Cold War & Great-Power Rivalry,2000,2019,4.285,4014
+20,Cold War & Great-Power Rivalry,2020,2039,10.336,3096
+20,Nuclear Weapons & Arms Control,1780,1799,0.0,355
+20,Nuclear Weapons & Arms Control,1800,1819,0.0,736
+20,Nuclear Weapons & Arms Control,1820,1839,0.0,2092
+20,Nuclear Weapons & Arms Control,1840,1859,0.0,3045
+20,Nuclear Weapons & Arms Control,1860,1879,0.0,2558
+20,Nuclear Weapons & Arms Control,1880,1899,0.0,3123
+20,Nuclear Weapons & Arms Control,1900,1919,0.0,3375
+20,Nuclear Weapons & Arms Control,1920,1939,0.461,1954
+20,Nuclear Weapons & Arms Control,1940,1959,5.788,1624
+20,Nuclear Weapons & Arms Control,1960,1979,5.692,5885
+20,Nuclear Weapons & Arms Control,1980,1999,8.074,4372
+20,Nuclear Weapons & Arms Control,2000,2019,2.342,4014
+20,Nuclear Weapons & Arms Control,2020,2039,1.389,3096
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1780,1799,0.0,355
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1800,1819,0.0,736
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1820,1839,0.0,2092
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1840,1859,0.0,3045
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1860,1879,0.0,2558
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1880,1899,0.0,3123
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1900,1919,0.0,3375
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1920,1939,0.0,1954
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1940,1959,0.0,1624
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1960,1979,0.017,5885
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",1980,1999,5.375,4372
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",2000,2019,14.449,4014
+20,"Iraq, Gulf Wars, the War on Terror & Interventions",2020,2039,5.523,3096
+20,"Military Preparedness, Armed Forces & Veterans",1780,1799,12.113,355
+20,"Military Preparedness, Armed Forces & Veterans",1800,1819,17.391,736
+20,"Military Preparedness, Armed Forces & Veterans",1820,1839,8.509,2092
+20,"Military Preparedness, Armed Forces & Veterans",1840,1859,7.718,3045
+20,"Military Preparedness, Armed Forces & Veterans",1860,1879,6.724,2558
+20,"Military Preparedness, Armed Forces & Veterans",1880,1899,9.958,3123
+20,"Military Preparedness, Armed Forces & Veterans",1900,1919,11.111,3375
+20,"Military Preparedness, Armed Forces & Veterans",1920,1939,6.602,1954
+20,"Military Preparedness, Armed Forces & Veterans",1940,1959,15.271,1624
+20,"Military Preparedness, Armed Forces & Veterans",1960,1979,6.474,5885
+20,"Military Preparedness, Armed Forces & Veterans",1980,1999,8.76,4372
+20,"Military Preparedness, Armed Forces & Veterans",2000,2019,6.801,4014
+20,"Military Preparedness, Armed Forces & Veterans",2020,2039,8.915,3096
+20,"World Order, Foreign Aid & Democracy Promotion",1780,1799,0.0,355
+20,"World Order, Foreign Aid & Democracy Promotion",1800,1819,0.0,736
+20,"World Order, Foreign Aid & Democracy Promotion",1820,1839,0.0,2092
+20,"World Order, Foreign Aid & Democracy Promotion",1840,1859,0.0,3045
+20,"World Order, Foreign Aid & Democracy Promotion",1860,1879,0.0,2558
+20,"World Order, Foreign Aid & Democracy Promotion",1880,1899,0.032,3123
+20,"World Order, Foreign Aid & Democracy Promotion",1900,1919,0.978,3375
+20,"World Order, Foreign Aid & Democracy Promotion",1920,1939,2.098,1954
+20,"World Order, Foreign Aid & Democracy Promotion",1940,1959,11.946,1624
+20,"World Order, Foreign Aid & Democracy Promotion",1960,1979,8.853,5885
+20,"World Order, Foreign Aid & Democracy Promotion",1980,1999,6.267,4372
+20,"World Order, Foreign Aid & Democracy Promotion",2000,2019,8.944,4014
+20,"World Order, Foreign Aid & Democracy Promotion",2020,2039,3.488,3096
+20,"Treaties, Diplomacy & International Arbitration",1780,1799,20.282,355
+20,"Treaties, Diplomacy & International Arbitration",1800,1819,15.217,736
+20,"Treaties, Diplomacy & International Arbitration",1820,1839,16.109,2092
+20,"Treaties, Diplomacy & International Arbitration",1840,1859,15.172,3045
+20,"Treaties, Diplomacy & International Arbitration",1860,1879,11.845,2558
+20,"Treaties, Diplomacy & International Arbitration",1880,1899,18.38,3123
+20,"Treaties, Diplomacy & International Arbitration",1900,1919,12.919,3375
+20,"Treaties, Diplomacy & International Arbitration",1920,1939,10.594,1954
+20,"Treaties, Diplomacy & International Arbitration",1940,1959,8.559,1624
+20,"Treaties, Diplomacy & International Arbitration",1960,1979,7.256,5885
+20,"Treaties, Diplomacy & International Arbitration",1980,1999,6.793,4372
+20,"Treaties, Diplomacy & International Arbitration",2000,2019,2.043,4014
+20,"Treaties, Diplomacy & International Arbitration",2020,2039,2.939,3096
+20,Immigration & Border Security,1780,1799,0.0,355
+20,Immigration & Border Security,1800,1819,0.136,736
+20,Immigration & Border Security,1820,1839,0.0,2092
+20,Immigration & Border Security,1840,1859,0.033,3045
+20,Immigration & Border Security,1860,1879,0.86,2558
+20,Immigration & Border Security,1880,1899,1.121,3123
+20,Immigration & Border Security,1900,1919,1.511,3375
+20,Immigration & Border Security,1920,1939,1.382,1954
+20,Immigration & Border Security,1940,1959,0.554,1624
+20,Immigration & Border Security,1960,1979,0.085,5885
+20,Immigration & Border Security,1980,1999,0.64,4372
+20,Immigration & Border Security,2000,2019,8.221,4014
+20,Immigration & Border Security,2020,2039,5.685,3096

@@ -1,0 +1,411 @@
+{
+  "effective_topics": {
+    "label": "Effective topics",
+    "question": "How many topics received meaningful attention?",
+    "definition": "A diversity score translated back into an intuitive number of equally attended topics.",
+    "example": "Four equal topics score 4; one dominant topic scores close to 1.",
+    "steps": [
+      "Split words across paragraph topics",
+      "Find each topic's speech share",
+      "Calculate Shannon entropy",
+      "Exponentiate the result"
+    ],
+    "formula": "exp(\u2212\u03a3 p\u1d62 ln p\u1d62)",
+    "unit": "effective topics",
+    "limitations": "Depends on AI topic labels and paragraph boundaries.",
+    "source": "coverage_pressure.parquet",
+    "status": "confirmatory"
+  },
+  "depth_words": {
+    "label": "Topic depth",
+    "question": "How long did a topic hold the floor?",
+    "definition": "The word length of a typical topic episode, giving long episodes proportionally more weight.",
+    "example": "A 50-word and 150-word episode produce (50\u00b2+150\u00b2)/(50+150)=125 words.",
+    "steps": [
+      "Find consecutive paragraphs carrying a topic",
+      "Sum equivalent words in each run",
+      "Weight longer runs by their length"
+    ],
+    "formula": "\u03a3 run_words\u00b2 / \u03a3 run_words",
+    "unit": "equivalent words",
+    "limitations": "Multi-label paragraphs divide their words equally across topics.",
+    "source": "coverage_pressure.parquet",
+    "status": "confirmatory"
+  },
+  "leading_topic_share": {
+    "label": "Leading-topic share",
+    "question": "How concentrated was the speech?",
+    "definition": "The fraction of topic exposure assigned to the speech's largest topic.",
+    "example": "If the largest topic receives 300 of 1,000 equivalent words, the share is 30%.",
+    "steps": [
+      "Find topic exposures",
+      "Choose the largest",
+      "Divide by all exposed words"
+    ],
+    "formula": "max(topic words) / all topic words",
+    "unit": "share",
+    "limitations": "A low value can mean broad coverage or noisy labeling.",
+    "source": "coverage_pressure.parquet",
+    "status": "secondary"
+  },
+  "adjacent_similarity": {
+    "label": "Adjacent-paragraph similarity",
+    "question": "Did neighboring paragraphs stay on the same subjects?",
+    "definition": "Average Jaccard overlap between the topic sets of neighboring paragraphs.",
+    "example": "Topics {A,B} beside {B,C} overlap by 1 of 3, or 0.33.",
+    "steps": [
+      "Compare neighboring topic sets",
+      "Divide overlap by union",
+      "Average pairs"
+    ],
+    "formula": "|A\u2229B| / |A\u222aB|",
+    "unit": "Jaccard similarity",
+    "limitations": "Paragraph segmentation changes which pairs are neighbors.",
+    "source": "coverage_pressure.parquet",
+    "status": "secondary"
+  },
+  "rate_10k": {
+    "label": "Rate per 10,000 words",
+    "question": "How often does wording appear after allowing for length?",
+    "definition": "A count divided by all words and scaled to a same-sized 10,000-word container.",
+    "example": "Five mentions in 10,000 words equals 5 per 10,000.",
+    "steps": [
+      "Count included words",
+      "Count all words",
+      "Divide and multiply by 10,000"
+    ],
+    "formula": "count / words \u00d7 10,000",
+    "unit": "mentions per 10,000 words",
+    "limitations": "Words can carry different meanings in context.",
+    "source": "speech_markers.parquet",
+    "status": "descriptive"
+  },
+  "paragraph_share": {
+    "label": "Share of paragraphs",
+    "question": "How much of the record carries a label?",
+    "definition": "The number of labeled paragraphs divided by every paragraph in the selected record.",
+    "example": "Twenty labeled paragraphs among 100 total paragraphs is 20%.",
+    "steps": [
+      "Count paragraphs carrying the label",
+      "Count every eligible paragraph",
+      "Divide the labeled count by the total"
+    ],
+    "formula": "labeled paragraphs / eligible paragraphs",
+    "unit": "percent of paragraphs",
+    "limitations": "Paragraphs vary greatly in length, and AI labels can disagree.",
+    "source": "paragraph_annotations.parquet",
+    "status": "exploratory AI descriptive"
+  },
+  "president_percentile": {
+    "label": "President percentile",
+    "question": "Where does a president sit among comparable records?",
+    "definition": "The percentage of eligible presidents whose measured value is at or below this one.",
+    "example": "The 80th percentile means the value is at least as high as about 80% of eligible presidents.",
+    "steps": [
+      "Calculate the same measure for every eligible president",
+      "Exclude records below the five-speech precision floor",
+      "Order the values",
+      "Report the president's relative position"
+    ],
+    "formula": "rank among eligible presidents / number eligible",
+    "unit": "percentile from 0 to 100",
+    "limitations": "A percentile is a relative position, not an absolute amount or a quality ranking.",
+    "source": "president profile payload",
+    "status": "descriptive"
+  },
+  "era_relative": {
+    "label": "Era-relative difference",
+    "question": "What did a president emphasize more than contemporaries?",
+    "definition": "A president's rate minus the average rate among nearby presidents.",
+    "example": "12% versus an 8% era baseline is +4 percentage points.",
+    "steps": [
+      "Estimate the president",
+      "Estimate the contemporary baseline",
+      "Subtract baseline"
+    ],
+    "formula": "observed \u2212 era baseline",
+    "unit": "percentage points",
+    "limitations": "The answer depends on the chosen comparison window.",
+    "source": "issues_president.parquet",
+    "status": "descriptive"
+  },
+  "confidence_interval": {
+    "label": "Confidence interval",
+    "question": "Which estimates remain plausible under repeated samples?",
+    "definition": "A range produced by repeatedly resampling whole speeches.",
+    "example": "A 7% estimate with a 4\u201310% interval says repeat samples often land in that range.",
+    "steps": [
+      "Resample speeches",
+      "Recalculate the estimate",
+      "Keep the middle 95%"
+    ],
+    "formula": "bootstrap quantiles 2.5% and 97.5%",
+    "unit": "measure's native unit",
+    "limitations": "It is not a 95% probability that this one fixed interval contains truth.",
+    "source": "bands.parquet",
+    "status": "frequentist"
+  },
+  "reading_level": {
+    "label": "Flesch\u2013Kincaid grade level",
+    "question": "How difficult is the sentence structure and vocabulary?",
+    "definition": "An estimate of the U.S. school grade needed to read a passage, based on sentence length and syllables per word.",
+    "example": "A score of 8 suggests eighth-grade sentence and word complexity; it does not mean only eighth graders can understand it.",
+    "steps": [
+      "Count words and sentences",
+      "Estimate syllables in each word",
+      "Calculate average sentence length and syllables per word",
+      "Combine them on the Flesch\u2013Kincaid grade scale"
+    ],
+    "formula": "0.39(words/sentences) + 11.8(syllables/words) \u2212 15.59",
+    "unit": "U.S. grade level",
+    "limitations": "It estimates surface difficulty, not accuracy, eloquence, intelligence, or the complexity of the ideas. Names, quotations, and formulaic legal language can move the score.",
+    "source": "speech_stats.parquet",
+    "status": "descriptive"
+  },
+  "primary_medium": {
+    "label": "Primary medium assigned in the corpus",
+    "question": "What single communication form did the AI taxonomy assign to each speech?",
+    "definition": "A mutually exclusive primary-form label used to describe this corpus's composition.",
+    "example": "A televised spoken address receives one primary label here, not both a spoken and broadcast count.",
+    "steps": [
+      "Read the speech title and opening context",
+      "Assign one declared medium label",
+      "Count the labels within the displayed period"
+    ],
+    "formula": "speeches with label / corpus speeches in period",
+    "unit": "share of corpus speeches",
+    "limitations": "It is not a complete inventory of delivery channels. Spoken addresses may also have been broadcast, and the label is an AI factual classification rather than archival metadata.",
+    "source": "llm_annotations/speech_annotations.parquet",
+    "status": "descriptive"
+  },
+  "assigned_audience": {
+    "label": "Primary audience assigned in the corpus",
+    "question": "Who did the speech's framing most directly address?",
+    "definition": "A mutually exclusive primary-audience label assigned from the speech title and opening context.",
+    "example": "An annual message addressed to Congress receives the Congress label even if newspapers later carried it to the public.",
+    "steps": [
+      "Read the title and opening context",
+      "Assign one declared audience label",
+      "Count labels within the displayed period"
+    ],
+    "formula": "speeches with label / corpus speeches in period",
+    "unit": "share of corpus speeches",
+    "limitations": "It does not inventory indirect audiences, circulation, reception, or rebroadcasting.",
+    "source": "llm_annotations/speech_annotations.parquet",
+    "status": "descriptive"
+  },
+  "proposal_values": {
+    "label": "Proposal and values stance",
+    "question": "Is a paragraph proposing action, invoking values, doing both, or doing neither?",
+    "definition": "A mutually exclusive projection of the frozen proposal/values paragraph judgment.",
+    "example": "A paragraph assigned both proposal and values appears in the mixed category once.",
+    "steps": [
+      "Join paragraphs to annotations by document and paragraph index",
+      "Project both to mixed",
+      "Divide each category count by all era paragraphs"
+    ],
+    "formula": "category paragraphs / all era paragraphs",
+    "unit": "percent of paragraphs",
+    "limitations": "The categories do not measure enactment, sincerity, persuasion, or policy quality.",
+    "source": "llm_annotations/paragraph_annotations.parquet",
+    "status": "exploratory AI descriptive"
+  },
+  "enemy_identity": {
+    "label": "Adversarial framing and named adversaries",
+    "question": "Who or what is framed as an opponent, and how often does conflict framing appear?",
+    "definition": "AI labels for enemy naming, zero-sum framing, partisan attack, and adversarial entity mentions.",
+    "example": "China and Democrats can both appear in one era's ranked list when distinct paragraphs frame them adversarially.",
+    "steps": [
+      "Join annotations on keyed paragraphs",
+      "Canonicalize only declared aliases",
+      "Count distinct supporting paragraphs",
+      "Report rates and raw labels together"
+    ],
+    "formula": "flagged paragraphs / eligible paragraphs",
+    "unit": "percent of paragraphs",
+    "limitations": "Context errors remain possible; a name in the list is not a judgment that it was a legitimate enemy.",
+    "source": "combat/combativeness.parquet + llm_annotations/paragraph_entities.parquet",
+    "status": "exploratory AI descriptive"
+  },
+  "enemy_category_share": {
+    "label": "Category of named adversary",
+    "question": "What kind of entity is framed as an adversary in each era?",
+    "definition": "The share of extracted adversarial entity mentions assigned to nation, group, person, institution, or other.",
+    "example": "If 60 of 100 adversarial entity mentions are nations, the nation category is 60%.",
+    "steps": [
+      "Keep entity mentions with adversarial stance",
+      "Assign the frozen entity type",
+      "Count mentions by type within an era",
+      "Divide by all adversarial entity mentions in that era"
+    ],
+    "formula": "category adversarial mentions / all adversarial mentions",
+    "unit": "percent of adversarial mentions",
+    "limitations": "Entity extraction and type labels can be wrong; the distribution excludes conflict wording without an extracted adversarial entity.",
+    "source": "combat/adversary_mix.parquet",
+    "status": "exploratory AI descriptive"
+  },
+  "temporal_orientation": {
+    "label": "Future and nostalgia vocabulary",
+    "question": "How often does presidential wording point toward tomorrow or recover yesterday?",
+    "definition": "Declared word families for forward-looking and backward-looking temporal appeal.",
+    "example": "A speech can contain both families and therefore score highly on both.",
+    "steps": [
+      "Match declared word families",
+      "Count all eligible words",
+      "Scale each family to 10,000 words"
+    ],
+    "formula": "family count / words \u00d7 10,000",
+    "unit": "mentions per 10,000 words",
+    "limitations": "A match cannot establish whether a promise is feasible or a memory is accurate.",
+    "source": "register/trends.parquet",
+    "status": "descriptive"
+  },
+  "hope_doom_ratio": {
+    "label": "Hope divided by doom",
+    "question": "How much hope vocabulary appears for each doom term in one supported time window?",
+    "definition": "The aggregate NRC hope count divided by the aggregate doom-family count in a centered five-year window.",
+    "example": "A value of 80 means eighty NRC hope matches for each doom-family match in that window.",
+    "steps": [
+      "Sum NRC hope, doom, and words within the window",
+      "Require at least 20,000 words",
+      "Suppress a zero doom denominator",
+      "Divide aggregate counts"
+    ],
+    "formula": "\u03a3 NRC hope matches / \u03a3 doom matches",
+    "unit": "hope matches per doom match",
+    "limitations": "The two dictionaries differ greatly in breadth. A ratio can rise when hope increases or doom falls, so absolute rates remain in tooltips.",
+    "source": "speech_markers.parquet",
+    "status": "descriptive"
+  },
+  "uncertainty_envelope": {
+    "label": "Uncertainty envelope",
+    "question": "How much uncertainty comes from sampling and AI disagreement?",
+    "definition": "The combined interval expands sampling variation by measured annotator disagreement.",
+    "example": "A sampling-only 4\u20138% range may become 3\u201310% after model disagreement is added.",
+    "steps": [
+      "Bootstrap speeches",
+      "Measure paired-model disagreement",
+      "Combine the two components"
+    ],
+    "formula": "sampling interval \u00b1 disagreement half-width",
+    "unit": "share",
+    "limitations": "Disagreement measured on a sample is assumed to transfer to the corpus.",
+    "source": "bands.parquet",
+    "status": "quality-aware descriptive"
+  },
+  "p_value": {
+    "label": "No-change surprise rate",
+    "question": "How surprising is this under a no-change model?",
+    "definition": "The share of no-change repetitions at least as extreme as the observed result.",
+    "example": "4.2% means about four of 100 no-change repetitions were this extreme\u2014not a 4.2% chance the finding is random.",
+    "steps": [
+      "Specify the no-change model",
+      "Repeat the test",
+      "Count equally or more extreme results"
+    ],
+    "formula": "(extreme draws + 1) / (draws + 1)",
+    "unit": "percent",
+    "limitations": "It is not the probability that a finding is random, real, or important.",
+    "source": "inference_receipts.parquet",
+    "status": "frequentist"
+  },
+  "kappa": {
+    "label": "Cohen\u2019s \u03ba",
+    "question": "Do two labelers agree beyond easy chance agreement?",
+    "definition": "Agreement corrected for the labels each model uses most often.",
+    "example": "Two models saying 'no' on nearly everything can have high raw agreement but modest \u03ba.",
+    "steps": [
+      "Build a confusion matrix",
+      "Measure observed agreement",
+      "Estimate agreement from each model's label rates",
+      "Correct the observed value"
+    ],
+    "formula": "(observed \u2212 expected) / (1 \u2212 expected)",
+    "unit": "\u22121 to 1",
+    "limitations": "Rare labels can depress \u03ba even when most rows match.",
+    "source": "agreement_v1.parquet",
+    "status": "quality audit"
+  },
+  "network_edge": {
+    "label": "Network edge",
+    "question": "Why are two nodes connected?",
+    "definition": "An edge aggregates source records shared by the two nodes.",
+    "example": "Twenty paragraphs and eight speeches carrying two topics create one supported edge.",
+    "steps": [
+      "Find shared paragraphs",
+      "Count distinct speeches",
+      "Calculate Jaccard and lift"
+    ],
+    "formula": "edge weight = shared evidence",
+    "unit": "records or similarity",
+    "limitations": "Thresholds hide weak evidence but do not make visible edges causal.",
+    "source": "network_atlas.json",
+    "status": "exploratory"
+  },
+  "topic_lifecycle": {
+    "label": "Topic lifecycle",
+    "question": "When did an issue appear, disappear, persist, or return?",
+    "definition": "A classification based on substantive years and long internal gaps.",
+    "example": "A topic absent for 35 years and later returning is marked revived.",
+    "steps": [
+      "Build a smoothed attention curve",
+      "Apply the substantive threshold",
+      "Find first, last, and long gaps",
+      "Assign born/died/persistent/revived"
+    ],
+    "formula": "thresholded attention timeline",
+    "unit": "lifecycle class",
+    "limitations": "Boundary years depend on corpus coverage and the declared threshold.",
+    "source": "topic_lifecycles.parquet",
+    "status": "exploratory"
+  },
+  "legal_procedural": {
+    "label": "Legal and procedural vocabulary",
+    "question": "How often did presidents use formal governing terms?",
+    "definition": "A rate for public wording such as act, bill, treaty, section, and appropriation.",
+    "example": "It measures what speeches say, not how competently government operated.",
+    "steps": [
+      "Match the declared word list",
+      "Count all speech words",
+      "Report per 10,000"
+    ],
+    "formula": "included terms / words \u00d7 10,000",
+    "unit": "mentions per 10,000 words",
+    "limitations": "It does not measure competence, productivity, policy depth, or enacted law.",
+    "source": "speech_markers.parquet",
+    "status": "descriptive"
+  },
+  "hype_doom": {
+    "label": "Hype and doom vocabulary",
+    "question": "How often did speeches use extreme positive or negative wording?",
+    "definition": "Declared word families for superlative praise and catastrophic decline.",
+    "example": "greatest is included in hype; difficult is not automatically doom.",
+    "steps": [
+      "Match included word families",
+      "Keep hype and doom separate",
+      "Scale per 10,000 words"
+    ],
+    "formula": "family count / words \u00d7 10,000",
+    "unit": "mentions per 10,000 words",
+    "limitations": "Dictionary matches cannot fully resolve sarcasm or quoted speech.",
+    "source": "speech_markers.parquet",
+    "status": "descriptive"
+  },
+  "similarity": {
+    "label": "Cosine similarity",
+    "question": "Which presidents align inside one named, finite feature set?",
+    "definition": "The angle between two vectors built from declared inputs such as 50 topic shares or eight rhetorical measures.",
+    "example": "Two presidents can score highly on AI topics and much lower on rhetoric; neither score is an overall likeness.",
+    "steps": [
+      "Choose one declared feature space",
+      "Standardize unlike rhetorical units when needed",
+      "Normalize vector lengths",
+      "Take the dot product"
+    ],
+    "formula": "A\u00b7B / (||A|| ||B||)",
+    "unit": "\u22121 to 1",
+    "limitations": "A high score is resemblance within the named inputs, not influence, ideology, agreement, or general similarity.",
+    "source": "president_edges.parquet",
+    "status": "exploratory"
+  }
+}

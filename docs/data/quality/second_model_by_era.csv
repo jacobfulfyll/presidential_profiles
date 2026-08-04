@@ -1,0 +1,10 @@
+era,expected_paragraphs,completed_paragraphs,missing_paragraphs,completion_rate
+Civil War & Reconstruction,900,897,3,0.9966666666666667
+Expansion,1058,1001,57,0.946124763705104
+Post-Cold War,1175,1119,56,0.9523404255319149
+Progressives & Depression,1074,1071,3,0.9972067039106145
+The Cold War,2192,1865,327,0.8508211678832117
+The Gilded Age,1057,1044,13,0.9877010406811731
+The founding,227,219,8,0.9647577092511013
+The present era,1075,1064,11,0.9897674418604652
+War & New Deal,290,290,0,1.0

@@ -238,11 +238,12 @@ class TestMultiplicityExposure:
         # estimator change ever dropped replicates, the note's "1/2000" arithmetic
         # and this file's `p == 0.0005` assertions would go wrong together and
         # quietly, so the note's floor is tied to the realised count here.
-        assert set(cells["n_bootstrap_valid"]) == {R.N_BOOTSTRAP}, (
+        artifact_draws = int(cells["n_bootstrap"].dropna().iloc[0])
+        assert set(cells["n_bootstrap_valid"]) == {artifact_draws}, (
             "the note's 1/B floor is only the real floor while every trend row "
             "has all B finite replicates"
         )
-        assert threshold < 1.0 / R.N_BOOTSTRAP
+        assert threshold < 1.0 / artifact_draws
         assert int((p < threshold).sum()) == 0
 
     _MARGINAL_TABLE = [
