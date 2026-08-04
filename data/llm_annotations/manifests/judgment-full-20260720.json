@@ -1,0 +1,27 @@
+{
+  "annotation_files": [
+    "paragraph_annotations.parquet",
+    "paragraph_entities.parquet"
+  ],
+  "batch_id": "msgbatch_014BDu9cWRZ9Y69ysSdgKeuP",
+  "cache_creation_input_tokens": 593110,
+  "cache_read_input_tokens": 8100188,
+  "corpus_fingerprint": {
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc",
+    "n_paragraphs": 36229,
+    "n_speeches": 1057
+  },
+  "cost_usd": 26.2846,
+  "date": "2026-07-20",
+  "fields": [
+    "paragraph_annotations"
+  ],
+  "input_tokens": 7696984,
+  "model": "claude-sonnet-5",
+  "n_requests": 1040,
+  "notes": "succeeded=1026 errored=14 canceled=0 expired=0. permanent (invalid_request) failures: 0; retryable failures: 75. paragraph coverage: 28,724/31,471 sent para_idxs returned; 80 responses were INCOMPLETE (the model dropped 2,747 paragraphs). Those speeches are NOT marked done and will be re-requested by the next `submit`.",
+  "output_tokens": 3407242,
+  "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+  "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+  "run_id": "judgment-full-20260720"
+}

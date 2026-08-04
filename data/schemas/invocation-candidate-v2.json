@@ -1,0 +1,1 @@
+{"schema_version":"invocation-candidate-v2","primary_key":["candidate_id"],"required":["doc_name","para_idx","char_start","char_end","target","speaker","speech_date","raw_mention","context","quotation_status","source_role","target_status","excluded_reason"]}

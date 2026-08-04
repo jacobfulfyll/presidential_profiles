@@ -1,0 +1,1 @@
+{"schema_version":"speech-type-enrichment-v1","primary_key":["taxonomy_level","speech_type","topic"],"required":["n_speeches_with_topic","n_speeches_in_type","topic_rate","overall_rate","lift"]}

@@ -1,0 +1,1243 @@
+{
+  "schema_version": "president-profile-v3",
+  "president": "John Adams",
+  "slug": "john-adams",
+  "party": "Federalist",
+  "years": {
+    "first": 1797,
+    "last": 1800
+  },
+  "sample": {
+    "n_speeches": 9,
+    "n_words": 14681,
+    "thin_record": false,
+    "warning": null
+  },
+  "rhetorical_radar": [
+    {
+      "key": "hope",
+      "label": "Hope",
+      "absolute": 870.6620304083998,
+      "percentile": 100.0
+    },
+    {
+      "key": "fear",
+      "label": "Fear appeal",
+      "absolute": 288.40253630599307,
+      "percentile": 60.0
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "absolute": 0.5024875621890548,
+      "percentile": 24.444444444444443
+    },
+    {
+      "key": "us_vs_them",
+      "label": "Us vs them",
+      "absolute": 55.90782027681189,
+      "percentile": 42.22222222222222
+    },
+    {
+      "key": "self_reference",
+      "label": "Self-reference",
+      "absolute": 0.4015544041450777,
+      "percentile": 57.77777777777777
+    },
+    {
+      "key": "formality",
+      "label": "Formality",
+      "absolute": 21.90995137301712,
+      "percentile": 95.55555555555556
+    },
+    {
+      "key": "vocabulary",
+      "label": "Vocabulary",
+      "absolute": 0.4262857142857142,
+      "percentile": 75.55555555555556
+    },
+    {
+      "key": "religiosity",
+      "label": "Religiosity",
+      "absolute": 20.454080589077524,
+      "percentile": 97.77777777777777
+    }
+  ],
+  "raw_stats": {
+    "party": "Federalist",
+    "first_year": 1797,
+    "last_year": 1800,
+    "n_speeches": 9,
+    "n_words": 14681,
+    "boosters": 8.181632235631008,
+    "hedges": 44.31717460966796,
+    "concessives": 23.86309402059044,
+    "assertive_modals": 60.68043908092998,
+    "need_to": 0.6818026863025841,
+    "united_states": 59.99863639462739,
+    "america": 19.090475216472353,
+    "nostalgia": 8.863434921933592,
+    "future": 6.136224176723256,
+    "religiosity": 20.454080589077524,
+    "god_bless": 0.0,
+    "us_them": 55.90782027681189,
+    "superlatives": 4.772618804118088,
+    "opponents": 0.0,
+    "hype": 2.045408058907752,
+    "doom": 4.090816117815504,
+    "mechanism": 29.999318197313695,
+    "nrc_hope": 870.6620304083998,
+    "nrc_fear": 288.40253630599307,
+    "certainty": 0.5024875621890548,
+    "fk_grade": 21.90995137301712,
+    "self_reference": 0.4015544041450777,
+    "ttr": 0.4262857142857142,
+    "pct_hope": 100.0,
+    "pct_fear": 60.0,
+    "pct_certainty": 24.444444444444443,
+    "pct_us_vs_them": 42.22222222222222,
+    "pct_self_reference": 57.77777777777777,
+    "pct_formality": 95.55555555555556,
+    "pct_vocabulary": 75.55555555555556,
+    "pct_religiosity": 97.77777777777777
+  },
+  "legacy_issue_attention": [
+    {
+      "key": "Economy & jobs",
+      "label": "Economy & jobs",
+      "share": 0.1638,
+      "era_relative_difference": 6.4574
+    },
+    {
+      "key": "Taxes & budget",
+      "label": "Taxes & budget",
+      "share": 0.069,
+      "era_relative_difference": -5.5854
+    },
+    {
+      "key": "War & military",
+      "label": "War & military",
+      "share": 0.2586,
+      "era_relative_difference": -3.7796
+    },
+    {
+      "key": "Foreign policy",
+      "label": "Foreign policy",
+      "share": 0.3448,
+      "era_relative_difference": 12.3629
+    },
+    {
+      "key": "Immigration",
+      "label": "Immigration",
+      "share": 0.0,
+      "era_relative_difference": -0.8916
+    },
+    {
+      "key": "Civil rights & race",
+      "label": "Civil rights & race",
+      "share": 0.0,
+      "era_relative_difference": -2.0805
+    },
+    {
+      "key": "Health care",
+      "label": "Health care",
+      "share": 0.0431,
+      "era_relative_difference": 2.8865
+    },
+    {
+      "key": "Education",
+      "label": "Education",
+      "share": 0.0086,
+      "era_relative_difference": -0.7437
+    },
+    {
+      "key": "Crime & justice",
+      "label": "Crime & justice",
+      "share": 0.0517,
+      "era_relative_difference": 2.3818
+    },
+    {
+      "key": "Energy & environment",
+      "label": "Energy & environment",
+      "share": 0.0,
+      "era_relative_difference": -0.5885
+    },
+    {
+      "key": "Trade & tariffs",
+      "label": "Trade & tariffs",
+      "share": 0.2414,
+      "era_relative_difference": 7.7835
+    },
+    {
+      "key": "Agriculture",
+      "label": "Agriculture",
+      "share": 0.0431,
+      "era_relative_difference": 1.8554
+    },
+    {
+      "key": "Religion & values",
+      "label": "Religion & values",
+      "share": 0.1207,
+      "era_relative_difference": 7.8266
+    },
+    {
+      "key": "Money & banking",
+      "label": "Money & banking",
+      "share": 0.0,
+      "era_relative_difference": -2.8925
+    },
+    {
+      "key": "Infrastructure",
+      "label": "Infrastructure",
+      "share": 0.1552,
+      "era_relative_difference": -2.8883
+    },
+    {
+      "key": "Discovered 5",
+      "label": "Security & peace",
+      "share": 0.069,
+      "era_relative_difference": -0.1275
+    }
+  ],
+  "issue_evidence": {
+    "cards": [
+      {
+        "issue": "Foreign policy",
+        "rel": 12.362891901826526,
+        "share": 0.3448275862068966,
+        "base": 0.1530265809158409,
+        "topic_of_day": false,
+        "words": [
+          "commissioners",
+          "amity",
+          "directory",
+          "croix",
+          "majesty"
+        ],
+        "quote": "A few days before his arrival at Paris the French minister of foreign relations informed the American minister then resident at Paris of the formalities to be observed by himself in taking leave, and by his successor preparatory to his reception.",
+        "cite": "Special Session Message to Congress (XYZ Affair), 1797",
+        "stance": null
+      },
+      {
+        "issue": "Religion & values",
+        "rel": 7.82657650903433,
+        "share": 0.1206896551724138,
+        "base": 0.06011758535979464,
+        "topic_of_day": false,
+        "words": [
+          "commerce",
+          "philadelphia",
+          "honor"
+        ],
+        "quote": null,
+        "cite": null,
+        "stance": null
+      },
+      {
+        "issue": "Trade & tariffs",
+        "rel": 7.783540958184834,
+        "share": 0.2413793103448276,
+        "base": 0.09067321758812001,
+        "topic_of_day": false,
+        "words": [
+          "sea",
+          "article"
+        ],
+        "quote": "With a sea coast of near 2000 miles in extent, opening a wide field for fisheries, navigation, and commerce, a great portion of our citizens naturally apply their industry and enterprise to these objects.",
+        "cite": "Special Session Message to Congress (XYZ Affair), 1797",
+        "stance": null
+      },
+      {
+        "issue": "Economy & jobs",
+        "rel": 6.457434058538358,
+        "share": 0.16379310344827586,
+        "base": 0.15846421375141462,
+        "topic_of_day": false,
+        "words": [
+          "gentlemen",
+          "captures",
+          "providence"
+        ],
+        "quote": null,
+        "cite": null,
+        "stance": null
+      }
+    ],
+    "voice": [
+      "france",
+      "french",
+      "measures",
+      "minister",
+      "calamity"
+    ],
+    "n_speeches": 9,
+    "n_paragraphs": 116,
+    "low_confidence": false
+  },
+  "ai": {
+    "n_paragraphs": 116,
+    "n_speeches": 9,
+    "low_confidence": false,
+    "top_topics": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "Protests against violations of American neutral commerce and the impressment of seamen by European belligerents during the era of the Napoleonic wars.",
+        "share": 35.34,
+        "rel": 24.75,
+        "n": 41
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.",
+        "share": 30.17,
+        "rel": 13.35,
+        "n": 35
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "definition": "Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.",
+        "share": 18.1,
+        "rel": 9.58,
+        "n": 21
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "definition": "Organizing and equipping the militia, army, and navy, fortifications and armament, readiness in peacetime, and the care and honoring of veterans and service members.",
+        "share": 17.24,
+        "rel": 1.17,
+        "n": 20
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "definition": "Ceremonial tributes to founders and heroes, eulogies for departed statesmen, anniversary commemorations, and consoling the nation in mourning.",
+        "share": 11.21,
+        "rel": 10.67,
+        "n": 13
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "definition": "The chief executive's diffidence about his qualifications, gratitude for public trust, and reflection on entering or leaving the office.",
+        "share": 8.62,
+        "rel": 5.11,
+        "n": 10
+      }
+    ],
+    "distinctive_topics": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "Protests against violations of American neutral commerce and the impressment of seamen by European belligerents during the era of the Napoleonic wars.",
+        "share": 35.34,
+        "rel": 24.75,
+        "n": 41
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.",
+        "share": 30.17,
+        "rel": 13.35,
+        "n": 35
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "definition": "Ceremonial tributes to founders and heroes, eulogies for departed statesmen, anniversary commemorations, and consoling the nation in mourning.",
+        "share": 11.21,
+        "rel": 10.67,
+        "n": 13
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "definition": "Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.",
+        "share": 18.1,
+        "rel": 9.58,
+        "n": 21
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "definition": "The chief executive's diffidence about his qualifications, gratitude for public trust, and reflection on entering or leaving the office.",
+        "share": 8.62,
+        "rel": 5.11,
+        "n": 10
+      }
+    ],
+    "domains": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 49.14,
+        "rel": 19.73
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 18.1,
+        "rel": 9.58
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 17.24,
+        "rel": -5.95
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 12.07,
+        "rel": -1.01
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 11.21,
+        "rel": 10.67
+      }
+    ],
+    "topic_attention": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 35.345,
+        "rel": 24.752,
+        "n": 41
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 30.172,
+        "rel": 13.345,
+        "n": 35
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 4.31,
+        "rel": -1.679,
+        "n": 5
+      },
+      {
+        "name": "Monroe Doctrine & Latin American Policy",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -4.468,
+        "n": 0
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Middle East & Israel",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "share": 17.241,
+        "rel": 1.174,
+        "n": 20
+      },
+      {
+        "name": "Early Naval Wars: Barbary & the War of 1812",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -8.611,
+        "n": 0
+      },
+      {
+        "name": "Mexican War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Vietnam War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "share": 0.0,
+        "rel": -1.119,
+        "n": 0
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "share": 0.0,
+        "rel": -1.481,
+        "n": 0
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 1.724,
+        "rel": -6.955,
+        "n": 2
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "share": 6.897,
+        "rel": -3.659,
+        "n": 8
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "share": 0.862,
+        "rel": 0.572,
+        "n": 1
+      },
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.049,
+        "n": 0
+      },
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Prosperity, Jobs & the Middle Class",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.145,
+        "n": 0
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": -1.996,
+        "n": 0
+      },
+      {
+        "name": "Agriculture & Farm Prices",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": -1.149,
+        "n": 0
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": -5.099,
+        "n": 0
+      },
+      {
+        "name": "Space Exploration",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Slavery, Emancipation & Sectionalism",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.308,
+        "n": 0
+      },
+      {
+        "name": "Reconstruction & Southern Self-Government",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.073,
+        "n": 0
+      },
+      {
+        "name": "Chinese Immigration & Exclusion",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Immigration & Border Security",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.064,
+        "n": 0
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "share": 2.586,
+        "rel": -10.263,
+        "n": 3
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "share": 1.724,
+        "rel": -3.345,
+        "n": 2
+      },
+      {
+        "name": "Polygamy in the Territories",
+        "domain": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "share": 7.759,
+        "rel": 0.318,
+        "n": 9
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.0,
+        "rel": -0.639,
+        "n": 0
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.724,
+        "rel": -2.932,
+        "n": 2
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.862,
+        "rel": -0.441,
+        "n": 1
+      },
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.724,
+        "rel": 1.724,
+        "n": 2
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "share": 11.207,
+        "rel": 10.671,
+        "n": 13
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "share": 8.621,
+        "rel": 5.112,
+        "n": 10
+      },
+      {
+        "name": "Personal Narrative, Storytelling & Boasting",
+        "domain": "Personal Narrative & Reflection",
+        "share": 0.0,
+        "rel": -0.128,
+        "n": 0
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "share": 6.034,
+        "rel": 1.207,
+        "n": 7
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "share": 18.103,
+        "rel": 9.582,
+        "n": 21
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "share": 0.0,
+        "rel": -0.192,
+        "n": 0
+      }
+    ],
+    "domain_attention": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 49.138,
+        "rel": 19.732
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 17.241,
+        "rel": -5.946
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 0.0,
+        "rel": -2.308
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 1.724,
+        "rel": -6.955
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 6.897,
+        "rel": -3.708
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.195
+      },
+      {
+        "name": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": -3.145
+      },
+      {
+        "name": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": -5.099
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.445
+      },
+      {
+        "name": "Indian & Tribal Affairs",
+        "share": 2.586,
+        "rel": -10.263
+      },
+      {
+        "name": "Law, Crime & Justice",
+        "share": 1.724,
+        "rel": -3.345
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 12.069,
+        "rel": -1.012
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 11.207,
+        "rel": 10.671
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 8.621,
+        "rel": 4.984
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 6.034,
+        "rel": 1.207
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 18.103,
+        "rel": 9.582
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 0.0,
+        "rel": -0.192
+      }
+    ],
+    "flags": {
+      "party_attack": 0.0,
+      "enemy_naming": 17.24,
+      "zero_sum": 4.31
+    },
+    "proposal_values": {
+      "proposal": 18.1,
+      "values": 32.76,
+      "mixed": 19.83,
+      "neither": 29.31
+    },
+    "speech_types": [
+      {
+        "name": "State of the Union / annual message",
+        "value": 44.44
+      },
+      {
+        "name": "Proclamation",
+        "value": 22.22
+      },
+      {
+        "name": "Eulogy or commemoration",
+        "value": 11.11
+      },
+      {
+        "name": "Inaugural address",
+        "value": 11.11
+      }
+    ],
+    "adversaries": [
+      {
+        "name": "France",
+        "n": 10
+      },
+      {
+        "name": "French Republic",
+        "n": 2
+      },
+      {
+        "name": "foreign and domestic factions",
+        "n": 2
+      },
+      {
+        "name": "Executive Directory",
+        "n": 1
+      },
+      {
+        "name": "French Directory",
+        "n": 1
+      }
+    ],
+    "ai_radar": {
+      "party_attack": {
+        "absolute": 0.0,
+        "percentile": 3.6
+      },
+      "enemy_naming": {
+        "absolute": 17.241,
+        "percentile": 45.2
+      },
+      "zero_sum": {
+        "absolute": 4.31,
+        "percentile": 42.9
+      },
+      "proposal": {
+        "absolute": 18.103,
+        "percentile": 38.1
+      },
+      "values": {
+        "absolute": 32.759,
+        "percentile": 54.8
+      },
+      "topic_breadth": {
+        "absolute": 10.235,
+        "percentile": 4.8
+      }
+    }
+  },
+  "distinctive_vocabulary": [
+    {
+      "president": "John Adams",
+      "term": "gentlemen",
+      "z": 17.675546663490195,
+      "rank": 0
+    },
+    {
+      "president": "John Adams",
+      "term": "commerce",
+      "z": 11.486815435252787,
+      "rank": 1
+    },
+    {
+      "president": "John Adams",
+      "term": "france",
+      "z": 10.66789855947533,
+      "rank": 2
+    },
+    {
+      "president": "John Adams",
+      "term": "commissioners",
+      "z": 10.627324451103597,
+      "rank": 3
+    },
+    {
+      "president": "John Adams",
+      "term": "philadelphia",
+      "z": 10.60599855465257,
+      "rank": 4
+    },
+    {
+      "president": "John Adams",
+      "term": "french",
+      "z": 9.824515280119988,
+      "rank": 5
+    },
+    {
+      "president": "John Adams",
+      "term": "amity",
+      "z": 9.649003215438546,
+      "rank": 6
+    },
+    {
+      "president": "John Adams",
+      "term": "honor",
+      "z": 9.464656636091139,
+      "rank": 7
+    },
+    {
+      "president": "John Adams",
+      "term": "directory",
+      "z": 8.857750077236114,
+      "rank": 8
+    },
+    {
+      "president": "John Adams",
+      "term": "croix",
+      "z": 8.82082746318952,
+      "rank": 9
+    },
+    {
+      "president": "John Adams",
+      "term": "majesty",
+      "z": 8.772777374907172,
+      "rank": 10
+    },
+    {
+      "president": "John Adams",
+      "term": "captures",
+      "z": 8.487476346023739,
+      "rank": 11
+    },
+    {
+      "president": "John Adams",
+      "term": "measures",
+      "z": 8.251303776247047,
+      "rank": 12
+    },
+    {
+      "president": "John Adams",
+      "term": "providence",
+      "z": 8.22526726898452,
+      "rank": 13
+    },
+    {
+      "president": "John Adams",
+      "term": "minister",
+      "z": 8.016829231853809,
+      "rank": 14
+    },
+    {
+      "president": "John Adams",
+      "term": "sea",
+      "z": 7.945249079092813,
+      "rank": 15
+    },
+    {
+      "president": "John Adams",
+      "term": "article",
+      "z": 7.834750222560298,
+      "rank": 16
+    },
+    {
+      "president": "John Adams",
+      "term": "calamity",
+      "z": 7.711318065683657,
+      "rank": 17
+    }
+  ],
+  "signature_speeches": [
+    {
+      "title": "December 19, 1799: Death of George Washington",
+      "year": 1799,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-19-1799-death-george-washington"
+    },
+    {
+      "title": "May 21, 1800: Proclamation of Pardons to Those Engaged in Fries Rebellion",
+      "year": 1800,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-21-1800-proclamation-pardons-those-engaged-fries-rebellion"
+    },
+    {
+      "title": "December 8, 1798: Second Annual Message",
+      "year": 1798,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-8-1798-second-annual-message"
+    },
+    {
+      "title": "November 22, 1800: Fourth Annual Message",
+      "year": 1800,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-22-1800-fourth-annual-message"
+    },
+    {
+      "title": "March 23, 1798: Proclamation of Day of Fasting, Humiliation and Prayer",
+      "year": 1798,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-23-1798-proclamation-day-fasting-humiliation-and-prayer"
+    }
+  ],
+  "legacy_invocations": {
+    "invokes": [
+      {
+        "target": "George Washington",
+        "n": 3,
+        "pos": 2,
+        "neg": 1
+      }
+    ],
+    "invoked_by": null
+  },
+  "classified_invocations": [
+    {
+      "target": "George Washington",
+      "function": "ceremonial/biographical",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "George Washington",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 1
+    }
+  ],
+  "voice_neighbors": [
+    [
+      "Warren G. Harding",
+      0.2009569876169557
+    ],
+    [
+      "James Buchanan",
+      0.19116289577857426
+    ],
+    [
+      "Harry S. Truman",
+      0.17231788441275314
+    ]
+  ],
+  "agenda_neighbors": [
+    [
+      "James Buchanan",
+      0.9781013998911919
+    ],
+    [
+      "Zachary Taylor",
+      0.9758920111486047
+    ],
+    [
+      "Franklin Pierce",
+      0.9737818312443973
+    ]
+  ],
+  "feature_neighbors": {
+    "ai_topics": [
+      {
+        "president": "James Madison",
+        "similarity": 0.7308
+      },
+      {
+        "president": "James Monroe",
+        "similarity": 0.6932
+      },
+      {
+        "president": "Thomas Jefferson",
+        "similarity": 0.6745
+      },
+      {
+        "president": "George Washington",
+        "similarity": 0.6307
+      },
+      {
+        "president": "John Tyler",
+        "similarity": 0.6264
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.6058
+      }
+    ],
+    "ai_domains": [
+      {
+        "president": "John F. Kennedy",
+        "similarity": 0.9208
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.9166
+      },
+      {
+        "president": "Harry S. Truman",
+        "similarity": 0.9126
+      },
+      {
+        "president": "James Monroe",
+        "similarity": 0.91
+      },
+      {
+        "president": "Dwight D. Eisenhower",
+        "similarity": 0.8948
+      },
+      {
+        "president": "William McKinley",
+        "similarity": 0.8925
+      }
+    ],
+    "ai_rhetoric": [
+      {
+        "president": "Martin Van Buren",
+        "similarity": 0.9339
+      },
+      {
+        "president": "George Washington",
+        "similarity": 0.9226
+      },
+      {
+        "president": "James Monroe",
+        "similarity": 0.8225
+      },
+      {
+        "president": "John Quincy Adams",
+        "similarity": 0.7642
+      },
+      {
+        "president": "Andrew Jackson",
+        "similarity": 0.67
+      },
+      {
+        "president": "John Tyler",
+        "similarity": 0.6528
+      }
+    ],
+    "rhetorical_fingerprint": [
+      {
+        "president": "James Madison",
+        "similarity": 0.7449
+      },
+      {
+        "president": "George Washington",
+        "similarity": 0.5973
+      },
+      {
+        "president": "Dwight D. Eisenhower",
+        "similarity": 0.5446
+      },
+      {
+        "president": "Warren G. Harding",
+        "similarity": 0.5076
+      },
+      {
+        "president": "Gerald Ford",
+        "similarity": 0.314
+      },
+      {
+        "president": "John Quincy Adams",
+        "similarity": 0.2417
+      }
+    ],
+    "legacy_issues": [
+      {
+        "president": "James Buchanan",
+        "similarity": 0.9781
+      },
+      {
+        "president": "Franklin Pierce",
+        "similarity": 0.9738
+      },
+      {
+        "president": "George Washington",
+        "similarity": 0.9727
+      },
+      {
+        "president": "James K. Polk",
+        "similarity": 0.9713
+      },
+      {
+        "president": "Thomas Jefferson",
+        "similarity": 0.9683
+      },
+      {
+        "president": "James Monroe",
+        "similarity": 0.9682
+      }
+    ]
+  },
+  "context_specific": {
+    "profile_only": [],
+    "compare_only": []
+  }
+}

@@ -26,7 +26,7 @@ Pipeline
                   stem gate structurally cannot see.
 
 Node labels are the most frequent surface form in the node ("immigration", not
-the stem "immigr").
+the stem "immigr"), except for a small set of named-entity spelling overrides.
 
 The override lists were produced by a 21-agent adversarial audit of all 2,154
 merge/split decisions the algorithm makes (4.5% error rate, 96 confirmed errors,
@@ -62,6 +62,14 @@ MIN_UNIGRAM = 30
 MIN_BIGRAM = 15
 EMBED_MODEL = "minishlab/potion-base-8M"
 
+# Canonical spellings for entities whose most frequent standalone token is not
+# a sufficient public label. The tokenizer sees both "al-Qaeda" and "al Qaeda"
+# as an occurrence of the `qaeda` token; grouped views should name that family
+# after the organization rather than showing the fragment "Qaeda".
+CANONICAL_NODE_LABELS = {
+    "qaeda": "al-qaeda",
+}
+
 # --- Spelling / hyphenation normalization (applied before tokenizing) --------
 # Archaic hyphenations and British spellings that split a word across eras. The
 # current tokenizer strips hyphens, so "to-day" would otherwise fragment into
@@ -72,6 +80,9 @@ NORMALIZE = {
     "co-operative": "cooperative", "co-ordinate": "coordinate",
     "co-ordination": "coordination", "co-ordinated": "coordinated",
     "defence": "defense", "offence": "offense",
+    # The historical corpus alternates between Vietnam and Viet Nam/Viet-Nam.
+    # Grouped Explore counts treat those spellings as one place name.
+    "viet-nam": "vietnam", "viet nam": "vietnam",
 }
 _NORMALIZE_RE = re.compile(
     r"\b(" + "|".join(re.escape(k) for k in NORMALIZE) + r")\b")
@@ -621,7 +632,11 @@ def build_families(df: pd.DataFrame | None = None, force: bool = False) -> dict:
     and only rebuilt with force=True or when the JSON is missing."""
     global _CACHE
     if FAMILIES_PATH.exists() and not force:
-        _CACHE = json.loads(FAMILIES_PATH.read_text())["families"]
+        cached = json.loads(FAMILIES_PATH.read_text())["families"]
+        _CACHE = {
+            form: CANONICAL_NODE_LABELS.get(label, label)
+            for form, label in cached.items()
+        }
         return _CACHE
 
     from model2vec import StaticModel
@@ -730,7 +745,8 @@ def build_families(df: pd.DataFrame | None = None, force: bool = False) -> dict:
     for mem in members.values():
         if not mem:
             continue
-        label = max(mem, key=lambda w: (uni[w], w))
+        raw_label = max(mem, key=lambda w: (uni[w], w))
+        label = CANONICAL_NODE_LABELS.get(raw_label, raw_label)
         node_members[label] = sorted(mem, key=lambda w: (-uni[w], w))
         for m in mem:
             families[m] = label
@@ -798,8 +814,14 @@ _CACHE: dict | None = None
 def _load() -> dict[str, str]:
     global _CACHE
     if _CACHE is None:
-        _CACHE = json.loads(FAMILIES_PATH.read_text())["families"] \
+        cached = (
+            json.loads(FAMILIES_PATH.read_text())["families"]
             if FAMILIES_PATH.exists() else {}
+        )
+        _CACHE = {
+            form: CANONICAL_NODE_LABELS.get(label, label)
+            for form, label in cached.items()
+        }
     return _CACHE
 
 

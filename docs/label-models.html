@@ -1,0 +1,238 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How the label models differ · Presidential Profiles</title>
+<style>
+  :root {
+    --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
+    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--page); color: var(--ink);
+         font-family: system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height: 1.55; }
+  header { max-width: 980px; margin: 0 auto; padding: 48px 20px 8px; }
+  header h1 { font-size: 2rem; letter-spacing: -0.02em; }
+  header p.sub { color: var(--ink2); margin-top: 10px; max-width: 46rem; }
+  main { max-width: 980px; margin: 0 auto; padding: 8px 20px 40px; }
+  section { margin-top: 44px; }
+  section h2 { font-size: 1.28rem; letter-spacing: -0.01em; }
+  section p { color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }
+  .chart-scroll { background: var(--surface); border: 1px solid var(--border);
+                   border-radius: 12px; padding: 10px 6px 6px;
+                   overflow-x: auto; overflow-y: hidden; }
+  .chart { min-width: 640px; }
+  footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
+            border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
+  footer a { color: var(--ink2); }
+
+
+.global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
+backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
+.nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
+align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
+color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+.nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
+background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
+align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
+.nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
+min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
+white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
+.nav-item>a[aria-current=page],.nav-group.nav-group-current>.nav-trigger{
+background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6px;
+border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
+.nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
+.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
+min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
+background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
+padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
+.nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+.nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
+.nav-brand:focus-visible{outline:3px solid #d08b45;outline-offset:2px}
+.footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
+@media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
+.nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
+width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+.nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
+
+.note,.audit-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+.audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.audit-card strong{display:block;font-size:1.5rem} details{margin:.8rem 0;padding:.7rem;border:1px solid var(--border);border-radius:10px}
+table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}th,td{padding:.5rem .65rem;border-bottom:1px solid var(--grid);text-align:left}
+th button{border:0;background:transparent;padding:0;color:inherit;font-weight:700;cursor:pointer;text-align:left}
+button,select,input{font:inherit} .tabs,.filters{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.tabs button,.filters button{padding:7px 11px;border:1px solid var(--border);border-radius:999px;background:var(--surface);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--page)} .panel[hidden]{display:none}
+.network-plot{height:620px} .sr-note{color:var(--muted);font-size:.85rem}
+@media(max-width:700px){.network-plot{height:460px}}
+</style></head><body><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div><div class="nav-item nav-group nav-group-current" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="data-quality.html">Data Quality</a><a href="methodology.html" aria-current="page">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+<script>
+(() => {
+  const nav = document.currentScript.previousElementSibling;
+  if (!nav || !nav.matches(".global-nav")) return;
+  document.documentElement.classList.add("nav-enhanced");
+  const groups = [...nav.querySelectorAll(".nav-group")];
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    const submenu = group.querySelector(".nav-submenu");
+    trigger.setAttribute("aria-expanded", "false");
+    submenu.hidden = true;
+    group.classList.remove("is-open");
+    if (restoreFocus) trigger.focus();
+  };
+  const closeOthers = active => groups.forEach(group => {
+    if (group !== active) close(group);
+  });
+  const open = group => {
+    closeOthers(group);
+    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
+    group.querySelector(".nav-submenu").hidden = false;
+    group.classList.add("is-open");
+  };
+  groups.forEach(group => {
+    const trigger = group.querySelector(".nav-trigger");
+    const toggle = () => {
+      if (trigger.getAttribute("aria-expanded") === "true") close(group);
+      else open(group);
+    };
+    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggle();
+    });
+    group.addEventListener("pointerenter", () => {
+      if (finePointer.matches) open(group);
+    });
+    group.addEventListener("pointerleave", () => {
+      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    });
+    group.addEventListener("focusout", () => setTimeout(() => {
+      if (!group.contains(document.activeElement)) close(group);
+    }));
+    group.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      close(group, true);
+    });
+  });
+  document.addEventListener("pointerdown", event => {
+    if (!nav.contains(event.target)) groups.forEach(group => close(group));
+  });
+
+  const setNavHeight = () => {
+    document.documentElement.style.setProperty("--global-nav-height", `${nav.offsetHeight}px`);
+  };
+  setNavHeight();
+  if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
+  else addEventListener("resize", setNavHeight);
+
+})();
+</script>
+<header><h1>How the label models differ</h1><p class="sub">A detailed, evidence-backed comparison of the anchored CorEx issue model and the LLM semantic taxonomy.</p></header>
+<main>
+<style>
+.method-contrast{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.method-lane{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
+.method-lane h2{margin-top:0}.method-lane.corex{border-top:5px solid #9b6b39}
+.method-lane.llm{border-top:5px solid #2d6f9d}.method-steps li{margin:.65rem 0}
+.model-chart{height:500px}.verdict{border-left:4px solid #8a6d3b;background:#fff8e8;padding:14px 16px}
+@media(max-width:760px){.method-contrast{grid-template-columns:1fr}.model-chart{height:420px}}
+</style>
+<section><h2>One corpus, two different measuring instruments</h2>
+<p>Both systems label the same paragraph-sized units and both allow more than one label.
+They differ in what they can “see.” CorEx is a deterministic, anchored word-pattern model.
+The LLM layer applies a frozen semantic rubric that can recognize an idea even when its
+historic wording changes. Neither is ground truth.</p>
+<div class="method-contrast">
+<article class="method-lane corex"><h2>CorEx: anchored word patterns</h2>
+<p><strong>15 hand-defined issues + 7 free topics.</strong> Sixteen are public after the
+free-topic quality gate.</p><ol class="method-steps">
+<li>Turn 36,229 paragraphs into binary word-presence vectors.</li>
+<li>Remove common English and speech-register words; retain words appearing in at least
+20 paragraphs and at most 30% of paragraphs, capped at 25,000 features.</li>
+<li>Give each of 15 issues an era-spanning anchor list, with anchor strength 6.</li>
+<li>Fit 22 latent factors with seed 42: 15 anchored factors and 7 unsupplied factors.</li>
+<li>Store a Boolean activation for every paragraph-topic pair.</li></ol>
+<p><strong>Strength:</strong> repeatable, cheap, inspectable vocabulary. <strong>Blind spot:</strong>
+renamed concepts and meanings that use none of the anchor vocabulary.</p></article>
+<article class="method-lane llm"><h2>LLM: frozen semantic rubric</h2>
+<p><strong>50 fine topics inside 17 broad domains.</strong> Labels were derived from
+era-isolated corpus samples, frozen, then applied paragraph by paragraph with president,
+party, and title hidden.</p><ol class="method-steps">
+<li>Use embeddings and era-balanced samples to expose subjects the legacy list missed.</li>
+<li>Normalize proposals into a closed 50-topic taxonomy with definitions and boundaries.</li>
+<li>Give the model only paragraph text and decade, then allow multi-label assignments.</li>
+<li>Re-label a stratified speech sample with a second model to measure disagreement.</li>
+<li>Carry sampling and annotator disagreement separately, then combine them into the
+default uncertainty envelope.</li></ol>
+<p><strong>Strength:</strong> meaning can survive vocabulary drift. <strong>Blind spot:</strong>
+subjective rubric judgments, model disagreement, and a more granular taxonomy.</p></article>
+</div></section>
+<section><h2>Does CorEx create named entities?</h2>
+<p><strong>No.</strong> CorEx produces paragraph-topic activations from correlated word
+patterns. It does not emit people, countries, organizations, stance, partisan attack,
+zero-sum framing, or proposal-versus-values judgments.</p>
+<p>Named entities come from a separate LLM extraction pass. The entity agreement numbers
+compare that primary LLM pass with a second LLM pass on the same sampled paragraphs—they
+are <em>not</em> CorEx-versus-LLM agreement. The audit separates whether the models found
+the same normalized names from whether they assigned the same stance after a name
+matched. <a href="data-quality.html">See the contextualized entity audit →</a></p></section>
+<section><h2>Where they agree—and why a mismatch is not automatically an error</h2>
+<p>The 50 fine LLM topics are projected through a declared many-to-many crosswalk onto
+the 15 legacy issues. The charts below use all 35,825 comparable
+paragraphs. A paragraph can activate several issues in either system.</p>
+<div id="model-rates" class="model-chart" aria-label="CorEx and LLM positive rates by issue"></div>
+<div id="model-agreement" class="model-chart" aria-label="CorEx and LLM agreement by issue"></div>
+<details class="metric-lesson"><summary>Explain this measure</summary><p><strong>Cohen’s κ</strong> — Agreement corrected for the labels each model uses most often.</p><p class="toy">Two models saying &#x27;no&#x27; on nearly everything can have high raw agreement but modest κ.</p><ol><li>Build a confusion matrix</li><li>Measure observed agreement</li><li>Estimate agreement from each model&#x27;s label rates</li><li>Correct the observed value</li></ol><details><summary>Formula and limitations</summary><p><code>(observed − expected) / (1 − expected)</code> · −1 to 1</p><p>Rare labels can depress κ even when most rows match.</p></details></details>
+<details><summary>Inspect the evidence</summary><p>
+<a href="data/method-agreement.csv" download>Download paragraph-level agreement summaries</a> ·
+<a href="data/method-compositions.csv" download>Download speech-level method compositions</a>.
+Jaccard is overlap divided by the union; κ adjusts observed agreement for the two
+systems' label rates.</p></details>
+<p class="verdict"><strong>The preregistered coherence prediction failed.</strong>
+Anchor-word coherence did not predict cross-method agreement (Spearman ρ = −0.054
+for Jaccard, no-change surprise 85.0%). Immigration is the clearest counterexample:
+its anchor words rarely co-occur, yet its CorEx and LLM labels agree relatively well.
+That is evidence that word co-occurrence and label precision are different questions.</p></section>
+<section><h2>The exact CorEx anchor vocabulary</h2>
+<p>These words guide the factors; they are not a simple keyword OR rule. CorEx also learns
+correlated non-anchor words. Low NPMI is published as a caveat, but anchored issues are not
+deleted for low coherence because their lists intentionally span vocabulary across eras.</p>
+<table><thead><tr><th>Anchored issue</th><th>Declared anchors</th></tr></thead>
+<tbody><tr><td>Economy &amp; jobs</td><td>economy, jobs, unemployment, industry, business, prosperity, wages, workers</td></tr><tr><td>Taxes &amp; budget</td><td>tax, taxes, budget, deficit, debt, spending, revenue, appropriations</td></tr><tr><td>War &amp; military</td><td>war, military, army, navy, troops, defense, soldiers, battle</td></tr><tr><td>Foreign policy</td><td>treaty, foreign, diplomatic, allies, alliance, relations, embassy, negotiations</td></tr><tr><td>Immigration</td><td>immigration, immigrants, border, citizenship, naturalization, aliens</td></tr><tr><td>Civil rights &amp; race</td><td>slavery, race, racial, discrimination, segregation, equality, emancipation, negro</td></tr><tr><td>Health care</td><td>health, medicare, medicaid, insurance, hospitals, disease, doctors, patients</td></tr><tr><td>Education</td><td>education, schools, teachers, students, colleges, learning</td></tr><tr><td>Crime &amp; justice</td><td>crime, police, prison, courts, drugs, violence, criminals</td></tr><tr><td>Energy &amp; environment</td><td>oil, environment, climate, conservation, pollution, forests, coal</td></tr><tr><td>Trade &amp; tariffs</td><td>tariff, trade, commerce, exports, imports, markets</td></tr><tr><td>Agriculture</td><td>farmers, agriculture, farm, crops, livestock</td></tr><tr><td>Religion &amp; values</td><td>god, faith, prayer, moral, church, spiritual</td></tr><tr><td>Money &amp; banking</td><td>currency, gold, silver, bank, banking, inflation, dollar, coinage</td></tr><tr><td>Infrastructure</td><td>railroad, railroads, roads, highways, canals, infrastructure, broadband, bridges</td></tr></tbody></table>
+<p class="sr-note">Stored model metadata reports 36,229 paragraphs,
+anchor strength 6, seven free topics, and a fixed random seed of 42.</p></section>
+<section><h2>Which view should you use?</h2>
+<ul><li><strong>Use CorEx</strong> for the long-run broad issue biographies and a completely
+deterministic historical lens.</li><li><strong>Use the LLM taxonomy</strong> for finer subjects,
+semantic drift, proposals/values, and paragraph judgments—while keeping its uncertainty
+envelopes visible.</li><li><strong>Use the comparison</strong> when a claim depends on one
+instrument. Agreement supports robustness; disagreement identifies a place to inspect wording,
+taxonomy boundaries, and source paragraphs.</li></ul></section></main><footer><p>Presidential Profiles · generated from versioned public artifacts.</p><p class="footer-feedback"><a href="feedback.html">Feedback and accuracy →</a></p></footer>
+<script src="assets/plotly-3.0.1.min.js"></script>
+<script>
+const M=[{"issue": "Money & banking", "llm_rate": 4.2094, "corex_rate": 5.6664, "jaccard": 0.465, "kappa": 0.6163, "n_both": 1123}, {"issue": "Taxes & budget", "llm_rate": 8.3294, "corex_rate": 10.8946, "jaccard": 0.4282, "kappa": 0.5579, "n_both": 2065}, {"issue": "Immigration", "llm_rate": 2.1996, "corex_rate": 2.7104, "jaccard": 0.3742, "kappa": 0.5333, "n_both": 479}, {"issue": "Agriculture", "llm_rate": 3.1654, "corex_rate": 2.7913, "jaccard": 0.3304, "kappa": 0.4813, "n_both": 530}, {"issue": "Health care", "llm_rate": 3.3357, "corex_rate": 4.522, "jaccard": 0.3335, "kappa": 0.4802, "n_both": 704}, {"issue": "Trade & tariffs", "llm_rate": 7.6288, "corex_rate": 9.1668, "jaccard": 0.3416, "kappa": 0.4646, "n_both": 1532}, {"issue": "War & military", "llm_rate": 17.0244, "corex_rate": 22.4452, "jaccard": 0.3898, "kappa": 0.4555, "n_both": 3966}, {"issue": "Security & peace", "llm_rate": 31.2519, "corex_rate": 20.6253, "jaccard": 0.3883, "kappa": 0.4137, "n_both": 5198}, {"issue": "Economy & jobs", "llm_rate": 10.4536, "corex_rate": 15.9665, "jaccard": 0.2667, "kappa": 0.3374, "n_both": 1993}, {"issue": "Religion & values", "llm_rate": 10.2331, "corex_rate": 6.0544, "jaccard": 0.2212, "kappa": 0.3098, "n_both": 1057}, {"issue": "Foreign policy", "llm_rate": 26.395, "corex_rate": 15.4222, "jaccard": 0.2833, "kappa": 0.3065, "n_both": 3307}, {"issue": "Civil rights & race", "llm_rate": 9.8227, "corex_rate": 4.522, "jaccard": 0.2109, "kappa": 0.3053, "n_both": 895}, {"issue": "Energy & environment", "llm_rate": 7.1682, "corex_rate": 2.8081, "jaccard": 0.1997, "kappa": 0.3049, "n_both": 595}, {"issue": "Infrastructure", "llm_rate": 5.5297, "corex_rate": 8.3433, "jaccard": 0.2019, "kappa": 0.2887, "n_both": 835}, {"issue": "Crime & justice", "llm_rate": 8.5024, "corex_rate": 5.4152, "jaccard": 0.1908, "kappa": 0.2724, "n_both": 799}, {"issue": "Education", "llm_rate": 8.9937, "corex_rate": 4.3712, "jaccard": 0.1226, "kappa": 0.1696, "n_both": 523}];
+const common={template:"simple_white",paper_bgcolor:"#fff",plot_bgcolor:"#fff",
+ font:{family:"system-ui",color:"#24313d"},margin:{l:190,r:24,t:26,b:48},
+ yaxis:{automargin:true},legend:{orientation:"h",y:1.08}};
+const ordered=[...M].sort((a,b)=>a.llm_rate-b.llm_rate);
+Plotly.newPlot("model-rates",[
+ {type:"bar",orientation:"h",name:"LLM projected to issue",y:ordered.map(x=>x.issue),x:ordered.map(x=>x.llm_rate),marker:{color:"#2d6f9d"}},
+ {type:"bar",orientation:"h",name:"CorEx anchored issue",y:ordered.map(x=>x.issue),x:ordered.map(x=>x.corex_rate),marker:{color:"#b17a43"}}
+],{...common,barmode:"group",height:500,xaxis:{title:"% of paragraphs",rangemode:"tozero",gridcolor:"#e8e8e8"}},
+{displayModeBar:false,responsive:true});
+const ranked=[...M].sort((a,b)=>a.kappa-b.kappa);
+Plotly.newPlot("model-agreement",[
+ {type:"scatter",mode:"markers",name:"Cohen’s κ",y:ranked.map(x=>x.issue),x:ranked.map(x=>x.kappa),marker:{size:10,color:"#2d6f9d"}},
+ {type:"scatter",mode:"markers",name:"Jaccard",y:ranked.map(x=>x.issue),x:ranked.map(x=>x.jaccard),marker:{size:9,color:"#b17a43",symbol:"diamond"}}
+],{...common,height:500,xaxis:{title:"agreement (higher = more overlap)",range:[0,1],gridcolor:"#e8e8e8"}},
+{displayModeBar:false,responsive:true});
+</script></body></html>

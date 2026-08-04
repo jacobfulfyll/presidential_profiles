@@ -1,0 +1,81 @@
+{
+  "schema_version": "era-boundaries-v2",
+  "status": "descriptive corpus periodization; reviewed exact dates may snap a stable transition zone to a presidential or institutional boundary",
+  "window_years_each_side": 8,
+  "window_options_each_side": [
+    4,
+    8
+  ],
+  "primary_cluster_count": 9,
+  "cluster_count_range": [
+    2,
+    12
+  ],
+  "minimum_segment_units": 3,
+  "cycle_anchor_year": 1789,
+  "data_optimal_grid_starts": [
+    1789,
+    1805,
+    1849,
+    1869,
+    1913,
+    1937,
+    1953,
+    1981,
+    2017
+  ],
+  "single_split_start": 1933,
+  "single_split_objective": 2711.87711408533,
+  "reviewed_grid_starts": [
+    1789,
+    1809,
+    1849,
+    1869,
+    1913,
+    1933,
+    1953,
+    1981,
+    2017
+  ],
+  "reviewed_adjustments": [
+    {
+      "data_start": 1805,
+      "reviewed_start": 1809,
+      "objective_penalty": 1.0044290462656136,
+      "penalty_pct_of_optimum": 0.05808895365958003
+    },
+    {
+      "data_start": 1937,
+      "reviewed_start": 1933,
+      "objective_penalty": 7.851046344545466,
+      "penalty_pct_of_optimum": 0.454048067390233
+    }
+  ],
+  "optimal_partition_objective": 1729.1222908780405,
+  "reviewed_partition_objective": 1737.9777662688516,
+  "reviewed_excess_objective_pct": 0.5121370210498188,
+  "axis_groups": [
+    "topic",
+    "combat",
+    "register",
+    "marker",
+    "stat",
+    "genre"
+  ],
+  "n_axes": 63,
+  "sliding_method": "For every calendar year b, compare symmetric four-year and eight-year windows on the same raw fingerprint; standardize axis differences by population SD across the governed eight-year bins; each score is the Euclidean norm.",
+  "consensus_method": "Convert the complete four- and eight-year score rankings to percentiles on their common candidate years and average them.",
+  "segmentation_method": "Build non-overlapping four-year presidential-cycle fingerprints anchored at 1789; z-score each axis across cycles; use dynamic programming to minimize total within-segment squared distance for exactly nine contiguous segments of at least three cycle units; repeat while omitting each axis group and the opponents marker.",
+  "cluster_method": "Contiguity-constrained Ward clustering on raw z-scored bin fingerprints, repeated at k=2..12 in full and leave-one-group-out forms.",
+  "corpus_fingerprint": {
+    "n_speeches": 1057,
+    "n_paragraphs": 36229,
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+  },
+  "source_sha256": {
+    "fine_fingerprints.parquet": "eaf998bb35cbf30d6dbdc55936b0b1fd62581481d887c0af348ecd1703a62eee",
+    "periodization.parquet": "86c47eda12b752fc624bb8af2b52e3911e44d1a4293a1ada786db791c1f7df23",
+    "eras_meta.json": "e70c37059909ca1e6ea4f28e57d65557250510568eab8b9439201c8839aa7ec1"
+  },
+  "api_calls": 0
+}

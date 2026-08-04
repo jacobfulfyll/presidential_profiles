@@ -8,11 +8,40 @@ import pandas as pd
 
 from .corpus import DATA_DIR, load
 from .fetch import PARAGRAPHS_PATH
-from . import indices, issues, rhetoric, similarity, trends
+from . import indices, issues, rhetoric, similarity, topic_quality, trends
 
 DISTINCTIVE_PATH = DATA_DIR / "president_distinctive.parquet"
 
 MILLER_URL = "https://millercenter.org/the-presidency/presidential-speeches/"
+
+# --- Issue card thresholds -------------------------------------------------
+# These are fixed from first principles, NOT tuned against which presidents
+# they happen to flag. Both reuse lines the codebase already draws elsewhere,
+# so a card's two axes are judged by one consistent standard.
+
+# The era-relative bar. This is the pre-existing eligibility cutoff: the
+# codebase already asserts 0.75 pp is the line between "stands out from their
+# era" and "doesn't". We keep it as the positive bar AND reuse it, as a
+# two-sided band, for the definition of "not distinctive" - an issue whose
+# |rel| falls under it is one the codebase already considers era-noise.
+REL_DISTINCT_PP = 0.75
+
+# The raw-attention bar, as a multiple of the issue's own corpus-wide base
+# rate. 1.5x is the same concentration ratio issue_cards() already uses to
+# decide a term "belongs to" an issue rather than to a president's general
+# register - the same question (is this meaningfully above background?) gets
+# the same answer here.
+RAW_ELEVATED_MULT = 1.5
+
+# An issue needs this many of the president's paragraphs behind it before it
+# gets a card, so a one-speech president gets no headline from a stray
+# metaphor.
+MIN_ISSUE_PARAS = 4
+
+# Below this, a president's rates are too thin to state without a caveat.
+# Mirrors the dashboard's sparse-president cutoff (site.py), which drops them
+# from per-president graphics entirely; profiles keep them but say so.
+SPARSE_MIN_SPEECHES = 5
 
 # Conservative invocation patterns: full names / titled surnames only, so
 # Jefferson Davis, Hillary Clinton, and Henry Ford don't count. Ambiguous
@@ -49,6 +78,56 @@ RADAR_AXES = [
     ("vocabulary", "Vocabulary"),
     ("religiosity", "Religiosity"),
 ]
+RADAR_VALUE_COLUMNS = {
+    "hope": "nrc_hope",
+    "fear": "nrc_fear",
+    "certainty": "certainty",
+    "us_vs_them": "us_them",
+    "self_reference": "self_reference",
+    "formality": "fk_grade",
+    "vocabulary": "ttr",
+    "religiosity": "religiosity",
+}
+
+FEATURE_SIMILARITY = {
+    "ai_topics": {
+        "label": "Fine AI topic mix",
+        "short": "AI topics",
+        "description": "Cosine similarity across all 50 AI-labeled topic shares.",
+        "standardized": False,
+    },
+    "ai_domains": {
+        "label": "Broad AI domain mix",
+        "short": "AI domains",
+        "description": "Cosine similarity across the 17 broad AI topic domains.",
+        "standardized": False,
+    },
+    "ai_rhetoric": {
+        "label": "AI rhetoric profile",
+        "short": "AI rhetoric",
+        "description": (
+            "Cosine similarity across six standardized measures: partisan attack, "
+            "enemy naming, zero-sum framing, proposals, values, and topic breadth."
+        ),
+        "standardized": True,
+    },
+    "rhetorical_fingerprint": {
+        "label": "Rhetorical fingerprint",
+        "short": "Rhetorical fingerprint",
+        "description": (
+            "Cosine similarity across eight standardized, named lexical measures: "
+            "hope, fear, certainty, us-versus-them, self-reference, formality, "
+            "vocabulary, and religiosity."
+        ),
+        "standardized": True,
+    },
+    "legacy_issues": {
+        "label": "Legacy issue mix",
+        "short": "Legacy issues",
+        "description": "Cosine similarity across the 16 deterministic CorEx issue shares.",
+        "standardized": False,
+    },
+}
 
 
 def slug(president: str) -> str:
@@ -171,6 +250,112 @@ def neighbors(adj: pd.DataFrame, issue_df: pd.DataFrame) -> tuple[dict, dict]:
     return voice, agenda
 
 
+def _named_feature_neighbors(
+    frame: pd.DataFrame,
+    counts: pd.Series,
+    *,
+    standardized: bool,
+    top_n: int = 6,
+) -> dict[str, list[dict]]:
+    """Nearest presidents in a small, declared feature space.
+
+    Topic and issue shares remain non-negative and are compared as compositions.
+    Rhetorical measures have unlike units, so they are standardized against the
+    presidents with at least five speeches before cosine similarity is computed.
+    Thin presidents remain queryable, but only adequately sampled presidents can
+    be returned as ranked neighbors.
+    """
+    frame = frame.astype(float).replace([np.inf, -np.inf], np.nan).fillna(0)
+    eligible = counts.reindex(frame.index).fillna(0).ge(SPARSE_MIN_SPEECHES)
+    reference = frame.loc[eligible]
+    values = frame.to_numpy(float)
+    if standardized:
+        center = reference.mean(axis=0).to_numpy(float)
+        spread = reference.std(axis=0, ddof=0).replace(0, 1).to_numpy(float)
+        values = (values - center) / spread
+    norms = np.linalg.norm(values, axis=1, keepdims=True)
+    normalized = values / np.where(norms == 0, 1, norms)
+    similarities = normalized @ normalized.T
+    names = frame.index.tolist()
+    candidate_positions = np.flatnonzero(eligible.to_numpy())
+    output: dict[str, list[dict]] = {}
+    for i, president in enumerate(names):
+        ranked = sorted(
+            (
+                (float(similarities[i, j]), names[j])
+                for j in candidate_positions
+                if j != i and np.isfinite(similarities[i, j])
+            ),
+            reverse=True,
+        )[:top_n]
+        output[president] = [
+            {"president": other, "similarity": round(score, 4)}
+            for score, other in ranked
+        ]
+    return output
+
+
+def feature_neighbors(data: dict, ai_data: dict) -> dict[str, dict[str, list[dict]]]:
+    """Five interpretable president-similarity views used across the site."""
+    scores = data["scores"]
+    names = scores.index.tolist()
+    counts = scores["n_speeches"]
+    ai_by = ai_data["by_president"]
+    topic_names = [entry["name"] for entry in ai_data["taxonomy"]["level2"]]
+    domain_names = [entry["name"] for entry in ai_data["taxonomy"]["level1"]]
+
+    def attention_frame(key: str, labels: list[str]) -> pd.DataFrame:
+        return pd.DataFrame.from_dict({
+            president: {
+                item["name"]: float(item["share"])
+                for item in ai_by[president][key]
+            }
+            for president in names
+        }, orient="index").reindex(index=names, columns=labels, fill_value=0)
+
+    topic_frame = attention_frame("topic_attention", topic_names)
+    domain_frame = attention_frame("domain_attention", domain_names)
+    ai_rhetoric = pd.DataFrame.from_dict({
+        president: {
+            "party_attack": ai_by[president]["flags"]["party_attack"],
+            "enemy_naming": ai_by[president]["flags"]["enemy_naming"],
+            "zero_sum": ai_by[president]["flags"]["zero_sum"],
+            "proposal": ai_by[president]["proposal_values"]["proposal"],
+            "values": ai_by[president]["proposal_values"]["values"],
+            "topic_breadth": ai_by[president]["ai_radar"]["topic_breadth"]["absolute"],
+        }
+        for president in names
+    }, orient="index")
+    fingerprint = scores[
+        [RADAR_VALUE_COLUMNS[key] for key, _ in RADAR_AXES]
+    ].copy()
+    issue_columns = [column for column in data["issues"] if column.startswith("share_")]
+    legacy = data["issues"].reindex(names)[issue_columns].copy()
+
+    frames = {
+        "ai_topics": topic_frame,
+        "ai_domains": domain_frame,
+        "ai_rhetoric": ai_rhetoric,
+        "rhetorical_fingerprint": fingerprint,
+        "legacy_issues": legacy,
+    }
+    by_category = {
+        key: _named_feature_neighbors(
+            frame,
+            counts,
+            standardized=bool(FEATURE_SIMILARITY[key]["standardized"]),
+        )
+        for key, frame in frames.items()
+    }
+    return {
+        president: {
+            key: by_category[key].get(president, [])
+            for key in FEATURE_SIMILARITY
+        }
+        for president in names
+    }
+
+
 # Anchor words for the one discovered topic promoted to the taxonomy display.
 _EXTRA_ANCHORS = {"Discovered 5": ["soviet", "nuclear", "weapons", "peace",
                                    "freedom", "forces"]}
@@ -258,6 +443,35 @@ def _pick_sentence(texts, anchor_terms: list[str],
     return best
 
 
+def issue_base_rates(issue_df: pd.DataFrame, display: list[str]) -> dict:
+    """Each issue's corpus-wide base rate: the fraction of all paragraphs in
+    the corpus that touch it. Paragraph-weighted, not a mean of per-president
+    shares - otherwise Garfield's 29 paragraphs would count as heavily as
+    FDR's thousands in defining what 'normal attention' means."""
+    n = issue_df["n_paragraphs"].to_numpy()
+    return {
+        name: float((issue_df[f"share_{name}"].to_numpy() * n).sum() / n.sum())
+        for name in display
+    }
+
+
+def issue_strengths(prow, name: str, base: dict) -> tuple[float, float]:
+    """An issue's ``(rel_strength, raw_strength)`` for president row ``prow``,
+    each normalised so 1.0 is exactly its threshold. ``raw_strength`` is 0 when
+    the issue's corpus-wide base rate is 0 (guards against divide-by-zero)."""
+    rel = float(prow[f"rel_{name}"]) / REL_DISTINCT_PP
+    raw = (float(prow[f"share_{name}"]) / base[name]) / RAW_ELEVATED_MULT \
+        if base[name] > 0 else 0.0
+    return rel, raw
+
+
+def is_topic_of_day(raw_strength: float, rel: float) -> bool:
+    """A "topic of the day": elevated well above the historical base rate, yet
+    indistinguishable from their own era. The subject was in the air; the
+    president is not the reason for it."""
+    return bool(raw_strength >= 1.0 and abs(rel) < REL_DISTINCT_PP)
+
+
 def issue_cards(
     df: pd.DataFrame,
     distinctive: pd.DataFrame,
@@ -265,9 +479,10 @@ def issue_cards(
     issue_meta: dict,
     top_n: int = 4,
 ) -> dict:
-    """Per president: their top era-relative issues, each with the president's
-    own distinctive vocabulary for that issue and a verbatim sentence from
-    their speeches on it. Remaining distinctive terms become their 'voice'."""
+    """Per president: the issues that either defined their agenda in raw terms
+    or set them apart from their era, each with the president's own
+    distinctive vocabulary for that issue and a verbatim sentence from their
+    speeches on it. Remaining distinctive terms become their 'voice'."""
     paras = pd.read_parquet(PARAGRAPHS_PATH)
     labels = pd.read_parquet(issues.PARA_LABELS_PATH)
     merged = paras.merge(
@@ -278,18 +493,30 @@ def issue_cards(
     paras = merged.reset_index(drop=True)
     titles = df.set_index("doc_name")[["title", "year"]]
 
-    display = issue_meta["issues"] + ["Discovered 5"]
+    display = topic_quality.display_issues(issue_meta["issues"])
     anchors = {**issues.ISSUE_ANCHORS, **_EXTRA_ANCHORS}
+    base = issue_base_rates(issue_df, display)
+    n_speeches = df.groupby("president").size()
 
     out = {}
     for pres, prow in issue_df.iterrows():
         mask = (paras["president"] == pres).to_numpy()
         n_paras = float(prow["n_paragraphs"])
+
+        # An issue earns a card on EITHER axis. Gating on era-relative alone
+        # (as this once did) discards the issues that consumed a presidency
+        # but consumed their contemporaries equally - a wartime president
+        # talking war at wartime rates scored ~0 rel and vanished from his own
+        # profile. Both strengths are normalised so that 1.0 is exactly the
+        # threshold, which makes them comparable on one scale for ranking.
         eligible = [
             n for n in display
-            if prow[f"rel_{n}"] >= 0.75 and prow[f"share_{n}"] * n_paras >= 4
+            if prow[f"share_{n}"] * n_paras >= MIN_ISSUE_PARAS
+            and max(issue_strengths(prow, n, base)) >= 1.0
         ]
-        eligible.sort(key=lambda n: -prow[f"rel_{n}"])
+        # Rank by whichever axis the issue is strongest on, so a defining-but-
+        # ordinary issue and a distinctive-but-small one both surface.
+        eligible.sort(key=lambda n: -max(issue_strengths(prow, n, base)))
         eligible = eligible[:top_n]
 
         terms = distinctive[distinctive["president"] == pres].sort_values("rank")
@@ -335,17 +562,28 @@ def issue_cards(
                     cite = f"{t['title'].split(':', 1)[-1].strip()}, {int(t['year'])}"
                     quote = html.escape(quote)
 
+            rel = float(prow[f"rel_{name}"])
+            share = float(prow[f"share_{name}"])
+            _, raw_strength = issue_strengths(prow, name, base)
             cards.append({
                 "issue": name,
-                "rel": float(prow[f"rel_{name}"]),
-                "share": float(prow[f"share_{name}"]),
+                "rel": rel,
+                "share": share,
+                "base": base[name],
+                "topic_of_day": is_topic_of_day(raw_strength, rel),
                 "words": words,
                 "quote": quote,
                 "cite": cite,
                 "stance": (_issue_stance(texts, _STANCE_SPECS[name])
                            if name in _STANCE_SPECS else None),
             })
-        out[pres] = {"cards": cards, "voice": remaining[:8]}
+        out[pres] = {
+            "cards": cards,
+            "voice": remaining[:8],
+            "n_speeches": int(n_speeches.get(pres, 0)),
+            "n_paragraphs": int(n_paras),
+            "low_confidence": bool(n_speeches.get(pres, 0) < SPARSE_MIN_SPEECHES),
+        }
     return out
 
 
@@ -362,6 +600,23 @@ def build_profile_data(force: bool = False) -> dict:
     invokes, invoked_by = invocations(df)
     voice, agenda = neighbors(adj, issue_df)
     cards = issue_cards(df, distinctive, issue_df.set_index("president"), issue_meta)
+    invocation_v2 = {}
+    candidate_path = DATA_DIR / "invocations_v2" / "candidates.parquet"
+    label_path = DATA_DIR / "invocations_v2" / "classifications.parquet"
+    if candidate_path.exists() and label_path.exists():
+        candidates = pd.read_parquet(candidate_path)
+        labels = pd.read_parquet(label_path)
+        classified = candidates.merge(labels, on="candidate_id", validate="one_to_one")
+        classified = classified[
+            classified.excluded_reason.eq("")
+            & classified.speaker.ne(classified.target)
+            & classified.target_status.eq("former_president")
+        ]
+        for president, group in classified.groupby("speaker"):
+            summary = (group.groupby(["target", "function", "stance"]).size()
+                       .rename("mentions").reset_index()
+                       .sort_values("mentions", ascending=False))
+            invocation_v2[president] = summary.to_dict("records")
 
     return {
         "df": df,
@@ -376,4 +631,5 @@ def build_profile_data(force: bool = False) -> dict:
         "voice_neighbors": voice,
         "agenda_neighbors": agenda,
         "issue_cards": cards,
+        "invocation_v2": invocation_v2,
     }

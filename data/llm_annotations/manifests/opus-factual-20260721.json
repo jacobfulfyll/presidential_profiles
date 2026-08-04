@@ -1,0 +1,26 @@
+{
+  "annotation_files": [
+    "speech_annotations__opus4-8.parquet"
+  ],
+  "batch_id": "msgbatch_017quuKNyCEgw3CLAnBM9rxq",
+  "cache_creation_input_tokens": 229392,
+  "cache_read_input_tokens": 115344,
+  "corpus_fingerprint": {
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc",
+    "n_paragraphs": 36229,
+    "n_speeches": 1057
+  },
+  "cost_usd": 1.6142,
+  "date": "2026-07-21",
+  "fields": [
+    "speech_annotations"
+  ],
+  "input_tokens": 294816,
+  "model": "claude-opus-4-8",
+  "n_requests": 266,
+  "notes": "succeeded=266 errored=0 canceled=0 expired=0. permanent (invalid_request) failures: 0; retryable failures: 0. paragraph coverage: n/a (no paragraph-unit spec in this run)",
+  "output_tokens": 10516,
+  "prompt_hash": "speech_annotations=sha256:450c667db92e324c1a1455914dd17528a999c88d3e32989e0d32fb3a0a7e95f1",
+  "prompt_version": "speech_annotations=speech-factual/v1",
+  "run_id": "opus-factual-20260721"
+}

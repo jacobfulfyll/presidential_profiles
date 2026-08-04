@@ -1,6 +1,17 @@
-"""Shared fixtures for the annotation-provenance test suite.
+"""Shared fixtures for the test suite, in two independent halves.
 
-Every test in this suite runs OFFLINE and spends $0. Two guardrails enforce it:
+**Annotation provenance** (top half) — global guardrails, a fake Anthropic SDK,
+and forged run state for ``annotate.py`` / ``llm_annotations.py``.
+
+**register.py synthetic builders** (bottom half, below the second banner) —
+``register_taxonomy`` / ``register_corpus`` / ``register_panel``, which build
+hand-countable stand-ins for the seven on-disk tables and for a rolled-up
+``SpeechPanel``. They live here rather than in a helper module because ``tests/``
+is not a package, so a test module cannot import from a sibling. They construct
+no client, touch no path constant, and register no autouse fixture, so they
+cannot affect the annotation tests above.
+
+Every test in this suite runs OFFLINE and spends $0. Three guardrails enforce it:
 
 * ``_no_anthropic_creds`` (autouse) deletes ANTHROPIC_API_KEY / ANTHROPIC_AUTH_TOKEN
   so a stray real client construction fails loudly instead of leaking a paid call.
@@ -9,6 +20,13 @@ Every test in this suite runs OFFLINE and spends $0. Two guardrails enforce it:
   ``data/llm_annotations/`` tree. Read-only corpus paths (speeches/paragraphs
   parquet) are deliberately left pointing at the real data — tests read them, and
   the migration/coverage assertions depend on the real corpus.
+* ``_frozen_data_artifacts`` (autouse) fails any test that WRITES to a committed
+  data artifact several tests read live, which would otherwise make those tests
+  silently order-dependent.
+
+Because ``redirect_annotation_dirs`` moves ``ANNOTATIONS_DIR``, anything that
+must read a real frozen artifact reads it by absolute worktree path instead
+(see ``test_register_taxonomy_index.py``).
 
 The fake Anthropic client here forges SDK *outputs*; it never talks to the network.
 We patch ``anthropic.Anthropic`` in place (the functions under test do
@@ -18,7 +36,9 @@ We patch ``anthropic.Anthropic`` in place (the functions under test do
 
 from __future__ import annotations
 
+import hashlib
 import json
+import types
 from pathlib import Path
 
 import pytest
@@ -42,6 +62,63 @@ def _no_anthropic_creds(monkeypatch):
     monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
 
 
+# Committed, provenance-stamped artifacts that tests READ live off `data/`:
+#   * `topic_display_names.json` — `profiles_site.DISCOVERED_LABELS` is
+#     IMPORT-TIME state read from this file, and
+#     `test_profiles_site_labels_come_from_the_names_file` compares that snapshot
+#     against a fresh read. That comparison is correct today only because every
+#     names-file write in the suite is redirected at `tmp_path`.
+#   * `issues_meta.json` — `TestCheckedInIssuesMeta` regression-checks the
+#     report's §3/§4 coherence figures against it.
+#   * `llm_annotations/taxonomy_v1.json` and `llm_annotations/crosswalk_v1.json`
+#     — read live by `test_triangulate.py` (the 50 canonical level-2 names, the
+#     16 crosswalk keys) and by `test_taxonomy.py`. They are also frozen,
+#     provenance-stamped outputs of a PAID run, so a test that rewrote one would
+#     be destroying an artifact that cannot be cheaply regenerated.
+# A test that wrote to any of these would make the readers order-dependent:
+# passing or failing according to what ran before them. This turns the
+# convention into an enforced invariant that fails in the test that broke it,
+# not downstream.
+FROZEN_DATA_ARTIFACTS = (
+    "topic_display_names.json",
+    "issues_meta.json",
+    "llm_annotations/taxonomy_v1.json",
+    "llm_annotations/crosswalk_v1.json",
+)
+
+
+def _artifact_digests() -> dict[str, str]:
+    from presidential_profiles.corpus import DATA_DIR
+
+    out = {}
+    for name in FROZEN_DATA_ARTIFACTS:
+        path = DATA_DIR / name
+        if path.exists():
+            out[name] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return out
+
+
+@pytest.fixture(autouse=True)
+def _frozen_data_artifacts():
+    """Fail the test that mutates a committed data artifact, not its successor.
+
+    Digests rather than raw bytes so a failure reads as the filename plus a
+    short hash, not a 10 KB byte diff.
+    """
+    before = _artifact_digests()
+
+    yield
+
+    after = _artifact_digests()
+    changed = sorted(k for k in before if after.get(k) != before[k])
+    assert not changed, (
+        f"committed data artifact(s) modified by this test: {changed}. They are "
+        f"read-only in this suite — redirect the write at tmp_path (monkeypatch "
+        f"topic_quality.NAMES_PATH / issues.ISSUES_META_PATH). Leaving one "
+        f"modified makes every later test that reads it order-dependent."
+    )
+
+
 @pytest.fixture(autouse=True)
 def redirect_annotation_dirs(tmp_path, monkeypatch):
     """Repoint every write-side path constant at tmp_path. Both modules read
@@ -52,6 +129,14 @@ def redirect_annotation_dirs(tmp_path, monkeypatch):
     monkeypatch.setattr(ann, "MANIFESTS_DIR", root / "manifests")
     monkeypatch.setattr(ann, "RUNS_DIR", root / "runs")
     monkeypatch.setattr(ann, "INVOCATION_TONE_PATH", root / "invocation_tone.parquet")
+    # These analysis modules bind the agreement path at import time. The
+    # agreement artifact is now committed, so leaving the constants pointed at
+    # the real tree makes synthetic tests accidentally consume production data
+    # (or fail because they expected the former absent-artifact state).
+    from presidential_profiles import agreement, ai_labels, combat, eras
+    for module in (agreement, ai_labels, combat, eras):
+        if hasattr(module, "AGREEMENT_PATH"):
+            monkeypatch.setattr(module, "AGREEMENT_PATH", root / "agreement_v1.parquet")
     return root
 
 
@@ -229,9 +314,316 @@ class Args:
         self.max_cost_usd = A.MAX_COST_USD
         self.count_tokens = False
         self.refetch = False
+        # New surfaces (pilot sampling, sealing, qa report path). The cmd_*
+        # functions read these via getattr with a default so the pre-existing
+        # tests still pass, but new tests set them explicitly.
+        self.pilot = False
+        self.resubmit_sealed = False
+        self.out = None
         self.__dict__.update(kw)
 
 
 @pytest.fixture
 def args():
     return Args
+
+
+# ---------------------------------------------------------------------------
+# register.py synthetic builders
+# ---------------------------------------------------------------------------
+#
+# register.py keeps load and compute apart, so every function under test takes
+# DataFrames. These builders make tiny hand-countable stand-ins for the seven
+# on-disk tables (and for the rolled-up SpeechPanel) so no test ever reads the
+# real 36k-row corpus. They live in conftest because `tests/` is not a package
+# — a test module cannot import a helper from a sibling test module.
+
+
+# A five-topic / three-domain taxonomy with the SAME shape as taxonomy_v1: two
+# non-policy domains, and one level-2 name containing a lowercase small word
+# ("the War on Terror") so the case-variant resolution path has a real target.
+REGISTER_TAXONOMY = {
+    "level1": [
+        {"name": "Economy", "definition": "d", "kind": "policy"},
+        {"name": "Security", "definition": "d", "kind": "policy"},
+        {"name": "Ceremonial", "definition": "d", "kind": "non-policy"},
+        {"name": "Personal Narrative", "definition": "d", "kind": "non-policy"},
+    ],
+    "level2": [
+        {"name": "Jobs & Wages", "definition": "d", "level1": "Economy"},
+        {"name": "Trade & Tariffs", "definition": "d", "level1": "Economy"},
+        {"name": "the War on Terror", "definition": "d", "level1": "Security"},
+        {"name": "Holidays & Tributes", "definition": "d", "level1": "Ceremonial"},
+        {"name": "Reflection on Office", "definition": "d", "level1": "Personal Narrative"},
+    ],
+}
+
+_STYLE_DEFAULTS = {
+    "n_tokens": 200.0,
+    "n_sents": 10.0,
+    "i_count": 2.0,
+    "we_count": 8.0,
+    "fk_grade": 9.0,
+    "n_words": 200.0,
+}
+
+
+def _build_register_corpus(specs):
+    """The seven register.py input tables, from a compact per-speech spec.
+
+    Each spec is ``{doc_name, year, president, speech_type, paras: [...]}`` where
+    each paragraph is ``{legacy: [issue names], topics: [level-2 labels],
+    pv: proposal_values, words: int}``. Style/stat columns take the defaults
+    above unless overridden on the spec.
+    """
+    import pandas as pd
+
+    from presidential_profiles.register import STYLE_MARKERS
+    from presidential_profiles.taxonomy import LEGACY_ISSUES
+
+    para_rows, issue_rows, ann_rows = [], [], []
+    speech_rows, type_rows, stat_rows, marker_rows = [], [], [], []
+
+    for spec in specs:
+        doc = spec["doc_name"]
+        year = spec["year"]
+        president = spec.get("president", "P")
+        for idx, para in enumerate(spec["paras"]):
+            words = para.get("words", 100)
+            para_rows.append({
+                "doc_name": doc,
+                "para_idx": idx,
+                "text": "w " * words,
+                "word_count": words,
+            })
+            fired = set(para.get("legacy", ()))
+            issue_rows.append({
+                "doc_name": doc,
+                "para_idx": idx,
+                "president": president,
+                "year": para.get("year", year),
+                **{issue: issue in fired for issue in LEGACY_ISSUES},
+            })
+            ann_rows.append({
+                "doc_name": doc,
+                "para_idx": idx,
+                "topics": list(para.get("topics", ())),
+                "proposal_values": para.get("pv", "neither"),
+            })
+        speech_rows.append({"doc_name": doc, "president": president, "year": year})
+        type_rows.append({"doc_name": doc, "speech_type": spec["speech_type"]})
+        stat_rows.append({
+            "doc_name": doc,
+            **{k: float(spec.get(k, v)) for k, v in _STYLE_DEFAULTS.items()
+               if k != "n_words"},
+        })
+        marker_rows.append({
+            "doc_name": doc,
+            "n_words": float(spec.get("n_words", _STYLE_DEFAULTS["n_words"])),
+            **{m: float(spec.get(m, 4.0)) for m in STYLE_MARKERS},
+        })
+
+    return types.SimpleNamespace(
+        paragraphs=pd.DataFrame(para_rows),
+        issues=pd.DataFrame(issue_rows),
+        annotations=pd.DataFrame(ann_rows),
+        speeches=pd.DataFrame(speech_rows),
+        speech_annotations=pd.DataFrame(type_rows),
+        stats=pd.DataFrame(stat_rows),
+        markers=pd.DataFrame(marker_rows),
+    )
+
+
+_SCALAR_DEFAULTS = {
+    "n_paragraphs": 4.0,
+    "para_words": 400.0,
+    "llm_labels": 8.0,
+    "legacy_labels": 4.0,
+    "llm_non_policy_paras": 0.0,
+    "llm_zero_paras": 0.0,
+    "legacy_zero_paras": 0.0,
+    "pv_proposal": 2.0,
+    "pv_values": 1.0,
+    "pv_mixed": 0.0,
+    "pv_neither": 1.0,
+    "n_tokens": 400.0,
+    "n_sents": 20.0,
+    "i_count": 2.0,
+    "we_count": 8.0,
+    "fk_x_tokens": 3600.0,
+    "n_words": 400.0,
+}
+
+
+def _build_register_panel(rows, topic_counts=None, topic_names=None):
+    """A SpeechPanel built directly from per-speech scalars.
+
+    Bypasses `build_speech_panel` on purpose: the measure / bootstrap / trend
+    tests need exact, hand-computable sufficient statistics, and building them
+    through a paragraph frame would only obscure where a number came from.
+    """
+    import numpy as np
+    import pandas as pd
+
+    from presidential_profiles.register import STYLE_MARKERS
+    from presidential_profiles.taxonomy import ERA_SPAN
+
+    speeches = pd.DataFrame([
+        {
+            "doc_name": r["doc_name"],
+            "president": r.get("president", "P"),
+            "year": r["year"],
+            "speech_type": r["speech_type"],
+            "era": (r["year"] // ERA_SPAN) * ERA_SPAN,
+        }
+        for r in rows
+    ])
+    scalars = pd.DataFrame([
+        {
+            **{k: float(r.get(k, v)) for k, v in _SCALAR_DEFAULTS.items()},
+            **{m: float(r.get(m, 4.0)) for m in STYLE_MARKERS},
+        }
+        for r in rows
+    ])
+    if topic_counts is None:
+        topic_counts = {"legacy15": np.ones((len(rows), 3), dtype=float)}
+    if topic_names is None:
+        topic_names = {
+            name: tuple(f"t{i}" for i in range(matrix.shape[1]))
+            for name, matrix in topic_counts.items()
+        }
+    from presidential_profiles.register import SpeechPanel
+
+    return SpeechPanel(
+        speeches=speeches,
+        scalars=scalars,
+        topic_counts={k: np.asarray(v, dtype=float) for k, v in topic_counts.items()},
+        topic_names=topic_names,
+    )
+
+
+@pytest.fixture
+def register_taxonomy():
+    """A fresh copy of the synthetic taxonomy dict (tests mutate it)."""
+    import copy
+
+    return copy.deepcopy(REGISTER_TAXONOMY)
+
+
+@pytest.fixture
+def register_corpus():
+    return _build_register_corpus
+
+
+@pytest.fixture
+def register_panel():
+    return _build_register_panel
+
+# synthetic corpus builder (combat.py suite)
+# ---------------------------------------------------------------------------
+#
+# ``combat.load_frame`` accepts all five of its inputs as injected DataFrames,
+# which is what lets the whole module — merge guards, era mapping, bootstrap,
+# genre standardization — run on a dozen hand-authored rows instead of the real
+# 36,229-row corpus (the repo's testing convention, CLAUDE.md). These two
+# helpers build those frames from a compact spec so each test states only the
+# structure it actually cares about.
+
+
+def _combat_inputs(specs: list[dict]) -> dict:
+    """Build the five injectable frames from a list of speech specs.
+
+    Each spec is ``{"doc", "year", "type", "paras": [...]}``; each paragraph is
+    a dict of flag overrides plus optional ``word_count`` / ``text`` /
+    ``adversaries`` (``[(entity, type)]``, stance=adversarial) / ``entities``
+    (``[(entity, type, stance)]`` for non-adversarial stances).
+    """
+    import pandas as pd
+
+    from presidential_profiles import combat as C
+
+    speeches, speech_anns, paragraphs, annotations, entities = [], [], [], [], []
+    for spec in specs:
+        doc = spec["doc"]
+        speeches.append(
+            {
+                "doc_name": doc,
+                "president": spec.get("president", "A President"),
+                "party": spec.get("party", "Whig"),
+                "date": f"{spec['year']}-01-01",
+                "year": spec["year"],
+                "title": spec.get("title", f"Address {doc}"),
+            }
+        )
+        speech_anns.append(
+            {
+                "doc_name": doc,
+                "speech_type": spec.get("type", C.SOTU_TYPE),
+                "audience": spec.get("audience", "public"),
+                "medium": spec.get("medium", "written"),
+            }
+        )
+        for i, para in enumerate(spec["paras"]):
+            paragraphs.append(
+                {
+                    "doc_name": doc,
+                    "para_idx": i,
+                    "text": para.get("text", f"{doc} paragraph {i}. " + "word " * 30),
+                    "word_count": para.get("word_count", 40),
+                }
+            )
+            annotations.append(
+                {
+                    "doc_name": doc,
+                    "para_idx": i,
+                    "run_id": spec.get("run_id", "run-test"),
+                    **{f: bool(para.get(f, False)) for f in C.FLAGS},
+                }
+            )
+            for name, kind in para.get("adversaries", []):
+                entities.append(
+                    {
+                        "doc_name": doc,
+                        "para_idx": i,
+                        "entity": name,
+                        "type": kind,
+                        "stance": "adversarial",
+                    }
+                )
+            for name, kind, stance in para.get("entities", []):
+                entities.append(
+                    {
+                        "doc_name": doc,
+                        "para_idx": i,
+                        "entity": name,
+                        "type": kind,
+                        "stance": stance,
+                    }
+                )
+
+    return {
+        "annotations": pd.DataFrame(annotations),
+        "speech_annotations": pd.DataFrame(speech_anns),
+        "paragraphs": pd.DataFrame(paragraphs),
+        "speeches": pd.DataFrame(speeches),
+        "entities": pd.DataFrame(
+            entities, columns=["doc_name", "para_idx", "entity", "type", "stance"]
+        ),
+    }
+
+
+def _combat_paras(n: int, n_flagged: int = 0, flag: str = "party_attack", **extra):
+    """``n`` paragraphs of which the first ``n_flagged`` carry ``flag``."""
+    return [{flag: i < n_flagged, **extra} for i in range(n)]
+
+
+@pytest.fixture
+def combat_inputs():
+    """Factory for the five frames ``combat.load_frame`` accepts."""
+    return _combat_inputs
+
+
+@pytest.fixture
+def combat_paras():
+    """Factory for a run of paragraphs with a known flag count."""
+    return _combat_paras

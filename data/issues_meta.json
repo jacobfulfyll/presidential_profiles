@@ -326,5 +326,151 @@
       "necessity"
     ]
   },
-  "n_paragraphs": 36229
+  "n_paragraphs": 36229,
+  "coherence": {
+    "Economy & jobs": {
+      "npmi": 0.19226245098661474,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Taxes & budget": {
+      "npmi": 0.2633763401324483,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "War & military": {
+      "npmi": 0.186659133308744,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Foreign policy": {
+      "npmi": 0.07944977445950024,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Immigration": {
+      "npmi": -0.028327495619111076,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Civil rights & race": {
+      "npmi": 0.09058092133489343,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Health care": {
+      "npmi": 0.28376366576107265,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Education": {
+      "npmi": 0.3723928371763468,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Crime & justice": {
+      "npmi": 0.2227642249135658,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Energy & environment": {
+      "npmi": 0.26736978676602907,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Trade & tariffs": {
+      "npmi": 0.18320007220052179,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Agriculture": {
+      "npmi": 0.37508134619572575,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Religion & values": {
+      "npmi": 0.20414955107181684,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Money & banking": {
+      "npmi": 0.2999273509970052,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Infrastructure": {
+      "npmi": 0.08930010682485374,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Discovered 1": {
+      "npmi": 0.1284565421226404,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Discovered 2": {
+      "npmi": 0.14212515649897878,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Discovered 3": {
+      "npmi": -0.046842905292557545,
+      "n_scored": 7,
+      "n_terms": 10
+    },
+    "Discovered 4": {
+      "npmi": 0.15944883630601572,
+      "n_scored": 8,
+      "n_terms": 10
+    },
+    "Discovered 5": {
+      "npmi": 0.19495239091480746,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Discovered 6": {
+      "npmi": 0.14042714422354943,
+      "n_scored": 10,
+      "n_terms": 10
+    },
+    "Discovered 7": {
+      "npmi": 0.11037761470308782,
+      "n_scored": 10,
+      "n_terms": 10
+    }
+  },
+  "discovered_status": {
+    "Discovered 1": {
+      "status": "coherent",
+      "noise_reasons": []
+    },
+    "Discovered 2": {
+      "status": "coherent",
+      "noise_reasons": []
+    },
+    "Discovered 3": {
+      "status": "noise",
+      "noise_reasons": [
+        "npmi -0.0468 <= floor 0.0"
+      ]
+    },
+    "Discovered 4": {
+      "status": "coherent",
+      "noise_reasons": []
+    },
+    "Discovered 5": {
+      "status": "coherent",
+      "noise_reasons": []
+    },
+    "Discovered 6": {
+      "status": "coherent",
+      "noise_reasons": []
+    },
+    "Discovered 7": {
+      "status": "coherent",
+      "noise_reasons": []
+    }
+  },
+  "names_file": "topic_display_names.json",
+  "coherence_n_paragraphs_scored": 36229
 }

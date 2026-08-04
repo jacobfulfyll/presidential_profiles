@@ -1,0 +1,1 @@
+{"schema_version":"topic-network-v1","primary_key":["taxonomy_level","era","speech_type","source","target"],"required":["shared_paragraphs","shared_speeches","jaccard","lift","source_marginal_rate","target_marginal_rate"]}

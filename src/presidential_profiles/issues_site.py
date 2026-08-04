@@ -3,6 +3,7 @@
 import html as html_mod
 import json
 
+import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.io as pio
@@ -10,41 +11,383 @@ import plotly.io as pio
 from .figures import BASELINE, BLUE_RAMP, GRID, INK, INK2, MUTED, SURFACE
 from .profiles import MILLER_URL, _EXTRA_ANCHORS, _pick_sentence, slug
 from .site_style import FONT, PAGE_CSS
-from . import issues
+from . import ai_labels, bands, issues, metrics, topic_quality
+
+# Bands are drawn UNDER the trend line at low opacity: the 16-panel
+# small-multiples grid on the dashboard reuses these traces, and a heavier fill
+# turns it into mush. The old `fill="tozeroy"` area under the line is gone —
+# two overlapping fills read as one shape and the reader cannot tell which edge
+# is the estimate and which is the interval.
+BAND_FILL = "rgba(109, 167, 236, 0.22)"
+CAUTION_LINE = "rgba(109, 167, 236, 0.55)"
+
+# The hollow marker for `interval_unresolvable` cells. It is drawn UNFILLED
+# against the page, which is the whole signal: a solid dot on the line says "we
+# measured this", a ring says "we measured the share but could not resolve an
+# interval around it". Sized above the president dots (5px on the issue page,
+# 4px in the grid) so it does not read as one of them.
+UNRESOLVED_RING = "rgba(109, 167, 236, 0.95)"
+
+# THE definition of the chart x window, for every issue surface. `site.X_RANGE`
+# is derived from it rather than restating the pair — the same two numbers in two
+# modules is how the lower bound comes to be widened in one place and not the
+# other, which is exactly the defect `x_range_covering` exists to fix.
+X_MIN, X_MAX = 1786, 2029
+
+
+def x_range_covering(bands_frames) -> list[int]:
+    """`[X_MIN, X_MAX]`, widened DOWNWARD to cover every plotted x.
+
+    The lower bound is a floor to be widened; the upper bound is a fixed crop
+    and is deliberately NOT adaptive (nothing in this corpus reaches 2029, and a
+    stray future year should be visibly out of range rather than silently
+    restyle every panel's axis).
+
+    Widening matters because Surface A plots the recovered 1785 bucket one year
+    below `X_MIN`: a fixed lower bound clipped the exact period this whole
+    change exists to stop hiding — band, marker and hover all outside the axis.
+
+    One implementation, used by the single-issue figure and by both dashboard
+    grids. It lived twice, differently, for one round; `int()` is here because
+    the shipped `x` column is float64 (era rows carry midpoints) and a bare
+    min() would emit `1785.0` as an axis bound.
+
+    Args:
+        bands_frames: Iterable of `bands.parquet` slices or None.
+    """
+    lows = [int(b["x"].min()) for b in bands_frames
+            if b is not None and not b.empty]
+    return [min([X_MIN, *lows]), X_MAX]
+
+# Minimum paragraphs before one president's own share inside one period is
+# worth plotting as a dot. Below this a dot is a coin flip wearing a portrait.
+# Measured on the shipped corpus: of the 100 (president, period) cells, this
+# drops 9 and keeps 91. No president disappears entirely — all 45 keep at least
+# one dot — so the floor thins the overlay rather than silently removing anyone
+# from their own chart.
+MIN_DOT_PARAGRAPHS = 25
 
 
 def issue_slug(name: str) -> str:
     return slug(name.replace("&", "and"))
 
 
+def president_period_dots(pl: pd.DataFrame, name: str,
+                          min_paragraphs: int = MIN_DOT_PARAGRAPHS,
+                          period_years: int = bands.PERIOD_YEARS) -> pd.DataFrame:
+    """One dot per (president, period) — their own share inside that period.
+
+    Replaces the previous one-dot-per-president-at-term-midpoint overlay, which
+    could only ever say "this president, on average, somewhere in here". A
+    president spanning several periods now gets a point in each, so the dots and
+    the trend line are on the same time axis instead of merely near it.
+
+    `(president, period)` cells thinner than `min_paragraphs` are dropped rather
+    than plotted, so a dot never carries less evidence than the band it sits on.
+    At the default that drops 9 of 100 cells and no president entirely; the
+    chart prose states the floor, because "one dot per president per period"
+    would otherwise imply a completeness the overlay does not have.
+    """
+    d = pl.assign(period=(pl["year"] // period_years) * period_years)
+    g = d.groupby(["president", "period"], sort=True)
+    out = g.agg(y=(name, "mean"), n=(name, "size")).reset_index()
+    out = out[out["n"] >= min_paragraphs]
+    return pd.DataFrame({
+        "x": out["period"].to_numpy(),
+        "y": (out["y"] * 100).to_numpy(),
+        "name": out["president"].to_numpy(),
+        "n": out["n"].to_numpy(),
+    })
+
+
+def band_y_top(band: pd.DataFrame | None, headroom: float = 1.05) -> float | None:
+    """Panel y-ceiling, in percent — scaled by the TRUSTWORTHY content only.
+
+    A 2-speech period's bootstrap interval is legitimately enormous: 1785's
+    upper bound on "Religion & values" is 66.7% against a series that never
+    exceeds 14.3%. Letting plotly autoscale to that flattens 240 years of real
+    trend into a hairline so one un-trustworthy cell can be drawn whole.
+
+    So the axis is scaled to cover every point estimate plus the full interval
+    of every `ci_status == "ok"` period, and a cautioned period's band is
+    allowed to run off the top of the panel — which reads as exactly what it is
+    ("this period's uncertainty exceeds the chart"). Nothing is clipped in the
+    DATA: `bands.parquet` and the hover tooltip both carry the true bound.
+    Across the 16 CorEx issue panels the site actually renders
+    (`topic_quality.display_issues` yields 15 anchored issues plus
+    `Discovered 5`), this rule lets exactly ONE overflow: Religion & values,
+    whose 1785 upper bound is 66.7% against a series maximum of 14.3%.
+
+    Returns None when there is nothing to scale to, leaving plotly's autorange.
+    """
+    if band is None or band.empty:
+        return None
+    ok = band[band["ci_status"] == "ok"]
+    tops = [band["point"].max()]
+    if not ok.empty and ok["hi"].notna().any():
+        tops.append(ok["hi"].max())
+    top = float(np.nanmax(tops))
+    return top * 100 * headroom if top > 0 else None
+
+
+def band_traces(band: pd.DataFrame | None) -> list[go.Scatter]:
+    """The shaded interval, as one `toself` polygon per CONTIGUOUS run.
+
+    Rows with no published interval (`ci_status == "suppressed_n_floor"`) are
+    not merely dropped from the vertex list — a single `toself` polygon closes
+    straight across such a gap, which draws a band over periods that have none.
+    That is visual interpolation, and it is exactly what `connectgaps=False` on
+    the solid line already refuses to do. So the frame is split into maximal
+    runs of consecutive periods that DO have an interval, and each run gets its
+    own polygon; the gap between them is left empty.
+
+    A run of one period has no area, so it is emitted as a vertical whisker
+    instead — otherwise a lone period's interval would silently render as
+    nothing at all.
+
+    Precisely: runs are maximal runs of consecutive ROWS, which are the same
+    thing as consecutive periods only because `bands.series_band` returns a
+    period-complete frame ordered by `period_order` — every period in the
+    surface gets a row, intervals absent or not. A series-sparse table would
+    make two non-adjacent periods adjacent rows and bridge a real gap. That
+    invariant is asserted directly — over every series on both surfaces, on
+    consecutiveness rather than on a row count — by
+    `TestSeriesBandIsPeriodComplete` in `tests/test_band_charts.py`.
+    """
+    if band is None or band.empty:
+        return []
+    b = band.reset_index(drop=True)
+    have = (b["lo"].notna() & b["hi"].notna()).to_numpy()
+    if not have.any():
+        return []
+    run_id = np.cumsum(~have)          # constant within a run of True
+    traces = []
+    for _, run in b[have].groupby(run_id[have], sort=True):
+        x = run["x"].tolist()
+        lo = (run["lo"] * 100).tolist()
+        hi = (run["hi"] * 100).tolist()
+        if len(x) == 1:
+            traces.append(go.Scatter(
+                x=[x[0], x[0]], y=[lo[0], hi[0]], mode="lines",
+                line=dict(color=BAND_FILL, width=6),
+                hoverinfo="skip", showlegend=False,
+            ))
+            continue
+        traces.append(go.Scatter(
+            x=x + x[::-1], y=hi + lo[::-1],
+            mode="lines", fill="toself", fillcolor=BAND_FILL,
+            line=dict(width=0), hoverinfo="skip", showlegend=False,
+        ))
+    return traces
+
+
+def band_label(b: pd.DataFrame) -> np.ndarray:
+    """The interval, as tooltip text — including when there is no interval.
+
+    Formatted in Python rather than by a plotly `:.1f`, because a null bound
+    renders as the literal string `nan` through a numeric format directive and
+    "95% band nan–nan" is worse than useless. A row is null for two different
+    reasons and the tip names which: `interval_unresolvable` (the bootstrap ran
+    and could not resolve a width — see `bands._unresolvable_interval`) and the
+    `suppressed_n_floor` case (no bootstrap ran at all). Conflating them would
+    put the wrong cause in front of the reader.
+    """
+    out = []
+    for lo, hi, unresolvable, n in zip(
+        b["lo"], b["hi"], unresolved_mask(b), b["n_speeches"]
+    ):
+        if bool(unresolvable):
+            out.append(f"not resolvable — {int(n)} speeches agree exactly, "
+                       "so the bootstrap has no width to report")
+        elif pd.isna(lo) or pd.isna(hi):
+            out.append("not published — too few speeches to bootstrap")
+        else:
+            out.append(f"{lo * 100:.1f}–{hi * 100:.1f}")
+    return np.array(out, dtype=object)
+
+
+def unresolved_mask(band: pd.DataFrame) -> pd.Series:
+    """`interval_unresolvable` as a plain boolean mask.
+
+    A null flag reads as False — a slice that lost the column's values means
+    "nothing is KNOWN to be unresolvable", never "everything is". A slice
+    missing the column ENTIRELY reads the same way, so a `bands.parquet`
+    predating the column degrades to "no rings, no ring caption" instead of
+    crashing the whole page. (`bands.load_bands` raises on that schema long
+    before it gets here; this is the hand-built-frame path.)
+
+    Defined once because THREE callers must agree on it: the trace builder that
+    draws the rings, `band_label`'s tooltip text, and `write_issue_pages`'s gate
+    on the caption that explains them. A page promising a marker its chart does
+    not draw is the same species of small lie as the marker's absence, so the
+    three must not be able to drift — nor disagree about how defensive to be on
+    one column, which is how a "legacy frames do not crash" contract comes to
+    hold for one trace and fail on the next one in the same loop.
+    """
+    if "interval_unresolvable" not in band:
+        return pd.Series(False, index=band.index, dtype=bool)
+    return band["interval_unresolvable"].fillna(False).astype(bool)
+
+
+def unresolved_traces(band: pd.DataFrame | None,
+                      size: float = 9,
+                      unit: str = "% of paragraphs",
+                      suffix: str = "") -> list[go.Scatter]:
+    """Hollow rings at cells whose bootstrap could not resolve an interval.
+
+    **This, not the suppression, is the reader-facing half of the change.**
+    Nulling `lo`/`hi` on a zero-width cell removes a band that already occupied
+    zero pixels: on its own it changes literally nothing on the page, and the
+    cell would go on reading as a confidently measured value. The ring is the
+    positive signal — it says "the share is real, the interval is not
+    knowable" without requiring a hover, which touch devices do not have.
+
+    `cliponaxis=False` is load-bearing, not cosmetic. Every flagged cell in this
+    corpus has `point == 0` (they are flagged precisely because every speech in
+    the period agreed at zero), so the ring sits exactly on the axis floor and
+    would otherwise be drawn half-cropped by the plot edge — the same "a visual
+    check cannot see a point that is outside the axis" failure that hid the
+    whole 1785 period once already.
+
+    `unit` and `suffix` are threaded exactly as `line_traces` threads them, and
+    the defaults reproduce today's strings rather than shortening them. A
+    tooltip is published prose: hardcoding "% of paragraphs" here would make
+    this the one trace in the loop that cannot follow a caller onto a different
+    measure, and omitting `suffix` makes it the one tooltip in a 16-panel grid
+    that does not name its own panel — in a small-multiples figure that is the
+    difference between a reader knowing which issue they are hovering and not.
+
+    Returns an empty list when nothing is flagged, so a caller adds no trace
+    rather than an invisible one.
+    """
+    if band is None or band.empty:
+        return []
+    flagged = band[unresolved_mask(band)]
+    if flagged.empty:
+        return []
+    y = (flagged["point"] * 100).to_numpy()
+    return [go.Scatter(
+        x=flagged["x"].to_numpy(), y=y, mode="markers", showlegend=False,
+        cliponaxis=False,
+        marker=dict(symbol="circle-open", size=size,
+                    color=UNRESOLVED_RING,
+                    line=dict(color=UNRESOLVED_RING, width=1.8)),
+        customdata=np.stack([
+            flagged["n_speeches"].to_numpy(),
+            flagged["n_paragraphs"].to_numpy(),
+        ], axis=-1),
+        hovertemplate="%{y:.1f}" + unit + " — no interval<br>"
+                      "%{customdata[0]} speeches, %{customdata[1]} paragraphs: "
+                      "too few to resolve one<extra>" + suffix + "</extra>",
+    )]
+
+
+def _band_hover(b: pd.DataFrame, unit: str,
+                show_components: bool) -> tuple[np.ndarray, str]:
+    """Customdata + template putting the interval and its trust gate in the tip.
+
+    `ci_status` and (on the LLM surface) `ci_components` are the machine-readable
+    trust gate on every band row; putting them in the tooltip is what stops a
+    reader treating a `low_cluster_caution` interval as an `ok` one.
+    """
+    cols = [
+        band_label(b),
+        b["n_speeches"].to_numpy(),
+        b["ci_status"].to_numpy(),
+    ]
+    tpl = ("%{y:.1f}" + unit
+           + "<br>95% band %{customdata[0]}"
+           + "<br>%{customdata[1]} speeches · %{customdata[2]}")
+    if show_components:
+        cols.append(b["ci_components"].to_numpy())
+        tpl += " · %{customdata[3]}"
+    return np.stack(cols, axis=-1), tpl
+
+
+def line_traces(band: pd.DataFrame, unit: str = "% of paragraphs",
+                width: float = 2.4, suffix: str = "",
+                show_components: bool = False) -> list[go.Scatter]:
+    """Trend line, split so thin periods are visibly provisional.
+
+    The charts used to apply a hard `counts >= 40` mask, which deleted thin
+    periods outright — presenting absence of data as absence of interest. The
+    mask is now a rendering distinction: every period is drawn, but only
+    `ci_status == "ok"` periods get the solid line. Thin ones show as a dashed
+    underlay carrying an enormous band. Corpus-wide this recovers exactly one
+    period (1785: 14 paragraphs, 2 speeches) — it is a correctness fix, not a
+    large data recovery.
+    """
+    custom, tpl = _band_hover(band, unit, show_components)
+    y = (band["point"] * 100).to_numpy()
+    solid = np.where(band["ci_status"].to_numpy() == "ok", y, np.nan)
+    return [
+        go.Scatter(
+            x=band["x"], y=y, mode="lines", showlegend=False,
+            line=dict(color=CAUTION_LINE, width=width * 0.75, dash="dot"),
+            customdata=custom, hovertemplate=tpl + "<extra>" + suffix + "</extra>",
+        ),
+        go.Scatter(
+            x=band["x"], y=solid, mode="lines", showlegend=False,
+            connectgaps=False, line=dict(color=BLUE_RAMP[4], width=width),
+            hoverinfo="skip",
+        ),
+    ]
+
+
 def fig_issue_timeline(pl: pd.DataFrame, name: str, label: str,
-                       pres_dots: pd.DataFrame) -> go.Figure:
-    d = pl.assign(period=(pl["year"] // 5) * 5)
-    counts = d.groupby("period").size()
-    share = (d.groupby("period")[name].mean() * 100)
-    share = share[counts >= 40]
+                       pres_dots: pd.DataFrame,
+                       band: pd.DataFrame | None = None) -> go.Figure:
+    """One issue's 240 years, with its speech-clustered sampling band.
+
+    `band` is the `bands.parquet` slice for this issue, or None when the table
+    has not been built — in which case the line renders unbanded rather than
+    with an invented interval. CorEx labels come from a deterministic model with
+    no annotator in the loop, so these intervals are `sampling_only` by
+    construction and permanently: annotator disagreement is not applicable here,
+    not merely absent (see `bands.py`).
+    """
     fig = go.Figure()
+    for trace in band_traces(band):
+        fig.add_trace(trace)
+    if band is None:
+        d = pl.assign(period=(pl["year"] // bands.PERIOD_YEARS) * bands.PERIOD_YEARS)
+        counts = d.groupby("period").size()
+        share = (d.groupby("period")[name].mean() * 100)
+        share = share[counts >= 40]
+        fig.add_trace(go.Scatter(
+            x=share.index, y=share.values, mode="lines", showlegend=False,
+            line=dict(color=BLUE_RAMP[4], width=2.4),
+            hovertemplate="%{y:.1f}% of paragraphs<extra></extra>",
+        ))
+    else:
+        for trace in line_traces(band):
+            fig.add_trace(trace)
+        # After the line, before the president dots: the ring must sit on top of
+        # the dotted trend it annotates, but under nothing that would hide it.
+        for trace in unresolved_traces(band):
+            fig.add_trace(trace)
     fig.add_trace(go.Scatter(
         x=pres_dots["x"], y=pres_dots["y"], mode="markers", showlegend=False,
         marker=dict(color=BLUE_RAMP[5], size=5, opacity=0.45),
-        customdata=pres_dots["name"],
-        hovertemplate="<b>%{customdata}</b>: %{y:.1f}% of their speech"
-                      "<extra></extra>",
+        customdata=np.stack([pres_dots["name"], pres_dots["n"]], axis=-1),
+        hovertemplate="<b>%{customdata[0]}</b>: %{y:.1f}% of their paragraphs "
+                      "in this period (%{customdata[1]})<extra></extra>",
     ))
-    fig.add_trace(go.Scatter(
-        x=share.index, y=share.values, mode="lines", showlegend=False,
-        line=dict(color=BLUE_RAMP[4], width=2.4),
-        fill="tozeroy", fillcolor="rgba(109, 167, 236, 0.30)",
-        hovertemplate="%{y:.1f}% of paragraphs<extra></extra>",
-    ))
+    x_lo, x_hi = x_range_covering([band])
+    top = band_y_top(band)
+    if top is not None and len(pres_dots):
+        # Dots are observed shares, never estimates — a president who spent 30%
+        # of a period on one issue must not be cropped out of their own chart.
+        top = max(top, float(pres_dots["y"].max()) * 1.05)
     fig.update_layout(
         template="simple_white", paper_bgcolor=SURFACE, plot_bgcolor=SURFACE,
         font=dict(family=FONT, color=INK, size=13),
         margin=dict(l=56, r=24, t=24, b=44), height=380,
-        xaxis=dict(range=[1786, 2029], gridcolor=GRID, linecolor=BASELINE,
+        xaxis=dict(range=[x_lo, x_hi], gridcolor=GRID, linecolor=BASELINE,
                    tickfont=dict(color=MUTED, size=11)),
         yaxis=dict(title=f"% of speech about {label.lower()}",
                    gridcolor=GRID, linecolor=BASELINE, rangemode="tozero",
+                   range=None if top is None else [0, top],
                    tickfont=dict(color=MUTED, size=11)),
     )
     return fig
@@ -95,8 +438,27 @@ def _issue_quotes(merged: pd.DataFrame, name: str,
 
 
 def render_issue(label: str, owners, fig: go.Figure,
-                 quotes: list[dict]) -> str:
+                 quotes: list[dict], has_unresolved: bool = False,
+                 ai_topics: list[dict] | None = None,
+                 chart_download: str | None = None,
+                 ai_topic_series: dict[str, dict] | None = None,
+                 ai_download: str | None = None) -> str:
+    """One issue page.
+
+    `has_unresolved` gates the sentence explaining the hollow ring. It is a
+    per-issue fact (11 of the 16 rendered issues have one, all at 1785), and a
+    caption that describes a marker the reader cannot find on this page is a
+    small lie in the same family as the marker itself — so the sentence is
+    printed only where the ring is actually drawn.
+    """
+    label_html = html_mod.escape(label)
+    label_lower_html = html_mod.escape(label.lower())
     fig_json = pio.to_json(fig)
+    ring_note = (" A hollow ring marks a point whose interval could not be "
+                 "resolved at all — every speech in that period agreed exactly, "
+                 "on too few speeches for the agreement to mean anything. Its "
+                 "share is plotted; its uncertainty is unknown, which is not "
+                 "the same as small.") if has_unresolved else ""
     owner_rows = []
     max_share = owners["share"].max() or 1
     for pres, row in owners.iterrows():
@@ -112,13 +474,51 @@ def render_issue(label: str, owners, fig: go.Figure,
 <p>“{q["quote"]}”</p>
 <cite><a href="{q["url"]}" target="_blank" rel="noopener">{q["cite"]}</a></cite>
 </blockquote>""" for q in quotes)
+    ai_topics = ai_topics or []
+    ai_topics_html = "".join(
+        f"""<div class="ai-topic-card"><div class="q-label">{html_mod.escape(t['level1'])}</div>
+<h3>{html_mod.escape(t['name'])}</h3><p>{html_mod.escape(t['definition'])}</p></div>"""
+        for t in ai_topics
+    )
+    ai_topic_series = ai_topic_series or {}
+    available_topics = list(next(iter(ai_topic_series.values()), {}))
+    topic_checks = "".join(
+        f'<label><input type="checkbox" value="{html_mod.escape(name, quote=True)}" '
+        f'{"checked" if i < 3 else ""}> {html_mod.escape(name)}</label>'
+        for i, name in enumerate(available_topics)
+    )
+    fine_topic_view = f"""<div class="fine-topic-view">
+    <div class="fine-topic-heading"><div><h3>Compare periods, not jagged annual lines</h3>
+    <p>Start with three topics. Add as many as you need: the view changes to a heatmap
+    when grouped bars would become crowded.</p></div>
+    <div class="fine-topic-settings"><label>Bucket size <select id="fine-topic-bucket">
+      <option value="20" selected>20 years</option><option value="10">10 years</option>
+    </select></label><label>View <select id="fine-topic-mode">
+      <option value="auto" selected>Auto</option><option value="bars">Grouped bars</option>
+      <option value="heatmap">Heatmap</option>
+    </select></label></div></div>
+    <details class="topic-picker"><summary>Choose fine topics
+      <span id="fine-topic-count">3 selected</span></summary>
+      <div class="topic-picker-actions"><button type="button" id="fine-topic-all">Select all</button>
+      <button type="button" id="fine-topic-clear">Clear</button></div>
+      <fieldset id="fine-topic-controls"><legend class="sr-only">Fine AI topics to display</legend>
+        {topic_checks}
+      </fieldset>
+    </details>
+    <p id="fine-topic-message" class="dim" aria-live="polite"></p>
+    <div class="chart-scroll"><div class="chart" id="fine-topic-chart" style="height:520px"></div></div>
+    {metrics.lesson_html("paragraph_share")}
+    <details><summary>Inspect the evidence</summary><p><a href="{ai_download}" download>
+    Download the fine-topic series CSV →</a>. These are exploratory AI labels and use
+    all eligible paragraphs in each year.</p></details>
+  </div>""" if ai_topic_series else '<p class="dim">No mapped fine-topic series are available.</p>'
 
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{label} - Presidential Profiles</title>
+<title>{label_html} - Presidential Profiles</title>
 <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
 <style>
 {PAGE_CSS}
@@ -141,21 +541,65 @@ def render_issue(label: str, owners, fig: go.Figure,
   blockquote cite {{ display: block; font-style: normal; font-size: 0.82rem;
                      margin-top: 8px; }}
   blockquote cite a {{ color: var(--muted); }}
+  .ai-note {{ background:#eef6ff; border:1px solid #c9def3; border-radius:12px;
+              padding:13px 16px; max-width:none; }}
+  .ai-topic-grid {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; }}
+  .ai-topic-card {{ background:var(--surface); border:1px solid var(--border);
+                    border-radius:12px; padding:14px 16px; }}
+  .ai-topic-card h3 {{ font-size:.95rem; margin-top:3px; }}
+  .ai-topic-card p {{ font-size:.84rem; margin:6px 0 0; }}
+  .fine-topic-view {{ margin-top:20px;padding-top:18px;border-top:1px solid var(--grid); }}
+  .fine-topic-heading {{ display:flex;justify-content:space-between;gap:18px;align-items:end; }}
+  .fine-topic-heading p {{ margin-bottom:0; }}
+  .fine-topic-settings {{ display:flex;gap:8px;flex-wrap:wrap; }}
+  .fine-topic-heading select {{ padding:7px 9px;border:1px solid var(--border);
+                                border-radius:8px;background:var(--surface);font:inherit; }}
+  .topic-picker {{ border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin:12px 0; }}
+  .topic-picker summary {{ cursor:pointer;font-weight:650; }}
+  .topic-picker summary span {{ color:var(--muted);font-weight:500;font-size:.8rem;margin-left:8px; }}
+  .topic-picker-actions {{ display:flex;gap:7px;margin:12px 0 4px; }}
+  .topic-picker-actions button {{ border:1px solid var(--border);background:var(--surface);
+                                  border-radius:8px;padding:6px 10px;cursor:pointer; }}
+  #fine-topic-controls {{ display:flex;flex-wrap:wrap;gap:8px 12px;border:0;padding:0;margin:12px 0; }}
+  #fine-topic-controls label {{ background:var(--surface);border:1px solid var(--border);
+                                border-radius:999px;padding:6px 10px;font-size:.82rem;cursor:pointer; }}
+  #fine-topic-controls input {{ accent-color:#275d8c; }}
+  .sr-only {{ position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+              clip:rect(0,0,0,0);white-space:nowrap;border:0; }}
 </style>
 </head>
 <body>
 <header>
   <p class="crumbs"><a href="index.html">← All issues</a> &nbsp;·&nbsp;
      <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
-     <a href="../presidents/index.html">Presidents</a></p>
-  <h1>{label}</h1>
+     <a href="../presidents/index.html">Presidents</a> &nbsp;·&nbsp;
+     <a href="../methodology.html">How the AI labels work</a></p>
+  <h1>{label_html}</h1>
 </header>
 <main>
 <section>
   <h2>240 years of attention</h2>
-  <p>Share of presidential speech about {label.lower()}; each dot is one
-  president's own share, at their term midpoint.</p>
+  <p>Share of presidential speech about {label_lower_html}. The shaded band is a
+  95% interval from a bootstrap that resamples whole <em>speeches</em>, so it
+  widens where a period rests on a handful of them; a dotted line marks periods
+  too thin to trust.{ring_note} Each dot is one president's own share inside one 5-year
+  period, for the {MIN_DOT_PARAGRAPHS}-paragraph-and-up cells where they said
+  enough to measure. These labels come from a deterministic topic model with no
+  AI annotator in the loop, so the band covers sampling error only.</p>
   <div class="chart-scroll"><div class="chart" id="chart" style="height:380px"></div></div>
+  {metrics.lesson_html("confidence_interval")}
+  <details><summary>Inspect the evidence</summary><p><a href="{chart_download}" download>
+  Download this chart's complete CSV →</a>. The quotation section below provides
+  source-speech excerpts.</p></details>
+</section>
+<section>
+  <h2>The finer AI-labeled topics inside this issue</h2>
+  <p class="ai-note">This page's trend remains the independent deterministic issue model.
+  The corpus-derived AI taxonomy splits the broad axis into the topics below; the crosswalk
+  is many-to-many, so one fine topic may contribute to more than one broad issue.
+  <a href="../label-models.html">Compare the CorEx and LLM instruments in detail →</a></p>
+  {fine_topic_view}
+  <div class="ai-topic-grid">{ai_topics_html}</div>
 </section>
 <section>
   <h2>Who owned it</h2>
@@ -169,11 +613,60 @@ def render_issue(label: str, owners, fig: go.Figure,
 </main>
 <footer>
   <p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
-  University of Virginia</a>.</p>
+  University of Virginia</a>. <a href="../methodology.html">AI label method</a>.</p>
 </footer>
 <script>
   const FIG = {fig_json};
   Plotly.newPlot("chart", FIG.data, FIG.layout, {{displayModeBar: false, responsive: true}});
+  const AI_TOPIC_SERIES = {json.dumps(ai_topic_series)};
+  const FINE_COLORS = ["#275d8c","#c06b35","#60936a","#9b67a5",
+    "#af8a32","#397d79","#9b4e50","#697c9f","#805f48","#6d7c49"];
+  function drawFineTopics() {{
+    const target = document.getElementById("fine-topic-chart");
+    if (!target) return;
+    const bucket = document.getElementById("fine-topic-bucket").value;
+    const source = AI_TOPIC_SERIES[bucket] || {{}};
+    const selected = [...document.querySelectorAll("#fine-topic-controls input:checked")].map(x => x.value);
+    document.getElementById("fine-topic-count").textContent = `${{selected.length}} selected`;
+    const requested = document.getElementById("fine-topic-mode").value;
+    const mode = requested === "auto" ? (selected.length > 8 ? "heatmap" : "bars") : requested;
+    const periods = selected.length && source[selected[0]]
+      ? source[selected[0]].x.map(start => bucket === "20" ? `${{start}}–${{start+19}}` : `${{start}}s`) : [];
+    const traces = mode === "heatmap" ? [{{
+      type:"heatmap",x:periods,y:selected,z:selected.map(name => source[name].v),
+      customdata:selected.map(name => source[name].n),
+      colorscale:[[0,"#f6f1e9"],[.35,"#b9cfde"],[1,"#275d8c"]],
+      colorbar:{{title:"% of<br>paragraphs"}},
+      hovertemplate:"%{{y}}<br>%{{x}}<br>%{{z:.1f}}% of paragraphs<br>%{{customdata}} paragraphs<extra></extra>"
+    }}] : selected.map((name, i) => ({{
+      type:"bar",name,x:periods,y:source[name].v,customdata:source[name].n,
+      marker:{{color:FINE_COLORS[i % FINE_COLORS.length]}},
+      hovertemplate:"%{{x}}<br>%{{y:.1f}}% of paragraphs<br>%{{customdata}} paragraphs in bucket<extra>"+name+"</extra>"
+    }}));
+    const heatmap = mode === "heatmap";
+    document.getElementById("fine-topic-message").textContent =
+      selected.length === 0 ? "Choose at least one topic." :
+      heatmap && requested === "auto" ? "Heatmap selected automatically because more than eight topics are visible." : "";
+    Plotly.react(target,traces,{{
+      template:"simple_white",paper_bgcolor:"{SURFACE}",plot_bgcolor:"{SURFACE}",
+      font:{{family:"{FONT}",color:"{INK2}"}},
+      barmode:"group",height:Math.max(520,heatmap ? 170 + selected.length*28 : 520),
+      margin:{{l:heatmap?210:58,r:24,t:28,b:110}},
+      xaxis:{{type:"category",tickangle:-45,gridcolor:"{GRID}"}},
+      yaxis:heatmap?{{automargin:true}}:{{title:"% of paragraphs",rangemode:"tozero",gridcolor:"{GRID}"}},
+      legend:{{orientation:"h",y:1.08}},showlegend:!heatmap
+    }},{{displayModeBar:false,responsive:true}});
+  }}
+  document.querySelectorAll("#fine-topic-controls input").forEach(x => x.addEventListener("change",drawFineTopics));
+  document.getElementById("fine-topic-bucket")?.addEventListener("change",drawFineTopics);
+  document.getElementById("fine-topic-mode")?.addEventListener("change",drawFineTopics);
+  document.getElementById("fine-topic-all")?.addEventListener("click",() => {{
+    document.querySelectorAll("#fine-topic-controls input").forEach(x => x.checked=true); drawFineTopics();
+  }});
+  document.getElementById("fine-topic-clear")?.addEventListener("click",() => {{
+    document.querySelectorAll("#fine-topic-controls input").forEach(x => x.checked=false); drawFineTopics();
+  }});
+  drawFineTopics();
 </script>
 </body>
 </html>
@@ -182,8 +675,9 @@ def render_issue(label: str, owners, fig: go.Figure,
 
 def render_issue_index(entries: list[dict]) -> str:
     cards = "\n".join(f"""<a class="card" href="{e["slug"]}.html">
-  <div class="name">{e["label"]}</div>
+  <div class="name">{html_mod.escape(e["label"])}</div>
   <div class="meta">peak: {e["peak"]}s · top voice: {e["top"]}</div>
+  <div class="ai-meta">{e.get("n_ai_topics", 0)} finer AI topics</div>
 </a>""" for e in entries)
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -203,14 +697,17 @@ def render_issue_index(entries: list[dict]) -> str:
   .card:hover {{ border-color: var(--muted); }}
   .name {{ font-weight: 650; }}
   .meta {{ color: var(--muted); font-size: 0.8rem; margin-top: 4px; }}
+  .ai-meta {{ color:#275d8c; font-size:.78rem; margin-top:7px; }}
 </style>
 </head>
 <body>
 <header>
-  <p class="crumbs"><a href="../index.html">← Dashboard</a></p>
+  <p class="crumbs"><a href="../index.html">← Dashboard</a> &nbsp;·&nbsp;
+  <a href="../methodology.html">How the AI labels work</a></p>
   <h1>Issue profiles</h1>
   <p class="sub">The biography of every issue: 240 years of attention, the presidents
-  who owned it, and their words at its defining moments.</p>
+  who owned it, their words at its defining moments, and the finer topics from the
+  corpus-derived AI taxonomy that sit inside each broad axis.</p>
   <div class="grid">
 {cards}
   </div>
@@ -221,7 +718,8 @@ def render_issue_index(entries: list[dict]) -> str:
 
 
 def write_issue_pages(site_dir, issue_df: pd.DataFrame, issue_meta: dict,
-                      scores: pd.DataFrame, faces: dict) -> None:
+                      scores: pd.DataFrame, faces: dict,
+                      ai_data: dict | None = None) -> None:
     from .fetch import PARAGRAPHS_PATH
     from . import profiles_site
 
@@ -240,30 +738,83 @@ def write_issue_pages(site_dir, issue_df: pd.DataFrame, issue_meta: dict,
     anchors_all = {**issues.ISSUE_ANCHORS, **_EXTRA_ANCHORS}
 
     d = issue_df.set_index("president")
-    mids = (scores["first_year"] + scores["last_year"]) / 2
 
     out_dir = site_dir / "issues"
     out_dir.mkdir(parents=True, exist_ok=True)
-    display = issue_meta["issues"] + ["Discovered 5"]
+    chart_dir = site_dir / "data" / "issues"
+    chart_dir.mkdir(parents=True, exist_ok=True)
+    display = topic_quality.display_issues(issue_meta["issues"])
+    band_table = bands.load_bands()
+    ai_data = ai_labels.build_ai_data() if ai_data is None else ai_data
+    crosswalk = ai_labels.issue_crosswalk(ai_data)
+    all_ai_buckets = {
+        str(bucket): ai_labels.topic_bucket_series(ai_data, bucket)
+        for bucket in (10, 20)
+    }
     entries = []
     for name in display:
         label = profiles_site.DISCOVERED_LABELS.get(name, name)
-        pres_dots = pd.DataFrame({
-            "x": mids.values,
-            "y": (d.loc[mids.index, f"share_{name}"] * 100).values,
-            "name": mids.index,
-        })
+        pres_dots = president_period_dots(pl, name)
         owners = pd.DataFrame({
             "share": d.loc[scores.index, f"share_{name}"] * 100,
         }).nlargest(8, "share")
-        fig = fig_issue_timeline(pl, name, label, pres_dots)
+        band = bands.series_band(band_table, bands.COREX_SURFACE, name)
+        fig = fig_issue_timeline(pl, name, label, pres_dots, band)
         quotes = _issue_quotes(merged, name, anchors_all[name], titles)
-        page = render_issue(label, owners, fig, quotes)
-        (out_dir / f"{issue_slug(label)}.html").write_text(page)
+        # Derived from the band slice, not from the figure: the caption must
+        # promise the ring on exactly the pages that draw one.
+        has_unresolved = bool(band is not None and unresolved_mask(band).any())
+        ai_topics = crosswalk.get(label, [])
+        fine_series = {
+            bucket: {
+                topic["name"]: series[topic["name"]]
+                for topic in ai_topics
+                if topic["name"] in series
+            }
+            for bucket, series in all_ai_buckets.items()
+        }
+        slug_name = issue_slug(label)
+        chart_rows = []
+        for trace in fig.data:
+            trace_name = str(trace.name or "unnamed")
+            xs = list(trace.x) if trace.x is not None else []
+            ys = list(trace.y) if trace.y is not None else []
+            for x_value, y_value in zip(xs, ys):
+                chart_rows.append({
+                    "series": trace_name, "x": x_value, "value": y_value,
+                    "source_issue": name,
+                })
+        pd.DataFrame(chart_rows).to_csv(chart_dir / f"{slug_name}.csv", index=False)
+        fine_rows = [
+            {
+                "bucket_years": int(bucket),
+                "topic": topic,
+                "period_start": period,
+                "period_end": period + int(bucket) - 1,
+                "share_percent": value,
+                "paragraphs_in_bucket": n,
+            }
+            for bucket, topics in fine_series.items()
+            for topic, series in topics.items()
+            for period, value, n in zip(series["x"], series["v"], series["n"])
+        ]
+        pd.DataFrame(
+            fine_rows, columns=[
+                "bucket_years", "topic", "period_start", "period_end",
+                "share_percent", "paragraphs_in_bucket",
+            ]
+        ).to_csv(chart_dir / f"{slug_name}-ai-topics.csv", index=False)
+        page = render_issue(
+            label, owners, fig, quotes, has_unresolved, ai_topics,
+            f"../data/issues/{slug_name}.csv",
+            fine_series, f"../data/issues/{slug_name}-ai-topics.csv",
+        )
+        (out_dir / f"{slug_name}.html").write_text(page)
 
         periods = pl.assign(period=(pl["year"] // 10) * 10)
         peak = int(periods.groupby("period")[name].mean().idxmax())
-        entries.append({"slug": issue_slug(label), "label": label,
-                        "peak": peak, "top": owners.index[0]})
+        entries.append({"slug": slug_name, "label": label,
+                        "peak": peak, "top": owners.index[0],
+                        "n_ai_topics": len(ai_topics)})
     (out_dir / "index.html").write_text(render_issue_index(entries))
     print(f"  wrote {len(display)} issue pages + index to docs/issues/")

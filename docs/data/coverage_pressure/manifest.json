@@ -1,0 +1,25 @@
+{
+  "version": "coverage-pressure-v1",
+  "bootstrap_draws": 20000,
+  "primary_sample": "annual messages / State of the Union with >=12 paragraphs",
+  "postbellum_eras": [
+    1860,
+    1890,
+    1920
+  ],
+  "modern_eras": [
+    1950,
+    1980,
+    2010
+  ],
+  "decision": "supported",
+  "published_arms": [
+    "primary",
+    "all speeches (raw)",
+    "all speeches (genre-standardized)",
+    "annual messages with length/paragraph/medium controls"
+  ],
+  "exclusions": {
+    "under_12_paragraphs_from_primary": 0
+  }
+}

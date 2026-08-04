@@ -127,10 +127,15 @@ def _issue_df() -> pd.DataFrame:
 
 
 def _titles_df() -> pd.DataFrame:
-    """The `df` issue_cards uses only for titles/years, one row per doc_name."""
+    """The `df` issue_cards receives: the speeches frame (one row per doc_name),
+    used for titles/years AND, since the issue-card rework, for the per-president
+    speech count (``df.groupby("president").size()`` -> n_speeches /
+    low_confidence). Each doc is attributed to the president who owns its
+    paragraphs in _labels_frame(), so the count is well-defined."""
     return pd.DataFrame(
         {
             "doc_name": ["doc-a", "doc-b"],
+            "president": ["Alpha President", "Beta President"],
             "title": ["Address: The War Years", "Address: A Quiet Peace"],
             "year": [1900, 1990],
         }

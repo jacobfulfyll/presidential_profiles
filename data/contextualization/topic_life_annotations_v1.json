@@ -1,0 +1,55 @@
+{
+  "schema_version": "topic-life-annotations-v1",
+  "layer_type": "editorial_annotation_history",
+  "provenance": {
+    "annotation_method": "Timestamped editorial interpretation history",
+    "canonical_rule": "Latest recorded_at timestamp for each era_key and profile_topic",
+    "default_validation_status": "unvalidated",
+    "inputs": {
+      "data/attention/topic_lifecycles.parquet": "825fbe665a5af612849d7b0adf330c814a4098d888aadf3248c622add6233f0e",
+      "data/llm_annotations/paragraph_annotations.parquet": "52ff6e8a90188f001241ffb3ac96046b019dd70d7b6b3cfa9954d3d60c9a4227",
+      "data/llm_annotations/taxonomy_v1.json": "042fc959a64108cfa426e8463b72e2e56a66944cb32460173f711a668cc440dd"
+    },
+    "note": "Every editorial change appends a new event. These labels are interpretations layered over separately computed topic trajectories, not frozen paid annotations or historical ground truth."
+  },
+  "records": [
+    {
+      "annotation_id": "topic-life-founding-naval-wars-20260726t161338z",
+      "era_key": "founding",
+      "profile_topic": "Early Naval Wars: Barbary & the War of 1812",
+      "recorded_at": "2026-07-26T16:13:38Z",
+      "source_topic": "Early Naval Wars: Barbary & the War of 1812",
+      "interpretive_label": "Reframes",
+      "successor_kind": "level1",
+      "successor_topic": "War & Military Affairs",
+      "successor_display": "broader war & military affairs",
+      "successor_excludes_source": true,
+      "rationale": "The specialized Barbary and War of 1812 label falls away while presidential attention to the broader war-and-military domain continues.",
+      "validation_status": "rejected",
+      "validation_note": "Rejected as a reframe: the nine-era source/successor Spearman correlation is -0.083, above the -0.50 cutoff, and the proposed successor is 2.5 percentage points lower in the present than in the Founding.",
+      "annotator": {
+        "type": "ai",
+        "model": "gpt-5",
+        "reasoning_effort": "high"
+      }
+    },
+    {
+      "annotation_id": "topic-life-founding-public-finance-20260726t161338z",
+      "era_key": "founding",
+      "profile_topic": "Public finance",
+      "recorded_at": "2026-07-26T16:13:38Z",
+      "source_topic": "Public Debt, Revenue & Treasury Finance",
+      "interpretive_label": "Reframes",
+      "successor_kind": "level2",
+      "successor_topic": "Taxes, Budget Deficits & Federal Spending",
+      "successor_display": "taxes, deficits & spending",
+      "rationale": "Debt, revenue, and Treasury language declines while taxes, deficits, and spending become the larger public-finance vocabulary.",
+      "validation_status": "unvalidated",
+      "annotator": {
+        "type": "ai",
+        "model": "gpt-5",
+        "reasoning_effort": "high"
+      }
+    }
+  ]
+}

@@ -160,25 +160,258 @@ def test_incomplete_response_is_recorded_not_sealed_done(forge_run, args):
     assert "docA" not in done["placeholder"]
 
 
-def test_returned_index_never_sent_raises(forge_run, args):
+def test_returned_index_never_sent_is_quarantined_not_aborted(forge_run, args):
     """A hallucinated para_idx that was never in the request must not become a
-    key — it raises rather than being written."""
+    key — but it must QUARANTINE the speech (recorded retryable, no rows written)
+    rather than abort ingest of the whole paid batch. The manifest is still
+    written, and the speech stays re-requestable."""
     idx = _index(para_idxs=(0, 1))
     line = forge_run.succeeded_line("placeholder-a", [(0, "placeholder"), (5, "placeholder")],
                                     {"input_tokens": 10, "output_tokens": 2})
     forge_run("extra", index=idx, result_lines=[line])
-    with pytest.raises(ValueError, match="not in the request"):
-        A.cmd_ingest(args(run_id="extra"))
-    assert not ann.manifest_path("extra").exists()
+
+    A.cmd_ingest(args(run_id="extra"))  # must NOT raise
+
+    # No rows written for the quarantined speech (the bad idx never became a key).
+    assert not ann.annotation_path("placeholder").exists()
+    m = ann.read_manifest("extra")  # manifest IS written
+    assert "retryable failures: 1" in m.notes
+    # not sealed done -> the next submit re-requests it
+    paragraphs = pd.DataFrame({"doc_name": ["docA", "docA"], "para_idx": [0, 1]})
+    done = A._already_ingested([A.FIELD_SPECS["placeholder"]], paragraphs)
+    assert "docA" not in done["placeholder"]
 
 
-def test_returned_index_twice_raises(forge_run, args):
+def test_returned_index_twice_is_quarantined_not_aborted(forge_run, args):
+    """A duplicate echoed para_idx quarantines the speech (recorded retryable,
+    no rows) instead of raising and stranding the batch."""
     idx = _index(para_idxs=(0, 1))
     line = forge_run.succeeded_line("placeholder-a", [(0, "placeholder"), (0, "placeholder")],
                                     {"input_tokens": 10, "output_tokens": 2})
     forge_run("twice", index=idx, result_lines=[line])
-    with pytest.raises(ValueError, match="twice"):
-        A.cmd_ingest(args(run_id="twice"))
+
+    A.cmd_ingest(args(run_id="twice"))  # must NOT raise
+
+    assert not ann.annotation_path("placeholder").exists()
+    m = ann.read_manifest("twice")
+    assert "retryable failures: 1" in m.notes
+
+
+def test_one_bad_speech_quarantined_others_still_ingested(forge_run, args):
+    """The point of quarantine: a single degenerate/duplicate response does not
+    block ingesting the rest of a paid batch. The good speech's rows land; the
+    bad one is dropped whole and left re-requestable."""
+    idx = {
+        "placeholder-a": {"doc_name": "docA", "spec": "placeholder",
+                          "unit": "paragraph", "para_idxs": [0, 1]},
+        "placeholder-b": {"doc_name": "docB", "spec": "placeholder",
+                          "unit": "paragraph", "para_idxs": [0, 1]},
+    }
+    good = forge_run.succeeded_line("placeholder-a", [(0, "placeholder"), (1, "placeholder")],
+                                    {"input_tokens": 100, "output_tokens": 10})
+    # docB returns a duplicated para_idx -> quarantined
+    bad = forge_run.succeeded_line("placeholder-b", [(0, "placeholder"), (0, "placeholder")],
+                                   {"input_tokens": 50, "output_tokens": 5})
+    forge_run("mixq", index=idx, result_lines=[good, bad],
+              submitted_custom_ids=["placeholder-a", "placeholder-b"])
+
+    A.cmd_ingest(args(run_id="mixq"))  # must not raise
+
+    rows = ann.load_paragraph_annotations("placeholder")
+    assert set(rows["doc_name"]) == {"docA"}  # only the good speech contributed rows
+    assert sorted(rows["para_idx"]) == [0, 1]
+
+    m = ann.read_manifest("mixq")
+    assert m.n_requests == 2  # both results counted
+    assert "retryable failures: 1" in m.notes
+    # only docB is left re-requestable
+    paragraphs = pd.DataFrame({"doc_name": ["docA", "docA", "docB", "docB"],
+                               "para_idx": [0, 1, 0, 1]})
+    done = A._already_ingested([A.FIELD_SPECS["placeholder"]], paragraphs)
+    assert done["placeholder"] == {"docA"}
+
+
+def test_truncated_json_is_quarantined_not_aborted(forge_run, args):
+    """A response truncated against max_tokens arrives as syntactically incomplete
+    JSON (cut mid-object). `output_config.format` only guarantees valid JSON for a
+    COMPLETE response, so json.loads would raise — and the raise sits BEFORE the
+    para_idx quarantine, so without a guard it aborts the whole paid batch. It
+    must instead quarantine that speech (retryable, no rows) and keep ingesting."""
+    idx = {
+        "placeholder-a": {"doc_name": "docA", "spec": "placeholder",
+                          "unit": "paragraph", "para_idxs": [0, 1]},
+        "placeholder-b": {"doc_name": "docB", "spec": "placeholder",
+                          "unit": "paragraph", "para_idxs": [0, 1]},
+    }
+    good = forge_run.succeeded_line("placeholder-a", [(0, "placeholder"), (1, "placeholder")],
+                                    {"input_tokens": 100, "output_tokens": 10})
+    # docB's text is a truncated array — valid-JSON-so-far but cut mid-object.
+    truncated = {
+        "custom_id": "placeholder-b",
+        "result": {"type": "succeeded", "message": {
+            "usage": {"input_tokens": 80, "output_tokens": 8,
+                      "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0},
+            "content": [{"type": "text",
+                         "text": '{"annotations": [{"para_idx": 0, "label": "placeholde'}],
+        }},
+    }
+    forge_run("trunc_json", index=idx, result_lines=[good, truncated],
+              submitted_custom_ids=["placeholder-a", "placeholder-b"])
+
+    A.cmd_ingest(args(run_id="trunc_json"))  # must NOT raise (was JSONDecodeError)
+
+    # good speech landed; the truncated one wrote nothing
+    rows = ann.load_paragraph_annotations("placeholder")
+    assert set(rows["doc_name"]) == {"docA"}
+    assert sorted(rows["para_idx"]) == [0, 1]
+
+    m = ann.read_manifest("trunc_json")  # manifest still written
+    assert m.n_requests == 2
+    assert "retryable failures: 1" in m.notes
+    # docB not sealed -> re-requestable
+    paragraphs = pd.DataFrame({"doc_name": ["docA", "docA", "docB", "docB"],
+                               "para_idx": [0, 1, 0, 1]})
+    done = A._already_ingested([A.FIELD_SPECS["placeholder"]], paragraphs)
+    assert done["placeholder"] == {"docA"}
+
+
+def test_malformed_json_speech_unit_is_quarantined_not_aborted(forge_run, args):
+    """The guard is BEFORE the unit split, so a malformed SPEECH-unit payload
+    quarantines too (does not abort). Uses the real speech_annotations spec so no
+    registry patching is needed."""
+    idx = {"speech_annotations-a": {"doc_name": "docA", "spec": "speech_annotations",
+                                     "unit": "speech", "para_idxs": []}}
+    bad = {
+        "custom_id": "speech_annotations-a",
+        "result": {"type": "succeeded", "message": {
+            "usage": {"input_tokens": 20, "output_tokens": 2,
+                      "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0},
+            "content": [{"type": "text", "text": '{"speech_type": "inaug'}],  # truncated
+        }},
+    }
+    forge_run("speech_trunc", index=idx, result_lines=[bad], specs=["speech_annotations"])
+
+    A.cmd_ingest(args(run_id="speech_trunc"))  # must NOT raise (was JSONDecodeError)
+
+    assert not ann.annotation_path("speech_annotations").exists()  # nothing written
+    m = ann.read_manifest("speech_trunc")
+    assert "retryable failures: 1" in m.notes
+
+
+def test_null_annotations_payload_is_quarantined_not_aborted(forge_run, args):
+    """A JSON-VALID but shape-unexpected response ({"annotations": null}) would
+    raise TypeError on `for item in None` and abort the whole paid batch. It must
+    instead quarantine that speech ('malformed_payload') while the good speech in
+    the same batch still ingests."""
+    idx = {
+        "placeholder-a": {"doc_name": "docA", "spec": "placeholder",
+                          "unit": "paragraph", "para_idxs": [0, 1]},
+        "placeholder-b": {"doc_name": "docB", "spec": "placeholder",
+                          "unit": "paragraph", "para_idxs": [0]},
+    }
+    u = {"input_tokens": 50, "output_tokens": 5,
+         "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0}
+    good = forge_run.succeeded_line("placeholder-a", [(0, "placeholder"), (1, "placeholder")], u)
+    bad = {"custom_id": "placeholder-b", "result": {"type": "succeeded", "message": {
+        "usage": u, "content": [{"type": "text", "text": json.dumps({"annotations": None})}]}}}
+    forge_run("nullann", index=idx, result_lines=[good, bad],
+              submitted_custom_ids=["placeholder-a", "placeholder-b"])
+
+    A.cmd_ingest(args(run_id="nullann"))  # must NOT raise (was TypeError)
+
+    rows = ann.load_paragraph_annotations("placeholder")
+    assert set(rows["doc_name"]) == {"docA"}     # good speech landed; docB quarantined
+    assert sorted(rows["para_idx"]) == [0, 1]
+    m = ann.read_manifest("nullann")
+    assert m.n_requests == 2                      # both results counted
+    assert "retryable failures: 1" in m.notes
+
+
+def test_missing_annotations_key_payload_is_quarantined_not_aborted(forge_run, args):
+    """A succeeded response missing the `annotations` key (KeyError) quarantines
+    as 'malformed_payload' rather than aborting; nothing is written for it."""
+    idx = {"placeholder-a": {"doc_name": "docA", "spec": "placeholder",
+                             "unit": "paragraph", "para_idxs": [0]}}
+    bad = {"custom_id": "placeholder-a", "result": {"type": "succeeded", "message": {
+        "usage": {"input_tokens": 10, "output_tokens": 1,
+                  "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0},
+        "content": [{"type": "text", "text": json.dumps({"wrong_key": []})}]}}}
+    forge_run("misskey", index=idx, result_lines=[bad])
+
+    A.cmd_ingest(args(run_id="misskey"))  # must NOT raise (was KeyError)
+
+    assert not ann.annotation_path("placeholder").exists()  # nothing written
+    m = ann.read_manifest("misskey")
+    assert "retryable failures: 1" in m.notes
+
+
+# ---------------------------------------------------------------------------
+# shape hardening: bad entities element quarantines; smuggled keys can't clobber
+# ---------------------------------------------------------------------------
+
+
+def _judgment_result(cid: str, items: list[dict], usage: dict) -> dict:
+    return {"custom_id": cid, "result": {"type": "succeeded", "message": {
+        "usage": usage, "content": [{"type": "text", "text": json.dumps({"annotations": items})}]}}}
+
+
+def _jpara(para_idx: int, entities: list) -> dict:
+    return {"para_idx": para_idx, "topics": [], "party_attack": False,
+            "enemy_naming": False, "zero_sum": False, "proposal_values": "neither",
+            "entities": entities}
+
+
+def test_malformed_entities_element_is_quarantined_not_aborted(forge_run, args):
+    """A schema-violating entities element (a bare string / null, not an object)
+    on a succeeded judgment result would raise AttributeError in the entity
+    explosion (`e.get(...)`) and abort the whole batch. It must instead quarantine
+    that speech as 'malformed_payload' while a co-batch speech ingests cleanly."""
+    cid_ok, cid_bad = "paragraph_annotations-ok", "paragraph_annotations-bad"
+    idx = {
+        cid_ok: {"doc_name": "docOK", "spec": "paragraph_annotations",
+                 "unit": "paragraph", "para_idxs": [0]},
+        cid_bad: {"doc_name": "docBad", "spec": "paragraph_annotations",
+                  "unit": "paragraph", "para_idxs": [0]},
+    }
+    u = {"input_tokens": 30, "output_tokens": 4,
+         "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0}
+    good = _judgment_result(cid_ok, [_jpara(0, [{"name": "China", "type": "nation",
+                                                 "stance": "neutral"}])], u)
+    bad = _judgment_result(cid_bad, [_jpara(0, ["China"])], u)  # entities: ["China"] -> not objects
+    forge_run("badent", index=idx, result_lines=[good, bad],
+              submitted_custom_ids=[cid_ok, cid_bad], specs=["paragraph_annotations"])
+
+    A.cmd_ingest(args(run_id="badent"))  # must NOT raise (was AttributeError in explosion)
+
+    rows = ann.load_paragraph_annotations("paragraph_annotations")
+    assert set(rows["doc_name"]) == {"docOK"}   # good speech landed; docBad quarantined
+    ent = pd.read_parquet(ann.annotation_path("paragraph_entities"))
+    assert set(ent["doc_name"]) == {"docOK"}    # only the good speech's entities exploded
+    m = ann.read_manifest("badent")
+    assert m.n_requests == 2
+    assert "retryable failures: 1" in m.notes
+
+
+def test_smuggled_doc_name_and_run_id_cannot_clobber_the_index_anchor(forge_run, args):
+    """A model that smuggles `doc_name`/`run_id` fields into an item must not
+    override the index-anchored key or the provenance pointer — trusted keys are
+    spread LAST, so the anchored values always win."""
+    idx = {"placeholder-a": {"doc_name": "docReal", "spec": "placeholder",
+                             "unit": "paragraph", "para_idxs": [0]}}
+    u = {"input_tokens": 10, "output_tokens": 1,
+         "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0}
+    payload = {"annotations": [{"para_idx": 0, "label": "placeholder",
+                                "doc_name": "EVIL", "run_id": "EVIL"}]}
+    line = {"custom_id": "placeholder-a", "result": {"type": "succeeded", "message": {
+        "usage": u, "content": [{"type": "text", "text": json.dumps(payload)}]}}}
+    forge_run("smuggle", index=idx, result_lines=[line])
+
+    A.cmd_ingest(args(run_id="smuggle"))
+
+    rows = ann.load_paragraph_annotations("placeholder")
+    assert list(rows["doc_name"]) == ["docReal"]  # index-anchored key, not "EVIL"
+    assert list(rows["run_id"]) == ["smuggle"]    # run_id provenance, not "EVIL"
+    assert list(rows["label"]) == ["placeholder"]  # the real payload field survives
 
 
 def test_truncated_cache_missing_a_submitted_request_raises(forge_run, args):

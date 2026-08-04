@@ -19,6 +19,11 @@ data/llm_annotations/runs/
 # ML model caches
 .cache/
 
+# Secrets / local env (API keys for the LLM-annotation / taxonomy pipelines;
+# sourced manually — no dotenv loader in this project)
+.env
+.env.*
+
 # OS
 .DS_Store
 
@@ -28,3 +33,8 @@ data/llm_annotations/runs/
 
 .pipeline/
 .worktree/
+
+# Coverage artifacts
+.coverage
+.coverage.*
+htmlcov/

@@ -1,0 +1,1235 @@
+{
+  "schema_version": "president-profile-v3",
+  "president": "John Tyler",
+  "slug": "john-tyler",
+  "party": "Whig",
+  "years": {
+    "first": 1841,
+    "last": 1845
+  },
+  "sample": {
+    "n_speeches": 18,
+    "n_words": 69626,
+    "thin_record": false,
+    "warning": null
+  },
+  "rhetorical_radar": [
+    {
+      "key": "hope",
+      "label": "Hope",
+      "absolute": 642.0023329829058,
+      "percentile": 24.444444444444443
+    },
+    {
+      "key": "fear",
+      "label": "Fear appeal",
+      "absolute": 265.41280836417576,
+      "percentile": 37.77777777777778
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "absolute": 0.472289156626506,
+      "percentile": 13.333333333333334
+    },
+    {
+      "key": "us_vs_them",
+      "label": "Us vs them",
+      "absolute": 39.89112746439321,
+      "percentile": 20.0
+    },
+    {
+      "key": "self_reference",
+      "label": "Self-reference",
+      "absolute": 0.6013001083423619,
+      "percentile": 97.77777777777777
+    },
+    {
+      "key": "formality",
+      "label": "Formality",
+      "absolute": 19.2726574915029,
+      "percentile": 75.55555555555556
+    },
+    {
+      "key": "vocabulary",
+      "label": "Vocabulary",
+      "absolute": 0.4073333333333334,
+      "percentile": 40.0
+    },
+    {
+      "key": "religiosity",
+      "label": "Religiosity",
+      "absolute": 4.176327424070047,
+      "percentile": 17.77777777777778
+    }
+  ],
+  "raw_stats": {
+    "party": "Whig",
+    "first_year": 1841,
+    "last_year": 1845,
+    "n_speeches": 18,
+    "n_words": 69626,
+    "boosters": 4.60836129552557,
+    "hedges": 44.06745488846325,
+    "concessives": 19.009490344042973,
+    "assertive_modals": 51.84406457466265,
+    "need_to": 1.1520903238813924,
+    "united_states": 36.43485649274903,
+    "america": 11.664914529299097,
+    "nostalgia": 5.760451619406962,
+    "future": 3.312259681159003,
+    "religiosity": 4.176327424070047,
+    "god_bless": 0.0,
+    "us_them": 39.89112746439321,
+    "superlatives": 7.776609686199398,
+    "opponents": 0.5760451619406962,
+    "hype": 5.472429038436614,
+    "doom": 0.8640677429110442,
+    "mechanism": 44.3554774694336,
+    "nrc_hope": 642.0023329829058,
+    "nrc_fear": 265.41280836417576,
+    "certainty": 0.472289156626506,
+    "fk_grade": 19.2726574915029,
+    "self_reference": 0.6013001083423619,
+    "ttr": 0.4073333333333334,
+    "pct_hope": 24.444444444444443,
+    "pct_fear": 37.77777777777778,
+    "pct_certainty": 13.333333333333334,
+    "pct_us_vs_them": 20.0,
+    "pct_self_reference": 97.77777777777777,
+    "pct_formality": 75.55555555555556,
+    "pct_vocabulary": 40.0,
+    "pct_religiosity": 17.77777777777778
+  },
+  "legacy_issue_attention": [
+    {
+      "key": "Economy & jobs",
+      "label": "Economy & jobs",
+      "share": 0.1093,
+      "era_relative_difference": 1.3423
+    },
+    {
+      "key": "Taxes & budget",
+      "label": "Taxes & budget",
+      "share": 0.1352,
+      "era_relative_difference": 1.1656
+    },
+    {
+      "key": "War & military",
+      "label": "War & military",
+      "share": 0.1741,
+      "era_relative_difference": -5.7282
+    },
+    {
+      "key": "Foreign policy",
+      "label": "Foreign policy",
+      "share": 0.2426,
+      "era_relative_difference": 0.1192
+    },
+    {
+      "key": "Immigration",
+      "label": "Immigration",
+      "share": 0.0148,
+      "era_relative_difference": 0.5916
+    },
+    {
+      "key": "Civil rights & race",
+      "label": "Civil rights & race",
+      "share": 0.0278,
+      "era_relative_difference": -3.6997
+    },
+    {
+      "key": "Health care",
+      "label": "Health care",
+      "share": 0.013,
+      "era_relative_difference": 0.0893
+    },
+    {
+      "key": "Education",
+      "label": "Education",
+      "share": 0.0056,
+      "era_relative_difference": -0.5321
+    },
+    {
+      "key": "Crime & justice",
+      "label": "Crime & justice",
+      "share": 0.0278,
+      "era_relative_difference": -0.8535
+    },
+    {
+      "key": "Energy & environment",
+      "label": "Energy & environment",
+      "share": 0.0111,
+      "era_relative_difference": 0.3615
+    },
+    {
+      "key": "Trade & tariffs",
+      "label": "Trade & tariffs",
+      "share": 0.1833,
+      "era_relative_difference": 5.4339
+    },
+    {
+      "key": "Agriculture",
+      "label": "Agriculture",
+      "share": 0.0019,
+      "era_relative_difference": -1.2097
+    },
+    {
+      "key": "Religion & values",
+      "label": "Religion & values",
+      "share": 0.037,
+      "era_relative_difference": -0.7087
+    },
+    {
+      "key": "Money & banking",
+      "label": "Money & banking",
+      "share": 0.1426,
+      "era_relative_difference": 8.0369
+    },
+    {
+      "key": "Infrastructure",
+      "label": "Infrastructure",
+      "share": 0.1704,
+      "era_relative_difference": 2.2079
+    },
+    {
+      "key": "Discovered 5",
+      "label": "Security & peace",
+      "share": 0.0241,
+      "era_relative_difference": -2.9289
+    }
+  ],
+  "issue_evidence": {
+    "cards": [
+      {
+        "issue": "Money & banking",
+        "rel": 8.036892463346815,
+        "share": 0.1425925925925926,
+        "base": 0.05603246018383063,
+        "topic_of_day": false,
+        "words": [
+          "stream",
+          "treasury",
+          "southwest",
+          "regarded",
+          "erected"
+        ],
+        "quote": "What influence have local discounts granted by any form of bank in the regulating of the currency and the exchanges?",
+        "cite": "Veto Message Regarding the Bank of the United States, 1841",
+        "stance": null
+      },
+      {
+        "issue": "Trade & tariffs",
+        "rel": 5.433948701259214,
+        "share": 0.18333333333333332,
+        "base": 0.09067321758812001,
+        "topic_of_day": false,
+        "words": [
+          "sales"
+        ],
+        "quote": "The exports, too, from the United States to China constitute an interesting and growing part of the commerce of the country.",
+        "cite": "Message to Congress Regarding US-Hawaiian Relations, 1842",
+        "stance": null
+      },
+      {
+        "issue": "Infrastructure",
+        "rel": 2.207913879888718,
+        "share": 0.17037037037037037,
+        "base": 0.08255817163046178,
+        "topic_of_day": false,
+        "words": [
+          "line",
+          "maps",
+          "boundary",
+          "lake",
+          "river"
+        ],
+        "quote": "The lines of communication between distant parts of the Union are to a great extent occupied by railroads, which, in the nature of things, possess a complete monopoly, and the Department is therefore liable to heavy and unreasonable charges.",
+        "cite": "First Annual Message, 1841",
+        "stance": null
+      },
+      {
+        "issue": "Economy & jobs",
+        "rel": 1.3422800938579103,
+        "share": 0.10925925925925926,
+        "base": 0.15846421375141462,
+        "topic_of_day": false,
+        "words": [],
+        "quote": "The country is full of resources and the people fall of energy, and the great and permanent remedy for present embarrassments must be sought in industry, economy, the observance of good faith, and the favorable influence of time.",
+        "cite": "First Annual Message, 1841",
+        "stance": null
+      }
+    ],
+    "voice": [
+      "executive",
+      "texas",
+      "rhode",
+      "states",
+      "specie",
+      "branch",
+      "paper"
+    ],
+    "n_speeches": 18,
+    "n_paragraphs": 540,
+    "low_confidence": false
+  },
+  "ai": {
+    "n_paragraphs": 540,
+    "n_speeches": 18,
+    "low_confidence": false,
+    "top_topics": [
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.",
+        "share": 26.67,
+        "rel": 12.23,
+        "n": 144
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "definition": "Controversies over a national bank, deposit of public revenues, bank regulation, protection of deposits, and financial panics and revulsions.",
+        "share": 15.74,
+        "rel": 9.64,
+        "n": 85
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "definition": "Receipts and expenditures, reduction of the national debt, surplus revenue, and the general fiscal condition of the Treasury.",
+        "share": 12.96,
+        "rel": 5.18,
+        "n": 70
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "Boundary disputes, treaties, spoliation claims, and grievances with Spain and Mexico over Florida, Texas, and other borderlands.",
+        "share": 11.67,
+        "rel": 4.11,
+        "n": 63
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "definition": "Import duties and protective tariffs, reciprocal trade and navigation treaties, tonnage, and disputes over trade practices with foreign rivals.",
+        "share": 8.52,
+        "rel": 1.91,
+        "n": 46
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Assertions of presidential constitutional duties, the veto and removal powers, interbranch relations, and reform of the federal judiciary.",
+        "share": 7.59,
+        "rel": -3.73,
+        "n": 41
+      }
+    ],
+    "distinctive_topics": [
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.",
+        "share": 26.67,
+        "rel": 12.23,
+        "n": 144
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "definition": "Controversies over a national bank, deposit of public revenues, bank regulation, protection of deposits, and financial panics and revulsions.",
+        "share": 15.74,
+        "rel": 9.64,
+        "n": 85
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "definition": "Receipts and expenditures, reduction of the national debt, surplus revenue, and the general fiscal condition of the Treasury.",
+        "share": 12.96,
+        "rel": 5.18,
+        "n": 70
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "Boundary disputes, treaties, spoliation claims, and grievances with Spain and Mexico over Florida, Texas, and other borderlands.",
+        "share": 11.67,
+        "rel": 4.11,
+        "n": 63
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "definition": "Survey, sale, pricing, preemption, and distribution of public lands, protection of settlers, and operation of the homestead system.",
+        "share": 5.37,
+        "rel": 2.48,
+        "n": 29
+      }
+    ],
+    "domains": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 38.33,
+        "rel": 13.42
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 17.04,
+        "rel": 9.67
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 16.3,
+        "rel": -14.42
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 13.52,
+        "rel": 5.68
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 8.52,
+        "rel": 1.89
+      }
+    ],
+    "topic_attention": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 4.63,
+        "rel": 2.417,
+        "n": 25
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 26.667,
+        "rel": 12.227,
+        "n": 144
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 11.667,
+        "rel": 4.108,
+        "n": 63
+      },
+      {
+        "name": "Monroe Doctrine & Latin American Policy",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 3.333,
+        "rel": -3.159,
+        "n": 18
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.012,
+        "n": 0
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Middle East & Israel",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "share": 6.296,
+        "rel": -2.003,
+        "n": 34
+      },
+      {
+        "name": "Early Naval Wars: Barbary & the War of 1812",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.573,
+        "n": 0
+      },
+      {
+        "name": "Mexican War",
+        "domain": "War & Military Affairs",
+        "share": 0.37,
+        "rel": -2.225,
+        "n": 2
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.01,
+        "n": 0
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.01,
+        "n": 0
+      },
+      {
+        "name": "Vietnam War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "share": 3.519,
+        "rel": 1.711,
+        "n": 19
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "share": 15.741,
+        "rel": 9.64,
+        "n": 85
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 8.519,
+        "rel": 1.915,
+        "n": 46
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 0.0,
+        "rel": -0.026,
+        "n": 0
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "share": 12.963,
+        "rel": 5.183,
+        "n": 70
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "share": 0.741,
+        "rel": 0.543,
+        "n": 4
+      },
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.085,
+        "n": 0
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.327,
+        "n": 0
+      },
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.03,
+        "n": 0
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Prosperity, Jobs & the Middle Class",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.185,
+        "rel": 0.136,
+        "n": 1
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "share": 5.37,
+        "rel": 2.481,
+        "n": 29
+      },
+      {
+        "name": "Agriculture & Farm Prices",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.556,
+        "rel": -0.433,
+        "n": 3
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": -0.116,
+        "n": 0
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 3.519,
+        "rel": -2.714,
+        "n": 19
+      },
+      {
+        "name": "Space Exploration",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Slavery, Emancipation & Sectionalism",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.741,
+        "rel": -8.605,
+        "n": 4
+      },
+      {
+        "name": "Reconstruction & Southern Self-Government",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -2.925,
+        "n": 0
+      },
+      {
+        "name": "Chinese Immigration & Exclusion",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.529,
+        "n": 0
+      },
+      {
+        "name": "Immigration & Border Security",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.073,
+        "n": 0
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "share": 3.519,
+        "rel": -0.638,
+        "n": 19
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "share": 1.481,
+        "rel": -2.337,
+        "n": 8
+      },
+      {
+        "name": "Polygamy in the Territories",
+        "domain": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": -0.28,
+        "n": 0
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "share": 7.037,
+        "rel": -8.004,
+        "n": 38
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.111,
+        "rel": 0.55,
+        "n": 6
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "share": 7.593,
+        "rel": -3.729,
+        "n": 41
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.556,
+        "rel": -5.586,
+        "n": 3
+      },
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.667,
+        "rel": 0.605,
+        "n": 9
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "share": 0.37,
+        "rel": -0.268,
+        "n": 2
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "share": 1.852,
+        "rel": 0.262,
+        "n": 10
+      },
+      {
+        "name": "Personal Narrative, Storytelling & Boasting",
+        "domain": "Personal Narrative & Reflection",
+        "share": 0.0,
+        "rel": -0.121,
+        "n": 0
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "share": 3.889,
+        "rel": -1.028,
+        "n": 21
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "share": 3.333,
+        "rel": -0.877,
+        "n": 18
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "share": 0.0,
+        "rel": -0.912,
+        "n": 0
+      }
+    ],
+    "domain_attention": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 38.333,
+        "rel": 13.416
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 6.667,
+        "rel": -4.074
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 17.037,
+        "rel": 9.671
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 8.519,
+        "rel": 1.889
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 13.519,
+        "rel": 5.684
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 0.185,
+        "rel": -0.298
+      },
+      {
+        "name": "Agriculture, Land & Environment",
+        "share": 5.926,
+        "rel": 2.075
+      },
+      {
+        "name": "Infrastructure & Internal Improvements",
+        "share": 3.519,
+        "rel": -2.714
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 0.741,
+        "rel": -11.62
+      },
+      {
+        "name": "Indian & Tribal Affairs",
+        "share": 3.519,
+        "rel": -0.638
+      },
+      {
+        "name": "Law, Crime & Justice",
+        "share": 1.481,
+        "rel": -2.457
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 16.296,
+        "rel": -14.42
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 0.37,
+        "rel": -0.268
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 1.852,
+        "rel": 0.14
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 3.889,
+        "rel": -1.028
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 3.333,
+        "rel": -0.877
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 0.0,
+        "rel": -0.912
+      }
+    ],
+    "flags": {
+      "party_attack": 0.93,
+      "enemy_naming": 11.85,
+      "zero_sum": 3.33
+    },
+    "proposal_values": {
+      "proposal": 21.67,
+      "values": 24.81,
+      "mixed": 12.96,
+      "neither": 40.56
+    },
+    "speech_types": [
+      {
+        "name": "Special message to congress",
+        "value": 50.0
+      },
+      {
+        "name": "State of the Union / annual message",
+        "value": 22.22
+      },
+      {
+        "name": "Veto / signing statement",
+        "value": 22.22
+      },
+      {
+        "name": "Inaugural address",
+        "value": 5.56
+      }
+    ],
+    "adversaries": [
+      {
+        "name": "Mexico",
+        "n": 35
+      },
+      {
+        "name": "Great Britain",
+        "n": 9
+      },
+      {
+        "name": "Congress",
+        "n": 5
+      },
+      {
+        "name": "Mr. Dorr",
+        "n": 3
+      },
+      {
+        "name": "British cruisers",
+        "n": 2
+      }
+    ],
+    "ai_radar": {
+      "party_attack": {
+        "absolute": 0.926,
+        "percentile": 21.4
+      },
+      "enemy_naming": {
+        "absolute": 11.852,
+        "percentile": 31.0
+      },
+      "zero_sum": {
+        "absolute": 3.333,
+        "percentile": 31.0
+      },
+      "proposal": {
+        "absolute": 21.667,
+        "percentile": 61.9
+      },
+      "values": {
+        "absolute": 24.815,
+        "percentile": 28.6
+      },
+      "topic_breadth": {
+        "absolute": 15.984,
+        "percentile": 28.6
+      }
+    }
+  },
+  "distinctive_vocabulary": [
+    {
+      "president": "John Tyler",
+      "term": "line",
+      "z": 17.924137855162403,
+      "rank": 0
+    },
+    {
+      "president": "John Tyler",
+      "term": "maps",
+      "z": 15.798627606404914,
+      "rank": 1
+    },
+    {
+      "president": "John Tyler",
+      "term": "boundary",
+      "z": 15.51294934054732,
+      "rank": 2
+    },
+    {
+      "president": "John Tyler",
+      "term": "lake",
+      "z": 14.901519839804767,
+      "rank": 3
+    },
+    {
+      "president": "John Tyler",
+      "term": "stream",
+      "z": 14.56431378107238,
+      "rank": 4
+    },
+    {
+      "president": "John Tyler",
+      "term": "treasury",
+      "z": 14.485589119420775,
+      "rank": 5
+    },
+    {
+      "president": "John Tyler",
+      "term": "executive",
+      "z": 13.61771368724977,
+      "rank": 6
+    },
+    {
+      "president": "John Tyler",
+      "term": "texas",
+      "z": 13.397867368416067,
+      "rank": 7
+    },
+    {
+      "president": "John Tyler",
+      "term": "river",
+      "z": 13.26773876268018,
+      "rank": 8
+    },
+    {
+      "president": "John Tyler",
+      "term": "southwest",
+      "z": 13.180914989920359,
+      "rank": 9
+    },
+    {
+      "president": "John Tyler",
+      "term": "rhode",
+      "z": 12.934781817648965,
+      "rank": 10
+    },
+    {
+      "president": "John Tyler",
+      "term": "regarded",
+      "z": 12.593662087155279,
+      "rank": 11
+    },
+    {
+      "president": "John Tyler",
+      "term": "erected",
+      "z": 12.564563160070719,
+      "rank": 12
+    },
+    {
+      "president": "John Tyler",
+      "term": "states",
+      "z": 12.507065601751687,
+      "rank": 13
+    },
+    {
+      "president": "John Tyler",
+      "term": "specie",
+      "z": 12.319134238143436,
+      "rank": 14
+    },
+    {
+      "president": "John Tyler",
+      "term": "branch",
+      "z": 12.15083382227412,
+      "rank": 15
+    },
+    {
+      "president": "John Tyler",
+      "term": "paper",
+      "z": 12.101915335999907,
+      "rank": 16
+    },
+    {
+      "president": "John Tyler",
+      "term": "sales",
+      "z": 12.032887867457541,
+      "rank": 17
+    }
+  ],
+  "signature_speeches": [
+    {
+      "title": "April 9, 1844: Message Regarding Disturbances in Rhode Island",
+      "year": 1844,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-9-1844-message-regarding-disturbances-rhode-island"
+    },
+    {
+      "title": "December 30, 1842: Message to Congress Regarding US-Hawaiian Relations",
+      "year": 1842,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-30-1842-message-congress-regarding-us-hawaiian"
+    },
+    {
+      "title": "August 18, 1842: Message Regarding Treaty with Texas",
+      "year": 1842,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-18-1842-message-regarding-treaty-texas"
+    },
+    {
+      "title": "February 20, 1845: Message Regarding the Slave Trade",
+      "year": 1845,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-20-1845-message-regarding-slave-trade"
+    },
+    {
+      "title": "June 11, 1844: Veto Message Regarding Infrastructure Improvements",
+      "year": 1844,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-11-1844-veto-message-regarding-infrastructure"
+    }
+  ],
+  "legacy_invocations": {
+    "invokes": [],
+    "invoked_by": null
+  },
+  "classified_invocations": [
+    {
+      "target": "James Monroe",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "William Harrison",
+      "function": "ceremonial/biographical",
+      "stance": "neutral",
+      "mentions": 1
+    }
+  ],
+  "voice_neighbors": [
+    [
+      "William Taft",
+      0.2995226796628214
+    ],
+    [
+      "Chester A. Arthur",
+      0.24694069512741595
+    ],
+    [
+      "George W. Bush",
+      0.2211147428297652
+    ]
+  ],
+  "agenda_neighbors": [
+    [
+      "Andrew Jackson",
+      0.9903732304447872
+    ],
+    [
+      "Millard Fillmore",
+      0.9860005097901792
+    ],
+    [
+      "Martin Van Buren",
+      0.9840214609050042
+    ]
+  ],
+  "feature_neighbors": {
+    "ai_topics": [
+      {
+        "president": "Martin Van Buren",
+        "similarity": 0.8447
+      },
+      {
+        "president": "James Monroe",
+        "similarity": 0.8414
+      },
+      {
+        "president": "Andrew Jackson",
+        "similarity": 0.8341
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.8215
+      },
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.7928
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.7903
+      }
+    ],
+    "ai_domains": [
+      {
+        "president": "William McKinley",
+        "similarity": 0.9522
+      },
+      {
+        "president": "Grover Cleveland",
+        "similarity": 0.9383
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.9029
+      },
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.9028
+      },
+      {
+        "president": "James Monroe",
+        "similarity": 0.895
+      },
+      {
+        "president": "Benjamin Harrison",
+        "similarity": 0.8786
+      }
+    ],
+    "ai_rhetoric": [
+      {
+        "president": "William McKinley",
+        "similarity": 0.9161
+      },
+      {
+        "president": "Thomas Jefferson",
+        "similarity": 0.8789
+      },
+      {
+        "president": "James Monroe",
+        "similarity": 0.8761
+      },
+      {
+        "president": "John Quincy Adams",
+        "similarity": 0.8604
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.8597
+      },
+      {
+        "president": "Martin Van Buren",
+        "similarity": 0.8428
+      }
+    ],
+    "rhetorical_fingerprint": [
+      {
+        "president": "Ulysses S. Grant",
+        "similarity": 0.9636
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.9266
+      },
+      {
+        "president": "William Taft",
+        "similarity": 0.8884
+      },
+      {
+        "president": "Rutherford B. Hayes",
+        "similarity": 0.8245
+      },
+      {
+        "president": "Chester A. Arthur",
+        "similarity": 0.8172
+      },
+      {
+        "president": "Franklin Pierce",
+        "similarity": 0.7773
+      }
+    ],
+    "legacy_issues": [
+      {
+        "president": "Andrew Jackson",
+        "similarity": 0.9904
+      },
+      {
+        "president": "Millard Fillmore",
+        "similarity": 0.986
+      },
+      {
+        "president": "Martin Van Buren",
+        "similarity": 0.984
+      },
+      {
+        "president": "James Monroe",
+        "similarity": 0.984
+      },
+      {
+        "president": "John Quincy Adams",
+        "similarity": 0.9837
+      },
+      {
+        "president": "Franklin Pierce",
+        "similarity": 0.9831
+      }
+    ]
+  },
+  "context_specific": {
+    "profile_only": [],
+    "compare_only": []
+  }
+}

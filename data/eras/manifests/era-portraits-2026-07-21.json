@@ -1,0 +1,26 @@
+{
+  "annotation_files": [
+    "era_portraits.parquet"
+  ],
+  "batch_id": null,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "corpus_fingerprint": {
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc",
+    "n_paragraphs": 36229,
+    "n_speeches": 1057
+  },
+  "cost_usd": 0.05947,
+  "date": "2026-07-21",
+  "fields": [
+    "portrait"
+  ],
+  "input_tokens": 15800,
+  "model": "claude-sonnet-5",
+  "n_requests": 9,
+  "notes": "Synchronous Messages API (not batched), one request per trends.ERAS era. Portraits are grounded in each era's z-scored fingerprint plus deterministically-selected exemplar quotes; the exemplar (doc_name, para_idx, year) triples are stored in the portraits parquet. cost_usd is ACTUAL, read back from usage.",
+  "output_tokens": 2787,
+  "prompt_hash": "sha256:5e53de3c435a654864854985f5ba7c3584eac3088a2a004570260963de38b831",
+  "prompt_version": "era-portrait/v1-2026-07-21",
+  "run_id": "era-portraits-2026-07-21"
+}

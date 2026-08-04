@@ -1,0 +1,1349 @@
+{
+  "schema_version": "president-profile-v3",
+  "president": "Harry S. Truman",
+  "slug": "harry-s-truman",
+  "party": "Democratic",
+  "years": {
+    "first": 1945,
+    "last": 1953
+  },
+  "sample": {
+    "n_speeches": 19,
+    "n_words": 37012,
+    "thin_record": false,
+    "warning": null
+  },
+  "rhetorical_radar": [
+    {
+      "key": "hope",
+      "label": "Hope",
+      "absolute": 681.0825513395894,
+      "percentile": 55.55555555555556
+    },
+    {
+      "key": "fear",
+      "label": "Fear appeal",
+      "absolute": 318.2374541003672,
+      "percentile": 80.0
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "absolute": 0.786618444846293,
+      "percentile": 73.33333333333333
+    },
+    {
+      "key": "us_vs_them",
+      "label": "Us vs them",
+      "absolute": 107.4391404868761,
+      "percentile": 95.55555555555556
+    },
+    {
+      "key": "self_reference",
+      "label": "Self-reference",
+      "absolute": 0.3894080996884735,
+      "percentile": 55.55555555555556
+    },
+    {
+      "key": "formality",
+      "label": "Formality",
+      "absolute": 9.567067322802506,
+      "percentile": 11.11111111111111
+    },
+    {
+      "key": "vocabulary",
+      "label": "Vocabulary",
+      "absolute": 0.3849444444444445,
+      "percentile": 8.88888888888889
+    },
+    {
+      "key": "religiosity",
+      "label": "Religiosity",
+      "absolute": 17.407860737114103,
+      "percentile": 91.11111111111111
+    }
+  ],
+  "raw_stats": {
+    "party": "Democratic",
+    "first_year": 1945,
+    "last_year": 1953,
+    "n_speeches": 19,
+    "n_words": 37012,
+    "boosters": 23.391812865497077,
+    "hedges": 23.935808513531892,
+    "concessives": 8.159934720522235,
+    "assertive_modals": 94.92724058207534,
+    "need_to": 6.799945600435197,
+    "united_states": 22.031823745410037,
+    "america": 25.29579763361893,
+    "nostalgia": 12.239902080783352,
+    "future": 12.239902080783352,
+    "religiosity": 17.407860737114103,
+    "god_bless": 0.5439956480348157,
+    "us_them": 107.4391404868761,
+    "superlatives": 17.95185638514892,
+    "opponents": 15.231878144974841,
+    "hype": 17.407860737114103,
+    "doom": 6.255949952400381,
+    "mechanism": 31.279749762001906,
+    "nrc_hope": 681.0825513395894,
+    "nrc_fear": 318.2374541003672,
+    "certainty": 0.786618444846293,
+    "fk_grade": 9.567067322802506,
+    "self_reference": 0.3894080996884735,
+    "ttr": 0.3849444444444445,
+    "pct_hope": 55.55555555555556,
+    "pct_fear": 80.0,
+    "pct_certainty": 73.33333333333333,
+    "pct_us_vs_them": 95.55555555555556,
+    "pct_self_reference": 55.55555555555556,
+    "pct_formality": 11.11111111111111,
+    "pct_vocabulary": 8.88888888888889,
+    "pct_religiosity": 91.11111111111111
+  },
+  "legacy_issue_attention": [
+    {
+      "key": "Economy & jobs",
+      "label": "Economy & jobs",
+      "share": 0.1461,
+      "era_relative_difference": -4.0284
+    },
+    {
+      "key": "Taxes & budget",
+      "label": "Taxes & budget",
+      "share": 0.0227,
+      "era_relative_difference": -8.0787
+    },
+    {
+      "key": "War & military",
+      "label": "War & military",
+      "share": 0.3409,
+      "era_relative_difference": 6.6675
+    },
+    {
+      "key": "Foreign policy",
+      "label": "Foreign policy",
+      "share": 0.1753,
+      "era_relative_difference": 4.0065
+    },
+    {
+      "key": "Immigration",
+      "label": "Immigration",
+      "share": 0.013,
+      "era_relative_difference": -0.1
+    },
+    {
+      "key": "Civil rights & race",
+      "label": "Civil rights & race",
+      "share": 0.0487,
+      "era_relative_difference": 0.6757
+    },
+    {
+      "key": "Health care",
+      "label": "Health care",
+      "share": 0.0162,
+      "era_relative_difference": -2.8485
+    },
+    {
+      "key": "Education",
+      "label": "Education",
+      "share": 0.0292,
+      "era_relative_difference": -2.144
+    },
+    {
+      "key": "Crime & justice",
+      "label": "Crime & justice",
+      "share": 0.0162,
+      "era_relative_difference": -1.7368
+    },
+    {
+      "key": "Energy & environment",
+      "label": "Energy & environment",
+      "share": 0.0227,
+      "era_relative_difference": -0.8881
+    },
+    {
+      "key": "Trade & tariffs",
+      "label": "Trade & tariffs",
+      "share": 0.0325,
+      "era_relative_difference": -3.6449
+    },
+    {
+      "key": "Agriculture",
+      "label": "Agriculture",
+      "share": 0.0422,
+      "era_relative_difference": -2.3038
+    },
+    {
+      "key": "Religion & values",
+      "label": "Religion & values",
+      "share": 0.1331,
+      "era_relative_difference": 5.377
+    },
+    {
+      "key": "Money & banking",
+      "label": "Money & banking",
+      "share": 0.0227,
+      "era_relative_difference": -3.3264
+    },
+    {
+      "key": "Infrastructure",
+      "label": "Infrastructure",
+      "share": 0.0552,
+      "era_relative_difference": -0.0046
+    },
+    {
+      "key": "Discovered 5",
+      "label": "Security & peace",
+      "share": 0.5519,
+      "era_relative_difference": 22.3389
+    }
+  ],
+  "issue_evidence": {
+    "cards": [
+      {
+        "issue": "Discovered 5",
+        "rel": 22.33888594144831,
+        "share": 0.551948051948052,
+        "base": 0.20398023682685143,
+        "topic_of_day": false,
+        "words": [
+          "greece",
+          "atomic",
+          "korea",
+          "victory",
+          "bomb"
+        ],
+        "quote": "We shall continue to strive to promote freedom of expression and freedom of religion throughout the peace-loving areas of the world.",
+        "cite": "Navy Day Address, 1945",
+        "stance": "waging and ending in equal measure"
+      },
+      {
+        "issue": "War & military",
+        "rel": 6.667476554425955,
+        "share": 0.3409090909090909,
+        "base": 0.22233569792155455,
+        "topic_of_day": false,
+        "words": [
+          "turkey"
+        ],
+        "quote": "The fleet, on V-J Day, consisted of 1200 warships, more than 50,000 supporting and landing craft, and over 40,000 navy planes.",
+        "cite": "Navy Day Address, 1945",
+        "stance": "waging and ending in equal measure"
+      },
+      {
+        "issue": "Religion & values",
+        "rel": 5.376989565726317,
+        "share": 0.1331168831168831,
+        "base": 0.06011758535979464,
+        "topic_of_day": false,
+        "words": [
+          "peace",
+          "nations"
+        ],
+        "quote": "&quot;I call upon the people of the United States, whatever their faith, to unite in offering joyful thanks to God for the victory we have won, and to pray that He will support us to the end of our present struggle and guide us into the ways of peace.",
+        "cite": "Announcing the Surrender of Germany, 1945",
+        "stance": null
+      },
+      {
+        "issue": "Foreign policy",
+        "rel": 4.006483742381994,
+        "share": 0.17532467532467533,
+        "base": 0.1530265809158409,
+        "topic_of_day": false,
+        "words": [
+          "greek",
+          "taft"
+        ],
+        "quote": "The Foreign Relations Committees of the Senate and House were taken into the full confidence of the President in every one of these moves, and don&#x27;t let anybody tell you anything else.",
+        "cite": "Democratic National Convention, 1948",
+        "stance": null
+      }
+    ],
+    "voice": [
+      "world",
+      "democratic",
+      "republicans",
+      "republican",
+      "berlin",
+      "reparations",
+      "platform",
+      "communism"
+    ],
+    "n_speeches": 19,
+    "n_paragraphs": 308,
+    "low_confidence": false
+  },
+  "ai": {
+    "n_paragraphs": 308,
+    "n_speeches": 19,
+    "low_confidence": false,
+    "top_topics": [
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "The global contest with Soviet and Chinese communism and later confrontation and negotiation with great-power rivals and rogue regimes over security and influence.",
+        "share": 22.73,
+        "rel": 9.97,
+        "n": 70
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "The United Nations and international order, economic assistance to developing nations, and the conviction that America should spread liberty and democracy abroad.",
+        "share": 22.08,
+        "rel": 15.88,
+        "n": 68
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "definition": "Reports on the progress of the Second World War, battles in the Pacific and Europe, casualties, and the strategy of defeating Germany and Japan.",
+        "share": 15.91,
+        "rel": 10.72,
+        "n": 49
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "definition": "Attacks on opponents and parties, campaign debate and defense of one's record, the give-and-take of televised news conferences, and clashes with the press.",
+        "share": 15.58,
+        "rel": 10.09,
+        "n": 48
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "definition": "Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.",
+        "share": 12.34,
+        "rel": 0.07,
+        "n": 38
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.",
+        "share": 11.04,
+        "rel": 3.05,
+        "n": 34
+      }
+    ],
+    "distinctive_topics": [
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "The United Nations and international order, economic assistance to developing nations, and the conviction that America should spread liberty and democracy abroad.",
+        "share": 22.08,
+        "rel": 15.88,
+        "n": 68
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "definition": "Reports on the progress of the Second World War, battles in the Pacific and Europe, casualties, and the strategy of defeating Germany and Japan.",
+        "share": 15.91,
+        "rel": 10.72,
+        "n": 49
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "definition": "Attacks on opponents and parties, campaign debate and defense of one's record, the give-and-take of televised news conferences, and clashes with the press.",
+        "share": 15.58,
+        "rel": 10.09,
+        "n": 48
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "The global contest with Soviet and Chinese communism and later confrontation and negotiation with great-power rivals and rogue regimes over security and influence.",
+        "share": 22.73,
+        "rel": 9.97,
+        "n": 70
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "The danger of nuclear war and fallout, superpower vulnerability, and efforts to limit or reduce nuclear arms through negotiation and treaties.",
+        "share": 10.06,
+        "rel": 5.08,
+        "n": 31
+      }
+    ],
+    "domains": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 51.62,
+        "rel": 22.96
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 22.4,
+        "rel": 0.3
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 15.58,
+        "rel": 10.09
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 12.66,
+        "rel": -3.05
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 12.34,
+        "rel": 0.07
+      }
+    ],
+    "topic_attention": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.197,
+        "n": 0
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 11.039,
+        "rel": 3.054,
+        "n": 34
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.107,
+        "n": 0
+      },
+      {
+        "name": "Monroe Doctrine & Latin American Policy",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.649,
+        "rel": -2.842,
+        "n": 2
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 22.727,
+        "rel": 9.971,
+        "n": 70
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 10.065,
+        "rel": 5.083,
+        "n": 31
+      },
+      {
+        "name": "Middle East & Israel",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 1.299,
+        "rel": -0.339,
+        "n": 4
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 22.078,
+        "rel": 15.876,
+        "n": 68
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "share": 8.442,
+        "rel": -0.738,
+        "n": 26
+      },
+      {
+        "name": "Early Naval Wars: Barbary & the War of 1812",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.082,
+        "n": 0
+      },
+      {
+        "name": "Mexican War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.005,
+        "n": 0
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.478,
+        "n": 0
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "share": 15.909,
+        "rel": 10.721,
+        "n": 49
+      },
+      {
+        "name": "Vietnam War",
+        "domain": "War & Military Affairs",
+        "share": 0.325,
+        "rel": -7.994,
+        "n": 1
+      },
+      {
+        "name": "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.378,
+        "n": 0
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "share": 0.0,
+        "rel": -0.634,
+        "n": 0
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "share": 0.0,
+        "rel": -2.251,
+        "n": 0
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 0.974,
+        "rel": -1.842,
+        "n": 3
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 1.299,
+        "rel": 0.398,
+        "n": 4
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "share": 0.649,
+        "rel": -2.587,
+        "n": 2
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "share": 0.649,
+        "rel": -6.472,
+        "n": 2
+      },
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 1.623,
+        "rel": -2.987,
+        "n": 5
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 6.818,
+        "rel": 2.751,
+        "n": 21
+      },
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 2.273,
+        "rel": -1.356,
+        "n": 7
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 1.948,
+        "rel": -0.015,
+        "n": 6
+      },
+      {
+        "name": "Prosperity, Jobs & the Middle Class",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 2.597,
+        "rel": -1.738,
+        "n": 8
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.0,
+        "rel": -0.56,
+        "n": 0
+      },
+      {
+        "name": "Agriculture & Farm Prices",
+        "domain": "Agriculture, Land & Environment",
+        "share": 2.273,
+        "rel": -2.113,
+        "n": 7
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "share": 0.325,
+        "rel": -1.354,
+        "n": 1
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 1.948,
+        "rel": -3.286,
+        "n": 6
+      },
+      {
+        "name": "Space Exploration",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": -1.234,
+        "n": 0
+      },
+      {
+        "name": "Slavery, Emancipation & Sectionalism",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.07,
+        "n": 0
+      },
+      {
+        "name": "Reconstruction & Southern Self-Government",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Chinese Immigration & Exclusion",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "share": 1.299,
+        "rel": -1.803,
+        "n": 4
+      },
+      {
+        "name": "Immigration & Border Security",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.325,
+        "rel": -0.329,
+        "n": 1
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "share": 0.0,
+        "rel": -0.213,
+        "n": 0
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "share": 0.325,
+        "rel": -2.766,
+        "n": 1
+      },
+      {
+        "name": "Polygamy in the Territories",
+        "domain": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.0,
+        "rel": -2.204,
+        "n": 0
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "share": 3.247,
+        "rel": 2.524,
+        "n": 10
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.623,
+        "rel": -2.037,
+        "n": 5
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.325,
+        "rel": -0.247,
+        "n": 1
+      },
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.974,
+        "rel": 0.351,
+        "n": 3
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "share": 3.247,
+        "rel": 0.892,
+        "n": 10
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "share": 4.221,
+        "rel": 1.704,
+        "n": 13
+      },
+      {
+        "name": "Personal Narrative, Storytelling & Boasting",
+        "domain": "Personal Narrative & Reflection",
+        "share": 4.545,
+        "rel": 2.476,
+        "n": 14
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "share": 0.649,
+        "rel": -2.533,
+        "n": 2
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "share": 12.338,
+        "rel": 0.072,
+        "n": 38
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "share": 15.584,
+        "rel": 10.093,
+        "n": 48
+      }
+    ],
+    "domain_attention": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 51.623,
+        "rel": 22.955
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 22.403,
+        "rel": 0.301
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 0.0,
+        "rel": -2.826
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 2.273,
+        "rel": -1.444
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 1.299,
+        "rel": -8.397
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 12.662,
+        "rel": -3.054
+      },
+      {
+        "name": "Agriculture, Land & Environment",
+        "share": 2.597,
+        "rel": -3.584
+      },
+      {
+        "name": "Infrastructure & Internal Improvements",
+        "share": 1.948,
+        "rel": -4.445
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 1.623,
+        "rel": -2.179
+      },
+      {
+        "name": "Indian & Tribal Affairs",
+        "share": 0.0,
+        "rel": -0.213
+      },
+      {
+        "name": "Law, Crime & Justice",
+        "share": 0.325,
+        "rel": -2.766
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 6.169,
+        "rel": -1.311
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 3.247,
+        "rel": 0.892
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 8.117,
+        "rel": 3.607
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 0.649,
+        "rel": -2.533
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 12.338,
+        "rel": 0.072
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 15.584,
+        "rel": 10.093
+      }
+    ],
+    "flags": {
+      "party_attack": 18.51,
+      "enemy_naming": 44.81,
+      "zero_sum": 25.32
+    },
+    "proposal_values": {
+      "proposal": 8.77,
+      "values": 39.61,
+      "mixed": 24.35,
+      "neither": 27.27
+    },
+    "speech_types": [
+      {
+        "name": "Public remarks / address",
+        "value": 52.63
+      },
+      {
+        "name": "Campaign / debate",
+        "value": 26.32
+      },
+      {
+        "name": "Special message to congress",
+        "value": 10.53
+      },
+      {
+        "name": "Inaugural address",
+        "value": 5.26
+      }
+    ],
+    "adversaries": [
+      {
+        "name": "Republicans",
+        "n": 24
+      },
+      {
+        "name": "Japan",
+        "n": 16
+      },
+      {
+        "name": "Taft-Hartley bill",
+        "n": 14
+      },
+      {
+        "name": "Germany",
+        "n": 12
+      },
+      {
+        "name": "Republican Party",
+        "n": 10
+      }
+    ],
+    "ai_radar": {
+      "party_attack": {
+        "absolute": 18.506,
+        "percentile": 95.2
+      },
+      "enemy_naming": {
+        "absolute": 44.805,
+        "percentile": 100.0
+      },
+      "zero_sum": {
+        "absolute": 25.325,
+        "percentile": 100.0
+      },
+      "proposal": {
+        "absolute": 8.766,
+        "percentile": 4.8
+      },
+      "values": {
+        "absolute": 39.61,
+        "percentile": 88.1
+      },
+      "topic_breadth": {
+        "absolute": 17.711,
+        "percentile": 38.1
+      }
+    }
+  },
+  "distinctive_vocabulary": [
+    {
+      "president": "Harry S. Truman",
+      "term": "greece",
+      "z": 22.143949573511865,
+      "rank": 0
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "world",
+      "z": 18.962587260953995,
+      "rank": 1
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "atomic",
+      "z": 18.129801348707314,
+      "rank": 2
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "korea",
+      "z": 16.763294591030345,
+      "rank": 3
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "victory",
+      "z": 16.19335782858248,
+      "rank": 4
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "democratic",
+      "z": 15.905390015716486,
+      "rank": 5
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "bomb",
+      "z": 15.856363691099887,
+      "rank": 6
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "republicans",
+      "z": 15.325600663407153,
+      "rank": 7
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "greek",
+      "z": 14.479275106633777,
+      "rank": 8
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "republican",
+      "z": 13.852023513204156,
+      "rank": 9
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "berlin",
+      "z": 12.876403266968017,
+      "rank": 10
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "taft",
+      "z": 12.80963876008928,
+      "rank": 11
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "turkey",
+      "z": 12.803073150707478,
+      "rank": 12
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "reparations",
+      "z": 12.547178637387896,
+      "rank": 13
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "peace",
+      "z": 12.366304732366762,
+      "rank": 14
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "platform",
+      "z": 12.151776177935147,
+      "rank": 15
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "communism",
+      "z": 11.99161500610278,
+      "rank": 16
+    },
+    {
+      "president": "Harry S. Truman",
+      "term": "nations",
+      "z": 11.77689361323801,
+      "rank": 17
+    }
+  ],
+  "signature_speeches": [
+    {
+      "title": "September 18, 1948: Whistlestop Tour in Trenton, Missouri",
+      "year": 1948,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/september-18-1948-whistlestop-tour-trenton-missouri"
+    },
+    {
+      "title": "October 22, 1952: Rear Platform Remarks",
+      "year": 1952,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-22-1952-rear-platform-remarks"
+    },
+    {
+      "title": "November 3, 1948: Victory Celebration",
+      "year": 1948,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-3-1948-victory-celebration"
+    },
+    {
+      "title": "July 15, 1948: Democratic National Convention",
+      "year": 1948,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-15-1948-democratic-national-convention"
+    },
+    {
+      "title": "March 29, 1952: Jefferson-Jackson Day Dinner",
+      "year": 1952,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-29-1952-jefferson-jackson-day-dinner"
+    }
+  ],
+  "legacy_invocations": {
+    "invokes": [
+      {
+        "target": "Franklin D. Roosevelt",
+        "n": 12,
+        "pos": 10,
+        "neg": 1
+      },
+      {
+        "target": "Abraham Lincoln",
+        "n": 3,
+        "pos": 3,
+        "neg": 0
+      },
+      {
+        "target": "Woodrow Wilson",
+        "n": 3,
+        "pos": 3,
+        "neg": 0
+      },
+      {
+        "target": "Andrew Jackson",
+        "n": 1,
+        "pos": 1,
+        "neg": 0
+      }
+    ],
+    "invoked_by": {
+      "total": 136,
+      "pos": 89,
+      "neg": 22
+    }
+  },
+  "classified_invocations": [
+    {
+      "target": "Franklin D. Roosevelt",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 9
+    },
+    {
+      "target": "William Taft",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 7
+    },
+    {
+      "target": "Franklin D. Roosevelt",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 3
+    },
+    {
+      "target": "Abraham Lincoln",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Franklin D. Roosevelt",
+      "function": "ceremonial/biographical",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Franklin D. Roosevelt",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Thomas Jefferson",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "William Taft",
+      "function": "institutional precedent",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "William Taft",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Woodrow Wilson",
+      "function": "other/unclear",
+      "stance": "neutral",
+      "mentions": 2
+    },
+    {
+      "target": "Andrew Jackson",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Franklin D. Roosevelt",
+      "function": "institutional precedent",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Herbert Hoover",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 1
+    },
+    {
+      "target": "Herbert Hoover",
+      "function": "policy inheritance",
+      "stance": "neutral",
+      "mentions": 1
+    },
+    {
+      "target": "William Taft",
+      "function": "other/unclear",
+      "stance": "negative",
+      "mentions": 1
+    },
+    {
+      "target": "Woodrow Wilson",
+      "function": "other/unclear",
+      "stance": "positive",
+      "mentions": 1
+    }
+  ],
+  "voice_neighbors": [
+    [
+      "Franklin D. Roosevelt",
+      0.38138752689101624
+    ],
+    [
+      "Abraham Lincoln",
+      0.3674987939571847
+    ],
+    [
+      "Donald Trump",
+      0.306578148959935
+    ]
+  ],
+  "agenda_neighbors": [
+    [
+      "John F. Kennedy",
+      0.9807642992723385
+    ],
+    [
+      "Richard M. Nixon",
+      0.9592525636298835
+    ],
+    [
+      "Franklin D. Roosevelt",
+      0.9475326199981937
+    ]
+  ],
+  "feature_neighbors": {
+    "ai_topics": [
+      {
+        "president": "John F. Kennedy",
+        "similarity": 0.8101
+      },
+      {
+        "president": "Dwight D. Eisenhower",
+        "similarity": 0.788
+      },
+      {
+        "president": "George H. W. Bush",
+        "similarity": 0.7584
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.7164
+      },
+      {
+        "president": "Gerald Ford",
+        "similarity": 0.6891
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.6524
+      }
+    ],
+    "ai_domains": [
+      {
+        "president": "John F. Kennedy",
+        "similarity": 0.957
+      },
+      {
+        "president": "George H. W. Bush",
+        "similarity": 0.9564
+      },
+      {
+        "president": "Dwight D. Eisenhower",
+        "similarity": 0.9292
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.9273
+      },
+      {
+        "president": "John Adams",
+        "similarity": 0.9126
+      },
+      {
+        "president": "Lyndon B. Johnson",
+        "similarity": 0.8864
+      }
+    ],
+    "ai_rhetoric": [
+      {
+        "president": "John F. Kennedy",
+        "similarity": 0.9445
+      },
+      {
+        "president": "Franklin D. Roosevelt",
+        "similarity": 0.8825
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.7972
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.7702
+      },
+      {
+        "president": "Donald Trump",
+        "similarity": 0.7698
+      },
+      {
+        "president": "George W. Bush",
+        "similarity": 0.6154
+      }
+    ],
+    "rhetorical_fingerprint": [
+      {
+        "president": "Donald Trump",
+        "similarity": 0.7304
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.6677
+      },
+      {
+        "president": "Franklin D. Roosevelt",
+        "similarity": 0.5606
+      },
+      {
+        "president": "Abraham Lincoln",
+        "similarity": 0.5525
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.5407
+      },
+      {
+        "president": "George W. Bush",
+        "similarity": 0.5334
+      }
+    ],
+    "legacy_issues": [
+      {
+        "president": "John F. Kennedy",
+        "similarity": 0.9808
+      },
+      {
+        "president": "Richard M. Nixon",
+        "similarity": 0.9593
+      },
+      {
+        "president": "Franklin D. Roosevelt",
+        "similarity": 0.9475
+      },
+      {
+        "president": "Lyndon B. Johnson",
+        "similarity": 0.9468
+      },
+      {
+        "president": "Ronald Reagan",
+        "similarity": 0.9309
+      },
+      {
+        "president": "Gerald Ford",
+        "similarity": 0.9293
+      }
+    ]
+  },
+  "context_specific": {
+    "profile_only": [],
+    "compare_only": []
+  }
+}

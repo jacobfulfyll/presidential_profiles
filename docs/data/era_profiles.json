@@ -1,0 +1,2898 @@
+{
+  "profile_order": [
+    "founding",
+    "expansion",
+    "civil-war-reconstruction",
+    "gilded-age",
+    "progressives-depression",
+    "war-new-deal",
+    "cold-war",
+    "post-cold-war",
+    "present"
+  ],
+  "profiles": {
+    "civil-war-reconstruction": {
+      "adversaries": [
+        {
+          "name": "Congress",
+          "paragraphs": 65,
+          "type": "institution"
+        },
+        {
+          "name": "Great Britain",
+          "paragraphs": 39,
+          "type": "nation"
+        },
+        {
+          "name": "Southern people",
+          "paragraphs": 39,
+          "type": "group"
+        },
+        {
+          "name": "Edwin M. Stanton",
+          "paragraphs": 32,
+          "type": "person"
+        },
+        {
+          "name": "Judge Douglas",
+          "paragraphs": 22,
+          "type": "person"
+        }
+      ],
+      "adversary_types": [
+        {
+          "color": "#315f78",
+          "corpus_mentions": 9172,
+          "label": "Nation or state",
+          "present": true,
+          "type": "nation"
+        },
+        {
+          "color": "#a24f52",
+          "corpus_mentions": 9349,
+          "label": "Person",
+          "present": true,
+          "type": "person"
+        },
+        {
+          "color": "#4f7557",
+          "corpus_mentions": 3852,
+          "label": "Group",
+          "present": true,
+          "type": "group"
+        },
+        {
+          "color": "#9a7133",
+          "corpus_mentions": 4160,
+          "label": "Institution",
+          "present": true,
+          "type": "institution"
+        },
+        {
+          "color": "#74695f",
+          "corpus_mentions": 681,
+          "label": "Other",
+          "present": false,
+          "type": "other"
+        }
+      ],
+      "constituency_note": "No promoted constituency claims yet",
+      "constituency_status": "pending",
+      "constituents": [],
+      "distinctive_eligibility": {
+        "effect_cap_ratio": 25,
+        "evidence_scale_uses": 100,
+        "excludes_president_name_terms": true,
+        "min_corpus_uses": 50,
+        "min_era_presidents": 2,
+        "min_era_speeches": 10
+      },
+      "distinctive_words": [
+        {
+          "distinctiveness_score": 3.218700867430037,
+          "era_count": 982,
+          "era_president_count": 5,
+          "era_rate_per_10000": 60.898469476347586,
+          "era_speech_count": 40,
+          "evidence_weight": 0.9999456464158039,
+          "log_odds_delta": 3.623382023411229,
+          "other_count": 263,
+          "other_rate_per_10000": 1.6290438070320186,
+          "rank": 1,
+          "rate_ratio": 37.38295386132034,
+          "term": "slavery",
+          "z": 52.216477867996744
+        },
+        {
+          "distinctiveness_score": 2.7679313043944296,
+          "era_count": 213,
+          "era_president_count": 3,
+          "era_rate_per_10000": 13.209138491305534,
+          "era_speech_count": 37,
+          "evidence_weight": 0.8811627061475904,
+          "log_odds_delta": 3.1412261153172487,
+          "other_count": 92,
+          "other_rate_per_10000": 0.569855628315383,
+          "rank": 2,
+          "rate_ratio": 23.17979824180138,
+          "term": "rebellion",
+          "z": 25.188417858076857
+        },
+        {
+          "distinctiveness_score": 2.6814517710110706,
+          "era_count": 179,
+          "era_president_count": 4,
+          "era_rate_per_10000": 11.100637511472724,
+          "era_speech_count": 12,
+          "evidence_weight": 0.8330398303329594,
+          "log_odds_delta": 4.120480427449142,
+          "other_count": 29,
+          "other_rate_per_10000": 0.17962840457767504,
+          "rank": 3,
+          "rate_ratio": 61.79778491921404,
+          "term": "nebraska",
+          "z": 20.602911489130957
+        }
+      ],
+      "end_year": 1868,
+      "footprint": {
+        "corpus_paragraphs": 36229,
+        "corpus_speeches": 1057,
+        "corpus_words": 4179266,
+        "paragraph_share": 8.189571889922439,
+        "paragraphs": 2967,
+        "speech_share": 7.9470198675496695,
+        "speeches": 84,
+        "word_share": 9.253419141064484,
+        "words": 386725
+      },
+      "key": "civil-war-reconstruction",
+      "label": "Sectional crisis & constitutional rupture",
+      "major_topics": [
+        {
+          "count": 761,
+          "label": "Slavery, Emancipation & Sectionalism",
+          "share": 25.648803505224134,
+          "topic": "Slavery, Emancipation & Sectionalism",
+          "topics": [
+            "Slavery, Emancipation & Sectionalism"
+          ]
+        },
+        {
+          "count": 491,
+          "label": "Constitutional Union & Federalism",
+          "share": 16.54870239298955,
+          "topic": "Constitutional Union & Federalism",
+          "topics": [
+            "Constitutional Union & Federalism"
+          ]
+        },
+        {
+          "count": 347,
+          "label": "Executive Power, Vetoes & the Courts",
+          "share": 11.695315133131109,
+          "topic": "Executive Power, Vetoes & the Courts",
+          "topics": [
+            "Executive Power, Vetoes & the Courts"
+          ]
+        },
+        {
+          "count": 296,
+          "label": "Treaties, Diplomacy & International Arbitration",
+          "share": 9.976407145264577,
+          "topic": "Treaties, Diplomacy & International Arbitration",
+          "topics": [
+            "Treaties, Diplomacy & International Arbitration"
+          ]
+        },
+        {
+          "count": 256,
+          "label": "Reconstruction & Southern Self-Government",
+          "share": 8.628244017526121,
+          "topic": "Reconstruction & Southern Self-Government",
+          "topics": [
+            "Reconstruction & Southern Self-Government"
+          ]
+        },
+        {
+          "count": 191,
+          "label": "Monroe Doctrine & Latin American Policy",
+          "share": 6.437478934951129,
+          "topic": "Monroe Doctrine & Latin American Policy",
+          "topics": [
+            "Monroe Doctrine & Latin American Policy"
+          ]
+        }
+      ],
+      "presidents": [
+        {
+          "name": "Millard Fillmore",
+          "speeches": 7,
+          "years": "1850–1852"
+        },
+        {
+          "name": "Zachary Taylor",
+          "speeches": 2,
+          "years": "1850"
+        },
+        {
+          "name": "Abraham Lincoln",
+          "speeches": 15,
+          "years": "1852–1865"
+        },
+        {
+          "name": "Franklin Pierce",
+          "speeches": 15,
+          "years": "1853–1856"
+        },
+        {
+          "name": "James Buchanan",
+          "speeches": 14,
+          "years": "1857–1861"
+        },
+        {
+          "name": "Andrew Johnson",
+          "speeches": 31,
+          "years": "1865–1868"
+        }
+      ],
+      "section_key": "union_crisis",
+      "start_year": 1850,
+      "style": {
+        "audience": {
+          "count": 58,
+          "label": "Congress",
+          "raw_values": [
+            "congress"
+          ],
+          "share": 69.04761904761905
+        },
+        "audience_options": [
+          {
+            "count": 58,
+            "label": "Congress",
+            "raw_values": [
+              "congress"
+            ],
+            "share": 69.04761904761905
+          },
+          {
+            "count": 21,
+            "label": "General public",
+            "raw_values": [
+              "general_public"
+            ],
+            "share": 25.0
+          },
+          {
+            "count": 2,
+            "label": "Specific organizations or groups",
+            "raw_values": [
+              "specific_organization_or_group"
+            ],
+            "share": 2.380952380952381
+          },
+          {
+            "count": 3,
+            "label": "Other audiences",
+            "raw_values": [
+              "press",
+              "foreign_or_diplomatic",
+              "military",
+              "other"
+            ],
+            "share": 3.571428571428571
+          }
+        ],
+        "medium": {
+          "count": 73,
+          "label": "Written message",
+          "raw_values": [
+            "written_message"
+          ],
+          "share": 86.90476190476191
+        },
+        "medium_options": [
+          {
+            "count": 73,
+            "label": "Written message",
+            "raw_values": [
+              "written_message"
+            ],
+            "share": 86.90476190476191
+          },
+          {
+            "count": 11,
+            "label": "Spoken address",
+            "raw_values": [
+              "spoken_address"
+            ],
+            "share": 13.095238095238097
+          },
+          {
+            "count": 0,
+            "label": "Radio/TV broadcast",
+            "raw_values": [
+              "broadcast_radio_or_tv"
+            ],
+            "share": 0.0
+          },
+          {
+            "count": 0,
+            "label": "Press conference/debate or other performed form",
+            "raw_values": [
+              "press_conference",
+              "debate"
+            ],
+            "share": 0.0
+          }
+        ]
+      },
+      "subtitle": "From the sectional break through war, emancipation, and the Fourteenth Amendment.",
+      "title": "Sectional Crisis & Constitutional Rupture",
+      "topic_note": "Ranked by era paragraph share · labels overlap",
+      "years": "1850–1868"
+    },
+    "cold-war": {
+      "adversaries": [
+        {
+          "name": "Soviet Union",
+          "paragraphs": 154,
+          "type": "nation"
+        },
+        {
+          "name": "North Vietnam",
+          "paragraphs": 94,
+          "type": "nation"
+        },
+        {
+          "name": "Communists",
+          "paragraphs": 79,
+          "type": "group"
+        },
+        {
+          "name": "Hanoi",
+          "paragraphs": 69,
+          "type": "nation"
+        },
+        {
+          "name": "Kennedy",
+          "paragraphs": 69,
+          "type": "person"
+        }
+      ],
+      "adversary_types": [
+        {
+          "color": "#315f78",
+          "corpus_mentions": 9172,
+          "label": "Nation or state",
+          "present": true,
+          "type": "nation"
+        },
+        {
+          "color": "#a24f52",
+          "corpus_mentions": 9349,
+          "label": "Person",
+          "present": true,
+          "type": "person"
+        },
+        {
+          "color": "#4f7557",
+          "corpus_mentions": 3852,
+          "label": "Group",
+          "present": true,
+          "type": "group"
+        },
+        {
+          "color": "#9a7133",
+          "corpus_mentions": 4160,
+          "label": "Institution",
+          "present": false,
+          "type": "institution"
+        },
+        {
+          "color": "#74695f",
+          "corpus_mentions": 681,
+          "label": "Other",
+          "present": false,
+          "type": "other"
+        }
+      ],
+      "constituency_note": "No promoted constituency claims yet",
+      "constituency_status": "pending",
+      "constituents": [],
+      "distinctive_eligibility": {
+        "effect_cap_ratio": 25,
+        "evidence_scale_uses": 100,
+        "excludes_president_name_terms": true,
+        "min_corpus_uses": 50,
+        "min_era_presidents": 2,
+        "min_era_speeches": 10
+      },
+      "distinctive_words": [
+        {
+          "distinctiveness_score": 3.218869307030148,
+          "era_count": 1311,
+          "era_president_count": 6,
+          "era_rate_per_10000": 44.72387866217267,
+          "era_speech_count": 87,
+          "evidence_weight": 0.9999979751197602,
+          "log_odds_delta": 4.2876109616133515,
+          "other_count": 91,
+          "other_rate_per_10000": 0.6138014952474228,
+          "rank": 1,
+          "rate_ratio": 72.86374993945644,
+          "term": "vietnam",
+          "z": 39.63204839653165
+        },
+        {
+          "distinctiveness_score": 2.7844912727736792,
+          "era_count": 569,
+          "era_president_count": 6,
+          "era_rate_per_10000": 19.41105031180492,
+          "era_speech_count": 88,
+          "evidence_weight": 0.9966204070306233,
+          "log_odds_delta": 2.7939336312306917,
+          "other_count": 176,
+          "other_rate_per_10000": 1.1871325622367734,
+          "rank": 2,
+          "rate_ratio": 16.35120704231293,
+          "term": "communist",
+          "z": 32.409092557115706
+        },
+        {
+          "distinctiveness_score": 2.314913706667244,
+          "era_count": 127,
+          "era_president_count": 7,
+          "era_rate_per_10000": 4.33251913813572,
+          "era_speech_count": 52,
+          "evidence_weight": 0.7191683782216203,
+          "log_odds_delta": 3.327146113227352,
+          "other_count": 23,
+          "other_rate_per_10000": 0.15513664165594201,
+          "rank": 3,
+          "rate_ratio": 27.927116971787154,
+          "term": "southeast",
+          "z": 14.694011494761922
+        }
+      ],
+      "end_year": 1980,
+      "footprint": {
+        "corpus_paragraphs": 36229,
+        "corpus_speeches": 1057,
+        "corpus_words": 4179266,
+        "paragraph_share": 18.83573932485026,
+        "paragraphs": 6824,
+        "speech_share": 18.164616840113528,
+        "speeches": 192,
+        "word_share": 16.57023027488559,
+        "words": 692514
+      },
+      "key": "cold-war",
+      "label": "Mature Cold War",
+      "major_topics": [
+        {
+          "count": 1209,
+          "label": "Cold War & Great-Power Rivalry",
+          "share": 17.7168815943728,
+          "topic": "Cold War & Great-Power Rivalry",
+          "topics": [
+            "Cold War & Great-Power Rivalry"
+          ]
+        },
+        {
+          "count": 1114,
+          "label": "Vietnam War",
+          "share": 16.324736225087925,
+          "topic": "Vietnam War",
+          "topics": [
+            "Vietnam War"
+          ]
+        },
+        {
+          "count": 682,
+          "label": "Providence, Faith & American Ideals",
+          "share": 9.994138335287222,
+          "topic": "Providence, Faith & American Ideals",
+          "topics": [
+            "Providence, Faith & American Ideals"
+          ]
+        },
+        {
+          "count": 612,
+          "label": "World Order, Foreign Aid & Democracy Promotion",
+          "share": 8.968347010550996,
+          "topic": "World Order, Foreign Aid & Democracy Promotion",
+          "topics": [
+            "World Order, Foreign Aid & Democracy Promotion"
+          ]
+        },
+        {
+          "count": 533,
+          "label": "Taxes, Budget Deficits & Federal Spending",
+          "share": 7.8106682297772565,
+          "topic": "Taxes, Budget Deficits & Federal Spending",
+          "topics": [
+            "Taxes, Budget Deficits & Federal Spending"
+          ]
+        },
+        {
+          "count": 514,
+          "label": "Military Preparedness, Armed Forces & Veterans",
+          "share": 7.532239155920281,
+          "topic": "Military Preparedness, Armed Forces & Veterans",
+          "topics": [
+            "Military Preparedness, Armed Forces & Veterans"
+          ]
+        }
+      ],
+      "presidents": [
+        {
+          "name": "Dwight D. Eisenhower",
+          "speeches": 15,
+          "years": "1953–1961"
+        },
+        {
+          "name": "John F. Kennedy",
+          "speeches": 44,
+          "years": "1960–1963"
+        },
+        {
+          "name": "Lyndon B. Johnson",
+          "speeches": 71,
+          "years": "1963–1969"
+        },
+        {
+          "name": "Ronald Reagan",
+          "speeches": 4,
+          "years": "1964–1980"
+        },
+        {
+          "name": "Richard M. Nixon",
+          "speeches": 22,
+          "years": "1969–1974"
+        },
+        {
+          "name": "Gerald Ford",
+          "speeches": 14,
+          "years": "1974–1977"
+        },
+        {
+          "name": "Jimmy Carter",
+          "speeches": 22,
+          "years": "1976–1981"
+        }
+      ],
+      "section_key": "broadcast_presidency",
+      "start_year": 1953,
+      "style": {
+        "audience": {
+          "count": 82,
+          "label": "General public",
+          "raw_values": [
+            "general_public"
+          ],
+          "share": 42.70833333333333
+        },
+        "audience_options": [
+          {
+            "count": 33,
+            "label": "Congress",
+            "raw_values": [
+              "congress"
+            ],
+            "share": 17.1875
+          },
+          {
+            "count": 82,
+            "label": "General public",
+            "raw_values": [
+              "general_public"
+            ],
+            "share": 42.70833333333333
+          },
+          {
+            "count": 33,
+            "label": "Specific organizations or groups",
+            "raw_values": [
+              "specific_organization_or_group"
+            ],
+            "share": 17.1875
+          },
+          {
+            "count": 44,
+            "label": "Other audiences",
+            "raw_values": [
+              "press",
+              "foreign_or_diplomatic",
+              "military",
+              "other"
+            ],
+            "share": 22.916666666666664
+          }
+        ],
+        "medium": {
+          "count": 111,
+          "label": "Spoken address",
+          "raw_values": [
+            "spoken_address"
+          ],
+          "share": 57.8125
+        },
+        "medium_options": [
+          {
+            "count": 2,
+            "label": "Written message",
+            "raw_values": [
+              "written_message"
+            ],
+            "share": 1.0416666666666665
+          },
+          {
+            "count": 111,
+            "label": "Spoken address",
+            "raw_values": [
+              "spoken_address"
+            ],
+            "share": 57.8125
+          },
+          {
+            "count": 45,
+            "label": "Radio/TV broadcast",
+            "raw_values": [
+              "broadcast_radio_or_tv"
+            ],
+            "share": 23.4375
+          },
+          {
+            "count": 34,
+            "label": "Press conference/debate or other performed form",
+            "raw_values": [
+              "press_conference",
+              "debate"
+            ],
+            "share": 17.708333333333336
+          }
+        ]
+      },
+      "subtitle": "Cold War institutions and broadcast performance become ordinary presidential conditions.",
+      "title": "The Mature Cold War Presidency",
+      "topic_note": "Ranked by era paragraph share · labels overlap",
+      "years": "1953–1980"
+    },
+    "expansion": {
+      "adversaries": [
+        {
+          "name": "Mexico",
+          "paragraphs": 185,
+          "type": "nation"
+        },
+        {
+          "name": "Great Britain",
+          "paragraphs": 127,
+          "type": "nation"
+        },
+        {
+          "name": "Bank of the United States",
+          "paragraphs": 122,
+          "type": "institution"
+        },
+        {
+          "name": "France",
+          "paragraphs": 51,
+          "type": "nation"
+        },
+        {
+          "name": "South Carolina",
+          "paragraphs": 49,
+          "type": "nation"
+        }
+      ],
+      "adversary_types": [
+        {
+          "color": "#315f78",
+          "corpus_mentions": 9172,
+          "label": "Nation or state",
+          "present": true,
+          "type": "nation"
+        },
+        {
+          "color": "#a24f52",
+          "corpus_mentions": 9349,
+          "label": "Person",
+          "present": false,
+          "type": "person"
+        },
+        {
+          "color": "#4f7557",
+          "corpus_mentions": 3852,
+          "label": "Group",
+          "present": false,
+          "type": "group"
+        },
+        {
+          "color": "#9a7133",
+          "corpus_mentions": 4160,
+          "label": "Institution",
+          "present": true,
+          "type": "institution"
+        },
+        {
+          "color": "#74695f",
+          "corpus_mentions": 681,
+          "label": "Other",
+          "present": false,
+          "type": "other"
+        }
+      ],
+      "constituency_note": "No promoted constituency claims yet",
+      "constituency_status": "pending",
+      "constituents": [],
+      "distinctive_eligibility": {
+        "effect_cap_ratio": 25,
+        "evidence_scale_uses": 100,
+        "excludes_president_name_terms": true,
+        "min_corpus_uses": 50,
+        "min_era_presidents": 2,
+        "min_era_speeches": 10
+      },
+      "distinctive_words": [
+        {
+          "distinctiveness_score": 2.023063029211206,
+          "era_count": 881,
+          "era_president_count": 8,
+          "era_rate_per_10000": 40.050733960385685,
+          "era_speech_count": 49,
+          "evidence_weight": 0.9998507667440613,
+          "log_odds_delta": 2.0233649825555053,
+          "other_count": 825,
+          "other_rate_per_10000": 5.302993781034566,
+          "rank": 1,
+          "rate_ratio": 7.552476132184366,
+          "term": "mexico",
+          "z": 41.77554865339396
+        },
+        {
+          "distinctiveness_score": 1.7500114316736846,
+          "era_count": 280,
+          "era_president_count": 5,
+          "era_rate_per_10000": 12.728950634401809,
+          "era_speech_count": 23,
+          "evidence_weight": 0.9391899373747821,
+          "log_odds_delta": 1.863320039996708,
+          "other_count": 307,
+          "other_rate_per_10000": 1.9733564736698324,
+          "rank": 2,
+          "rate_ratio": 6.450406099578096,
+          "term": "texas",
+          "z": 22.554820741817338
+        },
+        {
+          "distinctiveness_score": 1.7346631377836836,
+          "era_count": 870,
+          "era_president_count": 8,
+          "era_rate_per_10000": 39.55066804260562,
+          "era_speech_count": 45,
+          "evidence_weight": 0.9998334141890124,
+          "log_odds_delta": 1.7349521561956482,
+          "other_count": 1087,
+          "other_rate_per_10000": 6.987096048466149,
+          "rank": 3,
+          "rate_ratio": 5.660530178526462,
+          "term": "bank",
+          "z": 38.149757755491486
+        }
+      ],
+      "end_year": 1849,
+      "footprint": {
+        "corpus_paragraphs": 36229,
+        "corpus_speeches": 1057,
+        "corpus_words": 4179266,
+        "paragraph_share": 10.911148527422784,
+        "paragraphs": 3953,
+        "speech_share": 11.447492904446547,
+        "speeches": 121,
+        "word_share": 12.819858798171738,
+        "words": 535776
+      },
+      "key": "expansion",
+      "label": "The continental republic",
+      "major_topics": [
+        {
+          "count": 679,
+          "label": "Treaties, Diplomacy & International Arbitration",
+          "share": 17.17682772577789,
+          "topic": "Treaties, Diplomacy & International Arbitration",
+          "topics": [
+            "Treaties, Diplomacy & International Arbitration"
+          ]
+        },
+        {
+          "count": 517,
+          "label": "National Bank & Banking Crises",
+          "share": 13.07867442448773,
+          "topic": "National Bank & Banking Crises",
+          "topics": [
+            "National Bank & Banking Crises"
+          ]
+        },
+        {
+          "count": 453,
+          "label": "Constitutional Union & Federalism",
+          "share": 11.459650898052113,
+          "topic": "Constitutional Union & Federalism",
+          "topics": [
+            "Constitutional Union & Federalism"
+          ]
+        },
+        {
+          "count": 418,
+          "label": "Public Debt, Revenue & Treasury Finance",
+          "share": 10.574247407032633,
+          "topic": "Public Debt, Revenue & Treasury Finance",
+          "topics": [
+            "Public Debt, Revenue & Treasury Finance"
+          ]
+        },
+        {
+          "count": 377,
+          "label": "Tariffs, Reciprocity & Navigation Laws",
+          "share": 9.537060460409815,
+          "topic": "Tariffs, Reciprocity & Navigation Laws",
+          "topics": [
+            "Tariffs, Reciprocity & Navigation Laws"
+          ]
+        },
+        {
+          "count": 374,
+          "label": "Military Preparedness, Armed Forces & Veterans",
+          "share": 9.461168732608146,
+          "topic": "Military Preparedness, Armed Forces & Veterans",
+          "topics": [
+            "Military Preparedness, Armed Forces & Veterans"
+          ]
+        }
+      ],
+      "presidents": [
+        {
+          "name": "James Madison",
+          "speeches": 21,
+          "years": "1809–1817"
+        },
+        {
+          "name": "James Monroe",
+          "speeches": 10,
+          "years": "1817–1824"
+        },
+        {
+          "name": "John Quincy Adams",
+          "speeches": 8,
+          "years": "1821–1828"
+        },
+        {
+          "name": "Andrew Jackson",
+          "speeches": 26,
+          "years": "1829–1837"
+        },
+        {
+          "name": "Martin Van Buren",
+          "speeches": 10,
+          "years": "1837–1841"
+        },
+        {
+          "name": "John Tyler",
+          "speeches": 18,
+          "years": "1841–1845"
+        },
+        {
+          "name": "William Harrison",
+          "speeches": 1,
+          "years": "1841"
+        },
+        {
+          "name": "James K. Polk",
+          "speeches": 25,
+          "years": "1845–1849"
+        },
+        {
+          "name": "Zachary Taylor",
+          "speeches": 2,
+          "years": "1849"
+        }
+      ],
+      "section_key": "expansion_conflict",
+      "start_year": 1809,
+      "style": {
+        "audience": {
+          "count": 94,
+          "label": "Congress",
+          "raw_values": [
+            "congress"
+          ],
+          "share": 77.68595041322314
+        },
+        "audience_options": [
+          {
+            "count": 94,
+            "label": "Congress",
+            "raw_values": [
+              "congress"
+            ],
+            "share": 77.68595041322314
+          },
+          {
+            "count": 25,
+            "label": "General public",
+            "raw_values": [
+              "general_public"
+            ],
+            "share": 20.66115702479339
+          },
+          {
+            "count": 2,
+            "label": "Specific organizations or groups",
+            "raw_values": [
+              "specific_organization_or_group"
+            ],
+            "share": 1.6528925619834711
+          },
+          {
+            "count": 0,
+            "label": "Other audiences",
+            "raw_values": [
+              "press",
+              "foreign_or_diplomatic",
+              "military",
+              "other"
+            ],
+            "share": 0.0
+          }
+        ],
+        "medium": {
+          "count": 109,
+          "label": "Written message",
+          "raw_values": [
+            "written_message"
+          ],
+          "share": 90.08264462809917
+        },
+        "medium_options": [
+          {
+            "count": 109,
+            "label": "Written message",
+            "raw_values": [
+              "written_message"
+            ],
+            "share": 90.08264462809917
+          },
+          {
+            "count": 12,
+            "label": "Spoken address",
+            "raw_values": [
+              "spoken_address"
+            ],
+            "share": 9.917355371900827
+          },
+          {
+            "count": 0,
+            "label": "Radio/TV broadcast",
+            "raw_values": [
+              "broadcast_radio_or_tv"
+            ],
+            "share": 0.0
+          },
+          {
+            "count": 0,
+            "label": "Press conference/debate or other performed form",
+            "raw_values": [
+              "press_conference",
+              "debate"
+            ],
+            "share": 0.0
+          }
+        ]
+      },
+      "subtitle": "Diplomacy, state-building, and continental conquest.",
+      "title": "The Continental Republic",
+      "topic_note": "Ranked by era paragraph share · labels overlap",
+      "years": "1809–1849"
+    },
+    "founding": {
+      "adversaries": [
+        {
+          "name": "France",
+          "paragraphs": 20,
+          "type": "nation"
+        },
+        {
+          "name": "Great Britain",
+          "paragraphs": 14,
+          "type": "nation"
+        },
+        {
+          "name": "Aaron Burr",
+          "paragraphs": 11,
+          "type": "person"
+        },
+        {
+          "name": "Spain",
+          "paragraphs": 11,
+          "type": "nation"
+        },
+        {
+          "name": "Tripoli / Barbary states",
+          "paragraphs": 7,
+          "type": "nation"
+        }
+      ],
+      "adversary_types": [
+        {
+          "color": "#315f78",
+          "corpus_mentions": 9172,
+          "label": "Nation or state",
+          "present": true,
+          "type": "nation"
+        },
+        {
+          "color": "#a24f52",
+          "corpus_mentions": 9349,
+          "label": "Person",
+          "present": true,
+          "type": "person"
+        },
+        {
+          "color": "#4f7557",
+          "corpus_mentions": 3852,
+          "label": "Group",
+          "present": false,
+          "type": "group"
+        },
+        {
+          "color": "#9a7133",
+          "corpus_mentions": 4160,
+          "label": "Institution",
+          "present": false,
+          "type": "institution"
+        },
+        {
+          "color": "#74695f",
+          "corpus_mentions": 681,
+          "label": "Other",
+          "present": false,
+          "type": "other"
+        }
+      ],
+      "constituency_note": "Illustrative only · promoted claims pending",
+      "constituency_status": "fallback",
+      "constituents": [
+        {
+          "name": "The national public",
+          "paragraphs": null
+        },
+        {
+          "name": "Commercial and creditor interests",
+          "paragraphs": null
+        },
+        {
+          "name": "Western settlers and land claimants",
+          "paragraphs": null
+        }
+      ],
+      "distinctive_eligibility": {
+        "effect_cap_ratio": 25,
+        "evidence_scale_uses": 100,
+        "excludes_president_name_terms": true,
+        "min_corpus_uses": 50,
+        "min_era_presidents": 2,
+        "min_era_speeches": 10
+      },
+      "distinctive_words": [
+        {
+          "distinctiveness_score": 1.0319996025767957,
+          "era_count": 53,
+          "era_president_count": 3,
+          "era_rate_per_10000": 14.853843782405203,
+          "era_speech_count": 21,
+          "evidence_weight": 0.4113950303216448,
+          "log_odds_delta": 2.508536872139505,
+          "other_count": 208,
+          "other_rate_per_10000": 1.1953919937471804,
+          "rank": 1,
+          "rate_ratio": 12.425918744731629,
+          "term": "militia",
+          "z": 16.312675320303107
+        },
+        {
+          "distinctiveness_score": 0.9440165284421427,
+          "era_count": 104,
+          "era_president_count": 3,
+          "era_rate_per_10000": 29.147165157927187,
+          "era_speech_count": 36,
+          "evidence_weight": 0.6465453180412198,
+          "log_odds_delta": 1.4600933640694276,
+          "other_count": 1168,
+          "other_rate_per_10000": 6.712585811041859,
+          "rank": 2,
+          "rate_ratio": 4.342166488208106,
+          "term": "information",
+          "z": 14.291112676678695
+        },
+        {
+          "distinctiveness_score": 0.9349447161358913,
+          "era_count": 52,
+          "era_president_count": 3,
+          "era_rate_per_10000": 14.573582578963594,
+          "era_speech_count": 19,
+          "evidence_weight": 0.4054794520298056,
+          "log_odds_delta": 2.3057758203421024,
+          "other_count": 250,
+          "other_rate_per_10000": 1.4367692232538225,
+          "rank": 3,
+          "rate_ratio": 10.143300916454136,
+          "term": "gentlemen",
+          "z": 15.138808588996453
+        }
+      ],
+      "end_year": 1808,
+      "footprint": {
+        "corpus_paragraphs": 36229,
+        "corpus_speeches": 1057,
+        "corpus_words": 4179266,
+        "paragraph_share": 1.88246984459963,
+        "paragraphs": 682,
+        "speech_share": 5.10879848628193,
+        "speeches": 54,
+        "word_share": 2.0655780225522857,
+        "words": 86326
+      },
+      "key": "founding",
+      "label": "Establishing the republic",
+      "major_topics": [
+        {
+          "count": 125,
+          "label": "Indian & Native affairs",
+          "share": 18.328445747800586,
+          "topic": "Indian Affairs, Removal & Allotment",
+          "topics": [
+            "Indian Affairs, Removal & Allotment"
+          ]
+        },
+        {
+          "count": 103,
+          "label": "Military preparedness",
+          "share": 15.102639296187684,
+          "topic": "Military Preparedness, Armed Forces & Veterans",
+          "topics": [
+            "Military Preparedness, Armed Forces & Veterans"
+          ]
+        },
+        {
+          "count": 61,
+          "label": "Federal law enforcement",
+          "share": 8.944281524926687,
+          "topic": "Crime, Insurrection & Federal Law Enforcement",
+          "topics": [
+            "Crime, Insurrection & Federal Law Enforcement"
+          ]
+        },
+        {
+          "count": 61,
+          "label": "Public finance",
+          "share": 8.944281524926687,
+          "topic": "Public finance",
+          "topics": [
+            "Public Debt, Revenue & Treasury Finance",
+            "Taxes, Budget Deficits & Federal Spending"
+          ]
+        },
+        {
+          "count": 38,
+          "label": "Executive power & courts",
+          "share": 5.571847507331378,
+          "topic": "Executive Power, Vetoes & the Courts",
+          "topics": [
+            "Executive Power, Vetoes & the Courts"
+          ]
+        },
+        {
+          "count": 22,
+          "label": "Barbary & War of 1812",
+          "share": 3.225806451612903,
+          "topic": "Early Naval Wars: Barbary & the War of 1812",
+          "topics": [
+            "Early Naval Wars: Barbary & the War of 1812"
+          ]
+        }
+      ],
+      "presidents": [
+        {
+          "name": "George Washington",
+          "speeches": 21,
+          "years": "1789–1796"
+        },
+        {
+          "name": "John Adams",
+          "speeches": 9,
+          "years": "1797–1800"
+        },
+        {
+          "name": "Thomas Jefferson",
+          "speeches": 24,
+          "years": "1801–1809"
+        }
+      ],
+      "section_key": "written_republic",
+      "start_year": 1789,
+      "style": {
+        "audience": {
+          "count": 29,
+          "label": "Congress",
+          "raw_values": [
+            "congress"
+          ],
+          "share": 53.70370370370371
+        },
+        "audience_options": [
+          {
+            "count": 29,
+            "label": "Congress",
+            "raw_values": [
+              "congress"
+            ],
+            "share": 53.70370370370371
+          },
+          {
+            "count": 15,
+            "label": "General public",
+            "raw_values": [
+              "general_public"
+            ],
+            "share": 27.77777777777778
+          },
+          {
+            "count": 10,
+            "label": "Specific organizations or groups",
+            "raw_values": [
+              "specific_organization_or_group"
+            ],
+            "share": 18.51851851851852
+          },
+          {
+            "count": 0,
+            "label": "Other audiences",
+            "raw_values": [
+              "press",
+              "foreign_or_diplomatic",
+              "military",
+              "other"
+            ],
+            "share": 0.0
+          }
+        ],
+        "medium": {
+          "count": 45,
+          "label": "Written message",
+          "raw_values": [
+            "written_message"
+          ],
+          "share": 83.33333333333334
+        },
+        "medium_options": [
+          {
+            "count": 45,
+            "label": "Written message",
+            "raw_values": [
+              "written_message"
+            ],
+            "share": 83.33333333333334
+          },
+          {
+            "count": 9,
+            "label": "Spoken address",
+            "raw_values": [
+              "spoken_address"
+            ],
+            "share": 16.666666666666664
+          },
+          {
+            "count": 0,
+            "label": "Radio/TV broadcast",
+            "raw_values": [
+              "broadcast_radio_or_tv"
+            ],
+            "share": 0.0
+          },
+          {
+            "count": 0,
+            "label": "Press conference/debate or other performed form",
+            "raw_values": [
+              "press_conference",
+              "debate"
+            ],
+            "share": 0.0
+          }
+        ]
+      },
+      "subtitle": "Sovereignty, federal capacity, and expansion in a new constitutional order.",
+      "title": "Establishing the Republic",
+      "topic_note": "Ranked by Founding-era paragraph share · labels overlap",
+      "years": "1789–1808"
+    },
+    "gilded-age": {
+      "adversaries": [
+        {
+          "name": "Spain",
+          "paragraphs": 69,
+          "type": "nation"
+        },
+        {
+          "name": "Great Britain",
+          "paragraphs": 31,
+          "type": "nation"
+        },
+        {
+          "name": "Democratic party",
+          "paragraphs": 17,
+          "type": "group"
+        },
+        {
+          "name": "Chile",
+          "paragraphs": 14,
+          "type": "nation"
+        },
+        {
+          "name": "Colombia",
+          "paragraphs": 13,
+          "type": "nation"
+        }
+      ],
+      "adversary_types": [
+        {
+          "color": "#315f78",
+          "corpus_mentions": 9172,
+          "label": "Nation or state",
+          "present": true,
+          "type": "nation"
+        },
+        {
+          "color": "#a24f52",
+          "corpus_mentions": 9349,
+          "label": "Person",
+          "present": false,
+          "type": "person"
+        },
+        {
+          "color": "#4f7557",
+          "corpus_mentions": 3852,
+          "label": "Group",
+          "present": true,
+          "type": "group"
+        },
+        {
+          "color": "#9a7133",
+          "corpus_mentions": 4160,
+          "label": "Institution",
+          "present": false,
+          "type": "institution"
+        },
+        {
+          "color": "#74695f",
+          "corpus_mentions": 681,
+          "label": "Other",
+          "present": false,
+          "type": "other"
+        }
+      ],
+      "constituency_note": "No promoted constituency claims yet",
+      "constituency_status": "pending",
+      "constituents": [],
+      "distinctive_eligibility": {
+        "effect_cap_ratio": 25,
+        "evidence_scale_uses": 100,
+        "excludes_president_name_terms": true,
+        "min_corpus_uses": 50,
+        "min_era_presidents": 2,
+        "min_era_speeches": 10
+      },
+      "distinctive_words": [
+        {
+          "distinctiveness_score": 2.7371944640820027,
+          "era_count": 425,
+          "era_president_count": 9,
+          "era_rate_per_10000": 11.180032724613435,
+          "era_speech_count": 41,
+          "evidence_weight": 0.9857357660910008,
+          "log_odds_delta": 2.7768034378386464,
+          "other_count": 97,
+          "other_rate_per_10000": 0.695064469020905,
+          "rank": 1,
+          "rate_ratio": 16.084885968005334,
+          "term": "silver",
+          "z": 24.692885737515684
+        },
+        {
+          "distinctiveness_score": 2.5218744001230022,
+          "era_count": 153,
+          "era_president_count": 6,
+          "era_rate_per_10000": 4.024811780860836,
+          "era_speech_count": 27,
+          "evidence_weight": 0.783464332683993,
+          "log_odds_delta": 3.3837038246971414,
+          "other_count": 19,
+          "other_rate_per_10000": 0.1361466485711051,
+          "rank": 2,
+          "rate_ratio": 29.56232726330244,
+          "term": "classified",
+          "z": 13.926754478249748
+        },
+        {
+          "distinctiveness_score": 2.355080454457896,
+          "era_count": 258,
+          "era_president_count": 6,
+          "era_rate_per_10000": 6.786937512824155,
+          "era_speech_count": 29,
+          "evidence_weight": 0.9242259959771545,
+          "log_odds_delta": 2.5481651292094902,
+          "other_count": 74,
+          "other_rate_per_10000": 0.530255368119041,
+          "rank": 3,
+          "rate_ratio": 12.799375396988918,
+          "term": "interstate",
+          "z": 19.33369229988366
+        }
+      ],
+      "end_year": 1912,
+      "footprint": {
+        "corpus_paragraphs": 36229,
+        "corpus_speeches": 1057,
+        "corpus_words": 4179266,
+        "paragraph_share": 19.415385464682988,
+        "paragraphs": 7034,
+        "speech_share": 14.758751182592242,
+        "speeches": 156,
+        "word_share": 20.854355764863975,
+        "words": 871559
+      },
+      "key": "gilded-age",
+      "label": "Administrative-industrial order",
+      "major_topics": [
+        {
+          "count": 1143,
+          "label": "Treaties, Diplomacy & International Arbitration",
+          "share": 16.249644583451804,
+          "topic": "Treaties, Diplomacy & International Arbitration",
+          "topics": [
+            "Treaties, Diplomacy & International Arbitration"
+          ]
+        },
+        {
+          "count": 731,
+          "label": "Military Preparedness, Armed Forces & Veterans",
+          "share": 10.39237986920671,
+          "topic": "Military Preparedness, Armed Forces & Veterans",
+          "topics": [
+            "Military Preparedness, Armed Forces & Veterans"
+          ]
+        },
+        {
+          "count": 710,
+          "label": "Tariffs, Reciprocity & Navigation Laws",
+          "share": 10.093829968723343,
+          "topic": "Tariffs, Reciprocity & Navigation Laws",
+          "topics": [
+            "Tariffs, Reciprocity & Navigation Laws"
+          ]
+        },
+        {
+          "count": 588,
+          "label": "Executive Departments, Postal & Administrative Housekeeping",
+          "share": 8.359397213534262,
+          "topic": "Executive Departments, Postal & Administrative Housekeeping",
+          "topics": [
+            "Executive Departments, Postal & Administrative Housekeeping"
+          ]
+        },
+        {
+          "count": 560,
+          "label": "Monroe Doctrine & Latin American Policy",
+          "share": 7.96133067955644,
+          "topic": "Monroe Doctrine & Latin American Policy",
+          "topics": [
+            "Monroe Doctrine & Latin American Policy"
+          ]
+        },
+        {
+          "count": 445,
+          "label": "Internal Improvements, Energy & Infrastructure",
+          "share": 6.326414557861815,
+          "topic": "Internal Improvements, Energy & Infrastructure",
+          "topics": [
+            "Internal Improvements, Energy & Infrastructure"
+          ]
+        }
+      ],
+      "presidents": [
+        {
+          "name": "Ulysses S. Grant",
+          "speeches": 32,
+          "years": "1869–1877"
+        },
+        {
+          "name": "Rutherford B. Hayes",
+          "speeches": 16,
+          "years": "1877–1881"
+        },
+        {
+          "name": "Chester A. Arthur",
+          "speeches": 11,
+          "years": "1881–1884"
+        },
+        {
+          "name": "James A. Garfield",
+          "speeches": 1,
+          "years": "1881"
+        },
+        {
+          "name": "Grover Cleveland",
+          "speeches": 32,
+          "years": "1885–1897"
+        },
+        {
+          "name": "Benjamin Harrison",
+          "speeches": 16,
+          "years": "1889–1893"
+        },
+        {
+          "name": "William McKinley",
+          "speeches": 14,
+          "years": "1897–1901"
+        },
+        {
+          "name": "Theodore Roosevelt",
+          "speeches": 22,
+          "years": "1901–1908"
+        },
+        {
+          "name": "William Taft",
+          "speeches": 12,
+          "years": "1909–1912"
+        }
+      ],
+      "section_key": "procedural_presidency",
+      "start_year": 1869,
+      "style": {
+        "audience": {
+          "count": 114,
+          "label": "Congress",
+          "raw_values": [
+            "congress"
+          ],
+          "share": 73.07692307692307
+        },
+        "audience_options": [
+          {
+            "count": 114,
+            "label": "Congress",
+            "raw_values": [
+              "congress"
+            ],
+            "share": 73.07692307692307
+          },
+          {
+            "count": 36,
+            "label": "General public",
+            "raw_values": [
+              "general_public"
+            ],
+            "share": 23.076923076923077
+          },
+          {
+            "count": 4,
+            "label": "Specific organizations or groups",
+            "raw_values": [
+              "specific_organization_or_group"
+            ],
+            "share": 2.564102564102564
+          },
+          {
+            "count": 2,
+            "label": "Other audiences",
+            "raw_values": [
+              "press",
+              "foreign_or_diplomatic",
+              "military",
+              "other"
+            ],
+            "share": 1.282051282051282
+          }
+        ],
+        "medium": {
+          "count": 138,
+          "label": "Written message",
+          "raw_values": [
+            "written_message"
+          ],
+          "share": 88.46153846153845
+        },
+        "medium_options": [
+          {
+            "count": 138,
+            "label": "Written message",
+            "raw_values": [
+              "written_message"
+            ],
+            "share": 88.46153846153845
+          },
+          {
+            "count": 18,
+            "label": "Spoken address",
+            "raw_values": [
+              "spoken_address"
+            ],
+            "share": 11.538461538461538
+          },
+          {
+            "count": 0,
+            "label": "Radio/TV broadcast",
+            "raw_values": [
+              "broadcast_radio_or_tv"
+            ],
+            "share": 0.0
+          },
+          {
+            "count": 0,
+            "label": "Press conference/debate or other performed form",
+            "raw_values": [
+              "press_conference",
+              "debate"
+            ],
+            "share": 0.0
+          }
+        ]
+      },
+      "subtitle": "Grant's accession opens a long regime of reconstruction, administration, and industrial power.",
+      "title": "The Administrative-Industrial Order",
+      "topic_note": "Ranked by era paragraph share · labels overlap",
+      "years": "1869–1912"
+    },
+    "post-cold-war": {
+      "adversaries": [
+        {
+          "name": "Soviet Union",
+          "paragraphs": 175,
+          "type": "nation"
+        },
+        {
+          "name": "Saddam Hussein",
+          "paragraphs": 79,
+          "type": "person"
+        },
+        {
+          "name": "Iran",
+          "paragraphs": 75,
+          "type": "nation"
+        },
+        {
+          "name": "al Qaeda",
+          "paragraphs": 73,
+          "type": "group"
+        },
+        {
+          "name": "terrorists",
+          "paragraphs": 61,
+          "type": "group"
+        }
+      ],
+      "adversary_types": [
+        {
+          "color": "#315f78",
+          "corpus_mentions": 9172,
+          "label": "Nation or state",
+          "present": true,
+          "type": "nation"
+        },
+        {
+          "color": "#a24f52",
+          "corpus_mentions": 9349,
+          "label": "Person",
+          "present": true,
+          "type": "person"
+        },
+        {
+          "color": "#4f7557",
+          "corpus_mentions": 3852,
+          "label": "Group",
+          "present": true,
+          "type": "group"
+        },
+        {
+          "color": "#9a7133",
+          "corpus_mentions": 4160,
+          "label": "Institution",
+          "present": false,
+          "type": "institution"
+        },
+        {
+          "color": "#74695f",
+          "corpus_mentions": 681,
+          "label": "Other",
+          "present": false,
+          "type": "other"
+        }
+      ],
+      "constituency_note": "No promoted constituency claims yet",
+      "constituency_status": "pending",
+      "constituents": [],
+      "distinctive_eligibility": {
+        "effect_cap_ratio": 25,
+        "evidence_scale_uses": 100,
+        "excludes_president_name_terms": true,
+        "min_corpus_uses": 50,
+        "min_era_presidents": 2,
+        "min_era_speeches": 10
+      },
+      "distinctive_words": [
+        {
+          "distinctiveness_score": 3.2174753834930923,
+          "era_count": 774,
+          "era_president_count": 5,
+          "era_rate_per_10000": 23.107443642019724,
+          "era_speech_count": 63,
+          "evidence_weight": 0.9995649284249213,
+          "log_odds_delta": 4.345378498380367,
+          "other_count": 43,
+          "other_rate_per_10000": 0.29845794415227184,
+          "rank": 1,
+          "rate_ratio": 77.42277964037176,
+          "term": "iraq",
+          "z": 27.80495603768327
+        },
+        {
+          "distinctiveness_score": 2.6867992296941448,
+          "era_count": 180,
+          "era_president_count": 5,
+          "era_rate_per_10000": 5.373824102795284,
+          "era_speech_count": 21,
+          "evidence_weight": 0.8347011117784134,
+          "log_odds_delta": 4.162148531407372,
+          "other_count": 12,
+          "other_rate_per_10000": 0.08329058906575028,
+          "rank": 2,
+          "rate_ratio": 64.51898303364312,
+          "term": "lebanon",
+          "z": 13.98984501931363
+        },
+        {
+          "distinctiveness_score": 2.417133348217641,
+          "era_count": 139,
+          "era_president_count": 2,
+          "era_rate_per_10000": 4.149786390491914,
+          "era_speech_count": 34,
+          "evidence_weight": 0.7509246953683317,
+          "log_odds_delta": 3.8247157156416973,
+          "other_count": 13,
+          "other_rate_per_10000": 0.09023147148789615,
+          "rank": 3,
+          "rate_ratio": 45.990454572699456,
+          "term": "al-qaeda",
+          "z": 13.207322548302779
+        }
+      ],
+      "end_year": 2016,
+      "footprint": {
+        "corpus_paragraphs": 36229,
+        "corpus_speeches": 1057,
+        "corpus_words": 4179266,
+        "paragraph_share": 19.55063623064396,
+        "paragraphs": 7083,
+        "speech_share": 19.5837275307474,
+        "speeches": 207,
+        "word_share": 18.51669647253848,
+        "words": 773862
+      },
+      "key": "post-cold-war",
+      "label": "Conservative turn & always-on presidency",
+      "major_topics": [
+        {
+          "count": 1040,
+          "label": "Providence, Faith & American Ideals",
+          "share": 14.683043907948608,
+          "topic": "Providence, Faith & American Ideals",
+          "topics": [
+            "Providence, Faith & American Ideals"
+          ]
+        },
+        {
+          "count": 757,
+          "label": "Taxes, Budget Deficits & Federal Spending",
+          "share": 10.687561767612594,
+          "topic": "Taxes, Budget Deficits & Federal Spending",
+          "topics": [
+            "Taxes, Budget Deficits & Federal Spending"
+          ]
+        },
+        {
+          "count": 741,
+          "label": "Iraq, Gulf Wars, the War on Terror & Interventions",
+          "share": 10.461668784413385,
+          "topic": "Iraq, Gulf Wars, the War on Terror & Interventions",
+          "topics": [
+            "Iraq, Gulf Wars, the War on Terror & Interventions"
+          ]
+        },
+        {
+          "count": 629,
+          "label": "Cold War & Great-Power Rivalry",
+          "share": 8.880417902018918,
+          "topic": "Cold War & Great-Power Rivalry",
+          "topics": [
+            "Cold War & Great-Power Rivalry"
+          ]
+        },
+        {
+          "count": 584,
+          "label": "Prosperity, Jobs & the Middle Class",
+          "share": 8.245093886771143,
+          "topic": "Prosperity, Jobs & the Middle Class",
+          "topics": [
+            "Prosperity, Jobs & the Middle Class"
+          ]
+        },
+        {
+          "count": 563,
+          "label": "World Order, Foreign Aid & Democracy Promotion",
+          "share": 7.94860934632218,
+          "topic": "World Order, Foreign Aid & Democracy Promotion",
+          "topics": [
+            "World Order, Foreign Aid & Democracy Promotion"
+          ]
+        }
+      ],
+      "presidents": [
+        {
+          "name": "Ronald Reagan",
+          "speeches": 56,
+          "years": "1981–1989"
+        },
+        {
+          "name": "George H. W. Bush",
+          "speeches": 23,
+          "years": "1988–1993"
+        },
+        {
+          "name": "Bill Clinton",
+          "speeches": 39,
+          "years": "1993–2001"
+        },
+        {
+          "name": "George W. Bush",
+          "speeches": 38,
+          "years": "2001–2009"
+        },
+        {
+          "name": "Barack Obama",
+          "speeches": 51,
+          "years": "2008–2017"
+        }
+      ],
+      "section_key": "always_on",
+      "start_year": 1981,
+      "style": {
+        "audience": {
+          "count": 109,
+          "label": "General public",
+          "raw_values": [
+            "general_public"
+          ],
+          "share": 52.65700483091788
+        },
+        "audience_options": [
+          {
+            "count": 43,
+            "label": "Congress",
+            "raw_values": [
+              "congress"
+            ],
+            "share": 20.77294685990338
+          },
+          {
+            "count": 109,
+            "label": "General public",
+            "raw_values": [
+              "general_public"
+            ],
+            "share": 52.65700483091788
+          },
+          {
+            "count": 23,
+            "label": "Specific organizations or groups",
+            "raw_values": [
+              "specific_organization_or_group"
+            ],
+            "share": 11.11111111111111
+          },
+          {
+            "count": 32,
+            "label": "Other audiences",
+            "raw_values": [
+              "press",
+              "foreign_or_diplomatic",
+              "military",
+              "other"
+            ],
+            "share": 15.458937198067632
+          }
+        ],
+        "medium": {
+          "count": 149,
+          "label": "Spoken address",
+          "raw_values": [
+            "spoken_address"
+          ],
+          "share": 71.98067632850241
+        },
+        "medium_options": [
+          {
+            "count": 0,
+            "label": "Written message",
+            "raw_values": [
+              "written_message"
+            ],
+            "share": 0.0
+          },
+          {
+            "count": 149,
+            "label": "Spoken address",
+            "raw_values": [
+              "spoken_address"
+            ],
+            "share": 71.98067632850241
+          },
+          {
+            "count": 47,
+            "label": "Radio/TV broadcast",
+            "raw_values": [
+              "broadcast_radio_or_tv"
+            ],
+            "share": 22.705314009661837
+          },
+          {
+            "count": 11,
+            "label": "Press conference/debate or other performed form",
+            "raw_values": [
+              "press_conference",
+              "debate"
+            ],
+            "share": 5.314009661835748
+          }
+        ]
+      },
+      "subtitle": "The Reagan transition precedes cable, permanent campaigning, and digital communication.",
+      "title": "The Conservative Turn & Always-On Presidency",
+      "topic_note": "Ranked by era paragraph share · labels overlap",
+      "years": "1981–2016"
+    },
+    "present": {
+      "adversaries": [
+        {
+          "name": "China",
+          "paragraphs": 125,
+          "type": "nation"
+        },
+        {
+          "name": "Democrats",
+          "paragraphs": 111,
+          "type": "group"
+        },
+        {
+          "name": "Iran",
+          "paragraphs": 91,
+          "type": "nation"
+        },
+        {
+          "name": "Russia",
+          "paragraphs": 88,
+          "type": "nation"
+        },
+        {
+          "name": "Putin",
+          "paragraphs": 63,
+          "type": "person"
+        }
+      ],
+      "adversary_types": [
+        {
+          "color": "#315f78",
+          "corpus_mentions": 9172,
+          "label": "Nation or state",
+          "present": true,
+          "type": "nation"
+        },
+        {
+          "color": "#a24f52",
+          "corpus_mentions": 9349,
+          "label": "Person",
+          "present": true,
+          "type": "person"
+        },
+        {
+          "color": "#4f7557",
+          "corpus_mentions": 3852,
+          "label": "Group",
+          "present": true,
+          "type": "group"
+        },
+        {
+          "color": "#9a7133",
+          "corpus_mentions": 4160,
+          "label": "Institution",
+          "present": false,
+          "type": "institution"
+        },
+        {
+          "color": "#74695f",
+          "corpus_mentions": 681,
+          "label": "Other",
+          "present": false,
+          "type": "other"
+        }
+      ],
+      "constituency_note": "No promoted constituency claims yet",
+      "constituency_status": "pending",
+      "constituents": [],
+      "distinctive_eligibility": {
+        "effect_cap_ratio": 25,
+        "evidence_scale_uses": 100,
+        "excludes_president_name_terms": true,
+        "min_corpus_uses": 50,
+        "min_era_presidents": 2,
+        "min_era_speeches": 10
+      },
+      "distinctive_words": [
+        {
+          "distinctiveness_score": 2.9088091189014165,
+          "era_count": 234,
+          "era_president_count": 2,
+          "era_rate_per_10000": 14.834067640812703,
+          "era_speech_count": 46,
+          "evidence_weight": 0.9036723617695069,
+          "log_odds_delta": 3.9962218678704016,
+          "other_count": 44,
+          "other_rate_per_10000": 0.2719489032733377,
+          "rank": 1,
+          "rate_ratio": 54.5472603943649,
+          "term": "incredible",
+          "z": 24.338724430635747
+        },
+        {
+          "distinctiveness_score": 2.816740985026529,
+          "era_count": 208,
+          "era_president_count": 2,
+          "era_rate_per_10000": 13.185837902944625,
+          "era_speech_count": 21,
+          "evidence_weight": 0.8750697878014175,
+          "log_odds_delta": 4.82729489241273,
+          "other_count": 17,
+          "other_rate_per_10000": 0.10507116717378956,
+          "rank": 2,
+          "rate_ratio": 125.49435071121859,
+          "term": "ukraine",
+          "z": 19.169921508700437
+        },
+        {
+          "distinctiveness_score": 2.6308402456931246,
+          "era_count": 170,
+          "era_president_count": 2,
+          "era_rate_per_10000": 10.776886747598972,
+          "era_speech_count": 21,
+          "evidence_weight": 0.8173164759472653,
+          "log_odds_delta": 6.063770932042323,
+          "other_count": 4,
+          "other_rate_per_10000": 0.024722627570303427,
+          "rank": 3,
+          "rate_ratio": 435.9118672541126,
+          "term": "virus",
+          "z": 12.058868426204432
+        }
+      ],
+      "end_year": 2026,
+      "footprint": {
+        "corpus_paragraphs": 36229,
+        "corpus_speeches": 1057,
+        "corpus_words": 4179266,
+        "paragraph_share": 11.239614673327997,
+        "paragraphs": 4072,
+        "speech_share": 7.663197729422895,
+        "speeches": 81,
+        "word_share": 9.078531971882144,
+        "words": 379416
+      },
+      "key": "present",
+      "label": "Platform-era intensification",
+      "major_topics": [
+        {
+          "count": 480,
+          "label": "Partisan Combat, Press Conferences & Media Attacks",
+          "share": 11.787819253438114,
+          "topic": "Partisan Combat, Press Conferences & Media Attacks",
+          "topics": [
+            "Partisan Combat, Press Conferences & Media Attacks"
+          ]
+        },
+        {
+          "count": 422,
+          "label": "Providence, Faith & American Ideals",
+          "share": 10.363457760314342,
+          "topic": "Providence, Faith & American Ideals",
+          "topics": [
+            "Providence, Faith & American Ideals"
+          ]
+        },
+        {
+          "count": 406,
+          "label": "Health Care, Medicare & Social Security",
+          "share": 9.970530451866406,
+          "topic": "Health Care, Medicare & Social Security",
+          "topics": [
+            "Health Care, Medicare & Social Security"
+          ]
+        },
+        {
+          "count": 391,
+          "label": "Cold War & Great-Power Rivalry",
+          "share": 9.602161100196463,
+          "topic": "Cold War & Great-Power Rivalry",
+          "topics": [
+            "Cold War & Great-Power Rivalry"
+          ]
+        },
+        {
+          "count": 361,
+          "label": "Immigration & Border Security",
+          "share": 8.865422396856582,
+          "topic": "Immigration & Border Security",
+          "topics": [
+            "Immigration & Border Security"
+          ]
+        },
+        {
+          "count": 354,
+          "label": "Military Preparedness, Armed Forces & Veterans",
+          "share": 8.69351669941061,
+          "topic": "Military Preparedness, Armed Forces & Veterans",
+          "topics": [
+            "Military Preparedness, Armed Forces & Veterans"
+          ]
+        }
+      ],
+      "presidents": [
+        {
+          "name": "Donald Trump",
+          "speeches": 53,
+          "years": "2017–2026"
+        },
+        {
+          "name": "Joe Biden",
+          "speeches": 28,
+          "years": "2021–2025"
+        }
+      ],
+      "section_key": "platform_dominance",
+      "start_year": 2017,
+      "style": {
+        "audience": {
+          "count": 45,
+          "label": "General public",
+          "raw_values": [
+            "general_public"
+          ],
+          "share": 55.55555555555556
+        },
+        "audience_options": [
+          {
+            "count": 10,
+            "label": "Congress",
+            "raw_values": [
+              "congress"
+            ],
+            "share": 12.345679012345679
+          },
+          {
+            "count": 45,
+            "label": "General public",
+            "raw_values": [
+              "general_public"
+            ],
+            "share": 55.55555555555556
+          },
+          {
+            "count": 8,
+            "label": "Specific organizations or groups",
+            "raw_values": [
+              "specific_organization_or_group"
+            ],
+            "share": 9.876543209876543
+          },
+          {
+            "count": 18,
+            "label": "Other audiences",
+            "raw_values": [
+              "press",
+              "foreign_or_diplomatic",
+              "military",
+              "other"
+            ],
+            "share": 22.22222222222222
+          }
+        ],
+        "medium": {
+          "count": 51,
+          "label": "Spoken address",
+          "raw_values": [
+            "spoken_address"
+          ],
+          "share": 62.96296296296296
+        },
+        "medium_options": [
+          {
+            "count": 0,
+            "label": "Written message",
+            "raw_values": [
+              "written_message"
+            ],
+            "share": 0.0
+          },
+          {
+            "count": 51,
+            "label": "Spoken address",
+            "raw_values": [
+              "spoken_address"
+            ],
+            "share": 62.96296296296296
+          },
+          {
+            "count": 21,
+            "label": "Radio/TV broadcast",
+            "raw_values": [
+              "broadcast_radio_or_tv"
+            ],
+            "share": 25.925925925925924
+          },
+          {
+            "count": 9,
+            "label": "Press conference/debate or other performed form",
+            "raw_values": [
+              "press_conference",
+              "debate"
+            ],
+            "share": 11.11111111111111
+          }
+        ]
+      },
+      "subtitle": "People, scale, adversaries, and topics in this corpus.",
+      "title": "Platform-Era Intensification",
+      "topic_note": "Ranked by era paragraph share · labels overlap",
+      "years": "2017–2026"
+    },
+    "progressives-depression": {
+      "adversaries": [
+        {
+          "name": "Democratic candidate",
+          "paragraphs": 25,
+          "type": "person"
+        },
+        {
+          "name": "Democratic Party",
+          "paragraphs": 24,
+          "type": "group"
+        },
+        {
+          "name": "the Governor",
+          "paragraphs": 19,
+          "type": "person"
+        },
+        {
+          "name": "Imperial German Government",
+          "paragraphs": 18,
+          "type": "nation"
+        },
+        {
+          "name": "Germany",
+          "paragraphs": 15,
+          "type": "nation"
+        }
+      ],
+      "adversary_types": [
+        {
+          "color": "#315f78",
+          "corpus_mentions": 9172,
+          "label": "Nation or state",
+          "present": true,
+          "type": "nation"
+        },
+        {
+          "color": "#a24f52",
+          "corpus_mentions": 9349,
+          "label": "Person",
+          "present": true,
+          "type": "person"
+        },
+        {
+          "color": "#4f7557",
+          "corpus_mentions": 3852,
+          "label": "Group",
+          "present": true,
+          "type": "group"
+        },
+        {
+          "color": "#9a7133",
+          "corpus_mentions": 4160,
+          "label": "Institution",
+          "present": false,
+          "type": "institution"
+        },
+        {
+          "color": "#74695f",
+          "corpus_mentions": 681,
+          "label": "Other",
+          "present": false,
+          "type": "other"
+        }
+      ],
+      "constituency_note": "No promoted constituency claims yet",
+      "constituency_status": "pending",
+      "constituents": [],
+      "distinctive_eligibility": {
+        "effect_cap_ratio": 25,
+        "evidence_scale_uses": 100,
+        "excludes_president_name_terms": true,
+        "min_corpus_uses": 50,
+        "min_era_presidents": 2,
+        "min_era_speeches": 10
+      },
+      "distinctive_words": [
+        {
+          "distinctiveness_score": 1.6405156720030554,
+          "era_count": 299,
+          "era_president_count": 4,
+          "era_rate_per_10000": 25.031393888656343,
+          "era_speech_count": 41,
+          "evidence_weight": 0.9497125632764082,
+          "log_odds_delta": 1.7273812471675107,
+          "other_count": 736,
+          "other_rate_per_10000": 4.443784317064011,
+          "rank": 1,
+          "rate_ratio": 5.632900272080369,
+          "term": "agriculture",
+          "z": 25.19809970585647
+        },
+        {
+          "distinctiveness_score": 1.4068791235616964,
+          "era_count": 109,
+          "era_president_count": 3,
+          "era_rate_per_10000": 9.125156969443282,
+          "era_speech_count": 21,
+          "evidence_weight": 0.6637835062932667,
+          "log_odds_delta": 2.1194849076893485,
+          "other_count": 181,
+          "other_rate_per_10000": 1.0928328279736224,
+          "rank": 2,
+          "rate_ratio": 8.350002613266605,
+          "term": "depression",
+          "z": 17.487276305495108
+        },
+        {
+          "distinctiveness_score": 1.3954408762073789,
+          "era_count": 199,
+          "era_president_count": 4,
+          "era_rate_per_10000": 16.659690246965255,
+          "era_speech_count": 51,
+          "evidence_weight": 0.8633045745544762,
+          "log_odds_delta": 1.6163946275015642,
+          "other_count": 547,
+          "other_rate_per_10000": 3.3026494856440407,
+          "rank": 3,
+          "rate_ratio": 5.0443410114762735,
+          "term": "methods",
+          "z": 19.533874707910194
+        }
+      ],
+      "end_year": 1932,
+      "footprint": {
+        "corpus_paragraphs": 36229,
+        "corpus_speeches": 1057,
+        "corpus_words": 4179266,
+        "paragraph_share": 6.036600513400867,
+        "paragraphs": 2187,
+        "speech_share": 8.798486281929991,
+        "speeches": 93,
+        "word_share": 6.664926329168806,
+        "words": 278545
+      },
+      "key": "progressives-depression",
+      "label": "Reform, world war & collapse",
+      "major_topics": [
+        {
+          "count": 274,
+          "label": "Providence, Faith & American Ideals",
+          "share": 12.528577960676726,
+          "topic": "Providence, Faith & American Ideals",
+          "topics": [
+            "Providence, Faith & American Ideals"
+          ]
+        },
+        {
+          "count": 251,
+          "label": "Treaties, Diplomacy & International Arbitration",
+          "share": 11.476909007773205,
+          "topic": "Treaties, Diplomacy & International Arbitration",
+          "topics": [
+            "Treaties, Diplomacy & International Arbitration"
+          ]
+        },
+        {
+          "count": 230,
+          "label": "Internal Improvements, Energy & Infrastructure",
+          "share": 10.516689529035208,
+          "topic": "Internal Improvements, Energy & Infrastructure",
+          "topics": [
+            "Internal Improvements, Energy & Infrastructure"
+          ]
+        },
+        {
+          "count": 200,
+          "label": "World War I Mobilization & War Aims",
+          "share": 9.144947416552354,
+          "topic": "World War I Mobilization & War Aims",
+          "topics": [
+            "World War I Mobilization & War Aims"
+          ]
+        },
+        {
+          "count": 172,
+          "label": "Military Preparedness, Armed Forces & Veterans",
+          "share": 7.864654778235025,
+          "topic": "Military Preparedness, Armed Forces & Veterans",
+          "topics": [
+            "Military Preparedness, Armed Forces & Veterans"
+          ]
+        },
+        {
+          "count": 159,
+          "label": "Tariffs, Reciprocity & Navigation Laws",
+          "share": 7.270233196159122,
+          "topic": "Tariffs, Reciprocity & Navigation Laws",
+          "topics": [
+            "Tariffs, Reciprocity & Navigation Laws"
+          ]
+        }
+      ],
+      "presidents": [
+        {
+          "name": "Woodrow Wilson",
+          "speeches": 33,
+          "years": "1913–1920"
+        },
+        {
+          "name": "Warren G. Harding",
+          "speeches": 18,
+          "years": "1917–1922"
+        },
+        {
+          "name": "Calvin Coolidge",
+          "speeches": 12,
+          "years": "1923–1928"
+        },
+        {
+          "name": "Herbert Hoover",
+          "speeches": 30,
+          "years": "1928–1932"
+        }
+      ],
+      "section_key": "progressive_transform",
+      "start_year": 1913,
+      "style": {
+        "audience": {
+          "count": 41,
+          "label": "General public",
+          "raw_values": [
+            "general_public"
+          ],
+          "share": 44.086021505376344
+        },
+        "audience_options": [
+          {
+            "count": 37,
+            "label": "Congress",
+            "raw_values": [
+              "congress"
+            ],
+            "share": 39.784946236559136
+          },
+          {
+            "count": 41,
+            "label": "General public",
+            "raw_values": [
+              "general_public"
+            ],
+            "share": 44.086021505376344
+          },
+          {
+            "count": 6,
+            "label": "Specific organizations or groups",
+            "raw_values": [
+              "specific_organization_or_group"
+            ],
+            "share": 6.451612903225806
+          },
+          {
+            "count": 9,
+            "label": "Other audiences",
+            "raw_values": [
+              "press",
+              "foreign_or_diplomatic",
+              "military",
+              "other"
+            ],
+            "share": 9.67741935483871
+          }
+        ],
+        "medium": {
+          "count": 47,
+          "label": "Spoken address",
+          "raw_values": [
+            "spoken_address"
+          ],
+          "share": 50.53763440860215
+        },
+        "medium_options": [
+          {
+            "count": 37,
+            "label": "Written message",
+            "raw_values": [
+              "written_message"
+            ],
+            "share": 39.784946236559136
+          },
+          {
+            "count": 47,
+            "label": "Spoken address",
+            "raw_values": [
+              "spoken_address"
+            ],
+            "share": 50.53763440860215
+          },
+          {
+            "count": 3,
+            "label": "Radio/TV broadcast",
+            "raw_values": [
+              "broadcast_radio_or_tv"
+            ],
+            "share": 3.225806451612903
+          },
+          {
+            "count": 6,
+            "label": "Press conference/debate or other performed form",
+            "raw_values": [
+              "press_conference",
+              "debate"
+            ],
+            "share": 6.451612903225806
+          }
+        ]
+      },
+      "subtitle": "A reform presidency gives way to world war, interwar government, and economic collapse.",
+      "title": "Reform, World War & Collapse",
+      "topic_note": "Ranked by era paragraph share · labels overlap",
+      "years": "1913–1932"
+    },
+    "war-new-deal": {
+      "adversaries": [
+        {
+          "name": "Germany",
+          "paragraphs": 77,
+          "type": "nation"
+        },
+        {
+          "name": "Japan",
+          "paragraphs": 72,
+          "type": "nation"
+        },
+        {
+          "name": "Hitler",
+          "paragraphs": 38,
+          "type": "person"
+        },
+        {
+          "name": "Nazis",
+          "paragraphs": 34,
+          "type": "group"
+        },
+        {
+          "name": "Republicans",
+          "paragraphs": 24,
+          "type": "group"
+        }
+      ],
+      "adversary_types": [
+        {
+          "color": "#315f78",
+          "corpus_mentions": 9172,
+          "label": "Nation or state",
+          "present": true,
+          "type": "nation"
+        },
+        {
+          "color": "#a24f52",
+          "corpus_mentions": 9349,
+          "label": "Person",
+          "present": true,
+          "type": "person"
+        },
+        {
+          "color": "#4f7557",
+          "corpus_mentions": 3852,
+          "label": "Group",
+          "present": true,
+          "type": "group"
+        },
+        {
+          "color": "#9a7133",
+          "corpus_mentions": 4160,
+          "label": "Institution",
+          "present": false,
+          "type": "institution"
+        },
+        {
+          "color": "#74695f",
+          "corpus_mentions": 681,
+          "label": "Other",
+          "present": false,
+          "type": "other"
+        }
+      ],
+      "constituency_note": "No promoted constituency claims yet",
+      "constituency_status": "pending",
+      "constituents": [],
+      "distinctive_eligibility": {
+        "effect_cap_ratio": 25,
+        "evidence_scale_uses": 100,
+        "excludes_president_name_terms": true,
+        "min_corpus_uses": 50,
+        "min_era_presidents": 2,
+        "min_era_speeches": 10
+      },
+      "distinctive_words": [
+        {
+          "distinctiveness_score": 2.101041719703325,
+          "era_count": 237,
+          "era_president_count": 2,
+          "era_rate_per_10000": 32.30379194722351,
+          "era_speech_count": 29,
+          "evidence_weight": 0.9065192737219415,
+          "log_odds_delta": 2.3177022051356646,
+          "other_count": 540,
+          "other_rate_per_10000": 3.172122913888612,
+          "rank": 1,
+          "rate_ratio": 10.18365076768833,
+          "term": "germany",
+          "z": 29.75666482612857
+        },
+        {
+          "distinctiveness_score": 2.0581654893752837,
+          "era_count": 102,
+          "era_president_count": 2,
+          "era_rate_per_10000": 13.902897800070878,
+          "era_speech_count": 18,
+          "evidence_weight": 0.6394050598269216,
+          "log_odds_delta": 5.054219297542748,
+          "other_count": 15,
+          "other_rate_per_10000": 0.08811452538579476,
+          "rank": 2,
+          "rate_ratio": 157.78213341329774,
+          "term": "nazi",
+          "z": 18.294946298697027
+        },
+        {
+          "distinctiveness_score": 1.9716403552679094,
+          "era_count": 177,
+          "era_president_count": 2,
+          "era_rate_per_10000": 24.12561677071123,
+          "era_speech_count": 25,
+          "evidence_weight": 0.8296670111745905,
+          "log_odds_delta": 2.37642370820142,
+          "other_count": 380,
+          "other_rate_per_10000": 2.2322346431068008,
+          "rank": 3,
+          "rate_ratio": 10.807831894022328,
+          "term": "japan",
+          "z": 26.12368218465884
+        }
+      ],
+      "end_year": 1952,
+      "footprint": {
+        "corpus_paragraphs": 36229,
+        "corpus_speeches": 1057,
+        "corpus_words": 4179266,
+        "paragraph_share": 3.9388335311490796,
+        "paragraphs": 1427,
+        "speech_share": 6.5279091769157995,
+        "speeches": 69,
+        "word_share": 4.176403224872502,
+        "words": 174543
+      },
+      "key": "war-new-deal",
+      "label": "New Deal, world war & settlement",
+      "major_topics": [
+        {
+          "count": 455,
+          "label": "World War II Military Operations",
+          "share": 31.885073580939032,
+          "topic": "World War II Military Operations",
+          "topics": [
+            "World War II Military Operations"
+          ]
+        },
+        {
+          "count": 207,
+          "label": "Providence, Faith & American Ideals",
+          "share": 14.505956552207428,
+          "topic": "Providence, Faith & American Ideals",
+          "topics": [
+            "Providence, Faith & American Ideals"
+          ]
+        },
+        {
+          "count": 176,
+          "label": "Great Depression Recovery",
+          "share": 12.333566923615978,
+          "topic": "Great Depression Recovery",
+          "topics": [
+            "Great Depression Recovery"
+          ]
+        },
+        {
+          "count": 157,
+          "label": "Military Preparedness, Armed Forces & Veterans",
+          "share": 11.002102312543798,
+          "topic": "Military Preparedness, Armed Forces & Veterans",
+          "topics": [
+            "Military Preparedness, Armed Forces & Veterans"
+          ]
+        },
+        {
+          "count": 152,
+          "label": "Labor, Wages & Working Conditions",
+          "share": 10.651716888577436,
+          "topic": "Labor, Wages & Working Conditions",
+          "topics": [
+            "Labor, Wages & Working Conditions"
+          ]
+        },
+        {
+          "count": 124,
+          "label": "Treaties, Diplomacy & International Arbitration",
+          "share": 8.689558514365803,
+          "topic": "Treaties, Diplomacy & International Arbitration",
+          "topics": [
+            "Treaties, Diplomacy & International Arbitration"
+          ]
+        }
+      ],
+      "presidents": [
+        {
+          "name": "Franklin D. Roosevelt",
+          "speeches": 49,
+          "years": "1933–1945"
+        },
+        {
+          "name": "Harry S. Truman",
+          "speeches": 19,
+          "years": "1945–1953"
+        },
+        {
+          "name": "Richard M. Nixon",
+          "speeches": 1,
+          "years": "1952"
+        }
+      ],
+      "section_key": "recovery_mobilization",
+      "start_year": 1933,
+      "style": {
+        "audience": {
+          "count": 54,
+          "label": "General public",
+          "raw_values": [
+            "general_public"
+          ],
+          "share": 78.26086956521739
+        },
+        "audience_options": [
+          {
+            "count": 7,
+            "label": "Congress",
+            "raw_values": [
+              "congress"
+            ],
+            "share": 10.144927536231885
+          },
+          {
+            "count": 54,
+            "label": "General public",
+            "raw_values": [
+              "general_public"
+            ],
+            "share": 78.26086956521739
+          },
+          {
+            "count": 6,
+            "label": "Specific organizations or groups",
+            "raw_values": [
+              "specific_organization_or_group"
+            ],
+            "share": 8.695652173913043
+          },
+          {
+            "count": 2,
+            "label": "Other audiences",
+            "raw_values": [
+              "press",
+              "foreign_or_diplomatic",
+              "military",
+              "other"
+            ],
+            "share": 2.898550724637681
+          }
+        ],
+        "medium": {
+          "count": 38,
+          "label": "Radio/TV broadcast",
+          "raw_values": [
+            "broadcast_radio_or_tv"
+          ],
+          "share": 55.072463768115945
+        },
+        "medium_options": [
+          {
+            "count": 4,
+            "label": "Written message",
+            "raw_values": [
+              "written_message"
+            ],
+            "share": 5.797101449275362
+          },
+          {
+            "count": 27,
+            "label": "Spoken address",
+            "raw_values": [
+              "spoken_address"
+            ],
+            "share": 39.130434782608695
+          },
+          {
+            "count": 38,
+            "label": "Radio/TV broadcast",
+            "raw_values": [
+              "broadcast_radio_or_tv"
+            ],
+            "share": 55.072463768115945
+          },
+          {
+            "count": 0,
+            "label": "Press conference/debate or other performed form",
+            "raw_values": [
+              "press_conference",
+              "debate"
+            ],
+            "share": 0.0
+          }
+        ]
+      },
+      "subtitle": "Recovery, mobilization, and the first postwar settlement share one durable governing regime.",
+      "title": "New Deal, World War & Settlement",
+      "topic_note": "Ranked by era paragraph share · labels overlap",
+      "years": "1933–1952"
+    }
+  },
+  "schema_version": "era-profile-v4"
+}

@@ -1,0 +1,1064 @@
+{
+  "contract": {
+    "contract_path": "notes/annotation-refresh-campaign-v1.md",
+    "contract_version": "annotation-refresh-campaign-v1",
+    "date": "2026-07-25",
+    "date_precision": "date",
+    "status": "provisional_corpus_planner_published_execution_not_authorized"
+  },
+  "items": [
+    {
+      "affected_artifacts": [
+        "notes/annotation-refresh-campaign-v1.md",
+        "notes/annotation-refresh-campaign-review-queue-v1.json",
+        "notes/annotation-refresh-campaign-review-report-v1.md"
+      ],
+      "category": "contract_checkpoint",
+      "item_id": "ARCV1-C001",
+      "opened_by": "codex",
+      "question": "Approve the complete Phase 2 annotation-refresh contract and authorize Stage 1 implementation only?",
+      "recommendation": "approve_stage1_only",
+      "required_before": [
+        "implementation",
+        "pilot_planning",
+        "model_execution"
+      ],
+      "source_authority": "user request dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future src/presidential_profiles/annotation_refresh.py",
+        "future data/annotation_ledger/bundles/"
+      ],
+      "category": "architecture",
+      "item_id": "ARCV1-D001",
+      "opened_by": "codex",
+      "question": "Adopt annotation_refresh.py, an additive bundle registry, and immutable campaign manifests above the Phase 1 ledger/workflow seams?",
+      "recommendation": "approve",
+      "required_before": [
+        "implementation"
+      ],
+      "source_authority": "Phase 2 architectural direction in the user request",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future label-spec schema v2",
+        "future bundle registry"
+      ],
+      "category": "extensibility",
+      "item_id": "ARCV1-D002",
+      "opened_by": "codex",
+      "question": "Add a one-time v2 atomic-spec bundle binding while preserving all Phase 1 v1 specs unchanged?",
+      "recommendation": "approve",
+      "required_before": [
+        "bundle_registration"
+      ],
+      "source_authority": "normal label types and bundles must not require later core lifecycle edits",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future paragraph_judgment_v2_candidate bundle"
+      ],
+      "category": "combined_prompt",
+      "item_id": "ARCV1-D003",
+      "opened_by": "codex",
+      "question": "Use one masked paragraph bundle with one neighbor per side, decade only, four same-speech targets, and trusted response-local IDs?",
+      "recommendation": "approve_candidate_for_pilot",
+      "required_before": [
+        "pilot_plan"
+      ],
+      "source_authority": "token-conservation, legacy masking, and cross-speech ambiguity requirements",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future constituencies@constituency-v1-candidate-1",
+        "future constituency_claims projection"
+      ],
+      "category": "constituency_semantics",
+      "item_id": "ARCV1-D004",
+      "opened_by": "codex",
+      "question": "Approve the proposed constituency claim definition, 12 group types, 5 relations, 4 stances, multiple-claim rules, generic-group boundaries, and raw-versus-normalized projection boundary?",
+      "recommendation": "approve_candidate_for_pilot",
+      "required_before": [
+        "constituency_candidate_registration",
+        "pilot_plan"
+      ],
+      "source_authority": "Phase 2 constituency and combined-prompt requirements",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future persisted 720-paragraph pilot selection"
+      ],
+      "category": "pilot_sampling",
+      "item_id": "ARCV1-D005",
+      "opened_by": "codex",
+      "question": "Approve a 720-paragraph pilot: 480 weighted era×genre core, 96 rare-signal enrichment, and 144 composition-diagnostic paragraphs selected by the declared SHA-256 algorithm?",
+      "recommendation": "approve",
+      "required_before": [
+        "pilot_selection_creation"
+      ],
+      "source_authority": "Phase 2 persisted era/genre pilot requirement",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future two blind combined runs",
+        "future constituency-only diagnostic run"
+      ],
+      "category": "blindness_and_diagnostic",
+      "item_id": "ARCV1-D006",
+      "opened_by": "codex",
+      "question": "Approve two identical blind combined passes plus one blind constituency-only pass on the 144-row diagnostic subset, all requiring the same exact model identity and effort?",
+      "recommendation": "approve",
+      "required_before": [
+        "first_pilot_assignment"
+      ],
+      "source_authority": "Phase 2 blind pilot and composition-diagnostic requirements",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future 240-paragraph reference selection",
+        "future adjudication artifacts"
+      ],
+      "category": "reference_and_adjudication",
+      "item_id": "ARCV1-D007",
+      "opened_by": "codex",
+      "question": "Approve a predeclared 240-paragraph blind human reference, minimum 60 claim-positive cases, and append-only adjudication of required disagreements?",
+      "recommendation": "approve",
+      "required_before": [
+        "pilot_evaluation",
+        "spec_freeze"
+      ],
+      "source_authority": "Phase 2 gold/reference and adjudicator-authority requirements",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future evaluation policy"
+      ],
+      "category": "evaluation_thresholds",
+      "item_id": "ARCV1-D008",
+      "opened_by": "codex",
+      "question": "Approve the structural, constituency, category-support, existing-label, and prompt-composition thresholds and one-sided clustered non-inferiority bounds in Sections 13-14?",
+      "recommendation": "approve",
+      "required_before": [
+        "pilot_evaluation",
+        "spec_freeze",
+        "full_campaign"
+      ],
+      "source_authority": "Phase 2 evaluation and publication-gate requirements",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future refresh campaign scope selectors"
+      ],
+      "category": "scope_policy",
+      "item_id": "ARCV1-D009",
+      "opened_by": "codex",
+      "question": "Approve pilot, full-shadow, delta, audit, and explicit scopes; default ordinary corpus updates to bundle-input delta; and require explicit full-shadow override?",
+      "recommendation": "approve",
+      "required_before": [
+        "campaign_planning"
+      ],
+      "source_authority": "Phase 2 scope-mode requirements",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future bundle eligibility registry",
+        "future campaign all expansion"
+      ],
+      "category": "eligibility",
+      "item_id": "ARCV1-D010",
+      "opened_by": "codex",
+      "question": "Define all as locked production-eligible bundles only, excluding draft, pilot-only, diagnostic, failed, and superseded bundles?",
+      "recommendation": "approve",
+      "required_before": [
+        "all_campaign"
+      ],
+      "source_authority": "Phase 2 all-bundle safety requirement",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future invocation_tone@candidate-1"
+      ],
+      "category": "invocation_provenance",
+      "item_id": "ARCV1-D011",
+      "opened_by": "codex",
+      "question": "Create a new complete invocation-tone candidate rubric for the exact 101 Phase 1 spans instead of pretending the missing legacy prompt is reproducible?",
+      "recommendation": "approve",
+      "required_before": [
+        "invocation_refresh"
+      ],
+      "source_authority": "accepted Phase 1 invocation provenance limitation",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "data/annotation_ledger/proposed_contracts/inv_audit_98a118ea36a1e2557a7447fa83002236b01b41d2759a4c74eb7f1ee584fb58be.json",
+        "future invocation-tone reference, evaluation, and freeze artifacts"
+      ],
+      "category": "invocation_reference_audit_design",
+      "item_id": "ARCV1-D018",
+      "opened_by": "codex",
+      "question": "Approve the proposed exact-101 invocation-tone blind reference design, support rules, accuracy and kappa thresholds, and speech-clustered interval gates before any invocation labeling?",
+      "recommendation": "approve_or_revise_before_any_invocation_labeling",
+      "required_before": [
+        "invocation_reference_labeling",
+        "invocation_candidate_labeling",
+        "invocation_spec_freeze",
+        "invocation_full_shadow_eligibility"
+      ],
+      "source_authority": "Stage 3 instruction to propose and stop because no approved invocation audit thresholds or reference design existed",
+      "status": "pending"
+    },
+    {
+      "affected_artifacts": [
+        "future failed constituency candidate",
+        "future optional paragraph_judgment_v2_without_constituency_candidate"
+      ],
+      "category": "constituency_failure_branch",
+      "item_id": "ARCV1-D012",
+      "opened_by": "codex",
+      "question": "If constituency fails, preserve it unpromoted, allow independent modules to proceed, and require a new approved no-constituency paragraph candidate before refreshing published paragraph labels?",
+      "recommendation": "approve",
+      "required_before": [
+        "pilot_failure_recovery",
+        "partial_full_campaign"
+      ],
+      "source_authority": "Phase 2 failed-constituency handling requirement",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future promotion policy"
+      ],
+      "category": "promotion",
+      "item_id": "ARCV1-D013",
+      "opened_by": "codex",
+      "question": "Keep every refresh as shadow by default and allow only explicit expected-state-guarded promotion by bundle, label type, persisted selection, or atomic group?",
+      "recommendation": "approve",
+      "required_before": [
+        "promotion"
+      ],
+      "source_authority": "Phase 1 promotion rules and Phase 2 current-label requirements",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future campaign execution profiles"
+      ],
+      "category": "reasoning_effort",
+      "item_id": "ARCV1-D014",
+      "opened_by": "codex",
+      "question": "Use requested effort high for paragraph/diagnostic, low for speech factual, and medium for invocation tone, stopping if exact runtime metadata differs?",
+      "recommendation": "approve_as_requested_profiles",
+      "required_before": [
+        "campaign_initialization"
+      ],
+      "source_authority": "Phase 2 declared-reasoning and exact-identity requirements",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future campaign plan token receipt"
+      ],
+      "category": "token_budget",
+      "item_id": "ARCV1-D015",
+      "opened_by": "codex",
+      "question": "Accept the deterministic proxy estimates as planning values only and require review if finalized estimates move by more than 10 percent?",
+      "recommendation": "approve",
+      "required_before": [
+        "campaign_initialization"
+      ],
+      "source_authority": "Phase 2 token-estimation requirement",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future persisted pilot selection",
+        "future content-addressed campaign plan"
+      ],
+      "category": "stage2_planning_authorization",
+      "item_id": "ARCV1-S002",
+      "opened_by": "repository_user",
+      "question": "Authorize Stage 2 planning artifacts only, while continuing to prohibit assignments and every later execution/publication action?",
+      "recommendation": "approved_planning_only",
+      "required_before": [
+        "pilot_selection_creation",
+        "campaign_plan_creation"
+      ],
+      "source_authority": "explicit user message dated 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future persisted pilot selection",
+        "notes/annotation-refresh-campaign-v1.md"
+      ],
+      "category": "pilot_sampling_inconsistency",
+      "item_id": "ARCV1-I001",
+      "opened_by": "codex_stage2_planner",
+      "question": "How should the exact pilot size be amended now that the live corpus has three sparse era-by-genre cells containing 1, 2, and 3 paragraphs, making an exact 480-row core impossible under the approved take-all-sparse plus four-target-block rule?",
+      "recommendation": "amend_to_482_core_722_total",
+      "required_before": [
+        "pilot_selection_creation",
+        "campaign_plan_creation",
+        "ARCV1-G002"
+      ],
+      "source_authority": "read-only keyed re-derivation from the active Phase 1 generation and canonical corpus on 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future probability-core selection receipt",
+        "future pilot evaluation policy"
+      ],
+      "category": "pilot_sampling_frame",
+      "item_id": "ARCV1-D016",
+      "opened_by": "codex_stage2_planner",
+      "question": "Should the four-target-block core be treated as a design-balanced evaluation frame, with no claim that its weights estimate prevalence over all canonical paragraphs, because 1,642 speech-tail paragraphs are outside the full-block frame?",
+      "recommendation": "approve_evaluation_frame_only",
+      "required_before": [
+        "pilot_selection_creation",
+        "pilot_evaluation"
+      ],
+      "source_authority": "read-only position-block audit of all 35,394 canonical paragraphs on 2026-07-24",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "src/presidential_profiles/annotation_workflow.py",
+        "tests/test_annotation_refresh.py",
+        "future exact token receipt"
+      ],
+      "category": "token_conservation_implementation_gap",
+      "item_id": "ARCV1-S003",
+      "opened_by": "codex_stage2_planner",
+      "question": "Does the model-facing four-target renderer transmit the shared six-paragraph block context once, as required by the approved contract?",
+      "recommendation": "implement_approved_shared_context_before_plan_publication",
+      "required_before": [
+        "campaign_plan_creation",
+        "ARCV1-G002"
+      ],
+      "source_authority": "read-only rendering audit on 2026-07-24",
+      "status": "satisfied"
+    },
+    {
+      "affected_artifacts": [
+        "data/annotation_ledger/selections/sel_17cf0d99dc497c63a0f7ee85d2d86436883df9a0eb7a6cd7f6e1234271c51515.json",
+        "data/annotation_ledger/selections/sel_ae7b0e92cb8a37e03c39a6a7270cfc8c5b39698c409787a8126ec84a6bf24fd9.json",
+        "data/annotation_ledger/selections/sel_799402f09a43f76bfd1a9386b47614cf0f7fccb3c85374ffaa60103f046de9bc.json",
+        "data/annotation_ledger/campaign_plans/plan_3af71613624c605209c169717c7c73024235e01ba0750d046940a01d2512a17f.json"
+      ],
+      "category": "stage2_planning_completion",
+      "item_id": "ARCV1-S004",
+      "opened_by": "codex_stage2_planner",
+      "question": "Did Stage 2 publish the exact amended selections, fixed batch partitions, and content-addressed non-executable plan without initializing execution state?",
+      "recommendation": "satisfied",
+      "required_before": [
+        "ARCV1-G002"
+      ],
+      "source_authority": "ARCV1-RES003, ARCV1-RES004, and local verification evidence dated 2026-07-24",
+      "status": "satisfied"
+    },
+    {
+      "affected_artifacts": [
+        "future pilot execution"
+      ],
+      "category": "execution_gate",
+      "item_id": "ARCV1-G001",
+      "opened_by": "codex",
+      "question": "Does the future runtime expose the exact same model identity and requested reasoning effort for both combined passes and the diagnostic?",
+      "recommendation": "stop_until_runtime_receipts_exist",
+      "required_before": [
+        "first_pilot_assignment"
+      ],
+      "source_authority": "Phase 2 exact runtime identity requirement",
+      "status": "satisfied"
+    },
+    {
+      "affected_artifacts": [
+        "data/annotation_ledger/selections/sel_17cf0d99dc497c63a0f7ee85d2d86436883df9a0eb7a6cd7f6e1234271c51515.json",
+        "data/annotation_ledger/selections/sel_ae7b0e92cb8a37e03c39a6a7270cfc8c5b39698c409787a8126ec84a6bf24fd9.json",
+        "data/annotation_ledger/selections/sel_799402f09a43f76bfd1a9386b47614cf0f7fccb3c85374ffaa60103f046de9bc.json",
+        "data/annotation_ledger/campaign_plans/plan_3af71613624c605209c169717c7c73024235e01ba0750d046940a01d2512a17f.json"
+      ],
+      "category": "human_checkpoint",
+      "item_id": "ARCV1-G002",
+      "opened_by": "codex",
+      "question": "Has the repository owner approved the exact persisted pilot keys, prompt/schema/bundle/render hashes, required execution profile, fixed assignment partitions, and token ceiling?",
+      "recommendation": "stop_until_explicit_approval",
+      "required_before": [
+        "first_pilot_assignment"
+      ],
+      "source_authority": "Phase 2 human-review checkpoint requirement",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future executable pilot campaign",
+        "future child runs",
+        "future model assignments"
+      ],
+      "category": "pilot_execution_authorization",
+      "item_id": "ARCV1-G006",
+      "opened_by": "codex",
+      "question": "After ARCV1-G001 records an acceptable exact runtime identity and high reasoning effort, has the repository owner explicitly authorized initialization and execution of the approved pilot?",
+      "recommendation": "stop_until_exact_receipt_and_explicit_execution_authorization",
+      "required_before": [
+        "campaign_initialization",
+        "child_run_initialization",
+        "first_pilot_assignment"
+      ],
+      "source_authority": "ARCV1-RES003 planning-only boundary and Phase 2 explicit human-checkpoint requirement",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future constituency-v1 spec",
+        "future paragraph-judgment-v2 bundle"
+      ],
+      "category": "freeze_gate",
+      "item_id": "ARCV1-G003",
+      "opened_by": "codex",
+      "question": "Did the sealed pilot, reference, adjudication, and all publication/non-inferiority gates pass without prompt/schema changes?",
+      "recommendation": "stop_until_evidence_and_approval",
+      "required_before": [
+        "spec_freeze",
+        "bundle_freeze"
+      ],
+      "source_authority": "Phase 2 pilot freeze requirements",
+      "status": "rejected"
+    },
+    {
+      "affected_artifacts": [
+        "notes/annotation-refresh-campaign-v1.md",
+        "future content-addressed campaign policy amendment",
+        "future Stage 3 evaluation artifacts"
+      ],
+      "category": "pre_results_evaluation_policy_amendment",
+      "item_id": "ARCV1-D017",
+      "opened_by": "repository_user",
+      "question": "Remove first-response schema validity and its derived non-inferiority gates from this pilot before reference labeling, comparison, or evaluation?",
+      "recommendation": "approve_pre_results_removal_without_reinterpreting_accepted_response_history",
+      "required_before": [
+        "reference_labeling",
+        "pilot_child_sealing",
+        "pilot_comparison",
+        "pilot_evaluation"
+      ],
+      "source_authority": "explicit repository-user instruction in the active Codex thread on 2026-07-25",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "future full-shadow campaign"
+      ],
+      "category": "full_campaign_gate",
+      "item_id": "ARCV1-G004",
+      "opened_by": "codex",
+      "question": "Has the repository owner explicitly approved the exact full-shadow campaign after the required bundle gates passed?",
+      "recommendation": "stop_until_explicit_approval",
+      "required_before": [
+        "full_shadow_execution"
+      ],
+      "source_authority": "Phase 2 full-refresh checkpoint requirement",
+      "status": "pending_execution_evidence"
+    },
+    {
+      "affected_artifacts": [
+        "future promotion batches"
+      ],
+      "category": "promotion_gate",
+      "item_id": "ARCV1-G005",
+      "opened_by": "codex",
+      "question": "Has the repository owner explicitly approved each proposed promotion transition set after full-shadow evaluation?",
+      "recommendation": "stop_until_explicit_approval",
+      "required_before": [
+        "promotion"
+      ],
+      "source_authority": "Phase 1 and Phase 2 explicit promotion rules",
+      "status": "pending_execution_evidence"
+    },
+    {
+      "affected_artifacts": [
+        "future blindness receipts"
+      ],
+      "category": "reported_limitation",
+      "item_id": "ARCV1-P001",
+      "opened_by": "codex",
+      "question": "Record that renderer-level blindness is testable but deliberate out-of-band filesystem inspection remains procedurally controlled?",
+      "recommendation": "carry_forward",
+      "required_before": [
+        "pilot_report"
+      ],
+      "source_authority": "shared-workspace execution model",
+      "status": "reported_limitation"
+    },
+    {
+      "affected_artifacts": [
+        "notes/annotation-refresh-campaign-v1.md",
+        "future token receipts"
+      ],
+      "category": "reported_limitation",
+      "item_id": "ARCV1-P002",
+      "opened_by": "codex",
+      "question": "Record that the future exact tokenizer and constituency output rate are unavailable, so current token estimates are deterministic proxies?",
+      "recommendation": "carry_forward",
+      "required_before": [
+        "campaign_plan"
+      ],
+      "source_authority": "local read-only tokenizer inspection",
+      "status": "reported_limitation"
+    },
+    {
+      "affected_artifacts": [
+        "future evaluation reports"
+      ],
+      "category": "reported_limitation",
+      "item_id": "ARCV1-P003",
+      "opened_by": "codex",
+      "question": "Record that legacy/current agreement is diagnostic rather than ground truth and cannot isolate prompt composition from model/version/context changes?",
+      "recommendation": "carry_forward",
+      "required_before": [
+        "pilot_report",
+        "full_refresh_report"
+      ],
+      "source_authority": "Phase 1 independent-layer rules",
+      "status": "reported_limitation"
+    },
+    {
+      "affected_artifacts": [
+        "notes/annotation-ledger-review-report-v1.md"
+      ],
+      "category": "reported_inconsistency",
+      "item_id": "ARCV1-X001",
+      "opened_by": "codex",
+      "question": "Report without repairing the stale Phase 1 sentence claiming the overlay runtime receipt does not exist?",
+      "recommendation": "report_only",
+      "required_before": [
+        "phase2_checkpoint"
+      ],
+      "source_authority": "read-only comparison of Phase 1 report, queue, receipt, sealed run, and active generation",
+      "status": "reported_not_repaired"
+    },
+    {
+      "affected_artifacts": [
+        "src/presidential_profiles/annotation_refresh.py",
+        "src/presidential_profiles/annotation_ledger.py",
+        "src/presidential_profiles/annotation_workflow.py",
+        "data/annotation_ledger/specs/registry-v2.json",
+        "data/annotation_ledger/bundles/registry-v1.json",
+        "tests/test_annotation_refresh.py"
+      ],
+      "category": "stage1_implementation_checkpoint",
+      "item_id": "ARCV1-S001",
+      "opened_by": "codex",
+      "question": "Did the approved Stage 1 implementation complete without creating or executing a campaign?",
+      "recommendation": "satisfied",
+      "required_before": [
+        "stage2_review"
+      ],
+      "source_authority": "ARCV1-RES001 and local verification evidence dated 2026-07-24",
+      "status": "satisfied"
+    },
+    {
+      "affected_artifacts": [
+        "src/presidential_profiles/annotation_refresh.py",
+        "tests/test_annotation_refresh.py",
+        "data/annotation_ledger/campaigns/camp_7cb35b8b739bcc2fb36ebe9609e81d629fee97c2d604cad5bd64d7cc25b5b316",
+        "data/annotation_ledger/work/refresh-7cb35b8b739bcc2f-constituency_only_diagnostic-composition_diagnostic",
+        "data/annotation_ledger/work/refresh-7cb35b8b739bcc2f-paragraph_judgment_v2_candidate-blind_a",
+        "data/annotation_ledger/work/refresh-7cb35b8b739bcc2f-paragraph_judgment_v2_candidate-blind_b"
+      ],
+      "category": "stage3_initialization_checkpoint",
+      "item_id": "ARCV1-S005",
+      "opened_by": "codex_stage3_orchestrator",
+      "question": "Did the authorized initializer publish the exact campaign and all three assignment-free child runs without modifying the approved plan, active generation, or protected artifacts?",
+      "recommendation": "satisfied",
+      "required_before": [
+        "first_pilot_assignment"
+      ],
+      "source_authority": "ARCV1-RES007, ARCV1-RES008, and local initialization verification dated 2026-07-24",
+      "status": "satisfied"
+    },
+    {
+      "affected_artifacts": [
+        "src/presidential_profiles/annotation_workflow.py",
+        "data/annotation_ledger/work/refresh-7cb35b8b739bcc2f-constituency_only_diagnostic-composition_diagnostic",
+        "data/annotation_ledger/work/refresh-7cb35b8b739bcc2f-paragraph_judgment_v2_candidate-blind_a",
+        "data/annotation_ledger/work/refresh-7cb35b8b739bcc2f-paragraph_judgment_v2_candidate-blind_b",
+        "future Stage 3 evaluation artifacts"
+      ],
+      "category": "first_response_provenance_blocker",
+      "item_id": "ARCV1-B001",
+      "opened_by": "codex_stage3_evaluator",
+      "question": "Can the frozen first-response assignment schema-validity numerator and denominator be reconstructed from authoritative evidence for all 400 completed pilot assignments?",
+      "recommendation": "stop_before_reference_labeling_or_any_irreversible_stage3_action",
+      "required_before": [
+        "reference_labeling",
+        "pilot_child_sealing",
+        "pilot_comparison",
+        "pilot_evaluation",
+        "spec_freeze",
+        "bundle_freeze",
+        "campaign_sealing"
+      ],
+      "source_authority": "structural audit of the completed pilot work roots and annotation_workflow.ingest_response on 2026-07-25",
+      "status": "satisfied"
+    },
+    {
+      "affected_artifacts": [
+        "src/presidential_profiles/annotation_refresh_provisional.py",
+        "src/presidential_profiles/annotation_refresh.py",
+        "data/annotation_ledger/provisional_corpus_reuse_manifests/",
+        "data/annotation_ledger/provisional_corpus_selections/",
+        "data/annotation_ledger/provisional_corpus_plans/"
+      ],
+      "category": "provisional_corpus_layer_direction",
+      "item_id": "ARCV1-D019",
+      "opened_by": "repository_user",
+      "question": "Approve a non-executable provisional-corpus planner that reuses the evaluated 240 final values, selects every other current canonical paragraph for a future exact gpt-5.6-sol/high pass, and preserves all model/version layers as distinct evidence?",
+      "recommendation": "approved_planning_only",
+      "required_before": [
+        "provisional_corpus_planning"
+      ],
+      "source_authority": "explicit repository-user request dated 2026-07-25",
+      "status": "approved"
+    },
+    {
+      "affected_artifacts": [
+        "src/presidential_profiles/annotation_refresh_provisional.py",
+        "tests/test_annotation_refresh_provisional.py",
+        "data/annotation_ledger/provisional_corpus_reuse_manifests/reuse_d5f9059121d080eab7ae31f0b4cdcf2d1be9c5bf8d3b1a6d411a4598f3ad7ec1.json",
+        "data/annotation_ledger/provisional_corpus_selections/fresh_1ab0bf0f22825aa61e83e54744d90bf0b23793e748e3d71d7801f8e8b9533cd3.json",
+        "data/annotation_ledger/provisional_corpus_plans/pcplan_541b52ab42e978227017f4d2ca5f67d7e624e5a4d76b8b256b8fb371577427bf.json"
+      ],
+      "category": "provisional_corpus_planner_checkpoint",
+      "item_id": "ARCV1-S006",
+      "opened_by": "codex",
+      "question": "Did the planner derive and publish the exact reuse manifest, fresh complement, deterministic batch/token plan, and immutable execution boundary without creating executable state?",
+      "recommendation": "satisfied_after_verification",
+      "required_before": [
+        "provisional_corpus_execution_review"
+      ],
+      "source_authority": "local implementation and verification dated 2026-07-25",
+      "status": "satisfied"
+    },
+    {
+      "affected_artifacts": [
+        "future provisional-corpus campaign",
+        "future fresh Sol assignments and responses"
+      ],
+      "category": "provisional_corpus_execution_gate",
+      "item_id": "ARCV1-G007",
+      "opened_by": "codex",
+      "question": "Has the repository owner separately authorized initialization and execution of the exact provisional-corpus plan?",
+      "recommendation": "require_explicit_owner_authorization",
+      "required_before": [
+        "campaign_initialization",
+        "run_initialization",
+        "first_fresh_assignment",
+        "model_execution"
+      ],
+      "source_authority": "the 2026-07-25 planning request explicitly prohibits initialization and execution",
+      "status": "satisfied"
+    }
+  ],
+  "queue_version": "annotation-refresh-campaign-review-queue-v1",
+  "resolutions": [
+    {
+      "applies_to_items": [
+        "ARCV1-C001",
+        "ARCV1-D001",
+        "ARCV1-D002",
+        "ARCV1-D003",
+        "ARCV1-D004",
+        "ARCV1-D005",
+        "ARCV1-D006",
+        "ARCV1-D007",
+        "ARCV1-D008",
+        "ARCV1-D009",
+        "ARCV1-D010",
+        "ARCV1-D011",
+        "ARCV1-D012",
+        "ARCV1-D013",
+        "ARCV1-D014",
+        "ARCV1-D015"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "Approve ARCV-1-C-0-0-1.",
+      "decided_by": "repository_user",
+      "decision": "approved_stage1_only",
+      "rationale": "The user explicitly approved the umbrella contract checkpoint. The approval accepts the contract decisions and authorizes Stage 1 implementation only; all later execution and publication checkpoints remain required.",
+      "resolution_date": "2026-07-24",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES001"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-S001"
+      ],
+      "authority": "verified repository state under approved Stage 1 scope",
+      "decided_by": "codex",
+      "decision": "satisfied",
+      "rationale": "The additive registries, provider-neutral bundle/campaign foundations, workflow decoding, constituency projection, documentation routing, and tests were implemented. Focused tests passed 55/55 and the complete suite passed 2464/2464. No campaign, selection, assignment, model response, sealed run, decision, promotion, materialization, site build, or deployment was created.",
+      "resolution_date": "2026-07-24",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES002"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-S002"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "Authorize Stage 2 planning only.",
+      "decided_by": "repository_user",
+      "decision": "approved_planning_only",
+      "rationale": "The user explicitly authorized creation of the Stage 2 plan but did not authorize campaign initialization, assignments, labeling, sealing, adjudication, promotion, materialization, site generation, or deployment.",
+      "resolution_date": "2026-07-24",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES003"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-I001",
+        "ARCV1-D016"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "Approve ARCV1-I001 and ARCV1-D016.",
+      "decided_by": "repository_user",
+      "decision": "approved_recommended_amendments",
+      "rationale": "The user explicitly approved the constructible 482-paragraph design-balanced core, producing a 722-paragraph combined pilot after the unchanged 96-paragraph enrichment and 144-paragraph diagnostic frames, and approved limiting probability-weighted inference to that evaluation frame rather than claiming whole-corpus prevalence.",
+      "resolution_date": "2026-07-24",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES004"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-S003",
+        "ARCV1-S004"
+      ],
+      "authority": "verified repository state under ARCV1-RES003 and ARCV1-RES004",
+      "decided_by": "codex",
+      "decision": "satisfied",
+      "rationale": "The paragraph renderer now transmits target text once with shared outer context and honors persisted batch partitions. The deterministic planner published exact 722/144/240 content-addressed selections and one non-executable plan with a 182/182/36 three-pass partition. Replanning reproduced the same four artifact byte hashes; 57 focused annotation tests and all 2,466 repository tests passed. Portable Reggie Doctor reported 0 errors, 0 warnings, and 5 informational findings. No run, assignment, response, seal, adjudication, promotion, materialization, site build, or deployment was created.",
+      "resolution_date": "2026-07-24",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES005"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G002"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "Approve ARCV1-G002.",
+      "decided_by": "repository_user",
+      "decision": "approved_exact_stage2_plan",
+      "rationale": "The user explicitly approved the exact content-addressed 722/144/240 selections, prompt/schema/bundle/render hashes, required high-effort execution profile, fixed 182/182/36 assignment partitions, deterministic 3,359,122-token pilot input estimate, and 3,695,035-token ceiling. This approval satisfies the Stage 2 plan-review gate only. It does not supply the future runtime identity, initialize executable campaign state, authorize a model assignment, or authorize labeling, sealing, adjudication, promotion, materialization, site generation, or deployment.",
+      "resolution_date": "2026-07-24",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES006"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G001"
+      ],
+      "authority": "exact current Codex runtime metadata exposed to the active turn",
+      "decided_by": "codex",
+      "decision": "satisfied_exact_runtime_profile",
+      "rationale": "A fresh restricted Codex turn exposed exact runtime model identifier gpt-5.6-sol and actual reasoning effort high. Both exactly match the approved paragraph and constituency-diagnostic execution profile. This resolution records runtime evidence only; it did not initialize a campaign, child run, assignment, or labeling.",
+      "resolution_date": "2026-07-24",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES007",
+      "runtime_receipt": {
+        "model_id": "gpt-5.6-sol",
+        "observed_at": "2026-07-25T02:33:43.967Z",
+        "reasoning_effort": "high",
+        "receipt_version": "codex-runtime-model-identity-v1",
+        "session_id": "019f9718-ffcf-7d13-86ad-5b3fe9231400",
+        "source": "nodeRepl.requestMeta.x-codex-turn-metadata",
+        "specificity": "exact_runtime_identifier",
+        "thread_id": "019f9718-ffcf-7d13-86ad-5b3fe9231400",
+        "turn_id": "019f971f-131a-7e70-8d96-ba699f209a64",
+        "turn_started_at_unix_ms": 1784946823967
+      }
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G006"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "Authorize ARCV1-G006 pilot execution.",
+      "decided_by": "repository_user",
+      "decision": "approved_exact_pilot_execution",
+      "rationale": "After ARCV1-RES007 satisfied the exact gpt-5.6-sol/high runtime prerequisite, the repository user explicitly authorized initialization and execution of the exact approved pilot. The authorization does not approve a specification freeze, full-shadow refresh, promotion, materialization, site generation, or deployment. This checkpoint conversation did not initialize or execute any campaign state.",
+      "resolution_date": "2026-07-24",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES008"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-S005"
+      ],
+      "authority": "verified repository state under ARCV1-RES007 and ARCV1-RES008",
+      "decided_by": "codex",
+      "decision": "satisfied_assignment_free_campaign_initialization",
+      "rationale": "The provider-neutral Stage 3 initializer validated the immutable plan, append-only G001/G006 resolutions, exact gpt-5.6-sol/high profile, live corpus snapshot, bundle hashes, selection hashes, fixed pass expansion, and policy hashes before publishing campaign camp_7cb35b8b739bcc2fb36ebe9609e81d629fee97c2d604cad5bd64d7cc25b5b316. It initialized the 722-subject blind_a, 722-subject blind_b, and 144-subject composition_diagnostic child runs with zero assignments, responses, or events. The approved plan bytes and active Phase 1 generation remained unchanged. Every future next call requires a fresh exact runtime receipt and a no-sibling-inspection blindness receipt.",
+      "resolution_date": "2026-07-24",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES009"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-B001",
+        "ARCV1-D017"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "I didn't touch any of these responses, so we know it was all machine done. I want to supersede this requirement, or even just remove it and unfreeze it because we realized it was unnecessary.",
+      "decided_by": "repository_user",
+      "decision": "approved_pre_results_first_response_gate_removal",
+      "rationale": "Before reference labeling, candidate-label inspection, comparison, evaluation, adjudication, or any gate decision, the repository owner attested that the completed responses were machine-produced without owner payload edits and explicitly removed first-response schema validity as a decision requirement. The amendment removes the absolute first-response threshold and both schema-validity non-inferiority margins. Accepted responses and events must still be completely schema-valid, all remaining structural and substantive gates remain unchanged, and the original campaign manifest and base policy hash remain immutable historical evidence.",
+      "resolution_date": "2026-07-25",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES010"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G003"
+      ],
+      "authority": "content-addressed Stage 3 evaluation evidence under the frozen effective policy",
+      "decided_by": "codex_stage3_evaluator",
+      "decision": "rejected_spec_and_bundle_freeze_after_failed_pilot_gates",
+      "rationale": "Evaluation eval_bbb2212dea6936070b23bff11100615c602396b72d2fe6058cc707864f060b61 applied the pre-results effective policy sha256:43c4b5c1ff7bdb6d43c7586b1413e5db8ef6df8b08419a815b52d689b17098ae after all pilot, independent-reference, comparison, adjudication, structural, and blindness evidence was sealed. It passed 114 of 150 gates and failed 36: 13 constituency gates and 23 existing-label gates; all 13 structural gates and all 6 composition gates passed. The contract requires every gate to pass, so no constituency-v1 specification, paragraph-judgment-v2 bundle, or passing campaign outcome was frozen or published. Current labels and the active materialized generation remain unchanged.",
+      "resolution_date": "2026-07-25",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES011"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-D019"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "Objective: implement and verify a non-executable planner for a corpus-wide, provisional Sol 5.6 paragraph-label layer. Do not initialize or execute model assignments in this task.",
+      "decided_by": "repository_user",
+      "decision": "approved_provisional_corpus_planning_only",
+      "rationale": "The user approved an additive planning path that treats Sonnet, Opus, the evaluated Sol subset, its adjudication, and a future Sol corpus layer as distinct evidence. The approval requires reuse of all 1,680 evaluated final fields, exact key-based exclusion of the 240 evaluated paragraphs, fresh selection of every other eligible paragraph, exact gpt-5.6-sol/high planning metadata, and an explicit prohibition on initialization or execution without a separate owner authorization.",
+      "resolution_date": "2026-07-25",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES012"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-S006"
+      ],
+      "authority": "verified repository state under ARCV1-RES012",
+      "decided_by": "codex",
+      "decision": "satisfied_non_executable_provisional_corpus_planner",
+      "rationale": "The planner published exactly three content-addressed artifacts: 240-subject/1,680-field reuse with 972 unanimous and 708 adjudicated finals, the exact 35,154-subject fresh complement with all other 482 pilot paragraphs and 9,186 deterministic assignments, and a non-executable exact-model/hash/token/assembly plan. Two real invocations produced identical IDs and bytes. Ten focused planner tests and all 61 annotation-refresh/workflow/ledger tests passed; compilation, registry validation, content identity, side-effect counts, static offline inspection, and whitespace checks passed. The full suite reported 2,497 passes and one documented unrelated story-page copy assertion failure. No campaign, run, assignment, response, seal, decision, promotion, generation, active pointer, site build, or deployment was created.",
+      "resolution_date": "2026-07-25",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES013"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "I explicitly authorize initialization and execution of the exact provisional-corpus plan:\n\npcplan_541b52ab42e978227017f4d2ca5f67d7e624e5a4d76b8b256b8fb371577427bf",
+      "decided_by": "repository_user",
+      "decision": "approved_exact_provisional_corpus_execution",
+      "rationale": "The repository owner explicitly authorized initialization and complete execution of the exact content-addressed provisional-corpus plan, including its fixed 9,186-assignment partition, exact gpt-5.6-sol/high runtime, validated attempt and response evidence, sealing, and provisional composite publication. The authorization preserves every locked input and evaluated reuse value and explicitly prohibits production eligibility, promotion, materialization, active-pointer changes, site generation, deployment, and modification of frozen paid artifacts.",
+      "resolution_date": "2026-07-25T20:17:39.392Z",
+      "resolution_date_precision": "millisecond",
+      "resolution_id": "ARCV1-RES014"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "I authorize, annotate the data in this chat.",
+      "decided_by": "repository_user",
+      "decision": "approved_in_chat_exact_model_payload_execution",
+      "rationale": "In direct response to the disclosed external-model payload boundary, the repository owner authorized annotation in the active Codex chat. This resumes ARCV1-RES014 execution of the exact 9,186 rendered assignment payloads with the locked gpt-5.6-sol/high profile and local provisional receipt persistence. The authorization does not permit promotion, materialization, active-pointer changes, site generation, deployment, or modification of frozen paid artifacts.",
+      "resolution_date": "2026-07-25",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES015"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "I explicitly authorize Codex to transmit all 9,186 rendered ARCV1 assignment payloads\u2014including the locked prompt, response schema, context artifacts, and Miller Center speech paragraph text, even if those context artifacts may be sensitive\u2014to OpenAI\u2019s gpt-5.6-sol model at high reasoning for annotation, and to store the resulting provisional responses locally. This does not authorize promotion, materialization, site generation, deployment, or modification of frozen paid artifacts.",
+      "decided_by": "repository_user",
+      "decision": "approved_explicit_openai_payload_transmission_and_local_provisional_persistence",
+      "rationale": "After the safety reviewer required an explicit payload, sensitivity, and destination boundary, the repository owner authorized transmission of every exact rendered ARCV1 assignment payload to OpenAI gpt-5.6-sol/high and local persistence of the provisional responses. The authorization preserves the fixed plan, retry and token ceilings, and all prohibitions on promotion, materialization, site generation, deployment, and frozen paid artifact modification.",
+      "resolution_date": "2026-07-25T21:08:36Z",
+      "resolution_date_precision": "second",
+      "resolution_id": "ARCV1-RES016"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "verified provisional execution evidence under ARCV1-RES014 and ARCV1-RES016",
+      "decided_by": "codex_provisional_executor",
+      "decision": "blocked_exact_execution_after_retry_exhaustion_and_protected_state_drift",
+      "rationale": "The exact provisional campaign initialized 9,186 locked assignments and began authorized gpt-5.6-sol/high execution. Eighteen assignments were accepted. Assignment index 12 exhausted the frozen 1+2 mechanical attempt policy: attempt 1 was conservatively charged after local ENOSPC prevented durable delivery, and attempts 2 and 3 independently failed the registered constituency validator. The control plane therefore set retry_exhausted_blocked and stopped further claims. Separately, the generated docs tree changed from the initialization baseline while execution was in progress; the executor did not generate the site and will not overwrite or revert user-owned generated output. The run cannot satisfy its completion audit, seal, or publish a composite without a new explicit owner decision that supersedes the frozen retry and protected-state boundaries.",
+      "resolution_date": "2026-07-25T21:37:05Z",
+      "resolution_date_precision": "second",
+      "resolution_id": "ARCV1-RES017"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "space resolved, please continue",
+      "decided_by": "repository_user",
+      "decision": "approved_narrow_infrastructure_recovery_amendment",
+      "rationale": "In direct response to the executor's exact proposed amendment, the repository owner confirmed that disk space was resolved and directed execution to continue. This authorizes exactly one additional unchanged-payload gpt-5.6-sol/high attempt for assignment index 12 to replace the ENOSPC-lost delivery, with no repair prompt, payload edit, repartition, or broader retry increase. It also acknowledges the current docs tree as user-owned concurrent output and authorizes its current digest as the superseding protected docs baseline while every other protected component remains fixed. Execution must stop if the additional attempt fails or another protected component drifts.",
+      "resolution_date": "2026-07-25T22:18:14Z",
+      "resolution_date_precision": "second",
+      "resolution_id": "ARCV1-RES018"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "verified provisional execution evidence under ARCV1-RES018",
+      "decided_by": "codex_provisional_executor",
+      "decision": "blocked_after_owner_authorized_recovery_attempt_failed",
+      "rationale": "The content-addressed RES018 amendment granted assignment index 12 exactly one additional unchanged-payload attempt and overlaid only the owner-authorized docs digest. Attempt 4 used the locked gpt-5.6-sol/high profile and unchanged rendered input but failed the registered constituency validator because an explicit claim carried a resolved referent. The control plane returned the assignment to terminal_failed and set retry_exhausted_blocked. Per RES018, no other assignment was claimed. The campaign remains incomplete at 18 accepted, one terminally failed, and 9,167 available assignments; it cannot audit, seal, or publish a composite under the current authority.",
+      "resolution_date": "2026-07-25T22:21:48Z",
+      "resolution_date_precision": "second",
+      "resolution_id": "ARCV1-RES019"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "I would like to try running this again and getting the best data we can",
+      "decided_by": "repository_user",
+      "decision": "approved_single_validator_feedback_repair_attempt",
+      "rationale": "After reviewing why assignment index 12 repeatedly failed the constituency consistency rules, the repository owner explicitly directed another run aimed at the best attainable data. This authorizes exactly one fresh gpt-5.6-sol/high re-annotation of the unchanged assignment with a bounded validator-feedback supplement limited to literal group_text/evidence_span containment and explicit-versus-context_resolved consistency. The new session may not inspect prior responses, no prior artifact may be edited, no other label guidance or assignment may change, and execution must stop if the repair attempt fails.",
+      "resolution_date": "2026-07-25T22:44:48Z",
+      "resolution_date_precision": "second",
+      "resolution_id": "ARCV1-RES020"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "yes please do that, I just want it to make a call, it's okay if we don't have a ton of confidence in it quite yet, we just want to record all of this so we can keep improving the scripts",
+      "decided_by": "repository_user",
+      "decision": "approved_recorded_constituency_validator_feedback_retries",
+      "rationale": "After a bounded concurrency pilot accepted 27 of 32 assignments but exposed a second terminally failed constituency assignment, the repository owner authorized the proposed recorded retry policy. Ordinary first attempts remain unchanged. A fresh retry may receive the fixed constituency-validator supplement only when the immediately preceding attempt failed the registered constituency validator; the model may not inspect prior responses. Assignment index 41 receives exactly one additional guided attempt beyond the base ceiling. All responses and validation evidence remain provisional and locally recorded to support future script improvement; confidence is not promoted. This does not authorize materialization, promotion, active-pointer changes, site generation, deployment, or modification of frozen paid artifacts.",
+      "resolution_date": "2026-07-25T23:05:00Z",
+      "resolution_date_precision": "minute",
+      "resolution_id": "ARCV1-RES021"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "verified provisional execution evidence under ARCV1-RES021",
+      "decided_by": "codex_provisional_executor",
+      "decision": "blocked_after_recorded_retry_policy_exposed_transcript_normalization_failure",
+      "rationale": "RES021's fixed constituency-validator supplement recovered assignment 41 on its authorized fourth attempt, assignment 32 on its second attempt, and later conditional retries while preserving exact receipts. Execution reached 708 accepted assignments with 38 accepted feedback-guided responses, 91 invalid receipts, 8,477 available assignments, no started or claimed work, and 7,084,809 conservatively reserved input-proxy tokens. Assignment index 8912 exhausted its base three-attempt ceiling: every response changed the exact target wording 'we protecting America at home' to the grammatically normalized but non-verbatim \"we're protecting America at home\", so the registered exact-substring validator correctly rejected all three. Thirty-one later assignments remain available with prior invalid receipts after workers stopped at the global safety boundary. All raw outputs, validation messages, model receipts, and feedback hashes remain locally recorded and provisional. No response was locally repaired, and no promotion, materialization, site generation, deployment, frozen paid-artifact edit, seal, or composite publication occurred. A stronger no-transcript-normalization instruction and any additional attempt for assignment 8912 require a new explicit owner decision.",
+      "resolution_date": "2026-07-26T00:03:44Z",
+      "resolution_date_precision": "second",
+      "resolution_id": "ARCV1-RES022"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "I explicitly authorize Codex to transmit ARCV1 assignment 8912 for one additional gpt-5.6-sol/high attempt, and remaining constituency-validator retry payloads, with an enhanced fixed instruction not to normalize, correct, or punctuate transcript wording. Store all responses and validation evidence locally as provisional data only. This does not authorize promotion, materialization, site generation, deployment, or modification of frozen paid artifacts.",
+      "decided_by": "repository_user",
+      "decision": "approved_enhanced_literal_transcript_validator_retries",
+      "rationale": "After ARCV1-RES022 identified a reproducible transcript-normalization failure, the repository owner explicitly authorized one additional fresh gpt-5.6-sol/high attempt for assignment 8912 and an enhanced fixed supplement for remaining constituency-validator retries. The supplement restates that evidence spans and group text must copy raw target characters literally and must not correct grammar, insert contractions or punctuation, or normalize Unicode or whitespace. Ordinary first attempts remain unchanged, prior responses remain unavailable to the model, and all outputs and validation evidence remain local provisional research data. Promotion, materialization, site generation, deployment, and frozen paid-artifact modification remain prohibited.",
+      "resolution_date": "2026-07-26",
+      "resolution_date_precision": "date",
+      "resolution_id": "ARCV1-RES023"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "verified provisional execution evidence under ARCV1-RES023",
+      "decided_by": "codex_provisional_executor",
+      "decision": "blocked_after_enhanced_retry_exposed_leading_character_repair",
+      "rationale": "RES023 recovered assignment 8912 on its authorized fourth attempt and supplied a separately hashed enhanced literal-transcript supplement to remaining constituency-validator retries. Execution advanced to 3,584 accepted assignments, including 338 accepted responses whose receipts record a feedback supplement, with 5,601 available assignments, 400 invalid receipts, 35,427,863 conservatively reserved input-proxy tokens, 4,586,797 tokens of headroom after one next call for every available assignment, and no started or claimed work. Assignment 8177 exhausted the base three-attempt ceiling because every response changed the damaged source substring \"t has stood for concern for the people's welfare.\" to the normalized \"It has stood for concern for the people's welfare.\" despite enhanced guidance. Thirty-one other available assignments retain prior invalid receipts and remaining base-policy attempts. All outputs and validation evidence remain local provisional data; no response was locally repaired, promoted, materialized, sealed, or published, and no site generation, deployment, or frozen paid-artifact modification occurred. An assignment-specific literal hint and any additional call for assignment 8177 require a new explicit owner decision.",
+      "resolution_date": "2026-07-26T02:06:26Z",
+      "resolution_date_precision": "second",
+      "resolution_id": "ARCV1-RES024"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "I want to change the policy so it continues automatically in this scenario:\n\nI explicitly authorize Codex to transmit ARCV1 assignment 8177 for one additional gpt-5.6-sol/high attempt, and remaining constituency-validator retry payloads, with an assignment-specific literal hint and an instruction to shorten evidence spans until they exactly match the target text. Store all results locally as provisional evidence only. This does not expand the token ceiling or authorize promotion, materialization, site generation, deployment, or modification of frozen paid artifacts.",
+      "decided_by": "repository_user",
+      "decision": "approved_automatic_targeted_literal_constituency_retries",
+      "rationale": "The repository owner explicitly authorized assignment 8177's fourth gpt-5.6-sol/high attempt and changed the remaining retry policy so equivalent constituency exact-substring exhaustion cases continue automatically. A remaining constituency retry may receive a deterministic assignment-specific hint only when recorded local validation evidence identifies a literal target substring containing the claimed group. An assignment that exhausts three constituency exact-substring attempts may receive exactly one additional fresh attempt under that same verified hint; a failed fourth attempt remains terminal. Prior responses are not transmitted, the locked rendering and ordinary attempts remain unchanged, and the existing 89,830,303 input-token ceiling is not expanded. All results remain local provisional evidence; promotion, materialization, site generation, deployment, and frozen paid-artifact modification remain prohibited.",
+      "resolution_date": "2026-07-26T02:16:06Z",
+      "resolution_date_precision": "second",
+      "resolution_id": "ARCV1-RES025"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "I explicitly authorize Codex to continue ARCV1 campaign pcamp_ce0ff257543c3a342d96147b9e5e46953ca7016aab9bf29f1c6f1b573100939b and increase its input-proxy token ceiling from 89,830,303 to **93,000,000**.\nThis authorization covers completion of the 109 currently nonterminal assignments under the existing locked gpt-5.6-sol/high payload, schema, and retry policies. It also authorizes up to three additional attempts for terminal assignments 844, 2265, 2266, 3907, 4282, 6496, and 8895. Infrastructure-failed assignments must use the unchanged locked payload. Assignments 844 and 3907 may receive an appended validator-feedback supplement, but the model must not normalize, correct, repunctuate, or otherwise alter transcript wording. No response may be locally repaired.\nI authorize transmission of these remaining and retry payloads—including their locked prompts, schemas, context artifacts, and Miller Center paragraph text—to OpenAI’s gpt-5.6-sol model at high reasoning, and authorize storing all attempts, responses, receipts, and validation evidence locally as provisional data.\nI also authorize recording the current docs/ tree—348 files, sha256:a7215af43f9c35378a45aae7fbd9dd251a415140f2e805569bcb43a7938a8af4—as the protected-state overlay without modifying or regenerating docs/.\nContinue automatically through the remaining assignments and authorized retries, then audit and seal the provisional run and create the non-promoted composite evidence artifact if every integrity requirement passes. This does not authorize promotion, production materialization, site generation, deployment, or modification of frozen paid artifacts in data/llm_annotations/. Stop only at a new genuine integrity blocker.",
+      "decided_by": "repository_user",
+      "decision": "approved_provisional_corpus_completion_amendment",
+      "rationale": "The repository owner explicitly expanded the conservative input-proxy ceiling to 93,000,000 for the remaining provisional work, authorized up to three additional attempts for the seven named terminal assignments, reaffirmed unchanged payloads for infrastructure failures and enhanced no-normalization validator feedback for the two semantic failures, and approved the exact current docs-tree digest as a protected-state overlay. The locked model, high reasoning effort, assignment renderings, schemas, ordinary retry behavior, provisional-only status, and prohibition on local response repair remain in force. Promotion, production materialization, site generation, deployment, and frozen paid-artifact modification remain prohibited.",
+      "resolution_date": "2026-07-30T02:49:00Z",
+      "resolution_date_precision": "minute",
+      "resolution_id": "ARCV1-RES026"
+    },
+    {
+      "applies_to_items": [
+        "ARCV1-G007"
+      ],
+      "authority": "repository user in the active Codex thread",
+      "authority_quote": "I explicitly authorize Codex to append a protected-state overlay replacing the RES026-approved docs/ digest with the current observed tree—348 files, sha256:e96417db8b1b8e9b8bddb05f3755df498ba8842ab3fc5c097e38591152ba4705—without modifying or regenerating docs/. Continue automatically through audit, sealing, and creation and verification of the non-promoted composite evidence artifact. This does not authorize promotion, production materialization, site generation, deployment, or modification of frozen paid artifacts.",
+      "decided_by": "repository_user",
+      "decision": "approved_postcompletion_docs_protected_state_overlay",
+      "rationale": "After all 9,186 assignments completed, the audit verified execution structure and stopped solely because concurrent user-owned generated-site changes produced a docs-tree digest different from RES026's exact overlay. The repository owner explicitly authorized the newly observed 348-file digest as a docs-only protected-state overlay and directed audit, sealing, and non-promoted composite publication to continue. The overlay does not modify or regenerate docs and does not authorize promotion, production materialization, site generation, deployment, or frozen paid-artifact modification.",
+      "resolution_date": "2026-07-30T03:31:00Z",
+      "resolution_date_precision": "minute",
+      "resolution_id": "ARCV1-RES027"
+    }
+  ],
+  "schema": {
+    "item_statuses": [
+      "pending_review",
+      "pending_execution_evidence",
+      "reported_limitation",
+      "reported_not_repaired",
+      "approved",
+      "rejected",
+      "deferred",
+      "satisfied"
+    ],
+    "resolution_rule": "A pending item is resolved only by an explicit append-only resolution carrying authority, deciding identity, decision, date/time precision, and rationale. Approval of ARCV1-C001 authorizes Stage 1 only unless the resolution explicitly says otherwise."
+  }
+}

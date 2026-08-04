@@ -1,0 +1,24 @@
+{
+  "schema_version": "grammar-pos-v1",
+  "model": "spaCy en_core_web_sm coarse POS tagger",
+  "unit": "speech",
+  "labels": [
+    "NOUN",
+    "PROPN",
+    "VERB",
+    "AUX",
+    "ADJ",
+    "ADV",
+    "PRON",
+    "DET",
+    "ADP",
+    "CCONJ",
+    "SCONJ",
+    "NUM"
+  ],
+  "limitations": [
+    "Coarse POS shares are not a full syntax or grammar model.",
+    "Historical spelling, OCR, quotations, and genre can affect tags.",
+    "The artifact describes the formal speech corpus, not all presidential communication."
+  ]
+}

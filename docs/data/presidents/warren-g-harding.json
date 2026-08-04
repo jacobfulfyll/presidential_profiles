@@ -1,0 +1,1223 @@
+{
+  "schema_version": "president-profile-v3",
+  "president": "Warren G. Harding",
+  "slug": "warren-g-harding",
+  "party": "Republican",
+  "years": {
+    "first": 1917,
+    "last": 1922
+  },
+  "sample": {
+    "n_speeches": 18,
+    "n_words": 28731,
+    "thin_record": false,
+    "warning": null
+  },
+  "rhetorical_radar": [
+    {
+      "key": "hope",
+      "label": "Hope",
+      "absolute": 775.9547677685663,
+      "percentile": 95.55555555555556
+    },
+    {
+      "key": "fear",
+      "label": "Fear appeal",
+      "absolute": 368.3790627493149,
+      "percentile": 95.55555555555556
+    },
+    {
+      "key": "certainty",
+      "label": "Certainty",
+      "absolute": 0.7099056603773585,
+      "percentile": 64.44444444444444
+    },
+    {
+      "key": "us_vs_them",
+      "label": "Us vs them",
+      "absolute": 39.54351521037844,
+      "percentile": 15.555555555555555
+    },
+    {
+      "key": "self_reference",
+      "label": "Self-reference",
+      "absolute": 0.2223168654173765,
+      "percentile": 8.88888888888889
+    },
+    {
+      "key": "formality",
+      "label": "Formality",
+      "absolute": 13.80805464297592,
+      "percentile": 40.0
+    },
+    {
+      "key": "vocabulary",
+      "label": "Vocabulary",
+      "absolute": 0.4399642857142857,
+      "percentile": 97.77777777777777
+    },
+    {
+      "key": "religiosity",
+      "label": "Religiosity",
+      "absolute": 15.26240937944431,
+      "percentile": 84.44444444444444
+    }
+  ],
+  "raw_stats": {
+    "party": "Republican",
+    "first_year": 1917,
+    "last_year": 1922,
+    "n_speeches": 18,
+    "n_words": 28731,
+    "boosters": 20.118630545631135,
+    "hedges": 35.03416698463353,
+    "concessives": 7.631204689722155,
+    "assertive_modals": 84.29012452738561,
+    "need_to": 1.3874917617676645,
+    "united_states": 3.8156023448610776,
+    "america": 84.29012452738561,
+    "nostalgia": 14.568663498560477,
+    "future": 7.631204689722155,
+    "religiosity": 15.26240937944431,
+    "god_bless": 0.0,
+    "us_them": 39.54351521037844,
+    "superlatives": 11.446807034583232,
+    "opponents": 7.631204689722155,
+    "hype": 4.162475285302993,
+    "doom": 7.631204689722155,
+    "mechanism": 12.48742585590898,
+    "nrc_hope": 775.9547677685663,
+    "nrc_fear": 368.3790627493149,
+    "certainty": 0.7099056603773585,
+    "fk_grade": 13.80805464297592,
+    "self_reference": 0.2223168654173765,
+    "ttr": 0.4399642857142857,
+    "pct_hope": 95.55555555555556,
+    "pct_fear": 95.55555555555556,
+    "pct_certainty": 64.44444444444444,
+    "pct_us_vs_them": 15.555555555555555,
+    "pct_self_reference": 8.88888888888889,
+    "pct_formality": 40.0,
+    "pct_vocabulary": 97.77777777777777,
+    "pct_religiosity": 84.44444444444444
+  },
+  "legacy_issue_attention": [
+    {
+      "key": "Economy & jobs",
+      "label": "Economy & jobs",
+      "share": 0.1513,
+      "era_relative_difference": -7.0808
+    },
+    {
+      "key": "Taxes & budget",
+      "label": "Taxes & budget",
+      "share": 0.042,
+      "era_relative_difference": -4.6767
+    },
+    {
+      "key": "War & military",
+      "label": "War & military",
+      "share": 0.3319,
+      "era_relative_difference": 7.2128
+    },
+    {
+      "key": "Foreign policy",
+      "label": "Foreign policy",
+      "share": 0.0966,
+      "era_relative_difference": -6.1
+    },
+    {
+      "key": "Immigration",
+      "label": "Immigration",
+      "share": 0.0924,
+      "era_relative_difference": 6.5185
+    },
+    {
+      "key": "Civil rights & race",
+      "label": "Civil rights & race",
+      "share": 0.0294,
+      "era_relative_difference": -1.1594
+    },
+    {
+      "key": "Health care",
+      "label": "Health care",
+      "share": 0.0126,
+      "era_relative_difference": -1.7841
+    },
+    {
+      "key": "Education",
+      "label": "Education",
+      "share": 0.0336,
+      "era_relative_difference": 0.1096
+    },
+    {
+      "key": "Crime & justice",
+      "label": "Crime & justice",
+      "share": 0.0084,
+      "era_relative_difference": -3.889
+    },
+    {
+      "key": "Energy & environment",
+      "label": "Energy & environment",
+      "share": 0.021,
+      "era_relative_difference": -0.8796
+    },
+    {
+      "key": "Trade & tariffs",
+      "label": "Trade & tariffs",
+      "share": 0.1218,
+      "era_relative_difference": -3.2059
+    },
+    {
+      "key": "Agriculture",
+      "label": "Agriculture",
+      "share": 0.0756,
+      "era_relative_difference": 0.3199
+    },
+    {
+      "key": "Religion & values",
+      "label": "Religion & values",
+      "share": 0.1429,
+      "era_relative_difference": 8.2965
+    },
+    {
+      "key": "Money & banking",
+      "label": "Money & banking",
+      "share": 0.0252,
+      "era_relative_difference": -3.275
+    },
+    {
+      "key": "Infrastructure",
+      "label": "Infrastructure",
+      "share": 0.084,
+      "era_relative_difference": -6.3715
+    },
+    {
+      "key": "Discovered 5",
+      "label": "Security & peace",
+      "share": 0.2437,
+      "era_relative_difference": 8.4596
+    }
+  ],
+  "issue_evidence": {
+    "cards": [
+      {
+        "issue": "Discovered 5",
+        "rel": 8.459619479905284,
+        "share": 0.24369747899159663,
+        "base": 0.20398023682685143,
+        "topic_of_day": false,
+        "words": [
+          "civilization",
+          "conscience",
+          "nationality",
+          "world",
+          "fortune"
+        ],
+        "quote": "In the call of the conscience of America is peace, peace that closes the gaping wound of world war, and silences the impassioned voices of international envy and distrust.",
+        "cite": "Speech Accepting the Republican Nomination, 1920",
+        "stance": "mostly about ending wars"
+      },
+      {
+        "issue": "Religion & values",
+        "rel": 8.296498755239364,
+        "share": 0.14285714285714285,
+        "base": 0.06011758535979464,
+        "topic_of_day": false,
+        "words": [
+          "republic",
+          "understanding",
+          "concord"
+        ],
+        "quote": "I can only pray to the Omnipotent God that I may be as worthy in service as I know myself to be faithful in thought and purpose.",
+        "cite": "Speech Accepting the Republican Nomination, 1920",
+        "stance": null
+      },
+      {
+        "issue": "War & military",
+        "rel": 7.212756123337166,
+        "share": 0.3319327731092437,
+        "base": 0.22233569792155455,
+        "topic_of_day": false,
+        "words": [
+          "sons"
+        ],
+        "quote": "My countrymen, the surpassing war of all times has involved us, and found us utterly unprepared in either a mental or military sense.",
+        "cite": "The Republic Must Awaken, 1917",
+        "stance": "mostly about ending wars"
+      },
+      {
+        "issue": "Immigration",
+        "rel": 6.518486414977623,
+        "share": 0.09243697478991597,
+        "base": 0.026994948797924315,
+        "topic_of_day": false,
+        "words": [
+          "citizenship",
+          "eminence",
+          "contemplates"
+        ],
+        "quote": "I believe in established standards for immigration, which are concerned with the future citizenship of the republic, not with mere manpower in industry.",
+        "cite": "Speech Accepting the Republican Nomination, 1920",
+        "stance": "mostly about welcoming"
+      }
+    ],
+    "voice": [
+      "railway",
+      "insistent",
+      "readjustment",
+      "relationship",
+      "transportation",
+      "activities"
+    ],
+    "n_speeches": 18,
+    "n_paragraphs": 238,
+    "low_confidence": false
+  },
+  "ai": {
+    "n_paragraphs": 238,
+    "n_speeches": 18,
+    "low_confidence": false,
+    "top_topics": [
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "definition": "Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.",
+        "share": 19.75,
+        "rel": 11.51,
+        "n": 47
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "definition": "Relations between labor and capital, the right to organize, wages and labor legislation, child labor, and urban tenement and social-welfare reform.",
+        "share": 16.81,
+        "rel": 10.92,
+        "n": 40
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.",
+        "share": 14.71,
+        "rel": 1.69,
+        "n": 35
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "definition": "America's entry into the European war, the draft and supply machinery, and the assertion of unselfish national ideals and purposes.",
+        "share": 10.08,
+        "rel": 6.15,
+        "n": 24
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "definition": "Federal support for roads, canals, harbors, energy production and pipelines, and rebuilding the nation's infrastructure, including constitutional debate over such works.",
+        "share": 8.4,
+        "rel": -0.0,
+        "n": 20
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "definition": "Import duties and protective tariffs, reciprocal trade and navigation treaties, tonnage, and disputes over trade practices with foreign rivals.",
+        "share": 7.56,
+        "rel": -0.52,
+        "n": 18
+      }
+    ],
+    "distinctive_topics": [
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "definition": "Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.",
+        "share": 19.75,
+        "rel": 11.51,
+        "n": 47
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "definition": "Relations between labor and capital, the right to organize, wages and labor legislation, child labor, and urban tenement and social-welfare reform.",
+        "share": 16.81,
+        "rel": 10.92,
+        "n": 40
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "definition": "America's entry into the European war, the draft and supply machinery, and the assertion of unselfish national ideals and purposes.",
+        "share": 10.08,
+        "rel": 6.15,
+        "n": 24
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "definition": "Reflections on the constitutional compact, the balance between state sovereignty and federal authority, secession, and preservation of the Union.",
+        "share": 6.3,
+        "rel": 4.18,
+        "n": 15
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "definition": "The United Nations and international order, economic assistance to developing nations, and the conviction that America should spread liberty and democracy abroad.",
+        "share": 5.04,
+        "rel": 3.14,
+        "n": 12
+      }
+    ],
+    "domains": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 20.59,
+        "rel": -1.38
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 20.17,
+        "rel": 0.61
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 19.75,
+        "rel": 11.51
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 18.49,
+        "rel": 6.09
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 13.03,
+        "rel": 1.35
+      }
+    ],
+    "topic_attention": [
+      {
+        "name": "Neutral Rights & Maritime Depredations",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -1.502,
+        "n": 0
+      },
+      {
+        "name": "Treaties, Diplomacy & International Arbitration",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 14.706,
+        "rel": 1.687,
+        "n": 35
+      },
+      {
+        "name": "Relations with Spain, Mexico & Territorial Claims",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.42,
+        "rel": -1.801,
+        "n": 1
+      },
+      {
+        "name": "Monroe Doctrine & Latin American Policy",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 1.681,
+        "rel": -4.484,
+        "n": 4
+      },
+      {
+        "name": "Cold War & Great-Power Rivalry",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 1.261,
+        "rel": 0.887,
+        "n": 3
+      },
+      {
+        "name": "Nuclear Weapons & Arms Control",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.42,
+        "rel": 0.225,
+        "n": 1
+      },
+      {
+        "name": "Middle East & Israel",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 0.0,
+        "rel": -0.013,
+        "n": 0
+      },
+      {
+        "name": "World Order, Foreign Aid & Democracy Promotion",
+        "domain": "Foreign Relations & Diplomacy",
+        "share": 5.042,
+        "rel": 3.143,
+        "n": 12
+      },
+      {
+        "name": "Military Preparedness, Armed Forces & Veterans",
+        "domain": "War & Military Affairs",
+        "share": 7.143,
+        "rel": -3.118,
+        "n": 17
+      },
+      {
+        "name": "Early Naval Wars: Barbary & the War of 1812",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": -0.156,
+        "n": 0
+      },
+      {
+        "name": "Mexican War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "World War I Mobilization & War Aims",
+        "domain": "War & Military Affairs",
+        "share": 10.084,
+        "rel": 6.15,
+        "n": 24
+      },
+      {
+        "name": "World War II Military Operations",
+        "domain": "War & Military Affairs",
+        "share": 4.202,
+        "rel": -1.893,
+        "n": 10
+      },
+      {
+        "name": "Vietnam War",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "domain": "War & Military Affairs",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Coinage, Currency & Specie",
+        "domain": "Money, Banking & Currency",
+        "share": 0.42,
+        "rel": -0.873,
+        "n": 1
+      },
+      {
+        "name": "National Bank & Banking Crises",
+        "domain": "Money, Banking & Currency",
+        "share": 1.681,
+        "rel": -2.085,
+        "n": 4
+      },
+      {
+        "name": "Tariffs, Reciprocity & Navigation Laws",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 7.563,
+        "rel": -0.521,
+        "n": 18
+      },
+      {
+        "name": "Trusts, Corporations & Antitrust",
+        "domain": "Trade, Commerce & Tariffs",
+        "share": 2.101,
+        "rel": -3.697,
+        "n": 5
+      },
+      {
+        "name": "Public Debt, Revenue & Treasury Finance",
+        "domain": "Public Finance & Taxation",
+        "share": 7.563,
+        "rel": 2.38,
+        "n": 18
+      },
+      {
+        "name": "Taxes, Budget Deficits & Federal Spending",
+        "domain": "Public Finance & Taxation",
+        "share": 2.521,
+        "rel": -0.167,
+        "n": 6
+      },
+      {
+        "name": "Great Depression Recovery",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.42,
+        "rel": -4.719,
+        "n": 1
+      },
+      {
+        "name": "Labor, Wages & Working Conditions",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 16.807,
+        "rel": 10.92,
+        "n": 40
+      },
+      {
+        "name": "Welfare, Poverty & Economic Opportunity",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 2.101,
+        "rel": 0.646,
+        "n": 5
+      },
+      {
+        "name": "Health Care, Medicare & Social Security",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 0.0,
+        "rel": -0.425,
+        "n": 0
+      },
+      {
+        "name": "Prosperity, Jobs & the Middle Class",
+        "domain": "Economy, Labor & Social Welfare",
+        "share": 2.521,
+        "rel": 0.961,
+        "n": 6
+      },
+      {
+        "name": "Public Lands & Homestead Settlement",
+        "domain": "Agriculture, Land & Environment",
+        "share": 2.941,
+        "rel": 1.322,
+        "n": 7
+      },
+      {
+        "name": "Agriculture & Farm Prices",
+        "domain": "Agriculture, Land & Environment",
+        "share": 7.563,
+        "rel": 2.752,
+        "n": 18
+      },
+      {
+        "name": "Conservation & the Environment",
+        "domain": "Agriculture, Land & Environment",
+        "share": 1.681,
+        "rel": -0.999,
+        "n": 4
+      },
+      {
+        "name": "Internal Improvements, Energy & Infrastructure",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 8.403,
+        "rel": -0.001,
+        "n": 20
+      },
+      {
+        "name": "Space Exploration",
+        "domain": "Infrastructure & Internal Improvements",
+        "share": 0.0,
+        "rel": 0.0,
+        "n": 0
+      },
+      {
+        "name": "Slavery, Emancipation & Sectionalism",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.42,
+        "rel": 0.306,
+        "n": 1
+      },
+      {
+        "name": "Reconstruction & Southern Self-Government",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.029,
+        "n": 0
+      },
+      {
+        "name": "Chinese Immigration & Exclusion",
+        "domain": "Civil Rights & Immigration",
+        "share": 0.0,
+        "rel": -0.166,
+        "n": 0
+      },
+      {
+        "name": "Civil Rights, Voting Rights & Discrimination",
+        "domain": "Civil Rights & Immigration",
+        "share": 1.261,
+        "rel": 0.548,
+        "n": 3
+      },
+      {
+        "name": "Immigration & Border Security",
+        "domain": "Civil Rights & Immigration",
+        "share": 2.941,
+        "rel": 1.862,
+        "n": 7
+      },
+      {
+        "name": "Indian Affairs, Removal & Allotment",
+        "domain": "Indian & Tribal Affairs",
+        "share": 0.0,
+        "rel": -0.688,
+        "n": 0
+      },
+      {
+        "name": "Crime, Insurrection & Federal Law Enforcement",
+        "domain": "Law, Crime & Justice",
+        "share": 3.361,
+        "rel": 0.269,
+        "n": 8
+      },
+      {
+        "name": "Polygamy in the Territories",
+        "domain": "Law, Crime & Justice",
+        "share": 0.0,
+        "rel": -0.009,
+        "n": 0
+      },
+      {
+        "name": "Constitutional Union & Federalism",
+        "domain": "Constitutional Order & Governance",
+        "share": 6.303,
+        "rel": 4.177,
+        "n": 15
+      },
+      {
+        "name": "Civil Service Reform & the Merit System",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.261,
+        "rel": -0.153,
+        "n": 3
+      },
+      {
+        "name": "Executive Power, Vetoes & the Courts",
+        "domain": "Constitutional Order & Governance",
+        "share": 4.202,
+        "rel": 1.129,
+        "n": 10
+      },
+      {
+        "name": "Territorial Organization, Statehood & Insular Governance",
+        "domain": "Constitutional Order & Governance",
+        "share": 0.0,
+        "rel": -5.019,
+        "n": 0
+      },
+      {
+        "name": "Elections & Voting Integrity",
+        "domain": "Constitutional Order & Governance",
+        "share": 1.681,
+        "rel": 1.286,
+        "n": 4
+      },
+      {
+        "name": "Commemoration, Eulogy & National Mourning",
+        "domain": "Ceremonial & Commemorative Address",
+        "share": 2.101,
+        "rel": 0.133,
+        "n": 5
+      },
+      {
+        "name": "Presidential Humility & Reflection on Office",
+        "domain": "Personal Narrative & Reflection",
+        "share": 3.782,
+        "rel": 2.42,
+        "n": 9
+      },
+      {
+        "name": "Personal Narrative, Storytelling & Boasting",
+        "domain": "Personal Narrative & Reflection",
+        "share": 0.42,
+        "rel": -0.128,
+        "n": 1
+      },
+      {
+        "name": "Executive Departments, Postal & Administrative Housekeeping",
+        "domain": "Procedural & Administrative",
+        "share": 0.42,
+        "rel": -4.565,
+        "n": 1
+      },
+      {
+        "name": "Providence, Faith & American Ideals",
+        "domain": "Faith & National Values",
+        "share": 19.748,
+        "rel": 11.508,
+        "n": 47
+      },
+      {
+        "name": "Partisan Combat, Press Conferences & Media Attacks",
+        "domain": "Partisan & Media Combat",
+        "share": 1.681,
+        "rel": -0.812,
+        "n": 4
+      }
+    ],
+    "domain_attention": [
+      {
+        "name": "Foreign Relations & Diplomacy",
+        "share": 20.588,
+        "rel": -1.382
+      },
+      {
+        "name": "War & Military Affairs",
+        "share": 20.168,
+        "rel": 0.609
+      },
+      {
+        "name": "Money, Banking & Currency",
+        "share": 1.681,
+        "rel": -3.098
+      },
+      {
+        "name": "Trade, Commerce & Tariffs",
+        "share": 9.664,
+        "rel": -3.784
+      },
+      {
+        "name": "Public Finance & Taxation",
+        "share": 8.403,
+        "rel": 1.029
+      },
+      {
+        "name": "Economy, Labor & Social Welfare",
+        "share": 18.487,
+        "rel": 6.09
+      },
+      {
+        "name": "Agriculture, Land & Environment",
+        "share": 10.504,
+        "rel": 2.137
+      },
+      {
+        "name": "Infrastructure & Internal Improvements",
+        "share": 8.403,
+        "rel": -0.001
+      },
+      {
+        "name": "Civil Rights & Immigration",
+        "share": 4.622,
+        "rel": 2.57
+      },
+      {
+        "name": "Indian & Tribal Affairs",
+        "share": 0.0,
+        "rel": -0.688
+      },
+      {
+        "name": "Law, Crime & Justice",
+        "share": 3.361,
+        "rel": 0.26
+      },
+      {
+        "name": "Constitutional Order & Governance",
+        "share": 13.025,
+        "rel": 1.352
+      },
+      {
+        "name": "Ceremonial & Commemorative Address",
+        "share": 2.101,
+        "rel": 0.133
+      },
+      {
+        "name": "Personal Narrative & Reflection",
+        "share": 4.202,
+        "rel": 2.319
+      },
+      {
+        "name": "Procedural & Administrative",
+        "share": 0.42,
+        "rel": -4.565
+      },
+      {
+        "name": "Faith & National Values",
+        "share": 19.748,
+        "rel": 11.508
+      },
+      {
+        "name": "Partisan & Media Combat",
+        "share": 1.681,
+        "rel": -0.812
+      }
+    ],
+    "flags": {
+      "party_attack": 3.78,
+      "enemy_naming": 10.08,
+      "zero_sum": 7.14
+    },
+    "proposal_values": {
+      "proposal": 13.45,
+      "values": 50.0,
+      "mixed": 33.61,
+      "neither": 2.94
+    },
+    "speech_types": [
+      {
+        "name": "Campaign / debate",
+        "value": 50.0
+      },
+      {
+        "name": "Public remarks / address",
+        "value": 27.78
+      },
+      {
+        "name": "State of the Union / annual message",
+        "value": 11.11
+      },
+      {
+        "name": "Eulogy or commemoration",
+        "value": 5.56
+      }
+    ],
+    "adversaries": [
+      {
+        "name": "Russia",
+        "n": 3
+      },
+      {
+        "name": "railway managers",
+        "n": 2
+      },
+      {
+        "name": "Bolshevist",
+        "n": 1
+      },
+      {
+        "name": "discredited autocracy",
+        "n": 1
+      },
+      {
+        "name": "those who wear American garb without the faith",
+        "n": 1
+      }
+    ],
+    "ai_radar": {
+      "party_attack": {
+        "absolute": 3.782,
+        "percentile": 57.1
+      },
+      "enemy_naming": {
+        "absolute": 10.084,
+        "percentile": 19.0
+      },
+      "zero_sum": {
+        "absolute": 7.143,
+        "percentile": 69.0
+      },
+      "proposal": {
+        "absolute": 13.445,
+        "percentile": 9.5
+      },
+      "values": {
+        "absolute": 50.0,
+        "percentile": 100.0
+      },
+      "topic_breadth": {
+        "absolute": 23.085,
+        "percentile": 83.3
+      }
+    }
+  },
+  "distinctive_vocabulary": [
+    {
+      "president": "Warren G. Harding",
+      "term": "republic",
+      "z": 22.16243284947518,
+      "rank": 0
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "civilization",
+      "z": 17.612066574481155,
+      "rank": 1
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "conscience",
+      "z": 16.356555525429336,
+      "rank": 2
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "nationality",
+      "z": 15.54669839875464,
+      "rank": 3
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "world",
+      "z": 15.409493394958824,
+      "rank": 4
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "railway",
+      "z": 13.706748918217068,
+      "rank": 5
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "insistent",
+      "z": 13.14961705098481,
+      "rank": 6
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "readjustment",
+      "z": 12.691667741328361,
+      "rank": 7
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "citizenship",
+      "z": 12.084218487965291,
+      "rank": 8
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "fortune",
+      "z": 12.072934172677122,
+      "rank": 9
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "relationship",
+      "z": 11.915626803959888,
+      "rank": 10
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "understanding",
+      "z": 11.864867775907738,
+      "rank": 11
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "transportation",
+      "z": 11.51749509919946,
+      "rank": 12
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "concord",
+      "z": 11.490599030980393,
+      "rank": 13
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "eminence",
+      "z": 11.485870603219606,
+      "rank": 14
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "sons",
+      "z": 11.343385640359168,
+      "rank": 15
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "activities",
+      "z": 11.318444877622394,
+      "rank": 16
+    },
+    {
+      "president": "Warren G. Harding",
+      "term": "contemplates",
+      "z": 10.65101484386639,
+      "rank": 17
+    }
+  ],
+  "signature_speeches": [
+    {
+      "title": "May 23, 1921: Speech Upon Arrival of World War One Dead for Burial",
+      "year": 1921,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-23-1921-speech-upon-arrival-world-war-one-dead-burial"
+    },
+    {
+      "title": "March 4, 1921: Inaugural Address",
+      "year": 1921,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1921-inaugural-address"
+    },
+    {
+      "title": "July 22, 1920: The American Soldier",
+      "year": 1920,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-22-1920-american-soldier"
+    },
+    {
+      "title": "August 28, 1920: America",
+      "year": 1920,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-28-1920-america"
+    },
+    {
+      "title": "April 4, 1917: The Republic Must Awaken",
+      "year": 1917,
+      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-4-1917-republic-must-awaken"
+    }
+  ],
+  "legacy_invocations": {
+    "invokes": [],
+    "invoked_by": null
+  },
+  "classified_invocations": [],
+  "voice_neighbors": [
+    [
+      "James A. Garfield",
+      0.46268920552710596
+    ],
+    [
+      "Woodrow Wilson",
+      0.41793903827918344
+    ],
+    [
+      "Abraham Lincoln",
+      0.41771298775317184
+    ]
+  ],
+  "agenda_neighbors": [
+    [
+      "Woodrow Wilson",
+      0.9828159065681747
+    ],
+    [
+      "Calvin Coolidge",
+      0.8931724966425496
+    ],
+    [
+      "Herbert Hoover",
+      0.8856434615213158
+    ]
+  ],
+  "feature_neighbors": {
+    "ai_topics": [
+      {
+        "president": "Woodrow Wilson",
+        "similarity": 0.818
+      },
+      {
+        "president": "Calvin Coolidge",
+        "similarity": 0.8087
+      },
+      {
+        "president": "Gerald Ford",
+        "similarity": 0.6453
+      },
+      {
+        "president": "Theodore Roosevelt",
+        "similarity": 0.6328
+      },
+      {
+        "president": "Herbert Hoover",
+        "similarity": 0.6253
+      },
+      {
+        "president": "John Quincy Adams",
+        "similarity": 0.6171
+      }
+    ],
+    "ai_domains": [
+      {
+        "president": "Gerald Ford",
+        "similarity": 0.9174
+      },
+      {
+        "president": "Joe Biden",
+        "similarity": 0.9104
+      },
+      {
+        "president": "Barack Obama",
+        "similarity": 0.8981
+      },
+      {
+        "president": "Calvin Coolidge",
+        "similarity": 0.8933
+      },
+      {
+        "president": "Woodrow Wilson",
+        "similarity": 0.8927
+      },
+      {
+        "president": "Richard M. Nixon",
+        "similarity": 0.8841
+      }
+    ],
+    "ai_rhetoric": [
+      {
+        "president": "Lyndon B. Johnson",
+        "similarity": 0.8351
+      },
+      {
+        "president": "Barack Obama",
+        "similarity": 0.8135
+      },
+      {
+        "president": "Richard M. Nixon",
+        "similarity": 0.6838
+      },
+      {
+        "president": "Woodrow Wilson",
+        "similarity": 0.6028
+      },
+      {
+        "president": "Gerald Ford",
+        "similarity": 0.5002
+      },
+      {
+        "president": "Dwight D. Eisenhower",
+        "similarity": 0.4113
+      }
+    ],
+    "rhetorical_fingerprint": [
+      {
+        "president": "Dwight D. Eisenhower",
+        "similarity": 0.8673
+      },
+      {
+        "president": "George W. Bush",
+        "similarity": 0.8406
+      },
+      {
+        "president": "James Madison",
+        "similarity": 0.6074
+      },
+      {
+        "president": "Franklin D. Roosevelt",
+        "similarity": 0.5246
+      },
+      {
+        "president": "John Adams",
+        "similarity": 0.5076
+      },
+      {
+        "president": "William McKinley",
+        "similarity": 0.5046
+      }
+    ],
+    "legacy_issues": [
+      {
+        "president": "Woodrow Wilson",
+        "similarity": 0.9828
+      },
+      {
+        "president": "Calvin Coolidge",
+        "similarity": 0.8932
+      },
+      {
+        "president": "Herbert Hoover",
+        "similarity": 0.8856
+      },
+      {
+        "president": "Theodore Roosevelt",
+        "similarity": 0.8768
+      },
+      {
+        "president": "Dwight D. Eisenhower",
+        "similarity": 0.8689
+      },
+      {
+        "president": "Franklin D. Roosevelt",
+        "similarity": 0.8301
+      }
+    ]
+  },
+  "context_specific": {
+    "profile_only": [],
+    "compare_only": []
+  }
+}

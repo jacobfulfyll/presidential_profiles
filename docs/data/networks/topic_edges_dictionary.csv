@@ -1,0 +1,5 @@
+column,definition
+shared_paragraphs,Distinct paragraphs carrying both topics.
+shared_speeches,Distinct speeches containing a shared paragraph.
+jaccard,Shared paragraphs divided by paragraphs carrying either topic.
+lift,Observed co-occurrence divided by independence expectation.

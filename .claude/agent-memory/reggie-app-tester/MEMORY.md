@@ -1,1 +1,13 @@
 - [Verification workflow](verification-workflow.md) — how to run tests + build the static site for presidential_profiles (Rosetta venv, deterministic docs)
+- [Verify embed clusters](verification-embed-clusters.md) — how to verify embed_topics.build_clusters end-to-end (offline, ~4s, seed-42 deterministic, NPMI sanity)
+- [Verify taxonomy](verification-taxonomy.md) — verify taxonomy.py + its committed artifacts $0 (dry-run returns before _client; exemplar/crosswalk/manifest/fingerprint checks)
+- [Verify annotation pass](verification-annotation-pass.md) — pp-annotate two-batch pilot verify; count_tokens exact = 1.32x heuristic (under-counts); QA gates; pilot=40 req/$0.35
+- [Verify register note](verification-register-note.md) — note-vs-parquet cross-check recipe; 49% of rows have degenerate zero-width CIs (n_speeches=1); double-rounding artifact
+- [Verify combat.py](verification-combat.md) — $0/2s/byte-identical; meta.json is date-stamped; audit prose asides not tables (era-vs-decade + CONTEXT-inherited counts)
+- [Verify attention.py](verification-attention.md) — $0/4s/byte-identical; blockquote-vs-corpus recipe + the `--`/em-dash trap; prose counts drift, tables don't
+- [Re-verifying findings notes](verification-findings-notes.md) — recipe + the error classes that survive correction passes when auditing notes/*-findings-v1.md against a parquet
+- [Verify triangulate](verification-triangulate.md) — triangulate.run() row counts, names-file degradation matrix, slug collision, $0 API proof
+- [Verify bands + banded charts](verification-bands.md) — recompute the annotator half-width independently; decode plotly `FIG =` binary traces; headless-Chrome screenshots when browser MCP is absent
+- [Verify convergence](verification-convergence.md) — 19-min $0 regeneration; prereg-vs-artifact scoring recipe; the transitive-anthropic hole the module's own AST guard cannot see
+- [Perturb/restore discipline](feedback_perturb-restore-discipline.md) — sha-verify restores of committed artifacts; a chained perturb+move silently restores the perturbed copy
+- [Verify agreement layer](verification-agreement-layer.md) — offline verify of Opus-vs-Sonnet inter-model agreement: sample determinism, coverage math, kappa-0 base rates, qa-mutates-committed-file gotcha, spend

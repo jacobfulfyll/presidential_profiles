@@ -1,0 +1,29 @@
+{
+  "annotation_files": [
+    "taxonomy_v1.json",
+    "crosswalk_v1.json"
+  ],
+  "batch_id": null,
+  "cache_creation_input_tokens": 4353,
+  "cache_read_input_tokens": 39177,
+  "corpus_fingerprint": {
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc",
+    "n_paragraphs": 36229,
+    "n_speeches": 1057
+  },
+  "cost_usd": 2.4404,
+  "date": "2026-07-19",
+  "fields": [
+    "level1",
+    "level2",
+    "crosswalk"
+  ],
+  "input_tokens": 220519,
+  "model": "claude-opus-4-8 (+ claude-sonnet-5 for coverage)",
+  "n_requests": 22,
+  "notes": "Corpus-derived two-level taxonomy. 50 level-2 topics across 17 level-1 domains (5 non-policy). Held-out coverage 100.0% on 200 paragraphs (100 from the unlabeled mass). Merge revised once: False. Per-era proposals ran with NO cross-era context (anachronism guard); merge/crosswalk/checks on claude-opus-4-8, held-out labeling on claude-sonnet-5.",
+  "output_tokens": 62529,
+  "prompt_hash": "sha256:498d33f88314f2e6cb3301bc9123af2112c52a7087c2e43055662ec63c0f6b6c",
+  "prompt_version": "taxonomy/v1",
+  "run_id": "taxonomy-v1-20260719"
+}

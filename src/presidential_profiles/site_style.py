@@ -20,7 +20,8 @@ PAGE_CSS = f"""
   section h2 {{ font-size: 1.28rem; letter-spacing: -0.01em; }}
   section p {{ color: var(--ink2); margin: 8px 0 14px; max-width: 46rem; }}
   .chart-scroll {{ background: var(--surface); border: 1px solid var(--border);
-                   border-radius: 12px; padding: 10px 6px 6px; overflow-x: auto; }}
+                   border-radius: 12px; padding: 10px 6px 6px;
+                   overflow-x: auto; overflow-y: hidden; }}
   .chart {{ min-width: 640px; }}
   footer {{ max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }}

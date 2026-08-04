@@ -1,0 +1,27 @@
+{
+  "annotation_files": [
+    "paragraph_annotations.parquet",
+    "paragraph_entities.parquet"
+  ],
+  "batch_id": "msgbatch_01U2EuQXVHqsKgW3VyQQVrs4",
+  "cache_creation_input_tokens": 245717,
+  "cache_read_input_tokens": 440596,
+  "corpus_fingerprint": {
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc",
+    "n_paragraphs": 36229,
+    "n_speeches": 1057
+  },
+  "cost_usd": 1.5354,
+  "date": "2026-07-20",
+  "fields": [
+    "paragraph_annotations"
+  ],
+  "input_tokens": 374802,
+  "model": "claude-sonnet-5",
+  "n_requests": 81,
+  "notes": "succeeded=81 errored=0 canceled=0 expired=0. permanent (invalid_request) failures: 0; retryable failures: 5. paragraph coverage: 1,301/1,494 sent para_idxs returned; 10 responses were INCOMPLETE (the model dropped 193 paragraphs). Those speeches are NOT marked done and will be re-requested by the next `submit`. AMENDMENT: 32 chunk-escalated speech(es) judged with partial (not whole-speech) context: ['/the-presidency/presidential-speeches/april-16-1964-press-conference-state-department', '/the-presidency/presidential-speeches/april-22-1886-message-regarding-us-labor-force', '/the-presidency/presidential-speeches/april-27-1983-address-central-america', '/the-presidency/presidential-speeches/april-4-1917-republic-must-awaken', '/the-presidency/presidential-speeches/december-3-1912-fourth-annual-message', '/the-presidency/presidential-speeches/december-5-1876-eighth-annual-message', '/the-presidency/presidential-speeches/december-5-1898-second-annual-message', '/the-presidency/presidential-speeches/december-7-1835-seventh-annual-address-congress', '/the-presidency/presidential-speeches/december-7-1847-third-annual-message', '/the-presidency/presidential-speeches/december-8-1925-third-annual-message', '/the-presidency/presidential-speeches/december-8-2003-address-signing-medicare-legislation', '/the-presidency/presidential-speeches/december-9-1908-eighth-annual-message', '/the-presidency/presidential-speeches/february-2-1953-state-union-address', '/the-presidency/presidential-speeches/february-23-2018-remarks-conservative-political-action', '/the-presidency/presidential-speeches/january-11-1944-fireside-chat-28-state-union', '/the-presidency/presidential-speeches/january-15-2009-farewell-address-nation', '/the-presidency/presidential-speeches/january-22-1917-world-league-peace-speech', '/the-presidency/presidential-speeches/january-29-1984-address-announcing-his-candidacy-reelection', '/the-presidency/presidential-speeches/january-7-1954-state-union-address', '/the-presidency/presidential-speeches/july-19-2013-remarks-trayvon-martin', '/the-presidency/presidential-speeches/july-2-1964-remarks-upon-signing-civil-rights-bill', '/the-presidency/presidential-speeches/july-22-1920-high-wages-high-production', '/the-presidency/presidential-speeches/june-13-1870-message-regarding-insurrection-cuba', '/the-presidency/presidential-speeches/june-6-1961-report-american-people-returning-europe', '/the-presidency/presidential-speeches/june-7-1961-remarks-graduating-class-us-naval-academy', '/the-presidency/presidential-speeches/march-4-1853-inaugural-address', '/the-presidency/presidential-speeches/march-4-1901-second-inaugural-address', '/the-presidency/presidential-speeches/march-4-1921-inaugural-address', '/the-presidency/presidential-speeches/may-18-1963-90th-anniversary-vanderbilt-university', '/the-presidency/presidential-speeches/may-31-1870-message-regarding-dominican-republic-annexation', '/the-presidency/presidential-speeches/september-12-2002-remarks-un-general-assembly', '/the-presidency/presidential-speeches/september-23-2010-address-united-nations'].",
+  "output_tokens": 161872,
+  "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+  "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+  "run_id": "judgment-chunk25-20260720"
+}

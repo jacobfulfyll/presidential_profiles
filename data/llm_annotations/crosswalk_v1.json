@@ -1,0 +1,155 @@
+{
+  "mappings": [
+    {
+      "legacy_issue": "Economy & jobs",
+      "level2_topics": [
+        "Great Depression Recovery",
+        "Labor, Wages & Working Conditions",
+        "Welfare, Poverty & Economic Opportunity",
+        "Prosperity, Jobs & the Middle Class",
+        "Trusts, Corporations & Antitrust"
+      ]
+    },
+    {
+      "legacy_issue": "Taxes & budget",
+      "level2_topics": [
+        "Public Debt, Revenue & Treasury Finance",
+        "Taxes, Budget Deficits & Federal Spending"
+      ]
+    },
+    {
+      "legacy_issue": "War & military",
+      "level2_topics": [
+        "Military Preparedness, Armed Forces & Veterans",
+        "Early Naval Wars: Barbary & the War of 1812",
+        "Mexican War",
+        "World War I Mobilization & War Aims",
+        "World War II Military Operations",
+        "Vietnam War",
+        "Iraq, Gulf Wars, the War on Terror & Interventions"
+      ]
+    },
+    {
+      "legacy_issue": "Foreign policy",
+      "level2_topics": [
+        "Neutral Rights & Maritime Depredations",
+        "Treaties, Diplomacy & International Arbitration",
+        "Relations with Spain, Mexico & Territorial Claims",
+        "Monroe Doctrine & Latin American Policy",
+        "Cold War & Great-Power Rivalry",
+        "Nuclear Weapons & Arms Control",
+        "Middle East & Israel",
+        "World Order, Foreign Aid & Democracy Promotion"
+      ]
+    },
+    {
+      "legacy_issue": "Immigration",
+      "level2_topics": [
+        "Chinese Immigration & Exclusion",
+        "Immigration & Border Security"
+      ]
+    },
+    {
+      "legacy_issue": "Civil rights & race",
+      "level2_topics": [
+        "Slavery, Emancipation & Sectionalism",
+        "Reconstruction & Southern Self-Government",
+        "Chinese Immigration & Exclusion",
+        "Civil Rights, Voting Rights & Discrimination",
+        "Indian Affairs, Removal & Allotment",
+        "Elections & Voting Integrity"
+      ]
+    },
+    {
+      "legacy_issue": "Health care",
+      "level2_topics": [
+        "Health Care, Medicare & Social Security"
+      ]
+    },
+    {
+      "legacy_issue": "Education",
+      "level2_topics": [
+        "Welfare, Poverty & Economic Opportunity",
+        "Prosperity, Jobs & the Middle Class",
+        "Civil Rights, Voting Rights & Discrimination"
+      ]
+    },
+    {
+      "legacy_issue": "Crime & justice",
+      "level2_topics": [
+        "Crime, Insurrection & Federal Law Enforcement",
+        "Polygamy in the Territories",
+        "Executive Power, Vetoes & the Courts"
+      ]
+    },
+    {
+      "legacy_issue": "Energy & environment",
+      "level2_topics": [
+        "Conservation & the Environment",
+        "Internal Improvements, Energy & Infrastructure",
+        "Public Lands & Homestead Settlement"
+      ]
+    },
+    {
+      "legacy_issue": "Trade & tariffs",
+      "level2_topics": [
+        "Tariffs, Reciprocity & Navigation Laws",
+        "Trusts, Corporations & Antitrust",
+        "Neutral Rights & Maritime Depredations"
+      ]
+    },
+    {
+      "legacy_issue": "Agriculture",
+      "level2_topics": [
+        "Agriculture & Farm Prices",
+        "Public Lands & Homestead Settlement"
+      ]
+    },
+    {
+      "legacy_issue": "Religion & values",
+      "level2_topics": [
+        "Providence, Faith & American Ideals",
+        "Commemoration, Eulogy & National Mourning",
+        "Polygamy in the Territories"
+      ]
+    },
+    {
+      "legacy_issue": "Money & banking",
+      "level2_topics": [
+        "Coinage, Currency & Specie",
+        "National Bank & Banking Crises"
+      ]
+    },
+    {
+      "legacy_issue": "Infrastructure",
+      "level2_topics": [
+        "Internal Improvements, Energy & Infrastructure",
+        "Space Exploration"
+      ]
+    },
+    {
+      "legacy_issue": "Security & peace",
+      "level2_topics": [
+        "Cold War & Great-Power Rivalry",
+        "Nuclear Weapons & Arms Control",
+        "Iraq, Gulf Wars, the War on Terror & Interventions",
+        "Military Preparedness, Armed Forces & Veterans",
+        "World Order, Foreign Aid & Democracy Promotion",
+        "Treaties, Diplomacy & International Arbitration",
+        "Immigration & Border Security"
+      ]
+    }
+  ],
+  "provenance": {
+    "run_id": "taxonomy-v1-20260719",
+    "model": "claude-opus-4-8",
+    "check": {
+      "missing_issues": [],
+      "dangling_topics": [],
+      "n_pages_reconstructable": 16,
+      "n_pages_total": 16,
+      "complete": true
+    },
+    "date": "2026-07-19"
+  }
+}

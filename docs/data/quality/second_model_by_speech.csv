@@ -1,0 +1,267 @@
+doc_name,president,year,era,title,expected_paragraphs,completed_paragraphs,missing_paragraphs,completion_rate
+/the-presidency/presidential-speeches/april-11-1898-message-regarding-cuban-civil-war,William McKinley,1898,The Gilded Age,"April 11, 1898: Message Regarding Cuban Civil War",41,41,0,1.0
+/the-presidency/presidential-speeches/april-11-1951-report-american-people-korea,Harry S. Truman,1951,The Cold War,"April 11, 1951: Report to the American People on Korea",20,13,7,0.65
+/the-presidency/presidential-speeches/april-13-1846-message-regarding-cherokee-indians,James K. Polk,1846,Expansion,"April 13, 1846: Message Regarding Cherokee Indians",7,7,0,1.0
+/the-presidency/presidential-speeches/april-16-1945-first-speech-congress,Harry S. Truman,1945,War & New Deal,"April 16, 1945: First Speech to Congress",15,15,0,1.0
+/the-presidency/presidential-speeches/april-16-1953-chance-peace,Dwight D. Eisenhower,1953,The Cold War,"April 16, 1953: Chance for Peace",23,23,0,1.0
+/the-presidency/presidential-speeches/april-18-1882-message-regarding-congress-american-countries,Chester A. Arthur,1882,The Gilded Age,"April 18, 1882: Message Regarding Congress of American Countries",12,12,0,1.0
+/the-presidency/presidential-speeches/april-2-1866-proclamation-end-confederate-insurrection,Andrew Johnson,1866,Civil War & Reconstruction,"April 2, 1866: Proclamation on the End of the Confederate Insurrection",12,12,0,1.0
+/the-presidency/presidential-speeches/april-20-1964-speech-associated-press-luncheon,Lyndon B. Johnson,1964,The Cold War,"April 20, 1964: Speech to the Associated Press Luncheon",96,7,89,0.07291666666666667
+/the-presidency/presidential-speeches/april-22-1886-message-regarding-us-labor-force,Grover Cleveland,1886,The Gilded Age,"April 22, 1886: Message Regarding U.S. Labor Force",8,8,0,1.0
+/the-presidency/presidential-speeches/april-23-1975-remarks-tulane-university,Gerald Ford,1975,The Cold War,"April 23, 1975: Remarks at Tulane University",18,1,17,0.05555555555555555
+/the-presidency/presidential-speeches/april-25-1980-statement-iran-rescue-mission,Jimmy Carter,1980,The Cold War,"April 25, 1980: Statement on the Iran Rescue Mission",7,7,0,1.0
+/the-presidency/presidential-speeches/april-28-1935-fireside-chat-7-works-relief-program-and-social,Franklin D. Roosevelt,1935,War & New Deal,"April 28, 1935: Fireside Chat 7: On the Works Relief Program and Social Security Act",24,24,0,1.0
+/the-presidency/presidential-speeches/april-28-1942-fireside-chat-21-sacrifice,Franklin D. Roosevelt,1942,War & New Deal,"April 28, 1942: Fireside Chat 21: On Sacrifice",29,29,0,1.0
+/the-presidency/presidential-speeches/april-3-1809-message-inhabitants-albemarle-county,Thomas Jefferson,1809,The founding,"April 3, 1809: Message to the Inhabitants of Albemarle County",3,3,0,1.0
+/the-presidency/presidential-speeches/april-3-1848-message-regarding-establishment-french-republic,James K. Polk,1848,Expansion,"April 3, 1848: Message Regarding Establishment Of The French Republic",4,4,0,1.0
+/the-presidency/presidential-speeches/april-3-1968-press-conference,Lyndon B. Johnson,1968,The Cold War,"April 3, 1968: Press Conference",5,5,0,1.0
+/the-presidency/presidential-speeches/april-30-1984-remarks-fudan-university-classroom,Ronald Reagan,1984,The Cold War,"April 30, 1984: Remarks in a Fudan University Classroom ",28,28,0,1.0
+/the-presidency/presidential-speeches/april-8-2013-speech-gun-violence,Barack Obama,2013,Post-Cold War,"April 8, 2013: Speech on Gun Violence",33,0,33,0.0
+/the-presidency/presidential-speeches/april-9-2007-speech-comprehensive-immigration-reform,George W. Bush,2007,Post-Cold War,"April 9, 2007: Speech on Comprehensive Immigration Reform",35,35,0,1.0
+/the-presidency/presidential-speeches/august-1-1848-message-regarding-size-army,James K. Polk,1848,Expansion,"August 1, 1848: Message Regarding Size of the Army",4,4,0,1.0
+/the-presidency/presidential-speeches/august-10-2001-address-nation-stem-cell-research,George W. Bush,2001,Post-Cold War,"August 10, 2001: Address to the Nation on Stem Cell Research",18,18,0,1.0
+/the-presidency/presidential-speeches/august-11-1842-message-senate-negotiations-britain,John Tyler,1842,Expansion,"August 11, 1842: Message to Senate on Negotiations with Britain",73,73,0,1.0
+/the-presidency/presidential-speeches/august-11-1932-speech-accepting-republican-nomination,Herbert Hoover,1932,Progressives & Depression,"August 11, 1932: Speech Accepting the Republican Nomination",55,55,0,1.0
+/the-presidency/presidential-speeches/august-15-1973-address-nation-about-watergate-investigations,Richard M. Nixon,1973,The Cold War,"August 15, 1973: Address to the Nation About the Watergate Investigations",28,23,5,0.8214285714285714
+/the-presidency/presidential-speeches/august-16-1841-veto-message-regarding-bank-united-states,John Tyler,1841,Expansion,"August 16, 1841: Veto Message Regarding the Bank of the United States",19,19,0,1.0
+/the-presidency/presidential-speeches/august-18-1967-press-conference,Lyndon B. Johnson,1967,The Cold War,"August 18, 1967: Press Conference",50,50,0,1.0
+/the-presidency/presidential-speeches/august-19-1976-remarks-republican-national-convention,Ronald Reagan,1976,The Cold War,"August 19, 1976: Remarks at the Republican National Convention",7,7,0,1.0
+/the-presidency/presidential-speeches/august-28-1920-america,Warren G. Harding,1920,Progressives & Depression,"August 28, 1920: America",3,3,0,1.0
+/the-presidency/presidential-speeches/august-29-1796-talk-cherokee-nation,George Washington,1796,The founding,"August 29, 1796: Talk to the Cherokee Nation",12,12,0,1.0
+/the-presidency/presidential-speeches/august-29-1996-remarks-democratic-national-convention,Bill Clinton,1996,Post-Cold War,"August 29, 1996: Remarks at the Democratic National Convention",52,52,0,1.0
+/the-presidency/presidential-speeches/august-6-1850-message-regarding-compromise-texas,Millard Fillmore,1850,Civil War & Reconstruction,"August 6, 1850: Message Regarding Compromise with Texas",21,21,0,1.0
+/the-presidency/presidential-speeches/august-7-1846-message-regarding-treaty-cherokees,James K. Polk,1846,Expansion,"August 7, 1846: Message Regarding Treaty with Cherokees",5,5,0,1.0
+/the-presidency/presidential-speeches/august-8-1893-message-regarding-economic-crisis,Grover Cleveland,1893,The Gilded Age,"August 8, 1893: Message Regarding Economic Crisis",19,19,0,1.0
+/the-presidency/presidential-speeches/august-8-1990-address-iraqs-invasion-kuwait,George H. W. Bush,1990,Post-Cold War,"August 8, 1990: Address on Iraq's Invasion of Kuwait",14,14,0,1.0
+/the-presidency/presidential-speeches/december-1-1834-sixth-annual-message-congress,Andrew Jackson,1834,Expansion,"December 1, 1834: Sixth Annual Message to Congress",107,106,1,0.9906542056074766
+/the-presidency/presidential-speeches/december-1-1879-third-annual-message,Rutherford B. Hayes,1879,The Gilded Age,"December 1, 1879: Third Annual Message",98,98,0,1.0
+/the-presidency/presidential-speeches/december-10-1832-nullification-proclamation,Andrew Jackson,1832,Expansion,"December 10, 1832: Nullification Proclamation",60,60,0,1.0
+/the-presidency/presidential-speeches/december-11-1931-statement-regarding-economic-recovery,Herbert Hoover,1931,Progressives & Depression,"December 11, 1931: Statement Regarding Economic Recovery",7,7,0,1.0
+/the-presidency/presidential-speeches/december-13-1850-announcement-texas-acceptance-compromise,Millard Fillmore,1850,Civil War & Reconstruction,"December 13, 1850: Announcement of Texas’ Acceptance of Compromise Propositions",5,5,0,1.0
+/the-presidency/presidential-speeches/december-17-1895-message-regarding-venezuelan-british-dispute,Grover Cleveland,1895,The Gilded Age,"December 17, 1895: Message Regarding Venezuelan-British Dispute",10,10,0,1.0
+/the-presidency/presidential-speeches/december-19-1799-death-george-washington,John Adams,1799,The founding,"December 19, 1799: Death of George Washington",12,12,0,1.0
+/the-presidency/presidential-speeches/december-19-2005-address-renewal-iraq,George W. Bush,2005,Post-Cold War,"December 19, 2005: Address on Renewal in Iraq",23,23,0,1.0
+/the-presidency/presidential-speeches/december-19-2008-remarks-plan-assist-automakers,George W. Bush,2008,Post-Cold War,"December 19, 2008: Remarks on Plan to Assist Automakers",11,3,8,0.2727272727272727
+/the-presidency/presidential-speeches/december-2-1823-seventh-annual-message-monroe-doctrine,James Monroe,1823,Expansion,"December 2, 1823: Seventh Annual Message (Monroe Doctrine)",55,0,55,0.0
+/the-presidency/presidential-speeches/december-2-1845-first-annual-message,James K. Polk,1845,Expansion,"December 2, 1845: First Annual Message",109,109,0,1.0
+/the-presidency/presidential-speeches/december-2-1895-third-annual-message-second-term,Grover Cleveland,1895,The Gilded Age,"December 2, 1895: Third Annual Message (Second Term)",122,122,0,1.0
+/the-presidency/presidential-speeches/december-2-1930-second-state-union-address,Herbert Hoover,1930,Progressives & Depression,"December 2, 1930: Second State of the Union address.",32,32,0,1.0
+/the-presidency/presidential-speeches/december-29-1846-request-increase-size-army,James K. Polk,1846,Expansion,"December 29, 1846: Request to Increase the Size of the Army",4,4,0,1.0
+/the-presidency/presidential-speeches/december-3-1793-fifth-annual-message-congress,George Washington,1793,The founding,"December 3, 1793: Fifth Annual Message to Congress",13,13,0,1.0
+/the-presidency/presidential-speeches/december-3-1805-fifth-annual-message,Thomas Jefferson,1805,The founding,"December 3, 1805: Fifth Annual Message",22,22,0,1.0
+/the-presidency/presidential-speeches/december-3-1816-eighth-annual-message,James Madison,1816,Expansion,"December 3, 1816: Eighth Annual Message",23,23,0,1.0
+/the-presidency/presidential-speeches/december-3-1822-sixth-annual-message,James Monroe,1822,Expansion,"December 3, 1822: Sixth Annual Message",40,40,0,1.0
+/the-presidency/presidential-speeches/december-3-1833-fifth-annual-message-congress,Andrew Jackson,1833,Expansion,"December 3, 1833: Fifth Annual Message to Congress",62,61,1,0.9838709677419355
+/the-presidency/presidential-speeches/december-3-1889-first-annual-message,Benjamin Harrison,1889,The Gilded Age,"December 3, 1889: First Annual Message",109,109,0,1.0
+/the-presidency/presidential-speeches/december-3-1901-first-annual-message,Theodore Roosevelt,1901,Progressives & Depression,"December 3, 1901: First Annual Message",143,143,0,1.0
+/the-presidency/presidential-speeches/december-30-1806-address-wolf-and-people-mandan-nation,Thomas Jefferson,1806,The founding,"December 30, 1806: Address to the Wolf and the People of the Mandan Nation",11,11,0,1.0
+/the-presidency/presidential-speeches/december-30-1854-expansion-august-4-veto-message,Franklin Pierce,1854,Civil War & Reconstruction,"December 30, 1854: Expansion of August 4 Veto Message",45,45,0,1.0
+/the-presidency/presidential-speeches/december-31-1855-third-annual-message,Franklin Pierce,1855,Civil War & Reconstruction,"December 31, 1855: Third Annual Message",97,97,0,1.0
+/the-presidency/presidential-speeches/december-4-1917-fifth-annual-message,Woodrow Wilson,1917,Progressives & Depression,"December 4, 1917: Fifth Annual Message",31,31,0,1.0
+/the-presidency/presidential-speeches/december-5-1837-first-annual-message-congress,Martin Van Buren,1837,Expansion,"December 5, 1837: First Annual Message to Congress",82,82,0,1.0
+/the-presidency/presidential-speeches/december-5-1870-second-annual-message,Ulysses S. Grant,1870,Civil War & Reconstruction,"December 5, 1870: Second Annual Message",71,71,0,1.0
+/the-presidency/presidential-speeches/december-5-1898-second-annual-message,William McKinley,1898,The Gilded Age,"December 5, 1898: Second Annual Message",162,162,0,1.0
+/the-presidency/presidential-speeches/december-5-1911-third-annual-message,William Taft,1911,Progressives & Depression,"December 5, 1911: Third Annual Message",198,196,2,0.98989898989899
+/the-presidency/presidential-speeches/december-6-1830-second-annual-message-congress,Andrew Jackson,1830,Expansion,"December 6, 1830: Second Annual Message to Congress",119,119,0,1.0
+/the-presidency/presidential-speeches/december-6-1831-third-annual-message-congress,Andrew Jackson,1831,Expansion,"December 6, 1831: Third Annual Message to Congress",54,54,0,1.0
+/the-presidency/presidential-speeches/december-6-1858-second-annual-message,James Buchanan,1858,Civil War & Reconstruction,"December 6, 1858: Second Annual Message",129,127,2,0.9844961240310077
+/the-presidency/presidential-speeches/december-6-1864-fourth-annual-message,Abraham Lincoln,1864,Civil War & Reconstruction,"December 6, 1864: Fourth Annual Message",55,55,0,1.0
+/the-presidency/presidential-speeches/december-6-1880-fourth-annual-message,Rutherford B. Hayes,1880,The Gilded Age,"December 6, 1880: Fourth Annual Message",95,95,0,1.0
+/the-presidency/presidential-speeches/december-7-1909-first-annual-message,William Taft,1909,Progressives & Depression,"December 7, 1909: First Annual Message",116,116,0,1.0
+/the-presidency/presidential-speeches/december-7-1961-address-miami-opening-afl-cio-convention,John F. Kennedy,1961,The Cold War,"December 7, 1961: Address in Miami at the Opening of the AFL-CIO Convention",38,38,0,1.0
+/the-presidency/presidential-speeches/december-8-1798-second-annual-message,John Adams,1798,The founding,"December 8, 1798: Second Annual Message",20,20,0,1.0
+/the-presidency/presidential-speeches/december-8-1857-first-annual-message,James Buchanan,1857,Civil War & Reconstruction,"December 8, 1857: First Annual Message",112,112,0,1.0
+/the-presidency/presidential-speeches/december-8-1863-third-annual-message,Abraham Lincoln,1863,Civil War & Reconstruction,"December 8, 1863: Third Annual Message",51,51,0,1.0
+/the-presidency/presidential-speeches/december-8-1885-first-annual-message,Grover Cleveland,1885,The Gilded Age,"December 8, 1885: First Annual Message",182,182,0,1.0
+/the-presidency/presidential-speeches/december-8-1922-second-annual-message,Warren G. Harding,1922,Progressives & Depression,"December 8, 1922: Second Annual Message",52,52,0,1.0
+/the-presidency/presidential-speeches/december-8-1925-third-annual-message,Calvin Coolidge,1925,Progressives & Depression,"December 8, 1925: Third Annual Message",86,86,0,1.0
+/the-presidency/presidential-speeches/december-8-1931-third-state-union-address,Herbert Hoover,1931,Progressives & Depression,"December 8, 1931: Third State of the Union Address",42,42,0,1.0
+/the-presidency/presidential-speeches/december-8-1941-address-congress-requesting-declaration-war,Franklin D. Roosevelt,1941,War & New Deal,"December 8, 1941: Address to Congress Requesting a Declaration of War",4,4,0,1.0
+/the-presidency/presidential-speeches/december-8-1993-remarks-signing-nafta,Bill Clinton,1993,Post-Cold War,"December 8, 1993: Remarks on the Signing of NAFTA",24,24,0,1.0
+/the-presidency/presidential-speeches/february-10-1807-special-message-congress-gun-boats,Thomas Jefferson,1807,The founding,"February 10, 1807: Special Message to Congress on the Gun Boats",11,11,0,1.0
+/the-presidency/presidential-speeches/february-11-1868-messages-regarding-correspondence-general-us,Andrew Johnson,1868,Civil War & Reconstruction,"February 11, 1868: Messages Regarding Correspondence with General U.S. Grant",44,44,0,1.0
+/the-presidency/presidential-speeches/february-15-1871-veto-message-regarding-restrictions-rebellion,Ulysses S. Grant,1871,Civil War & Reconstruction,"February 15, 1871: Veto Message Regarding Restrictions on Rebellion Participants",2,2,0,1.0
+/the-presidency/presidential-speeches/february-19-1851-message-regarding-disturbance-boston,Millard Fillmore,1851,Civil War & Reconstruction,"February 19, 1851: Message Regarding Disturbance in Boston",21,21,0,1.0
+/the-presidency/presidential-speeches/february-2-1967-press-conference,Lyndon B. Johnson,1967,The Cold War,"February 2, 1967: Press Conference",39,39,0,1.0
+/the-presidency/presidential-speeches/february-21-1964-remarks-ninety-sixth-charter-day-observances,Lyndon B. Johnson,1964,The Cold War,"February 21, 1964: Remarks at the Ninety Sixth Charter Day Observances",11,11,0,1.0
+/the-presidency/presidential-speeches/february-22-1831-message-regarding-indian-relations,Andrew Jackson,1831,Expansion,"February 22, 1831: Message Regarding Indian Relations",18,18,0,1.0
+/the-presidency/presidential-speeches/february-22-1927-address-regarding-washingtons-birthday,Calvin Coolidge,1927,Progressives & Depression,"February 22, 1927: Address Regarding Washington’s Birthday",35,35,0,1.0
+/the-presidency/presidential-speeches/february-23-1942-fireside-chat-20-progress-war,Franklin D. Roosevelt,1942,War & New Deal,"February 23, 1942: Fireside Chat 20: On the Progress of the War",32,32,0,1.0
+/the-presidency/presidential-speeches/february-23-2018-remarks-conservative-political-action,Donald Trump,2018,The present era,"February 23, 2018: Remarks at the Conservative Political Action Conference",102,102,0,1.0
+/the-presidency/presidential-speeches/february-24-2009-address-joint-session-congress,Barack Obama,2009,Post-Cold War,"February 24, 2009: Address Before a Joint Session of Congress",46,46,0,1.0
+/the-presidency/presidential-speeches/february-26-1917-message-regarding-safety-merchant-ships,Woodrow Wilson,1917,Progressives & Depression,"February 26, 1917: Message Regarding Safety of Merchant Ships",13,13,0,1.0
+/the-presidency/presidential-speeches/february-26-1931-veto-messages-regarding-emergency-adjusted,Herbert Hoover,1931,Progressives & Depression,"February 26, 1931: Veto Messages Regarding Emergency Adjusted Compensation Act",16,16,0,1.0
+/the-presidency/presidential-speeches/february-27-1991-address-end-gulf-war,George H. W. Bush,1991,Post-Cold War,"February 27, 1991: Address on the End of the Gulf War",8,8,0,1.0
+/the-presidency/presidential-speeches/february-3-1931-statement-unemployment-relief,Herbert Hoover,1931,Progressives & Depression,"February 3, 1931: Statement on Unemployment Relief",10,10,0,1.0
+/the-presidency/presidential-speeches/february-5-1993-remarks-signing-family-medical-leave-act,Bill Clinton,1993,Post-Cold War,"February 5, 1993: Remarks at the Signing of the Family Medical Leave Act",8,8,0,1.0
+/the-presidency/presidential-speeches/february-5-2019-state-union-address,Donald Trump,2019,The present era,"February 5, 2019: State of the Union Address",59,59,0,1.0
+/the-presidency/presidential-speeches/february-7-2023-state-union-address,Joe Biden,2023,The present era,"February 7, 2023: State of the Union Address",102,102,0,1.0
+/the-presidency/presidential-speeches/january-10-1806-address-chiefs-cherokee-nation,Thomas Jefferson,1806,The founding,"January 10, 1806: Address to the Chiefs of the Cherokee Nation",7,7,0,1.0
+/the-presidency/presidential-speeches/january-12-1966-state-union,Lyndon B. Johnson,1966,The Cold War,"January 12, 1966: State of the Union",42,42,0,1.0
+/the-presidency/presidential-speeches/january-12-1977-state-union-address,Gerald Ford,1977,The Cold War,"January 12, 1977: State of the Union Address",46,46,0,1.0
+/the-presidency/presidential-speeches/january-12-2009-final-press-conference,George W. Bush,2009,Post-Cold War,"January 12, 2009: Final Press Conference",77,77,0,1.0
+/the-presidency/presidential-speeches/january-12-2011-remarks-memorial-victims-tucson-az-shooting,Barack Obama,2011,Post-Cold War,"January 12, 2011: Remarks at Memorial for Victims of the Tucson, AZ Shooting",28,28,0,1.0
+/the-presidency/presidential-speeches/january-14-1875-message-approving-specie-resumption-act,Ulysses S. Grant,1875,Civil War & Reconstruction,"January 14, 1875: Message Approving Specie Resumption Act",8,8,0,1.0
+/the-presidency/presidential-speeches/january-15-2009-farewell-address-nation,George W. Bush,2009,Post-Cold War,"January 15, 2009: Farewell Address to the Nation",15,15,0,1.0
+/the-presidency/presidential-speeches/january-16-1833-message-regarding-south-carolina-nullification,Andrew Jackson,1833,Expansion,"January 16, 1833: Message Regarding South Carolina Nullification of Federal Legislation",68,68,0,1.0
+/the-presidency/presidential-speeches/january-16-1991-address-nation-invasion-iraq,George H. W. Bush,1991,Post-Cold War,"January 16, 1991: Address to the Nation on the Invasion of Iraq",11,10,1,0.9090909090909091
+/the-presidency/presidential-speeches/january-18-1803-special-message-congress-indian-policy,Thomas Jefferson,1803,The founding,"January 18, 1803: Special Message to Congress on Indian Policy",10,10,0,1.0
+/the-presidency/presidential-speeches/january-19-1978-state-union-address,Jimmy Carter,1978,The Cold War,"January 19, 1978: State of the Union Address",54,54,0,1.0
+/the-presidency/presidential-speeches/january-2-1841-special-message-about-desctruction-steamboat,Martin Van Buren,1841,Expansion,"January 2, 1841: Special Message about the Desctruction of Steamboat “Caroline”",7,7,0,1.0
+/the-presidency/presidential-speeches/january-20-1920-americanism,Warren G. Harding,1920,Progressives & Depression,"January 20, 1920: Americanism",4,4,0,1.0
+/the-presidency/presidential-speeches/january-20-1953-first-inaugural-address,Dwight D. Eisenhower,1953,The Cold War,"January 20, 1953: First Inaugural Address",19,19,0,1.0
+/the-presidency/presidential-speeches/january-20-1965-inaugural-address,Lyndon B. Johnson,1965,The Cold War,"January 20, 1965: Inaugural Address",12,12,0,1.0
+/the-presidency/presidential-speeches/january-20-1972-state-union-address,Richard M. Nixon,1972,The Cold War,"January 20, 1972: State of the Union Address",30,1,29,0.03333333333333333
+/the-presidency/presidential-speeches/january-20-1977-inaugural-address,Jimmy Carter,1977,The Cold War,"January 20, 1977: Inaugural Address",14,14,0,1.0
+/the-presidency/presidential-speeches/january-20-1981-first-inaugural-address,Ronald Reagan,1981,The Cold War,"January 20, 1981: First Inaugural Address",20,1,19,0.05
+/the-presidency/presidential-speeches/january-20-1993-first-inaugural,Bill Clinton,1993,Post-Cold War,"January 20, 1993: First Inaugural",12,0,12,0.0
+/the-presidency/presidential-speeches/january-20-1997-second-inaugural,Bill Clinton,1997,Post-Cold War,"January 20, 1997: Second Inaugural",17,17,0,1.0
+/the-presidency/presidential-speeches/january-20-2015-2015-state-union-address,Barack Obama,2015,Post-Cold War,"January 20, 2015: 2015 State of the Union Address",53,53,0,1.0
+/the-presidency/presidential-speeches/january-20-2025-inaugural-address,Donald Trump,2025,The present era,"January 20, 2025: Inaugural Address",36,36,0,1.0
+/the-presidency/presidential-speeches/january-21-2013-second-inaugural-address,Barack Obama,2013,Post-Cold War,"January 21, 2013: Second Inaugural Address",17,17,0,1.0
+/the-presidency/presidential-speeches/january-23-1973-address-nation-announcing-agreement-ending-war,Richard M. Nixon,1973,The Cold War,"January 23, 1973: Address to the Nation Announcing an Agreement on Ending the War in Vietnam",10,10,0,1.0
+/the-presidency/presidential-speeches/january-24-1995-state-union-address,Bill Clinton,1995,Post-Cold War,"January 24, 1995: State of the Union Address",85,85,0,1.0
+/the-presidency/presidential-speeches/january-25-1972-address-nation-plan-peace-vietnam,Richard M. Nixon,1972,The Cold War,"January 25, 1972: Address to the Nation on Plan for Peace in Vietnam",19,19,0,1.0
+/the-presidency/presidential-speeches/january-25-1983-state-union-address,Ronald Reagan,1983,The Cold War,"January 25, 1983: State of the Union Address",57,57,0,1.0
+/the-presidency/presidential-speeches/january-27-2000-state-union-address,Bill Clinton,2000,Post-Cold War,"January 27, 2000: State of the Union Address",92,92,0,1.0
+/the-presidency/presidential-speeches/january-28-1861-message-resolutions-virginia,James Buchanan,1861,Civil War & Reconstruction,"January 28, 1861: Message on Resolutions of Virginia",5,5,0,1.0
+/the-presidency/presidential-speeches/january-28-1895-message-regarding-financial-crisis,Grover Cleveland,1895,The Gilded Age,"January 28, 1895: Message Regarding the Financial Crisis",17,17,0,1.0
+/the-presidency/presidential-speeches/january-29-1993-press-conference-gays-military,Bill Clinton,1993,Post-Cold War,"January 29, 1993: Press Conference on ""Gays in the Military""",18,18,0,1.0
+/the-presidency/presidential-speeches/january-29-2013-remarks-immigration-reform,Barack Obama,2013,Post-Cold War,"January 29, 2013: Remarks on Immigration Reform",23,23,0,1.0
+/the-presidency/presidential-speeches/january-5-1956-state-union-address,Dwight D. Eisenhower,1956,The Cold War,"January 5, 1956: State of the Union Address",88,2,86,0.022727272727272728
+/the-presidency/presidential-speeches/january-5-1957-eisenhower-doctrine,Dwight D. Eisenhower,1957,The Cold War,"January 5, 1957: Eisenhower Doctrine",26,26,0,1.0
+/the-presidency/presidential-speeches/january-7-1954-state-union-address,Dwight D. Eisenhower,1954,The Cold War,"January 7, 1954: State of the Union Address",65,65,0,1.0
+/the-presidency/presidential-speeches/january-8-1790-first-annual-message-congress,George Washington,1790,The founding,"January 8, 1790: First Annual Message to Congress",8,0,8,0.0
+/the-presidency/presidential-speeches/january-8-1861-message-threats-peace-and-existence-union,James Buchanan,1861,Civil War & Reconstruction,"January 8, 1861: Message on Threats to the Peace and Existence of the Union",15,15,0,1.0
+/the-presidency/presidential-speeches/january-8-2020-statement-iran,Donald Trump,2020,The present era,"January 8, 2020: Statement on Iran",12,1,11,0.08333333333333333
+/the-presidency/presidential-speeches/january-9-1958-state-union-address,Dwight D. Eisenhower,1958,The Cold War,"January 9, 1958: State of the Union Address",58,58,0,1.0
+/the-presidency/presidential-speeches/july-1-1882-veto-safety-regulations-bill,Chester A. Arthur,1882,The Gilded Age,"July 1, 1882: Veto of Safety Regulations Bill",9,9,0,1.0
+/the-presidency/presidential-speeches/july-1-1968-remarks-signing-nuclear-nonproliferation-treaty,Lyndon B. Johnson,1968,The Cold War,"July 1, 1968: Remarks on Signing the Nuclear Nonproliferation Treaty",8,8,0,1.0
+/the-presidency/presidential-speeches/july-10-1795-proclamation-pardons-western-pennsylvania,George Washington,1795,The founding,"July 10, 1795: Proclamation of Pardons in Western Pennsylvania",2,2,0,1.0
+/the-presidency/presidential-speeches/july-14-1870-message-regarding-us-international-relations,Ulysses S. Grant,1870,Civil War & Reconstruction,"July 14, 1870: Message Regarding US International Relations",39,38,1,0.9743589743589743
+/the-presidency/presidential-speeches/july-18-1868-message-proposing-constitutional-amendments,Andrew Johnson,1868,Civil War & Reconstruction,"July 18, 1868: Message Proposing Constitutional Amendments",21,21,0,1.0
+/the-presidency/presidential-speeches/july-18-1877-message-regarding-railroad-strike,Rutherford B. Hayes,1877,Civil War & Reconstruction,"July 18, 1877: Message Regarding Railroad Strike",3,3,0,1.0
+/the-presidency/presidential-speeches/july-19-1940-democratic-national-convention,Franklin D. Roosevelt,1940,War & New Deal,"July 19, 1940: Democratic National Convention",27,27,0,1.0
+/the-presidency/presidential-speeches/july-19-2006-remarks-stem-cell-research-policy,George W. Bush,2006,Post-Cold War,"July 19, 2006: Remarks on Stem Cell Research Policy",16,16,0,1.0
+/the-presidency/presidential-speeches/july-2-1964-remarks-upon-signing-civil-rights-bill,Lyndon B. Johnson,1964,The Cold War,"July 2, 1964: Remarks upon Signing the Civil Rights Bill",9,9,0,1.0
+/the-presidency/presidential-speeches/july-20-1944-democratic-national-convention,Franklin D. Roosevelt,1944,War & New Deal,"July 20, 1944: Democratic National Convention",13,13,0,1.0
+/the-presidency/presidential-speeches/july-24-1866-message-restoring-tennessee-former-status,Andrew Johnson,1866,Civil War & Reconstruction,"July 24, 1866: Message Restoring Tennessee to Former Status",11,11,0,1.0
+/the-presidency/presidential-speeches/july-24-1929-address-kellogg-briand-pact,Herbert Hoover,1929,Progressives & Depression,"July 24, 1929: Address on Kellogg-Briand Pact",7,7,0,1.0
+/the-presidency/presidential-speeches/july-24-1929-remarks-upon-proclaiming-treaty-renunciation-war,Herbert Hoover,1929,Progressives & Depression,"July 24, 1929: Remarks Upon Proclaiming the Treaty for the Renunciation of War (Kellog-Briand Pact)",12,12,0,1.0
+/the-presidency/presidential-speeches/july-24-1964-press-conference-state-department,Lyndon B. Johnson,1964,The Cold War,"July 24, 1964: Press Conference at the State Department",51,51,0,1.0
+/the-presidency/presidential-speeches/july-24-2018-speech-veterans-foreign-wars-national-convention,Donald Trump,2018,The present era,"July 24, 2018: Speech at the Veterans of Foreign Wars National Convention",66,66,0,1.0
+/the-presidency/presidential-speeches/july-26-1990-remarks-signing-americans-disabilities-act,George H. W. Bush,1990,Post-Cold War,"July 26, 1990: Remarks on the Signing of the Americans with Disabilities Act",14,13,1,0.9285714285714286
+/the-presidency/presidential-speeches/july-27-1967-speech-nation-civil-disorders,Lyndon B. Johnson,1967,The Cold War,"July 27, 1967: Speech to the Nation on Civil Disorders",15,15,0,1.0
+/the-presidency/presidential-speeches/july-28-1965-press-conference,Lyndon B. Johnson,1965,The Cold War,"July 28, 1965: Press Conference",60,60,0,1.0
+/the-presidency/presidential-speeches/july-31-1991-press-conference-mikhail-gorbachev,George H. W. Bush,1991,Post-Cold War,"July 31, 1991: Press Conference with Mikhail Gorbachev",115,115,0,1.0
+/the-presidency/presidential-speeches/july-4-1913-address-gettysburg,Woodrow Wilson,1913,Progressives & Depression,"July 4, 1913: Address at Gettysburg",9,9,0,1.0
+/the-presidency/presidential-speeches/july-4-1914-fourth-july-address,Woodrow Wilson,1914,Progressives & Depression,"July 4, 1914: Fourth of July Address",24,24,0,1.0
+/the-presidency/presidential-speeches/july-5-1966-press-conference-lbj-ranch,Lyndon B. Johnson,1966,The Cold War,"July 5, 1966: Press Conference at the LBJ Ranch",58,58,0,1.0
+/the-presidency/presidential-speeches/july-8-1894-proclamation-regarding-railroad-strike,Grover Cleveland,1894,The Gilded Age,"July 8, 1894: Proclamation Regarding Railroad Strike",5,5,0,1.0
+/the-presidency/presidential-speeches/july-8-2021-speech-drawdown-us-forces-afghanistan,Joe Biden,2021,The present era,"July 8, 2021: Speech on the Drawdown of US Forces in Afghanistan",51,51,0,1.0
+/the-presidency/presidential-speeches/june-1-1841-special-session-message-congress-regarding-general,John Tyler,1841,Expansion,"June 1, 1841: Special Session Message to Congress Regarding General Affairs of the Country",45,45,0,1.0
+/the-presidency/presidential-speeches/june-1-1965-press-conference-east-room,Lyndon B. Johnson,1965,The Cold War,"June 1, 1965: Press Conference in the East Room",48,48,0,1.0
+/the-presidency/presidential-speeches/june-1-2002-graduation-speech-west-point,George W. Bush,2002,Post-Cold War,"June 1, 2002: Graduation Speech at West Point",29,29,0,1.0
+/the-presidency/presidential-speeches/june-1-2020-statement-protests-against-police-brutality,Donald Trump,2020,The present era,"June 1, 2020: Statement on Protests Against Police Brutality ",9,9,0,1.0
+/the-presidency/presidential-speeches/june-12-1895-declaration-us-neutrality,Grover Cleveland,1895,The Gilded Age,"June 12, 1895: Declaration of US Neutrality",2,2,0,1.0
+/the-presidency/presidential-speeches/june-12-1987-address-brandenburg-gate-berlin-wall,Ronald Reagan,1987,The Cold War,"June 12, 1987: Address from the Brandenburg Gate (Berlin Wall)",21,19,2,0.9047619047619048
+/the-presidency/presidential-speeches/june-16-1858-house-divided-speech,Abraham Lincoln,1858,Civil War & Reconstruction,"June 16, 1858: ""A House Divided"" Speech",37,37,0,1.0
+/the-presidency/presidential-speeches/june-16-1930-message-regarding-smoot-hawley-tariff-act,Herbert Hoover,1930,Progressives & Depression,"June 16, 1930: Message regarding the Smoot-Hawley Tariff Act",11,11,0,1.0
+/the-presidency/presidential-speeches/june-17-1982-speech-united-nations-general-assembly,Ronald Reagan,1982,The Cold War,"June 17, 1982: Speech to the United Nations General Assembly",36,36,0,1.0
+/the-presidency/presidential-speeches/june-19-1812-proclamation-state-war-great-britain,James Madison,1812,The founding,"June 19, 1812: Proclamation of a State of War with Great Britain",2,2,0,1.0
+/the-presidency/presidential-speeches/june-19-1890-message-regarding-international-american,Benjamin Harrison,1890,The Gilded Age,"June 19, 1890: Message Regarding the International American Conference",3,3,0,1.0
+/the-presidency/presidential-speeches/june-20-1803-instructions-captain-lewis,Thomas Jefferson,1803,The founding,"June 20, 1803: Instructions to Captain Lewis",19,19,0,1.0
+/the-presidency/presidential-speeches/june-20-1867-message-clarifying-reconstruction-acts,Andrew Johnson,1867,Civil War & Reconstruction,"June 20, 1867: Message Clarifying the Reconstruction Acts",13,13,0,1.0
+/the-presidency/presidential-speeches/june-20-1868-veto-message-regarding-regulations-confederate,Andrew Johnson,1868,Civil War & Reconstruction,"June 20, 1868: Veto Message Regarding Regulations on Confederate States",9,9,0,1.0
+/the-presidency/presidential-speeches/june-20-1947-veto-taft-hartley-bill,Harry S. Truman,1947,The Cold War,"June 20, 1947: On the Veto of the Taft-Hartley Bill",14,14,0,1.0
+/the-presidency/presidential-speeches/june-22-1877-prohibition-federal-employees-political,Rutherford B. Hayes,1877,Civil War & Reconstruction,"June 22, 1877: Prohibition of Federal Employees’ Political Involvement",1,True,0,1.0
+/the-presidency/presidential-speeches/june-26-1876-proclamation-celebrating-hundredth-anniversary,Ulysses S. Grant,1876,Civil War & Reconstruction,"June 26, 1876: Proclamation Celebrating the Hundredth Anniversary of Independence",3,3,0,1.0
+/the-presidency/presidential-speeches/june-29-1981-speech-naacp-annual-convention,Ronald Reagan,1981,The Cold War,"June 29, 1981: Speech to the NAACP Annual Convention",43,43,0,1.0
+/the-presidency/presidential-speeches/june-30-1966-remarks-omaha-nebraska,Lyndon B. Johnson,1966,The Cold War,"June 30, 1966: Remarks in Omaha, Nebraska",46,1,45,0.021739130434782608
+/the-presidency/presidential-speeches/june-5-1944-fireside-chat-29-fall-rome,Franklin D. Roosevelt,1944,War & New Deal,"June 5, 1944: Fireside Chat 29: On the Fall of Rome",18,18,0,1.0
+/the-presidency/presidential-speeches/june-5-1963-remarks-us-air-force-academy,John F. Kennedy,1963,The Cold War,"June 5, 1963: Remarks at U.S. Air Force Academy",18,18,0,1.0
+/the-presidency/presidential-speeches/june-6-1984-40th-anniversary-d-day,Ronald Reagan,1984,The Cold War,"June 6, 1984: 40th Anniversary of D-Day",15,15,0,1.0
+/the-presidency/presidential-speeches/june-6-2002-address-nation-department-homeland-security,George W. Bush,2002,Post-Cold War,"June 6, 2002: Address to the Nation on the Department of Homeland Security",18,18,0,1.0
+/the-presidency/presidential-speeches/june-7-1961-remarks-graduating-class-us-naval-academy,John F. Kennedy,1961,The Cold War,"June 7, 1961: Remarks to the Graduating Class of the US Naval Academy",12,12,0,1.0
+/the-presidency/presidential-speeches/june-8-1982-address-british-parliament,Ronald Reagan,1982,The Cold War,"June 8, 1982: Address to the British Parliament",33,33,0,1.0
+/the-presidency/presidential-speeches/june-9-1982-address-bundestag-west-germany,Ronald Reagan,1982,The Cold War,"June 9, 1982: Address to the Bundestag in West Germany",34,34,0,1.0
+/the-presidency/presidential-speeches/march-1-1886-message-regarding-chinese-immigrant-workers,Grover Cleveland,1886,The Gilded Age,"March 1, 1886: Message Regarding Chinese Immigrant Workers",12,12,0,1.0
+/the-presidency/presidential-speeches/march-11-2020-statement-coronavirus,Donald Trump,2020,The present era,"March 11, 2020: Statement on the Coronavirus",17,17,0,1.0
+/the-presidency/presidential-speeches/march-14-1854-message-regarding-proposed-us-mexican-convention,Franklin Pierce,1854,Civil War & Reconstruction,"March 14, 1854: Message Regarding Proposed US-Mexican Convention",4,4,0,1.0
+/the-presidency/presidential-speeches/march-15-1952-columbia-scholastic-press-association,Harry S. Truman,1952,The Cold War,"March 15, 1952: Columbia Scholastic Press Association",15,15,0,1.0
+/the-presidency/presidential-speeches/march-15-2010-speech-health-care-reform,Barack Obama,2010,Post-Cold War,"March 15, 2010: Speech on Health Care Reform",40,40,0,1.0
+/the-presidency/presidential-speeches/march-16-1909-message-regarding-tariff-legislation,William Taft,1909,Progressives & Depression,"March 16, 1909: Message Regarding Tariff Legislation",3,3,0,1.0
+/the-presidency/presidential-speeches/march-23-1966-speech-foreign-institute,Lyndon B. Johnson,1966,The Cold War,"March 23, 1966: Speech Before the Foreign Institute",16,16,0,1.0
+/the-presidency/presidential-speeches/march-24-1846-message-regarding-increase-military-force,James K. Polk,1846,Expansion,"March 24, 1846: Message Regarding Increase in Military Force",7,7,0,1.0
+/the-presidency/presidential-speeches/march-25-1998-remarks-people-rwanda,Bill Clinton,1998,Post-Cold War,"March 25, 1998: Remarks to the People of Rwanda",18,18,0,1.0
+/the-presidency/presidential-speeches/march-29-1894-veto-message-monetary-legislation,Grover Cleveland,1894,The Gilded Age,"March 29, 1894: Veto Message of Monetary Legislation",25,25,0,1.0
+/the-presidency/presidential-speeches/march-4-1793-second-inaugural-address,George Washington,1793,The founding,"March 4, 1793: Second Inaugural Address",1,True,0,1.0
+/the-presidency/presidential-speeches/march-4-1805-second-inaugural-address,Thomas Jefferson,1805,The founding,"March 4, 1805: Second Inaugural Address",16,16,0,1.0
+/the-presidency/presidential-speeches/march-4-1813-second-inaugural-address,James Madison,1813,The founding,"March 4, 1813: Second Inaugural Address",9,9,0,1.0
+/the-presidency/presidential-speeches/march-4-1861-first-inaugural-address,Abraham Lincoln,1861,Civil War & Reconstruction,"March 4, 1861: First Inaugural Address",33,33,0,1.0
+/the-presidency/presidential-speeches/march-4-1869-first-inaugural-address,Ulysses S. Grant,1869,Civil War & Reconstruction,"March 4, 1869: First Inaugural Address",9,9,0,1.0
+/the-presidency/presidential-speeches/march-4-1873-second-inaugural-address,Ulysses S. Grant,1873,Civil War & Reconstruction,"March 4, 1873: Second Inaugural Address",12,12,0,1.0
+/the-presidency/presidential-speeches/march-4-1885-first-inaugural-address,Grover Cleveland,1885,The Gilded Age,"March 4, 1885: First Inaugural Address",12,12,0,1.0
+/the-presidency/presidential-speeches/march-4-1897-first-inaugural-address,William McKinley,1897,The Gilded Age,"March 4, 1897: First Inaugural Address",27,27,0,1.0
+/the-presidency/presidential-speeches/march-4-1921-inaugural-address,Warren G. Harding,1921,Progressives & Depression,"March 4, 1921: Inaugural Address",30,30,0,1.0
+/the-presidency/presidential-speeches/march-4-1933-first-inaugural-address,Franklin D. Roosevelt,1933,War & New Deal,"March 4, 1933: First Inaugural Address",17,17,0,1.0
+/the-presidency/presidential-speeches/march-7-1964-press-conference-white-house,Lyndon B. Johnson,1964,The Cold War,"March 7, 1964: Press Conference at the White House",49,49,0,1.0
+/the-presidency/presidential-speeches/march-9-1977-remarks-president-carters-press-conference,Jimmy Carter,1977,The Cold War,"March 9, 1977: Remarks at President Carter's Press Conference",53,53,0,1.0
+/the-presidency/presidential-speeches/may-12-1879-message-regarding-election-regulations,Rutherford B. Hayes,1879,The Gilded Age,"May 12, 1879: Message Regarding Election Regulations",15,15,0,1.0
+/the-presidency/presidential-speeches/may-14-1869-message-submitting-state-constitutions-vote,Ulysses S. Grant,1869,Civil War & Reconstruction,"May 14, 1869: Message Submitting State Constitutions to a Vote",5,5,0,1.0
+/the-presidency/presidential-speeches/may-17-1981-address-university-notre-dame,Ronald Reagan,1981,The Cold War,"May 17, 1981: Address at University of Notre Dame",35,35,0,1.0
+/the-presidency/presidential-speeches/may-19-1869-proclamation-establishing-eight-hour-workday,Ulysses S. Grant,1869,Civil War & Reconstruction,"May 19, 1869: Proclamation Establishing Eight Hour Workday",1,True,0,1.0
+/the-presidency/presidential-speeches/may-19-1917-message-regarding-military-draft,Woodrow Wilson,1917,Progressives & Depression,"May 19, 1917: Message Regarding Military Draft",13,13,0,1.0
+/the-presidency/presidential-speeches/may-25-1961-goal-sending-man-moon,John F. Kennedy,1961,The Cold War,"May 25, 1961: The Goal of Sending a Man to the Moon",43,25,18,0.5813953488372093
+/the-presidency/presidential-speeches/may-25-2011-address-british-parliament,Barack Obama,2011,Post-Cold War,"May 25, 2011: Address to the British Parliament",42,42,0,1.0
+/the-presidency/presidential-speeches/may-26-2009-remarks-nominating-judge-sonia-sotomayor-us,Barack Obama,2009,Post-Cold War,"May 26, 2009: Remarks on Nominating Judge Sonia Sotomayor to the U.S. Supreme Court",12,12,0,1.0
+/the-presidency/presidential-speeches/may-27-1941-fireside-chat-17-unlimited-national-emergency,Franklin D. Roosevelt,1941,War & New Deal,"May 27, 1941: Fireside Chat 17: On An Unlimited National Emergency",51,51,0,1.0
+/the-presidency/presidential-speeches/may-29-1865-message-reestablishing-governments-former,Andrew Johnson,1865,Civil War & Reconstruction,"May 29, 1865: Message Reestablishing Governments in Former Confederate States",6,6,0,1.0
+/the-presidency/presidential-speeches/may-31-1932-statement-national-economy,Herbert Hoover,1932,Progressives & Depression,"May 31, 1932: Statement on the National Economy",19,19,0,1.0
+/the-presidency/presidential-speeches/may-31-2024-remarks-middle-east,Joe Biden,2024,The present era,"May 31, 2024: Remarks on the Middle East",23,23,0,1.0
+/the-presidency/presidential-speeches/november-13-2008-speech-financial-markets-and-world-economy,George W. Bush,2008,Post-Cold War,"November 13, 2008: Speech on Financial Markets and the World Economy",27,27,0,1.0
+/the-presidency/presidential-speeches/november-17-1967-press-conference,Lyndon B. Johnson,1967,The Cold War,"November 17, 1967: Press Conference",69,69,0,1.0
+/the-presidency/presidential-speeches/november-3-2010-press-conference-after-2010-midterm-elections,Barack Obama,2010,Post-Cold War,"November 3, 2010: Press Conference After 2010 Midterm Elections",62,61,1,0.9838709677419355
+/the-presidency/presidential-speeches/november-30-1995-address-employees-mackie-metal-plant,Bill Clinton,1995,Post-Cold War,"November 30, 1995: Address to the Employees of the Mackie Metal Plant",24,24,0,1.0
+/the-presidency/presidential-speeches/november-4-1812-fourth-annual-message,James Madison,1812,The founding,"November 4, 1812: Fourth Annual Message",28,28,0,1.0
+/the-presidency/presidential-speeches/november-5-2020-remarks-2020-election,Donald Trump,2020,The present era,"November 5, 2020: Remarks on the 2020 Election",31,31,0,1.0
+/the-presidency/presidential-speeches/november-8-1977-address-nation-energy,Jimmy Carter,1977,The Cold War,"November 8, 1977: Address to the Nation on Energy",19,19,0,1.0
+/the-presidency/presidential-speeches/october-1-1888-message-regarding-chinese-exclusion-act,Grover Cleveland,1888,The Gilded Age,"October 1, 1888: Message Regarding Chinese Exclusion Act",14,1,13,0.07142857142857142
+/the-presidency/presidential-speeches/october-1-1990-address-united-nations,George H. W. Bush,1990,Post-Cold War,"October 1, 1990: Address to the United Nations",29,29,0,1.0
+/the-presidency/presidential-speeches/october-12-1937-fireside-chat-10-new-legislation,Franklin D. Roosevelt,1937,War & New Deal,"October 12, 1937: Fireside Chat 10: On New Legislation",25,25,0,1.0
+/the-presidency/presidential-speeches/october-17-1966-remarks-departing-asia-pacific-trip,Lyndon B. Johnson,1966,The Cold War,"October 17, 1966: Remarks on Departing for the Asia-Pacific Trip",3,3,0,1.0
+/the-presidency/presidential-speeches/october-18-1931-message-regarding-unemployment-relief,Herbert Hoover,1931,Progressives & Depression,"October 18, 1931: Message Regarding Unemployment Relief",11,11,0,1.0
+/the-presidency/presidential-speeches/october-20-1903-message-convening-special-session-congress,Theodore Roosevelt,1903,Progressives & Depression,"October 20, 1903: Message Convening a Special Session of Congress",2,2,0,1.0
+/the-presidency/presidential-speeches/october-20-1914-opinion-world-speech,Woodrow Wilson,1914,Progressives & Depression,"October 20, 1914: ""The Opinion of the World"" Speech",7,7,0,1.0
+/the-presidency/presidential-speeches/october-21-1932-campaign-speech-madison-square-garden,Herbert Hoover,1932,Progressives & Depression,"October 21, 1932: Campaign Speech in Madison Square Garden",49,48,1,0.9795918367346939
+/the-presidency/presidential-speeches/october-22-1952-rear-platform-remarks,Harry S. Truman,1952,The Cold War,"October 22, 1952: Rear Platform Remarks",10,1,9,0.1
+/the-presidency/presidential-speeches/october-22-1986-remarks-signing-tax-reform-act,Ronald Reagan,1986,The Cold War,"October 22, 1986: Remarks on Signing the Tax Reform Act",12,12,0,1.0
+/the-presidency/presidential-speeches/october-25-1791-third-annual-message-congress,George Washington,1791,The founding,"October 25, 1791: Third Annual Message to Congress",21,21,0,1.0
+/the-presidency/presidential-speeches/october-25-1913-address-congress-hall-philadelphia,Woodrow Wilson,1913,Progressives & Depression,"October 25, 1913: Address at Congress Hall, Philadelphia",14,14,0,1.0
+/the-presidency/presidential-speeches/october-27-1983-speech-nation-lebanon-and-grenada,Ronald Reagan,1983,The Cold War,"October 27, 1983: Speech to the Nation on Lebanon and Grenada",90,90,0,1.0
+/the-presidency/presidential-speeches/october-31-1968-remarks-cessation-bombing-north-vietnam,Lyndon B. Johnson,1968,The Cold War,"October 31, 1968: Remarks on the Cessation of Bombing of North Vietnam",16,16,0,1.0
+/the-presidency/presidential-speeches/october-5-1830-proclamation-regarding-opening-united-states,Andrew Jackson,1830,Expansion,"October 5, 1830: Proclamation Regarding the Opening of United States Ports to British Vessels",4,4,0,1.0
+/the-presidency/presidential-speeches/october-7-1960-debate-richard-nixon-washington-dc,John F. Kennedy,1960,The Cold War,"October 7, 1960: Debate with Richard Nixon in Washington, D.C.",99,98,1,0.98989898989899
+/the-presidency/presidential-speeches/september-11-1941-fireside-chat-18-greer-incident,Franklin D. Roosevelt,1941,War & New Deal,"September 11, 1941: Fireside Chat 18: On The Greer Incident",23,23,0,1.0
+/the-presidency/presidential-speeches/september-13-1993-remarks-signing-israeli-palestinian,Bill Clinton,1993,Post-Cold War,"September 13, 1993: Remarks at the Signing of the Israeli-Palestinian Agreement",9,9,0,1.0
+/the-presidency/presidential-speeches/september-14-1901-announcement-death-president-mckinley,Theodore Roosevelt,1901,Progressives & Depression,"September 14, 1901: Announcement of the Death of President McKinley",3,3,0,1.0
+/the-presidency/presidential-speeches/september-17-1978-president-carters-remarks-joint-statement,Jimmy Carter,1978,The Cold War,"September 17, 1978: President Carter's Remarks on Joint Statement at Camp David Summit",6,6,0,1.0
+/the-presidency/presidential-speeches/september-23-1976-debate-president-gerald-ford-domestic-issues,Jimmy Carter,1976,The Cold War,"September 23, 1976: Debate with President Gerald Ford (Domestic Issues)",136,136,0,1.0
+/the-presidency/presidential-speeches/september-24-2019-remarks-united-nations-general-assembly,Donald Trump,2019,The present era,"September 24, 2019: Remarks at the United Nations General Assembly",45,45,0,1.0
+/the-presidency/presidential-speeches/september-25-2018-address-73rd-session-united-nations-general,Donald Trump,2018,The present era,"September 25, 2018: Address at the 73rd Session of the United Nations General Assembly",45,45,0,1.0
+/the-presidency/presidential-speeches/september-26-1988-address-united-nations,Ronald Reagan,1988,The Cold War,"September 26, 1988: Address to the United Nations",44,44,0,1.0
+/the-presidency/presidential-speeches/september-3-1892-speech-accepting-republican-nomination,Benjamin Harrison,1892,The Gilded Age,"September 3, 1892: Speech Accepting the Republican Nomination",58,58,0,1.0
+/the-presidency/presidential-speeches/september-4-1837-special-session-message,Martin Van Buren,1837,Expansion,"September 4, 1837: Special Session Message",82,82,0,1.0
+/the-presidency/presidential-speeches/september-5-1901-speech-buffalo-new-york,William McKinley,1901,Progressives & Depression,"September 5, 1901: Speech in Buffalo, New York",17,17,0,1.0
+/the-presidency/presidential-speeches/september-5-1983-speech-soviet-attack-korean-airliner,Ronald Reagan,1983,The Cold War,"September 5, 1983: Speech on the Soviet Attack on a Korean Airliner",26,26,0,1.0
+/the-presidency/presidential-speeches/september-7-2020-labor-day-press-conference,Donald Trump,2020,The present era,"September 7, 2020: Labor Day Press Conference",95,95,0,1.0
+/the-presidency/presidential-speeches/september-8-1943-fireside-chat-26-armistice-italy,Franklin D. Roosevelt,1943,War & New Deal,"September 8, 1943: Fireside Chat 26: On the Armistice in Italy",12,12,0,1.0
+/the-presidency/presidential-speeches/september-9-2021-remarks-fighting-covid-19-pandemic,Joe Biden,2021,The present era,"September 9, 2021: Remarks on Fighting the COVID-⁠19 Pandemic",42,42,0,1.0
+february-1-2018-remarks-house-and-senate-republican-member,Donald Trump,2018,The present era,"February 1, 2018: Remarks at the House and Senate Republican Member Conference",57,57,0,1.0
+february-4-2020-state-union-address,Donald Trump,2020,The present era,"February 4, 2020: State of the Union Address",71,71,0,1.0
+january-19-2019-remarks-about-us-southern-border,Donald Trump,2019,The present era,"January 19, 2019: Remarks about the US Southern Border",16,16,0,1.0
+january-3-2026-statement-us-action-venezuela,Donald Trump,2026,The present era,"January 3, 2026: Statement on U.S. Action in Venezuela",28,28,0,1.0
+january-6-2022-remarks-anniversary-january-6th-assault-us,Joe Biden,2022,The present era,"January 6, 2022: Remarks on the Anniversary of the January 6th Assault on the US Capitol",34,34,0,1.0
+october-27-2019-statement-death-abu-bakr-al-baghdadi,Donald Trump,2019,The present era,"October 27, 2019: Statement on the the Death of Abu Bakr al-Baghdadi",8,8,0,1.0
+september-19-2017-address-united-nations-general-assembly,Donald Trump,2017,The present era,"September 19, 2017: Address to the United Nations General Assembly ",52,52,0,1.0
+september-25-2019-press-conference,Donald Trump,2019,The present era,"September 25, 2019: Press Conference",74,74,0,1.0

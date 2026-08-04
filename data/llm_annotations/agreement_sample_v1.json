@@ -1,0 +1,1933 @@
+{
+  "version": "v1",
+  "seed": 20260721,
+  "fraction": 0.25,
+  "min_per_bin": 3,
+  "era_anchor": 1789,
+  "era_bin_width": 30,
+  "selection_rule": "Speech-level draw from corpus.load()'s unique doc_names. 30-year era bins anchored at 1789 (bin 0 = 1789-1818). Proportional 25% per bin, rounded half up (int(fraction*n + 0.5)) and clamped to [3, bin_size]. Within each bin the doc_names are SORTED before a seeded numpy.random.default_rng(20260721) draw, so the selection reproduces bit-for-bit. The committed JSON \u2014 not the seed \u2014 is the source of truth for every downstream run (including a future hand-graded truth pass).",
+  "draw_date": "2026-07-21",
+  "n_corpus_speeches": 1057,
+  "n_sampled": 266,
+  "corpus_fingerprint": {
+    "n_speeches": 1057,
+    "n_paragraphs": 36229,
+    "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+  },
+  "bins": [
+    {
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "n_in_bin": 78,
+      "n_sampled": 20
+    },
+    {
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "n_in_bin": 93,
+      "n_sampled": 23
+    },
+    {
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "n_in_bin": 126,
+      "n_sampled": 32
+    },
+    {
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "n_in_bin": 106,
+      "n_sampled": 27
+    },
+    {
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "n_in_bin": 124,
+      "n_sampled": 31
+    },
+    {
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "n_in_bin": 180,
+      "n_sampled": 45
+    },
+    {
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "n_in_bin": 175,
+      "n_sampled": 44
+    },
+    {
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "n_in_bin": 175,
+      "n_sampled": 44
+    }
+  ],
+  "doc_names": [
+    "/the-presidency/presidential-speeches/april-11-1898-message-regarding-cuban-civil-war",
+    "/the-presidency/presidential-speeches/april-11-1951-report-american-people-korea",
+    "/the-presidency/presidential-speeches/april-13-1846-message-regarding-cherokee-indians",
+    "/the-presidency/presidential-speeches/april-16-1945-first-speech-congress",
+    "/the-presidency/presidential-speeches/april-16-1953-chance-peace",
+    "/the-presidency/presidential-speeches/april-18-1882-message-regarding-congress-american-countries",
+    "/the-presidency/presidential-speeches/april-2-1866-proclamation-end-confederate-insurrection",
+    "/the-presidency/presidential-speeches/april-20-1964-speech-associated-press-luncheon",
+    "/the-presidency/presidential-speeches/april-22-1886-message-regarding-us-labor-force",
+    "/the-presidency/presidential-speeches/april-23-1975-remarks-tulane-university",
+    "/the-presidency/presidential-speeches/april-25-1980-statement-iran-rescue-mission",
+    "/the-presidency/presidential-speeches/april-28-1935-fireside-chat-7-works-relief-program-and-social",
+    "/the-presidency/presidential-speeches/april-28-1942-fireside-chat-21-sacrifice",
+    "/the-presidency/presidential-speeches/april-3-1809-message-inhabitants-albemarle-county",
+    "/the-presidency/presidential-speeches/april-3-1848-message-regarding-establishment-french-republic",
+    "/the-presidency/presidential-speeches/april-3-1968-press-conference",
+    "/the-presidency/presidential-speeches/april-30-1984-remarks-fudan-university-classroom",
+    "/the-presidency/presidential-speeches/april-8-2013-speech-gun-violence",
+    "/the-presidency/presidential-speeches/april-9-2007-speech-comprehensive-immigration-reform",
+    "/the-presidency/presidential-speeches/august-1-1848-message-regarding-size-army",
+    "/the-presidency/presidential-speeches/august-10-2001-address-nation-stem-cell-research",
+    "/the-presidency/presidential-speeches/august-11-1842-message-senate-negotiations-britain",
+    "/the-presidency/presidential-speeches/august-11-1932-speech-accepting-republican-nomination",
+    "/the-presidency/presidential-speeches/august-15-1973-address-nation-about-watergate-investigations",
+    "/the-presidency/presidential-speeches/august-16-1841-veto-message-regarding-bank-united-states",
+    "/the-presidency/presidential-speeches/august-18-1967-press-conference",
+    "/the-presidency/presidential-speeches/august-19-1976-remarks-republican-national-convention",
+    "/the-presidency/presidential-speeches/august-28-1920-america",
+    "/the-presidency/presidential-speeches/august-29-1796-talk-cherokee-nation",
+    "/the-presidency/presidential-speeches/august-29-1996-remarks-democratic-national-convention",
+    "/the-presidency/presidential-speeches/august-6-1850-message-regarding-compromise-texas",
+    "/the-presidency/presidential-speeches/august-7-1846-message-regarding-treaty-cherokees",
+    "/the-presidency/presidential-speeches/august-8-1893-message-regarding-economic-crisis",
+    "/the-presidency/presidential-speeches/august-8-1990-address-iraqs-invasion-kuwait",
+    "/the-presidency/presidential-speeches/december-1-1834-sixth-annual-message-congress",
+    "/the-presidency/presidential-speeches/december-1-1879-third-annual-message",
+    "/the-presidency/presidential-speeches/december-10-1832-nullification-proclamation",
+    "/the-presidency/presidential-speeches/december-11-1931-statement-regarding-economic-recovery",
+    "/the-presidency/presidential-speeches/december-13-1850-announcement-texas-acceptance-compromise",
+    "/the-presidency/presidential-speeches/december-17-1895-message-regarding-venezuelan-british-dispute",
+    "/the-presidency/presidential-speeches/december-19-1799-death-george-washington",
+    "/the-presidency/presidential-speeches/december-19-2005-address-renewal-iraq",
+    "/the-presidency/presidential-speeches/december-19-2008-remarks-plan-assist-automakers",
+    "/the-presidency/presidential-speeches/december-2-1823-seventh-annual-message-monroe-doctrine",
+    "/the-presidency/presidential-speeches/december-2-1845-first-annual-message",
+    "/the-presidency/presidential-speeches/december-2-1895-third-annual-message-second-term",
+    "/the-presidency/presidential-speeches/december-2-1930-second-state-union-address",
+    "/the-presidency/presidential-speeches/december-29-1846-request-increase-size-army",
+    "/the-presidency/presidential-speeches/december-3-1793-fifth-annual-message-congress",
+    "/the-presidency/presidential-speeches/december-3-1805-fifth-annual-message",
+    "/the-presidency/presidential-speeches/december-3-1816-eighth-annual-message",
+    "/the-presidency/presidential-speeches/december-3-1822-sixth-annual-message",
+    "/the-presidency/presidential-speeches/december-3-1833-fifth-annual-message-congress",
+    "/the-presidency/presidential-speeches/december-3-1889-first-annual-message",
+    "/the-presidency/presidential-speeches/december-3-1901-first-annual-message",
+    "/the-presidency/presidential-speeches/december-30-1806-address-wolf-and-people-mandan-nation",
+    "/the-presidency/presidential-speeches/december-30-1854-expansion-august-4-veto-message",
+    "/the-presidency/presidential-speeches/december-31-1855-third-annual-message",
+    "/the-presidency/presidential-speeches/december-4-1917-fifth-annual-message",
+    "/the-presidency/presidential-speeches/december-5-1837-first-annual-message-congress",
+    "/the-presidency/presidential-speeches/december-5-1870-second-annual-message",
+    "/the-presidency/presidential-speeches/december-5-1898-second-annual-message",
+    "/the-presidency/presidential-speeches/december-5-1911-third-annual-message",
+    "/the-presidency/presidential-speeches/december-6-1830-second-annual-message-congress",
+    "/the-presidency/presidential-speeches/december-6-1831-third-annual-message-congress",
+    "/the-presidency/presidential-speeches/december-6-1858-second-annual-message",
+    "/the-presidency/presidential-speeches/december-6-1864-fourth-annual-message",
+    "/the-presidency/presidential-speeches/december-6-1880-fourth-annual-message",
+    "/the-presidency/presidential-speeches/december-7-1909-first-annual-message",
+    "/the-presidency/presidential-speeches/december-7-1961-address-miami-opening-afl-cio-convention",
+    "/the-presidency/presidential-speeches/december-8-1798-second-annual-message",
+    "/the-presidency/presidential-speeches/december-8-1857-first-annual-message",
+    "/the-presidency/presidential-speeches/december-8-1863-third-annual-message",
+    "/the-presidency/presidential-speeches/december-8-1885-first-annual-message",
+    "/the-presidency/presidential-speeches/december-8-1922-second-annual-message",
+    "/the-presidency/presidential-speeches/december-8-1925-third-annual-message",
+    "/the-presidency/presidential-speeches/december-8-1931-third-state-union-address",
+    "/the-presidency/presidential-speeches/december-8-1941-address-congress-requesting-declaration-war",
+    "/the-presidency/presidential-speeches/december-8-1993-remarks-signing-nafta",
+    "/the-presidency/presidential-speeches/february-10-1807-special-message-congress-gun-boats",
+    "/the-presidency/presidential-speeches/february-11-1868-messages-regarding-correspondence-general-us",
+    "/the-presidency/presidential-speeches/february-15-1871-veto-message-regarding-restrictions-rebellion",
+    "/the-presidency/presidential-speeches/february-19-1851-message-regarding-disturbance-boston",
+    "/the-presidency/presidential-speeches/february-2-1967-press-conference",
+    "/the-presidency/presidential-speeches/february-21-1964-remarks-ninety-sixth-charter-day-observances",
+    "/the-presidency/presidential-speeches/february-22-1831-message-regarding-indian-relations",
+    "/the-presidency/presidential-speeches/february-22-1927-address-regarding-washingtons-birthday",
+    "/the-presidency/presidential-speeches/february-23-1942-fireside-chat-20-progress-war",
+    "/the-presidency/presidential-speeches/february-23-2018-remarks-conservative-political-action",
+    "/the-presidency/presidential-speeches/february-24-2009-address-joint-session-congress",
+    "/the-presidency/presidential-speeches/february-26-1917-message-regarding-safety-merchant-ships",
+    "/the-presidency/presidential-speeches/february-26-1931-veto-messages-regarding-emergency-adjusted",
+    "/the-presidency/presidential-speeches/february-27-1991-address-end-gulf-war",
+    "/the-presidency/presidential-speeches/february-3-1931-statement-unemployment-relief",
+    "/the-presidency/presidential-speeches/february-5-1993-remarks-signing-family-medical-leave-act",
+    "/the-presidency/presidential-speeches/february-5-2019-state-union-address",
+    "/the-presidency/presidential-speeches/february-7-2023-state-union-address",
+    "/the-presidency/presidential-speeches/january-10-1806-address-chiefs-cherokee-nation",
+    "/the-presidency/presidential-speeches/january-12-1966-state-union",
+    "/the-presidency/presidential-speeches/january-12-1977-state-union-address",
+    "/the-presidency/presidential-speeches/january-12-2009-final-press-conference",
+    "/the-presidency/presidential-speeches/january-12-2011-remarks-memorial-victims-tucson-az-shooting",
+    "/the-presidency/presidential-speeches/january-14-1875-message-approving-specie-resumption-act",
+    "/the-presidency/presidential-speeches/january-15-2009-farewell-address-nation",
+    "/the-presidency/presidential-speeches/january-16-1833-message-regarding-south-carolina-nullification",
+    "/the-presidency/presidential-speeches/january-16-1991-address-nation-invasion-iraq",
+    "/the-presidency/presidential-speeches/january-18-1803-special-message-congress-indian-policy",
+    "/the-presidency/presidential-speeches/january-19-1978-state-union-address",
+    "/the-presidency/presidential-speeches/january-2-1841-special-message-about-desctruction-steamboat",
+    "/the-presidency/presidential-speeches/january-20-1920-americanism",
+    "/the-presidency/presidential-speeches/january-20-1953-first-inaugural-address",
+    "/the-presidency/presidential-speeches/january-20-1965-inaugural-address",
+    "/the-presidency/presidential-speeches/january-20-1972-state-union-address",
+    "/the-presidency/presidential-speeches/january-20-1977-inaugural-address",
+    "/the-presidency/presidential-speeches/january-20-1981-first-inaugural-address",
+    "/the-presidency/presidential-speeches/january-20-1993-first-inaugural",
+    "/the-presidency/presidential-speeches/january-20-1997-second-inaugural",
+    "/the-presidency/presidential-speeches/january-20-2015-2015-state-union-address",
+    "/the-presidency/presidential-speeches/january-20-2025-inaugural-address",
+    "/the-presidency/presidential-speeches/january-21-2013-second-inaugural-address",
+    "/the-presidency/presidential-speeches/january-23-1973-address-nation-announcing-agreement-ending-war",
+    "/the-presidency/presidential-speeches/january-24-1995-state-union-address",
+    "/the-presidency/presidential-speeches/january-25-1972-address-nation-plan-peace-vietnam",
+    "/the-presidency/presidential-speeches/january-25-1983-state-union-address",
+    "/the-presidency/presidential-speeches/january-27-2000-state-union-address",
+    "/the-presidency/presidential-speeches/january-28-1861-message-resolutions-virginia",
+    "/the-presidency/presidential-speeches/january-28-1895-message-regarding-financial-crisis",
+    "/the-presidency/presidential-speeches/january-29-1993-press-conference-gays-military",
+    "/the-presidency/presidential-speeches/january-29-2013-remarks-immigration-reform",
+    "/the-presidency/presidential-speeches/january-5-1956-state-union-address",
+    "/the-presidency/presidential-speeches/january-5-1957-eisenhower-doctrine",
+    "/the-presidency/presidential-speeches/january-7-1954-state-union-address",
+    "/the-presidency/presidential-speeches/january-8-1790-first-annual-message-congress",
+    "/the-presidency/presidential-speeches/january-8-1861-message-threats-peace-and-existence-union",
+    "/the-presidency/presidential-speeches/january-8-2020-statement-iran",
+    "/the-presidency/presidential-speeches/january-9-1958-state-union-address",
+    "/the-presidency/presidential-speeches/july-1-1882-veto-safety-regulations-bill",
+    "/the-presidency/presidential-speeches/july-1-1968-remarks-signing-nuclear-nonproliferation-treaty",
+    "/the-presidency/presidential-speeches/july-10-1795-proclamation-pardons-western-pennsylvania",
+    "/the-presidency/presidential-speeches/july-14-1870-message-regarding-us-international-relations",
+    "/the-presidency/presidential-speeches/july-18-1868-message-proposing-constitutional-amendments",
+    "/the-presidency/presidential-speeches/july-18-1877-message-regarding-railroad-strike",
+    "/the-presidency/presidential-speeches/july-19-1940-democratic-national-convention",
+    "/the-presidency/presidential-speeches/july-19-2006-remarks-stem-cell-research-policy",
+    "/the-presidency/presidential-speeches/july-2-1964-remarks-upon-signing-civil-rights-bill",
+    "/the-presidency/presidential-speeches/july-20-1944-democratic-national-convention",
+    "/the-presidency/presidential-speeches/july-24-1866-message-restoring-tennessee-former-status",
+    "/the-presidency/presidential-speeches/july-24-1929-address-kellogg-briand-pact",
+    "/the-presidency/presidential-speeches/july-24-1929-remarks-upon-proclaiming-treaty-renunciation-war",
+    "/the-presidency/presidential-speeches/july-24-1964-press-conference-state-department",
+    "/the-presidency/presidential-speeches/july-24-2018-speech-veterans-foreign-wars-national-convention",
+    "/the-presidency/presidential-speeches/july-26-1990-remarks-signing-americans-disabilities-act",
+    "/the-presidency/presidential-speeches/july-27-1967-speech-nation-civil-disorders",
+    "/the-presidency/presidential-speeches/july-28-1965-press-conference",
+    "/the-presidency/presidential-speeches/july-31-1991-press-conference-mikhail-gorbachev",
+    "/the-presidency/presidential-speeches/july-4-1913-address-gettysburg",
+    "/the-presidency/presidential-speeches/july-4-1914-fourth-july-address",
+    "/the-presidency/presidential-speeches/july-5-1966-press-conference-lbj-ranch",
+    "/the-presidency/presidential-speeches/july-8-1894-proclamation-regarding-railroad-strike",
+    "/the-presidency/presidential-speeches/july-8-2021-speech-drawdown-us-forces-afghanistan",
+    "/the-presidency/presidential-speeches/june-1-1841-special-session-message-congress-regarding-general",
+    "/the-presidency/presidential-speeches/june-1-1965-press-conference-east-room",
+    "/the-presidency/presidential-speeches/june-1-2002-graduation-speech-west-point",
+    "/the-presidency/presidential-speeches/june-1-2020-statement-protests-against-police-brutality",
+    "/the-presidency/presidential-speeches/june-12-1895-declaration-us-neutrality",
+    "/the-presidency/presidential-speeches/june-12-1987-address-brandenburg-gate-berlin-wall",
+    "/the-presidency/presidential-speeches/june-16-1858-house-divided-speech",
+    "/the-presidency/presidential-speeches/june-16-1930-message-regarding-smoot-hawley-tariff-act",
+    "/the-presidency/presidential-speeches/june-17-1982-speech-united-nations-general-assembly",
+    "/the-presidency/presidential-speeches/june-19-1812-proclamation-state-war-great-britain",
+    "/the-presidency/presidential-speeches/june-19-1890-message-regarding-international-american",
+    "/the-presidency/presidential-speeches/june-20-1803-instructions-captain-lewis",
+    "/the-presidency/presidential-speeches/june-20-1867-message-clarifying-reconstruction-acts",
+    "/the-presidency/presidential-speeches/june-20-1868-veto-message-regarding-regulations-confederate",
+    "/the-presidency/presidential-speeches/june-20-1947-veto-taft-hartley-bill",
+    "/the-presidency/presidential-speeches/june-22-1877-prohibition-federal-employees-political",
+    "/the-presidency/presidential-speeches/june-26-1876-proclamation-celebrating-hundredth-anniversary",
+    "/the-presidency/presidential-speeches/june-29-1981-speech-naacp-annual-convention",
+    "/the-presidency/presidential-speeches/june-30-1966-remarks-omaha-nebraska",
+    "/the-presidency/presidential-speeches/june-5-1944-fireside-chat-29-fall-rome",
+    "/the-presidency/presidential-speeches/june-5-1963-remarks-us-air-force-academy",
+    "/the-presidency/presidential-speeches/june-6-1984-40th-anniversary-d-day",
+    "/the-presidency/presidential-speeches/june-6-2002-address-nation-department-homeland-security",
+    "/the-presidency/presidential-speeches/june-7-1961-remarks-graduating-class-us-naval-academy",
+    "/the-presidency/presidential-speeches/june-8-1982-address-british-parliament",
+    "/the-presidency/presidential-speeches/june-9-1982-address-bundestag-west-germany",
+    "/the-presidency/presidential-speeches/march-1-1886-message-regarding-chinese-immigrant-workers",
+    "/the-presidency/presidential-speeches/march-11-2020-statement-coronavirus",
+    "/the-presidency/presidential-speeches/march-14-1854-message-regarding-proposed-us-mexican-convention",
+    "/the-presidency/presidential-speeches/march-15-1952-columbia-scholastic-press-association",
+    "/the-presidency/presidential-speeches/march-15-2010-speech-health-care-reform",
+    "/the-presidency/presidential-speeches/march-16-1909-message-regarding-tariff-legislation",
+    "/the-presidency/presidential-speeches/march-23-1966-speech-foreign-institute",
+    "/the-presidency/presidential-speeches/march-24-1846-message-regarding-increase-military-force",
+    "/the-presidency/presidential-speeches/march-25-1998-remarks-people-rwanda",
+    "/the-presidency/presidential-speeches/march-29-1894-veto-message-monetary-legislation",
+    "/the-presidency/presidential-speeches/march-4-1793-second-inaugural-address",
+    "/the-presidency/presidential-speeches/march-4-1805-second-inaugural-address",
+    "/the-presidency/presidential-speeches/march-4-1813-second-inaugural-address",
+    "/the-presidency/presidential-speeches/march-4-1861-first-inaugural-address",
+    "/the-presidency/presidential-speeches/march-4-1869-first-inaugural-address",
+    "/the-presidency/presidential-speeches/march-4-1873-second-inaugural-address",
+    "/the-presidency/presidential-speeches/march-4-1885-first-inaugural-address",
+    "/the-presidency/presidential-speeches/march-4-1897-first-inaugural-address",
+    "/the-presidency/presidential-speeches/march-4-1921-inaugural-address",
+    "/the-presidency/presidential-speeches/march-4-1933-first-inaugural-address",
+    "/the-presidency/presidential-speeches/march-7-1964-press-conference-white-house",
+    "/the-presidency/presidential-speeches/march-9-1977-remarks-president-carters-press-conference",
+    "/the-presidency/presidential-speeches/may-12-1879-message-regarding-election-regulations",
+    "/the-presidency/presidential-speeches/may-14-1869-message-submitting-state-constitutions-vote",
+    "/the-presidency/presidential-speeches/may-17-1981-address-university-notre-dame",
+    "/the-presidency/presidential-speeches/may-19-1869-proclamation-establishing-eight-hour-workday",
+    "/the-presidency/presidential-speeches/may-19-1917-message-regarding-military-draft",
+    "/the-presidency/presidential-speeches/may-25-1961-goal-sending-man-moon",
+    "/the-presidency/presidential-speeches/may-25-2011-address-british-parliament",
+    "/the-presidency/presidential-speeches/may-26-2009-remarks-nominating-judge-sonia-sotomayor-us",
+    "/the-presidency/presidential-speeches/may-27-1941-fireside-chat-17-unlimited-national-emergency",
+    "/the-presidency/presidential-speeches/may-29-1865-message-reestablishing-governments-former",
+    "/the-presidency/presidential-speeches/may-31-1932-statement-national-economy",
+    "/the-presidency/presidential-speeches/may-31-2024-remarks-middle-east",
+    "/the-presidency/presidential-speeches/november-13-2008-speech-financial-markets-and-world-economy",
+    "/the-presidency/presidential-speeches/november-17-1967-press-conference",
+    "/the-presidency/presidential-speeches/november-3-2010-press-conference-after-2010-midterm-elections",
+    "/the-presidency/presidential-speeches/november-30-1995-address-employees-mackie-metal-plant",
+    "/the-presidency/presidential-speeches/november-4-1812-fourth-annual-message",
+    "/the-presidency/presidential-speeches/november-5-2020-remarks-2020-election",
+    "/the-presidency/presidential-speeches/november-8-1977-address-nation-energy",
+    "/the-presidency/presidential-speeches/october-1-1888-message-regarding-chinese-exclusion-act",
+    "/the-presidency/presidential-speeches/october-1-1990-address-united-nations",
+    "/the-presidency/presidential-speeches/october-12-1937-fireside-chat-10-new-legislation",
+    "/the-presidency/presidential-speeches/october-17-1966-remarks-departing-asia-pacific-trip",
+    "/the-presidency/presidential-speeches/october-18-1931-message-regarding-unemployment-relief",
+    "/the-presidency/presidential-speeches/october-20-1903-message-convening-special-session-congress",
+    "/the-presidency/presidential-speeches/october-20-1914-opinion-world-speech",
+    "/the-presidency/presidential-speeches/october-21-1932-campaign-speech-madison-square-garden",
+    "/the-presidency/presidential-speeches/october-22-1952-rear-platform-remarks",
+    "/the-presidency/presidential-speeches/october-22-1986-remarks-signing-tax-reform-act",
+    "/the-presidency/presidential-speeches/october-25-1791-third-annual-message-congress",
+    "/the-presidency/presidential-speeches/october-25-1913-address-congress-hall-philadelphia",
+    "/the-presidency/presidential-speeches/october-27-1983-speech-nation-lebanon-and-grenada",
+    "/the-presidency/presidential-speeches/october-31-1968-remarks-cessation-bombing-north-vietnam",
+    "/the-presidency/presidential-speeches/october-5-1830-proclamation-regarding-opening-united-states",
+    "/the-presidency/presidential-speeches/october-7-1960-debate-richard-nixon-washington-dc",
+    "/the-presidency/presidential-speeches/september-11-1941-fireside-chat-18-greer-incident",
+    "/the-presidency/presidential-speeches/september-13-1993-remarks-signing-israeli-palestinian",
+    "/the-presidency/presidential-speeches/september-14-1901-announcement-death-president-mckinley",
+    "/the-presidency/presidential-speeches/september-17-1978-president-carters-remarks-joint-statement",
+    "/the-presidency/presidential-speeches/september-23-1976-debate-president-gerald-ford-domestic-issues",
+    "/the-presidency/presidential-speeches/september-24-2019-remarks-united-nations-general-assembly",
+    "/the-presidency/presidential-speeches/september-25-2018-address-73rd-session-united-nations-general",
+    "/the-presidency/presidential-speeches/september-26-1988-address-united-nations",
+    "/the-presidency/presidential-speeches/september-3-1892-speech-accepting-republican-nomination",
+    "/the-presidency/presidential-speeches/september-4-1837-special-session-message",
+    "/the-presidency/presidential-speeches/september-5-1901-speech-buffalo-new-york",
+    "/the-presidency/presidential-speeches/september-5-1983-speech-soviet-attack-korean-airliner",
+    "/the-presidency/presidential-speeches/september-7-2020-labor-day-press-conference",
+    "/the-presidency/presidential-speeches/september-8-1943-fireside-chat-26-armistice-italy",
+    "/the-presidency/presidential-speeches/september-9-2021-remarks-fighting-covid-19-pandemic",
+    "february-1-2018-remarks-house-and-senate-republican-member",
+    "february-4-2020-state-union-address",
+    "january-19-2019-remarks-about-us-southern-border",
+    "january-3-2026-statement-us-action-venezuela",
+    "january-6-2022-remarks-anniversary-january-6th-assault-us",
+    "october-27-2019-statement-death-abu-bakr-al-baghdadi",
+    "september-19-2017-address-united-nations-general-assembly",
+    "september-25-2019-press-conference"
+  ],
+  "speeches": [
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-3-1809-message-inhabitants-albemarle-county",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1809
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-29-1796-talk-cherokee-nation",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1796
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-19-1799-death-george-washington",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1799
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-3-1793-fifth-annual-message-congress",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1793
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-3-1805-fifth-annual-message",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1805
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-3-1816-eighth-annual-message",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1816
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-30-1806-address-wolf-and-people-mandan-nation",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1806
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-8-1798-second-annual-message",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1798
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-10-1807-special-message-congress-gun-boats",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1807
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-10-1806-address-chiefs-cherokee-nation",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1806
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-18-1803-special-message-congress-indian-policy",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1803
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-8-1790-first-annual-message-congress",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1790
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-10-1795-proclamation-pardons-western-pennsylvania",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1795
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-19-1812-proclamation-state-war-great-britain",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1812
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-20-1803-instructions-captain-lewis",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1803
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1793-second-inaugural-address",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1793
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1805-second-inaugural-address",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1805
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1813-second-inaugural-address",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1813
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/november-4-1812-fourth-annual-message",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1812
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-25-1791-third-annual-message-congress",
+      "era_bin": 0,
+      "era_label": "1789-1818",
+      "year": 1791
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-13-1846-message-regarding-cherokee-indians",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1846
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-3-1848-message-regarding-establishment-french-republic",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1848
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-1-1848-message-regarding-size-army",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1848
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-11-1842-message-senate-negotiations-britain",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1842
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-16-1841-veto-message-regarding-bank-united-states",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1841
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-7-1846-message-regarding-treaty-cherokees",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1846
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-1-1834-sixth-annual-message-congress",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1834
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-10-1832-nullification-proclamation",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1832
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-2-1823-seventh-annual-message-monroe-doctrine",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1823
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-2-1845-first-annual-message",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1845
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-29-1846-request-increase-size-army",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1846
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-3-1822-sixth-annual-message",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1822
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-3-1833-fifth-annual-message-congress",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1833
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-5-1837-first-annual-message-congress",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1837
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-6-1830-second-annual-message-congress",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1830
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-6-1831-third-annual-message-congress",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1831
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-22-1831-message-regarding-indian-relations",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1831
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-16-1833-message-regarding-south-carolina-nullification",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1833
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-2-1841-special-message-about-desctruction-steamboat",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1841
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-1-1841-special-session-message-congress-regarding-general",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1841
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-24-1846-message-regarding-increase-military-force",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1846
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-5-1830-proclamation-regarding-opening-united-states",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1830
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-4-1837-special-session-message",
+      "era_bin": 1,
+      "era_label": "1819-1848",
+      "year": 1837
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-2-1866-proclamation-end-confederate-insurrection",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1866
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-6-1850-message-regarding-compromise-texas",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1850
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-13-1850-announcement-texas-acceptance-compromise",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1850
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-30-1854-expansion-august-4-veto-message",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1854
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-31-1855-third-annual-message",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1855
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-5-1870-second-annual-message",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1870
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-6-1858-second-annual-message",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1858
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-6-1864-fourth-annual-message",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1864
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-8-1857-first-annual-message",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1857
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-8-1863-third-annual-message",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1863
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-11-1868-messages-regarding-correspondence-general-us",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1868
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-15-1871-veto-message-regarding-restrictions-rebellion",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1871
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-19-1851-message-regarding-disturbance-boston",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1851
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-14-1875-message-approving-specie-resumption-act",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1875
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-28-1861-message-resolutions-virginia",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1861
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-8-1861-message-threats-peace-and-existence-union",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1861
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-14-1870-message-regarding-us-international-relations",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1870
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-18-1868-message-proposing-constitutional-amendments",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1868
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-18-1877-message-regarding-railroad-strike",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1877
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-24-1866-message-restoring-tennessee-former-status",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1866
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-16-1858-house-divided-speech",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1858
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-20-1867-message-clarifying-reconstruction-acts",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1867
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-20-1868-veto-message-regarding-regulations-confederate",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1868
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-22-1877-prohibition-federal-employees-political",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1877
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-26-1876-proclamation-celebrating-hundredth-anniversary",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1876
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-14-1854-message-regarding-proposed-us-mexican-convention",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1854
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1861-first-inaugural-address",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1861
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1869-first-inaugural-address",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1869
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1873-second-inaugural-address",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1873
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-14-1869-message-submitting-state-constitutions-vote",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1869
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-19-1869-proclamation-establishing-eight-hour-workday",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1869
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-29-1865-message-reestablishing-governments-former",
+      "era_bin": 2,
+      "era_label": "1849-1878",
+      "year": 1865
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-11-1898-message-regarding-cuban-civil-war",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1898
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-18-1882-message-regarding-congress-american-countries",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1882
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-22-1886-message-regarding-us-labor-force",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1886
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-8-1893-message-regarding-economic-crisis",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1893
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-1-1879-third-annual-message",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1879
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-17-1895-message-regarding-venezuelan-british-dispute",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1895
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-2-1895-third-annual-message-second-term",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1895
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-3-1889-first-annual-message",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1889
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-3-1901-first-annual-message",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1901
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-5-1898-second-annual-message",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1898
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-6-1880-fourth-annual-message",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1880
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-8-1885-first-annual-message",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1885
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-28-1895-message-regarding-financial-crisis",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1895
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-1-1882-veto-safety-regulations-bill",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1882
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-8-1894-proclamation-regarding-railroad-strike",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1894
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-12-1895-declaration-us-neutrality",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1895
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-19-1890-message-regarding-international-american",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1890
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-1-1886-message-regarding-chinese-immigrant-workers",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1886
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-29-1894-veto-message-monetary-legislation",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1894
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1885-first-inaugural-address",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1885
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1897-first-inaugural-address",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1897
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-12-1879-message-regarding-election-regulations",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1879
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-1-1888-message-regarding-chinese-exclusion-act",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1888
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-20-1903-message-convening-special-session-congress",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1903
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-14-1901-announcement-death-president-mckinley",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1901
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-3-1892-speech-accepting-republican-nomination",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1892
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-5-1901-speech-buffalo-new-york",
+      "era_bin": 3,
+      "era_label": "1879-1908",
+      "year": 1901
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-28-1935-fireside-chat-7-works-relief-program-and-social",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1935
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-11-1932-speech-accepting-republican-nomination",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1932
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-28-1920-america",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1920
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-11-1931-statement-regarding-economic-recovery",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1931
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-2-1930-second-state-union-address",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1930
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-4-1917-fifth-annual-message",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1917
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-5-1911-third-annual-message",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1911
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-7-1909-first-annual-message",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1909
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-8-1922-second-annual-message",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1922
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-8-1925-third-annual-message",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1925
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-8-1931-third-state-union-address",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1931
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-22-1927-address-regarding-washingtons-birthday",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1927
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-26-1917-message-regarding-safety-merchant-ships",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1917
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-26-1931-veto-messages-regarding-emergency-adjusted",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1931
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-3-1931-statement-unemployment-relief",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1931
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-1920-americanism",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1920
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-24-1929-address-kellogg-briand-pact",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1929
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-24-1929-remarks-upon-proclaiming-treaty-renunciation-war",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1929
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-4-1913-address-gettysburg",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1913
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-4-1914-fourth-july-address",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1914
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-16-1930-message-regarding-smoot-hawley-tariff-act",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1930
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-16-1909-message-regarding-tariff-legislation",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1909
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1921-inaugural-address",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1921
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-4-1933-first-inaugural-address",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1933
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-19-1917-message-regarding-military-draft",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1917
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-31-1932-statement-national-economy",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1932
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-12-1937-fireside-chat-10-new-legislation",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1937
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-18-1931-message-regarding-unemployment-relief",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1931
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-20-1914-opinion-world-speech",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1914
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-21-1932-campaign-speech-madison-square-garden",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1932
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-25-1913-address-congress-hall-philadelphia",
+      "era_bin": 4,
+      "era_label": "1909-1938",
+      "year": 1913
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-11-1951-report-american-people-korea",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1951
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-16-1945-first-speech-congress",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1945
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-16-1953-chance-peace",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1953
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-20-1964-speech-associated-press-luncheon",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1964
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-28-1942-fireside-chat-21-sacrifice",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1942
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-3-1968-press-conference",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1968
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-18-1967-press-conference",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1967
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-7-1961-address-miami-opening-afl-cio-convention",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1961
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-8-1941-address-congress-requesting-declaration-war",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1941
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-2-1967-press-conference",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1967
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-21-1964-remarks-ninety-sixth-charter-day-observances",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1964
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-23-1942-fireside-chat-20-progress-war",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1942
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-12-1966-state-union",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1966
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-1953-first-inaugural-address",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1953
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-1965-inaugural-address",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1965
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-5-1956-state-union-address",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1956
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-5-1957-eisenhower-doctrine",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1957
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-7-1954-state-union-address",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1954
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-9-1958-state-union-address",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1958
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-1-1968-remarks-signing-nuclear-nonproliferation-treaty",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1968
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-19-1940-democratic-national-convention",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1940
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-2-1964-remarks-upon-signing-civil-rights-bill",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1964
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-20-1944-democratic-national-convention",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1944
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-24-1964-press-conference-state-department",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1964
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-27-1967-speech-nation-civil-disorders",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1967
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-28-1965-press-conference",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1965
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-5-1966-press-conference-lbj-ranch",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1966
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-1-1965-press-conference-east-room",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1965
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-20-1947-veto-taft-hartley-bill",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1947
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-30-1966-remarks-omaha-nebraska",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1966
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-5-1944-fireside-chat-29-fall-rome",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1944
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-5-1963-remarks-us-air-force-academy",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1963
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-7-1961-remarks-graduating-class-us-naval-academy",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1961
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-15-1952-columbia-scholastic-press-association",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1952
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-23-1966-speech-foreign-institute",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1966
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-7-1964-press-conference-white-house",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1964
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-25-1961-goal-sending-man-moon",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1961
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-27-1941-fireside-chat-17-unlimited-national-emergency",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1941
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/november-17-1967-press-conference",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1967
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-17-1966-remarks-departing-asia-pacific-trip",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1966
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-22-1952-rear-platform-remarks",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1952
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-31-1968-remarks-cessation-bombing-north-vietnam",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1968
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-7-1960-debate-richard-nixon-washington-dc",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1960
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-11-1941-fireside-chat-18-greer-incident",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1941
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-8-1943-fireside-chat-26-armistice-italy",
+      "era_bin": 5,
+      "era_label": "1939-1968",
+      "year": 1943
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-23-1975-remarks-tulane-university",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1975
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-25-1980-statement-iran-rescue-mission",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1980
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-30-1984-remarks-fudan-university-classroom",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1984
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-15-1973-address-nation-about-watergate-investigations",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1973
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-19-1976-remarks-republican-national-convention",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1976
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-29-1996-remarks-democratic-national-convention",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1996
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-8-1990-address-iraqs-invasion-kuwait",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1990
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-8-1993-remarks-signing-nafta",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1993
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-27-1991-address-end-gulf-war",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1991
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-5-1993-remarks-signing-family-medical-leave-act",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1993
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-12-1977-state-union-address",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1977
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-16-1991-address-nation-invasion-iraq",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1991
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-19-1978-state-union-address",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1978
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-1972-state-union-address",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1972
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-1977-inaugural-address",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1977
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-1981-first-inaugural-address",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1981
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-1993-first-inaugural",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1993
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-1997-second-inaugural",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1997
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-23-1973-address-nation-announcing-agreement-ending-war",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1973
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-24-1995-state-union-address",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1995
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-25-1972-address-nation-plan-peace-vietnam",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1972
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-25-1983-state-union-address",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1983
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-29-1993-press-conference-gays-military",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1993
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-26-1990-remarks-signing-americans-disabilities-act",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1990
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-31-1991-press-conference-mikhail-gorbachev",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1991
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-12-1987-address-brandenburg-gate-berlin-wall",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1987
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-17-1982-speech-united-nations-general-assembly",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1982
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-29-1981-speech-naacp-annual-convention",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1981
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-6-1984-40th-anniversary-d-day",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1984
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-8-1982-address-british-parliament",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1982
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-9-1982-address-bundestag-west-germany",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1982
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-25-1998-remarks-people-rwanda",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1998
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-9-1977-remarks-president-carters-press-conference",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1977
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-17-1981-address-university-notre-dame",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1981
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/november-30-1995-address-employees-mackie-metal-plant",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1995
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/november-8-1977-address-nation-energy",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1977
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-1-1990-address-united-nations",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1990
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-22-1986-remarks-signing-tax-reform-act",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1986
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/october-27-1983-speech-nation-lebanon-and-grenada",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1983
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-13-1993-remarks-signing-israeli-palestinian",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1993
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-17-1978-president-carters-remarks-joint-statement",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1978
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-23-1976-debate-president-gerald-ford-domestic-issues",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1976
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-26-1988-address-united-nations",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1988
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-5-1983-speech-soviet-attack-korean-airliner",
+      "era_bin": 6,
+      "era_label": "1969-1998",
+      "year": 1983
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-8-2013-speech-gun-violence",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2013
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/april-9-2007-speech-comprehensive-immigration-reform",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2007
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/august-10-2001-address-nation-stem-cell-research",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2001
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-19-2005-address-renewal-iraq",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2005
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/december-19-2008-remarks-plan-assist-automakers",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2008
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-23-2018-remarks-conservative-political-action",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2018
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-24-2009-address-joint-session-congress",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2009
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-5-2019-state-union-address",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2019
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/february-7-2023-state-union-address",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2023
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-12-2009-final-press-conference",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2009
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-12-2011-remarks-memorial-victims-tucson-az-shooting",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2011
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-15-2009-farewell-address-nation",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2009
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-2015-2015-state-union-address",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2015
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-20-2025-inaugural-address",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2025
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-21-2013-second-inaugural-address",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2013
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-27-2000-state-union-address",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2000
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-29-2013-remarks-immigration-reform",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2013
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/january-8-2020-statement-iran",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2020
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-19-2006-remarks-stem-cell-research-policy",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2006
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-24-2018-speech-veterans-foreign-wars-national-convention",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2018
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/july-8-2021-speech-drawdown-us-forces-afghanistan",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2021
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-1-2002-graduation-speech-west-point",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2002
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-1-2020-statement-protests-against-police-brutality",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2020
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/june-6-2002-address-nation-department-homeland-security",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2002
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-11-2020-statement-coronavirus",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2020
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/march-15-2010-speech-health-care-reform",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2010
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-25-2011-address-british-parliament",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2011
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-26-2009-remarks-nominating-judge-sonia-sotomayor-us",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2009
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/may-31-2024-remarks-middle-east",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2024
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/november-13-2008-speech-financial-markets-and-world-economy",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2008
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/november-3-2010-press-conference-after-2010-midterm-elections",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2010
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/november-5-2020-remarks-2020-election",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2020
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-24-2019-remarks-united-nations-general-assembly",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2019
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-25-2018-address-73rd-session-united-nations-general",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2018
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-7-2020-labor-day-press-conference",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2020
+    },
+    {
+      "doc_name": "/the-presidency/presidential-speeches/september-9-2021-remarks-fighting-covid-19-pandemic",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2021
+    },
+    {
+      "doc_name": "february-1-2018-remarks-house-and-senate-republican-member",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2018
+    },
+    {
+      "doc_name": "february-4-2020-state-union-address",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2020
+    },
+    {
+      "doc_name": "january-19-2019-remarks-about-us-southern-border",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2019
+    },
+    {
+      "doc_name": "january-3-2026-statement-us-action-venezuela",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2026
+    },
+    {
+      "doc_name": "january-6-2022-remarks-anniversary-january-6th-assault-us",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2022
+    },
+    {
+      "doc_name": "october-27-2019-statement-death-abu-bakr-al-baghdadi",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2019
+    },
+    {
+      "doc_name": "september-19-2017-address-united-nations-general-assembly",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2017
+    },
+    {
+      "doc_name": "september-25-2019-press-conference",
+      "era_bin": 7,
+      "era_label": "1999-2028",
+      "year": 2019
+    }
+  ]
+}
