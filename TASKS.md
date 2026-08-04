@@ -6,13 +6,13 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
-- [ ] publish-current-site-to-github-pages: Execute the owner-authorized
-  `notes/github-pages-release-plan-v1.md` contract. Publish the generator,
-  governed small artifacts, and rebuilt `docs/` through the existing
-  `master:/docs` Pages source; enforce the staged allowlist and size boundary;
-  keep `data/annotation_ledger/`, `.codex/operators/`, and tool telemetry out of
-  the release; verify the merged commit and public routes before completion.
-  [P1] [high] [release]
+- [x] publish-current-site-to-github-pages: Executed the owner-authorized
+  `notes/github-pages-release-plan-v1.md` contract through PR #2 and site-content
+  merge `b3c2e7567979d1ad5c72c178890fe6b0bafa43e2`. Pages run 30867907537
+  succeeded from `master:/docs`; public route, asset, JSON, CSV, desktop, mobile,
+  interaction, overflow, and console checks passed. The deployed boundary keeps
+  51,137 local `data/annotation_ledger/` files, three `.codex/operators/` files,
+  and `.claude/stats.json` telemetry out of the release. [P1] [high] [completed]
 - [x] refine-america-summary-page: Implemented the V2 Summary contract in
   `notes/summary-redesign-v2.md`: demoted weak postwar topic breadth, removed
   topic lifecycle and weather-map displays, clarified communication, added
