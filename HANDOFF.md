@@ -1,26 +1,37 @@
 # Handoff
 
-## Latest addendum — GitHub Pages release candidate
+## Latest addendum — GitHub Pages deployment
 
-- `notes/github-pages-release-plan-v1.md` is the owner-authorized publication
-  contract. The existing GitHub Pages topology remains `master:/docs`; the
-  release is prepared on `codex/github-pages-release` for review and merge.
-- The canonical generator now writes an empty `docs/.nojekyll`, and the release
-  includes independent inline-JavaScript parsing plus a fail-closed staged-tree
-  audit in `scripts/audit_github_release.py`.
-- The release allowlist covers the project documentation, generator, tests,
-  scripts, governed small data artifacts, and complete generated `docs/` site.
-  It explicitly excludes `data/annotation_ledger/`, `.codex/operators/`, and
-  `.claude/stats.json`; frozen paid annotations were not regenerated or edited
-  during release preparation.
-- Release-candidate verification is green: 2,596 tests pass with 70 existing
-  warnings; the canonical builder validates 73 HTML pages and 165 JSON shards;
-  all 146 generated inline scripts parse; Python compilation and whitespace
-  checks pass. The staged-tree audit, GitHub review/merge, Pages monitoring,
-  and public-route verification remain before this task can be closed.
+- `notes/github-pages-release-plan-v1.md` is the executed publication contract.
+  Pull request [#2](https://github.com/jacobfulfyll/presidential_profiles/pull/2)
+  merged the reviewed site-content release to `master` at
+  `b3c2e7567979d1ad5c72c178890fe6b0bafa43e2` without rewriting the accumulated
+  local history.
+- GitHub Pages run
+  [30867907537](https://github.com/jacobfulfyll/presidential_profiles/actions/runs/30867907537)
+  built and deployed that exact merge successfully from `master:/docs`. The
+  public site is
+  <https://jacobfulfyll.github.io/presidential_profiles/>. The sole workflow
+  annotation is GitHub's upstream Node.js 20 action-runtime deprecation notice;
+  every build, status, and deployment job passed.
+- Public HTTPS checks return 200 with the expected content types for Story,
+  Summary, Compare, Explore, Profiles, Data Quality, Methodology, the bundled
+  Plotly asset, representative JSON, and representative CSV. Desktop and
+  390×844 browser QA confirms correct active navigation, zero horizontal
+  overflow, all eight Summary plots, working era-phase controls, the V2
+  `Hope divided by doom` chapter, and no console warnings or errors.
+- Release verification is green: 2,596 tests pass with 70 existing warnings;
+  the canonical builder validates 73 HTML pages and 165 JSON shards; all 146
+  generated inline scripts parse; the staged audit accepts 561 release paths,
+  349 `docs/` files, and an 83,242,907-byte Pages tree.
+- The deployed boundary excludes the user-owned local control plane: 51,137
+  untracked files under `data/annotation_ledger/`, three files under
+  `.codex/operators/`, and the live `.claude/stats.json` telemetry change.
+  Frozen paid annotations were not regenerated or edited during this release.
 - `DECISIONS.md` records why this repository retains the native `master:/docs`
   Pages source and why the annotation control plane remains outside the public
-  site release.
+  site release. This documentation-only closure record does not change the
+  deployed `docs/` tree identified above.
 
 ## Latest addendum — America in Summary V2
 

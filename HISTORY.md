@@ -1,5 +1,14 @@
 # Completed Tasks
 
+- [x] publish-current-site-to-github-pages Published the reviewed generator,
+  governed release artifacts, and canonical `docs/` tree through pull request
+  #2 and site-content merge `b3c2e7567979d1ad5c72c178890fe6b0bafa43e2`;
+  Pages run 30867907537 succeeded from `master:/docs`; public HTTPS and
+  desktop/mobile browser checks passed across all primary routes, the bundled
+  Plotly asset, JSON, and CSV with no overflow or console errors; kept the
+  annotation ledger, local operators, and tool telemetry outside the release
+  -- 2026-08-03
+
 - [x] prepare-github-pages-release-candidate Formalized the publication and
   rollback contract, retained the existing `master:/docs` topology, added the
   generated `.nojekyll` marker, implemented staged-tree and inline-JavaScript
