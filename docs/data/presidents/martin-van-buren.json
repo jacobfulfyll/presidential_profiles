@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 682.5801467748166,
-      "percentile": 57.77777777777777
+      "percentile": 59.523809523809526
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 289.68713789107767,
-      "percentile": 62.22222222222222
+      "percentile": 61.904761904761905
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.5371794871794872,
-      "percentile": 31.11111111111111
+      "percentile": 30.952380952380953
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 82.19389725762842,
-      "percentile": 86.66666666666667
+      "percentile": 85.71428571428571
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.4441287878787879,
-      "percentile": 73.33333333333333
+      "percentile": 76.19047619047619
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 20.934642246101966,
-      "percentile": 91.11111111111111
+      "percentile": 90.47619047619048
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.419875,
-      "percentile": 68.88888888888889
+      "percentile": 69.04761904761905
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 4.943993820007725,
-      "percentile": 24.444444444444443
+      "percentile": 26.190476190476193
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 20.934642246101966,
     "self_reference": 0.4441287878787879,
     "ttr": 0.419875,
-    "pct_hope": 57.77777777777777,
-    "pct_fear": 62.22222222222222,
-    "pct_certainty": 31.11111111111111,
-    "pct_us_vs_them": 86.66666666666667,
-    "pct_self_reference": 73.33333333333333,
-    "pct_formality": 91.11111111111111,
-    "pct_vocabulary": 68.88888888888889,
-    "pct_religiosity": 24.444444444444443
+    "pct_hope": 59.523809523809526,
+    "pct_fear": 61.904761904761905,
+    "pct_certainty": 30.952380952380953,
+    "pct_us_vs_them": 85.71428571428571,
+    "pct_self_reference": 76.19047619047619,
+    "pct_formality": 90.47619047619048,
+    "pct_vocabulary": 69.04761904761905,
+    "pct_religiosity": 26.190476190476193
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "March 4, 1837: Inaugural Address",
       "year": 1837,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1837-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1837-inaugural-address"
     },
     {
       "title": "December 5, 1840: Fourth Annual Message to Congress",
       "year": 1840,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-5-1840-fourth-annual-message-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-5-1840-fourth-annual-message-congress"
     },
     {
       "title": "December 2, 1839: Third Annual Message to Congress",
       "year": 1839,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-2-1839-third-annual-message-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-2-1839-third-annual-message-congress"
     },
     {
       "title": "December 3, 1838: Second Annual Message to Congress",
       "year": 1838,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-3-1838-second-annual-message-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-3-1838-second-annual-message-congress"
     },
     {
       "title": "December 5, 1837: First Annual Message to Congress",
       "year": 1837,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-5-1837-first-annual-message-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-5-1837-first-annual-message-congress"
     }
   ],
   "legacy_invocations": {

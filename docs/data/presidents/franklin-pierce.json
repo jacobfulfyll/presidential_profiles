@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 664.3594241375496,
-      "percentile": 48.888888888888886
+      "percentile": 50.0
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 271.1800123263642,
-      "percentile": 46.666666666666664
+      "percentile": 47.61904761904761
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.4659498207885305,
-      "percentile": 8.88888888888889
+      "percentile": 7.142857142857142
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 52.466062990881646,
-      "percentile": 35.55555555555556
+      "percentile": 35.714285714285715
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.43645699614890887,
-      "percentile": 68.88888888888889
+      "percentile": 71.42857142857143
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 21.555467464144463,
-      "percentile": 93.33333333333333
+      "percentile": 92.85714285714286
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4148571428571428,
-      "percentile": 62.22222222222222
+      "percentile": 61.904761904761905
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 6.795303339180455,
-      "percentile": 46.666666666666664
+      "percentile": 50.0
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 21.555467464144463,
     "self_reference": 0.43645699614890887,
     "ttr": 0.4148571428571428,
-    "pct_hope": 48.888888888888886,
-    "pct_fear": 46.666666666666664,
-    "pct_certainty": 8.88888888888889,
-    "pct_us_vs_them": 35.55555555555556,
-    "pct_self_reference": 68.88888888888889,
-    "pct_formality": 93.33333333333333,
-    "pct_vocabulary": 62.22222222222222,
-    "pct_religiosity": 46.666666666666664
+    "pct_hope": 50.0,
+    "pct_fear": 47.61904761904761,
+    "pct_certainty": 7.142857142857142,
+    "pct_us_vs_them": 35.714285714285715,
+    "pct_self_reference": 71.42857142857143,
+    "pct_formality": 92.85714285714286,
+    "pct_vocabulary": 61.904761904761905,
+    "pct_religiosity": 50.0
   },
   "legacy_issue_attention": [
     {
@@ -1026,27 +1026,27 @@
     {
       "title": "May 15, 1854: Message Regarding Transit Across Central America",
       "year": 1854,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-15-1854-message-regarding-transit-across-central-america"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-15-1854-message-regarding-transit-across-central-america"
     },
     {
       "title": "February 11, 1856: Proclamation Addressing Disturbances in Kansas",
       "year": 1856,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-11-1856-proclamation-addressing-disturbances-kansas"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-11-1856-proclamation-addressing-disturbances-kansas"
     },
     {
       "title": "December 30, 1854: Expansion of August 4 Veto Message",
       "year": 1854,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-30-1854-expansion-august-4-veto-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-30-1854-expansion-august-4-veto-message"
     },
     {
       "title": "August 21, 1856: Special Session Message Regarding Military Support",
       "year": 1856,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-21-1856-special-session-message-regarding-military"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-21-1856-special-session-message-regarding-military"
     },
     {
       "title": "March 14, 1854: Message Regarding Proposed US-Mexican Convention",
       "year": 1854,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-14-1854-message-regarding-proposed-us-mexican-convention"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-14-1854-message-regarding-proposed-us-mexican-convention"
     }
   ],
   "legacy_invocations": {

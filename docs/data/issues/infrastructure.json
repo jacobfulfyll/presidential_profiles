@@ -1,0 +1,6183 @@
+{
+  "schema": "issue-page-v2",
+  "source_issue": "Infrastructure",
+  "label": "Infrastructure",
+  "slug": "infrastructure",
+  "unit": "share of eligible paragraphs",
+  "highest_supported_period": {
+    "surface": "corex_issues",
+    "series": "Infrastructure",
+    "period_kind": "year5",
+    "period": "1805",
+    "period_order": 1805,
+    "period_start": 1805,
+    "period_end": 1809,
+    "x": 1805.0,
+    "point": 0.2717948717948718,
+    "lo_sampling": 0.17813280112336177,
+    "hi_sampling": 0.3795411573300501,
+    "lo": 0.17813280112336177,
+    "hi": 0.3795411573300501,
+    "n_paragraphs": 195,
+    "n_speeches": 15,
+    "n_paired_paragraphs": null,
+    "ci_status": "ok",
+    "interval_unresolvable": false,
+    "disagreement_band_applied": false,
+    "disagreement_half_width": null,
+    "ci_components": "sampling_only",
+    "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+    "agreement_source": "n/a: CorEx labels have no annotator",
+    "source_issue": "Infrastructure",
+    "period_label": "1805–1809",
+    "share_percent": 27.17948717948718,
+    "lo_sampling_percent": 17.813280112336177,
+    "hi_sampling_percent": 37.95411573300501,
+    "lo_percent": 17.813280112336177,
+    "hi_percent": 37.95411573300501,
+    "disagreement_half_width_percent": null
+  },
+  "trend_rows": [
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1785",
+      "period_order": 1785,
+      "period_start": 1785,
+      "period_end": 1789,
+      "x": 1785.0,
+      "point": 0.0,
+      "lo_sampling": null,
+      "hi_sampling": null,
+      "lo": null,
+      "hi": null,
+      "n_paragraphs": 14,
+      "n_speeches": 2,
+      "n_paired_paragraphs": null,
+      "ci_status": "low_cluster_caution",
+      "interval_unresolvable": true,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1785–1789",
+      "share_percent": 0.0,
+      "lo_sampling_percent": null,
+      "hi_sampling_percent": null,
+      "lo_percent": null,
+      "hi_percent": null,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1790",
+      "period_order": 1790,
+      "period_start": 1790,
+      "period_end": 1794,
+      "x": 1790.0,
+      "point": 0.06201550387596899,
+      "lo_sampling": 0.01868006993006993,
+      "hi_sampling": 0.11074712643678158,
+      "lo": 0.01868006993006993,
+      "hi": 0.11074712643678158,
+      "n_paragraphs": 129,
+      "n_speeches": 13,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1790–1794",
+      "share_percent": 6.2015503875969,
+      "lo_sampling_percent": 1.8680069930069931,
+      "hi_sampling_percent": 11.074712643678158,
+      "lo_percent": 1.8680069930069931,
+      "hi_percent": 11.074712643678158,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1795",
+      "period_order": 1795,
+      "period_start": 1795,
+      "period_end": 1799,
+      "x": 1795.0,
+      "point": 0.09905660377358491,
+      "lo_sampling": 0.030847103223174212,
+      "hi_sampling": 0.16256405897068466,
+      "lo": 0.030847103223174212,
+      "hi": 0.16256405897068466,
+      "n_paragraphs": 212,
+      "n_speeches": 13,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1795–1799",
+      "share_percent": 9.90566037735849,
+      "lo_sampling_percent": 3.084710322317421,
+      "hi_sampling_percent": 16.256405897068465,
+      "lo_percent": 3.084710322317421,
+      "hi_percent": 16.256405897068465,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1800",
+      "period_order": 1800,
+      "period_start": 1800,
+      "period_end": 1804,
+      "x": 1800.0,
+      "point": 0.20512820512820512,
+      "lo_sampling": 0.12297619047619048,
+      "hi_sampling": 0.2737382190445238,
+      "lo": 0.12297619047619048,
+      "hi": 0.2737382190445238,
+      "n_paragraphs": 156,
+      "n_speeches": 13,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1800–1804",
+      "share_percent": 20.51282051282051,
+      "lo_sampling_percent": 12.297619047619047,
+      "hi_sampling_percent": 27.373821904452377,
+      "lo_percent": 12.297619047619047,
+      "hi_percent": 27.373821904452377,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1805",
+      "period_order": 1805,
+      "period_start": 1805,
+      "period_end": 1809,
+      "x": 1805.0,
+      "point": 0.2717948717948718,
+      "lo_sampling": 0.17813280112336177,
+      "hi_sampling": 0.3795411573300501,
+      "lo": 0.17813280112336177,
+      "hi": 0.3795411573300501,
+      "n_paragraphs": 195,
+      "n_speeches": 15,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1805–1809",
+      "share_percent": 27.17948717948718,
+      "lo_sampling_percent": 17.813280112336177,
+      "hi_sampling_percent": 37.95411573300501,
+      "lo_percent": 17.813280112336177,
+      "hi_percent": 37.95411573300501,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1810",
+      "period_order": 1810,
+      "period_start": 1810,
+      "period_end": 1814,
+      "x": 1810.0,
+      "point": 0.17582417582417584,
+      "lo_sampling": 0.10853107158179598,
+      "hi_sampling": 0.24010498430141286,
+      "lo": 0.10853107158179598,
+      "hi": 0.24010498430141286,
+      "n_paragraphs": 182,
+      "n_speeches": 14,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1810–1814",
+      "share_percent": 17.582417582417584,
+      "lo_sampling_percent": 10.853107158179597,
+      "hi_sampling_percent": 24.010498430141286,
+      "lo_percent": 10.853107158179597,
+      "hi_percent": 24.010498430141286,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1815",
+      "period_order": 1815,
+      "period_start": 1815,
+      "period_end": 1819,
+      "x": 1815.0,
+      "point": 0.1921182266009852,
+      "lo_sampling": 0.12698989674921352,
+      "hi_sampling": 0.26994987971130713,
+      "lo": 0.12698989674921352,
+      "hi": 0.26994987971130713,
+      "n_paragraphs": 203,
+      "n_speeches": 9,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1815–1819",
+      "share_percent": 19.21182266009852,
+      "lo_sampling_percent": 12.698989674921352,
+      "hi_sampling_percent": 26.994987971130712,
+      "lo_percent": 12.698989674921352,
+      "hi_percent": 26.994987971130712,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1820",
+      "period_order": 1820,
+      "period_start": 1820,
+      "period_end": 1824,
+      "x": 1820.0,
+      "point": 0.23826714801444043,
+      "lo_sampling": 0.19775832532486523,
+      "hi_sampling": 0.27169811320754716,
+      "lo": 0.19775832532486523,
+      "hi": 0.27169811320754716,
+      "n_paragraphs": 277,
+      "n_speeches": 7,
+      "n_paired_paragraphs": null,
+      "ci_status": "low_cluster_caution",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1820–1824",
+      "share_percent": 23.826714801444044,
+      "lo_sampling_percent": 19.775832532486522,
+      "hi_sampling_percent": 27.169811320754718,
+      "lo_percent": 19.775832532486522,
+      "hi_percent": 27.169811320754718,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1825",
+      "period_order": 1825,
+      "period_start": 1825,
+      "period_end": 1829,
+      "x": 1825.0,
+      "point": 0.18206521739130435,
+      "lo_sampling": 0.11463615023474177,
+      "hi_sampling": 0.2605481256999802,
+      "lo": 0.11463615023474177,
+      "hi": 0.2605481256999802,
+      "n_paragraphs": 368,
+      "n_speeches": 10,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1825–1829",
+      "share_percent": 18.206521739130434,
+      "lo_sampling_percent": 11.463615023474178,
+      "hi_sampling_percent": 26.05481256999802,
+      "lo_percent": 11.463615023474178,
+      "hi_percent": 26.05481256999802,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1830",
+      "period_order": 1830,
+      "period_start": 1830,
+      "period_end": 1834,
+      "x": 1830.0,
+      "point": 0.07338308457711443,
+      "lo_sampling": 0.04409112552824237,
+      "hi_sampling": 0.10624021673690547,
+      "lo": 0.04409112552824237,
+      "hi": 0.10624021673690547,
+      "n_paragraphs": 804,
+      "n_speeches": 19,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1830–1834",
+      "share_percent": 7.338308457711443,
+      "lo_sampling_percent": 4.4091125528242365,
+      "hi_sampling_percent": 10.624021673690546,
+      "lo_percent": 4.4091125528242365,
+      "hi_percent": 10.624021673690546,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1835",
+      "period_order": 1835,
+      "period_start": 1835,
+      "period_end": 1839,
+      "x": 1835.0,
+      "point": 0.05443234836702955,
+      "lo_sampling": 0.02857037096861035,
+      "hi_sampling": 0.07650297619047618,
+      "lo": 0.02857037096861035,
+      "hi": 0.07650297619047618,
+      "n_paragraphs": 643,
+      "n_speeches": 12,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1835–1839",
+      "share_percent": 5.443234836702955,
+      "lo_sampling_percent": 2.857037096861035,
+      "hi_sampling_percent": 7.650297619047618,
+      "lo_percent": 2.857037096861035,
+      "hi_percent": 7.650297619047618,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1840",
+      "period_order": 1840,
+      "period_start": 1840,
+      "period_end": 1844,
+      "x": 1840.0,
+      "point": 0.1456752655538695,
+      "lo_sampling": 0.07009329070433289,
+      "hi_sampling": 0.25188260933296536,
+      "lo": 0.07009329070433289,
+      "hi": 0.25188260933296536,
+      "n_paragraphs": 659,
+      "n_speeches": 20,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1840–1844",
+      "share_percent": 14.56752655538695,
+      "lo_sampling_percent": 7.009329070433289,
+      "hi_sampling_percent": 25.188260933296537,
+      "lo_percent": 7.009329070433289,
+      "hi_percent": 25.188260933296537,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1845",
+      "period_order": 1845,
+      "period_start": 1845,
+      "period_end": 1849,
+      "x": 1845.0,
+      "point": 0.1614123581336696,
+      "lo_sampling": 0.11611794825727632,
+      "hi_sampling": 0.2132165778777928,
+      "lo": 0.11611794825727632,
+      "hi": 0.2132165778777928,
+      "n_paragraphs": 793,
+      "n_speeches": 28,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1845–1849",
+      "share_percent": 16.14123581336696,
+      "lo_sampling_percent": 11.611794825727632,
+      "hi_sampling_percent": 21.32165778777928,
+      "lo_percent": 11.611794825727632,
+      "hi_percent": 21.32165778777928,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1850",
+      "period_order": 1850,
+      "period_start": 1850,
+      "period_end": 1854,
+      "x": 1850.0,
+      "point": 0.1736725663716814,
+      "lo_sampling": 0.08277892501032509,
+      "hi_sampling": 0.31554157812384365,
+      "lo": 0.08277892501032509,
+      "hi": 0.31554157812384365,
+      "n_paragraphs": 904,
+      "n_speeches": 21,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1850–1854",
+      "share_percent": 17.36725663716814,
+      "lo_sampling_percent": 8.27789250103251,
+      "hi_sampling_percent": 31.554157812384364,
+      "lo_percent": 8.27789250103251,
+      "hi_percent": 31.554157812384364,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1855",
+      "period_order": 1855,
+      "period_start": 1855,
+      "period_end": 1859,
+      "x": 1855.0,
+      "point": 0.13933236574746008,
+      "lo_sampling": 0.08169390482063933,
+      "hi_sampling": 0.18313743551952835,
+      "lo": 0.08169390482063933,
+      "hi": 0.18313743551952835,
+      "n_paragraphs": 689,
+      "n_speeches": 13,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1855–1859",
+      "share_percent": 13.933236574746008,
+      "lo_sampling_percent": 8.169390482063934,
+      "hi_sampling_percent": 18.313743551952836,
+      "lo_percent": 8.169390482063934,
+      "hi_percent": 18.313743551952836,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1860",
+      "period_order": 1860,
+      "period_start": 1860,
+      "period_end": 1864,
+      "x": 1860.0,
+      "point": 0.09020217729393468,
+      "lo_sampling": 0.04482883882584481,
+      "hi_sampling": 0.1433158584534731,
+      "lo": 0.04482883882584481,
+      "hi": 0.1433158584534731,
+      "n_paragraphs": 643,
+      "n_speeches": 18,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1860–1864",
+      "share_percent": 9.020217729393467,
+      "lo_sampling_percent": 4.482883882584481,
+      "hi_sampling_percent": 14.33158584534731,
+      "lo_percent": 4.482883882584481,
+      "hi_percent": 14.33158584534731,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1865",
+      "period_order": 1865,
+      "period_start": 1865,
+      "period_end": 1869,
+      "x": 1865.0,
+      "point": 0.07398273736128237,
+      "lo_sampling": 0.035846216847222,
+      "hi_sampling": 0.10396215596330276,
+      "lo": 0.035846216847222,
+      "hi": 0.10396215596330276,
+      "n_paragraphs": 811,
+      "n_speeches": 37,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1865–1869",
+      "share_percent": 7.398273736128237,
+      "lo_sampling_percent": 3.5846216847222,
+      "hi_sampling_percent": 10.396215596330276,
+      "lo_percent": 3.5846216847222,
+      "hi_percent": 10.396215596330276,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1870",
+      "period_order": 1870,
+      "period_start": 1870,
+      "period_end": 1874,
+      "x": 1870.0,
+      "point": 0.19603960396039605,
+      "lo_sampling": 0.1348893280632411,
+      "hi_sampling": 0.25835575560279916,
+      "lo": 0.1348893280632411,
+      "hi": 0.25835575560279916,
+      "n_paragraphs": 505,
+      "n_speeches": 19,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1870–1874",
+      "share_percent": 19.603960396039604,
+      "lo_sampling_percent": 13.488932806324112,
+      "hi_sampling_percent": 25.835575560279917,
+      "lo_percent": 13.488932806324112,
+      "hi_percent": 25.835575560279917,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1875",
+      "period_order": 1875,
+      "period_start": 1875,
+      "period_end": 1879,
+      "x": 1875.0,
+      "point": 0.08180300500834725,
+      "lo_sampling": 0.029151546146193832,
+      "hi_sampling": 0.1279765592034977,
+      "lo": 0.029151546146193832,
+      "hi": 0.1279765592034977,
+      "n_paragraphs": 599,
+      "n_speeches": 20,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1875–1879",
+      "share_percent": 8.180300500834726,
+      "lo_sampling_percent": 2.915154614619383,
+      "hi_sampling_percent": 12.79765592034977,
+      "lo_percent": 2.915154614619383,
+      "hi_percent": 12.79765592034977,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1880",
+      "period_order": 1880,
+      "period_start": 1880,
+      "period_end": 1884,
+      "x": 1880.0,
+      "point": 0.19025157232704404,
+      "lo_sampling": 0.13258303716743616,
+      "hi_sampling": 0.2698489010989011,
+      "lo": 0.13258303716743616,
+      "hi": 0.2698489010989011,
+      "n_paragraphs": 636,
+      "n_speeches": 16,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1880–1884",
+      "share_percent": 19.025157232704405,
+      "lo_sampling_percent": 13.258303716743617,
+      "hi_sampling_percent": 26.98489010989011,
+      "lo_percent": 13.258303716743617,
+      "hi_percent": 26.98489010989011,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1885",
+      "period_order": 1885,
+      "period_start": 1885,
+      "period_end": 1889,
+      "x": 1885.0,
+      "point": 0.10401002506265664,
+      "lo_sampling": 0.05832569906415605,
+      "hi_sampling": 0.1324430127164502,
+      "lo": 0.05832569906415605,
+      "hi": 0.1324430127164502,
+      "n_paragraphs": 798,
+      "n_speeches": 18,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1885–1889",
+      "share_percent": 10.401002506265664,
+      "lo_sampling_percent": 5.832569906415605,
+      "hi_sampling_percent": 13.244301271645021,
+      "lo_percent": 5.832569906415605,
+      "hi_percent": 13.244301271645021,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1890",
+      "period_order": 1890,
+      "period_start": 1890,
+      "period_end": 1894,
+      "x": 1890.0,
+      "point": 0.15876777251184834,
+      "lo_sampling": 0.10617802939050831,
+      "hi_sampling": 0.19829391812048622,
+      "lo": 0.10617802939050831,
+      "hi": 0.19829391812048622,
+      "n_paragraphs": 844,
+      "n_speeches": 20,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1890–1894",
+      "share_percent": 15.876777251184834,
+      "lo_sampling_percent": 10.617802939050831,
+      "hi_sampling_percent": 19.829391812048623,
+      "lo_percent": 10.617802939050831,
+      "hi_percent": 19.829391812048623,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1895",
+      "period_order": 1895,
+      "period_start": 1895,
+      "period_end": 1899,
+      "x": 1895.0,
+      "point": 0.1502958579881657,
+      "lo_sampling": 0.07659065315315315,
+      "hi_sampling": 0.215248716936439,
+      "lo": 0.07659065315315315,
+      "hi": 0.215248716936439,
+      "n_paragraphs": 845,
+      "n_speeches": 20,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1895–1899",
+      "share_percent": 15.02958579881657,
+      "lo_sampling_percent": 7.659065315315315,
+      "hi_sampling_percent": 21.5248716936439,
+      "lo_percent": 7.659065315315315,
+      "hi_percent": 21.5248716936439,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1900",
+      "period_order": 1900,
+      "period_start": 1900,
+      "period_end": 1904,
+      "x": 1900.0,
+      "point": 0.23012048192771084,
+      "lo_sampling": 0.15385819459735986,
+      "hi_sampling": 0.3896394984326018,
+      "lo": 0.15385819459735986,
+      "hi": 0.3896394984326018,
+      "n_paragraphs": 830,
+      "n_speeches": 15,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1900–1904",
+      "share_percent": 23.012048192771083,
+      "lo_sampling_percent": 15.385819459735986,
+      "hi_sampling_percent": 38.96394984326018,
+      "lo_percent": 15.385819459735986,
+      "hi_percent": 38.96394984326018,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1905",
+      "period_order": 1905,
+      "period_start": 1905,
+      "period_end": 1909,
+      "x": 1905.0,
+      "point": 0.1987847222222222,
+      "lo_sampling": 0.13057143202173122,
+      "hi_sampling": 0.3000914811663008,
+      "lo": 0.13057143202173122,
+      "hi": 0.3000914811663008,
+      "n_paragraphs": 1152,
+      "n_speeches": 16,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1905–1909",
+      "share_percent": 19.87847222222222,
+      "lo_sampling_percent": 13.05714320217312,
+      "hi_sampling_percent": 30.00914811663008,
+      "lo_percent": 13.05714320217312,
+      "hi_percent": 30.00914811663008,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1910",
+      "period_order": 1910,
+      "period_start": 1910,
+      "period_end": 1914,
+      "x": 1910.0,
+      "point": 0.17060085836909872,
+      "lo_sampling": 0.11065218106954201,
+      "hi_sampling": 0.21227455555614014,
+      "lo": 0.11065218106954201,
+      "hi": 0.21227455555614014,
+      "n_paragraphs": 932,
+      "n_speeches": 20,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1910–1914",
+      "share_percent": 17.06008583690987,
+      "lo_sampling_percent": 11.065218106954202,
+      "hi_sampling_percent": 21.227455555614014,
+      "lo_percent": 11.065218106954202,
+      "hi_percent": 21.227455555614014,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1915",
+      "period_order": 1915,
+      "period_start": 1915,
+      "period_end": 1919,
+      "x": 1915.0,
+      "point": 0.13449023861171366,
+      "lo_sampling": 0.06838265169895869,
+      "hi_sampling": 0.20166501373207202,
+      "lo": 0.06838265169895869,
+      "hi": 0.20166501373207202,
+      "n_paragraphs": 461,
+      "n_speeches": 21,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1915–1919",
+      "share_percent": 13.449023861171366,
+      "lo_sampling_percent": 6.838265169895869,
+      "hi_sampling_percent": 20.1665013732072,
+      "lo_percent": 6.838265169895869,
+      "hi_percent": 20.1665013732072,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1920",
+      "period_order": 1920,
+      "period_start": 1920,
+      "period_end": 1924,
+      "x": 1920.0,
+      "point": 0.10306406685236769,
+      "lo_sampling": 0.03737771739130435,
+      "hi_sampling": 0.1588373554550025,
+      "lo": 0.03737771739130435,
+      "hi": 0.1588373554550025,
+      "n_paragraphs": 359,
+      "n_speeches": 19,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1920–1924",
+      "share_percent": 10.30640668523677,
+      "lo_sampling_percent": 3.7377717391304346,
+      "hi_sampling_percent": 15.88373554550025,
+      "lo_percent": 3.7377717391304346,
+      "hi_percent": 15.88373554550025,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1925",
+      "period_order": 1925,
+      "period_start": 1925,
+      "period_end": 1929,
+      "x": 1925.0,
+      "point": 0.14182344428364688,
+      "lo_sampling": 0.0865205493869389,
+      "hi_sampling": 0.19601559473579513,
+      "lo": 0.0865205493869389,
+      "hi": 0.19601559473579513,
+      "n_paragraphs": 691,
+      "n_speeches": 20,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1925–1929",
+      "share_percent": 14.182344428364688,
+      "lo_sampling_percent": 8.65205493869389,
+      "hi_sampling_percent": 19.601559473579513,
+      "lo_percent": 8.65205493869389,
+      "hi_percent": 19.601559473579513,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1930",
+      "period_order": 1930,
+      "period_start": 1930,
+      "period_end": 1934,
+      "x": 1930.0,
+      "point": 0.057233704292527825,
+      "lo_sampling": 0.023970170454545452,
+      "hi_sampling": 0.1113167589865995,
+      "lo": 0.023970170454545452,
+      "hi": 0.1113167589865995,
+      "n_paragraphs": 629,
+      "n_speeches": 27,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1930–1934",
+      "share_percent": 5.723370429252783,
+      "lo_sampling_percent": 2.3970170454545454,
+      "hi_sampling_percent": 11.13167589865995,
+      "lo_percent": 2.3970170454545454,
+      "hi_percent": 11.13167589865995,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1935",
+      "period_order": 1935,
+      "period_start": 1935,
+      "period_end": 1939,
+      "x": 1935.0,
+      "point": 0.06181818181818182,
+      "lo_sampling": 0.040806231756347414,
+      "hi_sampling": 0.08726113483831605,
+      "lo": 0.040806231756347414,
+      "hi": 0.08726113483831605,
+      "n_paragraphs": 275,
+      "n_speeches": 13,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1935–1939",
+      "share_percent": 6.181818181818182,
+      "lo_sampling_percent": 4.0806231756347415,
+      "hi_sampling_percent": 8.726113483831604,
+      "lo_percent": 4.0806231756347415,
+      "hi_percent": 8.726113483831604,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1940",
+      "period_order": 1940,
+      "period_start": 1940,
+      "period_end": 1944,
+      "x": 1940.0,
+      "point": 0.17081260364842454,
+      "lo_sampling": 0.11569560320100589,
+      "hi_sampling": 0.23779954515206686,
+      "lo": 0.11569560320100589,
+      "hi": 0.23779954515206686,
+      "n_paragraphs": 603,
+      "n_speeches": 26,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1940–1944",
+      "share_percent": 17.081260364842453,
+      "lo_sampling_percent": 11.569560320100589,
+      "hi_sampling_percent": 23.779954515206686,
+      "lo_percent": 11.569560320100589,
+      "hi_percent": 23.779954515206686,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1945",
+      "period_order": 1945,
+      "period_start": 1945,
+      "period_end": 1949,
+      "x": 1945.0,
+      "point": 0.07011070110701106,
+      "lo_sampling": 0.029071557971014492,
+      "hi_sampling": 0.13207031249999995,
+      "lo": 0.029071557971014492,
+      "hi": 0.13207031249999995,
+      "n_paragraphs": 271,
+      "n_speeches": 17,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1945–1949",
+      "share_percent": 7.011070110701106,
+      "lo_sampling_percent": 2.9071557971014492,
+      "hi_sampling_percent": 13.207031249999995,
+      "lo_percent": 2.9071557971014492,
+      "hi_percent": 13.207031249999995,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1950",
+      "period_order": 1950,
+      "period_start": 1950,
+      "period_end": 1954,
+      "x": 1950.0,
+      "point": 0.01729106628242075,
+      "lo_sampling": 0.006693972733795743,
+      "hi_sampling": 0.03522863051470588,
+      "lo": 0.006693972733795743,
+      "hi": 0.03522863051470588,
+      "n_paragraphs": 347,
+      "n_speeches": 11,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1950–1954",
+      "share_percent": 1.729106628242075,
+      "lo_sampling_percent": 0.6693972733795743,
+      "hi_sampling_percent": 3.522863051470588,
+      "lo_percent": 0.6693972733795743,
+      "hi_percent": 3.522863051470588,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1955",
+      "period_order": 1955,
+      "period_start": 1955,
+      "period_end": 1959,
+      "x": 1955.0,
+      "point": 0.02977667493796526,
+      "lo_sampling": 0.0163234706117553,
+      "hi_sampling": 0.04116745227709769,
+      "lo": 0.0163234706117553,
+      "hi": 0.04116745227709769,
+      "n_paragraphs": 403,
+      "n_speeches": 8,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1955–1959",
+      "share_percent": 2.977667493796526,
+      "lo_sampling_percent": 1.63234706117553,
+      "hi_sampling_percent": 4.116745227709769,
+      "lo_percent": 1.63234706117553,
+      "hi_percent": 4.116745227709769,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1960",
+      "period_order": 1960,
+      "period_start": 1960,
+      "period_end": 1964,
+      "x": 1960.0,
+      "point": 0.017148014440433214,
+      "lo_sampling": 0.010223001867816744,
+      "hi_sampling": 0.025181109617278884,
+      "lo": 0.010223001867816744,
+      "hi": 0.025181109617278884,
+      "n_paragraphs": 2216,
+      "n_speeches": 67,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1960–1964",
+      "share_percent": 1.7148014440433215,
+      "lo_sampling_percent": 1.0223001867816746,
+      "hi_sampling_percent": 2.5181109617278885,
+      "lo_percent": 1.0223001867816746,
+      "hi_percent": 2.5181109617278885,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1965",
+      "period_order": 1965,
+      "period_start": 1965,
+      "period_end": 1969,
+      "x": 1965.0,
+      "point": 0.0172244094488189,
+      "lo_sampling": 0.009271112387332395,
+      "hi_sampling": 0.027577003182779763,
+      "lo": 0.009271112387332395,
+      "hi": 0.027577003182779763,
+      "n_paragraphs": 2032,
+      "n_speeches": 53,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1965–1969",
+      "share_percent": 1.7224409448818898,
+      "lo_sampling_percent": 0.9271112387332395,
+      "hi_sampling_percent": 2.7577003182779762,
+      "lo_percent": 0.9271112387332395,
+      "hi_percent": 2.7577003182779762,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1970",
+      "period_order": 1970,
+      "period_start": 1970,
+      "period_end": 1974,
+      "x": 1970.0,
+      "point": 0.009345794392523364,
+      "lo_sampling": 0.0020895708582834333,
+      "hi_sampling": 0.01735157755298651,
+      "lo": 0.0020895708582834333,
+      "hi": 0.01735157755298651,
+      "n_paragraphs": 535,
+      "n_speeches": 25,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1970–1974",
+      "share_percent": 0.9345794392523363,
+      "lo_sampling_percent": 0.20895708582834333,
+      "hi_sampling_percent": 1.735157755298651,
+      "lo_percent": 0.20895708582834333,
+      "hi_percent": 1.735157755298651,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1975",
+      "period_order": 1975,
+      "period_start": 1975,
+      "period_end": 1979,
+      "x": 1975.0,
+      "point": 0.009981851179673321,
+      "lo_sampling": 0.004610593446406194,
+      "hi_sampling": 0.017875116758462973,
+      "lo": 0.004610593446406194,
+      "hi": 0.017875116758462973,
+      "n_paragraphs": 1102,
+      "n_speeches": 27,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1975–1979",
+      "share_percent": 0.9981851179673321,
+      "lo_sampling_percent": 0.4610593446406194,
+      "hi_sampling_percent": 1.7875116758462972,
+      "lo_percent": 0.4610593446406194,
+      "hi_percent": 1.7875116758462972,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1980",
+      "period_order": 1980,
+      "period_start": 1980,
+      "period_end": 1984,
+      "x": 1980.0,
+      "point": 0.026206075044669448,
+      "lo_sampling": 0.01802330413138041,
+      "hi_sampling": 0.03559709354530574,
+      "lo": 0.01802330413138041,
+      "hi": 0.03559709354530574,
+      "n_paragraphs": 1679,
+      "n_speeches": 41,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1980–1984",
+      "share_percent": 2.620607504466945,
+      "lo_sampling_percent": 1.802330413138041,
+      "hi_sampling_percent": 3.559709354530574,
+      "lo_percent": 1.802330413138041,
+      "hi_percent": 3.559709354530574,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1985",
+      "period_order": 1985,
+      "period_start": 1985,
+      "period_end": 1989,
+      "x": 1985.0,
+      "point": 0.017772511848341232,
+      "lo_sampling": 0.008927490677651743,
+      "hi_sampling": 0.029420622215545505,
+      "lo": 0.008927490677651743,
+      "hi": 0.029420622215545505,
+      "n_paragraphs": 844,
+      "n_speeches": 28,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1985–1989",
+      "share_percent": 1.7772511848341233,
+      "lo_sampling_percent": 0.8927490677651744,
+      "hi_sampling_percent": 2.9420622215545507,
+      "lo_percent": 0.8927490677651744,
+      "hi_percent": 2.9420622215545507,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1990",
+      "period_order": 1990,
+      "period_start": 1990,
+      "period_end": 1994,
+      "x": 1990.0,
+      "point": 0.017733990147783252,
+      "lo_sampling": 0.010643053751469043,
+      "hi_sampling": 0.026000167078601838,
+      "lo": 0.010643053751469043,
+      "hi": 0.026000167078601838,
+      "n_paragraphs": 1015,
+      "n_speeches": 32,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1990–1994",
+      "share_percent": 1.7733990147783252,
+      "lo_sampling_percent": 1.0643053751469043,
+      "hi_sampling_percent": 2.600016707860184,
+      "lo_percent": 1.0643053751469043,
+      "hi_percent": 2.600016707860184,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "1995",
+      "period_order": 1995,
+      "period_start": 1995,
+      "period_end": 1999,
+      "x": 1995.0,
+      "point": 0.016786570743405275,
+      "lo_sampling": 0.010638512659302672,
+      "hi_sampling": 0.024961460304113232,
+      "lo": 0.010638512659302672,
+      "hi": 0.024961460304113232,
+      "n_paragraphs": 834,
+      "n_speeches": 22,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "1995–1999",
+      "share_percent": 1.6786570743405276,
+      "lo_sampling_percent": 1.0638512659302672,
+      "hi_sampling_percent": 2.496146030411323,
+      "lo_percent": 1.0638512659302672,
+      "hi_percent": 2.496146030411323,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "2000",
+      "period_order": 2000,
+      "period_start": 2000,
+      "period_end": 2004,
+      "x": 2000.0,
+      "point": 0.015822784810126583,
+      "lo_sampling": 0.005763239443646786,
+      "hi_sampling": 0.026814631228874612,
+      "lo": 0.005763239443646786,
+      "hi": 0.026814631228874612,
+      "n_paragraphs": 632,
+      "n_speeches": 23,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "2000–2004",
+      "share_percent": 1.5822784810126582,
+      "lo_sampling_percent": 0.5763239443646786,
+      "hi_sampling_percent": 2.681463122887461,
+      "lo_percent": 0.5763239443646786,
+      "hi_percent": 2.681463122887461,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "2005",
+      "period_order": 2005,
+      "period_start": 2005,
+      "period_end": 2009,
+      "x": 2005.0,
+      "point": 0.03464203233256351,
+      "lo_sampling": 0.01760915763431011,
+      "hi_sampling": 0.05506198347107438,
+      "lo": 0.01760915763431011,
+      "hi": 0.05506198347107438,
+      "n_paragraphs": 866,
+      "n_speeches": 28,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "2005–2009",
+      "share_percent": 3.4642032332563506,
+      "lo_sampling_percent": 1.760915763431011,
+      "hi_sampling_percent": 5.506198347107438,
+      "lo_percent": 1.760915763431011,
+      "hi_percent": 5.506198347107438,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "2010",
+      "period_order": 2010,
+      "period_start": 2010,
+      "period_end": 2014,
+      "x": 2010.0,
+      "point": 0.03414634146341464,
+      "lo_sampling": 0.022944650096950465,
+      "hi_sampling": 0.04773103896752782,
+      "lo": 0.022944650096950465,
+      "hi": 0.04773103896752782,
+      "n_paragraphs": 1230,
+      "n_speeches": 33,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "2010–2014",
+      "share_percent": 3.414634146341464,
+      "lo_sampling_percent": 2.2944650096950467,
+      "hi_sampling_percent": 4.773103896752782,
+      "lo_percent": 2.2944650096950467,
+      "hi_percent": 4.773103896752782,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "2015",
+      "period_order": 2015,
+      "period_start": 2015,
+      "period_end": 2019,
+      "x": 2015.0,
+      "point": 0.03343701399688958,
+      "lo_sampling": 0.021790741355966838,
+      "hi_sampling": 0.04781078939786805,
+      "lo": 0.021790741355966838,
+      "hi": 0.04781078939786805,
+      "n_paragraphs": 1286,
+      "n_speeches": 27,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "2015–2019",
+      "share_percent": 3.3437013996889577,
+      "lo_sampling_percent": 2.1790741355966836,
+      "hi_sampling_percent": 4.781078939786805,
+      "lo_percent": 2.1790741355966836,
+      "hi_percent": 4.781078939786805,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "2020",
+      "period_order": 2020,
+      "period_start": 2020,
+      "period_end": 2024,
+      "x": 2020.0,
+      "point": 0.02999210734017364,
+      "lo_sampling": 0.016983975029187796,
+      "hi_sampling": 0.045537855947224516,
+      "lo": 0.016983975029187796,
+      "hi": 0.045537855947224516,
+      "n_paragraphs": 2534,
+      "n_speeches": 50,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "2020–2024",
+      "share_percent": 2.999210734017364,
+      "lo_sampling_percent": 1.6983975029187797,
+      "hi_sampling_percent": 4.553785594722451,
+      "lo_percent": 1.6983975029187797,
+      "hi_percent": 4.553785594722451,
+      "disagreement_half_width_percent": null
+    },
+    {
+      "surface": "corex_issues",
+      "series": "Infrastructure",
+      "period_kind": "year5",
+      "period": "2025",
+      "period_order": 2025,
+      "period_start": 2025,
+      "period_end": 2029,
+      "x": 2025.0,
+      "point": 0.037366548042704624,
+      "lo_sampling": 0.016704082100151188,
+      "hi_sampling": 0.06725353450896929,
+      "lo": 0.016704082100151188,
+      "hi": 0.06725353450896929,
+      "n_paragraphs": 562,
+      "n_speeches": 11,
+      "n_paired_paragraphs": null,
+      "ci_status": "ok",
+      "interval_unresolvable": false,
+      "disagreement_band_applied": false,
+      "disagreement_half_width": null,
+      "ci_components": "sampling_only",
+      "disagreement_status": "not_applicable_no_annotator_in_pipeline",
+      "agreement_source": "n/a: CorEx labels have no annotator",
+      "source_issue": "Infrastructure",
+      "period_label": "2025–2029",
+      "share_percent": 3.7366548042704624,
+      "lo_sampling_percent": 1.6704082100151187,
+      "hi_sampling_percent": 6.725353450896929,
+      "lo_percent": 1.6704082100151187,
+      "hi_percent": 6.725353450896929,
+      "disagreement_half_width_percent": null
+    }
+  ],
+  "trend_figure": {
+    "data": [
+      {
+        "fill": "toself",
+        "fillcolor": "rgba(109, 167, 236, 0.22)",
+        "hoverinfo": "skip",
+        "line": {
+          "width": 0
+        },
+        "mode": "lines",
+        "showlegend": false,
+        "x": [
+          1790.0,
+          1795.0,
+          1800.0,
+          1805.0,
+          1810.0,
+          1815.0,
+          1820.0,
+          1825.0,
+          1830.0,
+          1835.0,
+          1840.0,
+          1845.0,
+          1850.0,
+          1855.0,
+          1860.0,
+          1865.0,
+          1870.0,
+          1875.0,
+          1880.0,
+          1885.0,
+          1890.0,
+          1895.0,
+          1900.0,
+          1905.0,
+          1910.0,
+          1915.0,
+          1920.0,
+          1925.0,
+          1930.0,
+          1935.0,
+          1940.0,
+          1945.0,
+          1950.0,
+          1955.0,
+          1960.0,
+          1965.0,
+          1970.0,
+          1975.0,
+          1980.0,
+          1985.0,
+          1990.0,
+          1995.0,
+          2000.0,
+          2005.0,
+          2010.0,
+          2015.0,
+          2020.0,
+          2025.0,
+          2025.0,
+          2020.0,
+          2015.0,
+          2010.0,
+          2005.0,
+          2000.0,
+          1995.0,
+          1990.0,
+          1985.0,
+          1980.0,
+          1975.0,
+          1970.0,
+          1965.0,
+          1960.0,
+          1955.0,
+          1950.0,
+          1945.0,
+          1940.0,
+          1935.0,
+          1930.0,
+          1925.0,
+          1920.0,
+          1915.0,
+          1910.0,
+          1905.0,
+          1900.0,
+          1895.0,
+          1890.0,
+          1885.0,
+          1880.0,
+          1875.0,
+          1870.0,
+          1865.0,
+          1860.0,
+          1855.0,
+          1850.0,
+          1845.0,
+          1840.0,
+          1835.0,
+          1830.0,
+          1825.0,
+          1820.0,
+          1815.0,
+          1810.0,
+          1805.0,
+          1800.0,
+          1795.0,
+          1790.0
+        ],
+        "y": [
+          11.074712643678158,
+          16.256405897068465,
+          27.373821904452377,
+          37.95411573300501,
+          24.010498430141286,
+          26.994987971130712,
+          27.169811320754718,
+          26.05481256999802,
+          10.624021673690546,
+          7.650297619047618,
+          25.188260933296537,
+          21.32165778777928,
+          31.554157812384364,
+          18.313743551952836,
+          14.33158584534731,
+          10.396215596330276,
+          25.835575560279917,
+          12.79765592034977,
+          26.98489010989011,
+          13.244301271645021,
+          19.829391812048623,
+          21.5248716936439,
+          38.96394984326018,
+          30.00914811663008,
+          21.227455555614014,
+          20.1665013732072,
+          15.88373554550025,
+          19.601559473579513,
+          11.13167589865995,
+          8.726113483831604,
+          23.779954515206686,
+          13.207031249999995,
+          3.522863051470588,
+          4.116745227709769,
+          2.5181109617278885,
+          2.7577003182779762,
+          1.735157755298651,
+          1.7875116758462972,
+          3.559709354530574,
+          2.9420622215545507,
+          2.600016707860184,
+          2.496146030411323,
+          2.681463122887461,
+          5.506198347107438,
+          4.773103896752782,
+          4.781078939786805,
+          4.553785594722451,
+          6.725353450896929,
+          1.6704082100151187,
+          1.6983975029187797,
+          2.1790741355966836,
+          2.2944650096950467,
+          1.760915763431011,
+          0.5763239443646786,
+          1.0638512659302672,
+          1.0643053751469043,
+          0.8927490677651744,
+          1.802330413138041,
+          0.4610593446406194,
+          0.20895708582834333,
+          0.9271112387332395,
+          1.0223001867816746,
+          1.63234706117553,
+          0.6693972733795743,
+          2.9071557971014492,
+          11.569560320100589,
+          4.0806231756347415,
+          2.3970170454545454,
+          8.65205493869389,
+          3.7377717391304346,
+          6.838265169895869,
+          11.065218106954202,
+          13.05714320217312,
+          15.385819459735986,
+          7.659065315315315,
+          10.617802939050831,
+          5.832569906415605,
+          13.258303716743617,
+          2.915154614619383,
+          13.488932806324112,
+          3.5846216847222,
+          4.482883882584481,
+          8.169390482063934,
+          8.27789250103251,
+          11.611794825727632,
+          7.009329070433289,
+          2.857037096861035,
+          4.4091125528242365,
+          11.463615023474178,
+          19.775832532486522,
+          12.698989674921352,
+          10.853107158179597,
+          17.813280112336177,
+          12.297619047619047,
+          3.084710322317421,
+          1.8680069930069931
+        ],
+        "type": "scatter"
+      },
+      {
+        "customdata": [
+          [
+            "not resolvable — 2 speeches agree exactly, so the bootstrap has no width to report",
+            2,
+            "low_cluster_caution"
+          ],
+          [
+            "1.9–11.1",
+            13,
+            "ok"
+          ],
+          [
+            "3.1–16.3",
+            13,
+            "ok"
+          ],
+          [
+            "12.3–27.4",
+            13,
+            "ok"
+          ],
+          [
+            "17.8–38.0",
+            15,
+            "ok"
+          ],
+          [
+            "10.9–24.0",
+            14,
+            "ok"
+          ],
+          [
+            "12.7–27.0",
+            9,
+            "ok"
+          ],
+          [
+            "19.8–27.2",
+            7,
+            "low_cluster_caution"
+          ],
+          [
+            "11.5–26.1",
+            10,
+            "ok"
+          ],
+          [
+            "4.4–10.6",
+            19,
+            "ok"
+          ],
+          [
+            "2.9–7.7",
+            12,
+            "ok"
+          ],
+          [
+            "7.0–25.2",
+            20,
+            "ok"
+          ],
+          [
+            "11.6–21.3",
+            28,
+            "ok"
+          ],
+          [
+            "8.3–31.6",
+            21,
+            "ok"
+          ],
+          [
+            "8.2–18.3",
+            13,
+            "ok"
+          ],
+          [
+            "4.5–14.3",
+            18,
+            "ok"
+          ],
+          [
+            "3.6–10.4",
+            37,
+            "ok"
+          ],
+          [
+            "13.5–25.8",
+            19,
+            "ok"
+          ],
+          [
+            "2.9–12.8",
+            20,
+            "ok"
+          ],
+          [
+            "13.3–27.0",
+            16,
+            "ok"
+          ],
+          [
+            "5.8–13.2",
+            18,
+            "ok"
+          ],
+          [
+            "10.6–19.8",
+            20,
+            "ok"
+          ],
+          [
+            "7.7–21.5",
+            20,
+            "ok"
+          ],
+          [
+            "15.4–39.0",
+            15,
+            "ok"
+          ],
+          [
+            "13.1–30.0",
+            16,
+            "ok"
+          ],
+          [
+            "11.1–21.2",
+            20,
+            "ok"
+          ],
+          [
+            "6.8–20.2",
+            21,
+            "ok"
+          ],
+          [
+            "3.7–15.9",
+            19,
+            "ok"
+          ],
+          [
+            "8.7–19.6",
+            20,
+            "ok"
+          ],
+          [
+            "2.4–11.1",
+            27,
+            "ok"
+          ],
+          [
+            "4.1–8.7",
+            13,
+            "ok"
+          ],
+          [
+            "11.6–23.8",
+            26,
+            "ok"
+          ],
+          [
+            "2.9–13.2",
+            17,
+            "ok"
+          ],
+          [
+            "0.7–3.5",
+            11,
+            "ok"
+          ],
+          [
+            "1.6–4.1",
+            8,
+            "ok"
+          ],
+          [
+            "1.0–2.5",
+            67,
+            "ok"
+          ],
+          [
+            "0.9–2.8",
+            53,
+            "ok"
+          ],
+          [
+            "0.2–1.7",
+            25,
+            "ok"
+          ],
+          [
+            "0.5–1.8",
+            27,
+            "ok"
+          ],
+          [
+            "1.8–3.6",
+            41,
+            "ok"
+          ],
+          [
+            "0.9–2.9",
+            28,
+            "ok"
+          ],
+          [
+            "1.1–2.6",
+            32,
+            "ok"
+          ],
+          [
+            "1.1–2.5",
+            22,
+            "ok"
+          ],
+          [
+            "0.6–2.7",
+            23,
+            "ok"
+          ],
+          [
+            "1.8–5.5",
+            28,
+            "ok"
+          ],
+          [
+            "2.3–4.8",
+            33,
+            "ok"
+          ],
+          [
+            "2.2–4.8",
+            27,
+            "ok"
+          ],
+          [
+            "1.7–4.6",
+            50,
+            "ok"
+          ],
+          [
+            "1.7–6.7",
+            11,
+            "ok"
+          ]
+        ],
+        "hovertemplate": "%{y:.1f}% of eligible paragraphs<br>95% band %{customdata[0]}<br>%{customdata[1]} speeches · %{text} paragraphs · %{customdata[2]}<extra></extra>",
+        "line": {
+          "color": "rgba(109, 167, 236, 0.55)",
+          "dash": "dot",
+          "width": 1.7999999999999998
+        },
+        "mode": "lines",
+        "showlegend": false,
+        "text": {
+          "dtype": "f8",
+          "bdata": "AAAAAAAALEAAAAAAACBgQAAAAAAAgGpAAAAAAACAY0AAAAAAAGBoQAAAAAAAwGZAAAAAAABgaUAAAAAAAFBxQAAAAAAAAHdAAAAAAAAgiUAAAAAAABiEQAAAAAAAmIRAAAAAAADIiEAAAAAAAECMQAAAAAAAiIVAAAAAAAAYhEAAAAAAAFiJQAAAAAAAkH9AAAAAAAC4gkAAAAAAAOCDQAAAAAAA8IhAAAAAAABgikAAAAAAAGiKQAAAAAAA8IlAAAAAAAAAkkAAAAAAACCNQAAAAAAA0HxAAAAAAABwdkAAAAAAAJiFQAAAAAAAqINAAAAAAAAwcUAAAAAAANiCQAAAAAAA8HBAAAAAAACwdUAAAAAAADB5QAAAAAAAUKFAAAAAAADAn0AAAAAAALiAQAAAAAAAOJFAAAAAAAA8mkAAAAAAAGCKQAAAAAAAuI9AAAAAAAAQikAAAAAAAMCDQAAAAAAAEItAAAAAAAA4k0AAAAAAABiUQAAAAAAAzKNAAAAAAACQgUA="
+        },
+        "x": {
+          "dtype": "f8",
+          "bdata": "AAAAAADkm0AAAAAAAPibQAAAAAAADJxAAAAAAAAgnEAAAAAAADScQAAAAAAASJxAAAAAAABcnEAAAAAAAHCcQAAAAAAAhJxAAAAAAACYnEAAAAAAAKycQAAAAAAAwJxAAAAAAADUnEAAAAAAAOicQAAAAAAA/JxAAAAAAAAQnUAAAAAAACSdQAAAAAAAOJ1AAAAAAABMnUAAAAAAAGCdQAAAAAAAdJ1AAAAAAACInUAAAAAAAJydQAAAAAAAsJ1AAAAAAADEnUAAAAAAANidQAAAAAAA7J1AAAAAAAAAnkAAAAAAABSeQAAAAAAAKJ5AAAAAAAA8nkAAAAAAAFCeQAAAAAAAZJ5AAAAAAAB4nkAAAAAAAIyeQAAAAAAAoJ5AAAAAAAC0nkAAAAAAAMieQAAAAAAA3J5AAAAAAADwnkAAAAAAAASfQAAAAAAAGJ9AAAAAAAAsn0AAAAAAAECfQAAAAAAAVJ9AAAAAAABon0AAAAAAAHyfQAAAAAAAkJ9AAAAAAACkn0A="
+        },
+        "y": {
+          "dtype": "f8",
+          "bdata": "AAAAAAAAAAA05ow5Y84YQFITjLeyzyNANEiDNEiDNEDf8i3f8i07QFIZlVEZlTFAxKyFAjo2M0BBUsuUo9M3QG9605veNDJAyVJHiG1aHUAvWWBa38UVQDn/NdeSIi1AYG+/BygkMEBI4O2HBF4xQCruLy/R3StAsRZt+lkKIkAmG/4R1ZcdQL4RBSadmjNAPBPlWFBcIEApuVO0cAYzQNUMVDNQzSRAaG6n8ujAL0C4r6zeJQ8uQH7tIZcVAzdAjuM4juPgM0AOexDJYQ8xQJa1nXTm5SpAQrxIVuGcJEBJ3rg/XF0sQAEjwje75BZAuuiiiy66GECZdbF6zRQxQImyjfZVCxxAcIs5tmuq+z81v8FVQ9IHQFPLlKPTb/s/5PF4PB6P+z8qSuMjE+jtP0fBoOoh8e8/nbM6EQH3BECqPDrwnm/8P1a0M6XXX/w/n903hcfb+j+i0pE9A1H5P5RETC+wtgtAUrsStStRC0AqB/qE5r8KQHhVgzJi/gdAakMmRqvkDUA="
+        },
+        "type": "scatter"
+      },
+      {
+        "connectgaps": false,
+        "hoverinfo": "skip",
+        "line": {
+          "color": "#256abf",
+          "width": 2.4
+        },
+        "mode": "lines",
+        "showlegend": false,
+        "x": {
+          "dtype": "f8",
+          "bdata": "AAAAAADkm0AAAAAAAPibQAAAAAAADJxAAAAAAAAgnEAAAAAAADScQAAAAAAASJxAAAAAAABcnEAAAAAAAHCcQAAAAAAAhJxAAAAAAACYnEAAAAAAAKycQAAAAAAAwJxAAAAAAADUnEAAAAAAAOicQAAAAAAA/JxAAAAAAAAQnUAAAAAAACSdQAAAAAAAOJ1AAAAAAABMnUAAAAAAAGCdQAAAAAAAdJ1AAAAAAACInUAAAAAAAJydQAAAAAAAsJ1AAAAAAADEnUAAAAAAANidQAAAAAAA7J1AAAAAAAAAnkAAAAAAABSeQAAAAAAAKJ5AAAAAAAA8nkAAAAAAAFCeQAAAAAAAZJ5AAAAAAAB4nkAAAAAAAIyeQAAAAAAAoJ5AAAAAAAC0nkAAAAAAAMieQAAAAAAA3J5AAAAAAADwnkAAAAAAAASfQAAAAAAAGJ9AAAAAAAAsn0AAAAAAAECfQAAAAAAAVJ9AAAAAAABon0AAAAAAAHyfQAAAAAAAkJ9AAAAAAACkn0A="
+        },
+        "y": {
+          "dtype": "f8",
+          "bdata": "AAAAAAAA+H805ow5Y84YQFITjLeyzyNANEiDNEiDNEDf8i3f8i07QFIZlVEZlTFAxKyFAjo2M0AAAAAAAAD4f29605veNDJAyVJHiG1aHUAvWWBa38UVQDn/NdeSIi1AYG+/BygkMEBI4O2HBF4xQCruLy/R3StAsRZt+lkKIkAmG/4R1ZcdQL4RBSadmjNAPBPlWFBcIEApuVO0cAYzQNUMVDNQzSRAaG6n8ujAL0C4r6zeJQ8uQH7tIZcVAzdAjuM4juPgM0AOexDJYQ8xQJa1nXTm5SpAQrxIVuGcJEBJ3rg/XF0sQAEjwje75BZAuuiiiy66GECZdbF6zRQxQImyjfZVCxxAcIs5tmuq+z81v8FVQ9IHQFPLlKPTb/s/5PF4PB6P+z8qSuMjE+jtP0fBoOoh8e8/nbM6EQH3BECqPDrwnm/8P1a0M6XXX/w/n903hcfb+j+i0pE9A1H5P5RETC+wtgtAUrsStStRC0AqB/qE5r8KQHhVgzJi/gdAakMmRqvkDUA="
+        },
+        "type": "scatter"
+      },
+      {
+        "cliponaxis": false,
+        "customdata": {
+          "dtype": "i1",
+          "bdata": "Ag4=",
+          "shape": "1, 2"
+        },
+        "hovertemplate": "%{y:.1f}% of eligible paragraphs — no interval<br>%{customdata[0]} speeches, %{customdata[1]} paragraphs: too few to resolve one<extra></extra>",
+        "marker": {
+          "color": "rgba(109, 167, 236, 0.95)",
+          "line": {
+            "color": "rgba(109, 167, 236, 0.95)",
+            "width": 1.8
+          },
+          "size": 9,
+          "symbol": "circle-open"
+        },
+        "mode": "markers",
+        "showlegend": false,
+        "x": {
+          "dtype": "f8",
+          "bdata": "AAAAAADkm0A="
+        },
+        "y": {
+          "dtype": "f8",
+          "bdata": "AAAAAAAAAAA="
+        },
+        "type": "scatter"
+      },
+      {
+        "customdata": [
+          [
+            "Abraham Lincoln",
+            360
+          ],
+          [
+            "Abraham Lincoln",
+            37
+          ],
+          [
+            "Abraham Lincoln",
+            456
+          ],
+          [
+            "Andrew Jackson",
+            97
+          ],
+          [
+            "Andrew Jackson",
+            804
+          ],
+          [
+            "Andrew Jackson",
+            249
+          ],
+          [
+            "Andrew Johnson",
+            725
+          ],
+          [
+            "Barack Obama",
+            339
+          ],
+          [
+            "Barack Obama",
+            1230
+          ],
+          [
+            "Barack Obama",
+            310
+          ],
+          [
+            "Benjamin Harrison",
+            147
+          ],
+          [
+            "Benjamin Harrison",
+            451
+          ],
+          [
+            "Bill Clinton",
+            353
+          ],
+          [
+            "Bill Clinton",
+            834
+          ],
+          [
+            "Bill Clinton",
+            101
+          ],
+          [
+            "Calvin Coolidge",
+            108
+          ],
+          [
+            "Calvin Coolidge",
+            482
+          ],
+          [
+            "Chester A. Arthur",
+            478
+          ],
+          [
+            "Donald Trump",
+            976
+          ],
+          [
+            "Donald Trump",
+            1346
+          ],
+          [
+            "Donald Trump",
+            531
+          ],
+          [
+            "Dwight D. Eisenhower",
+            209
+          ],
+          [
+            "Dwight D. Eisenhower",
+            403
+          ],
+          [
+            "Dwight D. Eisenhower",
+            84
+          ],
+          [
+            "Franklin D. Roosevelt",
+            140
+          ],
+          [
+            "Franklin D. Roosevelt",
+            275
+          ],
+          [
+            "Franklin D. Roosevelt",
+            603
+          ],
+          [
+            "Franklin D. Roosevelt",
+            66
+          ],
+          [
+            "Franklin Pierce",
+            258
+          ],
+          [
+            "Franklin Pierce",
+            214
+          ],
+          [
+            "George H. W. Bush",
+            272
+          ],
+          [
+            "George H. W. Bush",
+            662
+          ],
+          [
+            "George W. Bush",
+            531
+          ],
+          [
+            "George W. Bush",
+            527
+          ],
+          [
+            "George Washington",
+            129
+          ],
+          [
+            "George Washington",
+            110
+          ],
+          [
+            "Gerald Ford",
+            101
+          ],
+          [
+            "Gerald Ford",
+            309
+          ],
+          [
+            "Grover Cleveland",
+            651
+          ],
+          [
+            "Grover Cleveland",
+            393
+          ],
+          [
+            "Grover Cleveland",
+            306
+          ],
+          [
+            "Harry S. Truman",
+            205
+          ],
+          [
+            "Harry S. Truman",
+            103
+          ],
+          [
+            "Herbert Hoover",
+            209
+          ],
+          [
+            "Herbert Hoover",
+            489
+          ],
+          [
+            "James A. Garfield",
+            29
+          ],
+          [
+            "James Buchanan",
+            438
+          ],
+          [
+            "James Buchanan",
+            187
+          ],
+          [
+            "James K. Polk",
+            722
+          ],
+          [
+            "James Madison",
+            182
+          ],
+          [
+            "James Madison",
+            68
+          ],
+          [
+            "James Monroe",
+            135
+          ],
+          [
+            "James Monroe",
+            272
+          ],
+          [
+            "Jimmy Carter",
+            754
+          ],
+          [
+            "Jimmy Carter",
+            280
+          ],
+          [
+            "Joe Biden",
+            1188
+          ],
+          [
+            "Joe Biden",
+            31
+          ],
+          [
+            "John Adams",
+            102
+          ],
+          [
+            "John F. Kennedy",
+            1367
+          ],
+          [
+            "John Quincy Adams",
+            271
+          ],
+          [
+            "John Tyler",
+            531
+          ],
+          [
+            "Lyndon B. Johnson",
+            731
+          ],
+          [
+            "Lyndon B. Johnson",
+            1981
+          ],
+          [
+            "Martin Van Buren",
+            394
+          ],
+          [
+            "Martin Van Buren",
+            71
+          ],
+          [
+            "Millard Fillmore",
+            268
+          ],
+          [
+            "Richard M. Nixon",
+            35
+          ],
+          [
+            "Richard M. Nixon",
+            51
+          ],
+          [
+            "Richard M. Nixon",
+            434
+          ],
+          [
+            "Ronald Reagan",
+            34
+          ],
+          [
+            "Ronald Reagan",
+            39
+          ],
+          [
+            "Ronald Reagan",
+            1399
+          ],
+          [
+            "Ronald Reagan",
+            572
+          ],
+          [
+            "Rutherford B. Hayes",
+            371
+          ],
+          [
+            "Rutherford B. Hayes",
+            129
+          ],
+          [
+            "Theodore Roosevelt",
+            602
+          ],
+          [
+            "Theodore Roosevelt",
+            928
+          ],
+          [
+            "Thomas Jefferson",
+            142
+          ],
+          [
+            "Thomas Jefferson",
+            171
+          ],
+          [
+            "Ulysses S. Grant",
+            80
+          ],
+          [
+            "Ulysses S. Grant",
+            505
+          ],
+          [
+            "Ulysses S. Grant",
+            228
+          ],
+          [
+            "Warren G. Harding",
+            229
+          ],
+          [
+            "William Henry Harrison",
+            57
+          ],
+          [
+            "William McKinley",
+            539
+          ],
+          [
+            "William McKinley",
+            228
+          ],
+          [
+            "William Howard Taft",
+            224
+          ],
+          [
+            "William Howard Taft",
+            745
+          ],
+          [
+            "Woodrow Wilson",
+            187
+          ],
+          [
+            "Woodrow Wilson",
+            452
+          ],
+          [
+            "Zachary Taylor",
+            62
+          ]
+        ],
+        "hovertemplate": "<b>%{customdata[0]}</b>: %{y:.1f}% of their eligible paragraphs in this period (%{customdata[1]})<extra></extra>",
+        "marker": {
+          "color": "#184f95",
+          "opacity": 0.45,
+          "size": 5
+        },
+        "mode": "markers",
+        "showlegend": false,
+        "x": {
+          "dtype": "i2",
+          "bdata": "Ogc/B0QHIQcmBysHSQfVB9oH3wddB2IHxgfLB9AHgAeFB1gH3wfkB+kHngejB6gHigePB5QHmQc6Bz8HwQfGB9AH1Qf+BgMHsge3B10HYgdnB5kHngeFB4oHWAc/B0QHNQcSBxcHFwccB7cHvAfkB+kHAweoByEHMAeoB60HKwcwBzoHngetB7IHqAe3B7wHwQdTB1gHbAdxBwgHDQdJB04HUweABzAHZwdsB3EHdgd2B3sHNQc="
+        },
+        "y": {
+          "dtype": "f8",
+          "bdata": "chzHcRzHAUAAAAAAAAAAANNZTGcxnSRAC3xx9YOOIkDJUkeIbVodQCpPC92xqxFAYbmnEZZ7GkCx0lMLKz0FQFK7ErUrUQtAxxhjjDHGEEAkSZIkSZIsQGbEYkYsZjRA3o4bGlwhAkCf3TeFx9v6P5h0ah7kru8/EtpLaC+hLUBw9phw9pgwQDQhL2wV1DJArKPN+xSXCEB5ggmHffb4P6+cuWW/IQ5AZ+wPg4UjA0A1v8FVQ9IHQMMwDMMwDPM/SZIkSZIkEUC66KKLLroYQJl1sXrNFDFAL7rooosuEkD1hD1hT9g9QCpK4yMT6C1ApqWlpaWl8T8/rWCpTyv4PwQNJ3VfHvs/4b87K+ngD0A05ow5Y84YQC+66KKLLhJAmHRqHuSu7z8QvEnr1OP5P8MwDMMwDCNAa8M0d8FfJUCE2S6E2S4oQDgfg/MxOB9AE0gl52UR7z/2h8HCkTkhQNz8FWY1ihhAGmG5pxGWC0CU01FORzktQIeHh4eHhxdAOVe9rVP6K0BSGZVRGZUxQA8PDw8PDzZAchzHcRzHMUDEw8PDw0M4QKJZXDjVduk/bdu2bdu2CUBMaC+hvYQSQM4555xzzglAX19fX19fL0B5rwFhluv6P7oVh3/3ZjVAMu0crFliMEAi4ICwmKT+P0gjG8a/RPw/lilgPpBdGEBEK2wOJFopQAAAAAAAADlAAAAAAAAAAAAAAAAAAAAAAOz4dfw6fu0/AAAAAAAAAAAAAAAAAAAAAEsu1eWoAwRAK5gl5YDIAEB2FypxNHwUQNAX9AV9QTdA0LzqHBY+O0AkLPc0wjI2QA4kWmFzIDVAMZ3FdBbTPUAAAAAAAAAuQL4RBSadmjNADeU1lNdQKkAhOtyfnXchQAAAAAAAAAAA5+6rIpWyMEDyGsprKK8nQJIkSZIkiSRAvw0YqumYM0DPK6Bxt84bQCTw9kMCbytAvvfee++9QUA="
+        },
+        "type": "scatter"
+      }
+    ],
+    "layout": {
+      "template": {
+        "data": {
+          "barpolar": [
+            {
+              "marker": {
+                "line": {
+                  "color": "white",
+                  "width": 0.5
+                },
+                "pattern": {
+                  "fillmode": "overlay",
+                  "size": 10,
+                  "solidity": 0.2
+                }
+              },
+              "type": "barpolar"
+            }
+          ],
+          "bar": [
+            {
+              "error_x": {
+                "color": "rgb(36,36,36)"
+              },
+              "error_y": {
+                "color": "rgb(36,36,36)"
+              },
+              "marker": {
+                "line": {
+                  "color": "white",
+                  "width": 0.5
+                },
+                "pattern": {
+                  "fillmode": "overlay",
+                  "size": 10,
+                  "solidity": 0.2
+                }
+              },
+              "type": "bar"
+            }
+          ],
+          "carpet": [
+            {
+              "aaxis": {
+                "endlinecolor": "rgb(36,36,36)",
+                "gridcolor": "white",
+                "linecolor": "white",
+                "minorgridcolor": "white",
+                "startlinecolor": "rgb(36,36,36)"
+              },
+              "baxis": {
+                "endlinecolor": "rgb(36,36,36)",
+                "gridcolor": "white",
+                "linecolor": "white",
+                "minorgridcolor": "white",
+                "startlinecolor": "rgb(36,36,36)"
+              },
+              "type": "carpet"
+            }
+          ],
+          "choropleth": [
+            {
+              "colorbar": {
+                "outlinewidth": 1,
+                "tickcolor": "rgb(36,36,36)",
+                "ticks": "outside"
+              },
+              "type": "choropleth"
+            }
+          ],
+          "contourcarpet": [
+            {
+              "colorbar": {
+                "outlinewidth": 1,
+                "tickcolor": "rgb(36,36,36)",
+                "ticks": "outside"
+              },
+              "type": "contourcarpet"
+            }
+          ],
+          "contour": [
+            {
+              "colorbar": {
+                "outlinewidth": 1,
+                "tickcolor": "rgb(36,36,36)",
+                "ticks": "outside"
+              },
+              "colorscale": [
+                [
+                  0.0,
+                  "#440154"
+                ],
+                [
+                  0.1111111111111111,
+                  "#482878"
+                ],
+                [
+                  0.2222222222222222,
+                  "#3e4989"
+                ],
+                [
+                  0.3333333333333333,
+                  "#31688e"
+                ],
+                [
+                  0.4444444444444444,
+                  "#26828e"
+                ],
+                [
+                  0.5555555555555556,
+                  "#1f9e89"
+                ],
+                [
+                  0.6666666666666666,
+                  "#35b779"
+                ],
+                [
+                  0.7777777777777778,
+                  "#6ece58"
+                ],
+                [
+                  0.8888888888888888,
+                  "#b5de2b"
+                ],
+                [
+                  1.0,
+                  "#fde725"
+                ]
+              ],
+              "type": "contour"
+            }
+          ],
+          "heatmap": [
+            {
+              "colorbar": {
+                "outlinewidth": 1,
+                "tickcolor": "rgb(36,36,36)",
+                "ticks": "outside"
+              },
+              "colorscale": [
+                [
+                  0.0,
+                  "#440154"
+                ],
+                [
+                  0.1111111111111111,
+                  "#482878"
+                ],
+                [
+                  0.2222222222222222,
+                  "#3e4989"
+                ],
+                [
+                  0.3333333333333333,
+                  "#31688e"
+                ],
+                [
+                  0.4444444444444444,
+                  "#26828e"
+                ],
+                [
+                  0.5555555555555556,
+                  "#1f9e89"
+                ],
+                [
+                  0.6666666666666666,
+                  "#35b779"
+                ],
+                [
+                  0.7777777777777778,
+                  "#6ece58"
+                ],
+                [
+                  0.8888888888888888,
+                  "#b5de2b"
+                ],
+                [
+                  1.0,
+                  "#fde725"
+                ]
+              ],
+              "type": "heatmap"
+            }
+          ],
+          "histogram2dcontour": [
+            {
+              "colorbar": {
+                "outlinewidth": 1,
+                "tickcolor": "rgb(36,36,36)",
+                "ticks": "outside"
+              },
+              "colorscale": [
+                [
+                  0.0,
+                  "#440154"
+                ],
+                [
+                  0.1111111111111111,
+                  "#482878"
+                ],
+                [
+                  0.2222222222222222,
+                  "#3e4989"
+                ],
+                [
+                  0.3333333333333333,
+                  "#31688e"
+                ],
+                [
+                  0.4444444444444444,
+                  "#26828e"
+                ],
+                [
+                  0.5555555555555556,
+                  "#1f9e89"
+                ],
+                [
+                  0.6666666666666666,
+                  "#35b779"
+                ],
+                [
+                  0.7777777777777778,
+                  "#6ece58"
+                ],
+                [
+                  0.8888888888888888,
+                  "#b5de2b"
+                ],
+                [
+                  1.0,
+                  "#fde725"
+                ]
+              ],
+              "type": "histogram2dcontour"
+            }
+          ],
+          "histogram2d": [
+            {
+              "colorbar": {
+                "outlinewidth": 1,
+                "tickcolor": "rgb(36,36,36)",
+                "ticks": "outside"
+              },
+              "colorscale": [
+                [
+                  0.0,
+                  "#440154"
+                ],
+                [
+                  0.1111111111111111,
+                  "#482878"
+                ],
+                [
+                  0.2222222222222222,
+                  "#3e4989"
+                ],
+                [
+                  0.3333333333333333,
+                  "#31688e"
+                ],
+                [
+                  0.4444444444444444,
+                  "#26828e"
+                ],
+                [
+                  0.5555555555555556,
+                  "#1f9e89"
+                ],
+                [
+                  0.6666666666666666,
+                  "#35b779"
+                ],
+                [
+                  0.7777777777777778,
+                  "#6ece58"
+                ],
+                [
+                  0.8888888888888888,
+                  "#b5de2b"
+                ],
+                [
+                  1.0,
+                  "#fde725"
+                ]
+              ],
+              "type": "histogram2d"
+            }
+          ],
+          "histogram": [
+            {
+              "marker": {
+                "line": {
+                  "color": "white",
+                  "width": 0.6
+                }
+              },
+              "type": "histogram"
+            }
+          ],
+          "mesh3d": [
+            {
+              "colorbar": {
+                "outlinewidth": 1,
+                "tickcolor": "rgb(36,36,36)",
+                "ticks": "outside"
+              },
+              "type": "mesh3d"
+            }
+          ],
+          "parcoords": [
+            {
+              "line": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "parcoords"
+            }
+          ],
+          "pie": [
+            {
+              "automargin": true,
+              "type": "pie"
+            }
+          ],
+          "scatter3d": [
+            {
+              "line": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "marker": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "scatter3d"
+            }
+          ],
+          "scattercarpet": [
+            {
+              "marker": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "scattercarpet"
+            }
+          ],
+          "scattergeo": [
+            {
+              "marker": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "scattergeo"
+            }
+          ],
+          "scattergl": [
+            {
+              "marker": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "scattergl"
+            }
+          ],
+          "scattermapbox": [
+            {
+              "marker": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "scattermapbox"
+            }
+          ],
+          "scattermap": [
+            {
+              "marker": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "scattermap"
+            }
+          ],
+          "scatterpolargl": [
+            {
+              "marker": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "scatterpolargl"
+            }
+          ],
+          "scatterpolar": [
+            {
+              "marker": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "scatterpolar"
+            }
+          ],
+          "scatter": [
+            {
+              "fillpattern": {
+                "fillmode": "overlay",
+                "size": 10,
+                "solidity": 0.2
+              },
+              "type": "scatter"
+            }
+          ],
+          "scatterternary": [
+            {
+              "marker": {
+                "colorbar": {
+                  "outlinewidth": 1,
+                  "tickcolor": "rgb(36,36,36)",
+                  "ticks": "outside"
+                }
+              },
+              "type": "scatterternary"
+            }
+          ],
+          "surface": [
+            {
+              "colorbar": {
+                "outlinewidth": 1,
+                "tickcolor": "rgb(36,36,36)",
+                "ticks": "outside"
+              },
+              "colorscale": [
+                [
+                  0.0,
+                  "#440154"
+                ],
+                [
+                  0.1111111111111111,
+                  "#482878"
+                ],
+                [
+                  0.2222222222222222,
+                  "#3e4989"
+                ],
+                [
+                  0.3333333333333333,
+                  "#31688e"
+                ],
+                [
+                  0.4444444444444444,
+                  "#26828e"
+                ],
+                [
+                  0.5555555555555556,
+                  "#1f9e89"
+                ],
+                [
+                  0.6666666666666666,
+                  "#35b779"
+                ],
+                [
+                  0.7777777777777778,
+                  "#6ece58"
+                ],
+                [
+                  0.8888888888888888,
+                  "#b5de2b"
+                ],
+                [
+                  1.0,
+                  "#fde725"
+                ]
+              ],
+              "type": "surface"
+            }
+          ],
+          "table": [
+            {
+              "cells": {
+                "fill": {
+                  "color": "rgb(237,237,237)"
+                },
+                "line": {
+                  "color": "white"
+                }
+              },
+              "header": {
+                "fill": {
+                  "color": "rgb(217,217,217)"
+                },
+                "line": {
+                  "color": "white"
+                }
+              },
+              "type": "table"
+            }
+          ]
+        },
+        "layout": {
+          "annotationdefaults": {
+            "arrowhead": 0,
+            "arrowwidth": 1
+          },
+          "autotypenumbers": "strict",
+          "coloraxis": {
+            "colorbar": {
+              "outlinewidth": 1,
+              "tickcolor": "rgb(36,36,36)",
+              "ticks": "outside"
+            }
+          },
+          "colorscale": {
+            "diverging": [
+              [
+                0.0,
+                "rgb(103,0,31)"
+              ],
+              [
+                0.1,
+                "rgb(178,24,43)"
+              ],
+              [
+                0.2,
+                "rgb(214,96,77)"
+              ],
+              [
+                0.3,
+                "rgb(244,165,130)"
+              ],
+              [
+                0.4,
+                "rgb(253,219,199)"
+              ],
+              [
+                0.5,
+                "rgb(247,247,247)"
+              ],
+              [
+                0.6,
+                "rgb(209,229,240)"
+              ],
+              [
+                0.7,
+                "rgb(146,197,222)"
+              ],
+              [
+                0.8,
+                "rgb(67,147,195)"
+              ],
+              [
+                0.9,
+                "rgb(33,102,172)"
+              ],
+              [
+                1.0,
+                "rgb(5,48,97)"
+              ]
+            ],
+            "sequential": [
+              [
+                0.0,
+                "#440154"
+              ],
+              [
+                0.1111111111111111,
+                "#482878"
+              ],
+              [
+                0.2222222222222222,
+                "#3e4989"
+              ],
+              [
+                0.3333333333333333,
+                "#31688e"
+              ],
+              [
+                0.4444444444444444,
+                "#26828e"
+              ],
+              [
+                0.5555555555555556,
+                "#1f9e89"
+              ],
+              [
+                0.6666666666666666,
+                "#35b779"
+              ],
+              [
+                0.7777777777777778,
+                "#6ece58"
+              ],
+              [
+                0.8888888888888888,
+                "#b5de2b"
+              ],
+              [
+                1.0,
+                "#fde725"
+              ]
+            ],
+            "sequentialminus": [
+              [
+                0.0,
+                "#440154"
+              ],
+              [
+                0.1111111111111111,
+                "#482878"
+              ],
+              [
+                0.2222222222222222,
+                "#3e4989"
+              ],
+              [
+                0.3333333333333333,
+                "#31688e"
+              ],
+              [
+                0.4444444444444444,
+                "#26828e"
+              ],
+              [
+                0.5555555555555556,
+                "#1f9e89"
+              ],
+              [
+                0.6666666666666666,
+                "#35b779"
+              ],
+              [
+                0.7777777777777778,
+                "#6ece58"
+              ],
+              [
+                0.8888888888888888,
+                "#b5de2b"
+              ],
+              [
+                1.0,
+                "#fde725"
+              ]
+            ]
+          },
+          "colorway": [
+            "#1F77B4",
+            "#FF7F0E",
+            "#2CA02C",
+            "#D62728",
+            "#9467BD",
+            "#8C564B",
+            "#E377C2",
+            "#7F7F7F",
+            "#BCBD22",
+            "#17BECF"
+          ],
+          "font": {
+            "color": "rgb(36,36,36)"
+          },
+          "geo": {
+            "bgcolor": "white",
+            "lakecolor": "white",
+            "landcolor": "white",
+            "showlakes": true,
+            "showland": true,
+            "subunitcolor": "white"
+          },
+          "hoverlabel": {
+            "align": "left"
+          },
+          "hovermode": "closest",
+          "mapbox": {
+            "style": "light"
+          },
+          "paper_bgcolor": "white",
+          "plot_bgcolor": "white",
+          "polar": {
+            "angularaxis": {
+              "gridcolor": "rgb(232,232,232)",
+              "linecolor": "rgb(36,36,36)",
+              "showgrid": false,
+              "showline": true,
+              "ticks": "outside"
+            },
+            "bgcolor": "white",
+            "radialaxis": {
+              "gridcolor": "rgb(232,232,232)",
+              "linecolor": "rgb(36,36,36)",
+              "showgrid": false,
+              "showline": true,
+              "ticks": "outside"
+            }
+          },
+          "scene": {
+            "xaxis": {
+              "backgroundcolor": "white",
+              "gridcolor": "rgb(232,232,232)",
+              "gridwidth": 2,
+              "linecolor": "rgb(36,36,36)",
+              "showbackground": true,
+              "showgrid": false,
+              "showline": true,
+              "ticks": "outside",
+              "zeroline": false,
+              "zerolinecolor": "rgb(36,36,36)"
+            },
+            "yaxis": {
+              "backgroundcolor": "white",
+              "gridcolor": "rgb(232,232,232)",
+              "gridwidth": 2,
+              "linecolor": "rgb(36,36,36)",
+              "showbackground": true,
+              "showgrid": false,
+              "showline": true,
+              "ticks": "outside",
+              "zeroline": false,
+              "zerolinecolor": "rgb(36,36,36)"
+            },
+            "zaxis": {
+              "backgroundcolor": "white",
+              "gridcolor": "rgb(232,232,232)",
+              "gridwidth": 2,
+              "linecolor": "rgb(36,36,36)",
+              "showbackground": true,
+              "showgrid": false,
+              "showline": true,
+              "ticks": "outside",
+              "zeroline": false,
+              "zerolinecolor": "rgb(36,36,36)"
+            }
+          },
+          "shapedefaults": {
+            "fillcolor": "black",
+            "line": {
+              "width": 0
+            },
+            "opacity": 0.3
+          },
+          "ternary": {
+            "aaxis": {
+              "gridcolor": "rgb(232,232,232)",
+              "linecolor": "rgb(36,36,36)",
+              "showgrid": false,
+              "showline": true,
+              "ticks": "outside"
+            },
+            "baxis": {
+              "gridcolor": "rgb(232,232,232)",
+              "linecolor": "rgb(36,36,36)",
+              "showgrid": false,
+              "showline": true,
+              "ticks": "outside"
+            },
+            "bgcolor": "white",
+            "caxis": {
+              "gridcolor": "rgb(232,232,232)",
+              "linecolor": "rgb(36,36,36)",
+              "showgrid": false,
+              "showline": true,
+              "ticks": "outside"
+            }
+          },
+          "title": {
+            "x": 0.05
+          },
+          "xaxis": {
+            "automargin": true,
+            "gridcolor": "rgb(232,232,232)",
+            "linecolor": "rgb(36,36,36)",
+            "showgrid": false,
+            "showline": true,
+            "ticks": "outside",
+            "title": {
+              "standoff": 15
+            },
+            "zeroline": false,
+            "zerolinecolor": "rgb(36,36,36)"
+          },
+          "yaxis": {
+            "automargin": true,
+            "gridcolor": "rgb(232,232,232)",
+            "linecolor": "rgb(36,36,36)",
+            "showgrid": false,
+            "showline": true,
+            "ticks": "outside",
+            "title": {
+              "standoff": 15
+            },
+            "zeroline": false,
+            "zerolinecolor": "rgb(36,36,36)"
+          }
+        }
+      },
+      "font": {
+        "family": "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif",
+        "color": "#0b0b0b",
+        "size": 13
+      },
+      "margin": {
+        "l": 56,
+        "r": 24,
+        "t": 24,
+        "b": 44
+      },
+      "xaxis": {
+        "tickfont": {
+          "color": "#898781",
+          "size": 11
+        },
+        "range": [
+          1785,
+          2029
+        ],
+        "gridcolor": "#e1e0d9",
+        "linecolor": "#c3c2b7"
+      },
+      "yaxis": {
+        "tickfont": {
+          "color": "#898781",
+          "size": 11
+        },
+        "title": {
+          "text": "share of eligible paragraphs (%)"
+        },
+        "gridcolor": "#e1e0d9",
+        "linecolor": "#c3c2b7",
+        "rangemode": "tozero",
+        "range": [
+          0,
+          40.91214733542319
+        ]
+      },
+      "paper_bgcolor": "#fcfcfb",
+      "plot_bgcolor": "#fcfcfb",
+      "height": 380
+    }
+  },
+  "president_period_rows": [
+    {
+      "president": "Abraham Lincoln",
+      "display_name": "Abraham Lincoln",
+      "profile_slug": "abraham-lincoln",
+      "period_start": 1850,
+      "period_end": 1854,
+      "period_label": "1850–1854",
+      "numerator": 8,
+      "denominator": 360,
+      "share_percent": 2.2222222222222223,
+      "n_speeches": 2,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Abraham Lincoln",
+      "display_name": "Abraham Lincoln",
+      "profile_slug": "abraham-lincoln",
+      "period_start": 1855,
+      "period_end": 1859,
+      "period_label": "1855–1859",
+      "numerator": 0,
+      "denominator": 37,
+      "share_percent": 0.0,
+      "n_speeches": 1,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Abraham Lincoln",
+      "display_name": "Abraham Lincoln",
+      "profile_slug": "abraham-lincoln",
+      "period_start": 1860,
+      "period_end": 1864,
+      "period_label": "1860–1864",
+      "numerator": 47,
+      "denominator": 456,
+      "share_percent": 10.307017543859649,
+      "n_speeches": 11,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Abraham Lincoln",
+      "display_name": "Abraham Lincoln",
+      "profile_slug": "abraham-lincoln",
+      "period_start": 1865,
+      "period_end": 1869,
+      "period_label": "1865–1869",
+      "numerator": 0,
+      "denominator": 6,
+      "share_percent": 0.0,
+      "n_speeches": 1,
+      "dot_included": false,
+      "dot_status": "below_25_paragraph_floor"
+    },
+    {
+      "president": "Andrew Jackson",
+      "display_name": "Andrew Jackson",
+      "profile_slug": "andrew-jackson",
+      "period_start": 1825,
+      "period_end": 1829,
+      "period_label": "1825–1829",
+      "numerator": 9,
+      "denominator": 97,
+      "share_percent": 9.278350515463918,
+      "n_speeches": 3,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Andrew Jackson",
+      "display_name": "Andrew Jackson",
+      "profile_slug": "andrew-jackson",
+      "period_start": 1830,
+      "period_end": 1834,
+      "period_label": "1830–1834",
+      "numerator": 59,
+      "denominator": 804,
+      "share_percent": 7.338308457711443,
+      "n_speeches": 19,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Andrew Jackson",
+      "display_name": "Andrew Jackson",
+      "profile_slug": "andrew-jackson",
+      "period_start": 1835,
+      "period_end": 1839,
+      "period_label": "1835–1839",
+      "numerator": 11,
+      "denominator": 249,
+      "share_percent": 4.417670682730924,
+      "n_speeches": 4,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Andrew Johnson",
+      "display_name": "Andrew Johnson",
+      "profile_slug": "andrew-johnson",
+      "period_start": 1865,
+      "period_end": 1869,
+      "period_label": "1865–1869",
+      "numerator": 48,
+      "denominator": 725,
+      "share_percent": 6.620689655172414,
+      "n_speeches": 31,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Barack Obama",
+      "display_name": "Barack Obama",
+      "profile_slug": "barack-obama",
+      "period_start": 2005,
+      "period_end": 2009,
+      "period_label": "2005–2009",
+      "numerator": 9,
+      "denominator": 339,
+      "share_percent": 2.6548672566371683,
+      "n_speeches": 11,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Barack Obama",
+      "display_name": "Barack Obama",
+      "profile_slug": "barack-obama",
+      "period_start": 2010,
+      "period_end": 2014,
+      "period_label": "2010–2014",
+      "numerator": 42,
+      "denominator": 1230,
+      "share_percent": 3.414634146341464,
+      "n_speeches": 33,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Barack Obama",
+      "display_name": "Barack Obama",
+      "profile_slug": "barack-obama",
+      "period_start": 2015,
+      "period_end": 2019,
+      "period_label": "2015–2019",
+      "numerator": 13,
+      "denominator": 310,
+      "share_percent": 4.193548387096775,
+      "n_speeches": 7,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Benjamin Harrison",
+      "display_name": "Benjamin Harrison",
+      "profile_slug": "benjamin-harrison",
+      "period_start": 1885,
+      "period_end": 1889,
+      "period_label": "1885–1889",
+      "numerator": 21,
+      "denominator": 147,
+      "share_percent": 14.285714285714285,
+      "n_speeches": 4,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Benjamin Harrison",
+      "display_name": "Benjamin Harrison",
+      "profile_slug": "benjamin-harrison",
+      "period_start": 1890,
+      "period_end": 1894,
+      "period_label": "1890–1894",
+      "numerator": 92,
+      "denominator": 451,
+      "share_percent": 20.39911308203991,
+      "n_speeches": 12,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Bill Clinton",
+      "display_name": "Bill Clinton",
+      "profile_slug": "bill-clinton",
+      "period_start": 1990,
+      "period_end": 1994,
+      "period_label": "1990–1994",
+      "numerator": 8,
+      "denominator": 353,
+      "share_percent": 2.26628895184136,
+      "n_speeches": 15,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Bill Clinton",
+      "display_name": "Bill Clinton",
+      "profile_slug": "bill-clinton",
+      "period_start": 1995,
+      "period_end": 1999,
+      "period_label": "1995–1999",
+      "numerator": 14,
+      "denominator": 834,
+      "share_percent": 1.6786570743405276,
+      "n_speeches": 22,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Bill Clinton",
+      "display_name": "Bill Clinton",
+      "profile_slug": "bill-clinton",
+      "period_start": 2000,
+      "period_end": 2004,
+      "period_label": "2000–2004",
+      "numerator": 1,
+      "denominator": 101,
+      "share_percent": 0.9900990099009901,
+      "n_speeches": 2,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Calvin Coolidge",
+      "display_name": "Calvin Coolidge",
+      "profile_slug": "calvin-coolidge",
+      "period_start": 1920,
+      "period_end": 1924,
+      "period_label": "1920–1924",
+      "numerator": 16,
+      "denominator": 108,
+      "share_percent": 14.814814814814813,
+      "n_speeches": 2,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Calvin Coolidge",
+      "display_name": "Calvin Coolidge",
+      "profile_slug": "calvin-coolidge",
+      "period_start": 1925,
+      "period_end": 1929,
+      "period_label": "1925–1929",
+      "numerator": 80,
+      "denominator": 482,
+      "share_percent": 16.59751037344398,
+      "n_speeches": 10,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Chester A. Arthur",
+      "display_name": "Chester A. Arthur",
+      "profile_slug": "chester-a-arthur",
+      "period_start": 1880,
+      "period_end": 1884,
+      "period_label": "1880–1884",
+      "numerator": 90,
+      "denominator": 478,
+      "share_percent": 18.828451882845187,
+      "n_speeches": 11,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Donald Trump",
+      "display_name": "Donald Trump",
+      "profile_slug": "donald-trump",
+      "period_start": 2015,
+      "period_end": 2019,
+      "period_label": "2015–2019",
+      "numerator": 30,
+      "denominator": 976,
+      "share_percent": 3.0737704918032787,
+      "n_speeches": 20,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Donald Trump",
+      "display_name": "Donald Trump",
+      "profile_slug": "donald-trump",
+      "period_start": 2020,
+      "period_end": 2024,
+      "period_label": "2020–2024",
+      "numerator": 21,
+      "denominator": 1346,
+      "share_percent": 1.5601783060921248,
+      "n_speeches": 23,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Donald Trump",
+      "display_name": "Donald Trump",
+      "profile_slug": "donald-trump",
+      "period_start": 2025,
+      "period_end": 2029,
+      "period_label": "2025–2029",
+      "numerator": 20,
+      "denominator": 531,
+      "share_percent": 3.766478342749529,
+      "n_speeches": 10,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Dwight D. Eisenhower",
+      "display_name": "Dwight D. Eisenhower",
+      "profile_slug": "dwight-d-eisenhower",
+      "period_start": 1950,
+      "period_end": 1954,
+      "period_label": "1950–1954",
+      "numerator": 5,
+      "denominator": 209,
+      "share_percent": 2.3923444976076556,
+      "n_speeches": 5,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Dwight D. Eisenhower",
+      "display_name": "Dwight D. Eisenhower",
+      "profile_slug": "dwight-d-eisenhower",
+      "period_start": 1955,
+      "period_end": 1959,
+      "period_label": "1955–1959",
+      "numerator": 12,
+      "denominator": 403,
+      "share_percent": 2.977667493796526,
+      "n_speeches": 8,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Dwight D. Eisenhower",
+      "display_name": "Dwight D. Eisenhower",
+      "profile_slug": "dwight-d-eisenhower",
+      "period_start": 1960,
+      "period_end": 1964,
+      "period_label": "1960–1964",
+      "numerator": 1,
+      "denominator": 84,
+      "share_percent": 1.1904761904761905,
+      "n_speeches": 2,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Franklin D. Roosevelt",
+      "display_name": "Franklin D. Roosevelt",
+      "profile_slug": "franklin-d-roosevelt",
+      "period_start": 1930,
+      "period_end": 1934,
+      "period_label": "1930–1934",
+      "numerator": 6,
+      "denominator": 140,
+      "share_percent": 4.285714285714286,
+      "n_speeches": 7,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Franklin D. Roosevelt",
+      "display_name": "Franklin D. Roosevelt",
+      "profile_slug": "franklin-d-roosevelt",
+      "period_start": 1935,
+      "period_end": 1939,
+      "period_label": "1935–1939",
+      "numerator": 17,
+      "denominator": 275,
+      "share_percent": 6.181818181818182,
+      "n_speeches": 13,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Franklin D. Roosevelt",
+      "display_name": "Franklin D. Roosevelt",
+      "profile_slug": "franklin-d-roosevelt",
+      "period_start": 1940,
+      "period_end": 1944,
+      "period_label": "1940–1944",
+      "numerator": 103,
+      "denominator": 603,
+      "share_percent": 17.081260364842453,
+      "n_speeches": 26,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Franklin D. Roosevelt",
+      "display_name": "Franklin D. Roosevelt",
+      "profile_slug": "franklin-d-roosevelt",
+      "period_start": 1945,
+      "period_end": 1949,
+      "period_label": "1945–1949",
+      "numerator": 3,
+      "denominator": 66,
+      "share_percent": 4.545454545454546,
+      "n_speeches": 3,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Franklin Pierce",
+      "display_name": "Franklin Pierce",
+      "profile_slug": "franklin-pierce",
+      "period_start": 1850,
+      "period_end": 1854,
+      "period_label": "1850–1854",
+      "numerator": 77,
+      "denominator": 258,
+      "share_percent": 29.844961240310074,
+      "n_speeches": 10,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Franklin Pierce",
+      "display_name": "Franklin Pierce",
+      "profile_slug": "franklin-pierce",
+      "period_start": 1855,
+      "period_end": 1859,
+      "period_label": "1855–1859",
+      "numerator": 32,
+      "denominator": 214,
+      "share_percent": 14.953271028037381,
+      "n_speeches": 5,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "George H. W. Bush",
+      "display_name": "George H. W. Bush",
+      "profile_slug": "george-h-w-bush",
+      "period_start": 1985,
+      "period_end": 1989,
+      "period_label": "1985–1989",
+      "numerator": 3,
+      "denominator": 272,
+      "share_percent": 1.1029411764705883,
+      "n_speeches": 6,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "George H. W. Bush",
+      "display_name": "George H. W. Bush",
+      "profile_slug": "george-h-w-bush",
+      "period_start": 1990,
+      "period_end": 1994,
+      "period_label": "1990–1994",
+      "numerator": 10,
+      "denominator": 662,
+      "share_percent": 1.5105740181268883,
+      "n_speeches": 17,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "George W. Bush",
+      "display_name": "George W. Bush",
+      "profile_slug": "george-w-bush",
+      "period_start": 2000,
+      "period_end": 2004,
+      "period_label": "2000–2004",
+      "numerator": 9,
+      "denominator": 531,
+      "share_percent": 1.694915254237288,
+      "n_speeches": 21,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "George W. Bush",
+      "display_name": "George W. Bush",
+      "profile_slug": "george-w-bush",
+      "period_start": 2005,
+      "period_end": 2009,
+      "period_label": "2005–2009",
+      "numerator": 21,
+      "denominator": 527,
+      "share_percent": 3.984819734345351,
+      "n_speeches": 17,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "George Washington",
+      "display_name": "George Washington",
+      "profile_slug": "george-washington",
+      "period_start": 1785,
+      "period_end": 1789,
+      "period_label": "1785–1789",
+      "numerator": 0,
+      "denominator": 14,
+      "share_percent": 0.0,
+      "n_speeches": 2,
+      "dot_included": false,
+      "dot_status": "below_25_paragraph_floor"
+    },
+    {
+      "president": "George Washington",
+      "display_name": "George Washington",
+      "profile_slug": "george-washington",
+      "period_start": 1790,
+      "period_end": 1794,
+      "period_label": "1790–1794",
+      "numerator": 8,
+      "denominator": 129,
+      "share_percent": 6.2015503875969,
+      "n_speeches": 13,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "George Washington",
+      "display_name": "George Washington",
+      "profile_slug": "george-washington",
+      "period_start": 1795,
+      "period_end": 1799,
+      "period_label": "1795–1799",
+      "numerator": 5,
+      "denominator": 110,
+      "share_percent": 4.545454545454546,
+      "n_speeches": 6,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Gerald Ford",
+      "display_name": "Gerald Ford",
+      "profile_slug": "gerald-ford",
+      "period_start": 1970,
+      "period_end": 1974,
+      "period_label": "1970–1974",
+      "numerator": 1,
+      "denominator": 101,
+      "share_percent": 0.9900990099009901,
+      "n_speeches": 5,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Gerald Ford",
+      "display_name": "Gerald Ford",
+      "profile_slug": "gerald-ford",
+      "period_start": 1975,
+      "period_end": 1979,
+      "period_label": "1975–1979",
+      "numerator": 5,
+      "denominator": 309,
+      "share_percent": 1.6181229773462782,
+      "n_speeches": 9,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Grover Cleveland",
+      "display_name": "Grover Cleveland",
+      "profile_slug": "grover-cleveland",
+      "period_start": 1885,
+      "period_end": 1889,
+      "period_label": "1885–1889",
+      "numerator": 62,
+      "denominator": 651,
+      "share_percent": 9.523809523809524,
+      "n_speeches": 14,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Grover Cleveland",
+      "display_name": "Grover Cleveland",
+      "profile_slug": "grover-cleveland",
+      "period_start": 1890,
+      "period_end": 1894,
+      "period_label": "1890–1894",
+      "numerator": 42,
+      "denominator": 393,
+      "share_percent": 10.687022900763358,
+      "n_speeches": 8,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Grover Cleveland",
+      "display_name": "Grover Cleveland",
+      "profile_slug": "grover-cleveland",
+      "period_start": 1895,
+      "period_end": 1899,
+      "period_label": "1895–1899",
+      "numerator": 37,
+      "denominator": 306,
+      "share_percent": 12.091503267973856,
+      "n_speeches": 10,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Harry S. Truman",
+      "display_name": "Harry S. Truman",
+      "profile_slug": "harry-s-truman",
+      "period_start": 1945,
+      "period_end": 1949,
+      "period_label": "1945–1949",
+      "numerator": 16,
+      "denominator": 205,
+      "share_percent": 7.804878048780488,
+      "n_speeches": 14,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Harry S. Truman",
+      "display_name": "Harry S. Truman",
+      "profile_slug": "harry-s-truman",
+      "period_start": 1950,
+      "period_end": 1954,
+      "period_label": "1950–1954",
+      "numerator": 1,
+      "denominator": 103,
+      "share_percent": 0.9708737864077669,
+      "n_speeches": 5,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Herbert Hoover",
+      "display_name": "Herbert Hoover",
+      "profile_slug": "herbert-hoover",
+      "period_start": 1925,
+      "period_end": 1929,
+      "period_label": "1925–1929",
+      "numerator": 18,
+      "denominator": 209,
+      "share_percent": 8.61244019138756,
+      "n_speeches": 10,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Herbert Hoover",
+      "display_name": "Herbert Hoover",
+      "profile_slug": "herbert-hoover",
+      "period_start": 1930,
+      "period_end": 1934,
+      "period_label": "1930–1934",
+      "numerator": 30,
+      "denominator": 489,
+      "share_percent": 6.134969325153374,
+      "n_speeches": 20,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "James A. Garfield",
+      "display_name": "James A. Garfield",
+      "profile_slug": "james-a-garfield",
+      "period_start": 1880,
+      "period_end": 1884,
+      "period_label": "1880–1884",
+      "numerator": 1,
+      "denominator": 29,
+      "share_percent": 3.4482758620689653,
+      "n_speeches": 1,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "James Buchanan",
+      "display_name": "James Buchanan",
+      "profile_slug": "james-buchanan",
+      "period_start": 1855,
+      "period_end": 1859,
+      "period_label": "1855–1859",
+      "numerator": 64,
+      "denominator": 438,
+      "share_percent": 14.61187214611872,
+      "n_speeches": 7,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "James Buchanan",
+      "display_name": "James Buchanan",
+      "profile_slug": "james-buchanan",
+      "period_start": 1860,
+      "period_end": 1864,
+      "period_label": "1860–1864",
+      "numerator": 11,
+      "denominator": 187,
+      "share_percent": 5.88235294117647,
+      "n_speeches": 7,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "James K. Polk",
+      "display_name": "James K. Polk",
+      "profile_slug": "james-k-polk",
+      "period_start": 1845,
+      "period_end": 1849,
+      "period_label": "1845–1849",
+      "numerator": 101,
+      "denominator": 722,
+      "share_percent": 13.988919667590027,
+      "n_speeches": 25,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "James Madison",
+      "display_name": "James Madison",
+      "profile_slug": "james-madison",
+      "period_start": 1805,
+      "period_end": 1809,
+      "period_label": "1805–1809",
+      "numerator": 2,
+      "denominator": 24,
+      "share_percent": 8.333333333333332,
+      "n_speeches": 2,
+      "dot_included": false,
+      "dot_status": "below_25_paragraph_floor"
+    },
+    {
+      "president": "James Madison",
+      "display_name": "James Madison",
+      "profile_slug": "james-madison",
+      "period_start": 1810,
+      "period_end": 1814,
+      "period_label": "1810–1814",
+      "numerator": 32,
+      "denominator": 182,
+      "share_percent": 17.582417582417584,
+      "n_speeches": 14,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "James Madison",
+      "display_name": "James Madison",
+      "profile_slug": "james-madison",
+      "period_start": 1815,
+      "period_end": 1819,
+      "period_label": "1815–1819",
+      "numerator": 15,
+      "denominator": 68,
+      "share_percent": 22.058823529411764,
+      "n_speeches": 5,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "James Monroe",
+      "display_name": "James Monroe",
+      "profile_slug": "james-monroe",
+      "period_start": 1815,
+      "period_end": 1819,
+      "period_label": "1815–1819",
+      "numerator": 24,
+      "denominator": 135,
+      "share_percent": 17.77777777777778,
+      "n_speeches": 4,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "James Monroe",
+      "display_name": "James Monroe",
+      "profile_slug": "james-monroe",
+      "period_start": 1820,
+      "period_end": 1824,
+      "period_label": "1820–1824",
+      "numerator": 66,
+      "denominator": 272,
+      "share_percent": 24.264705882352942,
+      "n_speeches": 6,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Jimmy Carter",
+      "display_name": "Jimmy Carter",
+      "profile_slug": "jimmy-carter",
+      "period_start": 1975,
+      "period_end": 1979,
+      "period_label": "1975–1979",
+      "numerator": 6,
+      "denominator": 754,
+      "share_percent": 0.7957559681697612,
+      "n_speeches": 16,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Jimmy Carter",
+      "display_name": "Jimmy Carter",
+      "profile_slug": "jimmy-carter",
+      "period_start": 1980,
+      "period_end": 1984,
+      "period_label": "1980–1984",
+      "numerator": 9,
+      "denominator": 280,
+      "share_percent": 3.214285714285714,
+      "n_speeches": 6,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Joe Biden",
+      "display_name": "Joe Biden",
+      "profile_slug": "joe-biden",
+      "period_start": 2020,
+      "period_end": 2024,
+      "period_label": "2020–2024",
+      "numerator": 55,
+      "denominator": 1188,
+      "share_percent": 4.62962962962963,
+      "n_speeches": 27,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Joe Biden",
+      "display_name": "Joe Biden",
+      "profile_slug": "joe-biden",
+      "period_start": 2025,
+      "period_end": 2029,
+      "period_label": "2025–2029",
+      "numerator": 1,
+      "denominator": 31,
+      "share_percent": 3.225806451612903,
+      "n_speeches": 1,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "John Adams",
+      "display_name": "John Adams",
+      "profile_slug": "john-adams",
+      "period_start": 1795,
+      "period_end": 1799,
+      "period_label": "1795–1799",
+      "numerator": 16,
+      "denominator": 102,
+      "share_percent": 15.686274509803921,
+      "n_speeches": 7,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "John Adams",
+      "display_name": "John Adams",
+      "profile_slug": "john-adams",
+      "period_start": 1800,
+      "period_end": 1804,
+      "period_label": "1800–1804",
+      "numerator": 2,
+      "denominator": 14,
+      "share_percent": 14.285714285714285,
+      "n_speeches": 2,
+      "dot_included": false,
+      "dot_status": "below_25_paragraph_floor"
+    },
+    {
+      "president": "John F. Kennedy",
+      "display_name": "John F. Kennedy",
+      "profile_slug": "john-f-kennedy",
+      "period_start": 1960,
+      "period_end": 1964,
+      "period_label": "1960–1964",
+      "numerator": 23,
+      "denominator": 1367,
+      "share_percent": 1.6825164594001463,
+      "n_speeches": 44,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "John Quincy Adams",
+      "display_name": "John Quincy Adams",
+      "profile_slug": "john-quincy-adams",
+      "period_start": 1820,
+      "period_end": 1824,
+      "period_label": "1820–1824",
+      "numerator": 0,
+      "denominator": 5,
+      "share_percent": 0.0,
+      "n_speeches": 1,
+      "dot_included": false,
+      "dot_status": "below_25_paragraph_floor"
+    },
+    {
+      "president": "John Quincy Adams",
+      "display_name": "John Quincy Adams",
+      "profile_slug": "john-quincy-adams",
+      "period_start": 1825,
+      "period_end": 1829,
+      "period_label": "1825–1829",
+      "numerator": 58,
+      "denominator": 271,
+      "share_percent": 21.40221402214022,
+      "n_speeches": 7,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "John Tyler",
+      "display_name": "John Tyler",
+      "profile_slug": "john-tyler",
+      "period_start": 1840,
+      "period_end": 1844,
+      "period_label": "1840–1844",
+      "numerator": 87,
+      "denominator": 531,
+      "share_percent": 16.38418079096045,
+      "n_speeches": 17,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "John Tyler",
+      "display_name": "John Tyler",
+      "profile_slug": "john-tyler",
+      "period_start": 1845,
+      "period_end": 1849,
+      "period_label": "1845–1849",
+      "numerator": 5,
+      "denominator": 9,
+      "share_percent": 55.55555555555556,
+      "n_speeches": 1,
+      "dot_included": false,
+      "dot_status": "below_25_paragraph_floor"
+    },
+    {
+      "president": "Lyndon B. Johnson",
+      "display_name": "Lyndon B. Johnson",
+      "profile_slug": "lyndon-b-johnson",
+      "period_start": 1960,
+      "period_end": 1964,
+      "period_label": "1960–1964",
+      "numerator": 14,
+      "denominator": 731,
+      "share_percent": 1.915184678522572,
+      "n_speeches": 20,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Lyndon B. Johnson",
+      "display_name": "Lyndon B. Johnson",
+      "profile_slug": "lyndon-b-johnson",
+      "period_start": 1965,
+      "period_end": 1969,
+      "period_label": "1965–1969",
+      "numerator": 35,
+      "denominator": 1981,
+      "share_percent": 1.76678445229682,
+      "n_speeches": 51,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Martin Van Buren",
+      "display_name": "Martin Van Buren",
+      "profile_slug": "martin-van-buren",
+      "period_start": 1835,
+      "period_end": 1839,
+      "period_label": "1835–1839",
+      "numerator": 24,
+      "denominator": 394,
+      "share_percent": 6.091370558375635,
+      "n_speeches": 8,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Martin Van Buren",
+      "display_name": "Martin Van Buren",
+      "profile_slug": "martin-van-buren",
+      "period_start": 1840,
+      "period_end": 1844,
+      "period_label": "1840–1844",
+      "numerator": 9,
+      "denominator": 71,
+      "share_percent": 12.676056338028168,
+      "n_speeches": 2,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Millard Fillmore",
+      "display_name": "Millard Fillmore",
+      "profile_slug": "millard-fillmore",
+      "period_start": 1850,
+      "period_end": 1854,
+      "period_label": "1850–1854",
+      "numerator": 67,
+      "denominator": 268,
+      "share_percent": 25.0,
+      "n_speeches": 7,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Richard M. Nixon",
+      "display_name": "Richard M. Nixon",
+      "profile_slug": "richard-m-nixon",
+      "period_start": 1950,
+      "period_end": 1954,
+      "period_label": "1950–1954",
+      "numerator": 0,
+      "denominator": 35,
+      "share_percent": 0.0,
+      "n_speeches": 1,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Richard M. Nixon",
+      "display_name": "Richard M. Nixon",
+      "profile_slug": "richard-m-nixon",
+      "period_start": 1965,
+      "period_end": 1969,
+      "period_label": "1965–1969",
+      "numerator": 0,
+      "denominator": 51,
+      "share_percent": 0.0,
+      "n_speeches": 2,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Richard M. Nixon",
+      "display_name": "Richard M. Nixon",
+      "profile_slug": "richard-m-nixon",
+      "period_start": 1970,
+      "period_end": 1974,
+      "period_label": "1970–1974",
+      "numerator": 4,
+      "denominator": 434,
+      "share_percent": 0.9216589861751152,
+      "n_speeches": 20,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Ronald Reagan",
+      "display_name": "Ronald Reagan",
+      "profile_slug": "ronald-reagan",
+      "period_start": 1960,
+      "period_end": 1964,
+      "period_label": "1960–1964",
+      "numerator": 0,
+      "denominator": 34,
+      "share_percent": 0.0,
+      "n_speeches": 1,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Ronald Reagan",
+      "display_name": "Ronald Reagan",
+      "profile_slug": "ronald-reagan",
+      "period_start": 1975,
+      "period_end": 1979,
+      "period_label": "1975–1979",
+      "numerator": 0,
+      "denominator": 39,
+      "share_percent": 0.0,
+      "n_speeches": 2,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Ronald Reagan",
+      "display_name": "Ronald Reagan",
+      "profile_slug": "ronald-reagan",
+      "period_start": 1980,
+      "period_end": 1984,
+      "period_label": "1980–1984",
+      "numerator": 35,
+      "denominator": 1399,
+      "share_percent": 2.501786990707648,
+      "n_speeches": 35,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Ronald Reagan",
+      "display_name": "Ronald Reagan",
+      "profile_slug": "ronald-reagan",
+      "period_start": 1985,
+      "period_end": 1989,
+      "period_label": "1985–1989",
+      "numerator": 12,
+      "denominator": 572,
+      "share_percent": 2.097902097902098,
+      "n_speeches": 22,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "display_name": "Rutherford B. Hayes",
+      "profile_slug": "rutherford-b-hayes",
+      "period_start": 1875,
+      "period_end": 1879,
+      "period_label": "1875–1879",
+      "numerator": 19,
+      "denominator": 371,
+      "share_percent": 5.121293800539084,
+      "n_speeches": 12,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Rutherford B. Hayes",
+      "display_name": "Rutherford B. Hayes",
+      "profile_slug": "rutherford-b-hayes",
+      "period_start": 1880,
+      "period_end": 1884,
+      "period_label": "1880–1884",
+      "numerator": 30,
+      "denominator": 129,
+      "share_percent": 23.25581395348837,
+      "n_speeches": 4,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Theodore Roosevelt",
+      "display_name": "Theodore Roosevelt",
+      "profile_slug": "theodore-roosevelt",
+      "period_start": 1900,
+      "period_end": 1904,
+      "period_label": "1900–1904",
+      "numerator": 164,
+      "denominator": 602,
+      "share_percent": 27.242524916943523,
+      "n_speeches": 11,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Theodore Roosevelt",
+      "display_name": "Theodore Roosevelt",
+      "profile_slug": "theodore-roosevelt",
+      "period_start": 1905,
+      "period_end": 1909,
+      "period_label": "1905–1909",
+      "numerator": 206,
+      "denominator": 928,
+      "share_percent": 22.198275862068968,
+      "n_speeches": 11,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Thomas Jefferson",
+      "display_name": "Thomas Jefferson",
+      "profile_slug": "thomas-jefferson",
+      "period_start": 1800,
+      "period_end": 1804,
+      "period_label": "1800–1804",
+      "numerator": 30,
+      "denominator": 142,
+      "share_percent": 21.12676056338028,
+      "n_speeches": 11,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Thomas Jefferson",
+      "display_name": "Thomas Jefferson",
+      "profile_slug": "thomas-jefferson",
+      "period_start": 1805,
+      "period_end": 1809,
+      "period_label": "1805–1809",
+      "numerator": 51,
+      "denominator": 171,
+      "share_percent": 29.82456140350877,
+      "n_speeches": 13,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Ulysses S. Grant",
+      "display_name": "Ulysses S. Grant",
+      "profile_slug": "ulysses-s-grant",
+      "period_start": 1865,
+      "period_end": 1869,
+      "period_label": "1865–1869",
+      "numerator": 12,
+      "denominator": 80,
+      "share_percent": 15.0,
+      "n_speeches": 5,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Ulysses S. Grant",
+      "display_name": "Ulysses S. Grant",
+      "profile_slug": "ulysses-s-grant",
+      "period_start": 1870,
+      "period_end": 1874,
+      "period_label": "1870–1874",
+      "numerator": 99,
+      "denominator": 505,
+      "share_percent": 19.603960396039604,
+      "n_speeches": 19,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Ulysses S. Grant",
+      "display_name": "Ulysses S. Grant",
+      "profile_slug": "ulysses-s-grant",
+      "period_start": 1875,
+      "period_end": 1879,
+      "period_label": "1875–1879",
+      "numerator": 30,
+      "denominator": 228,
+      "share_percent": 13.157894736842104,
+      "n_speeches": 8,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Warren G. Harding",
+      "display_name": "Warren G. Harding",
+      "profile_slug": "warren-g-harding",
+      "period_start": 1915,
+      "period_end": 1919,
+      "period_label": "1915–1919",
+      "numerator": 0,
+      "denominator": 9,
+      "share_percent": 0.0,
+      "n_speeches": 2,
+      "dot_included": false,
+      "dot_status": "below_25_paragraph_floor"
+    },
+    {
+      "president": "Warren G. Harding",
+      "display_name": "Warren G. Harding",
+      "profile_slug": "warren-g-harding",
+      "period_start": 1920,
+      "period_end": 1924,
+      "period_label": "1920–1924",
+      "numerator": 20,
+      "denominator": 229,
+      "share_percent": 8.73362445414847,
+      "n_speeches": 16,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "William Harrison",
+      "display_name": "William Henry Harrison",
+      "profile_slug": "william-harrison",
+      "period_start": 1840,
+      "period_end": 1844,
+      "period_label": "1840–1844",
+      "numerator": 0,
+      "denominator": 57,
+      "share_percent": 0.0,
+      "n_speeches": 1,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "William McKinley",
+      "display_name": "William McKinley",
+      "profile_slug": "william-mckinley",
+      "period_start": 1895,
+      "period_end": 1899,
+      "period_label": "1895–1899",
+      "numerator": 90,
+      "denominator": 539,
+      "share_percent": 16.697588126159555,
+      "n_speeches": 10,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "William McKinley",
+      "display_name": "William McKinley",
+      "profile_slug": "william-mckinley",
+      "period_start": 1900,
+      "period_end": 1904,
+      "period_label": "1900–1904",
+      "numerator": 27,
+      "denominator": 228,
+      "share_percent": 11.842105263157894,
+      "n_speeches": 4,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "William Taft",
+      "display_name": "William Howard Taft",
+      "profile_slug": "william-taft",
+      "period_start": 1905,
+      "period_end": 1909,
+      "period_label": "1905–1909",
+      "numerator": 23,
+      "denominator": 224,
+      "share_percent": 10.267857142857142,
+      "n_speeches": 5,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "William Taft",
+      "display_name": "William Howard Taft",
+      "profile_slug": "william-taft",
+      "period_start": 1910,
+      "period_end": 1914,
+      "period_label": "1910–1914",
+      "numerator": 146,
+      "denominator": 745,
+      "share_percent": 19.59731543624161,
+      "n_speeches": 7,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Woodrow Wilson",
+      "display_name": "Woodrow Wilson",
+      "profile_slug": "woodrow-wilson",
+      "period_start": 1910,
+      "period_end": 1914,
+      "period_label": "1910–1914",
+      "numerator": 13,
+      "denominator": 187,
+      "share_percent": 6.951871657754011,
+      "n_speeches": 13,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Woodrow Wilson",
+      "display_name": "Woodrow Wilson",
+      "profile_slug": "woodrow-wilson",
+      "period_start": 1915,
+      "period_end": 1919,
+      "period_label": "1915–1919",
+      "numerator": 62,
+      "denominator": 452,
+      "share_percent": 13.716814159292035,
+      "n_speeches": 19,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Woodrow Wilson",
+      "display_name": "Woodrow Wilson",
+      "profile_slug": "woodrow-wilson",
+      "period_start": 1920,
+      "period_end": 1924,
+      "period_label": "1920–1924",
+      "numerator": 1,
+      "denominator": 22,
+      "share_percent": 4.545454545454546,
+      "n_speeches": 1,
+      "dot_included": false,
+      "dot_status": "below_25_paragraph_floor"
+    },
+    {
+      "president": "Zachary Taylor",
+      "display_name": "Zachary Taylor",
+      "profile_slug": "zachary-taylor",
+      "period_start": 1845,
+      "period_end": 1849,
+      "period_label": "1845–1849",
+      "numerator": 22,
+      "denominator": 62,
+      "share_percent": 35.483870967741936,
+      "n_speeches": 2,
+      "dot_included": true,
+      "dot_status": "included"
+    },
+    {
+      "president": "Zachary Taylor",
+      "display_name": "Zachary Taylor",
+      "profile_slug": "zachary-taylor",
+      "period_start": 1850,
+      "period_end": 1854,
+      "period_label": "1850–1854",
+      "numerator": 5,
+      "denominator": 18,
+      "share_percent": 27.77777777777778,
+      "n_speeches": 2,
+      "dot_included": false,
+      "dot_status": "below_25_paragraph_floor"
+    }
+  ],
+  "owners": [
+    {
+      "rank": 1,
+      "president": "Thomas Jefferson",
+      "display_name": "Thomas Jefferson",
+      "profile_slug": "thomas-jefferson",
+      "numerator": 81,
+      "denominator": 313,
+      "share_percent": 25.878594249201274,
+      "n_speeches": 24,
+      "eligibility_floor": 5
+    },
+    {
+      "rank": 2,
+      "president": "Millard Fillmore",
+      "display_name": "Millard Fillmore",
+      "profile_slug": "millard-fillmore",
+      "numerator": 67,
+      "denominator": 268,
+      "share_percent": 25.0,
+      "n_speeches": 7,
+      "eligibility_floor": 5
+    },
+    {
+      "rank": 3,
+      "president": "Theodore Roosevelt",
+      "display_name": "Theodore Roosevelt",
+      "profile_slug": "theodore-roosevelt",
+      "numerator": 370,
+      "denominator": 1530,
+      "share_percent": 24.18300653594771,
+      "n_speeches": 22,
+      "eligibility_floor": 5
+    },
+    {
+      "rank": 4,
+      "president": "Franklin Pierce",
+      "display_name": "Franklin Pierce",
+      "profile_slug": "franklin-pierce",
+      "numerator": 109,
+      "denominator": 472,
+      "share_percent": 23.093220338983052,
+      "n_speeches": 15,
+      "eligibility_floor": 5
+    },
+    {
+      "rank": 5,
+      "president": "James Monroe",
+      "display_name": "James Monroe",
+      "profile_slug": "james-monroe",
+      "numerator": 90,
+      "denominator": 407,
+      "share_percent": 22.11302211302211,
+      "n_speeches": 10,
+      "eligibility_floor": 5
+    },
+    {
+      "rank": 6,
+      "president": "John Quincy Adams",
+      "display_name": "John Quincy Adams",
+      "profile_slug": "john-quincy-adams",
+      "numerator": 58,
+      "denominator": 276,
+      "share_percent": 21.014492753623188,
+      "n_speeches": 8,
+      "eligibility_floor": 5
+    },
+    {
+      "rank": 7,
+      "president": "Benjamin Harrison",
+      "display_name": "Benjamin Harrison",
+      "profile_slug": "benjamin-harrison",
+      "numerator": 113,
+      "denominator": 598,
+      "share_percent": 18.896321070234116,
+      "n_speeches": 16,
+      "eligibility_floor": 5
+    },
+    {
+      "rank": 8,
+      "president": "Chester A. Arthur",
+      "display_name": "Chester A. Arthur",
+      "profile_slug": "chester-a-arthur",
+      "numerator": 90,
+      "denominator": 478,
+      "share_percent": 18.828451882845187,
+      "n_speeches": 11,
+      "eligibility_floor": 5
+    }
+  ],
+  "excerpts": [
+    {
+      "window_role": "early",
+      "label": "Early window",
+      "window_start": 1790,
+      "window_end": 1830,
+      "quote": "Independently of the sanction given to appropriations for the Cumberland and other roads and objects under this power, the Administration of Mr. Madison was characterized by an act which furnishes the strongest evidence of his opinion of its extent.",
+      "doc_name": "/the-presidency/presidential-speeches/may-27-1830-veto-message-regarding-funding-infrastructure",
+      "para_idx": 9,
+      "president": "Andrew Jackson",
+      "display_name": "Andrew Jackson",
+      "title": "May 27, 1830: Veto Message Regarding Funding of Infrastructure Development",
+      "year": 1830,
+      "cite": "Andrew Jackson, Veto Message Regarding Funding of Infrastructure Development, 1830",
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-27-1830-veto-message-regarding-funding-infrastructure"
+    },
+    {
+      "window_role": "highest_supported",
+      "label": "Highest-supported window",
+      "window_start": 1805,
+      "window_end": 1809,
+      "quote": "Their patriotism would certainly prefer its continuance and application to the great purposes of the public education, roads, rivers, canals, and such other objects of public improvement as it may be thought proper to add to the constitutional enumeration of federal powers.",
+      "doc_name": "/the-presidency/presidential-speeches/december-2-1806-sixth-annual-message",
+      "para_idx": 18,
+      "president": "Thomas Jefferson",
+      "display_name": "Thomas Jefferson",
+      "title": "December 2, 1806: Sixth Annual Message",
+      "year": 1806,
+      "cite": "Thomas Jefferson, Sixth Annual Message, 1806",
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-2-1806-sixth-annual-message"
+    },
+    {
+      "window_role": "recent",
+      "label": "Recent window",
+      "window_start": 2011,
+      "window_end": 2026,
+      "quote": "One in five miles of our highways and major roads are in poor condition.",
+      "doc_name": "march-25-2021-first-press-conference",
+      "para_idx": 66,
+      "president": "Joe Biden",
+      "display_name": "Joe Biden",
+      "title": "March 25, 2021: First Press Conference",
+      "year": 2021,
+      "cite": "Joe Biden, First Press Conference, 2021",
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-25-2021-first-press-conference"
+    }
+  ],
+  "fine_topics": [
+    {
+      "name": "Internal Improvements, Energy & Infrastructure",
+      "level1": "Infrastructure & Internal Improvements",
+      "definition": "Federal support for roads, canals, harbors, energy production and pipelines, and rebuilding the nation's infrastructure, including constitutional debate over such works.",
+      "color": "#63713d",
+      "source_status": "exploratory_frozen_ai_label"
+    },
+    {
+      "name": "Space Exploration",
+      "level1": "Infrastructure & Internal Improvements",
+      "definition": "The race to lead in space, the drive to reach the moon, and investment in rockets and satellites in competition with the Soviets.",
+      "color": "#697c9f",
+      "source_status": "exploratory_frozen_ai_label"
+    }
+  ],
+  "fine_topic_rows": [
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1780,
+      "requested_end": 1789,
+      "observed_start": 1789,
+      "observed_end": 1789,
+      "period_label": "1789–1789",
+      "numerator": 0,
+      "denominator": 14,
+      "share_percent": 0.0,
+      "partial_period": true,
+      "support_status": "low_support",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1790,
+      "requested_end": 1799,
+      "observed_start": 1790,
+      "observed_end": 1799,
+      "period_label": "1790–1799",
+      "numerator": 2,
+      "denominator": 341,
+      "share_percent": 0.5865102639296188,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1800,
+      "requested_end": 1809,
+      "observed_start": 1800,
+      "observed_end": 1809,
+      "period_label": "1800–1809",
+      "numerator": 10,
+      "denominator": 351,
+      "share_percent": 2.849002849002849,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1810,
+      "requested_end": 1819,
+      "observed_start": 1810,
+      "observed_end": 1819,
+      "period_label": "1810–1819",
+      "numerator": 13,
+      "denominator": 385,
+      "share_percent": 3.3766233766233764,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1820,
+      "requested_end": 1829,
+      "observed_start": 1820,
+      "observed_end": 1829,
+      "period_label": "1820–1829",
+      "numerator": 58,
+      "denominator": 645,
+      "share_percent": 8.992248062015504,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1830,
+      "requested_end": 1839,
+      "observed_start": 1830,
+      "observed_end": 1839,
+      "period_label": "1830–1839",
+      "numerator": 87,
+      "denominator": 1447,
+      "share_percent": 6.012439530062197,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1840,
+      "requested_end": 1849,
+      "observed_start": 1840,
+      "observed_end": 1849,
+      "period_label": "1840–1849",
+      "numerator": 57,
+      "denominator": 1452,
+      "share_percent": 3.925619834710744,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1850,
+      "requested_end": 1859,
+      "observed_start": 1850,
+      "observed_end": 1859,
+      "period_label": "1850–1859",
+      "numerator": 117,
+      "denominator": 1593,
+      "share_percent": 7.344632768361582,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1860,
+      "requested_end": 1869,
+      "observed_start": 1860,
+      "observed_end": 1869,
+      "period_label": "1860–1869",
+      "numerator": 27,
+      "denominator": 1454,
+      "share_percent": 1.8569463548830811,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1870,
+      "requested_end": 1879,
+      "observed_start": 1870,
+      "observed_end": 1879,
+      "period_label": "1870–1879",
+      "numerator": 49,
+      "denominator": 1104,
+      "share_percent": 4.438405797101449,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1880,
+      "requested_end": 1889,
+      "observed_start": 1880,
+      "observed_end": 1889,
+      "period_label": "1880–1889",
+      "numerator": 79,
+      "denominator": 1434,
+      "share_percent": 5.509065550906555,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1890,
+      "requested_end": 1899,
+      "observed_start": 1890,
+      "observed_end": 1899,
+      "period_label": "1890–1899",
+      "numerator": 66,
+      "denominator": 1689,
+      "share_percent": 3.9076376554174073,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1900,
+      "requested_end": 1909,
+      "observed_start": 1900,
+      "observed_end": 1909,
+      "period_label": "1900–1909",
+      "numerator": 180,
+      "denominator": 1982,
+      "share_percent": 9.081735620585267,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1910,
+      "requested_end": 1919,
+      "observed_start": 1910,
+      "observed_end": 1919,
+      "period_label": "1910–1919",
+      "numerator": 116,
+      "denominator": 1393,
+      "share_percent": 8.327351040918881,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1920,
+      "requested_end": 1929,
+      "observed_start": 1920,
+      "observed_end": 1929,
+      "period_label": "1920–1929",
+      "numerator": 137,
+      "denominator": 1050,
+      "share_percent": 13.047619047619047,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1930,
+      "requested_end": 1939,
+      "observed_start": 1930,
+      "observed_end": 1939,
+      "period_label": "1930–1939",
+      "numerator": 67,
+      "denominator": 904,
+      "share_percent": 7.411504424778761,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1940,
+      "requested_end": 1949,
+      "observed_start": 1940,
+      "observed_end": 1949,
+      "period_label": "1940–1949",
+      "numerator": 14,
+      "denominator": 874,
+      "share_percent": 1.6018306636155606,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1950,
+      "requested_end": 1959,
+      "observed_start": 1951,
+      "observed_end": 1959,
+      "period_label": "1951–1959",
+      "numerator": 33,
+      "denominator": 750,
+      "share_percent": 4.3999999999999995,
+      "partial_period": true,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1960,
+      "requested_end": 1969,
+      "observed_start": 1960,
+      "observed_end": 1969,
+      "period_label": "1960–1969",
+      "numerator": 71,
+      "denominator": 4248,
+      "share_percent": 1.6713747645951036,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1970,
+      "requested_end": 1979,
+      "observed_start": 1970,
+      "observed_end": 1979,
+      "period_label": "1970–1979",
+      "numerator": 179,
+      "denominator": 1637,
+      "share_percent": 10.934636530238242,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1980,
+      "requested_end": 1989,
+      "observed_start": 1980,
+      "observed_end": 1989,
+      "period_label": "1980–1989",
+      "numerator": 45,
+      "denominator": 2523,
+      "share_percent": 1.78359096313912,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1990,
+      "requested_end": 1999,
+      "observed_start": 1990,
+      "observed_end": 1999,
+      "period_label": "1990–1999",
+      "numerator": 35,
+      "denominator": 1849,
+      "share_percent": 1.8929150892374256,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 2000,
+      "requested_end": 2009,
+      "observed_start": 2000,
+      "observed_end": 2009,
+      "period_label": "2000–2009",
+      "numerator": 53,
+      "denominator": 1498,
+      "share_percent": 3.538050734312417,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 2010,
+      "requested_end": 2019,
+      "observed_start": 2010,
+      "observed_end": 2019,
+      "period_label": "2010–2019",
+      "numerator": 140,
+      "denominator": 2516,
+      "share_percent": 5.5643879173290935,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 2020,
+      "requested_end": 2029,
+      "observed_start": 2020,
+      "observed_end": 2026,
+      "period_label": "2020–2026",
+      "numerator": 147,
+      "denominator": 3096,
+      "share_percent": 4.748062015503876,
+      "partial_period": true,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1780,
+      "requested_end": 1789,
+      "observed_start": 1789,
+      "observed_end": 1789,
+      "period_label": "1789–1789",
+      "numerator": 0,
+      "denominator": 14,
+      "share_percent": 0.0,
+      "partial_period": true,
+      "support_status": "low_support",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1790,
+      "requested_end": 1799,
+      "observed_start": 1790,
+      "observed_end": 1799,
+      "period_label": "1790–1799",
+      "numerator": 0,
+      "denominator": 341,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1800,
+      "requested_end": 1809,
+      "observed_start": 1800,
+      "observed_end": 1809,
+      "period_label": "1800–1809",
+      "numerator": 0,
+      "denominator": 351,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1810,
+      "requested_end": 1819,
+      "observed_start": 1810,
+      "observed_end": 1819,
+      "period_label": "1810–1819",
+      "numerator": 0,
+      "denominator": 385,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1820,
+      "requested_end": 1829,
+      "observed_start": 1820,
+      "observed_end": 1829,
+      "period_label": "1820–1829",
+      "numerator": 0,
+      "denominator": 645,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1830,
+      "requested_end": 1839,
+      "observed_start": 1830,
+      "observed_end": 1839,
+      "period_label": "1830–1839",
+      "numerator": 0,
+      "denominator": 1447,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1840,
+      "requested_end": 1849,
+      "observed_start": 1840,
+      "observed_end": 1849,
+      "period_label": "1840–1849",
+      "numerator": 0,
+      "denominator": 1452,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1850,
+      "requested_end": 1859,
+      "observed_start": 1850,
+      "observed_end": 1859,
+      "period_label": "1850–1859",
+      "numerator": 0,
+      "denominator": 1593,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1860,
+      "requested_end": 1869,
+      "observed_start": 1860,
+      "observed_end": 1869,
+      "period_label": "1860–1869",
+      "numerator": 0,
+      "denominator": 1454,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1870,
+      "requested_end": 1879,
+      "observed_start": 1870,
+      "observed_end": 1879,
+      "period_label": "1870–1879",
+      "numerator": 0,
+      "denominator": 1104,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1880,
+      "requested_end": 1889,
+      "observed_start": 1880,
+      "observed_end": 1889,
+      "period_label": "1880–1889",
+      "numerator": 0,
+      "denominator": 1434,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1890,
+      "requested_end": 1899,
+      "observed_start": 1890,
+      "observed_end": 1899,
+      "period_label": "1890–1899",
+      "numerator": 0,
+      "denominator": 1689,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1900,
+      "requested_end": 1909,
+      "observed_start": 1900,
+      "observed_end": 1909,
+      "period_label": "1900–1909",
+      "numerator": 0,
+      "denominator": 1982,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1910,
+      "requested_end": 1919,
+      "observed_start": 1910,
+      "observed_end": 1919,
+      "period_label": "1910–1919",
+      "numerator": 0,
+      "denominator": 1393,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1920,
+      "requested_end": 1929,
+      "observed_start": 1920,
+      "observed_end": 1929,
+      "period_label": "1920–1929",
+      "numerator": 0,
+      "denominator": 1050,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1930,
+      "requested_end": 1939,
+      "observed_start": 1930,
+      "observed_end": 1939,
+      "period_label": "1930–1939",
+      "numerator": 0,
+      "denominator": 904,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1940,
+      "requested_end": 1949,
+      "observed_start": 1940,
+      "observed_end": 1949,
+      "period_label": "1940–1949",
+      "numerator": 0,
+      "denominator": 874,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1950,
+      "requested_end": 1959,
+      "observed_start": 1951,
+      "observed_end": 1959,
+      "period_label": "1951–1959",
+      "numerator": 11,
+      "denominator": 750,
+      "share_percent": 1.4666666666666666,
+      "partial_period": true,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1960,
+      "requested_end": 1969,
+      "observed_start": 1960,
+      "observed_end": 1969,
+      "period_label": "1960–1969",
+      "numerator": 112,
+      "denominator": 4248,
+      "share_percent": 2.6365348399246704,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1970,
+      "requested_end": 1979,
+      "observed_start": 1970,
+      "observed_end": 1979,
+      "period_label": "1970–1979",
+      "numerator": 6,
+      "denominator": 1637,
+      "share_percent": 0.3665241295051924,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1980,
+      "requested_end": 1989,
+      "observed_start": 1980,
+      "observed_end": 1989,
+      "period_label": "1980–1989",
+      "numerator": 21,
+      "denominator": 2523,
+      "share_percent": 0.8323424494649228,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 1990,
+      "requested_end": 1999,
+      "observed_start": 1990,
+      "observed_end": 1999,
+      "period_label": "1990–1999",
+      "numerator": 8,
+      "denominator": 1849,
+      "share_percent": 0.4326663061114116,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 2000,
+      "requested_end": 2009,
+      "observed_start": 2000,
+      "observed_end": 2009,
+      "period_label": "2000–2009",
+      "numerator": 3,
+      "denominator": 1498,
+      "share_percent": 0.20026702269692925,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 2010,
+      "requested_end": 2019,
+      "observed_start": 2010,
+      "observed_end": 2019,
+      "period_label": "2010–2019",
+      "numerator": 41,
+      "denominator": 2516,
+      "share_percent": 1.629570747217806,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 10,
+      "topic": "Space Exploration",
+      "requested_start": 2020,
+      "requested_end": 2029,
+      "observed_start": 2020,
+      "observed_end": 2026,
+      "period_label": "2020–2026",
+      "numerator": 21,
+      "denominator": 3096,
+      "share_percent": 0.6782945736434108,
+      "partial_period": true,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1780,
+      "requested_end": 1799,
+      "observed_start": 1789,
+      "observed_end": 1799,
+      "period_label": "1789–1799",
+      "numerator": 2,
+      "denominator": 355,
+      "share_percent": 0.5633802816901409,
+      "partial_period": true,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1800,
+      "requested_end": 1819,
+      "observed_start": 1800,
+      "observed_end": 1819,
+      "period_label": "1800–1819",
+      "numerator": 23,
+      "denominator": 736,
+      "share_percent": 3.125,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1820,
+      "requested_end": 1839,
+      "observed_start": 1820,
+      "observed_end": 1839,
+      "period_label": "1820–1839",
+      "numerator": 145,
+      "denominator": 2092,
+      "share_percent": 6.9311663479923515,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1840,
+      "requested_end": 1859,
+      "observed_start": 1840,
+      "observed_end": 1859,
+      "period_label": "1840–1859",
+      "numerator": 174,
+      "denominator": 3045,
+      "share_percent": 5.714285714285714,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1860,
+      "requested_end": 1879,
+      "observed_start": 1860,
+      "observed_end": 1879,
+      "period_label": "1860–1879",
+      "numerator": 76,
+      "denominator": 2558,
+      "share_percent": 2.9710711493354185,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1880,
+      "requested_end": 1899,
+      "observed_start": 1880,
+      "observed_end": 1899,
+      "period_label": "1880–1899",
+      "numerator": 145,
+      "denominator": 3123,
+      "share_percent": 4.642971501761127,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1900,
+      "requested_end": 1919,
+      "observed_start": 1900,
+      "observed_end": 1919,
+      "period_label": "1900–1919",
+      "numerator": 296,
+      "denominator": 3375,
+      "share_percent": 8.77037037037037,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1920,
+      "requested_end": 1939,
+      "observed_start": 1920,
+      "observed_end": 1939,
+      "period_label": "1920–1939",
+      "numerator": 204,
+      "denominator": 1954,
+      "share_percent": 10.440122824974411,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1940,
+      "requested_end": 1959,
+      "observed_start": 1940,
+      "observed_end": 1959,
+      "period_label": "1940–1959",
+      "numerator": 47,
+      "denominator": 1624,
+      "share_percent": 2.894088669950739,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1960,
+      "requested_end": 1979,
+      "observed_start": 1960,
+      "observed_end": 1979,
+      "period_label": "1960–1979",
+      "numerator": 250,
+      "denominator": 5885,
+      "share_percent": 4.248088360237893,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 1980,
+      "requested_end": 1999,
+      "observed_start": 1980,
+      "observed_end": 1999,
+      "period_label": "1980–1999",
+      "numerator": 80,
+      "denominator": 4372,
+      "share_percent": 1.8298261665141813,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 2000,
+      "requested_end": 2019,
+      "observed_start": 2000,
+      "observed_end": 2019,
+      "period_label": "2000–2019",
+      "numerator": 193,
+      "denominator": 4014,
+      "share_percent": 4.808171400099651,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Internal Improvements, Energy & Infrastructure",
+      "requested_start": 2020,
+      "requested_end": 2039,
+      "observed_start": 2020,
+      "observed_end": 2026,
+      "period_label": "2020–2026",
+      "numerator": 147,
+      "denominator": 3096,
+      "share_percent": 4.748062015503876,
+      "partial_period": true,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1780,
+      "requested_end": 1799,
+      "observed_start": 1789,
+      "observed_end": 1799,
+      "period_label": "1789–1799",
+      "numerator": 0,
+      "denominator": 355,
+      "share_percent": 0.0,
+      "partial_period": true,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1800,
+      "requested_end": 1819,
+      "observed_start": 1800,
+      "observed_end": 1819,
+      "period_label": "1800–1819",
+      "numerator": 0,
+      "denominator": 736,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1820,
+      "requested_end": 1839,
+      "observed_start": 1820,
+      "observed_end": 1839,
+      "period_label": "1820–1839",
+      "numerator": 0,
+      "denominator": 2092,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1840,
+      "requested_end": 1859,
+      "observed_start": 1840,
+      "observed_end": 1859,
+      "period_label": "1840–1859",
+      "numerator": 0,
+      "denominator": 3045,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1860,
+      "requested_end": 1879,
+      "observed_start": 1860,
+      "observed_end": 1879,
+      "period_label": "1860–1879",
+      "numerator": 0,
+      "denominator": 2558,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1880,
+      "requested_end": 1899,
+      "observed_start": 1880,
+      "observed_end": 1899,
+      "period_label": "1880–1899",
+      "numerator": 0,
+      "denominator": 3123,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1900,
+      "requested_end": 1919,
+      "observed_start": 1900,
+      "observed_end": 1919,
+      "period_label": "1900–1919",
+      "numerator": 0,
+      "denominator": 3375,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1920,
+      "requested_end": 1939,
+      "observed_start": 1920,
+      "observed_end": 1939,
+      "period_label": "1920–1939",
+      "numerator": 0,
+      "denominator": 1954,
+      "share_percent": 0.0,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1940,
+      "requested_end": 1959,
+      "observed_start": 1940,
+      "observed_end": 1959,
+      "period_label": "1940–1959",
+      "numerator": 11,
+      "denominator": 1624,
+      "share_percent": 0.6773399014778325,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1960,
+      "requested_end": 1979,
+      "observed_start": 1960,
+      "observed_end": 1979,
+      "period_label": "1960–1979",
+      "numerator": 118,
+      "denominator": 5885,
+      "share_percent": 2.0050977060322857,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 1980,
+      "requested_end": 1999,
+      "observed_start": 1980,
+      "observed_end": 1999,
+      "period_label": "1980–1999",
+      "numerator": 29,
+      "denominator": 4372,
+      "share_percent": 0.6633119853613907,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 2000,
+      "requested_end": 2019,
+      "observed_start": 2000,
+      "observed_end": 2019,
+      "period_label": "2000–2019",
+      "numerator": 44,
+      "denominator": 4014,
+      "share_percent": 1.096163428001993,
+      "partial_period": false,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    },
+    {
+      "bucket_years": 20,
+      "topic": "Space Exploration",
+      "requested_start": 2020,
+      "requested_end": 2039,
+      "observed_start": 2020,
+      "observed_end": 2026,
+      "period_label": "2020–2026",
+      "numerator": 21,
+      "denominator": 3096,
+      "share_percent": 0.6782945736434108,
+      "partial_period": true,
+      "support_status": "descriptive",
+      "interval_status": "not_estimated"
+    }
+  ],
+  "fine_topic_colors": {
+    "Internal Improvements, Energy & Infrastructure": "#63713d",
+    "Space Exploration": "#697c9f"
+  },
+  "initial_topic_names": [
+    "Internal Improvements, Energy & Infrastructure",
+    "Space Exploration"
+  ],
+  "provenance": {
+    "corpus_fingerprint": {
+      "n_speeches": 1057,
+      "n_paragraphs": 36229,
+      "doc_name_sha256": "23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc"
+    },
+    "broad_instrument": {
+      "artifact": "data/bands.parquet",
+      "metadata": "data/bands_meta.json",
+      "surface": "corex_issues",
+      "labels": "CorEx anchored topic model (issues.py, seed=42)",
+      "grain": "5-year periods",
+      "ci_components": "sampling_only",
+      "unit": "fraction of paragraphs (NOT percent) — charts multiply by 100",
+      "cluster_unit": "speech",
+      "n_draws": 500
+    },
+    "fine_instrument": {
+      "taxonomy_artifact": "data/llm_annotations/taxonomy_v1.json",
+      "crosswalk_artifact": "data/llm_annotations/crosswalk_v1.json",
+      "run_id": "taxonomy-v1-20260719",
+      "date": "2026-07-19",
+      "prompt_version": "taxonomy/v1",
+      "proposal_model": "claude-opus-4-8",
+      "coverage_model": "claude-sonnet-5",
+      "crosswalk": {
+        "run_id": "taxonomy-v1-20260719",
+        "model": "claude-opus-4-8",
+        "check": {
+          "missing_issues": [],
+          "dangling_topics": [],
+          "n_pages_reconstructable": 16,
+          "n_pages_total": 16,
+          "complete": true
+        },
+        "date": "2026-07-19"
+      },
+      "annotation_models": [
+        "claude-sonnet-5"
+      ]
+    }
+  }
+}

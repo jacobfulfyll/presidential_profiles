@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 659.3180179252087,
-      "percentile": 42.22222222222222
+      "percentile": 42.857142857142854
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 252.65272483774595,
-      "percentile": 15.555555555555555
+      "percentile": 14.285714285714285
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.4400921658986175,
-      "percentile": 4.444444444444445
+      "percentile": 2.380952380952381
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 50.22148964664675,
-      "percentile": 28.888888888888886
+      "percentile": 28.57142857142857
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.504885993485342,
-      "percentile": 80.0
+      "percentile": 83.33333333333334
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 19.60806956740827,
-      "percentile": 80.0
+      "percentile": 80.95238095238095
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.41060526315789464,
-      "percentile": 51.11111111111111
+      "percentile": 52.38095238095239
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 5.150922015040693,
-      "percentile": 28.888888888888886
+      "percentile": 30.952380952380953
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 19.60806956740827,
     "self_reference": 0.504885993485342,
     "ttr": 0.41060526315789464,
-    "pct_hope": 42.22222222222222,
-    "pct_fear": 15.555555555555555,
-    "pct_certainty": 4.444444444444445,
-    "pct_us_vs_them": 28.888888888888886,
-    "pct_self_reference": 80.0,
-    "pct_formality": 80.0,
-    "pct_vocabulary": 51.11111111111111,
-    "pct_religiosity": 28.888888888888886
+    "pct_hope": 42.857142857142854,
+    "pct_fear": 14.285714285714285,
+    "pct_certainty": 2.380952380952381,
+    "pct_us_vs_them": 28.57142857142857,
+    "pct_self_reference": 83.33333333333334,
+    "pct_formality": 80.95238095238095,
+    "pct_vocabulary": 52.38095238095239,
+    "pct_religiosity": 30.952380952380953
   },
   "legacy_issue_attention": [
     {
@@ -1023,27 +1023,27 @@
     {
       "title": "December 13, 1850: Message Regarding Agreement with Texas",
       "year": 1850,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-13-1850-message-regarding-agreement-texas"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-13-1850-message-regarding-agreement-texas"
     },
     {
       "title": "August 6, 1850: Message Regarding Compromise with Texas",
       "year": 1850,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-6-1850-message-regarding-compromise-texas"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-6-1850-message-regarding-compromise-texas"
     },
     {
       "title": "December 13, 1850: Announcement of Texas\u2019 Acceptance of Compromise Propositions",
       "year": 1850,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-13-1850-announcement-texas-acceptance-compromise"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-13-1850-announcement-texas-acceptance-compromise"
     },
     {
       "title": "December 2, 1851: Second Annual Message",
       "year": 1851,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-2-1851-second-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-2-1851-second-annual-message"
     },
     {
       "title": "February 19, 1851: Message Regarding Disturbance in Boston",
       "year": 1851,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-19-1851-message-regarding-disturbance-boston"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-19-1851-message-regarding-disturbance-boston"
     }
   ],
   "legacy_invocations": {

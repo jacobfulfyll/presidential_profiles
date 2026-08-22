@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 656.4773840070408,
-      "percentile": 37.77777777777778
+      "percentile": 38.095238095238095
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 327.49494874369367,
-      "percentile": 91.11111111111111
+      "percentile": 92.85714285714286
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.49795501022494887,
-      "percentile": 22.22222222222222
+      "percentile": 21.428571428571427
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 75.36598366243973,
-      "percentile": 77.77777777777779
+      "percentile": 76.19047619047619
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.5018155410312273,
-      "percentile": 77.77777777777779
+      "percentile": 80.95238095238095
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 16.272755659035454,
-      "percentile": 51.11111111111111
+      "percentile": 52.38095238095239
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.40291249999999995,
-      "percentile": 33.33333333333333
+      "percentile": 35.714285714285715
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 6.073903288584781,
-      "percentile": 35.55555555555556
+      "percentile": 38.095238095238095
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 16.272755659035454,
     "self_reference": 0.5018155410312273,
     "ttr": 0.40291249999999995,
-    "pct_hope": 37.77777777777778,
-    "pct_fear": 91.11111111111111,
-    "pct_certainty": 22.22222222222222,
-    "pct_us_vs_them": 77.77777777777779,
-    "pct_self_reference": 77.77777777777779,
-    "pct_formality": 51.11111111111111,
-    "pct_vocabulary": 33.33333333333333,
-    "pct_religiosity": 35.55555555555556
+    "pct_hope": 38.095238095238095,
+    "pct_fear": 92.85714285714286,
+    "pct_certainty": 21.428571428571427,
+    "pct_us_vs_them": 76.19047619047619,
+    "pct_self_reference": 80.95238095238095,
+    "pct_formality": 52.38095238095239,
+    "pct_vocabulary": 35.714285714285715,
+    "pct_religiosity": 38.095238095238095
   },
   "legacy_issue_attention": [
     {
@@ -1014,27 +1014,27 @@
     {
       "title": "December 19, 1859: Third Annual Message",
       "year": 1859,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-19-1859-third-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-19-1859-third-annual-message"
     },
     {
       "title": "December 3, 1860: Fourth Annual Message",
       "year": 1860,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-3-1860-fourth-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-3-1860-fourth-annual-message"
     },
     {
       "title": "January 8, 1861: Message on Threats to the Peace and Existence of the Union",
       "year": 1861,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-8-1861-message-threats-peace-and-existence-union"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-8-1861-message-threats-peace-and-existence-union"
     },
     {
       "title": "December 8, 1857: First Annual Message",
       "year": 1857,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-8-1857-first-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-8-1857-first-annual-message"
     },
     {
       "title": "June 22, 1860: Addendum to March 28 Message to Congress",
       "year": 1860,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-22-1860-addendum-march-28-message-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/june-22-1860-addendum-march-28-message-congress"
     }
   ],
   "legacy_invocations": {

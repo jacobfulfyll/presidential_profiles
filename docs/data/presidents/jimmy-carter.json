@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 689.0058756260105,
-      "percentile": 62.22222222222222
+      "percentile": 64.28571428571429
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 267.65645333017864,
-      "percentile": 42.22222222222222
+      "percentile": 42.857142857142854
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8161559888579387,
-      "percentile": 82.22222222222221
+      "percentile": 80.95238095238095
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 51.461019756299535,
-      "percentile": 31.11111111111111
+      "percentile": 30.952380952380953
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.38404452690166974,
-      "percentile": 53.333333333333336
+      "percentile": 54.761904761904766
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 9.904767015077748,
-      "percentile": 15.555555555555555
+      "percentile": 16.666666666666664
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.3921683168316832,
-      "percentile": 13.333333333333334
+      "percentile": 14.285714285714285
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 5.2249694388579995,
-      "percentile": 31.11111111111111
+      "percentile": 33.33333333333333
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 9.904767015077748,
     "self_reference": 0.38404452690166974,
     "ttr": 0.3921683168316832,
-    "pct_hope": 62.22222222222222,
-    "pct_fear": 42.22222222222222,
-    "pct_certainty": 82.22222222222221,
-    "pct_us_vs_them": 31.11111111111111,
-    "pct_self_reference": 53.333333333333336,
-    "pct_formality": 15.555555555555555,
-    "pct_vocabulary": 13.333333333333334,
-    "pct_religiosity": 31.11111111111111
+    "pct_hope": 64.28571428571429,
+    "pct_fear": 42.857142857142854,
+    "pct_certainty": 80.95238095238095,
+    "pct_us_vs_them": 30.952380952380953,
+    "pct_self_reference": 54.761904761904766,
+    "pct_formality": 16.666666666666664,
+    "pct_vocabulary": 14.285714285714285,
+    "pct_religiosity": 33.33333333333333
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "October 28, 1980: Debate with Ronald Reagan",
       "year": 1980,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-28-1980-debate-ronald-reagan"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-28-1980-debate-ronald-reagan"
     },
     {
       "title": "September 23, 1976: Debate with President Gerald Ford (Domestic Issues)",
       "year": 1976,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/september-23-1976-debate-president-gerald-ford-domestic-issues"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/september-23-1976-debate-president-gerald-ford-domestic-issues"
     },
     {
       "title": "October 6, 1976: Debate with President Gerald Ford (Foreign and Defense Issues)",
       "year": 1976,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-6-1976-debate-president-gerald-ford-foreign-and"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-6-1976-debate-president-gerald-ford-foreign-and"
     },
     {
       "title": "October 22, 1976: Debate with President Gerald Ford",
       "year": 1976,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-22-1976-debate-president-gerald-ford"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-22-1976-debate-president-gerald-ford"
     },
     {
       "title": "October 24, 1978: Anti-Inflation Program Speech",
       "year": 1978,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-24-1978-anti-inflation-program-speech"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-24-1978-anti-inflation-program-speech"
     }
   ],
   "legacy_invocations": {

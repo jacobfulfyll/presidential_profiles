@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from . import attention
+from . import attention, indices
 from .corpus import load
 from .llm_annotations import (
     ANNOTATIONS_DIR,
@@ -247,7 +247,10 @@ def build_ai_data(
         by_president[president] = {
             "n_paragraphs": int(n_paragraphs[president]),
             "n_speeches": int(n_speeches[president]),
-            "low_confidence": bool(n_speeches[president] < 5),
+            "low_confidence": bool(
+                n_speeches[president]
+                < indices.PRESIDENT_PERCENTILE_MIN_SPEECHES
+            ),
             "top_topics": [
                 {
                     "name": topic,
@@ -324,7 +327,10 @@ def build_ai_data(
         "values": proposal_rates["values"],
         "topic_breadth": breadth,
     })
-    precise = n_speeches.reindex(radar_raw.index) >= 5
+    precise = (
+        n_speeches.reindex(radar_raw.index)
+        >= indices.PRESIDENT_PERCENTILE_MIN_SPEECHES
+    )
     percentiles = radar_raw.loc[precise].rank(pct=True, method="average") * 100
     for president, info in by_president.items():
         info["ai_radar"] = {

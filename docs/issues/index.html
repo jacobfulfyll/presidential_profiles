@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Issues - Presidential Profiles</title>
-<style>
-
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Issues - Presidential Profiles</title><style>
   :root {
     --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
-    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+    --muted: #706d67; --grid: #e1e0d9; --border: rgba(11,11,11,0.14);
+    --focus: #7a3d00;
   }
   * { box-sizing: border-box; margin: 0; }
   body { background: var(--page); color: var(--ink);
@@ -24,24 +20,14 @@
                    border-radius: 12px; padding: 10px 6px 6px;
                    overflow-x: auto; overflow-y: hidden; }
   .chart { min-width: 640px; }
+  :where(a, button, summary, select, [tabindex]):focus-visible {
+    outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 3px;
+  }
   footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
   footer a { color: var(--ink2); }
 
-  .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
-  .crumbs a { color: var(--ink2); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-           gap: 12px; margin-top: 24px; }
-  .card { background: var(--surface); border: 1px solid var(--border);
-           border-radius: 10px; padding: 14px 16px; text-decoration: none;
-           color: var(--ink); }
-  .card:hover { border-color: var(--muted); }
-  .name { font-weight: 650; }
-  .meta { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
-  .ai-meta { color:#275d8c; font-size:.78rem; margin-top:7px; }
-</style>
-</head>
-<body><style>
+
 .global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
@@ -69,7 +55,7 @@ white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
 html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
-.nav-brand:focus-visible{outline:3px solid #d08b45;outline-offset:2px}
+.nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
@@ -77,7 +63,10 @@ gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
 width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
 .nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
-</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="../presidents/index.html">Presidents</a><a href="../issues/index.html" aria-current="page">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+</style>
+<link rel="stylesheet" href="../assets/issues-v2.css"></head>
+<body class="issues-page" data-generated="issues-v2"><a class="skip-link" href="#main-content">Skip to issues</a>
+<nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="../presidents/index.html">Presidents</a><a href="../issues/index.html" aria-current="page">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
@@ -143,95 +132,129 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
 })();
 </script>
 
-<header>
-  <p class="crumbs"><a href="../index.html">← Dashboard</a> &nbsp;·&nbsp;
-  <a href="../methodology.html">How the AI labels work</a></p>
-  <h1>Issue profiles</h1>
-  <p class="sub">The biography of every issue: 240 years of attention, the presidents
-  who owned it, their words at its defining moments, and the finer topics from the
-  corpus-derived AI taxonomy that sit inside each broad axis.</p>
-  <div class="grid">
-<a class="card" href="economy-and-jobs.html">
-  <div class="name">Economy &amp; jobs</div>
-  <div class="meta">peak: 1930s · top voice: Herbert Hoover</div>
-  <div class="ai-meta">5 finer AI topics</div>
-</a>
-<a class="card" href="taxes-and-budget.html">
-  <div class="name">Taxes &amp; budget</div>
-  <div class="meta">peak: 1830s · top voice: Bill Clinton</div>
-  <div class="ai-meta">2 finer AI topics</div>
-</a>
-<a class="card" href="war-and-military.html">
-  <div class="name">War &amp; military</div>
-  <div class="meta">peak: 1940s · top voice: James Madison</div>
-  <div class="ai-meta">7 finer AI topics</div>
-</a>
-<a class="card" href="foreign-policy.html">
-  <div class="name">Foreign policy</div>
-  <div class="meta">peak: 1840s · top voice: James K. Polk</div>
-  <div class="ai-meta">8 finer AI topics</div>
-</a>
-<a class="card" href="immigration.html">
-  <div class="name">Immigration</div>
-  <div class="meta">peak: 2010s · top voice: Warren G. Harding</div>
-  <div class="ai-meta">2 finer AI topics</div>
-</a>
-<a class="card" href="civil-rights-and-race.html">
-  <div class="name">Civil rights &amp; race</div>
-  <div class="meta">peak: 1850s · top voice: Abraham Lincoln</div>
-  <div class="ai-meta">6 finer AI topics</div>
-</a>
-<a class="card" href="health-care.html">
-  <div class="name">Health care</div>
-  <div class="meta">peak: 2000s · top voice: Bill Clinton</div>
-  <div class="ai-meta">1 finer AI topics</div>
-</a>
-<a class="card" href="education.html">
-  <div class="name">Education</div>
-  <div class="meta">peak: 1990s · top voice: Bill Clinton</div>
-  <div class="ai-meta">3 finer AI topics</div>
-</a>
-<a class="card" href="crime-and-justice.html">
-  <div class="name">Crime &amp; justice</div>
-  <div class="meta">peak: 1990s · top voice: Bill Clinton</div>
-  <div class="ai-meta">3 finer AI topics</div>
-</a>
-<a class="card" href="energy-and-environment.html">
-  <div class="name">Energy &amp; environment</div>
-  <div class="meta">peak: 1970s · top voice: Gerald Ford</div>
-  <div class="ai-meta">3 finer AI topics</div>
-</a>
-<a class="card" href="trade-and-tariffs.html">
-  <div class="name">Trade &amp; tariffs</div>
-  <div class="meta">peak: 1910s · top voice: William Taft</div>
-  <div class="ai-meta">3 finer AI topics</div>
-</a>
-<a class="card" href="agriculture.html">
-  <div class="name">Agriculture</div>
-  <div class="meta">peak: 1930s · top voice: Herbert Hoover</div>
-  <div class="ai-meta">2 finer AI topics</div>
-</a>
-<a class="card" href="religion-and-values.html">
-  <div class="name">Religion &amp; values</div>
-  <div class="meta">peak: 1780s · top voice: Warren G. Harding</div>
-  <div class="ai-meta">3 finer AI topics</div>
-</a>
-<a class="card" href="money-and-banking.html">
-  <div class="name">Money &amp; banking</div>
-  <div class="meta">peak: 1830s · top voice: Martin Van Buren</div>
-  <div class="ai-meta">2 finer AI topics</div>
-</a>
-<a class="card" href="infrastructure.html">
-  <div class="name">Infrastructure</div>
-  <div class="meta">peak: 1800s · top voice: Thomas Jefferson</div>
-  <div class="ai-meta">2 finer AI topics</div>
-</a>
-<a class="card" href="security-and-peace.html">
-  <div class="name">Security &amp; peace</div>
-  <div class="meta">peak: 1940s · top voice: Harry S. Truman</div>
-  <div class="ai-meta">7 finer AI topics</div>
-</a>
-  </div>
-</header>
-</body>
-</html>
+<header class="issues-hero"><nav class="breadcrumbs" aria-label="Breadcrumb">
+<a href="../index.html">Story</a><span aria-hidden="true">/</span><span aria-current="page">Issues</span></nav>
+<p class="issues-eyebrow">Directory</p><h1>Issue profiles</h1>
+<p class="sub">Fifteen anchored issue axes plus one surfaced discovered theme, in the model's
+canonical order. Each profile uses one supported-period contract for its summary, chart,
+selected excerpts, exact tables, and downloads.</p></header>
+<main class="directory-main" id="main-content"><h2>All 16 issues</h2>
+<p>Broad trends are deterministic CorEx paragraph shares. Finer AI topics are a separate,
+exploratory many-to-many crosswalk and are labeled as such.</p>
+<ol class="issue-directory"><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="economy-and-jobs.html"><h2>Economy &amp; jobs</h2></a>
+<template><div class="name">Economy &amp; jobs</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1930–1934 · 40.223% · 27 speeches · 629 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Herbert Hoover · 37.966% · 30 speeches · 265/698 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>5 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="taxes-and-budget.html"><h2>Taxes &amp; budget</h2></a>
+<template><div class="name">Taxes &amp; budget</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1830–1834 · 19.776% · 19 speeches · 804 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Bill Clinton · 19.643% · 39 speeches · 253/1,288 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>2 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="war-and-military.html"><h2>War &amp; military</h2></a>
+<template><div class="name">War &amp; military</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1940–1944 · 65.174% · 26 speeches · 603 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>James Madison · 46.35% · 21 speeches · 127/274 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>7 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="foreign-policy.html"><h2>Foreign policy</h2></a>
+<template><div class="name">Foreign policy</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1845–1849 · 36.57% · 28 speeches · 793 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>James K. Polk · 36.427% · 25 speeches · 263/722 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>8 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="immigration.html"><h2>Immigration</h2></a>
+<template><div class="name">Immigration</div></template><dl>
+<div><dt>Highest supported period</dt><dd>2015–2019 · 9.253% · 27 speeches · 1,286 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Warren G. Harding · 9.244% · 18 speeches · 22/238 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>2 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="civil-rights-and-race.html"><h2>Civil rights &amp; race</h2></a>
+<template><div class="name">Civil rights &amp; race</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1850–1854 · 23.119% · 21 speeches · 904 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Abraham Lincoln · 36.321% · 15 speeches · 312/859 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>6 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="health-care.html"><h2>Health care</h2></a>
+<template><div class="name">Health care</div></template><dl>
+<div><dt>Highest supported period</dt><dd>2000–2004 · 13.608% · 23 speeches · 632 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Bill Clinton · 15.528% · 39 speeches · 200/1,288 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>1 finer AI topic</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="education.html"><h2>Education</h2></a>
+<template><div class="name">Education</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1995–1999 · 17.386% · 22 speeches · 834 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Bill Clinton · 15.839% · 39 speeches · 204/1,288 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>3 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="crime-and-justice.html"><h2>Crime &amp; justice</h2></a>
+<template><div class="name">Crime &amp; justice</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1995–1999 · 16.067% · 22 speeches · 834 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Bill Clinton · 14.441% · 39 speeches · 186/1,288 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>3 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="energy-and-environment.html"><h2>Energy &amp; environment</h2></a>
+<template><div class="name">Energy &amp; environment</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1975–1979 · 11.252% · 27 speeches · 1,102 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Gerald Ford · 13.902% · 14 speeches · 57/410 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>3 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="trade-and-tariffs.html"><h2>Trade &amp; tariffs</h2></a>
+<template><div class="name">Trade &amp; tariffs</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1910–1914 · 24.356% · 20 speeches · 932 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>William Howard Taft · 28.896% · 12 speeches · 280/969 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>3 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="agriculture.html"><h2>Agriculture</h2></a>
+<template><div class="name">Agriculture</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1930–1934 · 19.078% · 27 speeches · 629 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Herbert Hoover · 15.33% · 30 speeches · 107/698 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>2 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="religion-and-values.html"><h2>Religion &amp; values</h2></a>
+<template><div class="name">Religion &amp; values</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1985–1989 · 14.1% · 28 speeches · 844 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Warren G. Harding · 14.286% · 18 speeches · 34/238 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>3 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="money-and-banking.html"><h2>Money &amp; banking</h2></a>
+<template><div class="name">Money &amp; banking</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1835–1839 · 25.972% · 12 speeches · 643 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Martin Van Buren · 24.946% · 10 speeches · 116/465 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>2 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<a href="infrastructure.html"><h2>Infrastructure</h2></a>
+<template><div class="name">Infrastructure</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1805–1809 · 27.179% · 15 speeches · 195 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Thomas Jefferson · 25.879% · 24 speeches · 81/313 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>2 finer AI topics</dd></div>
+</dl></article></li><li><article class="directory-card">
+<span class="source-badge surfaced">Surfaced CorEx theme</span>
+<a href="security-and-peace.html"><h2>Security &amp; peace</h2></a>
+<template><div class="name">Security &amp; peace</div></template><dl>
+<div><dt>Highest supported period</dt><dd>1945–1949 · 67.897% · 17 speeches · 271 paragraphs</dd></div>
+<div><dt>Highest eligible president</dt><dd>Harry S. Truman · 55.195% · 19 speeches · 170/308 paragraphs</dd></div>
+<div><dt>Exploratory fine crosswalk</dt><dd>7 finer AI topics</dd></div>
+</dl></article></li></ol></main>
+<footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
+University of Virginia</a>. <a href="../methodology.html">Methods and provenance</a>.</p>
+<p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer>
+</body></html>

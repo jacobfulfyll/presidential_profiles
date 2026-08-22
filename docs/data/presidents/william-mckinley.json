@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 702.6067254169345,
-      "percentile": 73.33333333333333
+      "percentile": 76.19047619047619
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 303.15573904423695,
-      "percentile": 75.55555555555556
+      "percentile": 76.19047619047619
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.6027088036117382,
-      "percentile": 51.11111111111111
+      "percentile": 50.0
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 31.263275999172123,
-      "percentile": 2.2222222222222223
+      "percentile": 2.380952380952381
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.3342354533152909,
-      "percentile": 40.0
+      "percentile": 40.476190476190474
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 17.26579948138691,
-      "percentile": 57.77777777777777
+      "percentile": 59.523809523809526
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4326043956043957,
-      "percentile": 91.11111111111111
+      "percentile": 90.47619047619048
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 4.03045718456226,
-      "percentile": 15.555555555555555
+      "percentile": 16.666666666666664
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 17.26579948138691,
     "self_reference": 0.3342354533152909,
     "ttr": 0.4326043956043957,
-    "pct_hope": 73.33333333333333,
-    "pct_fear": 75.55555555555556,
-    "pct_certainty": 51.11111111111111,
-    "pct_us_vs_them": 2.2222222222222223,
-    "pct_self_reference": 40.0,
-    "pct_formality": 57.77777777777777,
-    "pct_vocabulary": 91.11111111111111,
-    "pct_religiosity": 15.555555555555555
+    "pct_hope": 76.19047619047619,
+    "pct_fear": 76.19047619047619,
+    "pct_certainty": 50.0,
+    "pct_us_vs_them": 2.380952380952381,
+    "pct_self_reference": 40.476190476190474,
+    "pct_formality": 59.523809523809526,
+    "pct_vocabulary": 90.47619047619048,
+    "pct_religiosity": 16.666666666666664
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "March 15, 1897: Message Regarding Special Session of Congress",
       "year": 1897,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-15-1897-message-regarding-special-session-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-15-1897-message-regarding-special-session-congress"
     },
     {
       "title": "December 5, 1899: Third Annual Message",
       "year": 1899,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-5-1899-third-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-5-1899-third-annual-message"
     },
     {
       "title": "March 4, 1901: Second Inaugural Address",
       "year": 1901,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1901-second-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1901-second-inaugural-address"
     },
     {
       "title": "April 22, 1898: Proclamation Regarding Blockade of Cuba",
       "year": 1898,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-22-1898-proclamation-regarding-blockade-cuba"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-22-1898-proclamation-regarding-blockade-cuba"
     },
     {
       "title": "May 17, 1897: Message Regarding Relief of Americans in Cuba",
       "year": 1897,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-17-1897-message-regarding-relief-americans-cuba"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-17-1897-message-regarding-relief-americans-cuba"
     }
   ],
   "legacy_invocations": {

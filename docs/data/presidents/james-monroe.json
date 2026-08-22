@@ -18,13 +18,13 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 660.9684328522529,
-      "percentile": 46.666666666666664
+      "percentile": 47.61904761904761
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 238.80537262045357,
-      "percentile": 8.88888888888889
+      "percentile": 7.142857142857142
     },
     {
       "key": "certainty",
@@ -36,31 +36,31 @@
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 68.65904678023101,
-      "percentile": 64.44444444444444
+      "percentile": 61.904761904761905
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.22938689217758984,
-      "percentile": 11.11111111111111
+      "percentile": 11.904761904761903
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 17.522732130761526,
-      "percentile": 60.0
+      "percentile": 61.904761904761905
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.39642857142857146,
-      "percentile": 22.22222222222222
+      "percentile": 23.809523809523807
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 8.807574514082111,
-      "percentile": 55.55555555555556
+      "percentile": 59.523809523809526
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 17.522732130761526,
     "self_reference": 0.22938689217758984,
     "ttr": 0.39642857142857146,
-    "pct_hope": 46.666666666666664,
-    "pct_fear": 8.88888888888889,
+    "pct_hope": 47.61904761904761,
+    "pct_fear": 7.142857142857142,
     "pct_certainty": 33.33333333333333,
-    "pct_us_vs_them": 64.44444444444444,
-    "pct_self_reference": 11.11111111111111,
-    "pct_formality": 60.0,
-    "pct_vocabulary": 22.22222222222222,
-    "pct_religiosity": 55.55555555555556
+    "pct_us_vs_them": 61.904761904761905,
+    "pct_self_reference": 11.904761904761903,
+    "pct_formality": 61.904761904761905,
+    "pct_vocabulary": 23.809523809523807,
+    "pct_religiosity": 59.523809523809526
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "December 7, 1824: Eighth Annual Message",
       "year": 1824,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-7-1824-eighth-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-7-1824-eighth-annual-message"
     },
     {
       "title": "November 14, 1820: Fourth Annual Message",
       "year": 1820,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-14-1820-fourth-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-14-1820-fourth-annual-message"
     },
     {
       "title": "December 7, 1819: Third Annual Message",
       "year": 1819,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-7-1819-third-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-7-1819-third-annual-message"
     },
     {
       "title": "December 2, 1817: First Annual Message",
       "year": 1817,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-2-1817-first-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-2-1817-first-annual-message"
     },
     {
       "title": "March 4, 1817: First Inaugural Address",
       "year": 1817,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1817-first-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1817-first-inaugural-address"
     }
   ],
   "legacy_invocations": {

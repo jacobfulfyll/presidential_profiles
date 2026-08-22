@@ -1072,6 +1072,10 @@ class TestZeroCostAndFrozenArtifacts:
             "LEXICAL_BASELINE_PATH",
             "ADVERSARY_MIX_PATH",
             "BY_PRESIDENT_PATH",
+            "BY_PRESIDENT_TREATMENTS_V2_PATH",
+            "BY_PRESIDENT_SPEAKER_V2_PATH",
+            "TARGET_MIX_BY_ERA_SPEAKER_V1_PATH",
+            "PRESIDENT_CONFLICT_V2_META_PATH",
             "GENRE_DECOMPOSITION_PATH",
             "COMBAT_META_PATH",
         }

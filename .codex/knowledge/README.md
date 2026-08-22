@@ -27,6 +27,7 @@ as a flat required reading list.
 
 ## Data and inference
 
+- [President speaker-attribution remediation plan](../../notes/president-speaker-attribution-plan-v1.md)
 - [Annotation refresh Phase 2 contract](../../notes/annotation-refresh-campaign-v1.md)
 - [Annotation refresh review state](../../notes/annotation-refresh-campaign-review-report-v1.md)
 - [Bundle and campaign coordination](../../src/presidential_profiles/annotation_refresh.py)

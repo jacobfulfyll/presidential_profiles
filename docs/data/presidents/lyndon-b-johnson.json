@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 696.4111815322723,
-      "percentile": 66.66666666666666
+      "percentile": 69.04761904761905
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 264.0128354539504,
-      "percentile": 35.55555555555556
+      "percentile": 35.714285714285715
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8276139410187667,
-      "percentile": 84.44444444444444
+      "percentile": 83.33333333333334
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 74.55419147815259,
-      "percentile": 75.55555555555556
+      "percentile": 73.80952380952381
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.38175198751764616,
-      "percentile": 48.888888888888886
+      "percentile": 50.0
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 9.989772896162663,
-      "percentile": 17.77777777777778
+      "percentile": 19.047619047619047
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.397268,
-      "percentile": 24.444444444444443
+      "percentile": 26.190476190476193
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 6.8248215967687855,
-      "percentile": 48.888888888888886
+      "percentile": 52.38095238095239
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 9.989772896162663,
     "self_reference": 0.38175198751764616,
     "ttr": 0.397268,
-    "pct_hope": 66.66666666666666,
-    "pct_fear": 35.55555555555556,
-    "pct_certainty": 84.44444444444444,
-    "pct_us_vs_them": 75.55555555555556,
-    "pct_self_reference": 48.888888888888886,
-    "pct_formality": 17.77777777777778,
-    "pct_vocabulary": 24.444444444444443,
-    "pct_religiosity": 48.888888888888886
+    "pct_hope": 69.04761904761905,
+    "pct_fear": 35.714285714285715,
+    "pct_certainty": 83.33333333333334,
+    "pct_us_vs_them": 73.80952380952381,
+    "pct_self_reference": 50.0,
+    "pct_formality": 19.047619047619047,
+    "pct_vocabulary": 26.190476190476193,
+    "pct_religiosity": 52.38095238095239
   },
   "legacy_issue_attention": [
     {
@@ -1013,27 +1013,27 @@
     {
       "title": "July 13, 1965: Press Conference in the East Room",
       "year": 1965,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-13-1965-press-conference-east-room"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-13-1965-press-conference-east-room"
     },
     {
       "title": "August 4, 1964: Report on the Gulf of Tonkin Incident",
       "year": 1964,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-4-1964-report-gulf-tonkin-incident"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-4-1964-report-gulf-tonkin-incident"
     },
     {
       "title": "April 7, 1965: Address at Johns Hopkins University",
       "year": 1965,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-7-1965-address-johns-hopkins-university"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-7-1965-address-johns-hopkins-university"
     },
     {
       "title": "April 27, 1965: Press Conference in the East Room",
       "year": 1965,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-27-1965-press-conference-east-room"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-27-1965-press-conference-east-room"
     },
     {
       "title": "April 3, 1968: Press Conference",
       "year": 1968,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-3-1968-press-conference"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-3-1968-press-conference"
     }
   ],
   "legacy_invocations": {

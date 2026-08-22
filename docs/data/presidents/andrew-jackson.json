@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 701.2977118622546,
-      "percentile": 71.11111111111111
+      "percentile": 73.80952380952381
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 272.0496736673693,
-      "percentile": 48.888888888888886
+      "percentile": 50.0
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.5175011076650421,
-      "percentile": 26.666666666666668
+      "percentile": 26.190476190476193
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 66.85374711125785,
-      "percentile": 57.77777777777777
+      "percentile": 59.523809523809526
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.4390158172231986,
-      "percentile": 71.11111111111111
+      "percentile": 73.80952380952381
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 20.663194518557837,
-      "percentile": 88.88888888888889
+      "percentile": 88.09523809523809
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.3962802547770701,
-      "percentile": 20.0
+      "percentile": 21.428571428571427
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 6.158417350229829,
-      "percentile": 37.77777777777778
+      "percentile": 40.476190476190474
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 20.663194518557837,
     "self_reference": 0.4390158172231986,
     "ttr": 0.3962802547770701,
-    "pct_hope": 71.11111111111111,
-    "pct_fear": 48.888888888888886,
-    "pct_certainty": 26.666666666666668,
-    "pct_us_vs_them": 57.77777777777777,
-    "pct_self_reference": 71.11111111111111,
-    "pct_formality": 88.88888888888889,
-    "pct_vocabulary": 20.0,
-    "pct_religiosity": 37.77777777777778
+    "pct_hope": 73.80952380952381,
+    "pct_fear": 50.0,
+    "pct_certainty": 26.190476190476193,
+    "pct_us_vs_them": 59.523809523809526,
+    "pct_self_reference": 73.80952380952381,
+    "pct_formality": 88.09523809523809,
+    "pct_vocabulary": 21.428571428571427,
+    "pct_religiosity": 40.476190476190474
   },
   "legacy_issue_attention": [
     {
@@ -1011,27 +1011,27 @@
     {
       "title": "July 10, 1832: Bank Veto",
       "year": 1832,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-10-1832-bank-veto"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-10-1832-bank-veto"
     },
     {
       "title": "December 1, 1834: Sixth Annual Message to Congress",
       "year": 1834,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-1-1834-sixth-annual-message-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-1-1834-sixth-annual-message-congress"
     },
     {
       "title": "December 6, 1832: Veto Message of Internal Improvement Legislation",
       "year": 1832,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-6-1832-veto-message-internal-improvement-legislation"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-6-1832-veto-message-internal-improvement-legislation"
     },
     {
       "title": "December 12, 1833: Message on the Constitutional Rights and Responsibilities of the President",
       "year": 1833,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-12-1833-message-constitutional-rights-and"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-12-1833-message-constitutional-rights-and"
     },
     {
       "title": "December 4, 1832: Fourth Annual Message to Congress",
       "year": 1832,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-4-1832-fourth-annual-message-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-4-1832-fourth-annual-message-congress"
     }
   ],
   "legacy_invocations": {

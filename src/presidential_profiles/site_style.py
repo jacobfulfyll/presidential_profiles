@@ -1,13 +1,14 @@
 """Shared page chrome for the dashboard and profile pages."""
 
-from .figures import GRID, INK, INK2, MUTED, SURFACE
+from .figures import GRID, INK, INK2, SURFACE
 
 FONT = "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
 
 PAGE_CSS = f"""
   :root {{
     --surface: {SURFACE}; --page: #f9f9f7; --ink: {INK}; --ink2: {INK2};
-    --muted: {MUTED}; --grid: {GRID}; --border: rgba(11,11,11,0.10);
+    --muted: #706d67; --grid: {GRID}; --border: rgba(11,11,11,0.14);
+    --focus: #7a3d00;
   }}
   * {{ box-sizing: border-box; margin: 0; }}
   body {{ background: var(--page); color: var(--ink);
@@ -23,6 +24,9 @@ PAGE_CSS = f"""
                    border-radius: 12px; padding: 10px 6px 6px;
                    overflow-x: auto; overflow-y: hidden; }}
   .chart {{ min-width: 640px; }}
+  :where(a, button, summary, select, [tabindex]):focus-visible {{
+    outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 3px;
+  }}
   footer {{ max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }}
   footer a {{ color: var(--ink2); }}

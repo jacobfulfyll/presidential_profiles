@@ -18,19 +18,19 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 560.3118414554613,
-      "percentile": 4.444444444444445
+      "percentile": 4.761904761904762
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 252.80570603514246,
-      "percentile": 17.77777777777778
+      "percentile": 16.666666666666664
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8975884747886,
-      "percentile": 97.77777777777777
+      "percentile": 97.61904761904762
     },
     {
       "key": "us_vs_them",
@@ -42,25 +42,25 @@
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.3815789473684211,
-      "percentile": 46.666666666666664
+      "percentile": 47.61904761904761
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 6.863461110505636,
-      "percentile": 2.2222222222222223
+      "percentile": 2.380952380952381
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.38692830188679245,
-      "percentile": 11.11111111111111
+      "percentile": 11.904761904761903
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 12.591277336077779,
-      "percentile": 80.0
+      "percentile": 80.95238095238095
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 6.863461110505636,
     "self_reference": 0.3815789473684211,
     "ttr": 0.38692830188679245,
-    "pct_hope": 4.444444444444445,
-    "pct_fear": 17.77777777777778,
-    "pct_certainty": 97.77777777777777,
+    "pct_hope": 4.761904761904762,
+    "pct_fear": 16.666666666666664,
+    "pct_certainty": 97.61904761904762,
     "pct_us_vs_them": 100.0,
-    "pct_self_reference": 46.666666666666664,
-    "pct_formality": 2.2222222222222223,
-    "pct_vocabulary": 11.11111111111111,
-    "pct_religiosity": 80.0
+    "pct_self_reference": 47.61904761904761,
+    "pct_formality": 2.380952380952381,
+    "pct_vocabulary": 11.904761904761903,
+    "pct_religiosity": 80.95238095238095
   },
   "legacy_issue_attention": [
     {
@@ -1007,12 +1007,12 @@
     {
       "title": "June 21, 2025: Address to the American People",
       "year": 2025,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-21-2025-address-american-people"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/june-21-2025-address-american-people"
     },
     {
       "title": "November 5, 2020: Remarks on the 2020 Election",
       "year": 2020,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-5-2020-remarks-2020-election"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-5-2020-remarks-2020-election"
     }
   ],
   "legacy_invocations": {

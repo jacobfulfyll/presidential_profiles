@@ -1,0 +1,101 @@
+source_issue,unit,president,display_name,period_start,period_end,numerator,denominator,share_percent,n_speeches,dot_included,dot_status
+Health care,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1850,1854,0,360,0.0,2,True,included
+Health care,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1855,1859,0,37,0.0,1,True,included
+Health care,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1860,1864,8,456,1.7543859649122806,11,True,included
+Health care,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1865,1869,0,6,0.0,1,False,below_25_paragraph_floor
+Health care,share of eligible paragraphs,Andrew Jackson,Andrew Jackson,1825,1829,0,97,0.0,3,True,included
+Health care,share of eligible paragraphs,Andrew Jackson,Andrew Jackson,1830,1834,6,804,0.7462686567164178,19,True,included
+Health care,share of eligible paragraphs,Andrew Jackson,Andrew Jackson,1835,1839,4,249,1.6064257028112447,4,True,included
+Health care,share of eligible paragraphs,Andrew Johnson,Andrew Johnson,1865,1869,0,725,0.0,31,True,included
+Health care,share of eligible paragraphs,Barack Obama,Barack Obama,2005,2009,72,339,21.238938053097346,11,True,included
+Health care,share of eligible paragraphs,Barack Obama,Barack Obama,2010,2014,151,1230,12.276422764227641,33,True,included
+Health care,share of eligible paragraphs,Barack Obama,Barack Obama,2015,2019,33,310,10.64516129032258,7,True,included
+Health care,share of eligible paragraphs,Benjamin Harrison,Benjamin Harrison,1885,1889,3,147,2.0408163265306123,4,True,included
+Health care,share of eligible paragraphs,Benjamin Harrison,Benjamin Harrison,1890,1894,4,451,0.8869179600886918,12,True,included
+Health care,share of eligible paragraphs,Bill Clinton,Bill Clinton,1990,1994,91,353,25.77903682719547,15,True,included
+Health care,share of eligible paragraphs,Bill Clinton,Bill Clinton,1995,1999,89,834,10.67146282973621,22,True,included
+Health care,share of eligible paragraphs,Bill Clinton,Bill Clinton,2000,2004,20,101,19.801980198019802,2,True,included
+Health care,share of eligible paragraphs,Calvin Coolidge,Calvin Coolidge,1920,1924,3,108,2.7777777777777777,2,True,included
+Health care,share of eligible paragraphs,Calvin Coolidge,Calvin Coolidge,1925,1929,10,482,2.0746887966804977,10,True,included
+Health care,share of eligible paragraphs,Chester A. Arthur,Chester A. Arthur,1880,1884,10,478,2.092050209205021,11,True,included
+Health care,share of eligible paragraphs,Donald Trump,Donald Trump,2015,2019,30,976,3.0737704918032787,20,True,included
+Health care,share of eligible paragraphs,Donald Trump,Donald Trump,2020,2024,147,1346,10.921248142644874,23,True,included
+Health care,share of eligible paragraphs,Donald Trump,Donald Trump,2025,2029,25,531,4.708097928436912,10,True,included
+Health care,share of eligible paragraphs,Dwight D. Eisenhower,Dwight D. Eisenhower,1950,1954,17,209,8.133971291866029,5,True,included
+Health care,share of eligible paragraphs,Dwight D. Eisenhower,Dwight D. Eisenhower,1955,1959,39,403,9.67741935483871,8,True,included
+Health care,share of eligible paragraphs,Dwight D. Eisenhower,Dwight D. Eisenhower,1960,1964,4,84,4.761904761904762,2,True,included
+Health care,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1930,1934,5,140,3.571428571428571,7,True,included
+Health care,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1935,1939,16,275,5.818181818181818,13,True,included
+Health care,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1940,1944,11,603,1.8242122719734661,26,True,included
+Health care,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1945,1949,0,66,0.0,3,True,included
+Health care,share of eligible paragraphs,Franklin Pierce,Franklin Pierce,1850,1854,6,258,2.3255813953488373,10,True,included
+Health care,share of eligible paragraphs,Franklin Pierce,Franklin Pierce,1855,1859,0,214,0.0,5,True,included
+Health care,share of eligible paragraphs,George H. W. Bush,George H. W. Bush,1985,1989,25,272,9.191176470588236,6,True,included
+Health care,share of eligible paragraphs,George H. W. Bush,George H. W. Bush,1990,1994,33,662,4.984894259818732,17,True,included
+Health care,share of eligible paragraphs,George W. Bush,George W. Bush,2000,2004,66,531,12.429378531073446,21,True,included
+Health care,share of eligible paragraphs,George W. Bush,George W. Bush,2005,2009,44,527,8.349146110056926,17,True,included
+Health care,share of eligible paragraphs,George Washington,George Washington,1785,1789,1,14,7.142857142857142,2,False,below_25_paragraph_floor
+Health care,share of eligible paragraphs,George Washington,George Washington,1790,1794,0,129,0.0,13,True,included
+Health care,share of eligible paragraphs,George Washington,George Washington,1795,1799,0,110,0.0,6,True,included
+Health care,share of eligible paragraphs,Gerald Ford,Gerald Ford,1970,1974,4,101,3.9603960396039604,5,True,included
+Health care,share of eligible paragraphs,Gerald Ford,Gerald Ford,1975,1979,14,309,4.53074433656958,9,True,included
+Health care,share of eligible paragraphs,Grover Cleveland,Grover Cleveland,1885,1889,11,651,1.6897081413210446,14,True,included
+Health care,share of eligible paragraphs,Grover Cleveland,Grover Cleveland,1890,1894,8,393,2.035623409669211,8,True,included
+Health care,share of eligible paragraphs,Grover Cleveland,Grover Cleveland,1895,1899,5,306,1.6339869281045754,10,True,included
+Health care,share of eligible paragraphs,Harry S. Truman,Harry S. Truman,1945,1949,4,205,1.951219512195122,14,True,included
+Health care,share of eligible paragraphs,Harry S. Truman,Harry S. Truman,1950,1954,1,103,0.9708737864077669,5,True,included
+Health care,share of eligible paragraphs,Herbert Hoover,Herbert Hoover,1925,1929,14,209,6.698564593301436,10,True,included
+Health care,share of eligible paragraphs,Herbert Hoover,Herbert Hoover,1930,1934,38,489,7.770961145194274,20,True,included
+Health care,share of eligible paragraphs,James A. Garfield,James A. Garfield,1880,1884,0,29,0.0,1,True,included
+Health care,share of eligible paragraphs,James Buchanan,James Buchanan,1855,1859,3,438,0.684931506849315,7,True,included
+Health care,share of eligible paragraphs,James Buchanan,James Buchanan,1860,1864,2,187,1.06951871657754,7,True,included
+Health care,share of eligible paragraphs,James K. Polk,James K. Polk,1845,1849,3,722,0.41551246537396125,25,True,included
+Health care,share of eligible paragraphs,James Madison,James Madison,1805,1809,1,24,4.166666666666666,2,False,below_25_paragraph_floor
+Health care,share of eligible paragraphs,James Madison,James Madison,1810,1814,1,182,0.5494505494505495,14,True,included
+Health care,share of eligible paragraphs,James Madison,James Madison,1815,1819,2,68,2.941176470588235,5,True,included
+Health care,share of eligible paragraphs,James Monroe,James Monroe,1815,1819,1,135,0.7407407407407408,4,True,included
+Health care,share of eligible paragraphs,James Monroe,James Monroe,1820,1824,1,272,0.3676470588235294,6,True,included
+Health care,share of eligible paragraphs,Jimmy Carter,Jimmy Carter,1975,1979,45,754,5.968169761273209,16,True,included
+Health care,share of eligible paragraphs,Jimmy Carter,Jimmy Carter,1980,1984,14,280,5.0,6,True,included
+Health care,share of eligible paragraphs,Joe Biden,Joe Biden,2020,2024,98,1188,8.24915824915825,27,True,included
+Health care,share of eligible paragraphs,Joe Biden,Joe Biden,2025,2029,2,31,6.451612903225806,1,True,included
+Health care,share of eligible paragraphs,John Adams,John Adams,1795,1799,5,102,4.901960784313726,7,True,included
+Health care,share of eligible paragraphs,John Adams,John Adams,1800,1804,0,14,0.0,2,False,below_25_paragraph_floor
+Health care,share of eligible paragraphs,John F. Kennedy,John F. Kennedy,1960,1964,46,1367,3.3650329188002925,44,True,included
+Health care,share of eligible paragraphs,John Quincy Adams,John Quincy Adams,1820,1824,0,5,0.0,1,False,below_25_paragraph_floor
+Health care,share of eligible paragraphs,John Quincy Adams,John Quincy Adams,1825,1829,7,271,2.5830258302583027,7,True,included
+Health care,share of eligible paragraphs,John Tyler,John Tyler,1840,1844,7,531,1.3182674199623352,17,True,included
+Health care,share of eligible paragraphs,John Tyler,John Tyler,1845,1849,0,9,0.0,1,False,below_25_paragraph_floor
+Health care,share of eligible paragraphs,Lyndon B. Johnson,Lyndon B. Johnson,1960,1964,35,731,4.7879616963064295,20,True,included
+Health care,share of eligible paragraphs,Lyndon B. Johnson,Lyndon B. Johnson,1965,1969,95,1981,4.795557799091368,51,True,included
+Health care,share of eligible paragraphs,Martin Van Buren,Martin Van Buren,1835,1839,4,394,1.015228426395939,8,True,included
+Health care,share of eligible paragraphs,Martin Van Buren,Martin Van Buren,1840,1844,2,71,2.8169014084507045,2,True,included
+Health care,share of eligible paragraphs,Millard Fillmore,Millard Fillmore,1850,1854,3,268,1.1194029850746268,7,True,included
+Health care,share of eligible paragraphs,Richard M. Nixon,Richard M. Nixon,1950,1954,2,35,5.714285714285714,1,True,included
+Health care,share of eligible paragraphs,Richard M. Nixon,Richard M. Nixon,1965,1969,0,51,0.0,2,True,included
+Health care,share of eligible paragraphs,Richard M. Nixon,Richard M. Nixon,1970,1974,18,434,4.147465437788019,20,True,included
+Health care,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1960,1964,4,34,11.76470588235294,1,True,included
+Health care,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1975,1979,2,39,5.128205128205128,2,True,included
+Health care,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1980,1984,31,1399,2.215868477483917,35,True,included
+Health care,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1985,1989,15,572,2.6223776223776225,22,True,included
+Health care,share of eligible paragraphs,Rutherford B. Hayes,Rutherford B. Hayes,1875,1879,9,371,2.4258760107816713,12,True,included
+Health care,share of eligible paragraphs,Rutherford B. Hayes,Rutherford B. Hayes,1880,1884,5,129,3.875968992248062,4,True,included
+Health care,share of eligible paragraphs,Theodore Roosevelt,Theodore Roosevelt,1900,1904,11,602,1.8272425249169437,11,True,included
+Health care,share of eligible paragraphs,Theodore Roosevelt,Theodore Roosevelt,1905,1909,36,928,3.8793103448275863,11,True,included
+Health care,share of eligible paragraphs,Thomas Jefferson,Thomas Jefferson,1800,1804,2,142,1.4084507042253522,11,True,included
+Health care,share of eligible paragraphs,Thomas Jefferson,Thomas Jefferson,1805,1809,5,171,2.923976608187134,13,True,included
+Health care,share of eligible paragraphs,Ulysses S. Grant,Ulysses S. Grant,1865,1869,2,80,2.5,5,True,included
+Health care,share of eligible paragraphs,Ulysses S. Grant,Ulysses S. Grant,1870,1874,3,505,0.594059405940594,19,True,included
+Health care,share of eligible paragraphs,Ulysses S. Grant,Ulysses S. Grant,1875,1879,2,228,0.8771929824561403,8,True,included
+Health care,share of eligible paragraphs,Warren G. Harding,Warren G. Harding,1915,1919,0,9,0.0,2,False,below_25_paragraph_floor
+Health care,share of eligible paragraphs,Warren G. Harding,Warren G. Harding,1920,1924,3,229,1.3100436681222707,16,True,included
+Health care,share of eligible paragraphs,William Harrison,William Henry Harrison,1840,1844,2,57,3.508771929824561,1,True,included
+Health care,share of eligible paragraphs,William McKinley,William McKinley,1895,1899,13,539,2.411873840445269,10,True,included
+Health care,share of eligible paragraphs,William McKinley,William McKinley,1900,1904,4,228,1.7543859649122806,4,True,included
+Health care,share of eligible paragraphs,William Taft,William Howard Taft,1905,1909,2,224,0.8928571428571428,5,True,included
+Health care,share of eligible paragraphs,William Taft,William Howard Taft,1910,1914,15,745,2.013422818791946,7,True,included
+Health care,share of eligible paragraphs,Woodrow Wilson,Woodrow Wilson,1910,1914,4,187,2.13903743315508,13,True,included
+Health care,share of eligible paragraphs,Woodrow Wilson,Woodrow Wilson,1915,1919,7,452,1.5486725663716814,19,True,included
+Health care,share of eligible paragraphs,Woodrow Wilson,Woodrow Wilson,1920,1924,0,22,0.0,1,False,below_25_paragraph_floor
+Health care,share of eligible paragraphs,Zachary Taylor,Zachary Taylor,1845,1849,1,62,1.6129032258064515,2,True,included
+Health care,share of eligible paragraphs,Zachary Taylor,Zachary Taylor,1850,1854,0,18,0.0,2,False,below_25_paragraph_floor

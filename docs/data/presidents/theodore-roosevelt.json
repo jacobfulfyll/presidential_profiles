@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 654.028388088532,
-      "percentile": 35.55555555555556
+      "percentile": 35.714285714285715
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 300.5678629038375,
-      "percentile": 73.33333333333333
+      "percentile": 73.80952380952381
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.6551383399209486,
-      "percentile": 60.0
+      "percentile": 59.523809523809526
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 60.32595229547075,
-      "percentile": 48.888888888888886
+      "percentile": 50.0
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.3245055313442843,
-      "percentile": 35.55555555555556
+      "percentile": 35.714285714285715
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 16.012056127594022,
-      "percentile": 48.888888888888886
+      "percentile": 50.0
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4086040609137056,
-      "percentile": 42.22222222222222
+      "percentile": 45.23809523809524
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 1.6686977583826779,
-      "percentile": 4.444444444444445
+      "percentile": 4.761904761904762
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 16.012056127594022,
     "self_reference": 0.3245055313442843,
     "ttr": 0.4086040609137056,
-    "pct_hope": 35.55555555555556,
-    "pct_fear": 73.33333333333333,
-    "pct_certainty": 60.0,
-    "pct_us_vs_them": 48.888888888888886,
-    "pct_self_reference": 35.55555555555556,
-    "pct_formality": 48.888888888888886,
-    "pct_vocabulary": 42.22222222222222,
-    "pct_religiosity": 4.444444444444445
+    "pct_hope": 35.714285714285715,
+    "pct_fear": 73.80952380952381,
+    "pct_certainty": 59.523809523809526,
+    "pct_us_vs_them": 50.0,
+    "pct_self_reference": 35.714285714285715,
+    "pct_formality": 50.0,
+    "pct_vocabulary": 45.23809523809524,
+    "pct_religiosity": 4.761904761904762
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "December 17, 1906: Message Regarding Conditions in Panama",
       "year": 1906,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-17-1906-message-regarding-conditions-panama"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-17-1906-message-regarding-conditions-panama"
     },
     {
       "title": "November 16, 1903: Message Regarding the Panamanian Revolution",
       "year": 1903,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-16-1903-message-regarding-panamanian-revolution"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-16-1903-message-regarding-panamanian-revolution"
     },
     {
       "title": "December 11, 1906: Message Regarding the State of Puerto Rico",
       "year": 1906,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-11-1906-message-regarding-state-puerto-rico"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-11-1906-message-regarding-state-puerto-rico"
     },
     {
       "title": "December 7, 1903: Message Regarding Treaty with Panama",
       "year": 1903,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-7-1903-message-regarding-treaty-panama"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-7-1903-message-regarding-treaty-panama"
     },
     {
       "title": "January 8, 1906: Message Regarding Panama Canal",
       "year": 1906,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-8-1906-message-regarding-panama-canal"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-8-1906-message-regarding-panama-canal"
     }
   ],
   "legacy_invocations": {

@@ -18,25 +18,25 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 630.5750314937585,
-      "percentile": 15.555555555555555
+      "percentile": 14.285714285714285
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 304.376041838981,
-      "percentile": 77.77777777777779
+      "percentile": 78.57142857142857
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.4725274725274725,
-      "percentile": 15.555555555555555
+      "percentile": 14.285714285714285
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 39.57397533943273,
-      "percentile": 17.77777777777778
+      "percentile": 19.047619047619047
     },
     {
       "key": "self_reference",
@@ -48,19 +48,19 @@
       "key": "formality",
       "label": "Formality",
       "absolute": 18.773778323018465,
-      "percentile": 73.33333333333333
+      "percentile": 76.19047619047619
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.414547770700637,
-      "percentile": 60.0
+      "percentile": 59.523809523809526
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 3.1811877282502197,
-      "percentile": 11.11111111111111
+      "percentile": 11.904761904761903
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 18.773778323018465,
     "self_reference": 0.32222222222222224,
     "ttr": 0.414547770700637,
-    "pct_hope": 15.555555555555555,
-    "pct_fear": 77.77777777777779,
-    "pct_certainty": 15.555555555555555,
-    "pct_us_vs_them": 17.77777777777778,
+    "pct_hope": 14.285714285714285,
+    "pct_fear": 78.57142857142857,
+    "pct_certainty": 14.285714285714285,
+    "pct_us_vs_them": 19.047619047619047,
     "pct_self_reference": 33.33333333333333,
-    "pct_formality": 73.33333333333333,
-    "pct_vocabulary": 60.0,
-    "pct_religiosity": 11.11111111111111
+    "pct_formality": 76.19047619047619,
+    "pct_vocabulary": 59.523809523809526,
+    "pct_religiosity": 11.904761904761903
   },
   "legacy_issue_attention": [
     {
@@ -1000,27 +1000,27 @@
     {
       "title": "January 28, 1895: Message Regarding the Financial Crisis",
       "year": 1895,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-28-1895-message-regarding-financial-crisis"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-28-1895-message-regarding-financial-crisis"
     },
     {
       "title": "August 8, 1893: Special Session Message",
       "year": 1893,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-8-1893-special-session-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-8-1893-special-session-message"
     },
     {
       "title": "August 8, 1893: Message Regarding Economic Crisis",
       "year": 1893,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-8-1893-message-regarding-economic-crisis"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-8-1893-message-regarding-economic-crisis"
     },
     {
       "title": "March 29, 1894: Veto Message of Monetary Legislation",
       "year": 1894,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-29-1894-veto-message-monetary-legislation"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-29-1894-veto-message-monetary-legislation"
     },
     {
       "title": "March 4, 1893: Second Inaugural Address",
       "year": 1893,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1893-second-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1893-second-inaugural-address"
     }
   ],
   "legacy_invocations": {

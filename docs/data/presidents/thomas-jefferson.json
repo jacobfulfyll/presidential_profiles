@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 685.7541551419102,
-      "percentile": 60.0
+      "percentile": 61.904761904761905
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 248.6855548080038,
-      "percentile": 11.11111111111111
+      "percentile": 9.523809523809524
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.5758928571428571,
-      "percentile": 48.888888888888886
+      "percentile": 47.61904761904761
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 114.12623657521617,
-      "percentile": 97.77777777777777
+      "percentile": 97.61904761904762
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.2942176870748299,
-      "percentile": 22.22222222222222
+      "percentile": 21.428571428571427
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 18.672880643152382,
-      "percentile": 71.11111111111111
+      "percentile": 73.80952380952381
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.42515000000000003,
-      "percentile": 73.33333333333333
+      "percentile": 71.42857142857143
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 6.977149834292691,
-      "percentile": 51.11111111111111
+      "percentile": 54.761904761904766
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 18.672880643152382,
     "self_reference": 0.2942176870748299,
     "ttr": 0.42515000000000003,
-    "pct_hope": 60.0,
-    "pct_fear": 11.11111111111111,
-    "pct_certainty": 48.888888888888886,
-    "pct_us_vs_them": 97.77777777777777,
-    "pct_self_reference": 22.22222222222222,
-    "pct_formality": 71.11111111111111,
-    "pct_vocabulary": 73.33333333333333,
-    "pct_religiosity": 51.11111111111111
+    "pct_hope": 61.904761904761905,
+    "pct_fear": 9.523809523809524,
+    "pct_certainty": 47.61904761904761,
+    "pct_us_vs_them": 97.61904761904762,
+    "pct_self_reference": 21.428571428571427,
+    "pct_formality": 73.80952380952381,
+    "pct_vocabulary": 71.42857142857143,
+    "pct_religiosity": 54.761904761904766
   },
   "legacy_issue_attention": [
     {
@@ -1025,27 +1025,27 @@
     {
       "title": "December 30, 1806: Address to the Wolf and the People of the Mandan Nation",
       "year": 1806,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-30-1806-address-wolf-and-people-mandan-nation"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-30-1806-address-wolf-and-people-mandan-nation"
     },
     {
       "title": "December 17, 1803: Address to the Brothers of Choctaw Nation",
       "year": 1803,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-17-1803-address-brothers-choctaw-nation"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-17-1803-address-brothers-choctaw-nation"
     },
     {
       "title": "January 10, 1806: Address to the Chiefs of the Cherokee Nation",
       "year": 1806,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-10-1806-address-chiefs-cherokee-nation"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-10-1806-address-chiefs-cherokee-nation"
     },
     {
       "title": "November 3, 1802: Address to Brother Handsome Lake",
       "year": 1802,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-3-1802-address-brother-handsome-lake"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-3-1802-address-brother-handsome-lake"
     },
     {
       "title": "April 3, 1809: Message to the Inhabitants of Albemarle County",
       "year": 1809,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-3-1809-message-inhabitants-albemarle-county"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-3-1809-message-inhabitants-albemarle-county"
     }
   ],
   "legacy_invocations": {

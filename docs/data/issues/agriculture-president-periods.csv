@@ -1,0 +1,101 @@
+source_issue,unit,president,display_name,period_start,period_end,numerator,denominator,share_percent,n_speeches,dot_included,dot_status
+Agriculture,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1850,1854,2,360,0.5555555555555556,2,True,included
+Agriculture,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1855,1859,0,37,0.0,1,True,included
+Agriculture,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1860,1864,6,456,1.3157894736842104,11,True,included
+Agriculture,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1865,1869,0,6,0.0,1,False,below_25_paragraph_floor
+Agriculture,share of eligible paragraphs,Andrew Jackson,Andrew Jackson,1825,1829,3,97,3.0927835051546393,3,True,included
+Agriculture,share of eligible paragraphs,Andrew Jackson,Andrew Jackson,1830,1834,5,804,0.6218905472636816,19,True,included
+Agriculture,share of eligible paragraphs,Andrew Jackson,Andrew Jackson,1835,1839,4,249,1.6064257028112447,4,True,included
+Agriculture,share of eligible paragraphs,Andrew Johnson,Andrew Johnson,1865,1869,3,725,0.41379310344827586,31,True,included
+Agriculture,share of eligible paragraphs,Barack Obama,Barack Obama,2005,2009,4,339,1.1799410029498525,11,True,included
+Agriculture,share of eligible paragraphs,Barack Obama,Barack Obama,2010,2014,9,1230,0.7317073170731708,33,True,included
+Agriculture,share of eligible paragraphs,Barack Obama,Barack Obama,2015,2019,2,310,0.6451612903225806,7,True,included
+Agriculture,share of eligible paragraphs,Benjamin Harrison,Benjamin Harrison,1885,1889,5,147,3.4013605442176873,4,True,included
+Agriculture,share of eligible paragraphs,Benjamin Harrison,Benjamin Harrison,1890,1894,30,451,6.651884700665188,12,True,included
+Agriculture,share of eligible paragraphs,Bill Clinton,Bill Clinton,1990,1994,4,353,1.13314447592068,15,True,included
+Agriculture,share of eligible paragraphs,Bill Clinton,Bill Clinton,1995,1999,13,834,1.5587529976019185,22,True,included
+Agriculture,share of eligible paragraphs,Bill Clinton,Bill Clinton,2000,2004,1,101,0.9900990099009901,2,True,included
+Agriculture,share of eligible paragraphs,Calvin Coolidge,Calvin Coolidge,1920,1924,16,108,14.814814814814813,2,True,included
+Agriculture,share of eligible paragraphs,Calvin Coolidge,Calvin Coolidge,1925,1929,52,482,10.78838174273859,10,True,included
+Agriculture,share of eligible paragraphs,Chester A. Arthur,Chester A. Arthur,1880,1884,4,478,0.8368200836820083,11,True,included
+Agriculture,share of eligible paragraphs,Donald Trump,Donald Trump,2015,2019,10,976,1.0245901639344261,20,True,included
+Agriculture,share of eligible paragraphs,Donald Trump,Donald Trump,2020,2024,14,1346,1.040118870728083,23,True,included
+Agriculture,share of eligible paragraphs,Donald Trump,Donald Trump,2025,2029,5,531,0.9416195856873822,10,True,included
+Agriculture,share of eligible paragraphs,Dwight D. Eisenhower,Dwight D. Eisenhower,1950,1954,16,209,7.655502392344498,5,True,included
+Agriculture,share of eligible paragraphs,Dwight D. Eisenhower,Dwight D. Eisenhower,1955,1959,32,403,7.94044665012407,8,True,included
+Agriculture,share of eligible paragraphs,Dwight D. Eisenhower,Dwight D. Eisenhower,1960,1964,4,84,4.761904761904762,2,True,included
+Agriculture,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1930,1934,30,140,21.428571428571427,7,True,included
+Agriculture,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1935,1939,38,275,13.818181818181818,13,True,included
+Agriculture,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1940,1944,35,603,5.804311774461028,26,True,included
+Agriculture,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1945,1949,1,66,1.5151515151515151,3,True,included
+Agriculture,share of eligible paragraphs,Franklin Pierce,Franklin Pierce,1850,1854,2,258,0.7751937984496124,10,True,included
+Agriculture,share of eligible paragraphs,Franklin Pierce,Franklin Pierce,1855,1859,1,214,0.46728971962616817,5,True,included
+Agriculture,share of eligible paragraphs,George H. W. Bush,George H. W. Bush,1985,1989,11,272,4.044117647058823,6,True,included
+Agriculture,share of eligible paragraphs,George H. W. Bush,George H. W. Bush,1990,1994,4,662,0.6042296072507553,17,True,included
+Agriculture,share of eligible paragraphs,George W. Bush,George W. Bush,2000,2004,5,531,0.9416195856873822,21,True,included
+Agriculture,share of eligible paragraphs,George W. Bush,George W. Bush,2005,2009,5,527,0.9487666034155597,17,True,included
+Agriculture,share of eligible paragraphs,George Washington,George Washington,1785,1789,0,14,0.0,2,False,below_25_paragraph_floor
+Agriculture,share of eligible paragraphs,George Washington,George Washington,1790,1794,3,129,2.3255813953488373,13,True,included
+Agriculture,share of eligible paragraphs,George Washington,George Washington,1795,1799,7,110,6.363636363636363,6,True,included
+Agriculture,share of eligible paragraphs,Gerald Ford,Gerald Ford,1970,1974,4,101,3.9603960396039604,5,True,included
+Agriculture,share of eligible paragraphs,Gerald Ford,Gerald Ford,1975,1979,3,309,0.9708737864077669,9,True,included
+Agriculture,share of eligible paragraphs,Grover Cleveland,Grover Cleveland,1885,1889,20,651,3.0721966205837172,14,True,included
+Agriculture,share of eligible paragraphs,Grover Cleveland,Grover Cleveland,1890,1894,23,393,5.852417302798982,8,True,included
+Agriculture,share of eligible paragraphs,Grover Cleveland,Grover Cleveland,1895,1899,6,306,1.9607843137254901,10,True,included
+Agriculture,share of eligible paragraphs,Harry S. Truman,Harry S. Truman,1945,1949,8,205,3.902439024390244,14,True,included
+Agriculture,share of eligible paragraphs,Harry S. Truman,Harry S. Truman,1950,1954,5,103,4.854368932038835,5,True,included
+Agriculture,share of eligible paragraphs,Herbert Hoover,Herbert Hoover,1925,1929,17,209,8.133971291866029,10,True,included
+Agriculture,share of eligible paragraphs,Herbert Hoover,Herbert Hoover,1930,1934,90,489,18.404907975460123,20,True,included
+Agriculture,share of eligible paragraphs,James A. Garfield,James A. Garfield,1880,1884,1,29,3.4482758620689653,1,True,included
+Agriculture,share of eligible paragraphs,James Buchanan,James Buchanan,1855,1859,6,438,1.36986301369863,7,True,included
+Agriculture,share of eligible paragraphs,James Buchanan,James Buchanan,1860,1864,1,187,0.53475935828877,7,True,included
+Agriculture,share of eligible paragraphs,James K. Polk,James K. Polk,1845,1849,14,722,1.9390581717451523,25,True,included
+Agriculture,share of eligible paragraphs,James Madison,James Madison,1805,1809,2,24,8.333333333333332,2,False,below_25_paragraph_floor
+Agriculture,share of eligible paragraphs,James Madison,James Madison,1810,1814,1,182,0.5494505494505495,14,True,included
+Agriculture,share of eligible paragraphs,James Madison,James Madison,1815,1819,1,68,1.4705882352941175,5,True,included
+Agriculture,share of eligible paragraphs,James Monroe,James Monroe,1815,1819,1,135,0.7407407407407408,4,True,included
+Agriculture,share of eligible paragraphs,James Monroe,James Monroe,1820,1824,3,272,1.1029411764705883,6,True,included
+Agriculture,share of eligible paragraphs,Jimmy Carter,Jimmy Carter,1975,1979,14,754,1.8567639257294428,16,True,included
+Agriculture,share of eligible paragraphs,Jimmy Carter,Jimmy Carter,1980,1984,6,280,2.142857142857143,6,True,included
+Agriculture,share of eligible paragraphs,Joe Biden,Joe Biden,2020,2024,8,1188,0.6734006734006733,27,True,included
+Agriculture,share of eligible paragraphs,Joe Biden,Joe Biden,2025,2029,0,31,0.0,1,True,included
+Agriculture,share of eligible paragraphs,John Adams,John Adams,1795,1799,4,102,3.9215686274509802,7,True,included
+Agriculture,share of eligible paragraphs,John Adams,John Adams,1800,1804,1,14,7.142857142857142,2,False,below_25_paragraph_floor
+Agriculture,share of eligible paragraphs,John F. Kennedy,John F. Kennedy,1960,1964,34,1367,2.487198244330651,44,True,included
+Agriculture,share of eligible paragraphs,John Quincy Adams,John Quincy Adams,1820,1824,0,5,0.0,1,False,below_25_paragraph_floor
+Agriculture,share of eligible paragraphs,John Quincy Adams,John Quincy Adams,1825,1829,3,271,1.107011070110701,7,True,included
+Agriculture,share of eligible paragraphs,John Tyler,John Tyler,1840,1844,1,531,0.18832391713747645,17,True,included
+Agriculture,share of eligible paragraphs,John Tyler,John Tyler,1845,1849,0,9,0.0,1,False,below_25_paragraph_floor
+Agriculture,share of eligible paragraphs,Lyndon B. Johnson,Lyndon B. Johnson,1960,1964,14,731,1.915184678522572,20,True,included
+Agriculture,share of eligible paragraphs,Lyndon B. Johnson,Lyndon B. Johnson,1965,1969,43,1981,2.170620898536093,51,True,included
+Agriculture,share of eligible paragraphs,Martin Van Buren,Martin Van Buren,1835,1839,8,394,2.030456852791878,8,True,included
+Agriculture,share of eligible paragraphs,Martin Van Buren,Martin Van Buren,1840,1844,0,71,0.0,2,True,included
+Agriculture,share of eligible paragraphs,Millard Fillmore,Millard Fillmore,1850,1854,5,268,1.8656716417910446,7,True,included
+Agriculture,share of eligible paragraphs,Richard M. Nixon,Richard M. Nixon,1950,1954,0,35,0.0,1,True,included
+Agriculture,share of eligible paragraphs,Richard M. Nixon,Richard M. Nixon,1965,1969,1,51,1.9607843137254901,2,True,included
+Agriculture,share of eligible paragraphs,Richard M. Nixon,Richard M. Nixon,1970,1974,8,434,1.8433179723502304,20,True,included
+Agriculture,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1960,1964,5,34,14.705882352941178,1,True,included
+Agriculture,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1975,1979,0,39,0.0,2,True,included
+Agriculture,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1980,1984,27,1399,1.9299499642601858,35,True,included
+Agriculture,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1985,1989,8,572,1.3986013986013985,22,True,included
+Agriculture,share of eligible paragraphs,Rutherford B. Hayes,Rutherford B. Hayes,1875,1879,13,371,3.5040431266846364,12,True,included
+Agriculture,share of eligible paragraphs,Rutherford B. Hayes,Rutherford B. Hayes,1880,1884,5,129,3.875968992248062,4,True,included
+Agriculture,share of eligible paragraphs,Theodore Roosevelt,Theodore Roosevelt,1900,1904,28,602,4.651162790697675,11,True,included
+Agriculture,share of eligible paragraphs,Theodore Roosevelt,Theodore Roosevelt,1905,1909,40,928,4.310344827586207,11,True,included
+Agriculture,share of eligible paragraphs,Thomas Jefferson,Thomas Jefferson,1800,1804,10,142,7.042253521126761,11,True,included
+Agriculture,share of eligible paragraphs,Thomas Jefferson,Thomas Jefferson,1805,1809,5,171,2.923976608187134,13,True,included
+Agriculture,share of eligible paragraphs,Ulysses S. Grant,Ulysses S. Grant,1865,1869,2,80,2.5,5,True,included
+Agriculture,share of eligible paragraphs,Ulysses S. Grant,Ulysses S. Grant,1870,1874,7,505,1.3861386138613863,19,True,included
+Agriculture,share of eligible paragraphs,Ulysses S. Grant,Ulysses S. Grant,1875,1879,7,228,3.070175438596491,8,True,included
+Agriculture,share of eligible paragraphs,Warren G. Harding,Warren G. Harding,1915,1919,0,9,0.0,2,False,below_25_paragraph_floor
+Agriculture,share of eligible paragraphs,Warren G. Harding,Warren G. Harding,1920,1924,18,229,7.860262008733625,16,True,included
+Agriculture,share of eligible paragraphs,William Harrison,William Henry Harrison,1840,1844,0,57,0.0,1,True,included
+Agriculture,share of eligible paragraphs,William McKinley,William McKinley,1895,1899,16,539,2.9684601113172544,10,True,included
+Agriculture,share of eligible paragraphs,William McKinley,William McKinley,1900,1904,6,228,2.631578947368421,4,True,included
+Agriculture,share of eligible paragraphs,William Taft,William Howard Taft,1905,1909,12,224,5.357142857142857,5,True,included
+Agriculture,share of eligible paragraphs,William Taft,William Howard Taft,1910,1914,23,745,3.087248322147651,7,True,included
+Agriculture,share of eligible paragraphs,Woodrow Wilson,Woodrow Wilson,1910,1914,8,187,4.27807486631016,13,True,included
+Agriculture,share of eligible paragraphs,Woodrow Wilson,Woodrow Wilson,1915,1919,13,452,2.8761061946902653,19,True,included
+Agriculture,share of eligible paragraphs,Woodrow Wilson,Woodrow Wilson,1920,1924,1,22,4.545454545454546,1,False,below_25_paragraph_floor
+Agriculture,share of eligible paragraphs,Zachary Taylor,Zachary Taylor,1845,1849,4,62,6.451612903225806,2,True,included
+Agriculture,share of eligible paragraphs,Zachary Taylor,Zachary Taylor,1850,1854,0,18,0.0,2,False,below_25_paragraph_floor

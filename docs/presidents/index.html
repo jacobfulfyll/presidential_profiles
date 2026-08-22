@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>President Profiles - Presidential Profiles</title>
-<style>
-
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>President Profiles</title><style>
   :root {
     --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
-    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+    --muted: #706d67; --grid: #e1e0d9; --border: rgba(11,11,11,0.14);
+    --focus: #7a3d00;
   }
   * { box-sizing: border-box; margin: 0; }
   body { background: var(--page); color: var(--ink);
@@ -24,27 +20,26 @@
                    border-radius: 12px; padding: 10px 6px 6px;
                    overflow-x: auto; overflow-y: hidden; }
   .chart { min-width: 640px; }
+  :where(a, button, summary, select, [tabindex]):focus-visible {
+    outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 3px;
+  }
   footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
   footer a { color: var(--ink2); }
 
-  .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
-  .crumbs a { color: var(--ink2); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-           gap: 12px; margin-top: 24px; }
-  .card { background: var(--surface); border: 1px solid var(--border);
-           border-radius: 10px; padding: 14px 16px; text-decoration: none;
-           color: var(--ink); transition: border-color 0.15s; }
-  .card:hover { border-color: var(--muted); }
-  .name { font-weight: 650; display: flex; align-items: center; gap: 8px; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
-  .meta { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
-  .issue { color: var(--ink2); font-size: 0.83rem; margin-top: 8px; }
-  .issue span,.ai-issue span { color:var(--muted); font-size:.68rem; text-transform:uppercase;
-                               letter-spacing:.05em; margin-right:4px; }
-  .ai-issue { color:#275d8c; font-size:.82rem; margin-top:9px; }
-</style>
-</head>
+  .crumbs { margin-bottom: 18px; font-size: .88rem; }
+  .directory-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(230px,1fr)); gap: 11px; margin-top: 24px; }
+  .president-card { display: grid; grid-template-columns: 48px minmax(0,1fr); gap: 11px; padding: 13px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--ink); text-decoration: none; }
+  .president-card:hover { border-color: #726d64; }
+  .president-card img { width: 48px; height: 48px; border: 1px solid var(--border); border-radius: 50%; object-fit: cover; }
+  .president-card strong { display: block; line-height: 1.25; }
+  .card-meta { margin-top: 3px; color: var(--muted); font-size: .75rem; }
+  .card-measure { grid-column: 1/-1; color: var(--ink2); font-size: .8rem; }
+  .card-measure span { margin-right: 4px; color: var(--muted); font-size: .64rem; font-weight: 760; letter-spacing: .045em; text-transform: uppercase; }
+  .card-support { grid-column: 1/-1; font-size: .7rem; font-weight: 720; color: #34523c; }
+  .card-support.thin { color: #6b4c0c; }
+  @media (max-width: 420px) { .directory-grid { grid-template-columns: 1fr; } }
+</style></head>
 <body><style>
 .global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
@@ -73,7 +68,7 @@ white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
 html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
-.nav-brand:focus-visible{outline:3px solid #d08b45;outline-offset:2px}
+.nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
@@ -146,246 +141,232 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
 
 })();
 </script>
-
-<header>
-  <p class="crumbs"><a href="../index.html">← Dashboard</a> &nbsp;·&nbsp;
-  <a href="../compare.html">Compare</a> &nbsp;·&nbsp;
-  <a href="../methodology.html">How the AI labels work</a></p>
-  <h1>President Profiles</h1>
-  <p class="sub">Every president's rhetorical fingerprint, AI-labeled topics and
-  paragraph judgments, legacy issue emphasis, distinctive vocabulary, and defining
-  speeches. Each card shows both measurement layers rather than blending them.</p>
-  <div class="grid">
-<a class="card" href="george-washington.html">
-  <div class="name"><span class="dot" style="background:#898781"></span>George Washington</div>
-  <div class="meta">1789–1796 · 21 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Indian Affairs, Removal &amp; Allotment</div><div class="issue"><span>Legacy issue</span> ↑ Crime &amp; justice</div>
-</a>
-<a class="card" href="john-adams.html">
-  <div class="name"><span class="dot" style="background:#4a3aa7"></span>John Adams</div>
-  <div class="meta">1797–1800 · 9 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Neutral Rights &amp; Maritime Depredations</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
-</a>
-<a class="card" href="thomas-jefferson.html">
-  <div class="name"><span class="dot" style="background:#1baf7a"></span>Thomas Jefferson</div>
-  <div class="meta">1801–1809 · 24 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Indian Affairs, Removal &amp; Allotment</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
-</a>
-<a class="card" href="james-madison.html">
-  <div class="name"><span class="dot" style="background:#1baf7a"></span>James Madison</div>
-  <div class="meta">1809–1817 · 21 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Early Naval Wars: Barbary &amp; the War of 1812</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
-</a>
-<a class="card" href="james-monroe.html">
-  <div class="name"><span class="dot" style="background:#1baf7a"></span>James Monroe</div>
-  <div class="meta">1817–1824 · 10 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
-</a>
-<a class="card" href="john-quincy-adams.html">
-  <div class="name"><span class="dot" style="background:#1baf7a"></span>John Quincy Adams</div>
-  <div class="meta">1821–1828 · 8 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Tariffs, Reciprocity &amp; Navigation Laws</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
-</a>
-<a class="card" href="andrew-jackson.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Andrew Jackson</div>
-  <div class="meta">1829–1837 · 26 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Constitutional Union &amp; Federalism</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
-</a>
-<a class="card" href="martin-van-buren.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Martin Van Buren</div>
-  <div class="meta">1837–1841 · 10 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> National Bank &amp; Banking Crises</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
-</a>
-<a class="card" href="william-harrison.html">
-  <div class="name"><span class="dot" style="background:#eda100"></span>William Harrison</div>
-  <div class="meta">1841–1841 · 1 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Executive Power, Vetoes &amp; the Courts</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
-</a>
-<a class="card" href="john-tyler.html">
-  <div class="name"><span class="dot" style="background:#eda100"></span>John Tyler</div>
-  <div class="meta">1841–1845 · 18 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
-</a>
-<a class="card" href="james-k-polk.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>James K. Polk</div>
-  <div class="meta">1845–1849 · 25 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Mexican War</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
-</a>
-<a class="card" href="zachary-taylor.html">
-  <div class="name"><span class="dot" style="background:#eda100"></span>Zachary Taylor</div>
-  <div class="meta">1849–1850 · 4 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
-</a>
-<a class="card" href="millard-fillmore.html">
-  <div class="name"><span class="dot" style="background:#eda100"></span>Millard Fillmore</div>
-  <div class="meta">1850–1852 · 7 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
-</a>
-<a class="card" href="abraham-lincoln.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Abraham Lincoln</div>
-  <div class="meta">1852–1865 · 15 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Slavery, Emancipation &amp; Sectionalism</div><div class="issue"><span>Legacy issue</span> ↑ Civil rights &amp; race</div>
-</a>
-<a class="card" href="franklin-pierce.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Franklin Pierce</div>
-  <div class="meta">1853–1856 · 15 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
-</a>
-<a class="card" href="james-buchanan.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>James Buchanan</div>
-  <div class="meta">1857–1861 · 14 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Constitutional Union &amp; Federalism</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
-</a>
-<a class="card" href="andrew-johnson.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Andrew Johnson</div>
-  <div class="meta">1865–1868 · 31 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Reconstruction &amp; Southern Self-Government</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
-</a>
-<a class="card" href="ulysses-s-grant.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Ulysses S. Grant</div>
-  <div class="meta">1869–1877 · 32 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
-</a>
-<a class="card" href="rutherford-b-hayes.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Rutherford B. Hayes</div>
-  <div class="meta">1877–1881 · 16 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Elections &amp; Voting Integrity</div><div class="issue"><span>Legacy issue</span> ↑ Taxes &amp; budget</div>
-</a>
-<a class="card" href="james-a-garfield.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>James A. Garfield</div>
-  <div class="meta">1881–1881 · 1 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Constitutional Union &amp; Federalism</div><div class="issue"><span>Legacy issue</span> ↑ Civil rights &amp; race</div>
-</a>
-<a class="card" href="chester-a-arthur.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Chester A. Arthur</div>
-  <div class="meta">1881–1884 · 11 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
-</a>
-<a class="card" href="grover-cleveland.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Grover Cleveland</div>
-  <div class="meta">1885–1897 · 32 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
-</a>
-<a class="card" href="benjamin-harrison.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Benjamin Harrison</div>
-  <div class="meta">1889–1893 · 16 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Tariffs, Reciprocity &amp; Navigation Laws</div><div class="issue"><span>Legacy issue</span> ↑ Trade &amp; tariffs</div>
-</a>
-<a class="card" href="william-mckinley.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>William McKinley</div>
-  <div class="meta">1897–1901 · 14 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
-</a>
-<a class="card" href="theodore-roosevelt.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Theodore Roosevelt</div>
-  <div class="meta">1901–1908 · 22 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Military Preparedness, Armed Forces &amp; Veterans</div><div class="issue"><span>Legacy issue</span> ↑ Infrastructure</div>
-</a>
-<a class="card" href="william-taft.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>William Taft</div>
-  <div class="meta">1909–1912 · 12 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Tariffs, Reciprocity &amp; Navigation Laws</div><div class="issue"><span>Legacy issue</span> ↑ Trade &amp; tariffs</div>
-</a>
-<a class="card" href="woodrow-wilson.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Woodrow Wilson</div>
-  <div class="meta">1913–1920 · 33 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> World War I Mobilization &amp; War Aims</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
-</a>
-<a class="card" href="warren-g-harding.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Warren G. Harding</div>
-  <div class="meta">1917–1922 · 18 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Providence, Faith &amp; American Ideals</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
-</a>
-<a class="card" href="calvin-coolidge.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Calvin Coolidge</div>
-  <div class="meta">1923–1928 · 12 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Internal Improvements, Energy &amp; Infrastructure</div><div class="issue"><span>Legacy issue</span> ↑ Taxes &amp; budget</div>
-</a>
-<a class="card" href="herbert-hoover.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Herbert Hoover</div>
-  <div class="meta">1928–1932 · 30 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Great Depression Recovery</div><div class="issue"><span>Legacy issue</span> ↑ Economy &amp; jobs</div>
-</a>
-<a class="card" href="franklin-d-roosevelt.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Franklin D. Roosevelt</div>
-  <div class="meta">1933–1945 · 49 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> World War II Military Operations</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
-</a>
-<a class="card" href="harry-s-truman.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Harry S. Truman</div>
-  <div class="meta">1945–1953 · 19 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
-</a>
-<a class="card" href="richard-m-nixon.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Richard M. Nixon</div>
-  <div class="meta">1952–1974 · 23 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Vietnam War</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
-</a>
-<a class="card" href="dwight-d-eisenhower.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Dwight D. Eisenhower</div>
-  <div class="meta">1953–1961 · 15 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ Economy &amp; jobs</div>
-</a>
-<a class="card" href="john-f-kennedy.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>John F. Kennedy</div>
-  <div class="meta">1960–1963 · 44 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
-</a>
-<a class="card" href="lyndon-b-johnson.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Lyndon B. Johnson</div>
-  <div class="meta">1963–1969 · 71 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Vietnam War</div><div class="issue"><span>Legacy issue</span> ↑ Crime &amp; justice</div>
-</a>
-<a class="card" href="ronald-reagan.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Ronald Reagan</div>
-  <div class="meta">1964–1989 · 60 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ Taxes &amp; budget</div>
-</a>
-<a class="card" href="gerald-ford.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Gerald Ford</div>
-  <div class="meta">1974–1977 · 14 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Providence, Faith &amp; American Ideals</div><div class="issue"><span>Legacy issue</span> ↑ Foreign policy</div>
-</a>
-<a class="card" href="jimmy-carter.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Jimmy Carter</div>
-  <div class="meta">1976–1981 · 22 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Taxes, Budget Deficits &amp; Federal Spending</div><div class="issue"><span>Legacy issue</span> ↑ Money &amp; banking</div>
-</a>
-<a class="card" href="george-h-w-bush.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>George H. W. Bush</div>
-  <div class="meta">1988–1993 · 23 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Treaties, Diplomacy &amp; International Arbitration</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
-</a>
-<a class="card" href="bill-clinton.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Bill Clinton</div>
-  <div class="meta">1993–2001 · 39 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Welfare, Poverty &amp; Economic Opportunity</div><div class="issue"><span>Legacy issue</span> ↑ Education</div>
-</a>
-<a class="card" href="george-w-bush.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>George W. Bush</div>
-  <div class="meta">2001–2009 · 38 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Iraq, Gulf Wars, the War on Terror &amp; Interventions</div><div class="issue"><span>Legacy issue</span> ↑ Security &amp; peace</div>
-</a>
-<a class="card" href="barack-obama.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Barack Obama</div>
-  <div class="meta">2008–2017 · 51 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Providence, Faith &amp; American Ideals</div><div class="issue"><span>Legacy issue</span> ↑ Economy &amp; jobs</div>
-</a>
-<a class="card" href="donald-trump.html">
-  <div class="name"><span class="dot" style="background:#e34948"></span>Donald Trump</div>
-  <div class="meta">2017–2026 · 53 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Partisan Combat, Press Conferences &amp; Media Attacks</div><div class="issue"><span>Legacy issue</span> ↑ Immigration</div>
-</a>
-<a class="card" href="joe-biden.html">
-  <div class="name"><span class="dot" style="background:#2a78d6"></span>Joe Biden</div>
-  <div class="meta">2021–2025 · 28 speeches</div>
-  <div class="ai-issue"><span>AI topic</span> Cold War &amp; Great-Power Rivalry</div><div class="issue"><span>Legacy issue</span> ↑ War &amp; military</div>
-</a>
-  </div>
-</header>
-<footer>
-  <p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
-  University of Virginia</a>. <a href="../methodology.html">AI labeling method</a>.</p>
-<p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer>
-</body>
-</html>
+<header><p class="crumbs"><a href="../index.html">← Dashboard</a> · <a href="../compare.html">Compare</a> · <a href="../methodology.html">How the AI labels work</a></p>
+<h1>President Profiles</h1><p class="sub">Evidence-first profiles for every president in the corpus. Cards keep corpus-derived, AI-labeled, and legacy issue measurements visibly separate.</p>
+<div class="directory-grid"><a class="president-card" href="george-washington.html">
+  <img src="../portraits/george-washington.png" width="48" height="48" alt="">
+  <div><strong>George Washington</strong><div class="card-meta">Unaffiliated · 1789–1796 · 21 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Crime &amp; justice</div><div class="card-measure"><span>AI topic</span>Indian Affairs, Removal &amp; Allotment</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="john-adams.html">
+  <img src="../portraits/john-adams.png" width="48" height="48" alt="">
+  <div><strong>John Adams</strong><div class="card-meta">Federalist · 1797–1800 · 9 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Neutral Rights &amp; Maritime Depredations</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="thomas-jefferson.html">
+  <img src="../portraits/thomas-jefferson.png" width="48" height="48" alt="">
+  <div><strong>Thomas Jefferson</strong><div class="card-meta">Democratic-Republican · 1801–1809 · 24 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Indian Affairs, Removal &amp; Allotment</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="james-madison.html">
+  <img src="../portraits/james-madison.png" width="48" height="48" alt="">
+  <div><strong>James Madison</strong><div class="card-meta">Democratic-Republican · 1809–1817 · 21 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Early Naval Wars: Barbary &amp; the War of 1812</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="james-monroe.html">
+  <img src="../portraits/james-monroe.png" width="48" height="48" alt="">
+  <div><strong>James Monroe</strong><div class="card-meta">Democratic-Republican · 1817–1824 · 10 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="john-quincy-adams.html">
+  <img src="../portraits/john-quincy-adams.png" width="48" height="48" alt="">
+  <div><strong>John Quincy Adams</strong><div class="card-meta">Democratic-Republican · 1821–1828 · 8 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Tariffs, Reciprocity &amp; Navigation Laws</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="andrew-jackson.html">
+  <img src="../portraits/andrew-jackson.png" width="48" height="48" alt="">
+  <div><strong>Andrew Jackson</strong><div class="card-meta">Democratic · 1829–1837 · 26 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Constitutional Union &amp; Federalism</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="martin-van-buren.html">
+  <img src="../portraits/martin-van-buren.png" width="48" height="48" alt="">
+  <div><strong>Martin Van Buren</strong><div class="card-meta">Democratic · 1837–1841 · 10 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>National Bank &amp; Banking Crises</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="william-harrison.html">
+  <img src="../portraits/william-harrison.png" width="48" height="48" alt="">
+  <div><strong>William Henry Harrison</strong><div class="card-meta">Whig · 1841–1841 · 1 speech</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Executive Power, Vetoes &amp; the Courts</div>
+  <div class="card-support thin">Insufficient record for ranks</div>
+</a><a class="president-card" href="john-tyler.html">
+  <img src="../portraits/john-tyler.png" width="48" height="48" alt="">
+  <div><strong>John Tyler</strong><div class="card-meta">Whig · 1841–1845 · 18 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="james-k-polk.html">
+  <img src="../portraits/james-k-polk.png" width="48" height="48" alt="">
+  <div><strong>James K. Polk</strong><div class="card-meta">Democratic · 1845–1849 · 25 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Mexican War</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="zachary-taylor.html">
+  <img src="../portraits/zachary-taylor.png" width="48" height="48" alt="">
+  <div><strong>Zachary Taylor</strong><div class="card-meta">Whig · 1849–1850 · 4 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support thin">Insufficient record for ranks</div>
+</a><a class="president-card" href="millard-fillmore.html">
+  <img src="../portraits/millard-fillmore.png" width="48" height="48" alt="">
+  <div><strong>Millard Fillmore</strong><div class="card-meta">Whig · 1850–1852 · 7 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="franklin-pierce.html">
+  <img src="../portraits/franklin-pierce.png" width="48" height="48" alt="">
+  <div><strong>Franklin Pierce</strong><div class="card-meta">Democratic · 1853–1856 · 15 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="james-buchanan.html">
+  <img src="../portraits/james-buchanan.png" width="48" height="48" alt="">
+  <div><strong>James Buchanan</strong><div class="card-meta">Democratic · 1857–1861 · 14 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Constitutional Union &amp; Federalism</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="abraham-lincoln.html">
+  <img src="../portraits/abraham-lincoln.png" width="48" height="48" alt="">
+  <div><strong>Abraham Lincoln</strong><div class="card-meta">Republican · 1852–1865 · 15 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Civil rights &amp; race</div><div class="card-measure"><span>AI topic</span>Slavery, Emancipation &amp; Sectionalism</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="andrew-johnson.html">
+  <img src="../portraits/andrew-johnson.png" width="48" height="48" alt="">
+  <div><strong>Andrew Johnson</strong><div class="card-meta">Democratic · 1865–1868 · 31 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Reconstruction &amp; Southern Self-Government</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="ulysses-s-grant.html">
+  <img src="../portraits/ulysses-s-grant.png" width="48" height="48" alt="">
+  <div><strong>Ulysses S. Grant</strong><div class="card-meta">Republican · 1869–1877 · 32 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="rutherford-b-hayes.html">
+  <img src="../portraits/rutherford-b-hayes.png" width="48" height="48" alt="">
+  <div><strong>Rutherford B. Hayes</strong><div class="card-meta">Republican · 1877–1881 · 16 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Taxes &amp; budget</div><div class="card-measure"><span>AI topic</span>Elections &amp; Voting Integrity</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="james-a-garfield.html">
+  <img src="../portraits/james-a-garfield.png" width="48" height="48" alt="">
+  <div><strong>James A. Garfield</strong><div class="card-meta">Republican · 1881–1881 · 1 speech</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Civil rights &amp; race</div><div class="card-measure"><span>AI topic</span>Constitutional Union &amp; Federalism</div>
+  <div class="card-support thin">Insufficient record for ranks</div>
+</a><a class="president-card" href="chester-a-arthur.html">
+  <img src="../portraits/chester-a-arthur.png" width="48" height="48" alt="">
+  <div><strong>Chester A. Arthur</strong><div class="card-meta">Republican · 1881–1884 · 11 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="grover-cleveland.html">
+  <img src="../portraits/grover-cleveland.png" width="48" height="48" alt="">
+  <div><strong>Grover Cleveland</strong><div class="card-meta">Democratic · 1885–1897 · 32 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="benjamin-harrison.html">
+  <img src="../portraits/benjamin-harrison.png" width="48" height="48" alt="">
+  <div><strong>Benjamin Harrison</strong><div class="card-meta">Republican · 1889–1893 · 16 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Trade &amp; tariffs</div><div class="card-measure"><span>AI topic</span>Tariffs, Reciprocity &amp; Navigation Laws</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="william-mckinley.html">
+  <img src="../portraits/william-mckinley.png" width="48" height="48" alt="">
+  <div><strong>William McKinley</strong><div class="card-meta">Republican · 1897–1901 · 14 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="theodore-roosevelt.html">
+  <img src="../portraits/theodore-roosevelt.png" width="48" height="48" alt="">
+  <div><strong>Theodore Roosevelt</strong><div class="card-meta">Republican · 1901–1908 · 22 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Military Preparedness, Armed Forces &amp; Veterans</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="william-taft.html">
+  <img src="../portraits/william-taft.png" width="48" height="48" alt="">
+  <div><strong>William Howard Taft</strong><div class="card-meta">Republican · 1909–1912 · 12 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Trade &amp; tariffs</div><div class="card-measure"><span>AI topic</span>Tariffs, Reciprocity &amp; Navigation Laws</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="woodrow-wilson.html">
+  <img src="../portraits/woodrow-wilson.png" width="48" height="48" alt="">
+  <div><strong>Woodrow Wilson</strong><div class="card-meta">Democratic · 1913–1920 · 33 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>World War I Mobilization &amp; War Aims</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="warren-g-harding.html">
+  <img src="../portraits/warren-g-harding.png" width="48" height="48" alt="">
+  <div><strong>Warren G. Harding</strong><div class="card-meta">Republican · 1917–1922 · 18 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>Providence, Faith &amp; American Ideals</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="calvin-coolidge.html">
+  <img src="../portraits/calvin-coolidge.png" width="48" height="48" alt="">
+  <div><strong>Calvin Coolidge</strong><div class="card-meta">Republican · 1923–1928 · 12 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Taxes &amp; budget</div><div class="card-measure"><span>AI topic</span>Internal Improvements, Energy &amp; Infrastructure</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="herbert-hoover.html">
+  <img src="../portraits/herbert-hoover.png" width="48" height="48" alt="">
+  <div><strong>Herbert Hoover</strong><div class="card-meta">Republican · 1928–1932 · 30 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Economy &amp; jobs</div><div class="card-measure"><span>AI topic</span>Great Depression Recovery</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="franklin-d-roosevelt.html">
+  <img src="../portraits/franklin-d-roosevelt.png" width="48" height="48" alt="">
+  <div><strong>Franklin D. Roosevelt</strong><div class="card-meta">Democratic · 1933–1945 · 49 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>World War II Military Operations</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="harry-s-truman.html">
+  <img src="../portraits/harry-s-truman.png" width="48" height="48" alt="">
+  <div><strong>Harry S. Truman</strong><div class="card-meta">Democratic · 1945–1953 · 19 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="dwight-d-eisenhower.html">
+  <img src="../portraits/dwight-d-eisenhower.png" width="48" height="48" alt="">
+  <div><strong>Dwight D. Eisenhower</strong><div class="card-meta">Republican · 1953–1961 · 15 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Economy &amp; jobs</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="john-f-kennedy.html">
+  <img src="../portraits/john-f-kennedy.png" width="48" height="48" alt="">
+  <div><strong>John F. Kennedy</strong><div class="card-meta">Democratic · 1960–1963 · 44 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="lyndon-b-johnson.html">
+  <img src="../portraits/lyndon-b-johnson.png" width="48" height="48" alt="">
+  <div><strong>Lyndon B. Johnson</strong><div class="card-meta">Democratic · 1963–1969 · 71 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Crime &amp; justice</div><div class="card-measure"><span>AI topic</span>Vietnam War</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="richard-m-nixon.html">
+  <img src="../portraits/richard-m-nixon.png" width="48" height="48" alt="">
+  <div><strong>Richard M. Nixon</strong><div class="card-meta">Republican · 1952–1974 · 23 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Vietnam War</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="gerald-ford.html">
+  <img src="../portraits/gerald-ford.png" width="48" height="48" alt="">
+  <div><strong>Gerald Ford</strong><div class="card-meta">Republican · 1974–1977 · 14 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Providence, Faith &amp; American Ideals</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="jimmy-carter.html">
+  <img src="../portraits/jimmy-carter.png" width="48" height="48" alt="">
+  <div><strong>Jimmy Carter</strong><div class="card-meta">Democratic · 1976–1981 · 22 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Taxes, Budget Deficits &amp; Federal Spending</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="ronald-reagan.html">
+  <img src="../portraits/ronald-reagan.png" width="48" height="48" alt="">
+  <div><strong>Ronald Reagan</strong><div class="card-meta">Republican · 1964–1989 · 60 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Taxes &amp; budget</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="george-h-w-bush.html">
+  <img src="../portraits/george-h-w-bush.png" width="48" height="48" alt="">
+  <div><strong>George H. W. Bush</strong><div class="card-meta">Republican · 1988–1993 · 23 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="bill-clinton.html">
+  <img src="../portraits/bill-clinton.png" width="48" height="48" alt="">
+  <div><strong>Bill Clinton</strong><div class="card-meta">Democratic · 1993–2001 · 39 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Education</div><div class="card-measure"><span>AI topic</span>Welfare, Poverty &amp; Economic Opportunity</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="george-w-bush.html">
+  <img src="../portraits/george-w-bush.png" width="48" height="48" alt="">
+  <div><strong>George W. Bush</strong><div class="card-meta">Republican · 2001–2009 · 38 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>Iraq, Gulf Wars, the War on Terror &amp; Interventions</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="barack-obama.html">
+  <img src="../portraits/barack-obama.png" width="48" height="48" alt="">
+  <div><strong>Barack Obama</strong><div class="card-meta">Democratic · 2008–2017 · 51 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Economy &amp; jobs</div><div class="card-measure"><span>AI topic</span>Providence, Faith &amp; American Ideals</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="donald-trump.html">
+  <img src="../portraits/donald-trump.png" width="48" height="48" alt="">
+  <div><strong>Donald Trump</strong><div class="card-meta">Republican · 2017–2026 · 53 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>Immigration</div><div class="card-measure"><span>AI topic</span>Partisan Combat, Press Conferences &amp; Media Attacks</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a><a class="president-card" href="joe-biden.html">
+  <img src="../portraits/joe-biden.png" width="48" height="48" alt="">
+  <div><strong>Joe Biden</strong><div class="card-meta">Democratic · 2021–2025 · 28 speeches</div></div>
+  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+  <div class="card-support ">Supported for percentile ranking</div>
+</a></div></header>
+<footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs, University of Virginia</a>. <a href="../methodology.html">AI labeling method</a>.</p><p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer></body></html>

@@ -9,7 +9,8 @@
 
   :root {
     --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
-    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+    --muted: #706d67; --grid: #e1e0d9; --border: rgba(11,11,11,0.14);
+    --focus: #7a3d00;
   }
   * { box-sizing: border-box; margin: 0; }
   body { background: var(--page); color: var(--ink);
@@ -25,94 +26,179 @@
                    border-radius: 12px; padding: 10px 6px 6px;
                    overflow-x: auto; overflow-y: hidden; }
   .chart { min-width: 640px; }
+  :where(a, button, summary, select, [tabindex]):focus-visible {
+    outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 3px;
+  }
   footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
   footer a { color: var(--ink2); }
 
-  .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
-  .crumbs a { color: var(--ink2); }
-  .id-row { display: flex; align-items: center; gap: 20px; }
-  .portrait { width: 84px; height: 84px; border-radius: 50%;
-               border: 1px solid var(--border); flex: none; }
-  .i-stance { background: var(--page); border: 1px solid var(--border);
-               border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
-               color: var(--ink2); }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  .chip { background: var(--surface); border: 1px solid var(--border);
-           border-radius: 999px; padding: 4px 12px; font-size: 0.85rem;
-           color: var(--ink2); display: inline-flex; align-items: center; gap: 7px; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .duo > div { min-width: 0; }
-  @media (max-width: 820px) { .duo { grid-template-columns: 1fr; } }
-  .duo .chart { min-width: 380px; }
-  .terms { display: flex; flex-wrap: wrap; gap: 8px; }
-  .term { background: var(--surface); border: 1px solid var(--border);
-           border-radius: 8px; padding: 5px 12px; font-size: 0.95rem; }
-  .i-card, .i-voice { background: var(--surface); border: 1px solid var(--border);
-            border-radius: 12px; padding: 16px 18px; margin-top: 12px; }
-  .i-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
-             margin-bottom: 10px; }
-  .i-name { font-weight: 700; font-size: 1.02rem; }
-  .i-badge { color: var(--muted); font-size: 0.8rem; }
-  .i-badge strong { color: var(--ink2); font-weight: 650; }
-  .i-flag { background: var(--page); border: 1px dashed var(--border);
-             border-radius: 999px; padding: 2px 10px; font-size: 0.78rem;
-             color: var(--muted); }
-  .i-warn { color: var(--ink2); font-size: 0.88rem; background: var(--surface);
-             border: 1px solid var(--border); border-left: 3px solid var(--muted);
-             border-radius: 8px; padding: 10px 14px; margin-top: 12px;
-             max-width: none; }
-  .i-card .term, .i-voice .term { background: var(--page); }
-  .i-card blockquote { border-left: 3px solid var(--grid); margin: 12px 0 0;
-                        padding: 2px 0 2px 14px; }
-  .i-card blockquote p { color: var(--ink2); font-size: 0.94rem; margin: 0;
-                          max-width: none; }
-  .i-card cite { display: block; color: var(--muted); font-style: normal;
-                  font-size: 0.8rem; margin-top: 6px; }
-  .dim { color: var(--muted); }
-  .neighbors p { margin: 6px 0; }
-  .similarity-row { display:grid;grid-template-columns:minmax(210px,.85fr) minmax(0,1.35fr);
-                     gap:18px;padding:13px 0;border-top:1px solid var(--grid); }
-  .similarity-row:first-child { border-top:0; }
-  .similarity-row strong,.similarity-row span { display:block; }
-  .similarity-row span { color:var(--muted);font-size:.78rem;margin-top:3px; }
-  .similarity-row p { margin:0;max-width:none;align-self:center; }
-  @media(max-width:700px) { .similarity-row { grid-template-columns:1fr;gap:5px; } }
-  ul.sigs { margin: 10px 0 0 18px; color: var(--ink2); }
-  ul.sigs li { margin: 5px 0; }
-  .invocations { color: var(--muted); font-size: 0.9rem; }
-  .method-chip { color: #275d8c; font-weight: 650; }
-  .ai-note { background:#eef6ff; border:1px solid #c9def3; border-radius:12px;
-              padding:13px 16px; color:var(--ink2); font-size:.9rem; max-width:none; }
-  .ai-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px; }
-  @media (max-width:760px) { .ai-grid { grid-template-columns:1fr; } }
-  .ai-panel { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; }
-  .ai-panel h3 { font-size:1rem; } .ai-panel p { font-size:.83rem; margin:5px 0 12px; }
-  .ai-chart-block { margin-top:28px;padding-top:24px;border-top:1px solid var(--grid); }
-  .ai-radar-card { max-width:780px;margin:20px auto 0; }
-  .radar-key { display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:8px;margin-top:10px; }
-  .radar-key-item { background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px; }
-  .radar-key-item strong,.radar-key-item span,.radar-key-item small { display:block; }
-  .radar-key-item strong { font-size:.8rem; } .radar-key-item span { margin-top:3px;font-size:.82rem;color:var(--ink2); }
-  .radar-key-item small { color:var(--muted);font-size:.7rem;margin-top:2px; }
-  .ai-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-  .ai-metric strong,.ai-metric span { display:block; } .ai-metric span { color:var(--muted); font-size:.72rem; }
-  .meter { height:5px; background:var(--page); border-radius:4px; overflow:hidden; margin-top:6px; }
-  .meter i { display:block; height:100%; background:#256abf; }
-  .pv-bar { display:flex; height:16px; overflow:hidden; border-radius:8px; background:var(--page); }
-  .pv-bar i { display:block; height:100%; } .pv-proposal { background:#275d8c; }
-  .pv-mixed { background:#6da7ec; } .pv-values { background:#8bbf9f; } .pv-neither { background:#d3d5d8; }
-  .pv-legend { display:flex; flex-wrap:wrap; gap:8px 12px; margin-top:10px; color:var(--muted); font-size:.73rem; }
-  .pv-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; }
-  .genre-list { list-style:none; padding:0; } .genre-list li { display:flex; justify-content:space-between; gap:12px;
-                  font-size:.85rem; border-top:1px solid var(--grid); padding:5px 0; }
-  .genre-list li:first-child { border-top:0; } .genre-list strong { font-variant-numeric:tabular-nums; }
-  .term small { color:var(--muted); font-size:.72rem; }
-  @media (max-width:700px) { .radar-key { grid-template-columns:1fr 1fr; } }
+
+  body.profile-page { overflow-x: clip; }
+  .profile-page :where(header, main, section, article, nav, div) { min-width: 0; }
+  .profile-hero { padding-top: 28px; }
+  .hero-tools { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; }
+  .back-link { color: var(--ink2); font-size: .88rem; }
+  .compare-action { display: inline-flex; align-items: center; min-height: 42px; padding: 8px 15px; border: 1px solid #5d350c; border-radius: 8px; background: #fffaf4; color: #5d350c; font-weight: 720; text-decoration: none; }
+  .hero-body { display: grid; grid-template-columns: 118px minmax(0,1fr); gap: 24px; align-items: center; }
+  .portrait { grid-row: 1 / span 2; width: 118px; height: 118px; border: 1px solid var(--border); border-radius: 50%; background: var(--surface); object-fit: cover; }
+  .eyebrow { color: #6a421b; font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .profile-hero h1 { margin-top: 4px; font: 700 clamp(2rem,5vw,3.1rem)/1.04 Georgia,serif; letter-spacing: -.025em; }
+  .identity-meta { grid-column: 2; display: flex; flex-wrap: wrap; gap: 7px; margin-top: -5px; }
+  .identity-meta span { display: inline-flex; align-items: center; min-height: 31px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--ink2); font-size: .82rem; }
+  .identity-meta .party::before { width: 9px; height: 9px; margin-right: 7px; border-radius: 50%; background: var(--party-color); content: ""; }
+  .identity-meta .support { border-color: #55705f; background: #f1f7f2; color: #294c36; font-weight: 720; }
+  .identity-meta .support.thin { border-color: #9b7220; background: #fff7df; color: #614b19; }
+  .record-note { max-width: none; margin: 18px auto 0; padding: 15px 18px; border: 1px solid #c59a43; border-left: 5px solid #8a5d00; border-radius: 10px; background: #fff7df; color: #4e3b13; }
+  .record-note strong { display: block; margin-bottom: 3px; }
+  .profile-nav { position: sticky; z-index: 8; top: calc(var(--global-nav-height, 0px) + 6px); max-width: 940px; margin: 18px auto 0; padding: 0 20px; }
+  .profile-nav ul { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); padding: 5px; border: 1px solid var(--border); border-radius: 12px; background: rgba(252,252,251,.96); box-shadow: 0 4px 16px rgba(11,11,11,.06); list-style: none; }
+  .profile-nav a { display: grid; min-height: 38px; place-items: center; padding: 5px 4px; border-radius: 8px; color: var(--ink2); font-size: .8rem; font-weight: 700; text-align: center; text-decoration: none; }
+  .profile-nav a:hover { background: var(--page); color: var(--ink); }
+  .profile-page main { padding-top: 2px; }
+  .profile-page section { scroll-margin-top: calc(var(--global-nav-height, 0px) + 72px); }
+  .section-kicker { margin-bottom: 5px; color: #6a421b; font-size: .68rem; font-weight: 820; letter-spacing: .09em; text-transform: uppercase; }
+  .profile-page section > h2 { font: 700 clamp(1.45rem,3vw,1.85rem)/1.15 Georgia,serif; }
+  .profile-page section > p { max-width: 52rem; }
+  .glance-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(145px,1fr)); gap: 10px; margin-top: 18px; }
+  .glance-card { padding: 13px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+  .glance-card span, .glance-card strong { display: block; }
+  .glance-card span { color: var(--muted); font-size: .72rem; font-weight: 740; letter-spacing: .025em; }
+  .glance-card strong { margin-top: 3px; font-size: .96rem; line-height: 1.3; }
+  .glance-card small { display: block; margin-top: 2px; color: var(--muted); font-size: .72rem; }
+  .source-key { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin: 18px 0 0; padding: 0; list-style: none; }
+  .source-key li { padding: 11px 13px; border: 1px solid var(--border); border-radius: 9px; color: var(--ink2); font-size: .78rem; }
+  .source-key strong { display: block; margin-bottom: 2px; color: var(--ink); }
+  .source-tag { display: inline-flex; margin-bottom: 7px; padding: 2px 7px; border: 1px solid; border-radius: 999px; font-size: .67rem; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+  .corpus-source { border-color: #68736b; background: #f1f4f1; color: #34463a; }
+  .ai-source { border-color: #6384a0; background: #eef6ff; color: #254e70; }
+  .legacy-source { border-color: #9a815d; background: #f8f2e8; color: #664819; }
+  .topic-rows { display: grid; gap: 7px; margin-top: 18px; }
+  .topic-row { display: grid; grid-template-columns: minmax(0,1fr) minmax(90px,auto) minmax(120px,auto); align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-left: 4px solid #557b9c; border-radius: 8px; background: var(--surface); }
+  .topic-label strong, .topic-label span { display: block; }
+  .topic-label strong { line-height: 1.25; }
+  .topic-label span { margin-top: 2px; color: var(--muted); font-size: .72rem; }
+  .topic-row data { font-variant-numeric: tabular-nums; font-weight: 760; text-align: right; }
+  .topic-row data small { display: block; color: var(--muted); font-size: .65rem; font-weight: 650; }
+  .agenda-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+  .agenda-grid article { padding: 15px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); }
+  .agenda-grid h3 { font-size: 1rem; }
+  .agenda-grid article > p { margin: 4px 0 12px; color: var(--muted); font-size: .78rem; }
+  .meter-list, .compact-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .meter-list li { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 10px; font-size: .8rem; }
+  .meter-list i { grid-column: 1/-1; height: 6px; overflow: hidden; border-radius: 99px; background: #e5e4df; }
+  .meter-list i b { display: block; height: 100%; background: #315f78; }
+  .pv-bar { display: flex; height: 13px; overflow: hidden; border-radius: 99px; background: #e5e4df; }
+  .pv-bar i { display: block; }
+  .pv-proposal { background: #275d8c; } .pv-mixed { background: #6d8fb5; }
+  .pv-values { background: #5f8b70; } .pv-neither { background: #b0ada6; }
+  .compact-list { margin-top: 9px; }
+  .compact-list li { display: flex; justify-content: space-between; gap: 12px; padding-top: 5px; border-top: 1px solid var(--grid); color: var(--ink2); font-size: .78rem; }
+  .compact-list li:first-child { border-top: 0; }
+  .pv-key { grid-template-columns: 1fr 1fr; }
+  .pv-key li { justify-content: flex-start; flex-wrap: wrap; }
+  .pv-key strong { margin-left: auto; }
+  .pv-dot { flex: 0 0 8px; width: 8px; height: 8px; margin-top: 5px; border-radius: 50%; }
+  .rhetoric-stack { display: grid; gap: 18px; margin-top: 18px; }
+  .rhetoric-card { padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+  .rhetoric-card h3 { font-size: 1.05rem; }
+  .chart-summary { margin: 5px 0 12px; color: var(--ink2); font-size: .84rem; }
+  .profile-figure { width: 100%; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+  .profile-page .chart { width: 100%; min-width: 0; }
+  .rank-unavailable { max-width: none; margin: 12px 0; padding: 11px 13px; border: 1px solid #c59a43; border-radius: 8px; background: #fff7df; color: #4e3b13; }
+  .measure-table-wrap { margin-top: 12px; }
+  .measure-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  .measure-table caption, .invocation-table caption { padding: 0 0 7px; color: var(--muted); font-size: .72rem; text-align: left; }
+  .measure-table th, .measure-table td { padding: 8px 9px; border-top: 1px solid var(--grid); text-align: left; vertical-align: top; }
+  .measure-table thead th { color: var(--muted); font-size: .68rem; letter-spacing: .04em; text-transform: uppercase; }
+  .measure-table tbody th { width: 24%; }
+  .not-ranked { color: #6b4c0c; font-weight: 750; }
+  .rhetoric-card details { margin-top: 10px; }
+  .evidence-card { margin-top: 11px; padding: 16px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); }
+  .evidence-head { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 10px; }
+  .evidence-head h3 { margin-right: auto; font-size: 1rem; }
+  .evidence-head span { color: var(--muted); font-size: .73rem; }
+  .evidence-head strong { color: var(--ink2); }
+  .evidence-badge { padding: 2px 7px; border: 1px solid var(--border); border-radius: 999px; background: var(--page); }
+  .terms { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .term { padding: 3px 9px; border: 1px solid var(--border); border-radius: 7px; background: var(--page); font-size: .8rem; }
+  blockquote { margin: 12px 0 0; padding: 2px 0 2px 13px; border-left: 3px solid #776f64; }
+  blockquote p { max-width: 50rem!important; margin: 0!important; color: var(--ink2)!important; font-size: .9rem; }
+  blockquote cite { display: block; margin-top: 5px; color: var(--muted); font-size: .74rem; font-style: normal; }
+  .more-evidence { margin-top: 12px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); }
+  .more-evidence > summary { padding: 12px 14px; cursor: pointer; font-weight: 720; }
+  .more-evidence > div, .more-evidence > p, .more-evidence > table { margin: 0 14px 14px; }
+  .invocation-table { width: calc(100% - 28px); border-collapse: collapse; font-size: .78rem; }
+  .invocation-table th, .invocation-table td { padding: 7px; border-top: 1px solid var(--grid); text-align: left; }
+  .invocation-cards { display: none; }
+  .similarity-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(245px,1fr)); gap: 11px; margin-top: 18px; }
+  .similarity-card { padding: 15px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); }
+  .similarity-card h3 { font-size: .98rem; }
+  .similarity-card p { min-height: 3.4em; margin: 4px 0 10px; color: var(--muted); font-size: .73rem; }
+  .similarity-card ol { display: grid; gap: 4px; margin: 0; padding-left: 22px; }
+  .similarity-card li { padding-left: 2px; font-size: .82rem; }
+  .similarity-card data { float: right; margin-left: 8px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .signature-list { display: grid; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; counter-reset: signature; }
+  .signature-list li { display: grid; grid-template-columns: 58px minmax(0,1fr); gap: 12px; align-items: baseline; padding: 11px 13px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); }
+  .signature-list span { color: var(--muted); font-size: .76rem; font-variant-numeric: tabular-nums; }
+  .president-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+  .president-nav a { display: flex; flex-direction: column; min-height: 72px; justify-content: center; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); text-decoration: none; }
+  .president-nav .next { text-align: right; }
+  .president-nav span { color: var(--muted); font-size: .72rem; }
+  .president-nav strong { margin-top: 3px; color: var(--ink); }
+  .download-row { margin-top: 14px; }
+  .unavailable { color: var(--muted); font-style: italic; }
+  @media (max-width: 700px) {
+    .source-key, .agenda-grid { grid-template-columns: 1fr; }
+    .similarity-card p { min-height: 0; }
+  }
+  @media (max-width: 600px) {
+    .profile-hero { padding: 20px 16px 6px; }
+    .hero-tools { margin-bottom: 17px; }
+    .hero-body { grid-template-columns: 76px minmax(0,1fr); gap: 14px; align-items: start; }
+    .portrait { width: 76px; height: 76px; }
+    .profile-hero h1 { font-size: clamp(1.62rem,8vw,2.2rem); overflow-wrap: anywhere; }
+    .identity-meta { grid-column: 1/-1; margin-top: 0; }
+    .record-note { margin: 13px 16px 0; }
+    .profile-nav { margin-top: 12px; padding: 0 8px; }
+    .profile-nav ul { grid-template-columns: repeat(3,minmax(0,1fr)); padding: 3px; }
+    .profile-nav a { min-height: 40px; padding: 4px 2px; font-size: .69rem; }
+    .profile-page main { padding-inline: 16px; }
+    .profile-page section { margin-top: 38px; scroll-margin-top: calc(var(--global-nav-height, 0px) + 112px); }
+    .glance-grid { grid-template-columns: 1fr 1fr; }
+    .topic-row { grid-template-columns: 1fr 1fr; gap: 7px 12px; }
+    .topic-label { grid-column: 1/-1; }
+    .topic-row data { text-align: left; }
+    .topic-row .topic-rel { text-align: right; }
+    .rhetoric-card { padding: 14px; }
+    .profile-figure { display: none; }
+    .measure-table caption { display: block; width: 100%; }
+    .measure-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .measure-table, .measure-table tbody { display: block; }
+    .measure-table tr { display: grid; grid-template-columns: 1fr 1fr; padding: 9px 0; border-top: 1px solid var(--grid); }
+    .measure-table th, .measure-table td { display: block; padding: 2px 5px; border: 0; }
+    .measure-table tbody th { grid-column: 1/-1; width: auto; }
+    .measure-table td::before { display: block; color: var(--muted); font-size: .62rem; font-weight: 720; text-transform: uppercase; }
+    .measure-table td:nth-child(2)::before { content: "Absolute"; }
+    .measure-table td:nth-child(3)::before { content: "Rank"; }
+    .invocation-table { display: none; }
+    .invocation-cards { display: grid; gap: 8px; }
+    .invocation-cards > div { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 3px 9px; padding: 9px 0; border-top: 1px solid var(--grid); }
+    .invocation-cards dt { color: var(--muted); font-size: .65rem; font-weight: 720; text-transform: uppercase; }
+    .invocation-cards dd { min-width: 0; overflow-wrap: anywhere; }
+    .president-nav { grid-template-columns: 1fr; }
+    .president-nav .next { text-align: left; }
+  }
+  @media (max-width: 420px) {
+    .hero-tools { align-items: stretch; }
+    .hero-tools > * { width: 100%; overflow-wrap: anywhere; }
+    .compare-action { justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto!important; } }
+
 </style>
 </head>
-<body><style>
+<body class="profile-page"><style>
 .global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
@@ -140,7 +226,7 @@ white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
 html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
-.nav-brand:focus-visible{outline:3px solid #d08b45;outline-offset:2px}
+.nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
@@ -214,163 +300,238 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
 })();
 </script>
 
-<header>
-  <p class="crumbs"><a href="index.html">← All presidents</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
-     <a href="../compare.html?a=john-tyler">Compare</a> &nbsp;·&nbsp;
-     <a href="../methodology.html">How the AI labels work →</a></p>
-  <div class="id-row">
-    <img class="portrait" src="../portraits/john-tyler.png" alt="John Tyler">
-    <div>
-      <h1>John Tyler</h1>
-      <div class="chips"><span class="chip"><span class="dot" style="background:#eda100"></span>Whig</span><span class="chip">1841–1845</span><span class="chip">18 speeches</span><span class="chip">69,626 words</span></div>
+<header class="profile-hero">
+  <div class="hero-tools"><a class="back-link" href="index.html">← President profiles</a>
+    <a class="compare-action" href="../compare.html?a=john-tyler&amp;b=james-k-polk">Compare this president</a></div>
+  <div class="hero-body">
+    <img class="portrait" src="../portraits/john-tyler.png" width="118" height="118" alt="Portrait of John Tyler">
+    <div><p class="eyebrow">Evidence-first presidential profile</p><h1>John Tyler</h1></div>
+    <div class="identity-meta">
+      <span class="party" style="--party-color:#eda100">Whig</span>
+      <span>Corpus record 1841–1845</span>
+      <span>18 speeches</span>
+      <span class="support ">Supported for percentile ranking</span>
     </div>
   </div>
 </header>
-<main>
-<section>
-  <div class="duo">
-    <div>
-      <h2>Rhetorical fingerprint</h2>
-      <p>Percentile among all 45 presidents.</p>
-      <div class="chart-scroll"><div class="chart" data-fig="radar" style="height:380px"></div></div>
-      <details class="metric-lesson"><summary>Explain this measure</summary><p><strong>President percentile</strong> — The percentage of eligible presidents whose measured value is at or below this one.</p><p class="toy">The 80th percentile means the value is at least as high as about 80% of eligible presidents.</p><ol><li>Calculate the same measure for every eligible president</li><li>Exclude records below the five-speech precision floor</li><li>Order the values</li><li>Report the president&#x27;s relative position</li></ol><details><summary>Formula and limitations</summary><p><code>rank among eligible presidents / number eligible</code> · percentile from 0 to 100</p><p>A percentile is a relative position, not an absolute amount or a quality ranking.</p></details></details><details class="evidence"><summary>Inspect the evidence</summary><p><a href="../data/presidents/john-tyler.json" download>Download profile chart data →</a></p></details>
-    </div>
-    <div>
-      <h2>Issues: attention and emphasis</h2>
-      <p>How much of their speech each issue took (left), and how that
-         compared with contemporaries (right).</p>
-      <div class="chart-scroll"><div class="chart" data-fig="issues" style="height:380px"></div></div>
-      <details class="metric-lesson"><summary>Explain this measure</summary><p><strong>Era-relative difference</strong> — A president&#x27;s rate minus the average rate among nearby presidents.</p><p class="toy">12% versus an 8% era baseline is +4 percentage points.</p><ol><li>Estimate the president</li><li>Estimate the contemporary baseline</li><li>Subtract baseline</li></ol><details><summary>Formula and limitations</summary><p><code>observed − era baseline</code> · percentage points</p><p>The answer depends on the chosen comparison window.</p></details></details><details class="evidence"><summary>Inspect the evidence</summary><p><a href="../data/presidents/john-tyler.json" download>Download issue attention and baselines →</a></p></details>
-    </div>
-  </div>
-</section>
-<section id="ai-labels">
-  <h2>AI-labeled topic and rhetoric profile</h2>
-  <p class="ai-note"><span class="method-chip">Corpus-derived label layer.</span>
-  A masked model read every paragraph with only its text and decade—no president, party,
-  or title. Topic shares are multi-label and the right panel compares this president with
-  presidents whose records begin nearby. <a href="../methodology.html">Definitions, prompts,
-  agreement, and limitations →</a></p>
-  <div class="ai-radar-card"><h3>Six-part AI radar</h3>
-  <p>Percentiles among presidents with at least five speeches. The sixth spoke is
-  <strong>effective topic breadth</strong>, which keeps the radar balanced and asks how
-  many fine topics received meaningful attention. Absolute values are listed below.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="ai_radar" style="height:460px"></div></div>
-  <div class="radar-key" aria-label="Six AI radar measures"><div class="radar-key-item"><strong>Partisan attack</strong><span>0.93 % of paragraphs</span><small>21th percentile</small></div><div class="radar-key-item"><strong>Enemy naming</strong><span>11.85 % of paragraphs</span><small>31th percentile</small></div><div class="radar-key-item"><strong>Zero-sum framing</strong><span>3.33 % of paragraphs</span><small>31th percentile</small></div><div class="radar-key-item"><strong>Proposal share</strong><span>21.67 % of paragraphs</span><small>62th percentile</small></div><div class="radar-key-item"><strong>Values share</strong><span>24.82 % of paragraphs</span><small>29th percentile</small></div><div class="radar-key-item"><strong>Effective topic breadth</strong><span>15.98 effective topics</span><small>29th percentile</small></div></div>
-  <details class="metric-lesson"><summary>Explain this measure</summary><p><strong>President percentile</strong> — The percentage of eligible presidents whose measured value is at or below this one.</p><p class="toy">The 80th percentile means the value is at least as high as about 80% of eligible presidents.</p><ol><li>Calculate the same measure for every eligible president</li><li>Exclude records below the five-speech precision floor</li><li>Order the values</li><li>Report the president&#x27;s relative position</li></ol><details><summary>Formula and limitations</summary><p><code>rank among eligible presidents / number eligible</code> · percentile from 0 to 100</p><p>A percentile is a relative position, not an absolute amount or a quality ranking.</p></details></details><details class="evidence"><summary>Inspect the evidence</summary><p><a href="../data/presidents/john-tyler.json" download>Download AI radar values →</a></p></details></div>
-  <div class="ai-chart-block"><h3>Detailed topic attention</h3>
-  <p>Eight leading fine topics, given a full-width view so labels and era-relative
-  differences remain readable.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="ai_topics" style="height:500px"></div></div>
-  <details class="metric-lesson"><summary>Explain this measure</summary><p><strong>Share of paragraphs</strong> — The number of labeled paragraphs divided by every paragraph in the selected record.</p><p class="toy">Twenty labeled paragraphs among 100 total paragraphs is 20%.</p><ol><li>Count paragraphs carrying the label</li><li>Count every eligible paragraph</li><li>Divide the labeled count by the total</li></ol><details><summary>Formula and limitations</summary><p><code>labeled paragraphs / eligible paragraphs</code> · percent of paragraphs</p><p>Paragraphs vary greatly in length, and AI labels can disagree.</p></details></details><details class="evidence"><summary>Inspect the evidence</summary><p><a href="../data/presidents/john-tyler.json" download>Download detailed and broad topic attention →</a></p></details></div>
-  <div class="ai-grid">
-<div class="ai-panel"><h3>Combat framing</h3><p>Share of this president's paragraphs carrying each closed rubric flag.</p>
-<div class="ai-metrics"><div class="ai-metric"><strong>0.9%</strong>
-<span>Partisan attack</span><div class="meter"><i style="width:0.93%"></i></div></div><div class="ai-metric"><strong>11.8%</strong>
-<span>Named adversary</span><div class="meter"><i style="width:11.85%"></i></div></div><div class="ai-metric"><strong>3.3%</strong>
-<span>Zero-sum framing</span><div class="meter"><i style="width:3.33%"></i></div></div></div></div>
-<div class="ai-panel"><h3>Policy ask or values appeal?</h3><p>Every paragraph receives exactly one of four classes.</p>
-<div class="pv-bar"><i class="pv-proposal" style="width:21.670%" title="proposal: 21.7%"></i><i class="pv-mixed" style="width:12.960%" title="mixed: 13.0%"></i><i class="pv-values" style="width:24.810%" title="values: 24.8%"></i><i class="pv-neither" style="width:40.560%" title="neither: 40.6%"></i></div><div class="pv-legend"><span><i class="pv-dot pv-proposal"></i>proposal 21.7%</span><span><i class="pv-dot pv-mixed"></i>mixed 13.0%</span><span><i class="pv-dot pv-values"></i>values 24.8%</span><span><i class="pv-dot pv-neither"></i>neither 40.6%</span></div></div>
-<div class="ai-panel"><h3>Speech genres</h3><p>Primary AI-classified speech types in this corpus.</p><ul class="genre-list"><li><span>Special message to congress</span><strong>50.0%</strong></li><li><span>State of the Union / annual message</span><strong>22.2%</strong></li><li><span>Veto / signing statement</span><strong>22.2%</strong></li><li><span>Inaugural address</span><strong>5.6%</strong></li></ul></div>
-<div class="ai-panel"><h3>Named adversaries</h3><p>Most frequent entities assigned adversarial stance; counts are mentions.</p>
-<div class="terms"><span class="term">Mexico <small>35×</small></span><span class="term">Great Britain <small>9×</small></span><span class="term">Congress <small>5×</small></span><span class="term">Mr. Dorr <small>3×</small></span><span class="term">British cruisers <small>2×</small></span></div></div></div>
-  <p><a href="../data/presidents/john-tyler.json" download>Download this profile's complete chart data →</a></p>
-</section>
-<section>
-  <h2>Legacy issue lens — in their own words</h2>
-  <p>The issues that either defined their agenda or set them apart from their era, each with
-     the vocabulary that is statistically <em>theirs</em> on that issue and a verbatim sentence
-     from their speeches. <span class="dim">“Topic of the day” marks a subject they gave
-     unusual attention by historical standards but no more than their own contemporaries —
-     the air everyone was breathing.</span></p>
-  <div class="i-card">
-  <div class="i-head"><span class="i-name">Money &amp; banking</span>
-    <span class="i-badge"><strong>14%</strong> of their paragraphs</span>
-    <span class="i-badge">+8 pp vs their era</span></div>
-  <div class="terms"><span class="term">stream</span><span class="term">treasury</span><span class="term">southwest</span><span class="term">regarded</span><span class="term">erected</span></div>
-  <blockquote><p>“What influence have local discounts granted by any form of bank in the regulating of the currency and the exchanges?”</p><cite>Veto Message Regarding the Bank of the United States, 1841</cite></blockquote>
-</div>
-<div class="i-card">
-  <div class="i-head"><span class="i-name">Trade &amp; tariffs</span>
-    <span class="i-badge"><strong>18%</strong> of their paragraphs</span>
-    <span class="i-badge">+5 pp vs their era</span></div>
-  <div class="terms"><span class="term">sales</span></div>
-  <blockquote><p>“The exports, too, from the United States to China constitute an interesting and growing part of the commerce of the country.”</p><cite>Message to Congress Regarding US-Hawaiian Relations, 1842</cite></blockquote>
-</div>
-<div class="i-card">
-  <div class="i-head"><span class="i-name">Infrastructure</span>
-    <span class="i-badge"><strong>17%</strong> of their paragraphs</span>
-    <span class="i-badge">+2 pp vs their era</span></div>
-  <div class="terms"><span class="term">line</span><span class="term">maps</span><span class="term">boundary</span><span class="term">lake</span><span class="term">river</span></div>
-  <blockquote><p>“The lines of communication between distant parts of the Union are to a great extent occupied by railroads, which, in the nature of things, possess a complete monopoly, and the Department is therefore liable to heavy and unreasonable charges.”</p><cite>First Annual Message, 1841</cite></blockquote>
-</div>
-<div class="i-card">
-  <div class="i-head"><span class="i-name">Economy &amp; jobs</span>
-    <span class="i-badge"><strong>11%</strong> of their paragraphs</span>
-    <span class="i-badge">+1 pp vs their era</span></div>
-  
-  <blockquote><p>“The country is full of resources and the people fall of energy, and the great and permanent remedy for present embarrassments must be sought in industry, economy, the observance of good faith, and the favorable influence of time.”</p><cite>First Annual Message, 1841</cite></blockquote>
-</div><div class="i-voice">
-  <div class="i-head"><span class="i-name">Their voice</span>
-    <span class="i-badge">distinctive words that belong to no single issue</span></div>
-  <div class="terms"><span class="term">executive</span><span class="term">texas</span><span class="term">rhode</span><span class="term">states</span><span class="term">specie</span><span class="term">branch</span><span class="term">paper</span></div>
-</div>
-</section>
-<section class="neighbors">
-  <h2>Five kinds of similarity</h2>
-  <p>No hidden “overall likeness” is implied. Each row compares a president in a
-  small, named feature space; topic-mix scores use raw shares, while rhetoric
-  scores standardize unlike units before cosine similarity.</p>
-  <div class="similarity-row">
-  <div><strong>Fine AI topic mix</strong>
-  <span>Cosine similarity across all 50 AI-labeled topic shares.</span></div>
-  <p><a href="martin-van-buren.html">Martin Van Buren</a> <span class="dim">(0.84)</span> · <a href="james-monroe.html">James Monroe</a> <span class="dim">(0.84)</span> · <a href="andrew-jackson.html">Andrew Jackson</a> <span class="dim">(0.83)</span> · <a href="ulysses-s-grant.html">Ulysses S. Grant</a> <span class="dim">(0.82)</span></p>
-</div><div class="similarity-row">
-  <div><strong>Broad AI domain mix</strong>
-  <span>Cosine similarity across the 17 broad AI topic domains.</span></div>
-  <p><a href="william-mckinley.html">William McKinley</a> <span class="dim">(0.95)</span> · <a href="grover-cleveland.html">Grover Cleveland</a> <span class="dim">(0.94)</span> · <a href="chester-a-arthur.html">Chester A. Arthur</a> <span class="dim">(0.90)</span> · <a href="ulysses-s-grant.html">Ulysses S. Grant</a> <span class="dim">(0.90)</span></p>
-</div><div class="similarity-row">
-  <div><strong>AI rhetoric profile</strong>
-  <span>Cosine similarity across six standardized measures: partisan attack, enemy naming, zero-sum framing, proposals, values, and topic breadth.</span></div>
-  <p><a href="william-mckinley.html">William McKinley</a> <span class="dim">(0.92)</span> · <a href="thomas-jefferson.html">Thomas Jefferson</a> <span class="dim">(0.88)</span> · <a href="james-monroe.html">James Monroe</a> <span class="dim">(0.88)</span> · <a href="john-quincy-adams.html">John Quincy Adams</a> <span class="dim">(0.86)</span></p>
-</div><div class="similarity-row">
-  <div><strong>Rhetorical fingerprint</strong>
-  <span>Cosine similarity across eight standardized, named lexical measures: hope, fear, certainty, us-versus-them, self-reference, formality, vocabulary, and religiosity.</span></div>
-  <p><a href="ulysses-s-grant.html">Ulysses S. Grant</a> <span class="dim">(0.96)</span> · <a href="millard-fillmore.html">Millard Fillmore</a> <span class="dim">(0.93)</span> · <a href="william-taft.html">William Taft</a> <span class="dim">(0.89)</span> · <a href="rutherford-b-hayes.html">Rutherford B. Hayes</a> <span class="dim">(0.82)</span></p>
-</div><div class="similarity-row">
-  <div><strong>Legacy issue mix</strong>
-  <span>Cosine similarity across the 16 deterministic CorEx issue shares.</span></div>
-  <p><a href="andrew-jackson.html">Andrew Jackson</a> <span class="dim">(0.99)</span> · <a href="millard-fillmore.html">Millard Fillmore</a> <span class="dim">(0.99)</span> · <a href="martin-van-buren.html">Martin Van Buren</a> <span class="dim">(0.98)</span> · <a href="james-monroe.html">James Monroe</a> <span class="dim">(0.98)</span></p>
-</div>
 
-<details><summary>AI-classified presidential invocations</summary>
-<p class="dim">Exploratory AI labels; not human-validated. Historical lineage is the
-default in the shared evidence layer, while contemporary rivalry remains available.</p>
-<div class="chart-scroll"><table><thead><tr><th>Target</th><th>Function</th>
-<th>Stance</th><th>Mentions</th></tr></thead><tbody><tr><td>James Monroe</td><td>other/unclear</td><td>positive</td><td>1</td></tr><tr><td>William Harrison</td><td>ceremonial/biographical</td><td>neutral</td><td>1</td></tr></tbody></table></div>
-<p><a href="../data/networks/invocation_evidence.csv" download>
-Download invocation evidence →</a></p></details>
+<nav class="profile-nav" aria-label="On this profile"><ul>
+  <li><a href="#overview">Overview</a></li><li><a href="#agenda">Agenda</a></li>
+  <li><a href="#evidence">Evidence</a></li><li><a href="#similarity">Similarity</a></li>
+  <li><a href="#speeches">Speeches</a></li>
+</ul></nav>
+<main>
+<section id="overview" data-profile-section="overview">
+  <p class="section-kicker">Identity and record support</p><h2>Overview</h2>
+  <p>These at-a-glance facts are mechanically derived from named corpus and annotation artifacts. Corpus years describe the available speeches, not time in office.</p>
+  <div class="glance-grid"><article class="glance-card"><span>Corpus support</span><strong>18 speeches</strong><small>540 paragraphs</small></article><article class="glance-card"><span>Corpus record span</span><strong>1841–1845</strong><small>Available speech years, not term dates</small></article><article class="glance-card"><span>Corpus words</span><strong>69,626</strong><small>Tokenized source record</small></article><article class="glance-card"><span>Ranking status</span><strong>Supported for percentile ranking</strong><small>5-speech minimum</small></article><article class="glance-card"><span>Leading AI topic</span><strong>Treaties, Diplomacy &amp; International Arbitration</strong><small>26.7% of paragraphs</small></article><article class="glance-card"><span>Leading legacy issue</span><strong>Foreign policy</strong><small>24.3% of paragraphs</small></article></div>
+  <ul class="source-key" aria-label="Measurement sources">
+    <li><strong>Corpus-derived</strong>Deterministic counts, lexical measures, readability, and source excerpts.</li>
+    <li><strong>AI-labeled</strong>Frozen paragraph topics, closed-rubric flags, genres, and entity stance labels.</li>
+    <li><strong>Legacy issue model</strong>CorEx paragraph shares and era-relative differences, kept visibly separate.</li>
+  </ul>
 </section>
-<section>
-  <h2>Signature speeches</h2>
-  <p>The speeches that most express what makes this president distinct.
-     Links go to the Miller Center.</p>
-  <ul class="sigs"><li><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-9-1844-message-regarding-disturbances-rhode-island" target="_blank" rel="noopener">April 9, 1844: Message Regarding Disturbances in Rhode Island</a></li><li><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-30-1842-message-congress-regarding-us-hawaiian" target="_blank" rel="noopener">December 30, 1842: Message to Congress Regarding US-Hawaiian Relations</a></li><li><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-18-1842-message-regarding-treaty-texas" target="_blank" rel="noopener">August 18, 1842: Message Regarding Treaty with Texas</a></li><li><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-20-1845-message-regarding-slave-trade" target="_blank" rel="noopener">February 20, 1845: Message Regarding the Slave Trade</a></li><li><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-11-1844-veto-message-regarding-infrastructure" target="_blank" rel="noopener">June 11, 1844: Veto Message Regarding Infrastructure Improvements</a></li></ul>
+<section id="agenda" data-profile-section="agenda">
+  <p class="section-kicker">AI-labeled synthesis</p><h2>Agenda</h2>
+  <p><span class="source-tag ai-source">AI-labeled</span> Six leading AI topics, ordered by this president’s paragraph share. Era differences are percentage points relative to contemporary presidents.</p>
+  <div class="topic-rows"><article class="topic-row" data-topic-row>
+  <div class="topic-label"><strong>Treaties, Diplomacy &amp; International Arbitration</strong>
+    <span>Foreign Relations &amp; Diplomacy · 144 labeled paragraphs</span></div>
+  <data value="26.67">26.7% <small>share</small></data>
+  <data class="topic-rel" value="12.23">+12.2 pp <small>vs era</small></data>
+</article><article class="topic-row" data-topic-row>
+  <div class="topic-label"><strong>National Bank &amp; Banking Crises</strong>
+    <span>Money, Banking &amp; Currency · 85 labeled paragraphs</span></div>
+  <data value="15.74">15.7% <small>share</small></data>
+  <data class="topic-rel" value="9.64">+9.6 pp <small>vs era</small></data>
+</article><article class="topic-row" data-topic-row>
+  <div class="topic-label"><strong>Public Debt, Revenue &amp; Treasury Finance</strong>
+    <span>Public Finance &amp; Taxation · 70 labeled paragraphs</span></div>
+  <data value="12.96">13.0% <small>share</small></data>
+  <data class="topic-rel" value="5.18">+5.2 pp <small>vs era</small></data>
+</article><article class="topic-row" data-topic-row>
+  <div class="topic-label"><strong>Relations with Spain, Mexico &amp; Territorial Claims</strong>
+    <span>Foreign Relations &amp; Diplomacy · 63 labeled paragraphs</span></div>
+  <data value="11.67">11.7% <small>share</small></data>
+  <data class="topic-rel" value="4.11">+4.1 pp <small>vs era</small></data>
+</article><article class="topic-row" data-topic-row>
+  <div class="topic-label"><strong>Tariffs, Reciprocity &amp; Navigation Laws</strong>
+    <span>Trade, Commerce &amp; Tariffs · 46 labeled paragraphs</span></div>
+  <data value="8.52">8.5% <small>share</small></data>
+  <data class="topic-rel" value="1.91">+1.9 pp <small>vs era</small></data>
+</article><article class="topic-row" data-topic-row>
+  <div class="topic-label"><strong>Executive Power, Vetoes &amp; the Courts</strong>
+    <span>Constitutional Order &amp; Governance · 41 labeled paragraphs</span></div>
+  <data value="7.59">7.6% <small>share</small></data>
+  <data class="topic-rel" value="-3.73">-3.7 pp <small>vs era</small></data>
+</article></div>
+  <div class="agenda-grid">
+<article><span class="source-tag ai-source">AI-labeled</span><h3>Combat framing</h3>
+  <p>Share of paragraphs carrying each closed-rubric flag.</p><ul class="meter-list"><li><span>Partisan attack</span><strong>0.9%</strong>
+  <i aria-hidden="true"><b style="width:0.93%"></b></i></li><li><span>Named adversary</span><strong>11.8%</strong>
+  <i aria-hidden="true"><b style="width:11.85%"></b></i></li><li><span>Zero-sum framing</span><strong>3.3%</strong>
+  <i aria-hidden="true"><b style="width:3.33%"></b></i></li></ul></article>
+<article><span class="source-tag ai-source">AI-labeled</span><h3>Policy and values</h3>
+  <p>One mutually exclusive paragraph class.</p>
+  <div class="pv-bar" role="img" aria-label="proposal 21.7%, mixed 13.0%, values 24.8%, neither 40.6%"><i class="pv-proposal" style="width:21.670%"></i><i class="pv-mixed" style="width:12.960%"></i><i class="pv-values" style="width:24.810%"></i><i class="pv-neither" style="width:40.560%"></i></div>
+  <ul class="compact-list pv-key"><li><span class="pv-dot pv-proposal"></span>Proposal<strong>21.7%</strong></li><li><span class="pv-dot pv-mixed"></span>Mixed<strong>13.0%</strong></li><li><span class="pv-dot pv-values"></span>Values<strong>24.8%</strong></li><li><span class="pv-dot pv-neither"></span>Neither<strong>40.6%</strong></li></ul></article>
+<article><span class="source-tag ai-source">AI-labeled</span><h3>Speech genres</h3>
+  <p>Primary assigned types among corpus speeches.</p><ul class="compact-list"><li><span>Special message to congress</span><strong>50.0%</strong></li><li><span>State of the Union / annual message</span><strong>22.2%</strong></li><li><span>Veto / signing statement</span><strong>22.2%</strong></li><li><span>Inaugural address</span><strong>5.6%</strong></li></ul></article>
+<article><span class="source-tag ai-source">AI-labeled</span><h3>Named adversaries</h3>
+  <p>Most frequent entities assigned adversarial stance.</p><ul class="compact-list"><li><span>Mexico</span><strong>35 mentions</strong></li><li><span>Great Britain</span><strong>9 mentions</strong></li><li><span>Congress</span><strong>5 mentions</strong></li><li><span>Mr. Dorr</span><strong>3 mentions</strong></li><li><span>British cruisers</span><strong>2 mentions</strong></li></ul></article>
+</div>
+</section>
+<section id="rhetoric" data-profile-section="rhetoric">
+  <p class="section-kicker">Absolute values and eligible ranks</p><h2>Rhetoric</h2>
+  <p>Direct bars replace the former radar charts. Absolute values and percentiles stay together; missing ranks have no visual position.</p>
+  <div class="rhetoric-stack"><article class="rhetoric-card">
+  <span class="source-tag corpus-source">Corpus-derived</span>
+  <h3 id="rhetoric_legacy-title">Rhetorical fingerprint</h3>
+  <p class="chart-summary" id="rhetoric_legacy-summary">Eight deterministic lexical and readability measures, pairing each absolute value with its percentile among presidents represented by at least five corpus speeches. Highest relative position: Self-reference, 98th percentile. Lowest: Certainty, 12th percentile.</p>
+  <div class="profile-figure">
+  <div class="chart" data-fig="rhetoric_legacy" role="img" aria-labelledby="rhetoric_legacy-title" aria-describedby="rhetoric_legacy-summary"></div>
+</div>
+<details class="metric-lesson"><summary>Explain this measure</summary><p><strong>President percentile</strong> — The percentage of eligible presidents whose measured value is at or below this one.</p><p class="toy">The 80th percentile means the value is at least as high as about 80% of eligible presidents.</p><ol><li>Calculate the same measure for every eligible president</li><li>Exclude records below the five-speech precision floor</li><li>Order the values</li><li>Report the president&#x27;s relative position</li></ol><details><summary>Formula and limitations</summary><p><code>rank among eligible presidents / number eligible</code> · percentile from 0 to 100</p><p>A percentile is a relative position, not an absolute amount or a quality ranking.</p></details></details><details class="evidence"><summary>Inspect the evidence</summary><p><a href="../data/presidents/john-tyler.json" download>Download absolute measures and eligible-president percentiles →</a></p></details>
+  <div class="measure-table-wrap"><table class="measure-table">
+  <caption>Rhetorical fingerprint: structured data alternative</caption>
+  <thead><tr><th scope="col">Measure</th><th scope="col">Absolute value</th><th scope="col">Eligible-president rank</th></tr></thead>
+  <tbody><tr><th scope="row">Hope</th>
+  <td>642.0 per 10,000 words</td>
+  <td class="">24th percentile</td></tr><tr><th scope="row">Fear appeal</th>
+  <td>265.4 per 10,000 words</td>
+  <td class="">38th percentile</td></tr><tr><th scope="row">Certainty</th>
+  <td>47.2% · percent of assertive and deliberative markers</td>
+  <td class="">12th percentile</td></tr><tr><th scope="row">Us vs them</th>
+  <td>39.9 per 10,000 words</td>
+  <td class="">21st percentile</td></tr><tr><th scope="row">Self-reference</th>
+  <td>60.1% · percent I among I + we</td>
+  <td class="">98th percentile</td></tr><tr><th scope="row">Formality</th>
+  <td>19.3 grade level</td>
+  <td class="">79th percentile</td></tr><tr><th scope="row">Vocabulary</th>
+  <td>40.7% · windowed type-token ratio (percent)</td>
+  <td class="">43rd percentile</td></tr><tr><th scope="row">Religiosity</th>
+  <td>4.2 per 10,000 words</td>
+  <td class="">19th percentile</td></tr></tbody>
+</table></div>
+</article><article class="rhetoric-card">
+  <span class="source-tag ai-source">AI-labeled</span>
+  <h3 id="rhetoric_ai-title">AI-labeled rhetoric</h3>
+  <p class="chart-summary" id="rhetoric_ai-summary">Six paragraph-label measures, pairing each absolute rate or breadth value with its eligible-president percentile. Highest relative position: Proposal share, 62nd percentile. Lowest: Partisan attack, 21st percentile.</p>
+  <div class="profile-figure">
+  <div class="chart" data-fig="rhetoric_ai" role="img" aria-labelledby="rhetoric_ai-title" aria-describedby="rhetoric_ai-summary"></div>
+</div>
+<details class="metric-lesson"><summary>Explain this measure</summary><p><strong>President percentile</strong> — The percentage of eligible presidents whose measured value is at or below this one.</p><p class="toy">The 80th percentile means the value is at least as high as about 80% of eligible presidents.</p><ol><li>Calculate the same measure for every eligible president</li><li>Exclude records below the five-speech precision floor</li><li>Order the values</li><li>Report the president&#x27;s relative position</li></ol><details><summary>Formula and limitations</summary><p><code>rank among eligible presidents / number eligible</code> · percentile from 0 to 100</p><p>A percentile is a relative position, not an absolute amount or a quality ranking.</p></details></details><details class="evidence"><summary>Inspect the evidence</summary><p><a href="../data/presidents/john-tyler.json" download>Download absolute measures and eligible-president percentiles →</a></p></details>
+  <div class="measure-table-wrap"><table class="measure-table">
+  <caption>AI-labeled rhetoric: structured data alternative</caption>
+  <thead><tr><th scope="col">Measure</th><th scope="col">Absolute value</th><th scope="col">Eligible-president rank</th></tr></thead>
+  <tbody><tr><th scope="row">Partisan attack</th>
+  <td>0.93% · percent of paragraphs</td>
+  <td class="">21st percentile</td></tr><tr><th scope="row">Enemy naming</th>
+  <td>11.85% · percent of paragraphs</td>
+  <td class="">31st percentile</td></tr><tr><th scope="row">Zero-sum framing</th>
+  <td>3.33% · percent of paragraphs</td>
+  <td class="">31st percentile</td></tr><tr><th scope="row">Proposal share</th>
+  <td>21.67% · percent of paragraphs</td>
+  <td class="">62nd percentile</td></tr><tr><th scope="row">Values share</th>
+  <td>24.82% · percent of paragraphs</td>
+  <td class="">29th percentile</td></tr><tr><th scope="row">Effective topic breadth</th>
+  <td>15.98 effective topics</td>
+  <td class="">29th percentile</td></tr></tbody>
+</table></div>
+</article></div>
+</section>
+<section id="evidence" data-profile-section="evidence">
+  <p class="section-kicker">Legacy issue model · named artifacts</p><h2>Evidence</h2>
+  <p><span class="source-tag legacy-source">Legacy issue model</span> Excerpt-bearing cards remain in the producer’s declared strength order and appear first. Rate-only evidence follows in the native disclosure.</p>
+  <article class="evidence-card i-card">
+  <div class="evidence-head"><h3>Money &amp; banking</h3>
+    <span><strong>14.3%</strong> of paragraphs</span>
+    <span>+8.0 pp vs era</span></div>
+  <div class="terms"><span class="term">stream</span><span class="term">treasury</span><span class="term">southwest</span><span class="term">regarded</span><span class="term">erected</span></div><blockquote><p>“What influence have local discounts granted by any form of bank in the regulating of the currency and the exchanges?”</p><cite>Veto Message Regarding the Bank of the United States, 1841</cite></blockquote>
+</article><article class="evidence-card i-card">
+  <div class="evidence-head"><h3>Trade &amp; tariffs</h3>
+    <span><strong>18.3%</strong> of paragraphs</span>
+    <span>+5.4 pp vs era</span></div>
+  <div class="terms"><span class="term">sales</span></div><blockquote><p>“The exports, too, from the United States to China constitute an interesting and growing part of the commerce of the country.”</p><cite>Message to Congress Regarding US-Hawaiian Relations, 1842</cite></blockquote>
+</article><details class="more-evidence"><summary>Additional issue evidence (2)</summary>
+  <div><article class="evidence-card i-card">
+  <div class="evidence-head"><h3>Infrastructure</h3>
+    <span><strong>17.0%</strong> of paragraphs</span>
+    <span>+2.2 pp vs era</span></div>
+  <div class="terms"><span class="term">line</span><span class="term">maps</span><span class="term">boundary</span><span class="term">lake</span><span class="term">river</span></div><blockquote><p>“The lines of communication between distant parts of the Union are to a great extent occupied by railroads, which, in the nature of things, possess a complete monopoly, and the Department is therefore liable to heavy and unreasonable charges.”</p><cite>First Annual Message, 1841</cite></blockquote>
+</article><article class="evidence-card i-card">
+  <div class="evidence-head"><h3>Economy &amp; jobs</h3>
+    <span><strong>10.9%</strong> of paragraphs</span>
+    <span>+1.3 pp vs era</span></div>
+  <blockquote><p>“The country is full of resources and the people fall of energy, and the great and permanent remedy for present embarrassments must be sought in industry, economy, the observance of good faith, and the favorable influence of time.”</p><cite>First Annual Message, 1841</cite></blockquote>
+</article></div></details><details class="more-evidence"><summary>Distinctive vocabulary outside one issue</summary>
+  <p>Corpus-derived words not assigned to a displayed issue card.</p><div class="terms"><span class="term">executive</span><span class="term">texas</span><span class="term">rhode</span><span class="term">states</span><span class="term">specie</span><span class="term">branch</span><span class="term">paper</span></div></details>
+<details class="more-evidence"><summary>Presidential invocation evidence</summary>
+  <p>No legacy invocation summary.</p><table class="invocation-table"><caption>AI-classified presidential invocations</caption>
+  <thead><tr><th scope="col">Target</th><th scope="col">Function</th><th scope="col">Stance</th><th scope="col">Mentions</th></tr></thead><tbody><tr><td>James Monroe</td><td>other/unclear</td><td>positive</td><td>1</td></tr><tr><td>William Harrison</td><td>ceremonial/biographical</td><td>neutral</td><td>1</td></tr></tbody></table>
+  <dl class="invocation-cards" aria-label="AI-classified presidential invocations"><div><dt>Target</dt><dd>James Monroe</dd>
+  <dt>Function</dt><dd>other/unclear</dd>
+  <dt>Stance</dt><dd>positive</dd>
+  <dt>Mentions</dt><dd>1</dd></div><div><dt>Target</dt><dd>William Harrison</dd>
+  <dt>Function</dt><dd>ceremonial/biographical</dd>
+  <dt>Stance</dt><dd>neutral</dd>
+  <dt>Mentions</dt><dd>1</dd></div></dl>
+  <p><a href="../data/networks/invocation_evidence.csv" download>Download invocation evidence →</a></p></details>
+</section>
+<section id="similarity" data-profile-section="similarity">
+  <p class="section-kicker">Five independent instruments</p><h2>Similarity</h2>
+  <p>Each card uses only its named feature set and reports cosine scores. The five results are not combined into an overall likeness.</p>
+  <div class="similarity-grid"><article class="similarity-card" data-similarity="ai_topics">
+  <h3>Fine AI topic mix</h3><p>Cosine similarity across all 50 AI-labeled topic shares.</p>
+  <ol><li><a href="martin-van-buren.html">Martin Van Buren</a>
+  <data value="0.8447">0.84 cosine</data></li><li><a href="james-monroe.html">James Monroe</a>
+  <data value="0.8414">0.84 cosine</data></li><li><a href="andrew-jackson.html">Andrew Jackson</a>
+  <data value="0.8341">0.83 cosine</data></li></ol></article><article class="similarity-card" data-similarity="ai_domains">
+  <h3>Broad AI domain mix</h3><p>Cosine similarity across the 17 broad AI topic domains.</p>
+  <ol><li><a href="william-mckinley.html">William McKinley</a>
+  <data value="0.9522">0.95 cosine</data></li><li><a href="grover-cleveland.html">Grover Cleveland</a>
+  <data value="0.9383">0.94 cosine</data></li><li><a href="chester-a-arthur.html">Chester A. Arthur</a>
+  <data value="0.9029">0.90 cosine</data></li></ol></article><article class="similarity-card" data-similarity="ai_rhetoric">
+  <h3>AI rhetoric profile</h3><p>Cosine similarity across six standardized measures: partisan attack, enemy naming, zero-sum framing, proposals, values, and topic breadth.</p>
+  <ol><li><a href="william-mckinley.html">William McKinley</a>
+  <data value="0.9161">0.92 cosine</data></li><li><a href="thomas-jefferson.html">Thomas Jefferson</a>
+  <data value="0.8789">0.88 cosine</data></li><li><a href="james-monroe.html">James Monroe</a>
+  <data value="0.8761">0.88 cosine</data></li></ol></article><article class="similarity-card" data-similarity="rhetorical_fingerprint">
+  <h3>Rhetorical fingerprint</h3><p>Cosine similarity across eight standardized, named lexical measures: hope, fear, certainty, us-versus-them, self-reference, formality, vocabulary, and religiosity.</p>
+  <ol><li><a href="ulysses-s-grant.html">Ulysses S. Grant</a>
+  <data value="0.9636">0.96 cosine</data></li><li><a href="millard-fillmore.html">Millard Fillmore</a>
+  <data value="0.9266">0.93 cosine</data></li><li><a href="william-taft.html">William Howard Taft</a>
+  <data value="0.8884">0.89 cosine</data></li></ol></article><article class="similarity-card" data-similarity="legacy_issues">
+  <h3>Legacy issue mix</h3><p>Cosine similarity across the 16 deterministic CorEx issue shares.</p>
+  <ol><li><a href="andrew-jackson.html">Andrew Jackson</a>
+  <data value="0.9904">0.99 cosine</data></li><li><a href="millard-fillmore.html">Millard Fillmore</a>
+  <data value="0.9860">0.99 cosine</data></li><li><a href="martin-van-buren.html">Martin Van Buren</a>
+  <data value="0.9840">0.98 cosine</data></li></ol></article></div>
+</section>
+<section id="speeches" data-profile-section="speeches">
+  <p class="section-kicker">Chronology kept separate from synthesis</p><h2>Signature speeches</h2>
+  <p>Speeches ranked by how strongly their embedding aligns with this president’s era-adjusted distinctive direction. Years and titles come from the Miller Center corpus.</p>
+  <ol class="signature-list"><li><span>1844</span><a href="https://millercenter.org/the-presidency/presidential-speeches/april-9-1844-message-regarding-disturbances-rhode-island" target="_blank" rel="noopener">April 9, 1844: Message Regarding Disturbances in Rhode Island</a></li><li><span>1842</span><a href="https://millercenter.org/the-presidency/presidential-speeches/december-30-1842-message-congress-regarding-us-hawaiian" target="_blank" rel="noopener">December 30, 1842: Message to Congress Regarding US-Hawaiian Relations</a></li><li><span>1842</span><a href="https://millercenter.org/the-presidency/presidential-speeches/august-18-1842-message-regarding-treaty-texas" target="_blank" rel="noopener">August 18, 1842: Message Regarding Treaty with Texas</a></li><li><span>1845</span><a href="https://millercenter.org/the-presidency/presidential-speeches/february-20-1845-message-regarding-slave-trade" target="_blank" rel="noopener">February 20, 1845: Message Regarding the Slave Trade</a></li><li><span>1844</span><a href="https://millercenter.org/the-presidency/presidential-speeches/june-11-1844-veto-message-regarding-infrastructure" target="_blank" rel="noopener">June 11, 1844: Veto Message Regarding Infrastructure Improvements</a></li></ol>
+  <p class="download-row"><a href="../data/presidents/john-tyler.json" download>Download this profile’s complete public data →</a></p>
+  <nav class="president-nav" aria-label="Adjacent president profiles"><a class="previous" href="william-harrison.html"><span>← Previous president</span><strong>William Henry Harrison</strong></a><a class="next" href="james-k-polk.html"><span>Next president →</span><strong>James K. Polk</strong></a></nav>
 </section>
 </main>
-<footer>
-  <p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
-  University of Virginia</a>. Emotion scores: NRC Emotion Lexicon (Mohammad &amp; Turney).
-  <a href="../methodology.html">AI labeling method</a> ·
-  <a href="https://github.com/jacobfulfyll/presidential_profiles">Code</a>.</p>
-<p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer>
+<footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs, University of Virginia</a>. Emotion scores: NRC Emotion Lexicon (Mohammad &amp; Turney). <a href="../methodology.html">AI labeling method</a> · <a href="https://github.com/jacobfulfyll/presidential_profiles">Code</a>.</p><p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer>
 <script>
-  const FIGS = {"radar": {"data": [{"fill": "toself", "fillcolor": "rgba(109, 167, 236, 0.30)", "hovertemplate": "%{theta}: %{r:.0f}th percentile\u003cextra\u003e\u003c/extra\u003e", "line": {"color": "#256abf", "width": 2}, "r": [24.444444444444443, 37.77777777777778, 13.333333333333334, 20.0, 97.77777777777777, 75.55555555555556, 40.0, 17.77777777777778, 24.444444444444443], "theta": ["Hope", "Fear appeal", "Certainty", "Us vs them", "Self-reference", "Formality", "Vocabulary", "Religiosity", "Hope"], "type": "scatterpolar"}], "layout": {"template": {"data": {"barpolar": [{"marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "bar": [{"error_x": {"color": "rgb(36,36,36)"}, "error_y": {"color": "rgb(36,36,36)"}, "marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "carpet": [{"aaxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "baxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "choropleth"}], "contourcarpet": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "contourcarpet"}], "contour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "contour"}], "heatmap": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "heatmap"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2dcontour"}], "histogram2d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2d"}], "histogram": [{"marker": {"line": {"color": "white", "width": 0.6}}, "type": "histogram"}], "mesh3d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermapbox"}], "scattermap": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermap"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolargl"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolar"}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "rgb(237,237,237)"}, "line": {"color": "white"}}, "header": {"fill": {"color": "rgb(217,217,217)"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "colorscale": {"diverging": [[0.0, "rgb(103,0,31)"], [0.1, "rgb(178,24,43)"], [0.2, "rgb(214,96,77)"], [0.3, "rgb(244,165,130)"], [0.4, "rgb(253,219,199)"], [0.5, "rgb(247,247,247)"], [0.6, "rgb(209,229,240)"], [0.7, "rgb(146,197,222)"], [0.8, "rgb(67,147,195)"], [0.9, "rgb(33,102,172)"], [1.0, "rgb(5,48,97)"]], "sequential": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "sequentialminus": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]]}, "colorway": ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"], "font": {"color": "rgb(36,36,36)"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "white", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "white", "polar": {"angularaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "radialaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "scene": {"xaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "zaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}, "shapedefaults": {"fillcolor": "black", "line": {"width": 0}, "opacity": 0.3}, "ternary": {"aaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "baxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "caxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}}, "font": {"family": "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif", "color": "#52514e", "size": 12}, "polar": {"radialaxis": {"tickfont": {"size": 9, "color": "#898781"}, "range": [0, 100], "gridcolor": "#e1e0d9", "angle": 90, "tickangle": 90}, "angularaxis": {"tickfont": {"size": 11.5, "color": "#0b0b0b"}, "gridcolor": "#e1e0d9"}, "bgcolor": "#fcfcfb"}, "margin": {"l": 70, "r": 70, "t": 40, "b": 40}, "paper_bgcolor": "#fcfcfb", "showlegend": false, "height": 380}}, "issues": {"data": [{"hovertemplate": "%{y}: %{x:.1f}% of their paragraphs\u003cextra\u003e\u003c/extra\u003e", "marker": {"color": "#256abf"}, "orientation": "h", "x": {"dtype": "f8", "bdata": "EtpLaC+hDUChvYT2EtolQJjQXkJ7CStATGgvob2ELECY0F5CewkxQIX2EtpLaDFAVVVVVVVVMkAmtJfQXkI4QA=="}, "y": ["Religion \u0026 values", "Economy \u0026 jobs", "Taxes \u0026 budget", "Money \u0026 banking", "Infrastructure", "War \u0026 military", "Trade \u0026 tariffs", "Foreign policy"], "type": "bar", "xaxis": "x", "yaxis": "y"}, {"hovertemplate": "%{y}: %{x:+.1f} pp vs their era\u003cextra\u003e\u003c/extra\u003e", "marker": {"color": ["#898781", "#256abf", "#256abf", "#256abf", "#256abf", "#898781", "#256abf", "#256abf"]}, "orientation": "h", "x": [-0.7087059691884862, 1.3422800938579103, 1.165588227378643, 8.036892463346815, 2.207913879888718, -5.7281782904677945, 5.433948701259214, 0.11922315383571247], "y": ["Religion \u0026 values", "Economy \u0026 jobs", "Taxes \u0026 budget", "Money \u0026 banking", "Infrastructure", "War \u0026 military", "Trade \u0026 tariffs", "Foreign policy"], "type": "bar", "xaxis": "x2", "yaxis": "y2"}], "layout": {"template": {"data": {"barpolar": [{"marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "bar": [{"error_x": {"color": "rgb(36,36,36)"}, "error_y": {"color": "rgb(36,36,36)"}, "marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "carpet": [{"aaxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "baxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "choropleth"}], "contourcarpet": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "contourcarpet"}], "contour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "contour"}], "heatmap": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "heatmap"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2dcontour"}], "histogram2d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2d"}], "histogram": [{"marker": {"line": {"color": "white", "width": 0.6}}, "type": "histogram"}], "mesh3d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermapbox"}], "scattermap": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermap"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolargl"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolar"}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "rgb(237,237,237)"}, "line": {"color": "white"}}, "header": {"fill": {"color": "rgb(217,217,217)"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "colorscale": {"diverging": [[0.0, "rgb(103,0,31)"], [0.1, "rgb(178,24,43)"], [0.2, "rgb(214,96,77)"], [0.3, "rgb(244,165,130)"], [0.4, "rgb(253,219,199)"], [0.5, "rgb(247,247,247)"], [0.6, "rgb(209,229,240)"], [0.7, "rgb(146,197,222)"], [0.8, "rgb(67,147,195)"], [0.9, "rgb(33,102,172)"], [1.0, "rgb(5,48,97)"]], "sequential": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "sequentialminus": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]]}, "colorway": ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"], "font": {"color": "rgb(36,36,36)"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "white", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "white", "polar": {"angularaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "radialaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "scene": {"xaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "zaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}, "shapedefaults": {"fillcolor": "black", "line": {"width": 0}, "opacity": 0.3}, "ternary": {"aaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "baxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "caxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}}, "xaxis": {"anchor": "y", "domain": [0.0, 0.47], "tickfont": {"color": "#898781", "size": 10}, "gridcolor": "#e1e0d9", "rangemode": "tozero"}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "tickfont": {"color": "#0b0b0b", "size": 12}}, "xaxis2": {"anchor": "y2", "domain": [0.53, 1.0], "tickfont": {"color": "#898781", "size": 10}, "gridcolor": "#e1e0d9", "zeroline": true, "zerolinecolor": "#52514e", "zerolinewidth": 1}, "yaxis2": {"anchor": "x2", "domain": [0.0, 1.0], "matches": "y", "showticklabels": false, "tickfont": {"color": "#0b0b0b", "size": 12}}, "annotations": [{"font": {"color": "#52514e", "size": 10.5}, "showarrow": false, "text": "share of their paragraphs (%)", "x": 0.235, "xanchor": "center", "xref": "paper", "y": 1.0, "yanchor": "bottom", "yref": "paper"}, {"font": {"color": "#52514e", "size": 10.5}, "showarrow": false, "text": "vs their era (pp)", "x": 0.765, "xanchor": "center", "xref": "paper", "y": 1.0, "yanchor": "bottom", "yref": "paper"}], "font": {"family": "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif", "color": "#0b0b0b", "size": 12}, "margin": {"l": 10, "r": 16, "t": 48, "b": 48}, "paper_bgcolor": "#fcfcfb", "plot_bgcolor": "#fcfcfb", "showlegend": false, "height": 380}}, "ai_topics": {"data": [{"customdata": [41, 46, 63, 70, 85, 144], "hovertemplate": "%{y}: %{x:.1f}%\u003cbr\u003e%{customdata} labeled paragraphs\u003cextra\u003eAI topic\u003c/extra\u003e", "marker": {"color": "#256abf"}, "orientation": "h", "x": [7.59, 8.52, 11.67, 12.96, 15.74, 26.67], "y": ["Executive Power, Vetoes \u0026 the\u003cbr\u003eCourts", "Tariffs, Reciprocity \u0026 Navigation\u003cbr\u003eLaws", "Relations with Spain, Mexico \u0026\u003cbr\u003eTerritorial Claims", "Public Debt, Revenue \u0026 Treasury\u003cbr\u003eFinance", "National Bank \u0026 Banking Crises", "Treaties, Diplomacy \u0026\u003cbr\u003eInternational Arbitration"], "type": "bar", "xaxis": "x", "yaxis": "y"}, {"hovertemplate": "%{y}: %{x:+.1f} pp\u003cextra\u003eAI topic\u003c/extra\u003e", "marker": {"color": ["#898781", "#256abf", "#256abf", "#256abf", "#256abf", "#256abf"]}, "orientation": "h", "x": [-3.73, 1.91, 4.11, 5.18, 9.64, 12.23], "y": ["Executive Power, Vetoes \u0026 the\u003cbr\u003eCourts", "Tariffs, Reciprocity \u0026 Navigation\u003cbr\u003eLaws", "Relations with Spain, Mexico \u0026\u003cbr\u003eTerritorial Claims", "Public Debt, Revenue \u0026 Treasury\u003cbr\u003eFinance", "National Bank \u0026 Banking Crises", "Treaties, Diplomacy \u0026\u003cbr\u003eInternational Arbitration"], "type": "bar", "xaxis": "x2", "yaxis": "y2"}], "layout": {"template": {"data": {"barpolar": [{"marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "bar": [{"error_x": {"color": "rgb(36,36,36)"}, "error_y": {"color": "rgb(36,36,36)"}, "marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "carpet": [{"aaxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "baxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "choropleth"}], "contourcarpet": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "contourcarpet"}], "contour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "contour"}], "heatmap": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "heatmap"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2dcontour"}], "histogram2d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2d"}], "histogram": [{"marker": {"line": {"color": "white", "width": 0.6}}, "type": "histogram"}], "mesh3d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermapbox"}], "scattermap": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermap"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolargl"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolar"}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "rgb(237,237,237)"}, "line": {"color": "white"}}, "header": {"fill": {"color": "rgb(217,217,217)"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "colorscale": {"diverging": [[0.0, "rgb(103,0,31)"], [0.1, "rgb(178,24,43)"], [0.2, "rgb(214,96,77)"], [0.3, "rgb(244,165,130)"], [0.4, "rgb(253,219,199)"], [0.5, "rgb(247,247,247)"], [0.6, "rgb(209,229,240)"], [0.7, "rgb(146,197,222)"], [0.8, "rgb(67,147,195)"], [0.9, "rgb(33,102,172)"], [1.0, "rgb(5,48,97)"]], "sequential": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "sequentialminus": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]]}, "colorway": ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"], "font": {"color": "rgb(36,36,36)"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "white", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "white", "polar": {"angularaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "radialaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "scene": {"xaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "zaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}, "shapedefaults": {"fillcolor": "black", "line": {"width": 0}, "opacity": 0.3}, "ternary": {"aaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "baxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "caxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}}, "xaxis": {"anchor": "y", "domain": [0.0, 0.47], "tickfont": {"color": "#898781", "size": 10}, "gridcolor": "#e1e0d9", "rangemode": "tozero"}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "tickfont": {"color": "#0b0b0b", "size": 11}, "automargin": true}, "xaxis2": {"anchor": "y2", "domain": [0.53, 1.0], "tickfont": {"color": "#898781", "size": 10}, "gridcolor": "#e1e0d9", "zeroline": true, "zerolinecolor": "#52514e"}, "yaxis2": {"anchor": "x2", "domain": [0.0, 1.0], "matches": "y", "showticklabels": false, "tickfont": {"color": "#0b0b0b", "size": 11}, "automargin": true}, "annotations": [{"font": {"color": "#52514e", "size": 10.5}, "showarrow": false, "text": "share of paragraphs (%)", "x": 0.235, "xanchor": "center", "xref": "paper", "y": 1.0, "yanchor": "bottom", "yref": "paper"}, {"font": {"color": "#52514e", "size": 10.5}, "showarrow": false, "text": "vs contemporary presidents (pp)", "x": 0.765, "xanchor": "center", "xref": "paper", "y": 1.0, "yanchor": "bottom", "yref": "paper"}], "font": {"family": "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif", "color": "#0b0b0b", "size": 11}, "margin": {"l": 24, "r": 28, "t": 56, "b": 52}, "paper_bgcolor": "#fcfcfb", "plot_bgcolor": "#fcfcfb", "showlegend": false, "height": 500}}, "ai_radar": {"data": [{"customdata": [0.926, 11.852, 3.333, 21.667, 24.815, 15.984, 0.926], "fill": "toself", "fillcolor": "rgba(109,167,236,.28)", "hovertemplate": "%{theta}: %{r:.0f}th percentile\u003cbr\u003eabsolute %{customdata:.2f}\u003cextra\u003e\u003c/extra\u003e", "line": {"color": "#256abf", "width": 2}, "r": [21.4, 31.0, 31.0, 61.9, 28.6, 28.6, 21.4], "theta": ["Partisan attack", "Enemy naming", "Zero-sum", "Proposal share", "Values share", "Breadth\u003cbr\u003e(effective topics)", "Partisan attack"], "type": "scatterpolar"}], "layout": {"template": {"data": {"barpolar": [{"marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "bar": [{"error_x": {"color": "rgb(36,36,36)"}, "error_y": {"color": "rgb(36,36,36)"}, "marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "carpet": [{"aaxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "baxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "choropleth"}], "contourcarpet": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "contourcarpet"}], "contour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "contour"}], "heatmap": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "heatmap"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2dcontour"}], "histogram2d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2d"}], "histogram": [{"marker": {"line": {"color": "white", "width": 0.6}}, "type": "histogram"}], "mesh3d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermapbox"}], "scattermap": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermap"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolargl"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolar"}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "rgb(237,237,237)"}, "line": {"color": "white"}}, "header": {"fill": {"color": "rgb(217,217,217)"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "colorscale": {"diverging": [[0.0, "rgb(103,0,31)"], [0.1, "rgb(178,24,43)"], [0.2, "rgb(214,96,77)"], [0.3, "rgb(244,165,130)"], [0.4, "rgb(253,219,199)"], [0.5, "rgb(247,247,247)"], [0.6, "rgb(209,229,240)"], [0.7, "rgb(146,197,222)"], [0.8, "rgb(67,147,195)"], [0.9, "rgb(33,102,172)"], [1.0, "rgb(5,48,97)"]], "sequential": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "sequentialminus": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]]}, "colorway": ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"], "font": {"color": "rgb(36,36,36)"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "white", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "white", "polar": {"angularaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "radialaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "scene": {"xaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "zaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}, "shapedefaults": {"fillcolor": "black", "line": {"width": 0}, "opacity": 0.3}, "ternary": {"aaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "baxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "caxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}}, "font": {"family": "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif", "color": "#52514e", "size": 11}, "polar": {"radialaxis": {"range": [0, 100], "gridcolor": "#e1e0d9"}, "angularaxis": {"gridcolor": "#e1e0d9"}, "bgcolor": "#fcfcfb"}, "margin": {"l": 90, "r": 90, "t": 42, "b": 42}, "paper_bgcolor": "#fcfcfb", "showlegend": false, "height": 460}}};
-  for (const el of document.querySelectorAll(".chart")) {
+const FIGS = {"rhetoric_legacy": {"data": [{"cliponaxis": false, "customdata": [["4.2 per 10,000 words", "19th percentile"], ["40.7% \u00b7 windowed type-token ratio (percent)", "43rd percentile"], ["19.3 grade level", "79th percentile"], ["60.1% \u00b7 percent I among I + we", "98th percentile"], ["39.9 per 10,000 words", "21st percentile"], ["47.2% \u00b7 percent of assertive and deliberative markers", "12th percentile"], ["265.4 per 10,000 words", "38th percentile"], ["642.0 per 10,000 words", "24th percentile"]], "hovertemplate": "%{y}\u003cbr\u003e%{customdata[0]}\u003cbr\u003e%{customdata[1]}\u003cextra\u003e\u003c/extra\u003e", "marker": {"color": "#256abf"}, "orientation": "h", "text": ["19th percentile \u00b7 4.2 / 10k", "43rd percentile \u00b7 40.7%", "79th percentile \u00b7 grade 19.3", "98th percentile \u00b7 60.1%", "21st percentile \u00b7 39.9 / 10k", "12th percentile \u00b7 47.2%", "38th percentile \u00b7 265.4 / 10k", "24th percentile \u00b7 642.0 / 10k"], "textposition": "outside", "x": [19.047619047619047, 42.857142857142854, 78.57142857142857, 97.61904761904762, 21.428571428571427, 11.904761904761903, 38.095238095238095, 23.809523809523807], "y": ["Religiosity", "Vocabulary", "Formality", "Self-reference", "Us vs them", "Certainty", "Fear appeal", "Hope"], "type": "bar"}], "layout": {"template": {"data": {"barpolar": [{"marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "bar": [{"error_x": {"color": "rgb(36,36,36)"}, "error_y": {"color": "rgb(36,36,36)"}, "marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "carpet": [{"aaxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "baxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "choropleth"}], "contourcarpet": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "contourcarpet"}], "contour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "contour"}], "heatmap": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "heatmap"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2dcontour"}], "histogram2d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2d"}], "histogram": [{"marker": {"line": {"color": "white", "width": 0.6}}, "type": "histogram"}], "mesh3d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermapbox"}], "scattermap": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermap"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolargl"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolar"}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "rgb(237,237,237)"}, "line": {"color": "white"}}, "header": {"fill": {"color": "rgb(217,217,217)"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "colorscale": {"diverging": [[0.0, "rgb(103,0,31)"], [0.1, "rgb(178,24,43)"], [0.2, "rgb(214,96,77)"], [0.3, "rgb(244,165,130)"], [0.4, "rgb(253,219,199)"], [0.5, "rgb(247,247,247)"], [0.6, "rgb(209,229,240)"], [0.7, "rgb(146,197,222)"], [0.8, "rgb(67,147,195)"], [0.9, "rgb(33,102,172)"], [1.0, "rgb(5,48,97)"]], "sequential": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "sequentialminus": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]]}, "colorway": ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"], "font": {"color": "rgb(36,36,36)"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "white", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "white", "polar": {"angularaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "radialaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "scene": {"xaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "zaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}, "shapedefaults": {"fillcolor": "black", "line": {"width": 0}, "opacity": 0.3}, "ternary": {"aaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "baxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "caxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}}, "title": {"font": {"size": 13, "color": "#0b0b0b"}, "text": "Corpus-derived rhetorical measures", "x": 0}, "font": {"family": "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif", "color": "#52514e", "size": 11}, "margin": {"l": 116, "r": 190, "t": 42, "b": 48}, "xaxis": {"tickfont": {"color": "#706d67"}, "range": [0, 100], "tickvals": [0, 25, 50, 75, 100], "ticksuffix": "th", "gridcolor": "#e1e0d9", "title": {"text": "Eligible-president percentile"}}, "yaxis": {"tickfont": {"color": "#0b0b0b", "size": 11}, "automargin": true}, "paper_bgcolor": "#fcfcfb", "plot_bgcolor": "#fcfcfb", "showlegend": false, "height": 374}}, "rhetoric_ai": {"data": [{"cliponaxis": false, "customdata": [["15.98 effective topics", "29th percentile"], ["24.82% \u00b7 percent of paragraphs", "29th percentile"], ["21.67% \u00b7 percent of paragraphs", "62nd percentile"], ["3.33% \u00b7 percent of paragraphs", "31st percentile"], ["11.85% \u00b7 percent of paragraphs", "31st percentile"], ["0.93% \u00b7 percent of paragraphs", "21st percentile"]], "hovertemplate": "%{y}\u003cbr\u003e%{customdata[0]}\u003cbr\u003e%{customdata[1]}\u003cextra\u003e\u003c/extra\u003e", "marker": {"color": "#256abf"}, "orientation": "h", "text": ["29th percentile \u00b7 15.98 topics", "29th percentile \u00b7 24.82%", "62nd percentile \u00b7 21.67%", "31st percentile \u00b7 3.33%", "31st percentile \u00b7 11.85%", "21st percentile \u00b7 0.93%"], "textposition": "outside", "x": [28.6, 28.6, 61.9, 31.0, 31.0, 21.4], "y": ["Topic breadth", "Values share", "Proposal share", "Zero-sum", "Enemy naming", "Partisan attack"], "type": "bar"}], "layout": {"template": {"data": {"barpolar": [{"marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "bar": [{"error_x": {"color": "rgb(36,36,36)"}, "error_y": {"color": "rgb(36,36,36)"}, "marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "carpet": [{"aaxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "baxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "choropleth"}], "contourcarpet": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "contourcarpet"}], "contour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "contour"}], "heatmap": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "heatmap"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2dcontour"}], "histogram2d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2d"}], "histogram": [{"marker": {"line": {"color": "white", "width": 0.6}}, "type": "histogram"}], "mesh3d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermapbox"}], "scattermap": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermap"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolargl"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolar"}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "rgb(237,237,237)"}, "line": {"color": "white"}}, "header": {"fill": {"color": "rgb(217,217,217)"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "colorscale": {"diverging": [[0.0, "rgb(103,0,31)"], [0.1, "rgb(178,24,43)"], [0.2, "rgb(214,96,77)"], [0.3, "rgb(244,165,130)"], [0.4, "rgb(253,219,199)"], [0.5, "rgb(247,247,247)"], [0.6, "rgb(209,229,240)"], [0.7, "rgb(146,197,222)"], [0.8, "rgb(67,147,195)"], [0.9, "rgb(33,102,172)"], [1.0, "rgb(5,48,97)"]], "sequential": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "sequentialminus": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]]}, "colorway": ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"], "font": {"color": "rgb(36,36,36)"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "white", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "white", "polar": {"angularaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "radialaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "scene": {"xaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "zaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}, "shapedefaults": {"fillcolor": "black", "line": {"width": 0}, "opacity": 0.3}, "ternary": {"aaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "baxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "caxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}}, "title": {"font": {"size": 13, "color": "#0b0b0b"}, "text": "AI-labeled paragraph measures", "x": 0}, "font": {"family": "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif", "color": "#52514e", "size": 11}, "margin": {"l": 116, "r": 190, "t": 42, "b": 48}, "xaxis": {"tickfont": {"color": "#706d67"}, "range": [0, 100], "tickvals": [0, 25, 50, 75, 100], "ticksuffix": "th", "gridcolor": "#e1e0d9", "title": {"text": "Eligible-president percentile"}}, "yaxis": {"tickfont": {"color": "#0b0b0b", "size": 11}, "automargin": true}, "paper_bgcolor": "#fcfcfb", "plot_bgcolor": "#fcfcfb", "showlegend": false, "height": 300}}};
+const compactProfile = window.matchMedia("(max-width: 600px)");
+function mountProfileFigures() {
+  if (compactProfile.matches) return;
+  for (const el of document.querySelectorAll(".chart[data-fig]")) {
+    if (el.dataset.mounted === "true") continue;
     const fig = FIGS[el.dataset.fig];
-    Plotly.newPlot(el, fig.data, fig.layout, {displayModeBar: false, responsive: true});
+    if (!fig) continue;
+    Plotly.newPlot(el, fig.data, fig.layout, {displayModeBar:false,responsive:true});
+    el.dataset.mounted = "true";
   }
+}
+mountProfileFigures();
+if (compactProfile.addEventListener) compactProfile.addEventListener("change", mountProfileFigures);
 </script>
 </body>
 </html>

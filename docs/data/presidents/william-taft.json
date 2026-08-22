@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 689.9523513569505,
-      "percentile": 64.44444444444444
+      "percentile": 66.66666666666666
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 259.45721980526207,
-      "percentile": 26.666666666666668
+      "percentile": 26.190476190476193
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.5690265486725664,
-      "percentile": 46.666666666666664
+      "percentile": 45.23809523809524
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 37.62171120778952,
-      "percentile": 13.333333333333334
+      "percentile": 14.285714285714285
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.5686630369026013,
-      "percentile": 93.33333333333333
+      "percentile": 92.85714285714286
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 17.964475667837107,
-      "percentile": 62.22222222222222
+      "percentile": 64.28571428571429
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.39895833333333336,
-      "percentile": 26.666666666666668
+      "percentile": 28.57142857142857
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 1.0772736689455147,
-      "percentile": 2.2222222222222223
+      "percentile": 2.380952380952381
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 17.964475667837107,
     "self_reference": 0.5686630369026013,
     "ttr": 0.39895833333333336,
-    "pct_hope": 64.44444444444444,
-    "pct_fear": 26.666666666666668,
-    "pct_certainty": 46.666666666666664,
-    "pct_us_vs_them": 13.333333333333334,
-    "pct_self_reference": 93.33333333333333,
-    "pct_formality": 62.22222222222222,
-    "pct_vocabulary": 26.666666666666668,
-    "pct_religiosity": 2.2222222222222223
+    "pct_hope": 66.66666666666666,
+    "pct_fear": 26.190476190476193,
+    "pct_certainty": 45.23809523809524,
+    "pct_us_vs_them": 14.285714285714285,
+    "pct_self_reference": 92.85714285714286,
+    "pct_formality": 64.28571428571429,
+    "pct_vocabulary": 28.57142857142857,
+    "pct_religiosity": 2.380952380952381
   },
   "legacy_issue_attention": [
     {
@@ -1026,27 +1026,27 @@
     {
       "title": "December 7, 1909: First Annual Message",
       "year": 1909,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-7-1909-first-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-7-1909-first-annual-message"
     },
     {
       "title": "January 26, 1911: Special Message on Canadian Reciprocity",
       "year": 1911,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-26-1911-special-message-canadian-reciprocity"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-26-1911-special-message-canadian-reciprocity"
     },
     {
       "title": "January 26, 1911: Message Regarding US-Canadian Relations",
       "year": 1911,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-26-1911-message-regarding-us-canadian-relations"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-26-1911-message-regarding-us-canadian-relations"
     },
     {
       "title": "December 5, 1911: Third Annual Message",
       "year": 1911,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-5-1911-third-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-5-1911-third-annual-message"
     },
     {
       "title": "December 6, 1910: Second Annual Message",
       "year": 1910,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-6-1910-second-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-6-1910-second-annual-message"
     }
   ],
   "legacy_invocations": {

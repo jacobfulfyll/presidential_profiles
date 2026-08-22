@@ -3,7 +3,13 @@
 import pandas as pd
 import pytest
 
-from presidential_profiles import ai_labels, compare_site, methodology_site, profiles
+from presidential_profiles import (
+    ai_labels,
+    compare_site,
+    methodology_site,
+    profiles,
+    profiles_site,
+)
 
 
 @pytest.fixture
@@ -118,42 +124,67 @@ def test_methodology_is_an_article_with_vector_images(tiny_ai_data):
     assert "second opinion" in page.lower()
 
 
-def test_compare_payload_preserves_every_shared_profile_field(monkeypatch):
-    shared = {
-        "schema_version": "president-profile-v2",
-        "president": "President A", "slug": "president-a", "party": "Test",
-        "years": {"first": 1900, "last": 1901},
-        "sample": {"n_speeches": 6, "n_words": 1000, "thin_record": False,
-                   "warning": None},
-        "rhetorical_radar": [{"key": "x"}], "raw_stats": {"x": 1},
-        "legacy_issue_attention": [
-            {"key": "Issue", "label": "Issue", "share": 10.0,
-             "era_relative_difference": 2.0}
-        ],
-        "issue_evidence": {"cards": []}, "ai": None,
-        "distinctive_vocabulary": [{"term": "word"}],
-        "signature_speeches": [{"title": "Speech", "url": "https://example.test"}],
-        "legacy_invocations": {"invokes": [], "invoked_by": None},
-        "classified_invocations": [], "voice_neighbors": [],
-        "agenda_neighbors": [], "context_specific": {
-            "profile_only": [], "compare_only": [],
-        },
-    }
-    monkeypatch.setattr(
-        compare_site.profiles_site, "public_profile_payload",
-        lambda president, data, issues: shared,
-    )
+def test_compare_payload_uses_real_v3_profile_model_and_keeps_thin_state(tiny_ai_data):
     row = {
         "party": "Test", "first_year": 1900, "last_year": 1901,
-        "n_speeches": 6, "certainty": 1, "hype": 2, "mechanism": 3,
+        "n_speeches": 1, "n_words": 1000,
+        "certainty": 0.6, "hype": 2, "mechanism": 3,
         "nrc_hope": 4, "nrc_fear": 5, "fk_grade": 6,
+        "us_them": 2, "self_reference": 0.3, "ttr": 0.5,
+        "religiosity": 1,
     }
     for key, _ in profiles.RADAR_AXES:
         row[f"pct_{key}"] = 50
     data = {
         "scores": pd.DataFrame([row], index=["President A"]),
-        "voice_neighbors": {}, "agenda_neighbors": {},
+        "issues": pd.DataFrame([{
+            "n_paragraphs": 2, "share_Issue": 0.5, "rel_Issue": 2.0,
+        }], index=["President A"]),
+        "issue_cards": {"President A": {
+            "n_paragraphs": 2, "cards": [], "voice": [], "low_confidence": True,
+        }},
+        "ai": tiny_ai_data,
+        "distinctive": pd.DataFrame([{
+            "president": "President A", "term": "word", "z": 2.0, "rank": 0,
+        }]),
+        "signatures": {"President A": [{
+            "title": "Speech", "year": 1900, "url": "example-address",
+        }]},
+        "invokes": {"President A": []},
+        "invoked_by": {"President A": None},
+        "voice_neighbors": {"President A": []},
+        "agenda_neighbors": {"President A": []},
+        "invocation_v2": {"President A": []},
+        "feature_neighbors": {"President A": {}},
     }
-    compared = compare_site.build_payload(data, ["Issue"])["President A"]
-    for key, value in shared.items():
-        assert compared[key] == value
+    view = profiles_site.profile_view_model("President A", data, ["Issue"])
+    shared = profiles_site.profile_public_payload(view)
+    compare_payload = compare_site.build_payload(
+        data,
+        ["Issue"],
+        profile_views={"President A": view},
+    )
+    compared = compare_payload["presidents"]["President A"]
+
+    assert shared["schema_version"] == "president-profile-v3"
+    assert tuple(compared) == (
+        "president", "display_name", "slug", "party", "years", "sample",
+        "measures", "agenda", "neighbors", "evidence",
+    )
+    assert compared["president"] == shared["president"]
+    assert compared["slug"] == shared["slug"]
+    assert compared["years"] == shared["years"]
+    assert compared["party"] == shared["party"]
+    assert "raw_stats" not in compared
+    assert "issue_evidence" not in compared
+    assert "signature_speeches" not in compared
+    assert compared["sample"]["thin_record"] is True
+    assert compared["sample"]["speech_count_label"] == "1 speech"
+    assert len(compared["measures"]["corpus"]) == len(profiles.RADAR_AXES)
+    assert len(compared["measures"]["ai"]) == 6
+    assert all(
+        row[2] is None
+        and row[3] == "N/A · Insufficient record"
+        for layer in ("corpus", "ai")
+        for row in compared["measures"][layer]
+    )

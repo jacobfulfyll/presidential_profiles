@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 735.6559856929634,
-      "percentile": 84.44444444444444
+      "percentile": 85.71428571428571
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 262.74388522099264,
-      "percentile": 31.11111111111111
+      "percentile": 30.952380952380953
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.6461716937354989,
-      "percentile": 57.77777777777777
+      "percentile": 57.14285714285714
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 57.147467358711296,
-      "percentile": 44.44444444444444
+      "percentile": 45.23809523809524
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.16939546599496222,
-      "percentile": 2.2222222222222223
+      "percentile": 2.380952380952381
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 12.806764276826213,
-      "percentile": 35.55555555555556
+      "percentile": 38.095238095238095
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.42977027027027026,
-      "percentile": 82.22222222222221
+      "percentile": 80.95238095238095
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 6.588766824886713,
-      "percentile": 44.44444444444444
+      "percentile": 47.61904761904761
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 12.806764276826213,
     "self_reference": 0.16939546599496222,
     "ttr": 0.42977027027027026,
-    "pct_hope": 84.44444444444444,
-    "pct_fear": 31.11111111111111,
-    "pct_certainty": 57.77777777777777,
-    "pct_us_vs_them": 44.44444444444444,
-    "pct_self_reference": 2.2222222222222223,
-    "pct_formality": 35.55555555555556,
-    "pct_vocabulary": 82.22222222222221,
-    "pct_religiosity": 44.44444444444444
+    "pct_hope": 85.71428571428571,
+    "pct_fear": 30.952380952380953,
+    "pct_certainty": 57.14285714285714,
+    "pct_us_vs_them": 45.23809523809524,
+    "pct_self_reference": 2.380952380952381,
+    "pct_formality": 38.095238095238095,
+    "pct_vocabulary": 80.95238095238095,
+    "pct_religiosity": 47.61904761904761
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "July 3, 1925: Centennial of Washington\u2019s Command of the Continental Army",
       "year": 1925,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-3-1925-centennial-washingtons-command-continental-army"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-3-1925-centennial-washingtons-command-continental-army"
     },
     {
       "title": "December 3, 1924: Second Annual Message",
       "year": 1924,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-3-1924-second-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-3-1924-second-annual-message"
     },
     {
       "title": "December 4, 1928: Sixth Annual Message",
       "year": 1928,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-4-1928-sixth-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-4-1928-sixth-annual-message"
     },
     {
       "title": "March 4, 1925: Inaugural Address",
       "year": 1925,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1925-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1925-inaugural-address"
     },
     {
       "title": "October 20, 1925: Message Regarding Relationship of Church and State",
       "year": 1925,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-20-1925-message-regarding-relationship-church-and"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-20-1925-message-regarding-relationship-church-and"
     }
   ],
   "legacy_invocations": {

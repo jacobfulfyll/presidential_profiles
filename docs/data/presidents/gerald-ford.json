@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 770.1089519271337,
-      "percentile": 93.33333333333333
+      "percentile": 92.85714285714286
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 250.66388702752337,
-      "percentile": 13.333333333333334
+      "percentile": 11.904761904761903
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8517298187808896,
-      "percentile": 91.11111111111111
+      "percentile": 90.47619047619048
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 35.98639962276326,
-      "percentile": 6.666666666666667
+      "percentile": 7.142857142857142
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.4244635193133047,
-      "percentile": 62.22222222222222
+      "percentile": 64.28571428571429
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 11.449581371239496,
-      "percentile": 24.444444444444443
+      "percentile": 26.190476190476193
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4368499999999999,
-      "percentile": 95.55555555555556
+      "percentile": 95.23809523809523
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 10.423646787283152,
-      "percentile": 68.88888888888889
+      "percentile": 69.04761904761905
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 11.449581371239496,
     "self_reference": 0.4244635193133047,
     "ttr": 0.4368499999999999,
-    "pct_hope": 93.33333333333333,
-    "pct_fear": 13.333333333333334,
-    "pct_certainty": 91.11111111111111,
-    "pct_us_vs_them": 6.666666666666667,
-    "pct_self_reference": 62.22222222222222,
-    "pct_formality": 24.444444444444443,
-    "pct_vocabulary": 95.55555555555556,
-    "pct_religiosity": 68.88888888888889
+    "pct_hope": 92.85714285714286,
+    "pct_fear": 11.904761904761903,
+    "pct_certainty": 90.47619047619048,
+    "pct_us_vs_them": 7.142857142857142,
+    "pct_self_reference": 64.28571428571429,
+    "pct_formality": 26.190476190476193,
+    "pct_vocabulary": 95.23809523809523,
+    "pct_religiosity": 69.04761904761905
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "January 12, 1977: State of the Union Address",
       "year": 1977,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-12-1977-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-12-1977-state-union-address"
     },
     {
       "title": "April 23, 1975: Remarks at Tulane University",
       "year": 1975,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-23-1975-remarks-tulane-university"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-23-1975-remarks-tulane-university"
     },
     {
       "title": "October 8, 1974: \"Whip Inflation Now\" Speech",
       "year": 1974,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-8-1974-whip-inflation-now-speech"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-8-1974-whip-inflation-now-speech"
     },
     {
       "title": "January 15, 1975: State of the Union Address",
       "year": 1975,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-15-1975-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-15-1975-state-union-address"
     },
     {
       "title": "December 7, 1975: Address at the University of Hawaii",
       "year": 1975,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-7-1975-address-university-hawaii"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-7-1975-address-university-hawaii"
     }
   ],
   "legacy_invocations": {

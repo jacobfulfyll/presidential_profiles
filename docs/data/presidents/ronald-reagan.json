@@ -18,7 +18,7 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 632.7162630556286,
-      "percentile": 17.77777777777778
+      "percentile": 16.666666666666664
     },
     {
       "key": "fear",
@@ -30,37 +30,37 @@
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8118279569892473,
-      "percentile": 80.0
+      "percentile": 78.57142857142857
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 76.06071934609935,
-      "percentile": 80.0
+      "percentile": 78.57142857142857
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.3407332350773766,
-      "percentile": 44.44444444444444
+      "percentile": 45.23809523809524
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 10.04371593408122,
-      "percentile": 22.22222222222222
+      "percentile": 23.809523809523807
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4299444444444444,
-      "percentile": 84.44444444444444
+      "percentile": 83.33333333333334
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 19.615173375055964,
-      "percentile": 95.55555555555556
+      "percentile": 97.61904761904762
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 10.04371593408122,
     "self_reference": 0.3407332350773766,
     "ttr": 0.4299444444444444,
-    "pct_hope": 17.77777777777778,
+    "pct_hope": 16.666666666666664,
     "pct_fear": 66.66666666666666,
-    "pct_certainty": 80.0,
-    "pct_us_vs_them": 80.0,
-    "pct_self_reference": 44.44444444444444,
-    "pct_formality": 22.22222222222222,
-    "pct_vocabulary": 84.44444444444444,
-    "pct_religiosity": 95.55555555555556
+    "pct_certainty": 78.57142857142857,
+    "pct_us_vs_them": 78.57142857142857,
+    "pct_self_reference": 45.23809523809524,
+    "pct_formality": 23.809523809523807,
+    "pct_vocabulary": 83.33333333333334,
+    "pct_religiosity": 97.61904761904762
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "December 23, 1981: Address to the Nation on Christmas and the Situation in Poland",
       "year": 1981,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-23-1981-address-nation-christmas-and-situation-poland"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-23-1981-address-nation-christmas-and-situation-poland"
     },
     {
       "title": "January 28, 1986: Address on the Space Shuttle \"Challenger\"",
       "year": 1986,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-28-1986-address-space-shuttle-challenger"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-28-1986-address-space-shuttle-challenger"
     },
     {
       "title": "June 3, 1984: Remarks to the Citizens of Ballyporeen, Ireland",
       "year": 1984,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-3-1984-remarks-citizens-ballyporeen-ireland"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/june-3-1984-remarks-citizens-ballyporeen-ireland"
     },
     {
       "title": "May 5, 1985: Bergen-Belsen Concentration Camp",
       "year": 1985,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-5-1985-bergen-belsen-concentration-camp"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-5-1985-bergen-belsen-concentration-camp"
     },
     {
       "title": "January 11, 1989: Farewell Address",
       "year": 1989,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-11-1989-farewell-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-11-1989-farewell-address"
     }
   ],
   "legacy_invocations": {

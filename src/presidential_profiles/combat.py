@@ -56,7 +56,7 @@ from typing import NamedTuple
 import numpy as np
 import pandas as pd
 
-from .corpus import DATA_DIR, load
+from .corpus import DATA_DIR, PARTY, load
 from .llm_annotations import (
     ANNOTATIONS_DIR,
     corpus_fingerprint,
@@ -74,6 +74,12 @@ ENTITY_CONSISTENCY_PATH = COMBAT_DIR / "entity_consistency.parquet"
 LEXICAL_BASELINE_PATH = COMBAT_DIR / "lexical_baseline.parquet"
 ADVERSARY_MIX_PATH = COMBAT_DIR / "adversary_mix.parquet"
 BY_PRESIDENT_PATH = COMBAT_DIR / "by_president.parquet"
+BY_PRESIDENT_TREATMENTS_V2_PATH = COMBAT_DIR / "by_president_treatments_v2.parquet"
+BY_PRESIDENT_SPEAKER_V2_PATH = COMBAT_DIR / "by_president_speaker_audited_v2.parquet"
+TARGET_MIX_BY_ERA_SPEAKER_V1_PATH = (
+    COMBAT_DIR / "target_mix_by_era_speaker_audited_v1.parquet"
+)
+PRESIDENT_CONFLICT_V2_META_PATH = COMBAT_DIR / "president_conflict_v2_meta.json"
 GENRE_DECOMPOSITION_PATH = COMBAT_DIR / "genre_decomposition.parquet"
 COMBAT_META_PATH = COMBAT_DIR / "combat_meta.json"
 
@@ -1227,6 +1233,337 @@ def by_president(df: pd.DataFrame, entities: pd.DataFrame | None = None,
     return out.sort_values("year_first").reset_index(drop=True)
 
 
+def speaker_audited_target_mix_by_era(
+    paragraph_frame: pd.DataFrame,
+    adversarial_entities: pd.DataFrame,
+    *,
+    metadata: dict[str, str] | None = None,
+) -> pd.DataFrame:
+    """Pool audited adversarial-entity mentions within ``trends.ERAS``.
+
+    The denominator is the number of entity mentions, not paragraphs, and the
+    period estimator is a ratio of pooled counts.  It therefore never averages
+    annual or president percentages.  Calendar year comes from the canonical
+    source speech joined onto ``paragraph_frame`` before this function runs;
+    attributed-speaker tenure and document ownership do not define the era.
+    """
+    paragraph_required = {
+        "doc_name", "para_idx", "year", "speaker_audited_all",
+    }
+    entity_required = {"doc_name", "para_idx", "type"}
+    missing_paragraph = paragraph_required - set(paragraph_frame.columns)
+    missing_entity = entity_required - set(adversarial_entities.columns)
+    if missing_paragraph:
+        raise ValueError(
+            "target-mix paragraphs are missing columns: "
+            + ", ".join(sorted(missing_paragraph))
+        )
+    if missing_entity:
+        raise ValueError(
+            "target-mix entities are missing columns: "
+            + ", ".join(sorted(missing_entity))
+        )
+    keys = ["doc_name", "para_idx"]
+    if paragraph_frame.duplicated(keys).any():
+        raise ValueError("target-mix paragraphs need unique paragraph keys")
+    if paragraph_frame[list(paragraph_required)].isna().any().any():
+        raise ValueError("target-mix paragraphs contain null required values")
+    if adversarial_entities[list(entity_required)].isna().any().any():
+        raise ValueError("target-mix entities contain null required values")
+
+    allowed_types = {"nation", "group", "person", "institution", "other"}
+    unknown_types = set(adversarial_entities["type"].astype(str)) - allowed_types
+    if unknown_types:
+        raise ValueError(
+            "target-mix entities contain unknown types: "
+            + ", ".join(sorted(unknown_types))
+        )
+    entity_key_check = adversarial_entities[keys].drop_duplicates().merge(
+        paragraph_frame[keys], on=keys, how="left", validate="one_to_one",
+        indicator=True,
+    )
+    if entity_key_check["_merge"].ne("both").any():
+        raise ValueError("target-mix entities contain keys outside the paragraph frame")
+
+    eligible = paragraph_frame.loc[paragraph_frame["speaker_audited_all"]].copy()
+    eligible["era"] = eligible["year"].map(era_of)
+    if eligible["era"].isna().any():
+        bad_years = sorted(eligible.loc[eligible["era"].isna(), "year"].unique())
+        raise ValueError(
+            "target-mix paragraphs contain years outside trends.ERAS: "
+            + ", ".join(map(str, bad_years))
+        )
+    entity_credit = adversarial_entities.merge(
+        eligible[keys + ["year", "era"]],
+        on=keys,
+        how="inner",
+        validate="many_to_one",
+    )
+
+    rows = pd.DataFrame(
+        [
+            {
+                "era": label,
+                "era_order": order,
+                "era_start": start,
+                "era_end": end,
+                "n_calendar_years": end - start + 1,
+            }
+            for order, (label, start, end) in enumerate(ERAS)
+        ]
+    )
+    paragraph_support = (
+        eligible.groupby("era", observed=True)
+        .agg(
+            n_speeches=("doc_name", "nunique"),
+            n_paragraphs=("para_idx", "size"),
+            n_eligible_years=("year", "nunique"),
+        )
+        .reindex(ERA_ORDER, fill_value=0)
+    )
+    entity_support = (
+        entity_credit.groupby("era", observed=True)
+        .agg(
+            n_adversarial_speeches=("doc_name", "nunique"),
+            n_active_years=("year", "nunique"),
+        )
+        .reindex(ERA_ORDER, fill_value=0)
+    )
+    counts = (
+        pd.crosstab(entity_credit["era"], entity_credit["type"])
+        .reindex(index=ERA_ORDER, columns=sorted(allowed_types), fill_value=0)
+        .add_prefix("adv_n_")
+    )
+    for support in (paragraph_support, entity_support, counts):
+        support.index.name = "era"
+        rows = rows.merge(
+            support.reset_index(), on="era", how="left", validate="one_to_one"
+        )
+    count_columns = [f"adv_n_{entity_type}" for entity_type in sorted(allowed_types)]
+    integral_columns = [
+        "era_order", "era_start", "era_end", "n_calendar_years",
+        "n_speeches", "n_paragraphs", "n_eligible_years",
+        "n_adversarial_speeches", "n_active_years", *count_columns,
+    ]
+    rows[integral_columns] = rows[integral_columns].fillna(0).astype(int)
+    rows["n_adversarial_entities"] = rows[count_columns].sum(axis=1)
+    if int(rows["n_adversarial_entities"].sum()) != len(entity_credit):
+        raise ValueError("target-mix category counts do not reconcile to entity rows")
+    if (rows["n_adversarial_speeches"] > rows["n_speeches"]).any():
+        raise ValueError("target-mix adversarial speech support exceeds eligible support")
+    if (rows["n_active_years"] > rows["n_eligible_years"]).any():
+        raise ValueError("target-mix active-year support exceeds eligible years")
+    if (rows["n_eligible_years"] > rows["n_calendar_years"]).any():
+        raise ValueError("target-mix eligible years exceed era bounds")
+
+    defaults = {
+        "schema_version": "conflict-target-mix-v1",
+        "treatment": "speaker_audited_all",
+        "treatment_label": "Speaker-audited all eligible paragraphs",
+        "speaker_scope_status": "speaker_audit_complete",
+        "source_label": "combat/target_mix_by_era_speaker_audited_v1.parquet",
+        "era_scheme": "trends.ERAS",
+        "year_basis": "canonical_source_speech_year",
+    }
+    supplied = metadata or {}
+    unknown_metadata = set(supplied) - set(defaults)
+    if unknown_metadata:
+        raise ValueError(
+            "target-mix metadata contains unknown fields: "
+            + ", ".join(sorted(unknown_metadata))
+        )
+    for column, value in {**defaults, **supplied}.items():
+        rows[column] = value
+    return rows
+
+
+def build_president_conflict_v2(
+    attribution_path: Path | None = None,
+    attribution_meta_path: Path | None = None,
+    out_dir: Path | None = None,
+) -> dict[str, pd.DataFrame]:
+    """Build the governed five-treatment president-conflict-v2 contract."""
+    from . import annotation_ledger as annotation_ledger_module
+    from .speaker_attribution import ROOT as SPEAKER_ROOT
+
+    attribution_path = attribution_path or SPEAKER_ROOT / "paragraph_attribution_v1.parquet"
+    attribution_meta_path = attribution_meta_path or SPEAKER_ROOT / "meta_v1.json"
+    out_dir = out_dir or COMBAT_DIR
+    attr = pd.read_parquet(attribution_path)
+    if len(attr) != 35394 or attr.duplicated(["doc_name", "para_idx"]).any():
+        raise ValueError("speaker attribution must contain 35,394 unique paragraph keys")
+    pointer = annotation_ledger_module.MATERIALIZED_ROOT / "current"
+    generation = pointer.read_text(encoding="utf-8").strip()
+    labels_path = annotation_ledger_module.MATERIALIZED_ROOT / "generations" / generation / "current_labels.parquet"
+    labels = pd.read_parquet(labels_path)
+    flag_parts = []
+    for flag in FLAGS:
+        part = labels.loc[labels["label_type"].eq(flag), ["canonical_doc_name", "canonical_para_idx", "raw_value_json"]].copy()
+        part = part.rename(columns={"canonical_doc_name": "doc_name", "canonical_para_idx": "para_idx", "raw_value_json": flag})
+        part["para_idx"] = part["para_idx"].astype(int)
+        part[flag] = part[flag].map(json.loads).astype(bool)
+        if len(part) != 35394 or part.duplicated(["doc_name", "para_idx"]).any():
+            raise ValueError(f"canonical {flag} projection is not key complete")
+        flag_parts.append(part)
+    flags = flag_parts[0]
+    for part in flag_parts[1:]:
+        flags = flags.merge(part, on=["doc_name", "para_idx"], validate="one_to_one")
+    if set(map(tuple, flags[["doc_name", "para_idx"]].to_numpy())) != set(map(tuple, attr[["doc_name", "para_idx"]].to_numpy())):
+        raise ValueError("speaker and combat canonical key sets differ")
+    speeches = pd.read_parquet(
+        DATA_DIR / "corpus_corrections" / "canonical_speeches_v1.parquet"
+    )
+    base = attr.merge(flags, on=["doc_name", "para_idx"], validate="one_to_one")
+    base = base.merge(speeches[["doc_name", "year"]], on="doc_name", validate="many_to_one")
+
+    entity_rows = labels.loc[
+        labels["label_type"].eq("entities") & labels["event_role"].eq("value"),
+        ["canonical_doc_name", "canonical_para_idx", "raw_value_json"],
+    ].copy()
+    entity_rows = entity_rows.rename(columns={"canonical_doc_name": "doc_name", "canonical_para_idx": "para_idx"})
+    parsed = entity_rows["raw_value_json"].map(json.loads)
+    entity_rows["stance"] = parsed.map(lambda value: value["stance"])
+    entity_rows["type"] = parsed.map(lambda value: value["type"])
+    entity_rows = entity_rows.loc[entity_rows["stance"].eq("adversarial")]
+
+    president_order = list(PARTY)
+    president_order.remove("Donald Trump")
+    president_order.append("Donald Trump")
+    treatments = [
+        "canonical_document_owner", "speaker_audited_all", "debate_excluded",
+        "single_president_documents", "annual_message_strict",
+    ]
+    attr_meta = json.loads(Path(attribution_meta_path).read_text(encoding="utf-8"))
+    rows = []
+    for treatment in treatments:
+        included = base.loc[base[treatment]].copy()
+        included["credited_president"] = (
+            included["document_owner"] if treatment == "canonical_document_owner"
+            else included["attributed_speaker"]
+        )
+        if included["credited_president"].isna().any():
+            raise ValueError(f"{treatment} includes rows without a credited president")
+        entity_credit = entity_rows.merge(
+            included[["doc_name", "para_idx", "credited_president"]],
+            on=["doc_name", "para_idx"], validate="many_to_one",
+        )
+        entity_counts = entity_credit.groupby(["credited_president", "type"]).size().unstack(fill_value=0)
+        for display_order, president in enumerate(president_order):
+            cell = included.loc[included["credited_president"].eq(president)]
+            n_paragraphs = int(len(cell))
+            n_speeches = int(cell["doc_name"].nunique())
+            years = speeches.loc[speeches["president"].eq(president), "year"]
+            if treatment == "canonical_document_owner":
+                eligible_pool = base.loc[base["document_owner"].eq(president)]
+            else:
+                eligible_pool = base.loc[base["attributed_speaker"].eq(president)]
+            year_first = int(cell["year"].min()) if n_paragraphs else int(years.min())
+            year_last = int(cell["year"].max()) if n_paragraphs else int(years.max())
+            out = {
+                "president": president,
+                "display_order": display_order,
+                "era_first": era_of(year_first),
+                "year_first": year_first,
+                "year_last": year_last,
+                "n_speeches": n_speeches,
+                "n_paragraphs": n_paragraphs,
+                "n_documents_included": n_speeches,
+                "n_documents_excluded": int(eligible_pool["doc_name"].nunique() - n_speeches),
+                "n_paragraphs_excluded": int(len(eligible_pool) - n_paragraphs),
+                "schema_version": "president-conflict-v2",
+                "treatment": treatment,
+                "treatment_label": {
+                    "canonical_document_owner": "Canonical document owner comparison",
+                    "speaker_audited_all": "Speaker-audited all eligible paragraphs",
+                    "debate_excluded": "Speaker-audited, debates excluded",
+                    "single_president_documents": "Single-president documents only",
+                    "annual_message_strict": "Annual messages, speaker-audited",
+                }[treatment],
+                "speaker_scope_status": "speaker_audit_complete",
+                "source_label": "combat/by_president_treatments_v2.parquet",
+                "speaker_run_id": attr_meta["run_id"],
+                "speaker_spec_version": attr_meta["spec_version"],
+                "canonical_corpus_fingerprint": attr_meta["canonical_corpus_fingerprint"],
+                "review_manifest_sha256": attr_meta["review_manifest_sha256"],
+                "adjudication_sha256": attr_meta["adjudication_sha256"],
+            }
+            for flag in FLAGS:
+                count = int(cell[flag].sum())
+                out[f"n_{flag}"] = count
+                out[flag] = count / n_paragraphs if n_paragraphs else np.nan
+            for entity_type in ("group", "institution", "nation", "other", "person"):
+                out[f"adv_n_{entity_type}"] = int(entity_counts.loc[president, entity_type]) if president in entity_counts.index and entity_type in entity_counts.columns else 0
+            out["support_status"] = "not_available" if not n_paragraphs else ("thin_record" if n_speeches < 5 or n_paragraphs < 100 else "observed")
+            rows.append(out)
+    long = pd.DataFrame(rows).sort_values(["treatment", "display_order"]).reset_index(drop=True)
+    if len(long) != 225 or long.duplicated(["treatment", "president"]).any():
+        raise ValueError("president-conflict-v2 must have 45 rows for each of five treatments")
+    selected = long.loc[long["treatment"].eq("speaker_audited_all")].copy().reset_index(drop=True)
+    selected["source_label"] = "combat/by_president_speaker_audited_v2.parquet"
+    corpus_end_date = pd.Timestamp(speeches["date"].max()).date().isoformat()
+    target_mix = speaker_audited_target_mix_by_era(
+        base,
+        entity_rows,
+        metadata={
+            "source_label": "combat/target_mix_by_era_speaker_audited_v1.parquet",
+        },
+    )
+    target_mix["corpus_end_date"] = corpus_end_date
+    target_mix["annotation_generation"] = generation
+    provenance_columns = {
+        "speaker_run_id": "run_id",
+        "speaker_spec_version": "spec_version",
+        "canonical_corpus_fingerprint": "canonical_corpus_fingerprint",
+        "review_manifest_sha256": "review_manifest_sha256",
+        "adjudication_sha256": "adjudication_sha256",
+    }
+    for column, source_column in provenance_columns.items():
+        target_mix[column] = attr_meta[source_column]
+    category_columns = [
+        "adv_n_nation", "adv_n_group", "adv_n_person",
+        "adv_n_institution", "adv_n_other",
+    ]
+    if not np.array_equal(
+        target_mix[category_columns].sum().to_numpy(dtype=int),
+        selected[category_columns].sum().to_numpy(dtype=int),
+    ):
+        raise ValueError(
+            "era and president target-mix artifacts do not partition the same mentions"
+        )
+    if int(target_mix["n_paragraphs"].sum()) != int(selected["n_paragraphs"].sum()):
+        raise ValueError(
+            "era and president target-mix artifacts do not partition the same paragraphs"
+        )
+    out_dir.mkdir(parents=True, exist_ok=True)
+    long.to_parquet(out_dir / BY_PRESIDENT_TREATMENTS_V2_PATH.name, index=False)
+    selected.to_parquet(out_dir / BY_PRESIDENT_SPEAKER_V2_PATH.name, index=False)
+    target_mix.to_parquet(
+        out_dir / TARGET_MIX_BY_ERA_SPEAKER_V1_PATH.name, index=False
+    )
+    meta = {
+        "schema_version": "president-conflict-v2",
+        "selected_treatment": "speaker_audited_all",
+        "treatments": treatments,
+        "presidents_per_treatment": 45,
+        "rows": len(long),
+        "target_mix_schema": "conflict-target-mix-v1",
+        "target_mix_eras": len(target_mix),
+        "target_mix_mentions": int(target_mix["n_adversarial_entities"].sum()),
+        "target_mix_path": TARGET_MIX_BY_ERA_SPEAKER_V1_PATH.name,
+        "speaker_attribution_metadata_sha256": attr_meta["metadata_sha256"],
+        "annotation_generation": generation,
+        "annotation_active_pointer_sha256": annotation_ledger_module.sha256_file(pointer),
+        "api_calls": 0,
+    }
+    meta["metadata_sha256"] = annotation_ledger_module.sha256_text(annotation_ledger_module.canonical_json(meta))
+    (out_dir / PRESIDENT_CONFLICT_V2_META_PATH.name).write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return {
+        "treatments": long,
+        "speaker_audited_all": selected,
+        "target_mix_by_era": target_mix,
+    }
+
+
 def genre_decomposition(df: pd.DataFrame) -> pd.DataFrame:
     """Where each era's / decade's flagged paragraphs actually LIVE, by genre.
 
@@ -1514,7 +1851,14 @@ def main() -> None:
         description="Combativeness over time (pure local compute; $0, no API calls)."
     )
     ap.add_argument("--quiet", action="store_true", help="write outputs without printing")
+    ap.add_argument("--president-v2", action="store_true", help="build only president-conflict-v2")
     args = ap.parse_args()
+
+    if args.president_v2:
+        tables = build_president_conflict_v2()
+        if not args.quiet:
+            print(tables["speaker_audited_all"].to_string(index=False))
+        return
 
     df = load_frame()
     tables = build_combativeness(df)

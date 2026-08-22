@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 648.402667262899,
-      "percentile": 31.11111111111111
+      "percentile": 30.952380952380953
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 270.27737955887574,
-      "percentile": 44.44444444444444
+      "percentile": 45.23809523809524
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.640479360852197,
-      "percentile": 55.55555555555556
+      "percentile": 54.761904761904766
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 37.61524601160023,
-      "percentile": 11.11111111111111
+      "percentile": 11.904761904761903
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.38329764453961457,
-      "percentile": 51.11111111111111
+      "percentile": 52.38095238095239
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 16.9067917118,
-      "percentile": 53.333333333333336
+      "percentile": 54.761904761904766
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.41172368421052624,
-      "percentile": 53.333333333333336
+      "percentile": 54.761904761904766
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 2.10434942722239,
-      "percentile": 6.666666666666667
+      "percentile": 7.142857142857142
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 16.9067917118,
     "self_reference": 0.38329764453961457,
     "ttr": 0.41172368421052624,
-    "pct_hope": 31.11111111111111,
-    "pct_fear": 44.44444444444444,
-    "pct_certainty": 55.55555555555556,
-    "pct_us_vs_them": 11.11111111111111,
-    "pct_self_reference": 51.11111111111111,
-    "pct_formality": 53.333333333333336,
-    "pct_vocabulary": 53.333333333333336,
-    "pct_religiosity": 6.666666666666667
+    "pct_hope": 30.952380952380953,
+    "pct_fear": 45.23809523809524,
+    "pct_certainty": 54.761904761904766,
+    "pct_us_vs_them": 11.904761904761903,
+    "pct_self_reference": 52.38095238095239,
+    "pct_formality": 54.761904761904766,
+    "pct_vocabulary": 54.761904761904766,
+    "pct_religiosity": 7.142857142857142
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "January 28, 1892: Message Regarding US-Chilean Affairs",
       "year": 1892,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-28-1892-message-regarding-us-chilean-affairs"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-28-1892-message-regarding-us-chilean-affairs"
     },
     {
       "title": "January 25, 1892: Message Regarding Valparaiso Incident",
       "year": 1892,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-25-1892-message-regarding-valparaiso-incident"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-25-1892-message-regarding-valparaiso-incident"
     },
     {
       "title": "December 1, 1890: Second Annual Message",
       "year": 1890,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-1-1890-second-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-1-1890-second-annual-message"
     },
     {
       "title": "April 19, 1890: Statement at the International American Conference",
       "year": 1890,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-19-1890-statement-international-american-conference"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-19-1890-statement-international-american-conference"
     },
     {
       "title": "April 4, 1889: Commemoration of the Centennial of Washington\u2019s Inauguration",
       "year": 1889,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-4-1889-commemoration-centennial-washingtons-inauguration"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-4-1889-commemoration-centennial-washingtons-inauguration"
     }
   ],
   "legacy_invocations": {

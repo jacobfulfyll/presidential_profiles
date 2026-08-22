@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 528.1513225949461,
-      "percentile": 2.2222222222222223
+      "percentile": 2.380952380952381
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 322.6442047189794,
-      "percentile": 86.66666666666667
+      "percentile": 88.09523809523809
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.564437194127243,
-      "percentile": 42.22222222222222
+      "percentile": 40.476190476190474
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 98.22176247475494,
-      "percentile": 93.33333333333333
+      "percentile": 92.85714285714286
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.42726480836236935,
-      "percentile": 64.44444444444444
+      "percentile": 66.66666666666666
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 13.033989191364585,
-      "percentile": 37.77777777777778
+      "percentile": 40.476190476190474
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.3953366336633663,
-      "percentile": 17.77777777777778
+      "percentile": 19.047619047619047
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 12.216146987833111,
-      "percentile": 77.77777777777779
+      "percentile": 78.57142857142857
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 13.033989191364585,
     "self_reference": 0.42726480836236935,
     "ttr": 0.3953366336633663,
-    "pct_hope": 2.2222222222222223,
-    "pct_fear": 86.66666666666667,
-    "pct_certainty": 42.22222222222222,
-    "pct_us_vs_them": 93.33333333333333,
-    "pct_self_reference": 64.44444444444444,
-    "pct_formality": 37.77777777777778,
-    "pct_vocabulary": 17.77777777777778,
-    "pct_religiosity": 77.77777777777779
+    "pct_hope": 2.380952380952381,
+    "pct_fear": 88.09523809523809,
+    "pct_certainty": 40.476190476190474,
+    "pct_us_vs_them": 92.85714285714286,
+    "pct_self_reference": 66.66666666666666,
+    "pct_formality": 40.476190476190474,
+    "pct_vocabulary": 19.047619047619047,
+    "pct_religiosity": 78.57142857142857
   },
   "legacy_issue_attention": [
     {
@@ -1001,27 +1001,27 @@
     {
       "title": "November 19, 1863: Gettysburg Address",
       "year": 1863,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-19-1863-gettysburg-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-19-1863-gettysburg-address"
     },
     {
       "title": "July 6, 1852: Eulogy on Henry Clay",
       "year": 1852,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-6-1852-eulogy-henry-clay"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-6-1852-eulogy-henry-clay"
     },
     {
       "title": "February 11, 1861: Farewell Address",
       "year": 1861,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-11-1861-farewell-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-11-1861-farewell-address"
     },
     {
       "title": "March 4, 1865: Second Inaugural Address",
       "year": 1865,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1865-second-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1865-second-inaugural-address"
     },
     {
       "title": "August 26, 1863: Public Letter to James Conkling",
       "year": 1863,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-26-1863-public-letter-james-conkling"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-26-1863-public-letter-james-conkling"
     }
   ],
   "legacy_invocations": {

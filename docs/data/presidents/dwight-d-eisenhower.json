@@ -18,37 +18,37 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 862.5344837706168,
-      "percentile": 97.77777777777777
+      "percentile": 97.61904761904762
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 319.59852086634976,
-      "percentile": 82.22222222222221
+      "percentile": 83.33333333333334
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8116817724068479,
-      "percentile": 77.77777777777779
+      "percentile": 76.19047619047619
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 32.42941832482245,
-      "percentile": 4.444444444444445
+      "percentile": 4.761904761904762
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.2196770559519339,
-      "percentile": 6.666666666666667
+      "percentile": 7.142857142857142
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 12.564894460490976,
-      "percentile": 33.33333333333333
+      "percentile": 35.714285714285715
     },
     {
       "key": "vocabulary",
@@ -60,7 +60,7 @@
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 12.032634853554029,
-      "percentile": 75.55555555555556
+      "percentile": 76.19047619047619
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 12.564894460490976,
     "self_reference": 0.2196770559519339,
     "ttr": 0.44770588235294123,
-    "pct_hope": 97.77777777777777,
-    "pct_fear": 82.22222222222221,
-    "pct_certainty": 77.77777777777779,
-    "pct_us_vs_them": 4.444444444444445,
-    "pct_self_reference": 6.666666666666667,
-    "pct_formality": 33.33333333333333,
+    "pct_hope": 97.61904761904762,
+    "pct_fear": 83.33333333333334,
+    "pct_certainty": 76.19047619047619,
+    "pct_us_vs_them": 4.761904761904762,
+    "pct_self_reference": 7.142857142857142,
+    "pct_formality": 35.714285714285715,
     "pct_vocabulary": 100.0,
-    "pct_religiosity": 75.55555555555556
+    "pct_religiosity": 76.19047619047619
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "January 6, 1955: State of the Union Address",
       "year": 1955,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-6-1955-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-6-1955-state-union-address"
     },
     {
       "title": "January 7, 1960: State of the Union Address",
       "year": 1960,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-7-1960-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-7-1960-state-union-address"
     },
     {
       "title": "January 9, 1959: State of the Union Address",
       "year": 1959,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-9-1959-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-9-1959-state-union-address"
     },
     {
       "title": "January 10, 1957: State of the Union Address",
       "year": 1957,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-10-1957-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-10-1957-state-union-address"
     },
     {
       "title": "January 9, 1958: State of the Union Address",
       "year": 1958,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-9-1958-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-9-1958-state-union-address"
     }
   ],
   "legacy_invocations": {

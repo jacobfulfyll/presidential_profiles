@@ -1,0 +1,30 @@
+{
+  "adjudication_sha256": "sha256:889f0803bdd21f540f0f4c8809efe5874038af29b1529d13cf6862fd37f6fe27",
+  "annotation_active_pointer_sha256": "sha256:6d25cfeed8bd205af88dc5061d07d3e6b1fea275be0f656a3b671fd78d5a7245",
+  "annotation_generation": "5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307",
+  "canonical_corpus_fingerprint": "1994fc58c35584d0af12d29806d084ce84dcd7335925b563c441047a3a80a32c",
+  "document_table_sha256": "sha256:3125b40a6ec9c5044a78f373ed9cfaecc8a6ef2042dd37a6137f9ead5a0f6f67",
+  "documents": 1057,
+  "metadata_sha256": "sha256:3428b383970336fa70b1cb541d109b2acfea8e2a2237db90dfa04b4d16a975a5",
+  "outcome_counts": {
+    "canonical_president": 32531,
+    "joint_or_shared": 135,
+    "multiple_speakers": 1678,
+    "non_president": 1036,
+    "scaffolding": 14
+  },
+  "paragraph_table_sha256": "sha256:b89bb775f14d5ee963b41f9c431dee55b567fbe09f8c3e1281a612353a6a5afa",
+  "paragraphs": 35394,
+  "population_definitions": {
+    "annual_message_strict": "speaker_audited_all in state-of-the-union or annual-message documents",
+    "canonical_document_owner": "all corrected-corpus paragraphs credited to the canonical document owner",
+    "debate_excluded": "speaker_audited_all excluding debate documents",
+    "single_president_documents": "speaker_audited_all in documents classified single_president",
+    "speaker_audited_all": "whole paragraphs attributed to exactly one controlled president"
+  },
+  "retained_documents": 1053,
+  "review_manifest_sha256": "sha256:2eeec86e1723e434244cfc74336b465b281554d446007865947fa42477ef2010",
+  "run_id": "speaker-attribution-v1-primary-20260806",
+  "schema_version": "speaker-attribution-derived-v1",
+  "spec_version": "speaker-attribution-v1"
+}

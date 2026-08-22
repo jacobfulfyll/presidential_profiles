@@ -39,6 +39,7 @@ REVIEW_ROOT = LEDGER_ROOT / "review"
 
 REGISTRY_PATH = SPECS_ROOT / "registry-v1.json"
 REGISTRY_V2_PATH = SPECS_ROOT / "registry-v2.json"
+REGISTRY_V3_PATH = SPECS_ROOT / "registry-v3.json"
 CURRENT_PATH = MATERIALIZED_ROOT / "current"
 LOCK_PATH = LEDGER_ROOT / ".annotation-ledger.lock"
 
@@ -290,6 +291,7 @@ def read_registry(registry_path: Path = REGISTRY_PATH) -> dict[str, Any]:
     if registry.get("registry_version") not in {
         "annotation-label-registry-v1",
         "annotation-label-registry-v2",
+        "annotation-label-registry-v3",
     }:
         raise ValueError("unsupported label registry version")
     entries = registry.get("entries")

@@ -20,6 +20,10 @@ MEASURE_SUMMARY_RE = re.compile(
 RETIRED_PUBLIC_ROUTES = {"networks.html"}
 
 
+def _reject_nonfinite_json(value: str):
+    raise ValueError(f"non-finite JSON value {value}")
+
+
 def _target(page: Path, site_dir: Path, href: str) -> tuple[Path | None, str]:
     parsed = urlsplit(href)
     if parsed.scheme or parsed.netloc or href.startswith(("#", "mailto:", "javascript:", "data:")):
@@ -89,8 +93,11 @@ def validate_site(site_dir: Path, write_report: bool = True) -> dict:
     invalid_json = []
     for path in site_dir.rglob("*.json"):
         try:
-            json.loads(path.read_text())
-        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+            json.loads(
+                path.read_text(),
+                parse_constant=_reject_nonfinite_json,
+            )
+        except (json.JSONDecodeError, UnicodeDecodeError, ValueError) as exc:
             invalid_json.append(f"{path.relative_to(site_dir)}: {exc}")
     errors.extend(invalid_json)
     report = {"schema_version": "site-validation-v1", "html_pages": len(pages),

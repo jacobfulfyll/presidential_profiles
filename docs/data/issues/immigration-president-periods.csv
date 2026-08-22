@@ -1,0 +1,101 @@
+source_issue,unit,president,display_name,period_start,period_end,numerator,denominator,share_percent,n_speeches,dot_included,dot_status
+Immigration,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1850,1854,0,360,0.0,2,True,included
+Immigration,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1855,1859,0,37,0.0,1,True,included
+Immigration,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1860,1864,11,456,2.4122807017543857,11,True,included
+Immigration,share of eligible paragraphs,Abraham Lincoln,Abraham Lincoln,1865,1869,0,6,0.0,1,False,below_25_paragraph_floor
+Immigration,share of eligible paragraphs,Andrew Jackson,Andrew Jackson,1825,1829,0,97,0.0,3,True,included
+Immigration,share of eligible paragraphs,Andrew Jackson,Andrew Jackson,1830,1834,4,804,0.4975124378109453,19,True,included
+Immigration,share of eligible paragraphs,Andrew Jackson,Andrew Jackson,1835,1839,0,249,0.0,4,True,included
+Immigration,share of eligible paragraphs,Andrew Johnson,Andrew Johnson,1865,1869,14,725,1.9310344827586208,31,True,included
+Immigration,share of eligible paragraphs,Barack Obama,Barack Obama,2005,2009,9,339,2.6548672566371683,11,True,included
+Immigration,share of eligible paragraphs,Barack Obama,Barack Obama,2010,2014,63,1230,5.121951219512195,33,True,included
+Immigration,share of eligible paragraphs,Barack Obama,Barack Obama,2015,2019,17,310,5.483870967741936,7,True,included
+Immigration,share of eligible paragraphs,Benjamin Harrison,Benjamin Harrison,1885,1889,9,147,6.122448979591836,4,True,included
+Immigration,share of eligible paragraphs,Benjamin Harrison,Benjamin Harrison,1890,1894,16,451,3.5476718403547673,12,True,included
+Immigration,share of eligible paragraphs,Bill Clinton,Bill Clinton,1990,1994,1,353,0.28328611898017,15,True,included
+Immigration,share of eligible paragraphs,Bill Clinton,Bill Clinton,1995,1999,25,834,2.997601918465228,22,True,included
+Immigration,share of eligible paragraphs,Bill Clinton,Bill Clinton,2000,2004,1,101,0.9900990099009901,2,True,included
+Immigration,share of eligible paragraphs,Calvin Coolidge,Calvin Coolidge,1920,1924,4,108,3.7037037037037033,2,True,included
+Immigration,share of eligible paragraphs,Calvin Coolidge,Calvin Coolidge,1925,1929,13,482,2.6970954356846475,10,True,included
+Immigration,share of eligible paragraphs,Chester A. Arthur,Chester A. Arthur,1880,1884,30,478,6.2761506276150625,11,True,included
+Immigration,share of eligible paragraphs,Donald Trump,Donald Trump,2015,2019,102,976,10.450819672131148,20,True,included
+Immigration,share of eligible paragraphs,Donald Trump,Donald Trump,2020,2024,27,1346,2.0059435364041605,23,True,included
+Immigration,share of eligible paragraphs,Donald Trump,Donald Trump,2025,2029,51,531,9.6045197740113,10,True,included
+Immigration,share of eligible paragraphs,Dwight D. Eisenhower,Dwight D. Eisenhower,1950,1954,4,209,1.9138755980861244,5,True,included
+Immigration,share of eligible paragraphs,Dwight D. Eisenhower,Dwight D. Eisenhower,1955,1959,8,403,1.9851116625310175,8,True,included
+Immigration,share of eligible paragraphs,Dwight D. Eisenhower,Dwight D. Eisenhower,1960,1964,0,84,0.0,2,True,included
+Immigration,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1930,1934,0,140,0.0,7,True,included
+Immigration,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1935,1939,4,275,1.4545454545454546,13,True,included
+Immigration,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1940,1944,6,603,0.9950248756218906,26,True,included
+Immigration,share of eligible paragraphs,Franklin D. Roosevelt,Franklin D. Roosevelt,1945,1949,1,66,1.5151515151515151,3,True,included
+Immigration,share of eligible paragraphs,Franklin Pierce,Franklin Pierce,1850,1854,2,258,0.7751937984496124,10,True,included
+Immigration,share of eligible paragraphs,Franklin Pierce,Franklin Pierce,1855,1859,1,214,0.46728971962616817,5,True,included
+Immigration,share of eligible paragraphs,George H. W. Bush,George H. W. Bush,1985,1989,2,272,0.7352941176470588,6,True,included
+Immigration,share of eligible paragraphs,George H. W. Bush,George H. W. Bush,1990,1994,10,662,1.5105740181268883,17,True,included
+Immigration,share of eligible paragraphs,George W. Bush,George W. Bush,2000,2004,24,531,4.519774011299435,21,True,included
+Immigration,share of eligible paragraphs,George W. Bush,George W. Bush,2005,2009,47,527,8.918406072106261,17,True,included
+Immigration,share of eligible paragraphs,George Washington,George Washington,1785,1789,0,14,0.0,2,False,below_25_paragraph_floor
+Immigration,share of eligible paragraphs,George Washington,George Washington,1790,1794,1,129,0.7751937984496124,13,True,included
+Immigration,share of eligible paragraphs,George Washington,George Washington,1795,1799,2,110,1.8181818181818181,6,True,included
+Immigration,share of eligible paragraphs,Gerald Ford,Gerald Ford,1970,1974,0,101,0.0,5,True,included
+Immigration,share of eligible paragraphs,Gerald Ford,Gerald Ford,1975,1979,1,309,0.3236245954692557,9,True,included
+Immigration,share of eligible paragraphs,Grover Cleveland,Grover Cleveland,1885,1889,39,651,5.990783410138248,14,True,included
+Immigration,share of eligible paragraphs,Grover Cleveland,Grover Cleveland,1890,1894,11,393,2.7989821882951653,8,True,included
+Immigration,share of eligible paragraphs,Grover Cleveland,Grover Cleveland,1895,1899,19,306,6.209150326797386,10,True,included
+Immigration,share of eligible paragraphs,Harry S. Truman,Harry S. Truman,1945,1949,3,205,1.4634146341463417,14,True,included
+Immigration,share of eligible paragraphs,Harry S. Truman,Harry S. Truman,1950,1954,1,103,0.9708737864077669,5,True,included
+Immigration,share of eligible paragraphs,Herbert Hoover,Herbert Hoover,1925,1929,7,209,3.349282296650718,10,True,included
+Immigration,share of eligible paragraphs,Herbert Hoover,Herbert Hoover,1930,1934,14,489,2.8629856850715747,20,True,included
+Immigration,share of eligible paragraphs,James A. Garfield,James A. Garfield,1880,1884,2,29,6.896551724137931,1,True,included
+Immigration,share of eligible paragraphs,James Buchanan,James Buchanan,1855,1859,7,438,1.5981735159817352,7,True,included
+Immigration,share of eligible paragraphs,James Buchanan,James Buchanan,1860,1864,0,187,0.0,7,True,included
+Immigration,share of eligible paragraphs,James K. Polk,James K. Polk,1845,1849,5,722,0.6925207756232686,25,True,included
+Immigration,share of eligible paragraphs,James Madison,James Madison,1805,1809,0,24,0.0,2,False,below_25_paragraph_floor
+Immigration,share of eligible paragraphs,James Madison,James Madison,1810,1814,4,182,2.197802197802198,14,True,included
+Immigration,share of eligible paragraphs,James Madison,James Madison,1815,1819,0,68,0.0,5,True,included
+Immigration,share of eligible paragraphs,James Monroe,James Monroe,1815,1819,1,135,0.7407407407407408,4,True,included
+Immigration,share of eligible paragraphs,James Monroe,James Monroe,1820,1824,1,272,0.3676470588235294,6,True,included
+Immigration,share of eligible paragraphs,Jimmy Carter,Jimmy Carter,1975,1979,7,754,0.9283819628647214,16,True,included
+Immigration,share of eligible paragraphs,Jimmy Carter,Jimmy Carter,1980,1984,2,280,0.7142857142857143,6,True,included
+Immigration,share of eligible paragraphs,Joe Biden,Joe Biden,2020,2024,52,1188,4.377104377104377,27,True,included
+Immigration,share of eligible paragraphs,Joe Biden,Joe Biden,2025,2029,1,31,3.225806451612903,1,True,included
+Immigration,share of eligible paragraphs,John Adams,John Adams,1795,1799,0,102,0.0,7,True,included
+Immigration,share of eligible paragraphs,John Adams,John Adams,1800,1804,0,14,0.0,2,False,below_25_paragraph_floor
+Immigration,share of eligible paragraphs,John F. Kennedy,John F. Kennedy,1960,1964,11,1367,0.8046817849305048,44,True,included
+Immigration,share of eligible paragraphs,John Quincy Adams,John Quincy Adams,1820,1824,0,5,0.0,1,False,below_25_paragraph_floor
+Immigration,share of eligible paragraphs,John Quincy Adams,John Quincy Adams,1825,1829,1,271,0.36900369003690037,7,True,included
+Immigration,share of eligible paragraphs,John Tyler,John Tyler,1840,1844,8,531,1.5065913370998116,17,True,included
+Immigration,share of eligible paragraphs,John Tyler,John Tyler,1845,1849,0,9,0.0,1,False,below_25_paragraph_floor
+Immigration,share of eligible paragraphs,Lyndon B. Johnson,Lyndon B. Johnson,1960,1964,2,731,0.27359781121751026,20,True,included
+Immigration,share of eligible paragraphs,Lyndon B. Johnson,Lyndon B. Johnson,1965,1969,6,1981,0.3028773346794548,51,True,included
+Immigration,share of eligible paragraphs,Martin Van Buren,Martin Van Buren,1835,1839,4,394,1.015228426395939,8,True,included
+Immigration,share of eligible paragraphs,Martin Van Buren,Martin Van Buren,1840,1844,1,71,1.4084507042253522,2,True,included
+Immigration,share of eligible paragraphs,Millard Fillmore,Millard Fillmore,1850,1854,4,268,1.4925373134328357,7,True,included
+Immigration,share of eligible paragraphs,Richard M. Nixon,Richard M. Nixon,1950,1954,0,35,0.0,1,True,included
+Immigration,share of eligible paragraphs,Richard M. Nixon,Richard M. Nixon,1965,1969,0,51,0.0,2,True,included
+Immigration,share of eligible paragraphs,Richard M. Nixon,Richard M. Nixon,1970,1974,2,434,0.4608294930875576,20,True,included
+Immigration,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1960,1964,0,34,0.0,1,True,included
+Immigration,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1975,1979,0,39,0.0,2,True,included
+Immigration,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1980,1984,20,1399,1.4295925661186561,35,True,included
+Immigration,share of eligible paragraphs,Ronald Reagan,Ronald Reagan,1985,1989,2,572,0.34965034965034963,22,True,included
+Immigration,share of eligible paragraphs,Rutherford B. Hayes,Rutherford B. Hayes,1875,1879,26,371,7.008086253369273,12,True,included
+Immigration,share of eligible paragraphs,Rutherford B. Hayes,Rutherford B. Hayes,1880,1884,9,129,6.976744186046512,4,True,included
+Immigration,share of eligible paragraphs,Theodore Roosevelt,Theodore Roosevelt,1900,1904,28,602,4.651162790697675,11,True,included
+Immigration,share of eligible paragraphs,Theodore Roosevelt,Theodore Roosevelt,1905,1909,37,928,3.9870689655172415,11,True,included
+Immigration,share of eligible paragraphs,Thomas Jefferson,Thomas Jefferson,1800,1804,2,142,1.4084507042253522,11,True,included
+Immigration,share of eligible paragraphs,Thomas Jefferson,Thomas Jefferson,1805,1809,1,171,0.5847953216374269,13,True,included
+Immigration,share of eligible paragraphs,Ulysses S. Grant,Ulysses S. Grant,1865,1869,2,80,2.5,5,True,included
+Immigration,share of eligible paragraphs,Ulysses S. Grant,Ulysses S. Grant,1870,1874,25,505,4.9504950495049505,19,True,included
+Immigration,share of eligible paragraphs,Ulysses S. Grant,Ulysses S. Grant,1875,1879,12,228,5.263157894736842,8,True,included
+Immigration,share of eligible paragraphs,Warren G. Harding,Warren G. Harding,1915,1919,2,9,22.22222222222222,2,False,below_25_paragraph_floor
+Immigration,share of eligible paragraphs,Warren G. Harding,Warren G. Harding,1920,1924,20,229,8.73362445414847,16,True,included
+Immigration,share of eligible paragraphs,William Harrison,William Henry Harrison,1840,1844,0,57,0.0,1,True,included
+Immigration,share of eligible paragraphs,William McKinley,William McKinley,1895,1899,22,539,4.081632653061225,10,True,included
+Immigration,share of eligible paragraphs,William McKinley,William McKinley,1900,1904,3,228,1.3157894736842104,4,True,included
+Immigration,share of eligible paragraphs,William Taft,William Howard Taft,1905,1909,5,224,2.232142857142857,5,True,included
+Immigration,share of eligible paragraphs,William Taft,William Howard Taft,1910,1914,27,745,3.6241610738255035,7,True,included
+Immigration,share of eligible paragraphs,Woodrow Wilson,Woodrow Wilson,1910,1914,1,187,0.53475935828877,13,True,included
+Immigration,share of eligible paragraphs,Woodrow Wilson,Woodrow Wilson,1915,1919,8,452,1.7699115044247788,19,True,included
+Immigration,share of eligible paragraphs,Woodrow Wilson,Woodrow Wilson,1920,1924,0,22,0.0,1,False,below_25_paragraph_floor
+Immigration,share of eligible paragraphs,Zachary Taylor,Zachary Taylor,1845,1849,1,62,1.6129032258064515,2,True,included
+Immigration,share of eligible paragraphs,Zachary Taylor,Zachary Taylor,1850,1854,0,18,0.0,2,False,below_25_paragraph_floor

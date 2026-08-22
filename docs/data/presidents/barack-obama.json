@@ -18,7 +18,7 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 570.918006097884,
-      "percentile": 6.666666666666667
+      "percentile": 7.142857142857142
     },
     {
       "key": "fear",
@@ -30,37 +30,37 @@
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8348323793949305,
-      "percentile": 86.66666666666667
+      "percentile": 85.71428571428571
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 74.27280565282521,
-      "percentile": 73.33333333333333
+      "percentile": 71.42857142857143
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.2867076758491575,
-      "percentile": 17.77777777777778
+      "percentile": 16.666666666666664
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 9.543813222119935,
-      "percentile": 8.88888888888889
+      "percentile": 9.523809523809524
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4303236714975846,
-      "percentile": 86.66666666666667
+      "percentile": 85.71428571428571
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 15.605959164406855,
-      "percentile": 86.66666666666667
+      "percentile": 88.09523809523809
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 9.543813222119935,
     "self_reference": 0.2867076758491575,
     "ttr": 0.4303236714975846,
-    "pct_hope": 6.666666666666667,
+    "pct_hope": 7.142857142857142,
     "pct_fear": 33.33333333333333,
-    "pct_certainty": 86.66666666666667,
-    "pct_us_vs_them": 73.33333333333333,
-    "pct_self_reference": 17.77777777777778,
-    "pct_formality": 8.88888888888889,
-    "pct_vocabulary": 86.66666666666667,
-    "pct_religiosity": 86.66666666666667
+    "pct_certainty": 85.71428571428571,
+    "pct_us_vs_them": 71.42857142857143,
+    "pct_self_reference": 16.666666666666664,
+    "pct_formality": 9.523809523809524,
+    "pct_vocabulary": 85.71428571428571,
+    "pct_religiosity": 88.09523809523809
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "January 29, 2009: Remarks on the Lilly Ledbetter Fair Pay Restoration Act Bill Signing",
       "year": 2009,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-29-2009-remarks-lilly-ledbetter-fair-pay-restoration"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-29-2009-remarks-lilly-ledbetter-fair-pay-restoration"
     },
     {
       "title": "March 1, 2013: Statement on the Government Sequester",
       "year": 2013,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-1-2013-statement-government-sequester"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-1-2013-statement-government-sequester"
     },
     {
       "title": "February 24, 2009: Address Before a Joint Session of Congress",
       "year": 2009,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-24-2009-address-joint-session-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-24-2009-address-joint-session-congress"
     },
     {
       "title": "November 3, 2010: Press Conference After 2010 Midterm Elections",
       "year": 2010,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-3-2010-press-conference-after-2010-midterm-elections"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-3-2010-press-conference-after-2010-midterm-elections"
     },
     {
       "title": "December 16, 2012: Remarks on Sandy Hook Elementary Shootings",
       "year": 2012,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-16-2012-remarks-sandy-hook-elementary-shootings"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-16-2012-remarks-sandy-hook-elementary-shootings"
     }
   ],
   "legacy_invocations": {

@@ -1,5 +1,345 @@
 # Handoff
 
+## Latest addendum — Graph-first Compare
+
+- Compare restores the two visual fingerprints requested by the owner: an
+  eight-axis corpus-derived percentile radar and a separate six-axis
+  AI-labeled percentile radar. They now occupy one fixed graph stage selected
+  by accessible Corpus-derived / AI-labeled tabs above the chart. Pointer plus
+  Left/Right/Home/End keyboard switching updates the visible semantic tab panel
+  without moving its document position or changing its dimensions. Both use
+  the bundled local Plotly runtime, preserve A/B/C color plus dash/marker
+  distinctions, and keep every exact value, unit, and rank state in a native
+  semantic table disclosure.
+- Thin records remain selected and visible but do not draw unsupported radar
+  shapes; their exact tables continue to show `N/A · Insufficient record`.
+  Two- and three-president selection, swap/add/remove/reset, normalized URLs,
+  hash and Back/Forward restoration, no-JS defaults, and versioned on-demand
+  Profile V3 downloads are unchanged.
+- Nearest-neighbor context is now five independent visual lens boards. Each
+  selected-president row shows three linked portrait tiles with rank, exact
+  cosine value, and a 0–1 meter; the instrument definition is collapsed behind
+  `What this lens uses`, and no composite similarity score is created.
+- Evidence & Data now leads with selected-record speech, word, and paragraph
+  footprint bars, followed by compact adversary/invocation meters, vocabulary
+  chips, signature-speech tiles, and collapsed source excerpts. The stale
+  pending-audit sentence is replaced with the current population distinction:
+  profile evidence follows document ownership, while the separate Conflict
+  treatment uses the completed speaker-attribution audit.
+- Verification: 12 focused Compare tests and 60 broader Compare/profile/site/
+  security tests pass. The canonical builder validates 73 HTML pages and 182
+  JSON shards; all 130 generated inline scripts parse. The full suite records
+  2,695 passes, 69 existing warnings, and the known unrelated runtime-receipt
+  failure because that test hard-codes `low` while this session reports
+  `xhigh`.
+- Browser QA covers the default pair, three presidents, a thin record, the
+  ordinary app viewport, and 390×844. Pointer and keyboard tab switching render
+  two traces per radar in the same document position and equal-height panel;
+  both tabs remain 52px tall at 390px, and responsive reflow has zero page
+  overflow or console warnings/errors. The local preview remains at
+  `http://127.0.0.1:8010/compare.html`; nothing was deployed, staged, committed,
+  pushed, switched, or cleaned, and frozen paid annotations were not changed.
+
+## Latest addendum — All-president temporal portrait
+
+- Summary Time now replaces the era-line future/nostalgia display with one
+  all-president portrait scatter. Future-family matches per 10,000 marker words
+  are on x, nostalgia-family matches per 10,000 marker words are on y, and
+  portrait area is the first-person singular share among the counted
+  I/me/my/mine/myself and we/us/our/ours/ourselves families.
+- `build_summary_temporal_president_contract` joins
+  `speech_markers.parquet`, `speech_stats.parquet`, and the corpus speech table
+  one-to-one on `doc_name`, rejects key or metadata drift, and pools exact counts
+  before dividing. Its document-owner, all-genre treatment is explicitly not
+  speaker-audited. The founding annual-message dictionary audit remains visible
+  as a separate population.
+- All 45 presidents remain in fixed succession and Story-era controls change
+  emphasis only. The 42 observed records and three below-five-speech records
+  (William Harrison, James A. Garfield, and Zachary Taylor) remain plotted; thin
+  records use an amber halo. A fixed theoretical 100% area scale, calibrated
+  700px chart field, 20/40/60% size key, exact 45-row table, and narrow-screen
+  internal scroller keep the encoding stable. A true 0% uses a disclosed hollow
+  locator with no portrait image; unavailable values remain `N/A`.
+- Era filtering snapshots immutable ordinary style arrays before Plotly renders,
+  so repeated preset/Dim all/All eras cycles restore original opacity, fill,
+  outline, and 3px/4px support widths instead of corrupting Plotly binary-array
+  payloads. Portrait calibration leaves the support halo visible, and the
+  mobile legend reflows into three bounded columns.
+- Verification: 56 focused Summary/Story/site tests pass; the canonical build
+  validates 73 HTML pages and 182 JSON shards; all 130 generated inline scripts
+  parse; compilation and `git diff --check` pass. The full suite records 2,694
+  passes and the known unrelated runtime-receipt failure because that test
+  hard-codes `low` while this requested session runs at `ultra`. Reggie Doctor
+  reports 0 errors, 0 warnings, and 4 informational findings for the optional
+  portable guide, existing tool telemetry, the user-owned dirty worktree, and
+  the repository's native external Reggie layout.
+- The local preview remains available at `http://localhost:8010/summary.html`.
+  Browser automation of that localhost tab was blocked by the app's local-URL
+  safety policy after reload, so no automated visual viewport claim is made for
+  this turn. Nothing was deployed, staged, committed, pushed, switched, or
+  cleaned, and frozen paid annotations were not changed.
+
+## Latest addendum — Conflict target mix at era grain
+
+- Summary Conflict now separates its two questions by grain. The target view
+  uses `target_mix_by_era_speaker_audited_v1.parquet` and pools
+  `speaker_audited_all` adversarial mentions within the nine canonical
+  `trends.ERAS` reporting bands. It does not average president percentages or
+  annual percentages.
+- Nation, group, person, institution, and other each occupy one of five
+  vertically aligned small-multiple trajectories. Every panel shares the same
+  percentage scale; exact percentages print at all era points, and hover plus a
+  collapsed era table retain counts, shares, contributing speeches, and support.
+  The five supported shares for an era total 100%.
+- A visible guide defines every category, describes `Other` as a heterogeneous
+  residual, and states that mentions—not paragraphs—form the denominator. It
+  also discloses unequal era length, corpus density, and genre mix, and says the
+  connecting lines guide the eye rather than estimate intervening years.
+- The standalone Enemy naming, Zero-sum framing, and Partisan attack lollipops
+  are removed from generation, page markup, figure registration, metric
+  registration, and tests. The joint portrait remains president-grain through
+  `president-conflict-v2`: zero-sum is on x, partisan attack is on y, and enemy
+  naming is encoded by portrait area.
+- Final code, build, JavaScript, and browser verification belongs to the active
+  implementation turn. This source-document synchronization did not regenerate
+  `docs/`, deploy, stage, commit, push, switch branches, or clean unrelated
+  user-owned worktree changes.
+
+## Latest addendum — Issues Page V2
+
+- The Issues directory and all 16 detail routes now render from one validated
+  `IssuePageViewModel` contract shared by summaries, charts, exact tables,
+  public JSON, and three tidy CSV exports per issue. Membership, canonical
+  order, slugs, finite values, keyed evidence, and active-corpus provenance
+  fail closed before any output is replaced.
+- Every headline and selected highest-period excerpt uses the highest five-year
+  band whose `ci_status` is `ok`. Public rates are explicitly labeled `share of
+  eligible paragraphs`; sampling intervals, caution states, and unresolved
+  intervals remain distinct. Each issue carries early, highest-supported, and
+  recent corpus excerpts with `(doc_name, para_idx)` receipts and canonical
+  Miller Center links.
+- President emphasis uses an absolute 0–100% scale and the shared five-speech
+  eligibility rule. Fine AI topics remain a separately labeled exploratory
+  many-to-many crosswalk with 10/20-year requested and observed bounds,
+  numerator, denominator, partial-period state, low-support flags, stable topic
+  colors, Auto/Grouped/Heatmap modes, Select all/Clear, and lazy Plotly startup.
+  Education and Money retain explicit cross-method caveats.
+- Semantic index cards, one-H1 detail pages, skip/local/adjacent navigation,
+  chart regions, exact-value disclosures, keyboard-visible focus, touch-sized
+  controls, no-JavaScript disabled state, and live chart-failure fallbacks are
+  in place. Shared `issues-v2.css` and `issues-v2.js` replace duplicated page
+  assets; a manifest-scoped cleanup removes only stale outputs previously owned
+  by the Issues generator.
+- Verification: 161 focused tests pass; the canonical build validates 73 HTML
+  pages and 182 JSON shards; all 130 inline scripts and the external Issues
+  runtime parse; compilation, `git diff --check`, and frozen-artifact checks
+  pass. The full run records 2,676 passes and one unrelated runtime-receipt
+  failure because that test hard-codes `low` while this requested session runs
+  at `ultra`. Final Reggie Doctor reports 0 errors, 0 warnings, and 4
+  informational findings for the optional portable document, existing
+  telemetry/worktree state, and native external-pipeline layout.
+- Browser QA covered the directory plus Security, Religion, Health, Foreign,
+  Education, and Money at 1280px, 768px, 390px, 320px, and a 200%-reflow
+  equivalent. It verified lazy charts, chart-mode and selection controls,
+  keyboard focus, internal scroll containment, zero page overflow, and both
+  missing-page-script and missing-Plotly fallbacks. Nothing was deployed,
+  staged, committed, or pushed, and no frozen paid artifact was changed.
+
+## Historical addendum — Compare Page V2 baseline (superseded)
+
+- Compare is now a server-rendered, mobile-first workspace for two or three
+  presidents. The no-parameter view remains Abraham Lincoln / Franklin D.
+  Roosevelt; labeled A/B/C selectors, support cards, swap, third-president,
+  copy-link, reset, URL normalization, hash preservation, and Back/Forward
+  restoration all use the existing canonical 45-president order.
+- `compare_site.py` projects a finite compact payload from normalized
+  `president-profile-v3` views rather than copying nearly complete public
+  profiles. Shared catalogs define all eight corpus and six AI measures plus
+  the full agenda taxonomies; per-president records carry aligned values,
+  bounded evidence, support state, and the five separately governed neighbor
+  instruments.
+- At this checkpoint Plotly and the radar charts were removed from Compare.
+  The graph-first addendum above now supersedes that presentation. Semantic
+  matrices expose
+  exact values, units, eligible-president percentiles, scoped headers,
+  captions, non-color A/B/C markers, and `N/A · Insufficient record` for thin
+  rankings. Narrow screens reflow rows into labeled cards without horizontal
+  chart scrolling.
+- Agenda rows are deterministic unions of the full canonical domain, fine
+  topic, and legacy-issue arrays with the requested top-N caps, maximum-value
+  ordering, canonical tie breaks, signed era differences, valid zeros,
+  extended/show-all disclosures, and separate proposal/values and speech-type
+  composition tables.
+- Nearest-neighbor context kept all five instruments independent and did not
+  imply scores between selected presidents. Evidence was grouped by president,
+  retained source/exploratory status, and disclosed the mixed-speaker audit as
+  pending at that time; the later speaker-attribution and graph-first addenda
+  record the completed audit and current population distinction.
+- Download now fetches only the selected canonical public president shards on
+  demand and emits an ordered `president-comparison-v2` bundle with source URLs,
+  source paths, positions, and a slugged filename. Preparing, success, and
+  error states are announced accessibly.
+- Verification: the requested focused suite passes 79 tests; the canonical
+  build validates 73 HTML pages and 165 JSON shards; all 146 inline scripts
+  parse; `git diff --check` passes. The full run records 2,665 passes and one
+  unrelated runtime-receipt failure because that test hard-codes `low` while
+  this user-requested session correctly reports `ultra`; it also reports the
+  existing 70 warnings.
+- Browser QA covered 1280×720, 1024px, 768px, 390×844, 320px, and a
+  200%-equivalent viewport; two/three presidents, long and thin records,
+  invalid/duplicate/partial URLs, controls, Back/Forward, download requests,
+  live names/status, focus, contrast, reduced-motion CSS, overflow, and console
+  output were checked. The browser harness isolated clipboard readback and did
+  not expose the Blob download event, but the page announced both operations,
+  the download fetched exactly the selected canonical shards, and the static
+  contracts are covered by tests.
+- At that checkpoint generated `docs/compare.html` was 346,507 bytes
+  uncompressed and contained no Plotly request. Final Reggie Doctor reported 0 errors, 0 warnings, and 4
+  informational findings for the optional portable document, existing
+  telemetry/worktree state, and native external-pipeline layout. No frozen paid
+  artifact was changed; nothing was deployed, staged, committed, or pushed.
+  Work remains on `codex/github-pages-release`, and the extensive unrelated
+  user-owned source, data, generated-site, telemetry, and planning changes were
+  left in place.
+
+## Latest addendum — President speaker attribution and Conflict v2 completed
+
+- The governed speaker workflow audited all 1,057 source documents while
+  retaining the canonical 1,053-speech / 35,394-paragraph production universe.
+  The primary visible Codex task labeled every document and all 12,458
+  paragraphs in 207 review-required documents. Its exact runtime receipt is
+  `gpt-5.6-sol` / `low`.
+- A separate fresh user-visible Codex task captured its own exact
+  `gpt-5.6-sol` / `low` receipt before labeling and completed the locked blind
+  queue: 110 assignments and 754 targets, including every cross-owner credit
+  and shared/uncertain target plus deterministic marginal samples. It did not
+  inspect primary labels. The comparison found 288 speaker-membership
+  disagreements across 52 documents; transcript-evidence adjudication selected
+  the reviewer result for all 288 and left zero unresolved.
+- `data/speaker_attribution/document_attribution_v1.parquet` contains 1,057
+  unique documents and `paragraph_attribution_v1.parquet` contains exactly
+  35,394 unique `(doc_name, para_idx)` rows. The final outcomes are 32,531
+  canonical-president, 1,678 multiple-speaker, 1,036 non-president, 135 shared,
+  and 14 scaffolding paragraphs. Excluded outcomes carry no president profile
+  and contribute no paragraph or entity evidence to the primary treatment.
+- The additive speaker run
+  `speaker-attribution-v1-primary-20260806` is the only newly sealed run. Its
+  2,840-member artifact-set hash is
+  `sha256:ddc5ef7a3b77b9535e8453cf6764e4ceaef40034798a613f3299d749ca255846`.
+  Existing sealed runs, old registries, frozen paid annotations, correction
+  inputs, and the annotation-ledger active pointer remain byte-identical.
+- `data/combat/by_president_treatments_v2.parquet` publishes all five declared
+  45-president treatments; `by_president_speaker_audited_v2.parquet` is the
+  selected 45-row Summary payload. Both rebuild byte-identically and declare
+  `president-conflict-v2`. The legacy `by_president.parquet` remains unchanged.
+  Cross-owner debate turns automatically credit Gerald Ford, Richard M. Nixon,
+  and Ronald Reagan; non-president and mixed turns fail closed.
+- Summary now reads the v2 selected payload, names “Speaker-audited all eligible
+  paragraphs,” shows support states, and contains no pending-audit language.
+  The canonical build validates 73 HTML pages and 182 JSON shards. Static
+  JavaScript parsing passes for 29 inline scripts and the generated external
+  script; `git diff --check` passes.
+- Verification: focused speaker/Summary/site tests pass 44 tests; the full suite
+  passes 2,684 tests with 70 existing warnings. In-app browser QA at the default
+  desktop viewport and 390×844 confirms all four charts, readable rows, zero
+  horizontal overflow, and no console errors. Reggie Doctor reports 0 errors,
+  0 warnings, and 4 informational findings for the optional portable guide,
+  existing telemetry/dirty-worktree ownership, and native external layout.
+- Nothing was deployed, staged, committed, pushed, switched, or cleaned. Every
+  unrelated pre-existing worktree change remains user-owned. Python generators,
+  not generated `docs/`, were the editing surface.
+
+## Historical addendum — President speaker attribution was groomed, not executed
+
+- `notes/president-speaker-attribution-plan-v1.md` and the groomed
+  `audit-president-speaker-populations-and-version-conflict-chart-inputs`
+  backlog entry now define the document census, paragraph rubric, interactive
+  chat execution boundary, review pass, population treatments, v2 producer,
+  refusal rules, tests, and site acceptance gates.
+- The source inventory retains all 1,057 document records, but production
+  attribution and `president-conflict-v2` use the corrected canonical
+  1,053-speech / 35,394-paragraph universe. The stale 4,562-paragraph estimate
+  is planning evidence only; the execution task must derive its exact scope.
+- All model judgments must be supplied through user-visible Codex chats and the
+  local offline assignment/ingest workflow. Provider APIs, API keys,
+  `pp-annotate`, the headless Codex campaign worker, and hidden labeling
+  sessions are explicitly out of scope.
+- Clear turns by another one of the 45 profiled presidents are reassigned to
+  that speaker's profile—even in a transcript hosted by someone else and even
+  when the turn predates their presidency. Non-presidents are retained as
+  evidence but excluded from president metrics; mixed turns fail closed.
+- This checkpoint changed planning and routing documents only. No document or
+  paragraph was labeled, no run was opened or sealed, no source/data/site file
+  was rebuilt, and no frozen paid artifact, registry, ledger pointer,
+  deployment, staging, commit, push, or branch was changed.
+- The current `president-conflict-v1` payload remains document-owned and must
+  continue to say `speaker attribution audit pending` until the v2 producer and
+  its full verification gates pass.
+
+## Latest addendum — Evidence-first president profiles
+
+- All 45 individual profiles now follow one guided order: identity and corpus
+  support, Overview, Agenda, Rhetoric, Evidence, five independent Similarity
+  instruments, and Signature speeches. The hero carries the portrait, full
+  display name, party, corpus record span, correctly pluralized speech count,
+  support state, compact back link, and a president-aware Compare action.
+- `profiles_site.py` now builds one normalized profile view model for HTML,
+  embedded figure data, the exact `president-profile-v3` public JSON contract,
+  and Compare. Production generation validates exact 45-president membership,
+  keyed identity, ordered measures and units, support state, and finite JSON.
+- Percentile eligibility is shared at five corpus speeches. Thin presidents are
+  excluded from the reference distribution and receive null ranks in both
+  legacy and AI measures; the HTML and Compare render `N/A · Insufficient
+  record` rather than a midpoint. The thin warning appears before all analysis.
+- The former profile radar charts are direct-label horizontal bars with exact
+  accessible tables; six aligned AI-topic rows show share and era difference;
+  evidence excerpts precede rate-only disclosures; and signature speeches are
+  canonical Miller Center links followed by previous/next-president navigation.
+- Shared formatters correct 11th/12th/13th and other ordinals, speech
+  singular/plural, full display names, and Miller Center URL normalization.
+  Compare consumes the real v3 producer and omits unsupported percentile shapes.
+- Normal text and focus contrast meet the updated AA palette, chart names and
+  textual summaries are explicit, native disclosures expose visible 3px focus,
+  and mobile tables replace hidden/unmounted charts below 600px. Browser QA of
+  the directory, Franklin D. Roosevelt, William Henry Harrison, and thin
+  Compare at 1280×720 and 390×844 found zero page overflow or clipped primary
+  labels and no console warnings or errors.
+- Verification is green: the requested focused suite passes 98 tests; the full
+  suite passes 2,638 tests with 70 existing warnings; the canonical build
+  validates 73 HTML pages and 165 JSON shards; and all 146 inline scripts parse.
+  Final Reggie Doctor reports 0 errors, 0 warnings, and 4 informational findings
+  for the optional portable document, existing telemetry/worktree state, and
+  native external-pipeline layout. No frozen paid annotation was changed, and
+  nothing was deployed or committed.
+- The repository has no governed presidential term-date artifact. To avoid
+  presenting corpus years as tenure, profiles explicitly label them `Corpus
+  record span` and explain that they are available speech years, not term dates.
+
+## Historical addendum — President Conflict comparison (superseded)
+
+- Summary Conflict now presents four full-width Plotly graphs, each containing all 45 presidents
+  in the same fixed chronology. The first graph is a 100% stacked target composition—nation,
+  group, person, institution, and other—so each president's adversarial mentions can be compared
+  without mixing their denominator with paragraph rates.
+- Enemy naming, zero-sum framing, and partisan attack each receive a separate lollipop graph.
+  Those three graphs use the same president order and one shared percentage scale, making both
+  within-measure peaks and across-measure magnitudes directly comparable without a combined
+  legend. Exact percentages, counts, denominators, and support warnings remain available on hover.
+- Low paragraph support and low adversarial-mention support remain distinct. Missing audited
+  values render explicit `N/A` states rather than zero, and the target composition is suppressed
+  when there is no eligible adversarial-entity denominator.
+- All four figures, exact value labels, all-president medians, and support states rebuild from the validated, replaceable
+  `president-conflict-v1` payload in `data/combat/by_president.parquet`. The contract preserves
+  exact president membership and chronology while validating counts, rates, target shares,
+  missingness, treatment metadata, and support states; no president-specific chart correction is
+  required when the producer changes.
+- The current payload is still document-owned and remains labeled `Document-owned corpus ·
+  speaker attribution audit pending`. The groomed task and
+  `notes/president-speaker-attribution-plan-v1.md` own the deterministic
+  document/speaker inventory and corrected producer. Frozen paid annotations
+  were not regenerated or edited, and this addendum does not claim that the
+  pending audit is complete.
+
 ## Latest addendum — GitHub Pages deployment
 
 - `notes/github-pages-release-plan-v1.md` is the executed publication contract.
@@ -40,9 +380,13 @@
 - The post–Civil War breadth graph and issue-lifecycle heat map are removed.
   Visible copy states that most topic-count expansion occurs before 1860 and
   later movement is small, uneven, and method-sensitive.
-- Voice is a reduced WHO/HOW pair: Congress/general public/other and
-  written/spoken/broadcast-plus-other. Both president views use six phase
-  presets and nine colored era cards while retaining all 45 presidents.
+- Voice now uses two independent 100% stacked-bar charts, eliminating the mixed legend.
+  WHO keeps Congress/general public/specific groups/other audiences; HOW keeps
+  written/spoken/radio-TV/press-conference-or-debate. Each graph has nine era bars, a
+  graph-specific palette and emoji-accented legend, selective in-bar labels, exact hover
+  receipts, and its own Measure/Evidence disclosure. Both
+  president views use six phase presets and nine colored era cards while retaining all 45
+  presidents.
 - Enemy identity is displayed as nation/group/person/institution/other across
   every era. The observed annual-message combat lines no longer show confidence
   whiskers. A new president scatter compares enemy naming with partisan attack.
@@ -51,7 +395,8 @@
   is not evidence of golden-age nostalgia.
 - The emotional ratio is now NRC Hope divided by Doom on a log scale with the
   20,000-word and nonzero-denominator guards. The separate-axis weather map is
-  no longer part of Summary. The generated page contains eight charts.
+  no longer part of Summary. The generated page contains nine Plotly charts, including the two
+  separate communication charts.
 - Verification is complete: 2,591 tests pass with 70 existing warnings; the
   canonical builder validates 73 HTML pages and 165 JSON shards; all 146
   generated inline scripts parse. Browser QA at 1280×720 and 390×844 mounts all
