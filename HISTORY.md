@@ -1,5 +1,15 @@
 # Completed Tasks
 
+- [x] deploy-latest-site-to-github-pages Published the accumulated Compare,
+  Summary, Issues, profile, Explore, and speaker-audited Conflict release
+  through pull request #4 and merge
+  `5413f36824d2093a84fa7d8f3870e5d50f57d084`; Pages run 32578012035 succeeded
+  from `master:/docs`. All 2,696 tests, the canonical 73-HTML/182-JSON build,
+  130-script parser, compilation, staged audit, frozen-artifact check, public
+  HTTPS checks, and representative byte-for-byte live comparisons pass. The
+  annotation ledger, local operators, and tool telemetry remain outside the
+  release -- 2026-08-22
+
 - [x] refocus-president-comparison-on-visuals Restored graph-first Compare with
   corpus and AI percentile radars in one accessible tab-switched graph stage,
   exact disclosed tables, five

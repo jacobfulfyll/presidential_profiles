@@ -1,5 +1,34 @@
 # Handoff
 
+## Latest addendum — GitHub Pages deployment (2026-08-22)
+
+- Pull request [#4](https://github.com/jacobfulfyll/presidential_profiles/pull/4)
+  published the current generator, governed speaker-attribution/conflict
+  artifacts, and canonical `docs/` tree through the existing `master:/docs`
+  source. Release commit `72b0149c76fbfe7c6af45d9bca26febbd9e0e0d9`
+  merged to `master` as `5413f36824d2093a84fa7d8f3870e5d50f57d084`.
+- GitHub Pages run
+  [32578012035](https://github.com/jacobfulfyll/presidential_profiles/actions/runs/32578012035)
+  completed its build, status, and deployment jobs successfully. The sole
+  annotation is GitHub's upstream Node.js 20 action-runtime deprecation notice.
+  The public site is <https://jacobfulfyll.github.io/presidential_profiles/>.
+- Release verification is green: 116 focused tests and all 2,696 tests pass
+  with 70 existing warnings; the canonical builder validates 73 HTML pages and
+  182 JSON shards; all 130 generated inline scripts parse; Python compilation,
+  whitespace, frozen-paid-artifact, staged-tree, and credential-pattern checks
+  pass. The staged audit accepts 245 changed paths and a 384-file,
+  86,477,738-byte Pages tree.
+- Fourteen representative live Story, Summary, Compare, Explore, Profiles,
+  Issues, data/methodology, asset, JSON, and CSV URLs return HTTP 200 with the
+  expected content types. Live Compare HTML and Security & Peace JSON match the
+  validated release byte-for-byte.
+- The runtime-receipt test no longer depends on the active Codex session's
+  reasoning level; a synthetic rollout fixture now preserves the exact
+  model/effort parsing contract. Frozen paid annotations were not changed.
+  The 53,981-file local `data/annotation_ledger/`, three `.codex/operators/`
+  helpers, and live `.claude/stats.json` telemetry remain user-owned, local,
+  and outside the public release.
+
 ## Latest addendum — Graph-first Compare
 
 - Compare restores the two visual fingerprints requested by the owner: an
