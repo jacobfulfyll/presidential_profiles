@@ -6,6 +6,16 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+- [x] deploy-latest-site-to-github-pages: Executed the established
+  `notes/github-pages-release-plan-v1.md` contract through PR #4, release commit
+  `72b0149c76fbfe7c6af45d9bca26febbd9e0e0d9`, and `master` merge
+  `5413f36824d2093a84fa7d8f3870e5d50f57d084`. Pages run 32578012035 deployed
+  the exact `master:/docs` tree successfully. All 2,696 tests, the canonical
+  73-HTML/182-JSON build, 130-script parser, compilation, staged audit, frozen
+  artifact check, public HTTPS checks, and representative byte comparisons
+  pass. Local annotation-ledger state, operator helpers, and tool telemetry
+  remain excluded. [P1] [high] [completed]
+
 - [x] refocus-president-comparison-on-visuals: Restored the eight-axis corpus
   and six-axis AI percentile radars as Compare's primary Rhetoric view, then
   placed them in one fixed graph stage with accessible tabs, pointer switching,
