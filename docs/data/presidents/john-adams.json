@@ -24,43 +24,43 @@
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 288.40253630599307,
-      "percentile": 60.0
+      "percentile": 59.523809523809526
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.5024875621890548,
-      "percentile": 24.444444444444443
+      "percentile": 23.809523809523807
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 55.90782027681189,
-      "percentile": 42.22222222222222
+      "percentile": 42.857142857142854
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.4015544041450777,
-      "percentile": 57.77777777777777
+      "percentile": 59.523809523809526
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 21.90995137301712,
-      "percentile": 95.55555555555556
+      "percentile": 95.23809523809523
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4262857142857142,
-      "percentile": 75.55555555555556
+      "percentile": 73.80952380952381
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 20.454080589077524,
-      "percentile": 97.77777777777777
+      "percentile": 100.0
     }
   ],
   "raw_stats": {
@@ -93,13 +93,13 @@
     "self_reference": 0.4015544041450777,
     "ttr": 0.4262857142857142,
     "pct_hope": 100.0,
-    "pct_fear": 60.0,
-    "pct_certainty": 24.444444444444443,
-    "pct_us_vs_them": 42.22222222222222,
-    "pct_self_reference": 57.77777777777777,
-    "pct_formality": 95.55555555555556,
-    "pct_vocabulary": 75.55555555555556,
-    "pct_religiosity": 97.77777777777777
+    "pct_fear": 59.523809523809526,
+    "pct_certainty": 23.809523809523807,
+    "pct_us_vs_them": 42.857142857142854,
+    "pct_self_reference": 59.523809523809526,
+    "pct_formality": 95.23809523809523,
+    "pct_vocabulary": 73.80952380952381,
+    "pct_religiosity": 100.0
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "December 19, 1799: Death of George Washington",
       "year": 1799,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-19-1799-death-george-washington"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-19-1799-death-george-washington"
     },
     {
       "title": "May 21, 1800: Proclamation of Pardons to Those Engaged in Fries Rebellion",
       "year": 1800,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-21-1800-proclamation-pardons-those-engaged-fries-rebellion"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-21-1800-proclamation-pardons-those-engaged-fries-rebellion"
     },
     {
       "title": "December 8, 1798: Second Annual Message",
       "year": 1798,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-8-1798-second-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-8-1798-second-annual-message"
     },
     {
       "title": "November 22, 1800: Fourth Annual Message",
       "year": 1800,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-22-1800-fourth-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-22-1800-fourth-annual-message"
     },
     {
       "title": "March 23, 1798: Proclamation of Day of Fasting, Humiliation and Prayer",
       "year": 1798,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-23-1798-proclamation-day-fasting-humiliation-and-prayer"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-23-1798-proclamation-day-fasting-humiliation-and-prayer"
     }
   ],
   "legacy_invocations": {

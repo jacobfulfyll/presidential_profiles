@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 674.5969459829137,
-      "percentile": 53.333333333333336
+      "percentile": 54.761904761904766
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 292.8448101890262,
-      "percentile": 71.11111111111111
+      "percentile": 71.42857142857143
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.6217672413793104,
-      "percentile": 53.333333333333336
+      "percentile": 52.38095238095239
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 53.70316388994775,
-      "percentile": 37.77777777777778
+      "percentile": 38.095238095238095
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.3396013538924408,
-      "percentile": 42.22222222222222
+      "percentile": 42.857142857142854
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 14.199329994768647,
-      "percentile": 42.22222222222222
+      "percentile": 45.23809523809524
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4098539325842697,
-      "percentile": 46.666666666666664
+      "percentile": 50.0
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 4.933067246675786,
-      "percentile": 22.22222222222222
+      "percentile": 23.809523809523807
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 14.199329994768647,
     "self_reference": 0.3396013538924408,
     "ttr": 0.4098539325842697,
-    "pct_hope": 53.333333333333336,
-    "pct_fear": 71.11111111111111,
-    "pct_certainty": 53.333333333333336,
-    "pct_us_vs_them": 37.77777777777778,
-    "pct_self_reference": 42.22222222222222,
-    "pct_formality": 42.22222222222222,
-    "pct_vocabulary": 46.666666666666664,
-    "pct_religiosity": 22.22222222222222
+    "pct_hope": 54.761904761904766,
+    "pct_fear": 71.42857142857143,
+    "pct_certainty": 52.38095238095239,
+    "pct_us_vs_them": 38.095238095238095,
+    "pct_self_reference": 42.857142857142854,
+    "pct_formality": 45.23809523809524,
+    "pct_vocabulary": 50.0,
+    "pct_religiosity": 23.809523809523807
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "March 7, 1930: Statement Regarding Business and Unemployment",
       "year": 1930,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-7-1930-statement-regarding-business-and-unemployment"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-7-1930-statement-regarding-business-and-unemployment"
     },
     {
       "title": "December 2, 1930: Second State of the Union address.",
       "year": 1930,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-2-1930-second-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-2-1930-second-state-union-address"
     },
     {
       "title": "October 25, 1929: Message Regarding \u201cBlack Thursday\u201d",
       "year": 1929,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-25-1929-message-regarding-black-thursday"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-25-1929-message-regarding-black-thursday"
     },
     {
       "title": "October 2, 1930: Address to the American Bankers\u2019 Association.",
       "year": 1930,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-2-1930-address-american-bankers-association"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-2-1930-address-american-bankers-association"
     },
     {
       "title": "February 26, 1931: Veto Messages Regarding Emergency Adjusted Compensation Act",
       "year": 1931,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-26-1931-veto-messages-regarding-emergency-adjusted"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-26-1931-veto-messages-regarding-emergency-adjusted"
     }
   ],
   "legacy_invocations": {

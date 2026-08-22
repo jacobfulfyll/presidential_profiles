@@ -1,0 +1,22 @@
+{
+  "annotation_active_pointer_sha256": "sha256:6d25cfeed8bd205af88dc5061d07d3e6b1fea275be0f656a3b671fd78d5a7245",
+  "annotation_generation": "5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307",
+  "api_calls": 0,
+  "metadata_sha256": "sha256:572ce7919a6be6143b5f34778adccc432a721031ec0baa724314684543871a2b",
+  "presidents_per_treatment": 45,
+  "rows": 225,
+  "schema_version": "president-conflict-v2",
+  "selected_treatment": "speaker_audited_all",
+  "speaker_attribution_metadata_sha256": "sha256:3428b383970336fa70b1cb541d109b2acfea8e2a2237db90dfa04b4d16a975a5",
+  "target_mix_eras": 9,
+  "target_mix_mentions": 8393,
+  "target_mix_path": "target_mix_by_era_speaker_audited_v1.parquet",
+  "target_mix_schema": "conflict-target-mix-v1",
+  "treatments": [
+    "canonical_document_owner",
+    "speaker_audited_all",
+    "debate_excluded",
+    "single_president_documents",
+    "annual_message_strict"
+  ]
+}

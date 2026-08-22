@@ -22,6 +22,11 @@ NRC_CACHE = DATA_DIR / "raw" / "nrc_emolex.txt"
 
 WORD_RE = re.compile(r"[a-z']+")
 
+# President-level percentile ranks use the same precision floor declared by
+# the public metric lesson. Absolute values remain available below the floor;
+# only the relative ranking is withdrawn.
+PRESIDENT_PERCENTILE_MIN_SPEECHES = 5
+
 MARKERS = {
     "boosters": r"\bnever\b|\balways\b|\bcertainly\b|\babsolutely\b|\bdefinitely\b"
                 r"|\btremendous\w*\b|\bincredibl\w+\b|\btotally\b|\bcompletely\b",
@@ -243,6 +248,24 @@ def vocabulary_richness(df: pd.DataFrame, window: int = 1000) -> pd.Series:
     return pd.Series(out, name="ttr")
 
 
+def eligible_percentile(
+    values: pd.Series,
+    speech_counts: pd.Series,
+    min_speeches: int = PRESIDENT_PERCENTILE_MIN_SPEECHES,
+) -> pd.Series:
+    """Rank only adequately supported president records.
+
+    Thin records retain their absolute measure but receive a missing
+    percentile. They also do not influence the eligible reference
+    distribution used for supported presidents.
+    """
+    counts = speech_counts.reindex(values.index).fillna(0)
+    eligible = counts.ge(min_speeches) & values.notna()
+    ranked = pd.Series(np.nan, index=values.index, dtype=float)
+    ranked.loc[eligible] = values.loc[eligible].rank(pct=True) * 100
+    return ranked
+
+
 def president_scores(
     markers: pd.DataFrame, stats: pd.DataFrame, df: pd.DataFrame
 ) -> pd.DataFrame:
@@ -267,6 +290,14 @@ def president_scores(
     scores["self_reference"] = i_tot / (i_tot + we_tot)
     scores["ttr"] = vocabulary_richness(df)
 
+    meta = df.groupby("president").agg(
+        party=("party", "first"),
+        first_year=("year", "min"),
+        last_year=("year", "max"),
+        n_speeches=("doc_name", "count"),
+        n_words=("word_count", "sum"),
+    )
+
     radar = {
         "hope": scores["nrc_hope"],
         "fear": scores["nrc_fear"],
@@ -278,13 +309,7 @@ def president_scores(
         "religiosity": scores["religiosity"],
     }
     for name, series in radar.items():
-        scores[f"pct_{name}"] = series.rank(pct=True) * 100
-
-    meta = df.groupby("president").agg(
-        party=("party", "first"),
-        first_year=("year", "min"),
-        last_year=("year", "max"),
-        n_speeches=("doc_name", "count"),
-        n_words=("word_count", "sum"),
-    )
+        scores[f"pct_{name}"] = eligible_percentile(
+            series, meta["n_speeches"]
+        )
     return meta.join(scores).reset_index()

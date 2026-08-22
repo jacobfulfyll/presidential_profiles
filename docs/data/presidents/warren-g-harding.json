@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 775.9547677685663,
-      "percentile": 95.55555555555556
+      "percentile": 95.23809523809523
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 368.3790627493149,
-      "percentile": 95.55555555555556
+      "percentile": 97.61904761904762
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.7099056603773585,
-      "percentile": 64.44444444444444
+      "percentile": 64.28571428571429
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 39.54351521037844,
-      "percentile": 15.555555555555555
+      "percentile": 16.666666666666664
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.2223168654173765,
-      "percentile": 8.88888888888889
+      "percentile": 9.523809523809524
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 13.80805464297592,
-      "percentile": 40.0
+      "percentile": 42.857142857142854
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4399642857142857,
-      "percentile": 97.77777777777777
+      "percentile": 97.61904761904762
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 15.26240937944431,
-      "percentile": 84.44444444444444
+      "percentile": 85.71428571428571
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 13.80805464297592,
     "self_reference": 0.2223168654173765,
     "ttr": 0.4399642857142857,
-    "pct_hope": 95.55555555555556,
-    "pct_fear": 95.55555555555556,
-    "pct_certainty": 64.44444444444444,
-    "pct_us_vs_them": 15.555555555555555,
-    "pct_self_reference": 8.88888888888889,
-    "pct_formality": 40.0,
-    "pct_vocabulary": 97.77777777777777,
-    "pct_religiosity": 84.44444444444444
+    "pct_hope": 95.23809523809523,
+    "pct_fear": 97.61904761904762,
+    "pct_certainty": 64.28571428571429,
+    "pct_us_vs_them": 16.666666666666664,
+    "pct_self_reference": 9.523809523809524,
+    "pct_formality": 42.857142857142854,
+    "pct_vocabulary": 97.61904761904762,
+    "pct_religiosity": 85.71428571428571
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "May 23, 1921: Speech Upon Arrival of World War One Dead for Burial",
       "year": 1921,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-23-1921-speech-upon-arrival-world-war-one-dead-burial"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-23-1921-speech-upon-arrival-world-war-one-dead-burial"
     },
     {
       "title": "March 4, 1921: Inaugural Address",
       "year": 1921,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1921-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1921-inaugural-address"
     },
     {
       "title": "July 22, 1920: The American Soldier",
       "year": 1920,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-22-1920-american-soldier"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-22-1920-american-soldier"
     },
     {
       "title": "August 28, 1920: America",
       "year": 1920,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-28-1920-america"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-28-1920-america"
     },
     {
       "title": "April 4, 1917: The Republic Must Awaken",
       "year": 1917,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-4-1917-republic-must-awaken"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-4-1917-republic-must-awaken"
     }
   ],
   "legacy_invocations": {

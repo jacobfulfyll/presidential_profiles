@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 681.0825513395894,
-      "percentile": 55.55555555555556
+      "percentile": 57.14285714285714
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 318.2374541003672,
-      "percentile": 80.0
+      "percentile": 80.95238095238095
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.786618444846293,
-      "percentile": 73.33333333333333
+      "percentile": 71.42857142857143
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 107.4391404868761,
-      "percentile": 95.55555555555556
+      "percentile": 95.23809523809523
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.3894080996884735,
-      "percentile": 55.55555555555556
+      "percentile": 57.14285714285714
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 9.567067322802506,
-      "percentile": 11.11111111111111
+      "percentile": 11.904761904761903
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.3849444444444445,
-      "percentile": 8.88888888888889
+      "percentile": 9.523809523809524
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 17.407860737114103,
-      "percentile": 91.11111111111111
+      "percentile": 92.85714285714286
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 9.567067322802506,
     "self_reference": 0.3894080996884735,
     "ttr": 0.3849444444444445,
-    "pct_hope": 55.55555555555556,
-    "pct_fear": 80.0,
-    "pct_certainty": 73.33333333333333,
-    "pct_us_vs_them": 95.55555555555556,
-    "pct_self_reference": 55.55555555555556,
-    "pct_formality": 11.11111111111111,
-    "pct_vocabulary": 8.88888888888889,
-    "pct_religiosity": 91.11111111111111
+    "pct_hope": 57.14285714285714,
+    "pct_fear": 80.95238095238095,
+    "pct_certainty": 71.42857142857143,
+    "pct_us_vs_them": 95.23809523809523,
+    "pct_self_reference": 57.14285714285714,
+    "pct_formality": 11.904761904761903,
+    "pct_vocabulary": 9.523809523809524,
+    "pct_religiosity": 92.85714285714286
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "September 18, 1948: Whistlestop Tour in Trenton, Missouri",
       "year": 1948,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/september-18-1948-whistlestop-tour-trenton-missouri"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/september-18-1948-whistlestop-tour-trenton-missouri"
     },
     {
       "title": "October 22, 1952: Rear Platform Remarks",
       "year": 1952,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-22-1952-rear-platform-remarks"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-22-1952-rear-platform-remarks"
     },
     {
       "title": "November 3, 1948: Victory Celebration",
       "year": 1948,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-3-1948-victory-celebration"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-3-1948-victory-celebration"
     },
     {
       "title": "July 15, 1948: Democratic National Convention",
       "year": 1948,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-15-1948-democratic-national-convention"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-15-1948-democratic-national-convention"
     },
     {
       "title": "March 29, 1952: Jefferson-Jackson Day Dinner",
       "year": 1952,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-29-1952-jefferson-jackson-day-dinner"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-29-1952-jefferson-jackson-day-dinner"
     }
   ],
   "legacy_invocations": {

@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 714.6578911284794,
-      "percentile": 80.0
+      "percentile": 80.95238095238095
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 201.28890717126012,
-      "percentile": 2.2222222222222223
+      "percentile": 2.380952380952381
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.5263157894736842,
-      "percentile": 28.888888888888886
+      "percentile": 28.57142857142857
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 66.36500754147812,
-      "percentile": 55.55555555555556
+      "percentile": 57.14285714285714
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.1958568738229755,
-      "percentile": 4.444444444444445
+      "percentile": 4.761904761904762
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 20.417945268113925,
-      "percentile": 84.44444444444444
+      "percentile": 83.33333333333334
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.40636111111111106,
-      "percentile": 37.77777777777778
+      "percentile": 40.476190476190474
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 9.049773755656108,
-      "percentile": 57.77777777777777
+      "percentile": 61.904761904761905
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 20.417945268113925,
     "self_reference": 0.1958568738229755,
     "ttr": 0.40636111111111106,
-    "pct_hope": 80.0,
-    "pct_fear": 2.2222222222222223,
-    "pct_certainty": 28.888888888888886,
-    "pct_us_vs_them": 55.55555555555556,
-    "pct_self_reference": 4.444444444444445,
-    "pct_formality": 84.44444444444444,
-    "pct_vocabulary": 37.77777777777778,
-    "pct_religiosity": 57.77777777777777
+    "pct_hope": 80.95238095238095,
+    "pct_fear": 2.380952380952381,
+    "pct_certainty": 28.57142857142857,
+    "pct_us_vs_them": 57.14285714285714,
+    "pct_self_reference": 4.761904761904762,
+    "pct_formality": 83.33333333333334,
+    "pct_vocabulary": 40.476190476190474,
+    "pct_religiosity": 61.904761904761905
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "December 2, 1828: Fourth Annual Message",
       "year": 1828,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-2-1828-fourth-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-2-1828-fourth-annual-message"
     },
     {
       "title": "July 4, 1821: Speech to the U.S. House of Representatives on Foreign Policy",
       "year": 1821,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-4-1821-speech-us-house-representatives-foreign-policy"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-4-1821-speech-us-house-representatives-foreign-policy"
     },
     {
       "title": "December 6, 1825: First Annual Message",
       "year": 1825,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-6-1825-first-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-6-1825-first-annual-message"
     },
     {
       "title": "December 4, 1827: Third Annual Message",
       "year": 1827,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-4-1827-third-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-4-1827-third-annual-message"
     },
     {
       "title": "December 5, 1826: Second Annual Address",
       "year": 1826,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-5-1826-second-annual-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-5-1826-second-annual-address"
     }
   ],
   "legacy_invocations": {

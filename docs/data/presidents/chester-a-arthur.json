@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 646.9400121187639,
-      "percentile": 28.888888888888886
+      "percentile": 28.57142857142857
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 218.54170874570792,
-      "percentile": 6.666666666666667
+      "percentile": 4.761904761904762
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.4588815789473684,
-      "percentile": 6.666666666666667
+      "percentile": 4.761904761904762
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 36.76025045445365,
-      "percentile": 8.88888888888889
+      "percentile": 9.523809523809524
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.5416666666666666,
-      "percentile": 88.88888888888889
+      "percentile": 90.47619047619048
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 17.01575749491907,
-      "percentile": 55.55555555555556
+      "percentile": 57.14285714285714
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4264489795918367,
-      "percentile": 77.77777777777779
+      "percentile": 76.19047619047619
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 3.029690971520905,
-      "percentile": 8.88888888888889
+      "percentile": 9.523809523809524
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 17.01575749491907,
     "self_reference": 0.5416666666666666,
     "ttr": 0.4264489795918367,
-    "pct_hope": 28.888888888888886,
-    "pct_fear": 6.666666666666667,
-    "pct_certainty": 6.666666666666667,
-    "pct_us_vs_them": 8.88888888888889,
-    "pct_self_reference": 88.88888888888889,
-    "pct_formality": 55.55555555555556,
-    "pct_vocabulary": 77.77777777777779,
-    "pct_religiosity": 8.88888888888889
+    "pct_hope": 28.57142857142857,
+    "pct_fear": 4.761904761904762,
+    "pct_certainty": 4.761904761904762,
+    "pct_us_vs_them": 9.523809523809524,
+    "pct_self_reference": 90.47619047619048,
+    "pct_formality": 57.14285714285714,
+    "pct_vocabulary": 76.19047619047619,
+    "pct_religiosity": 9.523809523809524
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "December 4, 1883: Third Annual Message",
       "year": 1883,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-4-1883-third-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-4-1883-third-annual-message"
     },
     {
       "title": "December 10, 1884: Message Regarding Central American Canal",
       "year": 1884,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-10-1884-message-regarding-central-american-canal"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-10-1884-message-regarding-central-american-canal"
     },
     {
       "title": "April 4, 1882: Veto of the Chinese Exclusion Act",
       "year": 1882,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-4-1882-veto-chinese-exclusion-act"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-4-1882-veto-chinese-exclusion-act"
     },
     {
       "title": "December 4, 1882: Second Annual Message",
       "year": 1882,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-4-1882-second-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-4-1882-second-annual-message"
     },
     {
       "title": "April 18, 1882: Message Regarding Congress of American Countries",
       "year": 1882,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-18-1882-message-regarding-congress-american-countries"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-18-1882-message-regarding-congress-american-countries"
     }
   ],
   "legacy_invocations": {

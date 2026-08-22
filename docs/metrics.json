@@ -241,7 +241,7 @@
     "formula": "category adversarial mentions / all adversarial mentions",
     "unit": "percent of adversarial mentions",
     "limitations": "Entity extraction and type labels can be wrong; the distribution excludes conflict wording without an extracted adversarial entity.",
-    "source": "combat/adversary_mix.parquet",
+    "source": "combat/target_mix_by_era_speaker_audited_v1.parquet",
     "status": "exploratory AI descriptive"
   },
   "temporal_orientation": {
@@ -258,6 +258,24 @@
     "unit": "mentions per 10,000 words",
     "limitations": "A match cannot establish whether a promise is feasible or a memory is accurate.",
     "source": "register/trends.parquet",
+    "status": "descriptive"
+  },
+  "temporal_portrait": {
+    "label": "Temporal appeal and self-reference",
+    "question": "How often does each president invoke tomorrow or recovery, and how personally is the record voiced?",
+    "definition": "Future and nostalgia rates per 10,000 marker words position each president; portrait area is the first-person singular share among counted singular and plural first-person pronouns.",
+    "example": "A president at 8 future and 5 nostalgia matches per 10,000 words with a 40% singular share sits at (8, 5), with portrait area proportional to 40%.",
+    "steps": [
+      "Pool every available corpus speech assigned to the president",
+      "Count future and nostalgia families and divide each by marker words",
+      "Count singular-family forms (I, me, my, mine, myself)",
+      "Divide singular forms by singular plus plural first-person forms",
+      "Encode that bounded share as portrait area, not diameter"
+    ],
+    "formula": "x = future/words \u00d7 10,000; y = nostalgia/words \u00d7 10,000; area = singular/(singular + plural)",
+    "unit": "axis matches per 10,000 marker words; portrait-area percent singular",
+    "limitations": "Dictionary matches do not establish intent or accuracy. Singular share is not ego or personality; genre, quotations, other speakers, and the referent of collective pronouns can change the value.",
+    "source": "speech_markers.parquet + speech_stats.parquet + speeches.parquet",
     "status": "descriptive"
   },
   "hope_doom_ratio": {

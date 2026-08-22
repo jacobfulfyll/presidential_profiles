@@ -18,37 +18,37 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 642.883658209532,
-      "percentile": 26.666666666666668
+      "percentile": 26.190476190476193
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 351.06326563080023,
-      "percentile": 93.33333333333333
+      "percentile": 95.23809523809523
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.7754666666666666,
-      "percentile": 71.11111111111111
+      "percentile": 69.04761904761905
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 82.72789945378373,
-      "percentile": 88.88888888888889
+      "percentile": 88.09523809523809
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.3194444444444444,
-      "percentile": 28.888888888888886
+      "percentile": 28.57142857142857
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 11.854711222972453,
-      "percentile": 31.11111111111111
+      "percentile": 33.33333333333333
     },
     {
       "key": "vocabulary",
@@ -60,7 +60,7 @@
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 9.621285009734923,
-      "percentile": 62.22222222222222
+      "percentile": 64.28571428571429
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 11.854711222972453,
     "self_reference": 0.3194444444444444,
     "ttr": 0.4160687022900763,
-    "pct_hope": 26.666666666666668,
-    "pct_fear": 93.33333333333333,
-    "pct_certainty": 71.11111111111111,
-    "pct_us_vs_them": 88.88888888888889,
-    "pct_self_reference": 28.888888888888886,
-    "pct_formality": 31.11111111111111,
+    "pct_hope": 26.190476190476193,
+    "pct_fear": 95.23809523809523,
+    "pct_certainty": 69.04761904761905,
+    "pct_us_vs_them": 88.09523809523809,
+    "pct_self_reference": 28.57142857142857,
+    "pct_formality": 33.33333333333333,
     "pct_vocabulary": 66.66666666666666,
-    "pct_religiosity": 62.22222222222222
+    "pct_religiosity": 64.28571428571429
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "December 9, 1941: Fireside Chat 19: On the War with Japan",
       "year": 1941,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-9-1941-fireside-chat-19-war-japan"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-9-1941-fireside-chat-19-war-japan"
     },
     {
       "title": "April 28, 1942: Fireside Chat 21: On Sacrifice",
       "year": 1942,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-28-1942-fireside-chat-21-sacrifice"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-28-1942-fireside-chat-21-sacrifice"
     },
     {
       "title": "September 8, 1943: Fireside Chat 26: On the Armistice in Italy",
       "year": 1943,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/september-8-1943-fireside-chat-26-armistice-italy"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/september-8-1943-fireside-chat-26-armistice-italy"
     },
     {
       "title": "May 2, 1943: Fireside Chat 24: On the Coal Crisis",
       "year": 1943,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-2-1943-fireside-chat-24-coal-crisis"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-2-1943-fireside-chat-24-coal-crisis"
     },
     {
       "title": "October 12, 1942: Fireside Chat 23: On the Home Front",
       "year": 1942,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-12-1942-fireside-chat-23-home-front"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-12-1942-fireside-chat-23-home-front"
     }
   ],
   "legacy_invocations": {

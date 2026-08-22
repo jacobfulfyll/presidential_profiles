@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 738.5028533064788,
-      "percentile": 88.88888888888889
+      "percentile": null
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 379.32192010741863,
-      "percentile": 97.77777777777777
+      "percentile": null
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.7297297297297297,
-      "percentile": 66.66666666666666
+      "percentile": null
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 67.1366230278617,
-      "percentile": 60.0
+      "percentile": null
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.2676056338028169,
-      "percentile": 13.333333333333334
+      "percentile": null
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 14.710085253456224,
-      "percentile": 44.44444444444444
+      "percentile": null
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4245,
-      "percentile": 71.11111111111111
+      "percentile": null
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 33.56831151393085,
-      "percentile": 100.0
+      "percentile": null
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 14.710085253456224,
     "self_reference": 0.2676056338028169,
     "ttr": 0.4245,
-    "pct_hope": 88.88888888888889,
-    "pct_fear": 97.77777777777777,
-    "pct_certainty": 66.66666666666666,
-    "pct_us_vs_them": 60.0,
-    "pct_self_reference": 13.333333333333334,
-    "pct_formality": 44.44444444444444,
-    "pct_vocabulary": 71.11111111111111,
-    "pct_religiosity": 100.0
+    "pct_hope": null,
+    "pct_fear": null,
+    "pct_certainty": null,
+    "pct_us_vs_them": null,
+    "pct_self_reference": null,
+    "pct_formality": null,
+    "pct_vocabulary": null,
+    "pct_religiosity": null
   },
   "legacy_issue_attention": [
     {
@@ -990,7 +990,7 @@
     {
       "title": "March 4, 1881: Inaugural Address",
       "year": 1881,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1881-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1881-inaugural-address"
     }
   ],
   "legacy_invocations": {

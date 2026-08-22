@@ -6,6 +6,78 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+- [x] refocus-president-comparison-on-visuals: Restored the eight-axis corpus
+  and six-axis AI percentile radars as Compare's primary Rhetoric view, then
+  placed them in one fixed graph stage with accessible tabs, pointer switching,
+  and Left/Right/Home/End keyboard control while retaining exact semantic tables
+  in a native disclosure. Recast the
+  five independent nearest-neighbor instruments as portrait-and-meter lens
+  boards, and rebuilt Evidence & Data around shared-scale corpus-footprint
+  bars, adversary/invocation meters, vocabulary chips, speech tiles, and
+  collapsed excerpts. Existing A/B/C selection, URL/history, thin-record,
+  agenda, source-status, no-JS, and versioned download contracts remain intact.
+  The focused 12-test and broader 60-test suites pass; the canonical
+  73-HTML/182-JSON build and 130-script parser pass. The full suite records
+  2,695 passes plus the known unrelated runtime-receipt assertion expecting
+  `low` while this session reports `xhigh`; default, three-president,
+  thin-record, fixed-stage tab, and 390px browser checks have zero page overflow.
+  [P1] [high]
+  [completed]
+- [x] redesign-summary-time-as-president-portrait-scatter: Replaced the
+  future/nostalgia era line with a validated all-45-president portrait scatter:
+  future rate on x, nostalgia rate on y, and fixed-scale first-person singular
+  share as portrait area. Exact all-speech document-owner receipts, Story-era
+  emphasis controls, thin-record halos, a 20/40/60% area key, true-zero/N/A
+  behavior, the complete table, calibrated narrow-screen containment, and a
+  separate founding annual-message audit are covered by 56 focused tests. The
+  canonical 73-HTML/182-JSON build and 130-script parser pass; the full suite has
+  2,694 passes plus the unrelated `low`-versus-`ultra` runtime-receipt failure,
+  and Reggie Doctor reports 0 errors and 0 warnings.
+  [P1] [high] [completed]
+- [x] redesign-conflict-target-mix-at-era-grain: Replaced the president-succession
+  target timeline with five vertically aligned category trajectories over the
+  canonical `trends.ERAS` bands. All panels share one percentage scale and print
+  exact point labels; the era table retains counts, shares, contributing speeches,
+  and support. Values pool `speaker_audited_all` adversarial mentions rather than
+  averaging presidents or years, while the zero-sum/partisan/enemy-naming portrait
+  remains president-grain. [P1] [high] [completed]
+- [x] redesign-issues-pages: Rebuilt the 16-route Issues surface around one
+  validated view model shared by semantic HTML, charts, exact tables, public
+  JSON, and three tidy exports per issue. Canonical supported-period selection,
+  keyed source excerpts, five-speech president eligibility, explicit paragraph
+  units, separate broad/fine provenance, honest partial and low-support fine
+  buckets, lazy Auto/Grouped/Heatmap charts, shared assets, failure fallbacks,
+  and manifest-scoped stale cleanup are covered by 161 focused tests and
+  responsive browser QA. The 73-HTML/182-JSON build, 130-script parser,
+  compilation, diff check, frozen-artifact check, and Reggie Doctor pass. The
+  otherwise-green full run has 2,676 passes plus one unrelated receipt
+  assertion expecting `low` while the requested session runs at `ultra`. [P1]
+  [high] [completed]
+- [x] redesign-president-comparison-page: Replaced the collapsed Plotly-first
+  Compare page with a visible, server-rendered two/three-president workspace.
+  A compact Profile V3 projection, labeled selectors/support cards, full 8+6
+  semantic measure matrices, deterministic agenda unions, five independent
+  neighbor instruments, president-grouped evidence, complete URL/history
+  behavior, and an on-demand versioned shard download now share the exact
+  canonical 45-president order. Thin ranks fail closed, mobile rows reflow into
+  labeled cards, and that 346,507-byte checkpoint had no Plotly request; the
+  graph-first follow-up above supersedes its current presentation. The
+  focused 79 tests, 73-HTML/165-JSON build, 146-script parser, browser matrix,
+  `git diff --check`, and Reggie Doctor pass. The otherwise-green full run has
+  2,665 passes plus one unrelated receipt assertion that expects `low` while
+  the requested session runs at `ultra`. [P1] [high] [completed]
+- [x] redesign-individual-president-profiles: Rebuilt all 45 profiles around a
+  normalized `president-profile-v3` view model and the evidence-first order of
+  identity/support, Overview, Agenda, Rhetoric, Evidence, five independent
+  Similarity cards, and Signature speeches. Thin records now have null ranks
+  across HTML, JSON, and Compare; both radars became direct bars with structured
+  fallbacks; exactly six AI topics, strongest-first excerpts, normalized source
+  links, correct ordinals/plurals, previous/next navigation, AA focus/contrast,
+  and 390px reflow are covered by expanded tests and browser QA. The focused 98
+  tests and full 2,638-test suite pass; the 73-HTML/165-JSON build and 146-script
+  parser pass. Actual term dates remain intentionally absent because the repo
+  has no governed term artifact; corpus years are labeled as record span. [P1]
+  [high] [completed]
 - [x] publish-current-site-to-github-pages: Executed the owner-authorized
   `notes/github-pages-release-plan-v1.md` contract through PR #2 and site-content
   merge `b3c2e7567979d1ad5c72c178890fe6b0bafa43e2`. Pages run 30867907537
@@ -15,7 +87,8 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   and `.claude/stats.json` telemetry out of the release. [P1] [high] [completed]
 - [x] refine-america-summary-page: Implemented the V2 Summary contract in
   `notes/summary-redesign-v2.md`: demoted weak postwar topic breadth, removed
-  topic lifecycle and weather-map displays, clarified communication, added
+  topic lifecycle and weather-map displays, split WHO and HOW into independent
+  four-category 100% stacked-bar charts, added
   nine-era adversary categories and a president conflict view, redesigned era
   selection, removed combat whiskers, audited founding nostalgia terms, and
   corrected the ratio to Hope/Doom. All 2,591 tests and the canonical site,
@@ -113,6 +186,56 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   [depends: satisfied ARCV1-I001, satisfied ARCV1-D016]
 
 ### Analysis & Findings
+- [x] audit-president-speaker-populations-and-version-conflict-chart-inputs:
+  Replace document-owner attribution in president-level Conflict with a
+  governed speaker layer. Audit all 1,057 source documents, preserve their
+  source-to-canonical disposition, and label the retained 1,053-speech / 35,394-paragraph
+  canonical population through user-visible Codex chats using the existing
+  offline assignment/ingest boundary. No model API, API key, `pp-annotate`,
+  headless Codex worker, or hidden labeling session is permitted. Classify
+  every document, attribute every paragraph in mixed/joint/uncertain or
+  scaffolding-bearing documents, credit clear turns to the actual canonical
+  president and profile even when that former or future president is not the
+  document owner, and fail closed
+  on mixed, shared, scaffolding, uncertain, or unresolved rows. Preserve the
+  frozen paid content annotations and existing ledger state; add only
+  versioned speaker runs and deterministic derived tables. Rebuild a separate
+  `president-conflict-v2` producer with document-owner, speaker-audited,
+  debate-excluded, single-president-document, and strict annual-message
+  treatments, all 45 presidents, exact support/exclusion receipts, and honest
+  `N/A` states. Switch Summary only after the v2 contract, protected-file,
+  full-suite, site-build, JavaScript, and browser gates pass. Full rubric,
+  chat execution boundary, review pass, treatment definitions, refusal rules,
+  acceptance fixtures, verification order, and copy/paste launch prompt:
+  `notes/president-speaker-attribution-plan-v1.md`.
+  Completed with a 1,057-document / 1,053-retained-document census and a
+  35,394-row canonical attribution layer. The primary visible chat labeled all
+  documents and 12,458 reviewed paragraphs; a fresh receipt-bound visible chat
+  reviewed 754 locked targets, and 288 membership disagreements were
+  adjudicated to the transcript-supported reviewer result with zero unresolved.
+  The new run is sealed, all five 45-president v2 treatments and the selected
+  Summary payload are deterministic, and Ford/Nixon/Reagan cross-owner debate
+  fixtures plus whole-paragraph exclusions pass. Protected bytes, the full
+  2,684-test suite, 73-HTML/182-JSON site build, JavaScript parsing,
+  desktop/390px browser QA, and Reggie Doctor all pass. No deployment or git
+  publication action occurred. (IMPLEMENT, 2026-08-07)
+  [P1] [high] [code] [chat-labeling] [completed]
+  [depends: completed canonical corpus correction; completed annotation ledger Phase 1]
+  [absorbs: press-conference-paras-include-interviewer-words]
+  files: src/presidential_profiles/speaker_attribution.py (NEW),
+  src/presidential_profiles/annotation_workflow.py (MOD only for the governed
+  speaker context/receipt/validator extension),
+  data/annotation_ledger/specs/registry-v3.json (NEW),
+  data/speaker_attribution/ (NEW),
+  data/combat/by_president_treatments_v2.parquet (GEN),
+  data/combat/by_president_speaker_audited_v2.parquet (GEN),
+  src/presidential_profiles/combat.py (MOD),
+  src/presidential_profiles/site.py (MOD),
+  tests/test_speaker_attribution.py (NEW),
+  tests/test_annotation_workflow.py (MOD),
+  tests/test_combat_contracts.py (MOD),
+  tests/test_summary_page.py (MOD), tests/test_site_validation.py (MOD),
+  README.md (MOD during implementation), docs/ (GEN during implementation)
 - [ ] restructure-register-findings-note: `notes/register-findings-v1.md` is correct but misshapen — 1,367 lines, with "Method notes that change the numbers" running ~290 lines before the first finding, and ~16 "an earlier draft said..." disclosures because four corrective rounds ADDED to the prose rather than substituting into it. REVIEW round 4 adjudicated this as shape-not-accuracy and explicitly NOT a blocker: the summary of verdicts is at L31 and a reader who reads 55 lines has the whole answer. Estimated under 900 lines without deleting a fact (method notes -> appendix, draft history -> a changelog section). Two things the task MUST inherit: (a) the completeness sweep is coupled to the note's H1/H2 heading structure, so moving prose re-scopes the matcher — it fails SAFE (spurious leaks), so this is a CI guard, not a hazard; (b) `self_reference` is the one measure whose 5 significant cells have no printed home outside "Method notes" — if that section moves, its numbers move with it or it gets its own section. ~360 test anchors in `tests/test_register_note_claims.py` pin the note's printed figures and will need updating in lockstep. [P3] [moderate] [tier: opus:medium] [code] [depends: none]
   files: notes/register-findings-v1.md (MOD), tests/test_register_note_claims.py (MOD)
 
@@ -389,7 +512,18 @@ Discovered during build-annotation-provenance-layer (2026-07-14). Not fixed — 
 - [ ] derived-tables-go-stale-against-corpus-refresh: `data/combat/` (and by extension every derived analysis layer) is not referenced by `pp-analyze --force`, so a corpus refresh that changes `corpus_fingerprint` leaves the derived tables silently stale against the new corpus. The fingerprint IS recorded in `combat_meta.json` but is never compared on read, so nothing detects the mismatch. Cheapest fix is a staleness check at the consumer: `era-atlas` should compare the fingerprint in each layer's meta against the live corpus and refuse (or warn loudly) on mismatch. Generalizes beyond combat — `data/attention/`, `data/register/` from the parallel tasks have the same shape. (SYNC-DOCS, combativeness-over-time, 2026-07-21)
 - [ ] escape-exemplar-text-before-rendering: `data/combat/exemplars.parquet` (270 rows, 266 KB) serializes raw corpus `text` / `title` / `president` **unescaped** — same for any future exemplar table. Not a finding today: nothing under `docs/` reads `data/combat/` and `notes/` is not published. But the downstream `era-atlas` and `topic-chart-upgrades` tasks will render quoted corpus text into the GitHub-Pages HTML, and must `html.escape()` it the way `profiles.py` already does. Same shape as the note logged against `agreement.py`'s markdown report. (SECURITY-REVIEW INFO, combativeness-over-time, 2026-07-21)
 - [ ] combat-ratio-table-decade-grain-untested: `combat.ratio_table(by=...)` on any grain other than `"era"` works, but its agreement-band lookup is silently **inert** there by a type mismatch rather than an explicit guard — `_band_lookup` keys are `(str(era), str(flag))` while a decade table's groups are `int`, so `lookup.get((1860, flag))` can never match. Harmless today (production only ever calls `by="era"`, and QUALITY-CHECK verified the inertness is genuinely equivalent-mutant territory), but if decade-grain ratios are ever published the inertness becomes a real defect. Wants an explicit guard or a normalized key. (QUALITY-CHECK mutation testing, combativeness-over-time, 2026-07-21)
-- [ ] press-conference-paras-include-interviewer-words: At least one present-era exemplar surfaced by `combativeness-over-time`'s face-validity read is almost entirely a *reporter's question*, yet carries combativeness flags as if the president spoke it. The corpus stores press-conference transcripts without speaker turns, so the annotation cannot tell who is talking. `press_conference_or_interview` is 7.7% of the corpus but **24% of present-era paragraphs**, so this may inflate present-era raw and genre-standardized rates by an unmeasured amount. Does NOT touch the SOTU-only headline (that genre excludes press conferences), which is the series the finding rests on. Affects the frozen annotation artifact — needs quantification (how many press-conf paragraphs are interviewer speech?) and either a speaker-attribution pass or a documented exclusion. Logged as limitation 12 in the findings report. (IMPLEMENT face-validity read, combativeness-over-time, 2026-07-21)
+- [x] press-conference-paras-include-interviewer-words: **CLOSED by
+  `audit-president-speaker-populations-and-version-conflict-chart-inputs`.**
+  At least one present-era exemplar surfaced by `combativeness-over-time`'s
+  face-validity read is almost entirely a reporter's question yet carries
+  combativeness flags as if the president spoke it. The groomed speaker task
+  now owns the complete press/interview/briefing census, paragraph attribution,
+  fail-closed treatment, corrected producer, and regression fixtures. Close
+  this entry only when those press-conference fixtures pass. The governed v2
+  speaker treatment now excludes non-president and mixed press-conference rows
+  whole while preserving their evidence; the legacy v1 table remains unchanged
+  for comparison. (IMPLEMENT face-validity read, combativeness-over-time,
+  2026-07-21; completed by speaker audit, 2026-08-07)
 - [ ] bca-bootstrap-for-thin-strata: `combat.py` uses a percentile bootstrap, which is uncentred where a genre stratum is thin — the Civil War genre-standardized `enemy_naming` point (0.215) sits near the upper edge of its own interval [0.129, 0.261] because a 3-speech stratum carries 10.4% of the reference weight. BCa (bias-corrected accelerated) would correct it. Disclosed in the report rather than fixed; worth revisiting if genre-standardized intervals get load-bearing downstream. (IMPLEMENT, combativeness-over-time, 2026-07-21)
 - [ ] display-issues-dead-constant: `profiles_site.py:17` declares `DISPLAY_ISSUES = None  # filled from meta at build time` — it is assigned and never read anywhere. Dead since before topic-method-comparison; left in place because that task's boundary allowed display-name wiring only. Delete it. (IMPLEMENT, topic-method-comparison, 2026-07-21)
 - [ ] union-projection-inflates-wide-crosswalk-issues: `triangulate.py` projects LLM level-2 topics onto the legacy 15 by **union** (a paragraph counts for issue L iff ANY of its topics is in L's crosswalk row). For issues with a wide crosswalk fan-out this inflates apparent LLM breadth, and fan-out correlates negatively with agreement (rho = -0.47 vs kappa, p = 0.074 — suggestive, not significant at n=15). Concrete consequence: part of the "rename" signal for Civil rights & race in the 1770 era is fan-out via `indian affairs`/`elections` topics, not vocabulary euphemism. An argmax or weighted projection would give different numbers; the union choice is documented in the report but never sensitivity-tested. Worth a second projection as a robustness check before `convergence-analysis` leans on these numbers. (IMPLEMENT, topic-method-comparison, 2026-07-21)

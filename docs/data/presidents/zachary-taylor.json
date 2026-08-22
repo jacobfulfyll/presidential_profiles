@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 713.657162970785,
-      "percentile": 77.77777777777779
+      "percentile": null
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 213.83315733896515,
-      "percentile": 4.444444444444445
+      "percentile": null
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.5547445255474452,
-      "percentile": 37.77777777777778
+      "percentile": null
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 42.23864836325237,
-      "percentile": 24.444444444444443
+      "percentile": null
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.5420875420875421,
-      "percentile": 91.11111111111111
+      "percentile": null
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 20.33212860189913,
-      "percentile": 82.22222222222221
+      "percentile": null
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.412,
-      "percentile": 57.77777777777777
+      "percentile": null
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 9.679690249912003,
-      "percentile": 64.44444444444444
+      "percentile": null
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 20.33212860189913,
     "self_reference": 0.5420875420875421,
     "ttr": 0.412,
-    "pct_hope": 77.77777777777779,
-    "pct_fear": 4.444444444444445,
-    "pct_certainty": 37.77777777777778,
-    "pct_us_vs_them": 24.444444444444443,
-    "pct_self_reference": 91.11111111111111,
-    "pct_formality": 82.22222222222221,
-    "pct_vocabulary": 57.77777777777777,
-    "pct_religiosity": 64.44444444444444
+    "pct_hope": null,
+    "pct_fear": null,
+    "pct_certainty": null,
+    "pct_us_vs_them": null,
+    "pct_self_reference": null,
+    "pct_formality": null,
+    "pct_vocabulary": null,
+    "pct_religiosity": null
   },
   "legacy_issue_attention": [
     {
@@ -1026,22 +1026,22 @@
     {
       "title": "April 22, 1850: Message Regarding Treaty with Great Britain",
       "year": 1850,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-22-1850-message-regarding-treaty-great-britain"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-22-1850-message-regarding-treaty-great-britain"
     },
     {
       "title": "December 4, 1849: First Annual Message",
       "year": 1849,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-4-1849-first-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-4-1849-first-annual-message"
     },
     {
       "title": "January 23, 1850: Message Regarding Newly Acquired Territories",
       "year": 1850,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-23-1850-message-regarding-newly-acquired-territories"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-23-1850-message-regarding-newly-acquired-territories"
     },
     {
       "title": "March 5, 1849: Inaugural Address",
       "year": 1849,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-5-1849-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-5-1849-inaugural-address"
     }
   ],
   "legacy_invocations": {

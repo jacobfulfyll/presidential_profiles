@@ -18,31 +18,31 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 757.1032075309737,
-      "percentile": 91.11111111111111
+      "percentile": 90.47619047619048
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 323.90054078800534,
-      "percentile": 88.88888888888889
+      "percentile": 90.47619047619048
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.5404761904761904,
-      "percentile": 35.55555555555556
+      "percentile": 35.714285714285715
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 65.2379181092449,
-      "percentile": 53.333333333333336
+      "percentile": 54.761904761904766
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.2872340425531915,
-      "percentile": 20.0
+      "percentile": 19.047619047619047
     },
     {
       "key": "formality",
@@ -54,13 +54,13 @@
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.43041176470588244,
-      "percentile": 88.88888888888889
+      "percentile": 88.09523809523809
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 12.875904889982545,
-      "percentile": 82.22222222222221
+      "percentile": 83.33333333333334
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 25.05936550716383,
     "self_reference": 0.2872340425531915,
     "ttr": 0.43041176470588244,
-    "pct_hope": 91.11111111111111,
-    "pct_fear": 88.88888888888889,
-    "pct_certainty": 35.55555555555556,
-    "pct_us_vs_them": 53.333333333333336,
-    "pct_self_reference": 20.0,
+    "pct_hope": 90.47619047619048,
+    "pct_fear": 90.47619047619048,
+    "pct_certainty": 35.714285714285715,
+    "pct_us_vs_them": 54.761904761904766,
+    "pct_self_reference": 19.047619047619047,
     "pct_formality": 100.0,
-    "pct_vocabulary": 88.88888888888889,
-    "pct_religiosity": 82.22222222222221
+    "pct_vocabulary": 88.09523809523809,
+    "pct_religiosity": 83.33333333333334
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "December 7, 1813: Fifth Annual Message",
       "year": 1813,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-7-1813-fifth-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-7-1813-fifth-annual-message"
     },
     {
       "title": "December 5, 1810: Second Annual Message",
       "year": 1810,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-5-1810-second-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-5-1810-second-annual-message"
     },
     {
       "title": "June 1, 1812: Special Message to Congress on the Foreign Policy Crisis -- War Message",
       "year": 1812,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-1-1812-special-message-congress-foreign-policy-crisis-war"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/june-1-1812-special-message-congress-foreign-policy-crisis-war"
     },
     {
       "title": "May 25, 1813: Message on the Special Congressional Session -- State of War and Diplomacy",
       "year": 1813,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-25-1813-message-special-congressional-session-state-war"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-25-1813-message-special-congressional-session-state-war"
     },
     {
       "title": "September 1, 1814: Proclamation upon British Depredations, Burning of the Capitol",
       "year": 1814,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/september-1-1814-proclamation-upon-british-depredations"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/september-1-1814-proclamation-upon-british-depredations"
     }
   ],
   "legacy_invocations": {

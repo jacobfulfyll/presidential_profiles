@@ -89,7 +89,15 @@ def _shared_profile_payload(label: str) -> dict:
             "thin_record": False,
             "warning": None,
         },
-        "rhetorical_radar": [{"key": "x"}],
+        "rhetorical_radar": [
+            {
+                "key": key,
+                "label": label,
+                "absolute": 1.0,
+                "percentile": 50.0,
+            }
+            for key, label in profiles.RADAR_AXES
+        ],
         "raw_stats": {"x": 1},
         "legacy_issue_attention": [{
             "key": "Discovered 5",
@@ -237,16 +245,13 @@ def test_comparison_payload_and_issue_labels_use_safe_script_and_dom(
     )
     compare_site.write_compare(_compare_data(), ["Discovered 5"])
     page = (tmp_path / "docs" / "compare.html").read_text()
-    label_path = page[
-        page.index("function colHTML("):
-        page.index("function aiTrace(", page.index("function colHTML("))
-    ]
 
     assert SCRIPT_BREAKOUT not in page
     assert r"\u003c/script\u003e" in page
-    assert "${x[0]}" not in label_path
-    assert "legacy-issue-label" in label_path
-    assert "el.textContent = P[sel[slot]].issues[issueIndex][0]" in page
+    assert html.escape(SCRIPT_BREAKOUT) in page
+    assert "const escapeHTML = value =>" in page
+    assert "option.textContent = P[name].display_name" in page
+    assert "escapeHTML(row.name)" in page
 
 
 def test_all_embedded_display_name_payloads_use_script_safe_json():

@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 707.3297265248648,
-      "percentile": 75.55555555555556
+      "percentile": 78.57142857142857
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 259.9866597494998,
-      "percentile": 28.888888888888886
+      "percentile": 28.57142857142857
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.5550239234449761,
-      "percentile": 40.0
+      "percentile": 38.095238095238095
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 41.65122656192099,
-      "percentile": 22.22222222222222
+      "percentile": 23.809523809523807
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.5207100591715976,
-      "percentile": 84.44444444444444
+      "percentile": 85.71428571428571
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 18.47891740112813,
-      "percentile": 68.88888888888889
+      "percentile": 71.42857142857143
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.3924029850746268,
-      "percentile": 15.555555555555555
+      "percentile": 16.666666666666664
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 3.8538501445193805,
-      "percentile": 13.333333333333334
+      "percentile": 14.285714285714285
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 18.47891740112813,
     "self_reference": 0.5207100591715976,
     "ttr": 0.3924029850746268,
-    "pct_hope": 75.55555555555556,
-    "pct_fear": 28.888888888888886,
-    "pct_certainty": 40.0,
-    "pct_us_vs_them": 22.22222222222222,
-    "pct_self_reference": 84.44444444444444,
-    "pct_formality": 68.88888888888889,
-    "pct_vocabulary": 15.555555555555555,
-    "pct_religiosity": 13.333333333333334
+    "pct_hope": 78.57142857142857,
+    "pct_fear": 28.57142857142857,
+    "pct_certainty": 38.095238095238095,
+    "pct_us_vs_them": 23.809523809523807,
+    "pct_self_reference": 85.71428571428571,
+    "pct_formality": 71.42857142857143,
+    "pct_vocabulary": 16.666666666666664,
+    "pct_religiosity": 14.285714285714285
   },
   "legacy_issue_attention": [
     {
@@ -1025,27 +1025,27 @@
     {
       "title": "June 15, 1880: Veto Message Regarding Military Legislation",
       "year": 1880,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-15-1880-veto-message-regarding-military-legislation"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/june-15-1880-veto-message-regarding-military-legislation"
     },
     {
       "title": "May 29, 1879: Veto Messages Regarding Appropriations Legislation",
       "year": 1879,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-29-1879-veto-messages-regarding-appropriations-legislation"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-29-1879-veto-messages-regarding-appropriations-legislation"
     },
     {
       "title": "April 29, 1879: Veto of Army Appropriations Bill",
       "year": 1879,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-29-1879-veto-army-appropriations-bill"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-29-1879-veto-army-appropriations-bill"
     },
     {
       "title": "June 22, 1877: Prohibition of Federal Employees\u2019 Political Involvement",
       "year": 1877,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-22-1877-prohibition-federal-employees-political"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/june-22-1877-prohibition-federal-employees-political"
     },
     {
       "title": "February 8, 1878: Veto of Bland-Allison Act",
       "year": 1878,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-8-1878-veto-bland-allison-act"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-8-1878-veto-bland-allison-act"
     }
   ],
   "legacy_invocations": {

@@ -18,25 +18,25 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 738.3189436262062,
-      "percentile": 86.66666666666667
+      "percentile": 88.09523809523809
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 279.01218892839006,
-      "percentile": 53.333333333333336
+      "percentile": 54.761904761904766
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.56672760511883,
-      "percentile": 44.44444444444444
+      "percentile": 42.857142857142854
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 71.41950228542407,
-      "percentile": 68.88888888888889
+      "percentile": 66.66666666666666
     },
     {
       "key": "self_reference",
@@ -48,19 +48,19 @@
       "key": "formality",
       "label": "Formality",
       "absolute": 24.503168836285248,
-      "percentile": 97.77777777777777
+      "percentile": 97.61904761904762
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.43509677419354836,
-      "percentile": 93.33333333333333
+      "percentile": 92.85714285714286
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 11.744540375825292,
-      "percentile": 73.33333333333333
+      "percentile": 73.80952380952381
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 24.503168836285248,
     "self_reference": 0.6292749658002736,
     "ttr": 0.43509677419354836,
-    "pct_hope": 86.66666666666667,
-    "pct_fear": 53.333333333333336,
-    "pct_certainty": 44.44444444444444,
-    "pct_us_vs_them": 68.88888888888889,
+    "pct_hope": 88.09523809523809,
+    "pct_fear": 54.761904761904766,
+    "pct_certainty": 42.857142857142854,
+    "pct_us_vs_them": 66.66666666666666,
     "pct_self_reference": 100.0,
-    "pct_formality": 97.77777777777777,
-    "pct_vocabulary": 93.33333333333333,
-    "pct_religiosity": 73.33333333333333
+    "pct_formality": 97.61904761904762,
+    "pct_vocabulary": 92.85714285714286,
+    "pct_religiosity": 73.80952380952381
   },
   "legacy_issue_attention": [
     {
@@ -987,27 +987,27 @@
     {
       "title": "March 4, 1793: Second Inaugural Address",
       "year": 1793,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1793-second-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1793-second-inaugural-address"
     },
     {
       "title": "August 7, 1794: Proclamation against Opposition to Execution of Laws and Excise Duties in Western Pennsylvania",
       "year": 1794,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-7-1794-proclamation-against-opposition-execution-laws"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-7-1794-proclamation-against-opposition-execution-laws"
     },
     {
       "title": "November 6, 1792: Fourth Annual Message to Congress",
       "year": 1792,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-6-1792-fourth-annual-message-congress"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-6-1792-fourth-annual-message-congress"
     },
     {
       "title": "September 19, 1796: Farewell Address",
       "year": 1796,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/september-19-1796-farewell-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/september-19-1796-farewell-address"
     },
     {
       "title": "July 10, 1795: Proclamation of Pardons in Western Pennsylvania",
       "year": 1795,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-10-1795-proclamation-pardons-western-pennsylvania"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-10-1795-proclamation-pardons-western-pennsylvania"
     }
   ],
   "legacy_invocations": {

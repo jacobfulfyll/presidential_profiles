@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 638.034454628341,
-      "percentile": 22.22222222222222
+      "percentile": 21.428571428571427
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 292.1445366860214,
-      "percentile": 68.88888888888889
+      "percentile": 69.04761904761905
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.4874551971326165,
-      "percentile": 20.0
+      "percentile": 19.047619047619047
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 70.15691731848938,
-      "percentile": 66.66666666666666
+      "percentile": 64.28571428571429
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.29497907949790797,
-      "percentile": 24.444444444444443
+      "percentile": 23.809523809523807
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 18.44454484574887,
-      "percentile": 66.66666666666666
+      "percentile": 69.04761904761905
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.3760961538461539,
-      "percentile": 2.2222222222222223
+      "percentile": 2.380952380952381
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 5.566485915830893,
-      "percentile": 33.33333333333333
+      "percentile": 35.714285714285715
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 18.44454484574887,
     "self_reference": 0.29497907949790797,
     "ttr": 0.3760961538461539,
-    "pct_hope": 22.22222222222222,
-    "pct_fear": 68.88888888888889,
-    "pct_certainty": 20.0,
-    "pct_us_vs_them": 66.66666666666666,
-    "pct_self_reference": 24.444444444444443,
-    "pct_formality": 66.66666666666666,
-    "pct_vocabulary": 2.2222222222222223,
-    "pct_religiosity": 33.33333333333333
+    "pct_hope": 21.428571428571427,
+    "pct_fear": 69.04761904761905,
+    "pct_certainty": 19.047619047619047,
+    "pct_us_vs_them": 64.28571428571429,
+    "pct_self_reference": 23.809523809523807,
+    "pct_formality": 69.04761904761905,
+    "pct_vocabulary": 2.380952380952381,
+    "pct_religiosity": 35.714285714285715
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "January 2, 1849: Message Regarding War-time Measures",
       "year": 1849,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-2-1849-message-regarding-war-time-measures"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-2-1849-message-regarding-war-time-measures"
     },
     {
       "title": "July 6, 1848: Message Regarding the Treaty of Guadalupe Hidalgo",
       "year": 1848,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-6-1848-message-regarding-treaty-guadalupe-hidalgo"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-6-1848-message-regarding-treaty-guadalupe-hidalgo"
     },
     {
       "title": "August 1, 1848: Message Regarding Size of the Army",
       "year": 1848,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-1-1848-message-regarding-size-army"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-1-1848-message-regarding-size-army"
     },
     {
       "title": "February 13, 1847: Message Regarding the War with Mexico",
       "year": 1847,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-13-1847-message-regarding-war-mexico"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-13-1847-message-regarding-war-mexico"
     },
     {
       "title": "February 8, 1849: Message Regarding the Treaty of Guadalupe Hidalgo",
       "year": 1849,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-8-1849-message-regarding-treaty-guadalupe-hidalgo"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-8-1849-message-regarding-treaty-guadalupe-hidalgo"
     }
   ],
   "legacy_invocations": {

@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Energy &amp; environment - Presidential Profiles</title>
-<script src="../assets/plotly-3.0.1.min.js"></script>
 <style>
-
   :root {
     --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
-    --muted: #898781; --grid: #e1e0d9; --border: rgba(11,11,11,0.10);
+    --muted: #706d67; --grid: #e1e0d9; --border: rgba(11,11,11,0.14);
+    --focus: #7a3d00;
   }
   * { box-sizing: border-box; margin: 0; }
   body { background: var(--page); color: var(--ink);
@@ -25,57 +22,14 @@
                    border-radius: 12px; padding: 10px 6px 6px;
                    overflow-x: auto; overflow-y: hidden; }
   .chart { min-width: 640px; }
+  :where(a, button, summary, select, [tabindex]):focus-visible {
+    outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 3px;
+  }
   footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
   footer a { color: var(--ink2); }
 
-  .crumbs { margin-bottom: 18px; font-size: 0.88rem; }
-  .crumbs a { color: var(--ink2); }
-  .o-row { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
-  .o-row img { width: 34px; height: 34px; border-radius: 50%; flex: none; }
-  .o-name { width: 190px; flex: none; font-size: 0.92rem; }
-  .o-bar { flex: 1; height: 10px; background: var(--page); border-radius: 5px;
-            border: 1px solid var(--border); overflow: hidden; }
-  .o-bar span { display: block; height: 100%; background: #256abf; }
-  .o-val { width: 46px; text-align: right; color: var(--ink2);
-            font-size: 0.88rem; flex: none; }
-  blockquote { background: var(--surface); border: 1px solid var(--border);
-                border-left: 3px solid var(--muted); border-radius: 10px;
-                padding: 14px 18px; margin: 12px 0; }
-  blockquote p { color: var(--ink); margin: 4px 0 0; max-width: none; }
-  .q-label { color: var(--muted); font-size: 0.76rem; font-weight: 650;
-              letter-spacing: 0.07em; text-transform: uppercase; }
-  blockquote cite { display: block; font-style: normal; font-size: 0.82rem;
-                     margin-top: 8px; }
-  blockquote cite a { color: var(--muted); }
-  .ai-note { background:#eef6ff; border:1px solid #c9def3; border-radius:12px;
-              padding:13px 16px; max-width:none; }
-  .ai-topic-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; }
-  .ai-topic-card { background:var(--surface); border:1px solid var(--border);
-                    border-radius:12px; padding:14px 16px; }
-  .ai-topic-card h3 { font-size:.95rem; margin-top:3px; }
-  .ai-topic-card p { font-size:.84rem; margin:6px 0 0; }
-  .fine-topic-view { margin-top:20px;padding-top:18px;border-top:1px solid var(--grid); }
-  .fine-topic-heading { display:flex;justify-content:space-between;gap:18px;align-items:end; }
-  .fine-topic-heading p { margin-bottom:0; }
-  .fine-topic-settings { display:flex;gap:8px;flex-wrap:wrap; }
-  .fine-topic-heading select { padding:7px 9px;border:1px solid var(--border);
-                                border-radius:8px;background:var(--surface);font:inherit; }
-  .topic-picker { border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin:12px 0; }
-  .topic-picker summary { cursor:pointer;font-weight:650; }
-  .topic-picker summary span { color:var(--muted);font-weight:500;font-size:.8rem;margin-left:8px; }
-  .topic-picker-actions { display:flex;gap:7px;margin:12px 0 4px; }
-  .topic-picker-actions button { border:1px solid var(--border);background:var(--surface);
-                                  border-radius:8px;padding:6px 10px;cursor:pointer; }
-  #fine-topic-controls { display:flex;flex-wrap:wrap;gap:8px 12px;border:0;padding:0;margin:12px 0; }
-  #fine-topic-controls label { background:var(--surface);border:1px solid var(--border);
-                                border-radius:999px;padding:6px 10px;font-size:.82rem;cursor:pointer; }
-  #fine-topic-controls input { accent-color:#275d8c; }
-  .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-              clip:rect(0,0,0,0);white-space:nowrap;border:0; }
-</style>
-</head>
-<body><style>
+
 .global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
@@ -103,7 +57,7 @@ white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
 html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
-.nav-brand:focus-visible{outline:3px solid #d08b45;outline-offset:2px}
+.nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
@@ -111,7 +65,13 @@ gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
 width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
 .nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
-</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="../presidents/index.html">Presidents</a><a href="../issues/index.html" aria-current="page">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+</style>
+<link rel="stylesheet" href="../assets/issues-v2.css">
+<script src="../assets/plotly-3.0.1.min.js" defer></script>
+<script src="../assets/issues-v2.js" defer></script></head>
+<body class="issues-page" data-generated="issues-v2" data-issue-page data-issue-view="../data/issues/energy-and-environment.json">
+<a class="skip-link" href="#main-content">Skip to issue evidence</a>
+<nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="../presidents/index.html">Presidents</a><a href="../issues/index.html" aria-current="page">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
@@ -177,174 +137,172 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
 })();
 </script>
 
-<header>
-  <p class="crumbs"><a href="index.html">← All issues</a> &nbsp;·&nbsp;
-     <a href="../index.html">Dashboard</a> &nbsp;·&nbsp;
-     <a href="../presidents/index.html">Presidents</a> &nbsp;·&nbsp;
-     <a href="../methodology.html">How the AI labels work</a></p>
-  <h1>Energy &amp; environment</h1>
-</header>
-<main>
-<section>
-  <h2>240 years of attention</h2>
-  <p>Share of presidential speech about energy &amp; environment. The shaded band is a
-  95% interval from a bootstrap that resamples whole <em>speeches</em>, so it
-  widens where a period rests on a handful of them; a dotted line marks periods
-  too thin to trust. A hollow ring marks a point whose interval could not be resolved at all — every speech in that period agreed exactly, on too few speeches for the agreement to mean anything. Its share is plotted; its uncertainty is unknown, which is not the same as small. Each dot is one president's own share inside one 5-year
-  period, for the 25-paragraph-and-up cells where they said
-  enough to measure. These labels come from a deterministic topic model with no
-  AI annotator in the loop, so the band covers sampling error only.</p>
-  <div class="chart-scroll"><div class="chart" id="chart" style="height:380px"></div></div>
-  <details class="metric-lesson"><summary>Explain this measure</summary><p><strong>Confidence interval</strong> — A range produced by repeatedly resampling whole speeches.</p><p class="toy">A 7% estimate with a 4–10% interval says repeat samples often land in that range.</p><ol><li>Resample speeches</li><li>Recalculate the estimate</li><li>Keep the middle 95%</li></ol><details><summary>Formula and limitations</summary><p><code>bootstrap quantiles 2.5% and 97.5%</code> · measure&#x27;s native unit</p><p>It is not a 95% probability that this one fixed interval contains truth.</p></details></details>
-  <details><summary>Inspect the evidence</summary><p><a href="../data/issues/energy-and-environment.csv" download>
-  Download this chart's complete CSV →</a>. The quotation section below provides
-  source-speech excerpts.</p></details>
-</section>
-<section>
-  <h2>The finer AI-labeled topics inside this issue</h2>
-  <p class="ai-note">This page's trend remains the independent deterministic issue model.
-  The corpus-derived AI taxonomy splits the broad axis into the topics below; the crosswalk
-  is many-to-many, so one fine topic may contribute to more than one broad issue.
-  <a href="../label-models.html">Compare the CorEx and LLM instruments in detail →</a></p>
-  <div class="fine-topic-view">
-    <div class="fine-topic-heading"><div><h3>Compare periods, not jagged annual lines</h3>
-    <p>Start with three topics. Add as many as you need: the view changes to a heatmap
-    when grouped bars would become crowded.</p></div>
-    <div class="fine-topic-settings"><label>Bucket size <select id="fine-topic-bucket">
-      <option value="20" selected>20 years</option><option value="10">10 years</option>
-    </select></label><label>View <select id="fine-topic-mode">
-      <option value="auto" selected>Auto</option><option value="bars">Grouped bars</option>
-      <option value="heatmap">Heatmap</option>
-    </select></label></div></div>
-    <details class="topic-picker"><summary>Choose fine topics
-      <span id="fine-topic-count">3 selected</span></summary>
-      <div class="topic-picker-actions"><button type="button" id="fine-topic-all">Select all</button>
-      <button type="button" id="fine-topic-clear">Clear</button></div>
-      <fieldset id="fine-topic-controls"><legend class="sr-only">Fine AI topics to display</legend>
-        <label><input type="checkbox" value="Conservation &amp; the Environment" checked> Conservation &amp; the Environment</label><label><input type="checkbox" value="Internal Improvements, Energy &amp; Infrastructure" checked> Internal Improvements, Energy &amp; Infrastructure</label><label><input type="checkbox" value="Public Lands &amp; Homestead Settlement" checked> Public Lands &amp; Homestead Settlement</label>
-      </fieldset>
-    </details>
-    <p id="fine-topic-message" class="dim" aria-live="polite"></p>
-    <div class="chart-scroll"><div class="chart" id="fine-topic-chart" style="height:520px"></div></div>
-    <details class="metric-lesson"><summary>Explain this measure</summary><p><strong>Share of paragraphs</strong> — The number of labeled paragraphs divided by every paragraph in the selected record.</p><p class="toy">Twenty labeled paragraphs among 100 total paragraphs is 20%.</p><ol><li>Count paragraphs carrying the label</li><li>Count every eligible paragraph</li><li>Divide the labeled count by the total</li></ol><details><summary>Formula and limitations</summary><p><code>labeled paragraphs / eligible paragraphs</code> · percent of paragraphs</p><p>Paragraphs vary greatly in length, and AI labels can disagree.</p></details></details>
-    <details><summary>Inspect the evidence</summary><p><a href="../data/issues/energy-and-environment-ai-topics.csv" download>
-    Download the fine-topic series CSV →</a>. These are exploratory AI labels and use
-    all eligible paragraphs in each year.</p></details>
-  </div>
-  <div class="ai-topic-grid"><div class="ai-topic-card"><div class="q-label">Agriculture, Land &amp; Environment</div>
-<h3>Conservation &amp; the Environment</h3><p>Conservation of forests, water power, and public resources and later programs to clean the nation&#x27;s air and water and preserve parklands.</p></div><div class="ai-topic-card"><div class="q-label">Infrastructure &amp; Internal Improvements</div>
-<h3>Internal Improvements, Energy &amp; Infrastructure</h3><p>Federal support for roads, canals, harbors, energy production and pipelines, and rebuilding the nation&#x27;s infrastructure, including constitutional debate over such works.</p></div><div class="ai-topic-card"><div class="q-label">Agriculture, Land &amp; Environment</div>
-<h3>Public Lands &amp; Homestead Settlement</h3><p>Survey, sale, pricing, preemption, and distribution of public lands, protection of settlers, and operation of the homestead system.</p></div></div>
-</section>
-<section>
-  <h2>Who owned it</h2>
-  <p>The presidents who gave it the largest share of their words.</p>
-  <div class="o-row">
-  <img src="../portraits/gerald-ford.png" alt=""><span class="o-name">Gerald Ford</span>
-  <span class="o-bar"><span style="width:100%"></span></span>
-  <span class="o-val">14%</span>
-</div><div class="o-row">
-  <img src="../portraits/jimmy-carter.png" alt=""><span class="o-name">Jimmy Carter</span>
-  <span class="o-bar"><span style="width:82%"></span></span>
-  <span class="o-val">11%</span>
-</div><div class="o-row">
-  <img src="../portraits/richard-m-nixon.png" alt=""><span class="o-name">Richard M. Nixon</span>
-  <span class="o-bar"><span style="width:50%"></span></span>
-  <span class="o-val">7%</span>
-</div><div class="o-row">
-  <img src="../portraits/barack-obama.png" alt=""><span class="o-name">Barack Obama</span>
-  <span class="o-bar"><span style="width:40%"></span></span>
-  <span class="o-val">6%</span>
-</div><div class="o-row">
-  <img src="../portraits/william-taft.png" alt=""><span class="o-name">William Taft</span>
-  <span class="o-bar"><span style="width:39%"></span></span>
-  <span class="o-val">5%</span>
-</div><div class="o-row">
-  <img src="../portraits/bill-clinton.png" alt=""><span class="o-name">Bill Clinton</span>
-  <span class="o-bar"><span style="width:36%"></span></span>
-  <span class="o-val">5%</span>
-</div><div class="o-row">
-  <img src="../portraits/dwight-d-eisenhower.png" alt=""><span class="o-name">Dwight D. Eisenhower</span>
-  <span class="o-bar"><span style="width:35%"></span></span>
-  <span class="o-val">5%</span>
-</div><div class="o-row">
-  <img src="../portraits/joe-biden.png" alt=""><span class="o-name">Joe Biden</span>
-  <span class="o-bar"><span style="width:32%"></span></span>
-  <span class="o-val">5%</span>
-</div>
-</section>
-<section>
-  <h2>In their words</h2>
-  <blockquote><div class="q-label">Early</div>
-<p>“Those diversities arising from situation, climate, population, and pursuits are doubtless, as it is natural they should be, greatly exaggerated by jealousies and that spirit of rivalry so inseparable from neighboring communities.”</p>
-<cite><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-6-1830-second-annual-message-congress" target="_blank" rel="noopener">Andrew Jackson, Second Annual Message to Congress, 1830</a></cite>
-</blockquote>
-<blockquote><div class="q-label">At its peak</div>
-<p>“They&#x27;ll be busy dealing with its effects: more environmental disasters, more economic disruptions, waves of climate refugees seeking sanctuary.”</p>
-<cite><a href="https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-10-2017-farewell-address-nation" target="_blank" rel="noopener">Barack Obama, Farewell Address to the Nation, 2017</a></cite>
-</blockquote>
-<blockquote><div class="q-label">Most recent</div>
-<p>“They&#x27;ve given up their powerful edge, a lot of the countries that we&#x27;re talking about in oil and gas, such as essentially closing the great North Sea oil.”</p>
-<cite><a href="https://millercenter.org/the-presidency/presidential-speeches/september-23-2025-address-80th-united-nations-general-assembly" target="_blank" rel="noopener">Donald Trump, Address before the 80th United Nations General Assembly, 2025</a></cite>
-</blockquote>
-</section>
-</main>
-<footer>
-  <p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
-  University of Virginia</a>. <a href="../methodology.html">AI label method</a>.</p>
+<header class="issues-hero"><nav class="breadcrumbs" aria-label="Breadcrumb">
+<a href="../index.html">Story</a><span aria-hidden="true">/</span>
+<a href="index.html">Issues</a><span aria-hidden="true">/</span><span aria-current="page">Energy &amp; environment</span>
+</nav><p class="issues-eyebrow">Issue profile</p><h1>Energy &amp; environment</h1>
+<p class="sub">Share of presidential speech about energy &amp; environment. Broad historical evidence,
+selected corpus excerpts, eligible-president emphasis, and a distinct exploratory fine-topic view.</p>
+<span class="source-badge anchored">Anchored CorEx axis</span>
+<p class="dim">One of the 15 seeded issue axes in the deterministic CorEx model.</p>
+<div class="issue-facts"><div class="issue-fact"><span>Highest supported period</span>
+<strong>1975–1979 · 11.252%</strong><small>27 speeches · 1,102 paragraphs</small></div>
+<div class="issue-fact"><span>Highest eligible president</span><strong>Gerald Ford</strong><small>13.902% · 14 speeches</small></div>
+<div class="issue-fact"><span>Exploratory fine crosswalk</span><strong>3 topics</strong>
+<small>All selected initially · 10/20-year descriptive buckets</small></div></div></header>
+<nav class="issue-local-nav" aria-label="On this issue"><ul>
+<li><a href="#broad-trend">Broad trend</a></li><li><a href="#selected-excerpts">Selected excerpts</a></li>
+<li><a href="#president-emphasis">President emphasis</a></li><li><a href="#fine-topics">Fine topics</a></li>
+<li><a href="#data-method">Data & method</a></li></ul></nav>
+<main id="main-content">
+<section id="broad-trend"><p class="section-kicker">Deterministic broad axis</p><h2>Broad trend</h2>
+<p>Each point is the share of eligible paragraphs assigned to this broad CorEx issue in a
+five-year period. The shaded 95% sampling band resamples whole speeches; a dotted line marks
+periods too thin to trust. A hollow ring marks a point whose interval could not be resolved at all — every speech in that period agreed exactly, on too few speeches for the agreement to mean anything. Its share is plotted; its uncertainty is unknown, which is not the same as small. Each dot is one president's own share inside one 5-year
+period when at least 25 eligible paragraphs support that cell.</p>
+<figure class="issue-figure" aria-labelledby="broad-trend-title" aria-describedby="broad-chart-summary" data-unresolved-symbol="circle-open">
+<h3 id="broad-trend-title">Share of eligible paragraphs across five-year periods</h3>
+<p class="chart-summary" id="broad-chart-summary">The highest supported five-year period is 1975–1979 at 11.252%, supported by 27 speeches · 1,102 paragraphs. Cautioned periods remain visible rather than being treated as zero.</p>
+<div class="chart-scroll" tabindex="0" role="region" aria-label="Interactive broad trend; scroll horizontally on narrow screens">
+<div class="chart" id="issue-trend-chart" role="img" aria-labelledby="broad-trend-title" aria-describedby="broad-chart-summary">
+<p class="chart-loading">Loading the interactive broad trend. Exact values are available below.</p></div></div>
+<p class="scroll-cue">On a narrow screen, swipe or use the arrow keys in the chart region to inspect the full timeline.</p>
+<noscript><p>The interactive trend needs JavaScript. The exact table below contains every period and status.</p></noscript>
+<figcaption>Solid segments meet the support rule; dotted segments are cautioned. Hollow rings mark unresolved intervals only.</figcaption></figure>
+<details class="metric-lesson"><summary>Explain this measure</summary><p><strong>Confidence interval</strong> — A range produced by repeatedly resampling whole speeches.</p><p class="toy">A 7% estimate with a 4–10% interval says repeat samples often land in that range.</p><ol><li>Resample speeches</li><li>Recalculate the estimate</li><li>Keep the middle 95%</li></ol><details><summary>Formula and limitations</summary><p><code>bootstrap quantiles 2.5% and 97.5%</code> · measure&#x27;s native unit</p><p>It is not a 95% probability that this one fixed interval contains truth.</p></details></details>
+<details class="exact-values"><summary>Inspect the evidence</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Exact broad trend values; scroll horizontally if needed"><table class="evidence-table" id="broad-trend-table"><caption>One canonical row per five-year period. Percentages are shares of eligible paragraphs.</caption><thead><tr><th>Period</th><th>Share</th><th>95% band</th><th>Speeches</th><th>Paragraphs</th><th>Status</th><th>Unresolved</th></tr></thead><tbody><tr><th scope="row">1785–1789</th><td>0%</td><td>Not resolvable</td><td>2</td><td>14</td><td class="status-unresolved">low_cluster_caution</td><td>Yes</td></tr><tr><th scope="row">1790–1794</th><td>0%</td><td>0%–0%</td><td>13</td><td>129</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1795–1799</th><td>0%</td><td>0%–0%</td><td>13</td><td>212</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1800–1804</th><td>2.564%</td><td>0%–5.6%</td><td>13</td><td>156</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1805–1809</th><td>0.513%</td><td>0%–1.5%</td><td>15</td><td>195</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1810–1814</th><td>0%</td><td>0%–0%</td><td>14</td><td>182</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1815–1819</th><td>0.493%</td><td>0%–1.7%</td><td>9</td><td>203</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1820–1824</th><td>1.083%</td><td>0%–1.9%</td><td>7</td><td>277</td><td class="status-caution">low_cluster_caution</td><td>No</td></tr><tr><th scope="row">1825–1829</th><td>0.272%</td><td>0%–1%</td><td>10</td><td>368</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1830–1834</th><td>0.498%</td><td>0%–1.5%</td><td>19</td><td>804</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1835–1839</th><td>0.778%</td><td>0.1%–1.9%</td><td>12</td><td>643</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1840–1844</th><td>1.062%</td><td>0.5%–1.6%</td><td>20</td><td>659</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1845–1849</th><td>0.883%</td><td>0.1%–1.8%</td><td>28</td><td>793</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1850–1854</th><td>0.996%</td><td>0.2%–1.4%</td><td>21</td><td>904</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1855–1859</th><td>0.726%</td><td>0.2%–1.4%</td><td>13</td><td>689</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1860–1864</th><td>0.467%</td><td>0%–1%</td><td>18</td><td>643</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1865–1869</th><td>0.617%</td><td>0%–1.3%</td><td>37</td><td>811</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1870–1874</th><td>0.99%</td><td>0.4%–1.9%</td><td>19</td><td>505</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1875–1879</th><td>1.336%</td><td>0.5%–1.9%</td><td>20</td><td>599</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1880–1884</th><td>1.258%</td><td>0.5%–1.9%</td><td>16</td><td>636</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1885–1889</th><td>0.627%</td><td>0%–1.5%</td><td>18</td><td>798</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1890–1894</th><td>0.948%</td><td>0.2%–1.8%</td><td>20</td><td>844</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1895–1899</th><td>0.355%</td><td>0%–0.7%</td><td>20</td><td>845</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1900–1904</th><td>2.41%</td><td>1.7%–3.4%</td><td>15</td><td>830</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1905–1909</th><td>3.472%</td><td>1.4%–5.8%</td><td>16</td><td>1,152</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1910–1914</th><td>5.901%</td><td>3.3%–10.9%</td><td>20</td><td>932</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1915–1919</th><td>1.518%</td><td>0.6%–2.4%</td><td>21</td><td>461</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1920–1924</th><td>3.621%</td><td>1.2%–6.1%</td><td>19</td><td>359</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1925–1929</th><td>3.184%</td><td>2%–4.3%</td><td>20</td><td>691</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1930–1934</th><td>1.272%</td><td>0.7%–2%</td><td>27</td><td>629</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1935–1939</th><td>4.364%</td><td>1.9%–7.1%</td><td>13</td><td>275</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1940–1944</th><td>3.483%</td><td>0.6%–8.7%</td><td>26</td><td>603</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1945–1949</th><td>1.845%</td><td>0.4%–4%</td><td>17</td><td>271</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1950–1954</th><td>4.611%</td><td>2%–6.8%</td><td>11</td><td>347</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1955–1959</th><td>4.715%</td><td>2.2%–7%</td><td>8</td><td>403</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1960–1964</th><td>1.309%</td><td>0.7%–2%</td><td>67</td><td>2,216</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1965–1969</th><td>1.526%</td><td>1%–2.1%</td><td>53</td><td>2,032</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1970–1974</th><td>9.159%</td><td>4.8%–12.8%</td><td>25</td><td>535</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1975–1979</th><td>11.252%</td><td>7.3%–17.1%</td><td>27</td><td>1,102</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1980–1984</th><td>3.752%</td><td>1.8%–5.9%</td><td>41</td><td>1,679</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1985–1989</th><td>2.37%</td><td>0.9%–3.7%</td><td>28</td><td>844</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1990–1994</th><td>3.744%</td><td>2.2%–6.1%</td><td>32</td><td>1,015</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">1995–1999</th><td>4.676%</td><td>3.2%–6.4%</td><td>22</td><td>834</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">2000–2004</th><td>3.323%</td><td>1.3%–5.5%</td><td>23</td><td>632</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">2005–2009</th><td>3.926%</td><td>2.1%–5.6%</td><td>28</td><td>866</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">2010–2014</th><td>5.935%</td><td>3.7%–9.2%</td><td>33</td><td>1,230</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">2015–2019</th><td>3.81%</td><td>1.9%–6%</td><td>27</td><td>1,286</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">2020–2024</th><td>2.802%</td><td>1.9%–3.9%</td><td>50</td><td>2,534</td><td class="status-ok">ok</td><td>No</td></tr><tr><th scope="row">2025–2029</th><td>6.406%</td><td>2.8%–12.2%</td><td>11</td><td>562</td><td class="status-ok">ok</td><td>No</td></tr></tbody></table></div>
+<h3>President-period overlay values</h3><div class="table-scroll" tabindex="0" role="region" aria-label="Exact president period values; scroll horizontally if needed"><table class="evidence-table"><caption>Rows plotted as dots; cells below 25 eligible paragraphs remain in the CSV with an exclusion status.</caption><thead><tr><th>President</th><th>Period</th><th>Issue paragraphs</th><th>Eligible paragraphs</th><th>Share</th><th>Speeches</th></tr></thead><tbody><tr><th scope="row">Abraham Lincoln</th><td>1850–1854</td><td>6</td><td>360</td><td>1.667%</td><td>2</td></tr><tr><th scope="row">Abraham Lincoln</th><td>1855–1859</td><td>0</td><td>37</td><td>0%</td><td>1</td></tr><tr><th scope="row">Abraham Lincoln</th><td>1860–1864</td><td>3</td><td>456</td><td>0.658%</td><td>11</td></tr><tr><th scope="row">Andrew Jackson</th><td>1825–1829</td><td>0</td><td>97</td><td>0%</td><td>3</td></tr><tr><th scope="row">Andrew Jackson</th><td>1830–1834</td><td>4</td><td>804</td><td>0.498%</td><td>19</td></tr><tr><th scope="row">Andrew Jackson</th><td>1835–1839</td><td>0</td><td>249</td><td>0%</td><td>4</td></tr><tr><th scope="row">Andrew Johnson</th><td>1865–1869</td><td>3</td><td>725</td><td>0.414%</td><td>31</td></tr><tr><th scope="row">Barack Obama</th><td>2005–2009</td><td>11</td><td>339</td><td>3.245%</td><td>11</td></tr><tr><th scope="row">Barack Obama</th><td>2010–2014</td><td>73</td><td>1,230</td><td>5.935%</td><td>33</td></tr><tr><th scope="row">Barack Obama</th><td>2015–2019</td><td>21</td><td>310</td><td>6.774%</td><td>7</td></tr><tr><th scope="row">Benjamin Harrison</th><td>1885–1889</td><td>2</td><td>147</td><td>1.361%</td><td>4</td></tr><tr><th scope="row">Benjamin Harrison</th><td>1890–1894</td><td>5</td><td>451</td><td>1.109%</td><td>12</td></tr><tr><th scope="row">Bill Clinton</th><td>1990–1994</td><td>14</td><td>353</td><td>3.966%</td><td>15</td></tr><tr><th scope="row">Bill Clinton</th><td>1995–1999</td><td>39</td><td>834</td><td>4.676%</td><td>22</td></tr><tr><th scope="row">Bill Clinton</th><td>2000–2004</td><td>11</td><td>101</td><td>10.891%</td><td>2</td></tr><tr><th scope="row">Calvin Coolidge</th><td>1920–1924</td><td>8</td><td>108</td><td>7.407%</td><td>2</td></tr><tr><th scope="row">Calvin Coolidge</th><td>1925–1929</td><td>16</td><td>482</td><td>3.32%</td><td>10</td></tr><tr><th scope="row">Chester A. Arthur</th><td>1880–1884</td><td>6</td><td>478</td><td>1.255%</td><td>11</td></tr><tr><th scope="row">Donald Trump</th><td>2015–2019</td><td>28</td><td>976</td><td>2.869%</td><td>20</td></tr><tr><th scope="row">Donald Trump</th><td>2020–2024</td><td>19</td><td>1,346</td><td>1.412%</td><td>23</td></tr><tr><th scope="row">Donald Trump</th><td>2025–2029</td><td>33</td><td>531</td><td>6.215%</td><td>10</td></tr><tr><th scope="row">Dwight D. Eisenhower</th><td>1950–1954</td><td>14</td><td>209</td><td>6.699%</td><td>5</td></tr><tr><th scope="row">Dwight D. Eisenhower</th><td>1955–1959</td><td>19</td><td>403</td><td>4.715%</td><td>8</td></tr><tr><th scope="row">Dwight D. Eisenhower</th><td>1960–1964</td><td>1</td><td>84</td><td>1.19%</td><td>2</td></tr><tr><th scope="row">Franklin D. Roosevelt</th><td>1930–1934</td><td>3</td><td>140</td><td>2.143%</td><td>7</td></tr><tr><th scope="row">Franklin D. Roosevelt</th><td>1935–1939</td><td>12</td><td>275</td><td>4.364%</td><td>13</td></tr><tr><th scope="row">Franklin D. Roosevelt</th><td>1940–1944</td><td>21</td><td>603</td><td>3.483%</td><td>26</td></tr><tr><th scope="row">Franklin D. Roosevelt</th><td>1945–1949</td><td>0</td><td>66</td><td>0%</td><td>3</td></tr><tr><th scope="row">Franklin Pierce</th><td>1850–1854</td><td>1</td><td>258</td><td>0.388%</td><td>10</td></tr><tr><th scope="row">Franklin Pierce</th><td>1855–1859</td><td>4</td><td>214</td><td>1.869%</td><td>5</td></tr><tr><th scope="row">George H. W. Bush</th><td>1985–1989</td><td>15</td><td>272</td><td>5.515%</td><td>6</td></tr><tr><th scope="row">George H. W. Bush</th><td>1990–1994</td><td>24</td><td>662</td><td>3.625%</td><td>17</td></tr><tr><th scope="row">George W. Bush</th><td>2000–2004</td><td>10</td><td>531</td><td>1.883%</td><td>21</td></tr><tr><th scope="row">George W. Bush</th><td>2005–2009</td><td>23</td><td>527</td><td>4.364%</td><td>17</td></tr><tr><th scope="row">George Washington</th><td>1790–1794</td><td>0</td><td>129</td><td>0%</td><td>13</td></tr><tr><th scope="row">George Washington</th><td>1795–1799</td><td>0</td><td>110</td><td>0%</td><td>6</td></tr><tr><th scope="row">Gerald Ford</th><td>1970–1974</td><td>14</td><td>101</td><td>13.861%</td><td>5</td></tr><tr><th scope="row">Gerald Ford</th><td>1975–1979</td><td>43</td><td>309</td><td>13.916%</td><td>9</td></tr><tr><th scope="row">Grover Cleveland</th><td>1885–1889</td><td>3</td><td>651</td><td>0.461%</td><td>14</td></tr><tr><th scope="row">Grover Cleveland</th><td>1890–1894</td><td>3</td><td>393</td><td>0.763%</td><td>8</td></tr><tr><th scope="row">Grover Cleveland</th><td>1895–1899</td><td>0</td><td>306</td><td>0%</td><td>10</td></tr><tr><th scope="row">Harry S. Truman</th><td>1945–1949</td><td>5</td><td>205</td><td>2.439%</td><td>14</td></tr><tr><th scope="row">Harry S. Truman</th><td>1950–1954</td><td>2</td><td>103</td><td>1.942%</td><td>5</td></tr><tr><th scope="row">Herbert Hoover</th><td>1925–1929</td><td>6</td><td>209</td><td>2.871%</td><td>10</td></tr><tr><th scope="row">Herbert Hoover</th><td>1930–1934</td><td>5</td><td>489</td><td>1.022%</td><td>20</td></tr><tr><th scope="row">James A. Garfield</th><td>1880–1884</td><td>0</td><td>29</td><td>0%</td><td>1</td></tr><tr><th scope="row">James Buchanan</th><td>1855–1859</td><td>1</td><td>438</td><td>0.228%</td><td>7</td></tr><tr><th scope="row">James Buchanan</th><td>1860–1864</td><td>0</td><td>187</td><td>0%</td><td>7</td></tr><tr><th scope="row">James K. Polk</th><td>1845–1849</td><td>6</td><td>722</td><td>0.831%</td><td>25</td></tr><tr><th scope="row">James Madison</th><td>1810–1814</td><td>0</td><td>182</td><td>0%</td><td>14</td></tr><tr><th scope="row">James Madison</th><td>1815–1819</td><td>0</td><td>68</td><td>0%</td><td>5</td></tr><tr><th scope="row">James Monroe</th><td>1815–1819</td><td>1</td><td>135</td><td>0.741%</td><td>4</td></tr><tr><th scope="row">James Monroe</th><td>1820–1824</td><td>3</td><td>272</td><td>1.103%</td><td>6</td></tr><tr><th scope="row">Jimmy Carter</th><td>1975–1979</td><td>78</td><td>754</td><td>10.345%</td><td>16</td></tr><tr><th scope="row">Jimmy Carter</th><td>1980–1984</td><td>40</td><td>280</td><td>14.286%</td><td>6</td></tr><tr><th scope="row">Joe Biden</th><td>2020–2024</td><td>52</td><td>1,188</td><td>4.377%</td><td>27</td></tr><tr><th scope="row">Joe Biden</th><td>2025–2029</td><td>3</td><td>31</td><td>9.677%</td><td>1</td></tr><tr><th scope="row">John Adams</th><td>1795–1799</td><td>0</td><td>102</td><td>0%</td><td>7</td></tr><tr><th scope="row">John F. Kennedy</th><td>1960–1964</td><td>23</td><td>1,367</td><td>1.683%</td><td>44</td></tr><tr><th scope="row">John Quincy Adams</th><td>1825–1829</td><td>1</td><td>271</td><td>0.369%</td><td>7</td></tr><tr><th scope="row">John Tyler</th><td>1840–1844</td><td>5</td><td>531</td><td>0.942%</td><td>17</td></tr><tr><th scope="row">Lyndon B. Johnson</th><td>1960–1964</td><td>3</td><td>731</td><td>0.41%</td><td>20</td></tr><tr><th scope="row">Lyndon B. Johnson</th><td>1965–1969</td><td>30</td><td>1,981</td><td>1.514%</td><td>51</td></tr><tr><th scope="row">Martin Van Buren</th><td>1835–1839</td><td>5</td><td>394</td><td>1.269%</td><td>8</td></tr><tr><th scope="row">Martin Van Buren</th><td>1840–1844</td><td>1</td><td>71</td><td>1.408%</td><td>2</td></tr><tr><th scope="row">Millard Fillmore</th><td>1850–1854</td><td>2</td><td>268</td><td>0.746%</td><td>7</td></tr><tr><th scope="row">Richard M. Nixon</th><td>1950–1954</td><td>0</td><td>35</td><td>0%</td><td>1</td></tr><tr><th scope="row">Richard M. Nixon</th><td>1965–1969</td><td>1</td><td>51</td><td>1.961%</td><td>2</td></tr><tr><th scope="row">Richard M. Nixon</th><td>1970–1974</td><td>35</td><td>434</td><td>8.065%</td><td>20</td></tr><tr><th scope="row">Ronald Reagan</th><td>1960–1964</td><td>2</td><td>34</td><td>5.882%</td><td>1</td></tr><tr><th scope="row">Ronald Reagan</th><td>1975–1979</td><td>3</td><td>39</td><td>7.692%</td><td>2</td></tr><tr><th scope="row">Ronald Reagan</th><td>1980–1984</td><td>23</td><td>1,399</td><td>1.644%</td><td>35</td></tr><tr><th scope="row">Ronald Reagan</th><td>1985–1989</td><td>5</td><td>572</td><td>0.874%</td><td>22</td></tr><tr><th scope="row">Rutherford B. Hayes</th><td>1875–1879</td><td>6</td><td>371</td><td>1.617%</td><td>12</td></tr><tr><th scope="row">Rutherford B. Hayes</th><td>1880–1884</td><td>2</td><td>129</td><td>1.55%</td><td>4</td></tr><tr><th scope="row">Theodore Roosevelt</th><td>1900–1904</td><td>15</td><td>602</td><td>2.492%</td><td>11</td></tr><tr><th scope="row">Theodore Roosevelt</th><td>1905–1909</td><td>35</td><td>928</td><td>3.772%</td><td>11</td></tr><tr><th scope="row">Thomas Jefferson</th><td>1800–1804</td><td>4</td><td>142</td><td>2.817%</td><td>11</td></tr><tr><th scope="row">Thomas Jefferson</th><td>1805–1809</td><td>1</td><td>171</td><td>0.585%</td><td>13</td></tr><tr><th scope="row">Ulysses S. Grant</th><td>1865–1869</td><td>2</td><td>80</td><td>2.5%</td><td>5</td></tr><tr><th scope="row">Ulysses S. Grant</th><td>1870–1874</td><td>5</td><td>505</td><td>0.99%</td><td>19</td></tr><tr><th scope="row">Ulysses S. Grant</th><td>1875–1879</td><td>2</td><td>228</td><td>0.877%</td><td>8</td></tr><tr><th scope="row">Warren G. Harding</th><td>1920–1924</td><td>5</td><td>229</td><td>2.183%</td><td>16</td></tr><tr><th scope="row">William Henry Harrison</th><td>1840–1844</td><td>1</td><td>57</td><td>1.754%</td><td>1</td></tr><tr><th scope="row">William McKinley</th><td>1895–1899</td><td>3</td><td>539</td><td>0.557%</td><td>10</td></tr><tr><th scope="row">William McKinley</th><td>1900–1904</td><td>5</td><td>228</td><td>2.193%</td><td>4</td></tr><tr><th scope="row">William Howard Taft</th><td>1905–1909</td><td>5</td><td>224</td><td>2.232%</td><td>5</td></tr><tr><th scope="row">William Howard Taft</th><td>1910–1914</td><td>48</td><td>745</td><td>6.443%</td><td>7</td></tr><tr><th scope="row">Woodrow Wilson</th><td>1910–1914</td><td>7</td><td>187</td><td>3.743%</td><td>13</td></tr><tr><th scope="row">Woodrow Wilson</th><td>1915–1919</td><td>7</td><td>452</td><td>1.549%</td><td>19</td></tr><tr><th scope="row">Zachary Taylor</th><td>1845–1849</td><td>0</td><td>62</td><td>0%</td><td>2</td></tr></tbody></table></div><div class="download-links">
+<a href="../data/issues/energy-and-environment-broad-trend.csv" download>Download broad-trend CSV</a>
+<a href="../data/issues/energy-and-environment-president-periods.csv" download>Download president-period CSV</a></div></details></section>
+
+<section id="selected-excerpts"><p class="section-kicker">Keyed source receipts</p><h2>Selected corpus excerpts</h2>
+<p>These are representative passages selected within an early window, the same highest-supported
+five-year window used above, and a recent window. They are examples from the corpus, not claims
+that any speech caused the trend.</p><div class="excerpt-grid"><blockquote class="issue-excerpt">
+<span class="excerpt-label">Early window · 1803–1843</span>
+<p>“The extensive forests necessary in the hunting life will then become useless, and they will see advantage in exchanging them for the means of improving their farms and of increasing their domestic comforts.”</p><cite><a href="https://millercenter.org/the-presidency/presidential-speeches/january-18-1803-special-message-congress-indian-policy" target="_blank" rel="noopener">Thomas Jefferson, Special Message to Congress on Indian Policy, 1803</a>
+<span class="receipt">/the-presidency/presidential-speeches/january-18-1803-special-message-congress-indian-policy · paragraph 2</span></cite></blockquote><blockquote class="issue-excerpt">
+<span class="excerpt-label">Highest-supported window · 1975–1979</span>
+<p>“In order that we make greater use of domestic coal resources, I am submitting amendments to the Energy Supply and Environmental Coordination Act which will greatly increase the number of powerplants that can be promptly converted to coal.”</p><cite><a href="https://millercenter.org/the-presidency/presidential-speeches/january-15-1975-state-union-address" target="_blank" rel="noopener">Gerald Ford, State of the Union Address, 1975</a>
+<span class="receipt">/the-presidency/presidential-speeches/january-15-1975-state-union-address · paragraph 23</span></cite></blockquote><blockquote class="issue-excerpt">
+<span class="excerpt-label">Recent window · 2011–2026</span>
+<p>“They&#x27;ve given up their powerful edge, a lot of the countries that we&#x27;re talking about in oil and gas, such as essentially closing the great North Sea oil.”</p><cite><a href="https://millercenter.org/the-presidency/presidential-speeches/september-23-2025-address-80th-united-nations-general-assembly" target="_blank" rel="noopener">Donald Trump, Address before the 80th United Nations General Assembly, 2025</a>
+<span class="receipt">september-23-2025-address-80th-united-nations-general-assembly · paragraph 52</span></cite></blockquote></div></section>
+
+<section id="president-emphasis"><p class="section-kicker">Eligible-president comparison</p>
+<h2>Presidents who emphasized it most</h2><p><strong>Top eight eligible presidents.</strong>
+A president needs at least 5 corpus speeches. Bars use an absolute 0–100% scale;
+the printed fraction is issue paragraphs divided by all eligible paragraphs for that president.</p>
+<div class="owner-scale" aria-hidden="true"><span>0%</span><span>100%</span></div><ol class="owner-list"><li class="owner-row">
+<a class="owner-person" href="../presidents/gerald-ford.html"><img src="../portraits/gerald-ford.png"
+  alt="" loading="lazy"><span>Gerald Ford<small>14 eligible speeches</small></span></a>
+<span class="owner-track" aria-hidden="true"><span style="width:13.902439%"></span></span>
+<span class="owner-value"><strong>13.902%</strong>
+<small>57/410 paragraphs</small></span></li><li class="owner-row">
+<a class="owner-person" href="../presidents/jimmy-carter.html"><img src="../portraits/jimmy-carter.png"
+  alt="" loading="lazy"><span>Jimmy Carter<small>22 eligible speeches</small></span></a>
+<span class="owner-track" aria-hidden="true"><span style="width:11.411992%"></span></span>
+<span class="owner-value"><strong>11.412%</strong>
+<small>118/1,034 paragraphs</small></span></li><li class="owner-row">
+<a class="owner-person" href="../presidents/richard-m-nixon.html"><img src="../portraits/richard-m-nixon.png"
+  alt="" loading="lazy"><span>Richard M. Nixon<small>23 eligible speeches</small></span></a>
+<span class="owner-track" aria-hidden="true"><span style="width:6.923077%"></span></span>
+<span class="owner-value"><strong>6.923%</strong>
+<small>36/520 paragraphs</small></span></li><li class="owner-row">
+<a class="owner-person" href="../presidents/barack-obama.html"><img src="../portraits/barack-obama.png"
+  alt="" loading="lazy"><span>Barack Obama<small>51 eligible speeches</small></span></a>
+<span class="owner-track" aria-hidden="true"><span style="width:5.588079%"></span></span>
+<span class="owner-value"><strong>5.588%</strong>
+<small>105/1,879 paragraphs</small></span></li><li class="owner-row">
+<a class="owner-person" href="../presidents/william-taft.html"><img src="../portraits/william-taft.png"
+  alt="" loading="lazy"><span>William Howard Taft<small>12 eligible speeches</small></span></a>
+<span class="owner-track" aria-hidden="true"><span style="width:5.469556%"></span></span>
+<span class="owner-value"><strong>5.47%</strong>
+<small>53/969 paragraphs</small></span></li><li class="owner-row">
+<a class="owner-person" href="../presidents/bill-clinton.html"><img src="../portraits/bill-clinton.png"
+  alt="" loading="lazy"><span>Bill Clinton<small>39 eligible speeches</small></span></a>
+<span class="owner-track" aria-hidden="true"><span style="width:4.968944%"></span></span>
+<span class="owner-value"><strong>4.969%</strong>
+<small>64/1,288 paragraphs</small></span></li><li class="owner-row">
+<a class="owner-person" href="../presidents/dwight-d-eisenhower.html"><img src="../portraits/dwight-d-eisenhower.png"
+  alt="" loading="lazy"><span>Dwight D. Eisenhower<small>15 eligible speeches</small></span></a>
+<span class="owner-track" aria-hidden="true"><span style="width:4.885057%"></span></span>
+<span class="owner-value"><strong>4.885%</strong>
+<small>34/696 paragraphs</small></span></li><li class="owner-row">
+<a class="owner-person" href="../presidents/joe-biden.html"><img src="../portraits/joe-biden.png"
+  alt="" loading="lazy"><span>Joe Biden<small>28 eligible speeches</small></span></a>
+<span class="owner-track" aria-hidden="true"><span style="width:4.511895%"></span></span>
+<span class="owner-value"><strong>4.512%</strong>
+<small>55/1,219 paragraphs</small></span></li></ol></section>
+
+<section id="fine-topics"><p class="section-kicker">Exploratory frozen AI labels</p>
+<h2>Finer AI topics inside this broad issue</h2>
+<p class="ai-note">The broad trend above remains the independent deterministic CorEx instrument.
+This many-to-many crosswalk uses frozen AI paragraph labels to inspect finer subjects; shares need
+not sum to 100%. Ten- and twenty-year buckets are descriptive and have no interval at this grain;
+buckets below 20 eligible paragraphs are retained and visibly flagged as low support.
+<a href="../label-models.html">Compare the two instruments →</a></p>
+<div class="fine-definitions"><article class="fine-definition" style="--topic-color:#3f7b9b">
+<span>Agriculture, Land &amp; Environment</span><h3>Conservation &amp; the Environment</h3>
+<p>Conservation of forests, water power, and public resources and later programs to clean the nation&#x27;s air and water and preserve parklands.</p></article><article class="fine-definition" style="--topic-color:#63713d">
+<span>Infrastructure &amp; Internal Improvements</span><h3>Internal Improvements, Energy &amp; Infrastructure</h3>
+<p>Federal support for roads, canals, harbors, energy production and pipelines, and rebuilding the nation&#x27;s infrastructure, including constitutional debate over such works.</p></article><article class="fine-definition" style="--topic-color:#697c9f">
+<span>Agriculture, Land &amp; Environment</span><h3>Public Lands &amp; Homestead Settlement</h3>
+<p>Survey, sale, pricing, preemption, and distribution of public lands, protection of settlers, and operation of the homestead system.</p></article></div>
+<noscript><p>Topic controls require JavaScript and remain disabled. The exact table retains every initially selected 20-year value.</p></noscript>
+<div class="fine-controls"><div><strong>Choose fine topics</strong><p class="dim">All mapped topics start selected.</p></div>
+<div class="fine-selects"><label>Bucket size<select id="fine-topic-bucket" disabled>
+<option value="20" selected>20 years</option><option value="10">10 years</option></select></label>
+<label>View<select id="fine-topic-mode" disabled><option value="auto" selected>Auto</option>
+<option value="bars">Grouped bars</option><option value="heatmap">Heatmap</option></select></label></div></div>
+<details class="topic-picker"><summary>Topic selection <span id="fine-topic-count">3 topics selected</span></summary>
+<div class="topic-picker-actions"><button type="button" id="fine-topic-all" disabled>Select all</button>
+<button type="button" id="fine-topic-clear" disabled>Clear</button></div>
+<fieldset class="topic-controls" id="fine-topic-controls"><legend>Fine topics to display</legend>
+<label style="--topic-color:#3f7b9b">
+<input type="checkbox" value="Conservation &amp; the Environment" checked disabled>
+Conservation &amp; the Environment</label><label style="--topic-color:#63713d">
+<input type="checkbox" value="Internal Improvements, Energy &amp; Infrastructure" checked disabled>
+Internal Improvements, Energy &amp; Infrastructure</label><label style="--topic-color:#697c9f">
+<input type="checkbox" value="Public Lands &amp; Homestead Settlement" checked disabled>
+Public Lands &amp; Homestead Settlement</label></fieldset></details>
+<p class="fine-status" id="fine-topic-status" role="status" aria-live="polite" aria-atomic="true">
+3 topics selected · 20-year descriptive buckets · Auto → Grouped bars ·
+2 partial edge periods ·
+0 low-support periods.</p>
+<figure class="issue-figure fine-figure" aria-labelledby="fine-chart-title" aria-describedby="fine-chart-summary">
+<h3 id="fine-chart-title">Exploratory fine-topic shares</h3><p class="chart-summary" id="fine-chart-summary">All 3 mapped fine topics are selected initially in 20-year descriptive buckets. Edge labels use years actually observed; 0 low-support periods are flagged.</p>
+<div class="chart-scroll" tabindex="0" role="region" aria-label="Interactive fine topic chart; scroll horizontally on narrow screens">
+<div class="chart" id="fine-topic-chart" role="img" aria-labelledby="fine-chart-title" aria-describedby="fine-chart-summary">
+<p class="chart-loading">The fine-topic chart initializes when this section approaches the viewport.</p></div></div>
+<p class="scroll-cue">On a narrow screen, swipe or use the arrow keys in the chart region.</p>
+<noscript><p>The interactive fine-topic view needs JavaScript. All initially selected 20-year values remain in the exact table.</p></noscript>
+<figcaption>Observed edge labels, such as 2020–2026, state the years actually present instead of implying complete future decades.</figcaption></figure>
+<details class="metric-lesson"><summary>Explain this measure</summary><p><strong>Share of paragraphs</strong> — The number of labeled paragraphs divided by every paragraph in the selected record.</p><p class="toy">Twenty labeled paragraphs among 100 total paragraphs is 20%.</p><ol><li>Count paragraphs carrying the label</li><li>Count every eligible paragraph</li><li>Divide the labeled count by the total</li></ol><details><summary>Formula and limitations</summary><p><code>labeled paragraphs / eligible paragraphs</code> · percent of paragraphs</p><p>Paragraphs vary greatly in length, and AI labels can disagree.</p></details></details>
+<details class="exact-values"><summary>Inspect the evidence</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Exact fine topic values; scroll horizontally if needed"><table class="evidence-table" id="fine-topic-table"><caption>Initially selected topics in 20-year descriptive buckets.</caption><thead><tr><th>Topic</th><th>Requested range</th><th>Observed range</th><th>Topic paragraphs</th><th>Eligible paragraphs</th><th>Share</th><th>Edge status</th><th>Support status</th></tr></thead><tbody><tr><th scope="row">Conservation &amp; the Environment</th><td>1780–1799</td><td>1789–1799</td><td>0</td><td>355</td><td>0%</td><td>Partial observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1800–1819</td><td>1800–1819</td><td>0</td><td>736</td><td>0%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1820–1839</td><td>1820–1839</td><td>0</td><td>2,092</td><td>0%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1840–1859</td><td>1840–1859</td><td>1</td><td>3,045</td><td>0.033%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1860–1879</td><td>1860–1879</td><td>6</td><td>2,558</td><td>0.235%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1880–1899</td><td>1880–1899</td><td>30</td><td>3,123</td><td>0.961%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1900–1919</td><td>1900–1919</td><td>153</td><td>3,375</td><td>4.533%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1920–1939</td><td>1920–1939</td><td>39</td><td>1,954</td><td>1.996%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1940–1959</td><td>1940–1959</td><td>19</td><td>1,624</td><td>1.17%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1960–1979</td><td>1960–1979</td><td>81</td><td>5,885</td><td>1.376%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>1980–1999</td><td>1980–1999</td><td>66</td><td>4,372</td><td>1.51%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>2000–2019</td><td>2000–2019</td><td>114</td><td>4,014</td><td>2.84%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Conservation &amp; the Environment</th><td>2020–2039</td><td>2020–2026</td><td>72</td><td>3,096</td><td>2.326%</td><td>Partial observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1780–1799</td><td>1789–1799</td><td>2</td><td>355</td><td>0.563%</td><td>Partial observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1800–1819</td><td>1800–1819</td><td>23</td><td>736</td><td>3.125%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1820–1839</td><td>1820–1839</td><td>145</td><td>2,092</td><td>6.931%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1840–1859</td><td>1840–1859</td><td>174</td><td>3,045</td><td>5.714%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1860–1879</td><td>1860–1879</td><td>76</td><td>2,558</td><td>2.971%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1880–1899</td><td>1880–1899</td><td>145</td><td>3,123</td><td>4.643%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1900–1919</td><td>1900–1919</td><td>296</td><td>3,375</td><td>8.77%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1920–1939</td><td>1920–1939</td><td>204</td><td>1,954</td><td>10.44%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1940–1959</td><td>1940–1959</td><td>47</td><td>1,624</td><td>2.894%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1960–1979</td><td>1960–1979</td><td>250</td><td>5,885</td><td>4.248%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>1980–1999</td><td>1980–1999</td><td>80</td><td>4,372</td><td>1.83%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>2000–2019</td><td>2000–2019</td><td>193</td><td>4,014</td><td>4.808%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Internal Improvements, Energy &amp; Infrastructure</th><td>2020–2039</td><td>2020–2026</td><td>147</td><td>3,096</td><td>4.748%</td><td>Partial observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1780–1799</td><td>1789–1799</td><td>2</td><td>355</td><td>0.563%</td><td>Partial observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1800–1819</td><td>1800–1819</td><td>19</td><td>736</td><td>2.582%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1820–1839</td><td>1820–1839</td><td>56</td><td>2,092</td><td>2.677%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1840–1859</td><td>1840–1859</td><td>126</td><td>3,045</td><td>4.138%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1860–1879</td><td>1860–1879</td><td>47</td><td>2,558</td><td>1.837%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1880–1899</td><td>1880–1899</td><td>63</td><td>3,123</td><td>2.017%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1900–1919</td><td>1900–1919</td><td>79</td><td>3,375</td><td>2.341%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1920–1939</td><td>1920–1939</td><td>33</td><td>1,954</td><td>1.689%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1940–1959</td><td>1940–1959</td><td>2</td><td>1,624</td><td>0.123%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1960–1979</td><td>1960–1979</td><td>5</td><td>5,885</td><td>0.085%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>1980–1999</td><td>1980–1999</td><td>4</td><td>4,372</td><td>0.091%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>2000–2019</td><td>2000–2019</td><td>1</td><td>4,014</td><td>0.025%</td><td>Complete observed bucket</td><td class="status-ok">Descriptive</td></tr><tr><th scope="row">Public Lands &amp; Homestead Settlement</th><td>2020–2039</td><td>2020–2026</td><td>1</td><td>3,096</td><td>0.032%</td><td>Partial observed bucket</td><td class="status-ok">Descriptive</td></tr></tbody></table></div>
+<div class="download-links"><a href="../data/issues/energy-and-environment-ai-topics.csv" download>Download fine-topic CSV</a></div></details></section>
+
+<section id="data-method"><p class="section-kicker">Provenance and limits</p><h2>Data and method</h2>
+<p>All public percentages use the same unit: <strong>share of eligible paragraphs</strong>.
+The broad axis and fine-topic crosswalk remain separate instruments with separate uncertainty status.</p>
+<div class="provenance-grid"><article class="provenance-card"><h3>Broad CorEx evidence</h3>
+<p>CorEx anchored topic model (issues.py, seed=42) ·
+5-year periods ·
+sampling_only.
+Intervals cluster on speech.</p></article>
+<article class="provenance-card"><h3>Exploratory AI crosswalk</h3><p>Frozen taxonomy
+taxonomy-v1-20260719 · prompt
+taxonomy/v1 · models
+claude-sonnet-5.</p></article>
+<article class="provenance-card"><h3>Active corpus receipt</h3><p>
+1,057 speeches · 36,229 paragraphs ·
+<code>23eff144ab94f3fa5cedefcacf7f21bc5c068518fe3cb2946c2a2a179fdb9bcc</code>.</p></article>
+<article class="provenance-card"><h3>Source corpus</h3><p>Miller Center presidential-speech corpus.
+<a href="../methodology.html">Read the full methodology and limitations →</a></p></article></div>
+<nav class="issue-adjacent" aria-label="Adjacent issues"><a href="crime-and-justice.html"><span>Previous issue</span>
+<strong>← Crime &amp; justice</strong></a><a class="next" href="trade-and-tariffs.html"><span>Next issue</span>
+<strong>Trade &amp; tariffs →</strong></a></nav></section></main>
+<footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
+University of Virginia</a>. Generated from validated local artifacts.</p>
 <p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer>
-<script>
-  const FIG = {"data":[{"fill":"toself","fillcolor":"rgba(109, 167, 236, 0.22)","hoverinfo":"skip","line":{"width":0},"mode":"lines","showlegend":false,"x":[1790.0,1795.0,1800.0,1805.0,1810.0,1815.0,1820.0,1825.0,1830.0,1835.0,1840.0,1845.0,1850.0,1855.0,1860.0,1865.0,1870.0,1875.0,1880.0,1885.0,1890.0,1895.0,1900.0,1905.0,1910.0,1915.0,1920.0,1925.0,1930.0,1935.0,1940.0,1945.0,1950.0,1955.0,1960.0,1965.0,1970.0,1975.0,1980.0,1985.0,1990.0,1995.0,2000.0,2005.0,2010.0,2015.0,2020.0,2025.0,2025.0,2020.0,2015.0,2010.0,2005.0,2000.0,1995.0,1990.0,1985.0,1980.0,1975.0,1970.0,1965.0,1960.0,1955.0,1950.0,1945.0,1940.0,1935.0,1930.0,1925.0,1920.0,1915.0,1910.0,1905.0,1900.0,1895.0,1890.0,1885.0,1880.0,1875.0,1870.0,1865.0,1860.0,1855.0,1850.0,1845.0,1840.0,1835.0,1830.0,1825.0,1820.0,1815.0,1810.0,1805.0,1800.0,1795.0,1790.0],"y":[0.0,0.0,5.575824386503065,1.5426249008723236,0.0,1.6528650870406163,1.9117416768455007,0.9681907463989516,1.4644464232002834,1.860280259739546,1.6096433012866502,1.8170616672562196,1.3897338097077379,1.3910141231476643,0.9673186597754411,1.3033886800334162,1.881188410233466,1.9154806854487363,1.9442279073063566,1.457986930316667,1.7621080914567357,0.6872032672132669,3.4257492671585967,5.7632743980588215,10.879020387939201,2.372587529382655,6.076780050311712,4.280032647718487,1.9725962597685351,7.079298305860801,8.691990440949738,4.001549676968744,6.755543914789593,6.997670751160092,1.9670738767523837,2.102495387547868,12.808705587685509,17.083734324876055,5.929452348571658,3.7051169349370188,6.104343829004826,6.353995412437609,5.52477219749947,5.552739238705087,9.193756168005748,5.952322065405573,3.878832068453238,12.197355161461566,2.7849275576581904,1.9134371713601308,1.932086320191159,3.688621028718679,2.1343602500318917,1.3101549755301793,3.1988555300539665,2.247739458286069,0.8940624604375028,1.7800378950064228,7.285032134604275,4.782179000632511,0.9864453305015128,0.6884953379317758,2.1977791198836027,1.9837645465568556,0.36481889133480094,0.6188584369722095,1.8823249808450866,0.6698204564489112,1.997671840354767,1.1622718052738337,0.5818775440976933,3.309526456202757,1.4254413471328116,1.678676100792536,0.0,0.19796453399316608,0.0,0.4777725939749401,0.48651112676640007,0.3847480253643342,0.0,0.0,0.2349196265812296,0.2163214802941466,0.14300422472940444,0.5063081103869468,0.11382528490388998,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"type":"scatter"},{"customdata":[["not resolvable \u2014 2 speeches agree exactly, so the bootstrap has no width to report",2,"low_cluster_caution"],["0.0\u20130.0",13,"ok"],["0.0\u20130.0",13,"ok"],["0.0\u20135.6",13,"ok"],["0.0\u20131.5",15,"ok"],["0.0\u20130.0",14,"ok"],["0.0\u20131.7",9,"ok"],["0.0\u20131.9",7,"low_cluster_caution"],["0.0\u20131.0",10,"ok"],["0.0\u20131.5",19,"ok"],["0.1\u20131.9",12,"ok"],["0.5\u20131.6",20,"ok"],["0.1\u20131.8",28,"ok"],["0.2\u20131.4",21,"ok"],["0.2\u20131.4",13,"ok"],["0.0\u20131.0",18,"ok"],["0.0\u20131.3",37,"ok"],["0.4\u20131.9",19,"ok"],["0.5\u20131.9",20,"ok"],["0.5\u20131.9",16,"ok"],["0.0\u20131.5",18,"ok"],["0.2\u20131.8",20,"ok"],["0.0\u20130.7",20,"ok"],["1.7\u20133.4",15,"ok"],["1.4\u20135.8",16,"ok"],["3.3\u201310.9",20,"ok"],["0.6\u20132.4",21,"ok"],["1.2\u20136.1",19,"ok"],["2.0\u20134.3",20,"ok"],["0.7\u20132.0",27,"ok"],["1.9\u20137.1",13,"ok"],["0.6\u20138.7",26,"ok"],["0.4\u20134.0",17,"ok"],["2.0\u20136.8",11,"ok"],["2.2\u20137.0",8,"ok"],["0.7\u20132.0",67,"ok"],["1.0\u20132.1",53,"ok"],["4.8\u201312.8",25,"ok"],["7.3\u201317.1",27,"ok"],["1.8\u20135.9",41,"ok"],["0.9\u20133.7",28,"ok"],["2.2\u20136.1",32,"ok"],["3.2\u20136.4",22,"ok"],["1.3\u20135.5",23,"ok"],["2.1\u20135.6",28,"ok"],["3.7\u20139.2",33,"ok"],["1.9\u20136.0",27,"ok"],["1.9\u20133.9",50,"ok"],["2.8\u201312.2",11,"ok"]],"hovertemplate":"%{y:.1f}% of paragraphs\u003cbr\u003e95% band %{customdata[0]}\u003cbr\u003e%{customdata[1]} speeches \u00b7 %{customdata[2]}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgba(109, 167, 236, 0.55)","dash":"dot","width":1.7999999999999998},"mode":"lines","showlegend":false,"x":{"dtype":"f8","bdata":"AAAAAADkm0AAAAAAAPibQAAAAAAADJxAAAAAAAAgnEAAAAAAADScQAAAAAAASJxAAAAAAABcnEAAAAAAAHCcQAAAAAAAhJxAAAAAAACYnEAAAAAAAKycQAAAAAAAwJxAAAAAAADUnEAAAAAAAOicQAAAAAAA\u002fJxAAAAAAAAQnUAAAAAAACSdQAAAAAAAOJ1AAAAAAABMnUAAAAAAAGCdQAAAAAAAdJ1AAAAAAACInUAAAAAAAJydQAAAAAAAsJ1AAAAAAADEnUAAAAAAANidQAAAAAAA7J1AAAAAAAAAnkAAAAAAABSeQAAAAAAAKJ5AAAAAAAA8nkAAAAAAAFCeQAAAAAAAZJ5AAAAAAAB4nkAAAAAAAIyeQAAAAAAAoJ5AAAAAAAC0nkAAAAAAAMieQAAAAAAA3J5AAAAAAADwnkAAAAAAAASfQAAAAAAAGJ9AAAAAAAAsn0AAAAAAAECfQAAAAAAAVJ9AAAAAAABon0AAAAAAAHyfQAAAAAAAkJ9AAAAAAACkn0A="},"y":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANEiDNEiDBECQBmmQBmngPwAAAAAAAAAAQwEdm++G3z+63pPgGVTxPxaykIUsZNE\u002fYRRwaD7X3z\u002fsZQDVI+LoP+HUNKjV\u002fvA\u002f6QKPDUY\u002f7D8JvP2QwNvvPyPxp\u002fzYOOc\u002f6ROa\u002fyrc3T\u002fEvP4LjrrjP5h0ah7kru8\u002fWB5vZHNe9T\u002fKnaKFMyD0P81ANQPVDOQ\u002fYOsKze1U7j\u002fvkgcDzrjWP11WDJTwRgNAchzHcRzHC0BZ19wf65oXQLl6r9SFS\u002fg\u002fY8Pi7if4DEBMBtW7Z3gJQOSQrPiJWfQ\u002fddFFF110EUDVEWKbVtwLQNTxABEyhf0\u002f9VwmJJ1xEkC0DOSjytsSQMxXXe9J8PQ\u002fGo1Go9Fo+D8HN\u002fuFWFEiQOdwq1kpgSZAzwyU+5IEDkAc0yagFPUCQM1aKKBj8w1AD+jGPH20EkApHdkzEJUKQHYJ8IqlaA9AvV\u002fW+2W9F0CoSe3ka3sOQHrMxIZHagZAEswgPG6fGUA="},"type":"scatter"},{"connectgaps":false,"hoverinfo":"skip","line":{"color":"#256abf","width":2.4},"mode":"lines","showlegend":false,"x":{"dtype":"f8","bdata":"AAAAAADkm0AAAAAAAPibQAAAAAAADJxAAAAAAAAgnEAAAAAAADScQAAAAAAASJxAAAAAAABcnEAAAAAAAHCcQAAAAAAAhJxAAAAAAACYnEAAAAAAAKycQAAAAAAAwJxAAAAAAADUnEAAAAAAAOicQAAAAAAA\u002fJxAAAAAAAAQnUAAAAAAACSdQAAAAAAAOJ1AAAAAAABMnUAAAAAAAGCdQAAAAAAAdJ1AAAAAAACInUAAAAAAAJydQAAAAAAAsJ1AAAAAAADEnUAAAAAAANidQAAAAAAA7J1AAAAAAAAAnkAAAAAAABSeQAAAAAAAKJ5AAAAAAAA8nkAAAAAAAFCeQAAAAAAAZJ5AAAAAAAB4nkAAAAAAAIyeQAAAAAAAoJ5AAAAAAAC0nkAAAAAAAMieQAAAAAAA3J5AAAAAAADwnkAAAAAAAASfQAAAAAAAGJ9AAAAAAAAsn0AAAAAAAECfQAAAAAAAVJ9AAAAAAABon0AAAAAAAHyfQAAAAAAAkJ9AAAAAAACkn0A="},"y":{"dtype":"f8","bdata":"AAAAAAAA+H8AAAAAAAAAAAAAAAAAAAAANEiDNEiDBECQBmmQBmngPwAAAAAAAAAAQwEdm++G3z8AAAAAAAD4fxaykIUsZNE\u002fYRRwaD7X3z\u002fsZQDVI+LoP+HUNKjV\u002fvA\u002f6QKPDUY\u002f7D8JvP2QwNvvPyPxp\u002fzYOOc\u002f6ROa\u002fyrc3T\u002fEvP4LjrrjP5h0ah7kru8\u002fWB5vZHNe9T\u002fKnaKFMyD0P81ANQPVDOQ\u002fYOsKze1U7j\u002fvkgcDzrjWP11WDJTwRgNAchzHcRzHC0BZ19wf65oXQLl6r9SFS\u002fg\u002fY8Pi7if4DEBMBtW7Z3gJQOSQrPiJWfQ\u002fddFFF110EUDVEWKbVtwLQNTxABEyhf0\u002f9VwmJJ1xEkC0DOSjytsSQMxXXe9J8PQ\u002fGo1Go9Fo+D8HN\u002fuFWFEiQOdwq1kpgSZAzwyU+5IEDkAc0yagFPUCQM1aKKBj8w1AD+jGPH20EkApHdkzEJUKQHYJ8IqlaA9AvV\u002fW+2W9F0CoSe3ka3sOQHrMxIZHagZAEswgPG6fGUA="},"type":"scatter"},{"cliponaxis":false,"customdata":{"dtype":"i1","bdata":"Ag4=","shape":"1, 2"},"hovertemplate":"%{y:.1f}% of paragraphs \u2014 no interval\u003cbr\u003e%{customdata[0]} speeches, %{customdata[1]} paragraphs: too few to resolve one\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"rgba(109, 167, 236, 0.95)","line":{"color":"rgba(109, 167, 236, 0.95)","width":1.8},"size":9,"symbol":"circle-open"},"mode":"markers","showlegend":false,"x":{"dtype":"f8","bdata":"AAAAAADkm0A="},"y":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"type":"scatter"},{"customdata":[["Abraham Lincoln",360],["Abraham Lincoln",37],["Abraham Lincoln",456],["Andrew Jackson",97],["Andrew Jackson",804],["Andrew Jackson",249],["Andrew Johnson",725],["Barack Obama",339],["Barack Obama",1230],["Barack Obama",310],["Benjamin Harrison",147],["Benjamin Harrison",451],["Bill Clinton",353],["Bill Clinton",834],["Bill Clinton",101],["Calvin Coolidge",108],["Calvin Coolidge",482],["Chester A. Arthur",478],["Donald Trump",976],["Donald Trump",1346],["Donald Trump",531],["Dwight D. Eisenhower",209],["Dwight D. Eisenhower",403],["Dwight D. Eisenhower",84],["Franklin D. Roosevelt",140],["Franklin D. Roosevelt",275],["Franklin D. Roosevelt",603],["Franklin D. Roosevelt",66],["Franklin Pierce",258],["Franklin Pierce",214],["George H. W. Bush",272],["George H. W. Bush",662],["George W. Bush",531],["George W. Bush",527],["George Washington",129],["George Washington",110],["Gerald Ford",101],["Gerald Ford",309],["Grover Cleveland",651],["Grover Cleveland",393],["Grover Cleveland",306],["Harry S. Truman",205],["Harry S. Truman",103],["Herbert Hoover",209],["Herbert Hoover",489],["James A. Garfield",29],["James Buchanan",438],["James Buchanan",187],["James K. Polk",722],["James Madison",182],["James Madison",68],["James Monroe",135],["James Monroe",272],["Jimmy Carter",754],["Jimmy Carter",280],["Joe Biden",1188],["Joe Biden",31],["John Adams",102],["John F. Kennedy",1367],["John Quincy Adams",271],["John Tyler",531],["Lyndon B. Johnson",731],["Lyndon B. Johnson",1981],["Martin Van Buren",394],["Martin Van Buren",71],["Millard Fillmore",268],["Richard M. Nixon",35],["Richard M. Nixon",51],["Richard M. Nixon",434],["Ronald Reagan",34],["Ronald Reagan",39],["Ronald Reagan",1399],["Ronald Reagan",572],["Rutherford B. Hayes",371],["Rutherford B. Hayes",129],["Theodore Roosevelt",602],["Theodore Roosevelt",928],["Thomas Jefferson",142],["Thomas Jefferson",171],["Ulysses S. Grant",80],["Ulysses S. Grant",505],["Ulysses S. Grant",228],["Warren G. Harding",229],["William Harrison",57],["William McKinley",539],["William McKinley",228],["William Taft",224],["William Taft",745],["Woodrow Wilson",187],["Woodrow Wilson",452],["Zachary Taylor",62]],"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e: %{y:.1f}% of their paragraphs in this period (%{customdata[1]})\u003cextra\u003e\u003c\u002fextra\u003e","marker":{"color":"#184f95","opacity":0.45,"size":5},"mode":"markers","showlegend":false,"x":{"dtype":"i4","bdata":"OgcAAD8HAABEBwAAIQcAACYHAAArBwAASQcAANUHAADaBwAA3wcAAF0HAABiBwAAxgcAAMsHAADQBwAAgAcAAIUHAABYBwAA3wcAAOQHAADpBwAAngcAAKMHAACoBwAAigcAAI8HAACUBwAAmQcAADoHAAA\u002fBwAAwQcAAMYHAADQBwAA1QcAAP4GAAADBwAAsgcAALcHAABdBwAAYgcAAGcHAACZBwAAngcAAIUHAACKBwAAWAcAAD8HAABEBwAANQcAABIHAAAXBwAAFwcAABwHAAC3BwAAvAcAAOQHAADpBwAAAwcAAKgHAAAhBwAAMAcAAKgHAACtBwAAKwcAADAHAAA6BwAAngcAAK0HAACyBwAAqAcAALcHAAC8BwAAwQcAAFMHAABYBwAAbAcAAHEHAAAIBwAADQcAAEkHAABOBwAAUwcAAIAHAAAwBwAAZwcAAGwHAABxBwAAdgcAAHYHAAB7BwAANQcAAA=="},"y":{"dtype":"f8","bdata":"q6qqqqqq+j8AAAAAAAAAANdQXkN5DeU\u002fAAAAAAAAAABhFHBoPtffPwAAAAAAAAAAYbmnEZZ72j\u002fYVp9\u002fbfUJQL1f1vtlvRdAGmOMMcYYG0BxpXsDysT1P71R0BsFvfE\u002fBDqwLWG6D0AP6MY8fbQSQCkw6dQ8yCVAEtpLaC+hHUAbV44aV44KQHw0IS9sFfQ\u002fXDIE62jzBkC3IGpJ35X2P0QhuYDX2xhAKn5JhFTLGkC0DOSjytsSQMMwDMMwDPM\u002fSZIkSZIkAUB10UUXXXQRQNURYptW3AtAAAAAAAAAAAA05ow5Y87YPypK4yMT6P0\u002fDw8PDw8PFkAZA3T+xQANQK+cuWW\u002fIf4\u002fdQEz+RF1EUAAAAAAAAAAAAAAAAAAAAAABiadmge5K0CSELxJ69QrQOz4dfw6ft0\u002f6AOqY29t6D8AAAAAAAAAAIPzMTgfgwNAE0gl52UR\u002fz9ItawDbfcGQOj9Y5kjXPA\u002fAAAAAAAAAACU01FORznNPwAAAAAAAAAAwCJ3mMGX6j8AAAAAAAAAAAAAAAAAAAAAQ3sJ7SW05z+mpaWlpaXxP9QIyz2NsCRAJEmSJEmSLED0XVumJ4IRQFtrrbXWWiNAAAAAAAAAAAB5rwFhluv6P6r0M6fBndc\u002fr5y5Zb8h7j+v5EmX8EPaPxnVO4XtOvg\u002fUs36M\u002fhN9D8h0QqbA4n2P0gPVM5u4ec\u002fAAAAAAAAAABfX19fX1\u002f\u002fPyGEEEIIISBAh4eHh4eHF0BP7MRO7MQeQIHAPOzzTfo\u002fSKg+09b46z+VOBo+QuD5PzTmjDljzvg\u002f\u002fDjRcv3uA0A1wnJPIywOQCHRCpsDiQZAaiupraS24j8AAAAAAAAEQJh0ah7kru8\u002fH8F9BPcR7D8hOtyfnXcBQB\u002fBfQT3Efw\u002fXIfZAo7P4T+zmM5iOosBQLdt27Zt2wFAU5D8eZXFGUDyfaxmT\u002fINQM51jOJcx\u002fg\u002fAAAAAAAAAAA="},"type":"scatter"}],"layout":{"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"rgb(36,36,36)"},"error_y":{"color":"rgb(36,36,36)"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"rgb(36,36,36)","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"rgb(36,36,36)"},"baxis":{"endlinecolor":"rgb(36,36,36)","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"rgb(36,36,36)"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"histogram2d"}],"histogram":[{"marker":{"line":{"color":"white","width":0.6}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"rgb(237,237,237)"},"line":{"color":"white"}},"header":{"fill":{"color":"rgb(217,217,217)"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":1,"tickcolor":"rgb(36,36,36)","ticks":"outside"}},"colorscale":{"diverging":[[0.0,"rgb(103,0,31)"],[0.1,"rgb(178,24,43)"],[0.2,"rgb(214,96,77)"],[0.3,"rgb(244,165,130)"],[0.4,"rgb(253,219,199)"],[0.5,"rgb(247,247,247)"],[0.6,"rgb(209,229,240)"],[0.7,"rgb(146,197,222)"],[0.8,"rgb(67,147,195)"],[0.9,"rgb(33,102,172)"],[1.0,"rgb(5,48,97)"]],"sequential":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]],"sequentialminus":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]]},"colorway":["#1F77B4","#FF7F0E","#2CA02C","#D62728","#9467BD","#8C564B","#E377C2","#7F7F7F","#BCBD22","#17BECF"],"font":{"color":"rgb(36,36,36)"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"white"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"},"bgcolor":"white","radialaxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"rgb(232,232,232)","gridwidth":2,"linecolor":"rgb(36,36,36)","showbackground":true,"showgrid":false,"showline":true,"ticks":"outside","zeroline":false,"zerolinecolor":"rgb(36,36,36)"},"yaxis":{"backgroundcolor":"white","gridcolor":"rgb(232,232,232)","gridwidth":2,"linecolor":"rgb(36,36,36)","showbackground":true,"showgrid":false,"showline":true,"ticks":"outside","zeroline":false,"zerolinecolor":"rgb(36,36,36)"},"zaxis":{"backgroundcolor":"white","gridcolor":"rgb(232,232,232)","gridwidth":2,"linecolor":"rgb(36,36,36)","showbackground":true,"showgrid":false,"showline":true,"ticks":"outside","zeroline":false,"zerolinecolor":"rgb(36,36,36)"}},"shapedefaults":{"fillcolor":"black","line":{"width":0},"opacity":0.3},"ternary":{"aaxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"},"baxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"},"bgcolor":"white","caxis":{"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside"}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside","title":{"standoff":15},"zeroline":false,"zerolinecolor":"rgb(36,36,36)"},"yaxis":{"automargin":true,"gridcolor":"rgb(232,232,232)","linecolor":"rgb(36,36,36)","showgrid":false,"showline":true,"ticks":"outside","title":{"standoff":15},"zeroline":false,"zerolinecolor":"rgb(36,36,36)"}}},"font":{"family":"system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif","color":"#0b0b0b","size":13},"margin":{"l":56,"r":24,"t":24,"b":44},"xaxis":{"tickfont":{"color":"#898781","size":11},"range":[1785,2029],"gridcolor":"#e1e0d9","linecolor":"#c3c2b7"},"yaxis":{"tickfont":{"color":"#898781","size":11},"title":{"text":"% of speech about energy & environment"},"gridcolor":"#e1e0d9","linecolor":"#c3c2b7","rangemode":"tozero","range":[0,17.937921041119857]},"paper_bgcolor":"#fcfcfb","plot_bgcolor":"#fcfcfb","height":380}};
-  Plotly.newPlot("chart", FIG.data, FIG.layout, {displayModeBar: false, responsive: true});
-  const AI_TOPIC_SERIES = {"10": {"Conservation & the Environment": {"x": [1790, 1800, 1810, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020], "v": [0.0, 0.0, 0.0, 0.0, 0.0, 0.069, 0.0, 0.069, 0.453, 0.697, 1.184, 5.197, 3.589, 2.381, 1.549, 0.0, 2.533, 0.824, 2.81, 1.149, 2.001, 1.869, 3.418, 2.326], "n": [341, 351, 385, 645, 1447, 1452, 1593, 1454, 1104, 1434, 1689, 1982, 1393, 1050, 904, 874, 750, 4248, 1637, 2523, 1849, 1498, 2516, 3096]}, "Internal Improvements, Energy & Infrastructure": {"x": [1790, 1800, 1810, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020], "v": [0.587, 2.849, 3.377, 8.992, 6.012, 3.926, 7.345, 1.857, 4.438, 5.509, 3.908, 9.082, 8.327, 13.048, 7.412, 1.602, 4.4, 1.671, 10.935, 1.784, 1.893, 3.538, 5.564, 4.748], "n": [341, 351, 385, 645, 1447, 1452, 1593, 1454, 1104, 1434, 1689, 1982, 1393, 1050, 904, 874, 750, 4248, 1637, 2523, 1849, 1498, 2516, 3096]}, "Public Lands & Homestead Settlement": {"x": [1790, 1800, 1810, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890, 1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020], "v": [0.587, 3.419, 1.818, 1.705, 3.11, 4.89, 3.453, 1.376, 2.446, 2.371, 1.717, 2.371, 2.297, 2.286, 0.996, 0.0, 0.267, 0.071, 0.122, 0.079, 0.108, 0.0, 0.04, 0.032], "n": [341, 351, 385, 645, 1447, 1452, 1593, 1454, 1104, 1434, 1689, 1982, 1393, 1050, 904, 874, 750, 4248, 1637, 2523, 1849, 1498, 2516, 3096]}}, "20": {"Conservation & the Environment": {"x": [1780, 1800, 1820, 1840, 1860, 1880, 1900, 1920, 1940, 1960, 1980, 2000, 2020], "v": [0.0, 0.0, 0.0, 0.033, 0.235, 0.961, 4.533, 1.996, 1.17, 1.376, 1.51, 2.84, 2.326], "n": [355, 736, 2092, 3045, 2558, 3123, 3375, 1954, 1624, 5885, 4372, 4014, 3096]}, "Internal Improvements, Energy & Infrastructure": {"x": [1780, 1800, 1820, 1840, 1860, 1880, 1900, 1920, 1940, 1960, 1980, 2000, 2020], "v": [0.563, 3.125, 6.931, 5.714, 2.971, 4.643, 8.77, 10.44, 2.894, 4.248, 1.83, 4.808, 4.748], "n": [355, 736, 2092, 3045, 2558, 3123, 3375, 1954, 1624, 5885, 4372, 4014, 3096]}, "Public Lands & Homestead Settlement": {"x": [1780, 1800, 1820, 1840, 1860, 1880, 1900, 1920, 1940, 1960, 1980, 2000, 2020], "v": [0.563, 2.582, 2.677, 4.138, 1.837, 2.017, 2.341, 1.689, 0.123, 0.085, 0.091, 0.025, 0.032], "n": [355, 736, 2092, 3045, 2558, 3123, 3375, 1954, 1624, 5885, 4372, 4014, 3096]}}};
-  const FINE_COLORS = ["#275d8c","#c06b35","#60936a","#9b67a5",
-    "#af8a32","#397d79","#9b4e50","#697c9f","#805f48","#6d7c49"];
-  function drawFineTopics() {
-    const target = document.getElementById("fine-topic-chart");
-    if (!target) return;
-    const bucket = document.getElementById("fine-topic-bucket").value;
-    const source = AI_TOPIC_SERIES[bucket] || {};
-    const selected = [...document.querySelectorAll("#fine-topic-controls input:checked")].map(x => x.value);
-    document.getElementById("fine-topic-count").textContent = `${selected.length} selected`;
-    const requested = document.getElementById("fine-topic-mode").value;
-    const mode = requested === "auto" ? (selected.length > 8 ? "heatmap" : "bars") : requested;
-    const periods = selected.length && source[selected[0]]
-      ? source[selected[0]].x.map(start => bucket === "20" ? `${start}–${start+19}` : `${start}s`) : [];
-    const traces = mode === "heatmap" ? [{
-      type:"heatmap",x:periods,y:selected,z:selected.map(name => source[name].v),
-      customdata:selected.map(name => source[name].n),
-      colorscale:[[0,"#f6f1e9"],[.35,"#b9cfde"],[1,"#275d8c"]],
-      colorbar:{title:"% of<br>paragraphs"},
-      hovertemplate:"%{y}<br>%{x}<br>%{z:.1f}% of paragraphs<br>%{customdata} paragraphs<extra></extra>"
-    }] : selected.map((name, i) => ({
-      type:"bar",name,x:periods,y:source[name].v,customdata:source[name].n,
-      marker:{color:FINE_COLORS[i % FINE_COLORS.length]},
-      hovertemplate:"%{x}<br>%{y:.1f}% of paragraphs<br>%{customdata} paragraphs in bucket<extra>"+name+"</extra>"
-    }));
-    const heatmap = mode === "heatmap";
-    document.getElementById("fine-topic-message").textContent =
-      selected.length === 0 ? "Choose at least one topic." :
-      heatmap && requested === "auto" ? "Heatmap selected automatically because more than eight topics are visible." : "";
-    Plotly.react(target,traces,{
-      template:"simple_white",paper_bgcolor:"#fcfcfb",plot_bgcolor:"#fcfcfb",
-      font:{family:"system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif",color:"#52514e"},
-      barmode:"group",height:Math.max(520,heatmap ? 170 + selected.length*28 : 520),
-      margin:{l:heatmap?210:58,r:24,t:28,b:110},
-      xaxis:{type:"category",tickangle:-45,gridcolor:"#e1e0d9"},
-      yaxis:heatmap?{automargin:true}:{title:"% of paragraphs",rangemode:"tozero",gridcolor:"#e1e0d9"},
-      legend:{orientation:"h",y:1.08},showlegend:!heatmap
-    },{displayModeBar:false,responsive:true});
-  }
-  document.querySelectorAll("#fine-topic-controls input").forEach(x => x.addEventListener("change",drawFineTopics));
-  document.getElementById("fine-topic-bucket")?.addEventListener("change",drawFineTopics);
-  document.getElementById("fine-topic-mode")?.addEventListener("change",drawFineTopics);
-  document.getElementById("fine-topic-all")?.addEventListener("click",() => {
-    document.querySelectorAll("#fine-topic-controls input").forEach(x => x.checked=true); drawFineTopics();
-  });
-  document.getElementById("fine-topic-clear")?.addEventListener("click",() => {
-    document.querySelectorAll("#fine-topic-controls input").forEach(x => x.checked=false); drawFineTopics();
-  });
-  drawFineTopics();
-</script>
-</body>
-</html>
+</body></html>

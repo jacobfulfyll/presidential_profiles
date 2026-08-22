@@ -1,75 +1,77 @@
-bucket_years,topic,period_start,period_end,share_percent,paragraphs_in_bucket
-10,"Internal Improvements, Energy & Infrastructure",1790,1799,0.587,341
-10,"Internal Improvements, Energy & Infrastructure",1800,1809,2.849,351
-10,"Internal Improvements, Energy & Infrastructure",1810,1819,3.377,385
-10,"Internal Improvements, Energy & Infrastructure",1820,1829,8.992,645
-10,"Internal Improvements, Energy & Infrastructure",1830,1839,6.012,1447
-10,"Internal Improvements, Energy & Infrastructure",1840,1849,3.926,1452
-10,"Internal Improvements, Energy & Infrastructure",1850,1859,7.345,1593
-10,"Internal Improvements, Energy & Infrastructure",1860,1869,1.857,1454
-10,"Internal Improvements, Energy & Infrastructure",1870,1879,4.438,1104
-10,"Internal Improvements, Energy & Infrastructure",1880,1889,5.509,1434
-10,"Internal Improvements, Energy & Infrastructure",1890,1899,3.908,1689
-10,"Internal Improvements, Energy & Infrastructure",1900,1909,9.082,1982
-10,"Internal Improvements, Energy & Infrastructure",1910,1919,8.327,1393
-10,"Internal Improvements, Energy & Infrastructure",1920,1929,13.048,1050
-10,"Internal Improvements, Energy & Infrastructure",1930,1939,7.412,904
-10,"Internal Improvements, Energy & Infrastructure",1940,1949,1.602,874
-10,"Internal Improvements, Energy & Infrastructure",1950,1959,4.4,750
-10,"Internal Improvements, Energy & Infrastructure",1960,1969,1.671,4248
-10,"Internal Improvements, Energy & Infrastructure",1970,1979,10.935,1637
-10,"Internal Improvements, Energy & Infrastructure",1980,1989,1.784,2523
-10,"Internal Improvements, Energy & Infrastructure",1990,1999,1.893,1849
-10,"Internal Improvements, Energy & Infrastructure",2000,2009,3.538,1498
-10,"Internal Improvements, Energy & Infrastructure",2010,2019,5.564,2516
-10,"Internal Improvements, Energy & Infrastructure",2020,2029,4.748,3096
-10,Space Exploration,1790,1799,0.0,341
-10,Space Exploration,1800,1809,0.0,351
-10,Space Exploration,1810,1819,0.0,385
-10,Space Exploration,1820,1829,0.0,645
-10,Space Exploration,1830,1839,0.0,1447
-10,Space Exploration,1840,1849,0.0,1452
-10,Space Exploration,1850,1859,0.0,1593
-10,Space Exploration,1860,1869,0.0,1454
-10,Space Exploration,1870,1879,0.0,1104
-10,Space Exploration,1880,1889,0.0,1434
-10,Space Exploration,1890,1899,0.0,1689
-10,Space Exploration,1900,1909,0.0,1982
-10,Space Exploration,1910,1919,0.0,1393
-10,Space Exploration,1920,1929,0.0,1050
-10,Space Exploration,1930,1939,0.0,904
-10,Space Exploration,1940,1949,0.0,874
-10,Space Exploration,1950,1959,1.467,750
-10,Space Exploration,1960,1969,2.637,4248
-10,Space Exploration,1970,1979,0.367,1637
-10,Space Exploration,1980,1989,0.832,2523
-10,Space Exploration,1990,1999,0.433,1849
-10,Space Exploration,2000,2009,0.2,1498
-10,Space Exploration,2010,2019,1.63,2516
-10,Space Exploration,2020,2029,0.678,3096
-20,"Internal Improvements, Energy & Infrastructure",1780,1799,0.563,355
-20,"Internal Improvements, Energy & Infrastructure",1800,1819,3.125,736
-20,"Internal Improvements, Energy & Infrastructure",1820,1839,6.931,2092
-20,"Internal Improvements, Energy & Infrastructure",1840,1859,5.714,3045
-20,"Internal Improvements, Energy & Infrastructure",1860,1879,2.971,2558
-20,"Internal Improvements, Energy & Infrastructure",1880,1899,4.643,3123
-20,"Internal Improvements, Energy & Infrastructure",1900,1919,8.77,3375
-20,"Internal Improvements, Energy & Infrastructure",1920,1939,10.44,1954
-20,"Internal Improvements, Energy & Infrastructure",1940,1959,2.894,1624
-20,"Internal Improvements, Energy & Infrastructure",1960,1979,4.248,5885
-20,"Internal Improvements, Energy & Infrastructure",1980,1999,1.83,4372
-20,"Internal Improvements, Energy & Infrastructure",2000,2019,4.808,4014
-20,"Internal Improvements, Energy & Infrastructure",2020,2039,4.748,3096
-20,Space Exploration,1780,1799,0.0,355
-20,Space Exploration,1800,1819,0.0,736
-20,Space Exploration,1820,1839,0.0,2092
-20,Space Exploration,1840,1859,0.0,3045
-20,Space Exploration,1860,1879,0.0,2558
-20,Space Exploration,1880,1899,0.0,3123
-20,Space Exploration,1900,1919,0.0,3375
-20,Space Exploration,1920,1939,0.0,1954
-20,Space Exploration,1940,1959,0.677,1624
-20,Space Exploration,1960,1979,2.005,5885
-20,Space Exploration,1980,1999,0.663,4372
-20,Space Exploration,2000,2019,1.096,4014
-20,Space Exploration,2020,2039,0.678,3096
+source_issue,unit,bucket_years,topic,requested_start,requested_end,observed_start,observed_end,numerator,denominator,share_percent,partial_period,support_status,interval_status
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1780,1789,1789,1789,0,14,0.0,True,low_support,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1790,1799,1790,1799,2,341,0.5865102639296188,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1800,1809,1800,1809,10,351,2.849002849002849,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1810,1819,1810,1819,13,385,3.3766233766233764,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1820,1829,1820,1829,58,645,8.992248062015504,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1830,1839,1830,1839,87,1447,6.012439530062197,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1840,1849,1840,1849,57,1452,3.925619834710744,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1850,1859,1850,1859,117,1593,7.344632768361582,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1860,1869,1860,1869,27,1454,1.8569463548830811,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1870,1879,1870,1879,49,1104,4.438405797101449,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1880,1889,1880,1889,79,1434,5.509065550906555,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1890,1899,1890,1899,66,1689,3.9076376554174073,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1900,1909,1900,1909,180,1982,9.081735620585267,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1910,1919,1910,1919,116,1393,8.327351040918881,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1920,1929,1920,1929,137,1050,13.047619047619047,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1930,1939,1930,1939,67,904,7.411504424778761,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1940,1949,1940,1949,14,874,1.6018306636155606,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1950,1959,1951,1959,33,750,4.3999999999999995,True,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1960,1969,1960,1969,71,4248,1.6713747645951036,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1970,1979,1970,1979,179,1637,10.934636530238242,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1980,1989,1980,1989,45,2523,1.78359096313912,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",1990,1999,1990,1999,35,1849,1.8929150892374256,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",2000,2009,2000,2009,53,1498,3.538050734312417,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",2010,2019,2010,2019,140,2516,5.5643879173290935,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,"Internal Improvements, Energy & Infrastructure",2020,2029,2020,2026,147,3096,4.748062015503876,True,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1780,1789,1789,1789,0,14,0.0,True,low_support,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1790,1799,1790,1799,0,341,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1800,1809,1800,1809,0,351,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1810,1819,1810,1819,0,385,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1820,1829,1820,1829,0,645,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1830,1839,1830,1839,0,1447,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1840,1849,1840,1849,0,1452,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1850,1859,1850,1859,0,1593,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1860,1869,1860,1869,0,1454,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1870,1879,1870,1879,0,1104,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1880,1889,1880,1889,0,1434,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1890,1899,1890,1899,0,1689,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1900,1909,1900,1909,0,1982,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1910,1919,1910,1919,0,1393,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1920,1929,1920,1929,0,1050,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1930,1939,1930,1939,0,904,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1940,1949,1940,1949,0,874,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1950,1959,1951,1959,11,750,1.4666666666666666,True,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1960,1969,1960,1969,112,4248,2.6365348399246704,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1970,1979,1970,1979,6,1637,0.3665241295051924,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1980,1989,1980,1989,21,2523,0.8323424494649228,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,1990,1999,1990,1999,8,1849,0.4326663061114116,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,2000,2009,2000,2009,3,1498,0.20026702269692925,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,2010,2019,2010,2019,41,2516,1.629570747217806,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,10,Space Exploration,2020,2029,2020,2026,21,3096,0.6782945736434108,True,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1780,1799,1789,1799,2,355,0.5633802816901409,True,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1800,1819,1800,1819,23,736,3.125,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1820,1839,1820,1839,145,2092,6.9311663479923515,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1840,1859,1840,1859,174,3045,5.714285714285714,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1860,1879,1860,1879,76,2558,2.9710711493354185,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1880,1899,1880,1899,145,3123,4.642971501761127,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1900,1919,1900,1919,296,3375,8.77037037037037,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1920,1939,1920,1939,204,1954,10.440122824974411,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1940,1959,1940,1959,47,1624,2.894088669950739,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1960,1979,1960,1979,250,5885,4.248088360237893,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",1980,1999,1980,1999,80,4372,1.8298261665141813,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",2000,2019,2000,2019,193,4014,4.808171400099651,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,"Internal Improvements, Energy & Infrastructure",2020,2039,2020,2026,147,3096,4.748062015503876,True,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1780,1799,1789,1799,0,355,0.0,True,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1800,1819,1800,1819,0,736,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1820,1839,1820,1839,0,2092,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1840,1859,1840,1859,0,3045,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1860,1879,1860,1879,0,2558,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1880,1899,1880,1899,0,3123,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1900,1919,1900,1919,0,3375,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1920,1939,1920,1939,0,1954,0.0,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1940,1959,1940,1959,11,1624,0.6773399014778325,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1960,1979,1960,1979,118,5885,2.0050977060322857,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,1980,1999,1980,1999,29,4372,0.6633119853613907,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,2000,2019,2000,2019,44,4014,1.096163428001993,False,descriptive,not_estimated
+Infrastructure,share of eligible paragraphs,20,Space Exploration,2020,2039,2020,2026,21,3096,0.6782945736434108,True,descriptive,not_estimated

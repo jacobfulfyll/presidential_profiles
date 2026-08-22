@@ -24,13 +24,13 @@
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 267.5029798542314,
-      "percentile": 40.0
+      "percentile": 40.476190476190474
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.7525276841598459,
-      "percentile": 68.88888888888889
+      "percentile": 66.66666666666666
     },
     {
       "key": "us_vs_them",
@@ -42,25 +42,25 @@
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.32147324530924254,
-      "percentile": 31.11111111111111
+      "percentile": 30.952380952380953
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 11.807984297827787,
-      "percentile": 28.888888888888886
+      "percentile": 30.952380952380953
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4045816993464053,
-      "percentile": 35.55555555555556
+      "percentile": 38.095238095238095
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 4.363939530127466,
-      "percentile": 20.0
+      "percentile": 21.428571428571427
     }
   ],
   "raw_stats": {
@@ -93,13 +93,13 @@
     "self_reference": 0.32147324530924254,
     "ttr": 0.4045816993464053,
     "pct_hope": 33.33333333333333,
-    "pct_fear": 40.0,
-    "pct_certainty": 68.88888888888889,
+    "pct_fear": 40.476190476190474,
+    "pct_certainty": 66.66666666666666,
     "pct_us_vs_them": 33.33333333333333,
-    "pct_self_reference": 31.11111111111111,
-    "pct_formality": 28.888888888888886,
-    "pct_vocabulary": 35.55555555555556,
-    "pct_religiosity": 20.0
+    "pct_self_reference": 30.952380952380953,
+    "pct_formality": 30.952380952380953,
+    "pct_vocabulary": 38.095238095238095,
+    "pct_religiosity": 21.428571428571427
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "October 26, 1963: Remarks at Amherst College",
       "year": 1963,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-26-1963-remarks-amherst-college"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-26-1963-remarks-amherst-college"
     },
     {
       "title": "March 23, 1962: Address at the University of California, Berkeley",
       "year": 1962,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-23-1962-address-university-california-berkeley"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-23-1962-address-university-california-berkeley"
     },
     {
       "title": "May 3, 1961: Remarks at George Washington",
       "year": 1961,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-3-1961-remarks-george-washington"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-3-1961-remarks-george-washington"
     },
     {
       "title": "October 12, 1961: Address at the University of North Carolina",
       "year": 1961,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-12-1961-address-university-north-carolina"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-12-1961-address-university-north-carolina"
     },
     {
       "title": "June 11, 1962: Yale University Commencement",
       "year": 1962,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-11-1962-yale-university-commencement"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/june-11-1962-yale-university-commencement"
     }
   ],
   "legacy_invocations": {

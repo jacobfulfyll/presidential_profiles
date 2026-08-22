@@ -18,13 +18,13 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 605.7909688305353,
-      "percentile": 13.333333333333334
+      "percentile": 11.904761904761903
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 253.29721392838073,
-      "percentile": 20.0
+      "percentile": 19.047619047619047
     },
     {
       "key": "certainty",
@@ -36,31 +36,31 @@
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 80.34590262261153,
-      "percentile": 84.44444444444444
+      "percentile": 83.33333333333334
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.3339342045966652,
-      "percentile": 37.77777777777778
+      "percentile": 38.095238095238095
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 9.688615904798203,
-      "percentile": 13.333333333333334
+      "percentile": 14.285714285714285
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4088543046357616,
-      "percentile": 44.44444444444444
+      "percentile": 47.61904761904761
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 11.139013571141387,
-      "percentile": 71.11111111111111
+      "percentile": 71.42857142857143
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 9.688615904798203,
     "self_reference": 0.3339342045966652,
     "ttr": 0.4088543046357616,
-    "pct_hope": 13.333333333333334,
-    "pct_fear": 20.0,
+    "pct_hope": 11.904761904761903,
+    "pct_fear": 19.047619047619047,
     "pct_certainty": 100.0,
-    "pct_us_vs_them": 84.44444444444444,
-    "pct_self_reference": 37.77777777777778,
-    "pct_formality": 13.333333333333334,
-    "pct_vocabulary": 44.44444444444444,
-    "pct_religiosity": 71.11111111111111
+    "pct_us_vs_them": 83.33333333333334,
+    "pct_self_reference": 38.095238095238095,
+    "pct_formality": 14.285714285714285,
+    "pct_vocabulary": 47.61904761904761,
+    "pct_religiosity": 71.42857142857143
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "April 23, 1995: Time for Healing Ceremony",
       "year": 1995,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-23-1995-time-healing-ceremony"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-23-1995-time-healing-ceremony"
     },
     {
       "title": "November 3, 1996: Remarks to the Congregation of St. Paul's AME Church",
       "year": 1996,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/november-3-1996-remarks-congregation-st-pauls-ame-church"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/november-3-1996-remarks-congregation-st-pauls-ame-church"
     },
     {
       "title": "June 6, 1994: Remarks at the U.S. National Cemetery",
       "year": 1994,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-6-1994-remarks-us-national-cemetery"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/june-6-1994-remarks-us-national-cemetery"
     },
     {
       "title": "August 29, 1996: Remarks at the Democratic National Convention",
       "year": 1996,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-29-1996-remarks-democratic-national-convention"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-29-1996-remarks-democratic-national-convention"
     },
     {
       "title": "January 27, 1998: State of the Union Address",
       "year": 1998,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-27-1998-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-27-1998-state-union-address"
     }
   ],
   "legacy_invocations": {

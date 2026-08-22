@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 659.7279134568104,
-      "percentile": 44.44444444444444
+      "percentile": 45.23809523809524
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 281.2185356030627,
-      "percentile": 55.55555555555556
+      "percentile": 57.14285714285714
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.6693613581244947,
-      "percentile": 62.22222222222222
+      "percentile": 61.904761904761905
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 91.08577048259069,
-      "percentile": 91.11111111111111
+      "percentile": 90.47619047619048
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.3122203098106713,
-      "percentile": 26.666666666666668
+      "percentile": 26.190476190476193
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 15.693140211879196,
-      "percentile": 46.666666666666664
+      "percentile": 47.61904761904761
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4011647058823529,
-      "percentile": 28.888888888888886
+      "percentile": 30.952380952380953
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 6.43922541972042,
-      "percentile": 42.22222222222222
+      "percentile": 45.23809523809524
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 15.693140211879196,
     "self_reference": 0.3122203098106713,
     "ttr": 0.4011647058823529,
-    "pct_hope": 44.44444444444444,
-    "pct_fear": 55.55555555555556,
-    "pct_certainty": 62.22222222222222,
-    "pct_us_vs_them": 91.11111111111111,
-    "pct_self_reference": 26.666666666666668,
-    "pct_formality": 46.666666666666664,
-    "pct_vocabulary": 28.888888888888886,
-    "pct_religiosity": 42.22222222222222
+    "pct_hope": 45.23809523809524,
+    "pct_fear": 57.14285714285714,
+    "pct_certainty": 61.904761904761905,
+    "pct_us_vs_them": 90.47619047619048,
+    "pct_self_reference": 26.190476190476193,
+    "pct_formality": 47.61904761904761,
+    "pct_vocabulary": 30.952380952380953,
+    "pct_religiosity": 45.23809523809524
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "May 30, 1914: Memorial Day Address",
       "year": 1914,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-30-1914-memorial-day-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-30-1914-memorial-day-address"
     },
     {
       "title": "October 25, 1913: Address at Congress Hall, Philadelphia",
       "year": 1913,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-25-1913-address-congress-hall-philadelphia"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-25-1913-address-congress-hall-philadelphia"
     },
     {
       "title": "December 4, 1917: Fifth Annual Message",
       "year": 1917,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-4-1917-fifth-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-4-1917-fifth-annual-message"
     },
     {
       "title": "July 4, 1913: Address at Gettysburg",
       "year": 1913,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/july-4-1913-address-gettysburg"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/july-4-1913-address-gettysburg"
     },
     {
       "title": "March 4, 1913: First Inaugural Address",
       "year": 1913,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-4-1913-first-inaugural-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-4-1913-first-inaugural-address"
     }
   ],
   "legacy_invocations": {

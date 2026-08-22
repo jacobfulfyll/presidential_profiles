@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 592.7558238583756,
-      "percentile": 11.11111111111111
+      "percentile": 9.523809523809524
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 289.8040813303211,
-      "percentile": 64.44444444444444
+      "percentile": 64.28571428571429
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8642987249544627,
-      "percentile": 95.55555555555556
+      "percentile": 95.23809523809523
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 78.60819969630754,
-      "percentile": 82.22222222222221
+      "percentile": 80.95238095238095
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.41673754039802685,
-      "percentile": 60.0
+      "percentile": 61.904761904761905
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 8.10914792429747,
-      "percentile": 4.444444444444445
+      "percentile": 4.761904761904762
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4158981481481482,
-      "percentile": 64.44444444444444
+      "percentile": 64.28571428571429
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 18.425243509499648,
-      "percentile": 93.33333333333333
+      "percentile": 95.23809523809523
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 8.10914792429747,
     "self_reference": 0.41673754039802685,
     "ttr": 0.4158981481481482,
-    "pct_hope": 11.11111111111111,
-    "pct_fear": 64.44444444444444,
-    "pct_certainty": 95.55555555555556,
-    "pct_us_vs_them": 82.22222222222221,
-    "pct_self_reference": 60.0,
-    "pct_formality": 4.444444444444445,
-    "pct_vocabulary": 64.44444444444444,
-    "pct_religiosity": 93.33333333333333
+    "pct_hope": 9.523809523809524,
+    "pct_fear": 64.28571428571429,
+    "pct_certainty": 95.23809523809523,
+    "pct_us_vs_them": 80.95238095238095,
+    "pct_self_reference": 61.904761904761905,
+    "pct_formality": 4.761904761904762,
+    "pct_vocabulary": 64.28571428571429,
+    "pct_religiosity": 95.23809523809523
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "February 24, 2022: Remarks on the Russian Invasion of Ukraine",
       "year": 2022,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-24-2022-remarks-russian-invasion-ukraine"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-24-2022-remarks-russian-invasion-ukraine"
     },
     {
       "title": "March 7, 2024: State of Union Address",
       "year": 2024,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-7-2024-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-7-2024-state-union-address"
     },
     {
       "title": "February 21, 2023: Remarks on the One-Year Anniversary of the Ukraine War",
       "year": 2023,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-21-2023-remarks-one-year-anniversary-ukraine-war"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-21-2023-remarks-one-year-anniversary-ukraine-war"
     },
     {
       "title": "September 21, 2022: Speech before the 77th Session of the United Nations General Assembly",
       "year": 2022,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/september-21-2022-speech-77th-session-united-nations-general"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/september-21-2022-speech-77th-session-united-nations-general"
     },
     {
       "title": "March 26, 2022: Remarks in Support of the People of Ukraine",
       "year": 2022,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-26-2022-remarks-support-people-ukraine"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-26-2022-remarks-support-people-ukraine"
     }
   ],
   "legacy_invocations": {

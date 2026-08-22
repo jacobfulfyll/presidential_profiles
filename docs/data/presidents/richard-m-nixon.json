@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 657.4138466774189,
-      "percentile": 40.0
+      "percentile": 40.476190476190474
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 277.5845996774337,
-      "percentile": 51.11111111111111
+      "percentile": 52.38095238095239
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8070562293274531,
-      "percentile": 75.55555555555556
+      "percentile": 73.80952380952381
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 53.85969844487519,
-      "percentile": 40.0
+      "percentile": 40.476190476190474
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.4622437971952535,
-      "percentile": 75.55555555555556
+      "percentile": 78.57142857142857
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 11.482361951537765,
-      "percentile": 26.666666666666668
+      "percentile": 28.57142857142857
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.38194029850746275,
-      "percentile": 6.666666666666667
+      "percentile": 7.142857142857142
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 7.990175044019947,
-      "percentile": 53.333333333333336
+      "percentile": 57.14285714285714
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 11.482361951537765,
     "self_reference": 0.4622437971952535,
     "ttr": 0.38194029850746275,
-    "pct_hope": 40.0,
-    "pct_fear": 51.11111111111111,
-    "pct_certainty": 75.55555555555556,
-    "pct_us_vs_them": 40.0,
-    "pct_self_reference": 75.55555555555556,
-    "pct_formality": 26.666666666666668,
-    "pct_vocabulary": 6.666666666666667,
-    "pct_religiosity": 53.333333333333336
+    "pct_hope": 40.476190476190474,
+    "pct_fear": 52.38095238095239,
+    "pct_certainty": 73.80952380952381,
+    "pct_us_vs_them": 40.476190476190474,
+    "pct_self_reference": 78.57142857142857,
+    "pct_formality": 28.57142857142857,
+    "pct_vocabulary": 7.142857142857142,
+    "pct_religiosity": 57.14285714285714
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "May 8, 1972: Address to the Nation on the Situation in Southeast Asia",
       "year": 1972,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-8-1972-address-nation-situation-southeast-asia"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-8-1972-address-nation-situation-southeast-asia"
     },
     {
       "title": "January 23, 1973: Address to the Nation Announcing an Agreement on Ending the War in Vietnam",
       "year": 1973,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-23-1973-address-nation-announcing-agreement-ending-war"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-23-1973-address-nation-announcing-agreement-ending-war"
     },
     {
       "title": "April 30, 1970: Address to the Nation on the Situation in Southeast Asia",
       "year": 1970,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-30-1970-address-nation-situation-southeast-asia"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-30-1970-address-nation-situation-southeast-asia"
     },
     {
       "title": "January 25, 1972: Address to the Nation on Plan for Peace in Vietnam",
       "year": 1972,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-25-1972-address-nation-plan-peace-vietnam"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-25-1972-address-nation-plan-peace-vietnam"
     },
     {
       "title": "April 7, 1971: Address to the Nation on the Situation in Southeast Asia",
       "year": 1971,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-7-1971-address-nation-situation-southeast-asia"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-7-1971-address-nation-situation-southeast-asia"
     }
   ],
   "legacy_invocations": {

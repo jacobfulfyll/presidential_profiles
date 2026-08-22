@@ -1,260 +1,267 @@
-bucket_years,topic,period_start,period_end,share_percent,paragraphs_in_bucket
-10,"Military Preparedness, Armed Forces & Veterans",1790,1799,12.61,341
-10,"Military Preparedness, Armed Forces & Veterans",1800,1809,18.234,351
-10,"Military Preparedness, Armed Forces & Veterans",1810,1819,16.623,385
-10,"Military Preparedness, Armed Forces & Veterans",1820,1829,17.829,645
-10,"Military Preparedness, Armed Forces & Veterans",1830,1839,4.354,1447
-10,"Military Preparedness, Armed Forces & Veterans",1840,1849,8.815,1452
-10,"Military Preparedness, Armed Forces & Veterans",1850,1859,6.717,1593
-10,"Military Preparedness, Armed Forces & Veterans",1860,1869,5.708,1454
-10,"Military Preparedness, Armed Forces & Veterans",1870,1879,8.062,1104
-10,"Military Preparedness, Armed Forces & Veterans",1880,1889,9.623,1434
-10,"Military Preparedness, Armed Forces & Veterans",1890,1899,10.243,1689
-10,"Military Preparedness, Armed Forces & Veterans",1900,1909,12.311,1982
-10,"Military Preparedness, Armed Forces & Veterans",1910,1919,9.404,1393
-10,"Military Preparedness, Armed Forces & Veterans",1920,1929,8.762,1050
-10,"Military Preparedness, Armed Forces & Veterans",1930,1939,4.093,904
-10,"Military Preparedness, Armed Forces & Veterans",1940,1949,16.133,874
-10,"Military Preparedness, Armed Forces & Veterans",1950,1959,14.267,750
-10,"Military Preparedness, Armed Forces & Veterans",1960,1969,6.874,4248
-10,"Military Preparedness, Armed Forces & Veterans",1970,1979,5.437,1637
-10,"Military Preparedness, Armed Forces & Veterans",1980,1989,9.512,2523
-10,"Military Preparedness, Armed Forces & Veterans",1990,1999,7.734,1849
-10,"Military Preparedness, Armed Forces & Veterans",2000,2009,8.144,1498
-10,"Military Preparedness, Armed Forces & Veterans",2010,2019,6.002,2516
-10,"Military Preparedness, Armed Forces & Veterans",2020,2029,8.915,3096
-10,Early Naval Wars: Barbary & the War of 1812,1790,1799,0.88,341
-10,Early Naval Wars: Barbary & the War of 1812,1800,1809,5.698,351
-10,Early Naval Wars: Barbary & the War of 1812,1810,1819,23.117,385
-10,Early Naval Wars: Barbary & the War of 1812,1820,1829,2.326,645
-10,Early Naval Wars: Barbary & the War of 1812,1830,1839,0.276,1447
-10,Early Naval Wars: Barbary & the War of 1812,1840,1849,0.207,1452
-10,Early Naval Wars: Barbary & the War of 1812,1850,1859,0.502,1593
-10,Early Naval Wars: Barbary & the War of 1812,1860,1869,0.138,1454
-10,Early Naval Wars: Barbary & the War of 1812,1870,1879,0.091,1104
-10,Early Naval Wars: Barbary & the War of 1812,1880,1889,0.0,1434
-10,Early Naval Wars: Barbary & the War of 1812,1890,1899,0.0,1689
-10,Early Naval Wars: Barbary & the War of 1812,1900,1909,0.202,1982
-10,Early Naval Wars: Barbary & the War of 1812,1910,1919,0.0,1393
-10,Early Naval Wars: Barbary & the War of 1812,1920,1929,0.286,1050
-10,Early Naval Wars: Barbary & the War of 1812,1930,1939,0.0,904
-10,Early Naval Wars: Barbary & the War of 1812,1940,1949,0.343,874
-10,Early Naval Wars: Barbary & the War of 1812,1950,1959,0.0,750
-10,Early Naval Wars: Barbary & the War of 1812,1960,1969,0.024,4248
-10,Early Naval Wars: Barbary & the War of 1812,1970,1979,0.061,1637
-10,Early Naval Wars: Barbary & the War of 1812,1980,1989,0.0,2523
-10,Early Naval Wars: Barbary & the War of 1812,1990,1999,0.0,1849
-10,Early Naval Wars: Barbary & the War of 1812,2000,2009,0.067,1498
-10,Early Naval Wars: Barbary & the War of 1812,2010,2019,0.0,2516
-10,Early Naval Wars: Barbary & the War of 1812,2020,2029,0.065,3096
-10,Mexican War,1790,1799,0.0,341
-10,Mexican War,1800,1809,0.0,351
-10,Mexican War,1810,1819,0.0,385
-10,Mexican War,1820,1829,0.0,645
-10,Mexican War,1830,1839,0.0,1447
-10,Mexican War,1840,1849,12.879,1452
-10,Mexican War,1850,1859,0.753,1593
-10,Mexican War,1860,1869,0.069,1454
-10,Mexican War,1870,1879,0.0,1104
-10,Mexican War,1880,1889,0.139,1434
-10,Mexican War,1890,1899,0.0,1689
-10,Mexican War,1900,1909,0.0,1982
-10,Mexican War,1910,1919,0.0,1393
-10,Mexican War,1920,1929,0.0,1050
-10,Mexican War,1930,1939,0.0,904
-10,Mexican War,1940,1949,0.0,874
-10,Mexican War,1950,1959,0.0,750
-10,Mexican War,1960,1969,0.024,4248
-10,Mexican War,1970,1979,0.0,1637
-10,Mexican War,1980,1989,0.0,2523
-10,Mexican War,1990,1999,0.0,1849
-10,Mexican War,2000,2009,0.0,1498
-10,Mexican War,2010,2019,0.0,2516
-10,Mexican War,2020,2029,0.0,3096
-10,World War I Mobilization & War Aims,1790,1799,0.0,341
-10,World War I Mobilization & War Aims,1800,1809,0.0,351
-10,World War I Mobilization & War Aims,1810,1819,0.0,385
-10,World War I Mobilization & War Aims,1820,1829,0.0,645
-10,World War I Mobilization & War Aims,1830,1839,0.0,1447
-10,World War I Mobilization & War Aims,1840,1849,0.0,1452
-10,World War I Mobilization & War Aims,1850,1859,0.0,1593
-10,World War I Mobilization & War Aims,1860,1869,0.069,1454
-10,World War I Mobilization & War Aims,1870,1879,0.0,1104
-10,World War I Mobilization & War Aims,1880,1889,0.0,1434
-10,World War I Mobilization & War Aims,1890,1899,0.059,1689
-10,World War I Mobilization & War Aims,1900,1909,0.0,1982
-10,World War I Mobilization & War Aims,1910,1919,11.845,1393
-10,World War I Mobilization & War Aims,1920,1929,3.238,1050
-10,World War I Mobilization & War Aims,1930,1939,0.221,904
-10,World War I Mobilization & War Aims,1940,1949,0.686,874
-10,World War I Mobilization & War Aims,1950,1959,0.0,750
-10,World War I Mobilization & War Aims,1960,1969,0.165,4248
-10,World War I Mobilization & War Aims,1970,1979,0.0,1637
-10,World War I Mobilization & War Aims,1980,1989,0.079,2523
-10,World War I Mobilization & War Aims,1990,1999,0.216,1849
-10,World War I Mobilization & War Aims,2000,2009,0.067,1498
-10,World War I Mobilization & War Aims,2010,2019,0.159,2516
-10,World War I Mobilization & War Aims,2020,2029,0.0,3096
-10,World War II Military Operations,1790,1799,0.0,341
-10,World War II Military Operations,1800,1809,0.0,351
-10,World War II Military Operations,1810,1819,0.0,385
-10,World War II Military Operations,1820,1829,0.0,645
-10,World War II Military Operations,1830,1839,0.0,1447
-10,World War II Military Operations,1840,1849,0.0,1452
-10,World War II Military Operations,1850,1859,0.0,1593
-10,World War II Military Operations,1860,1869,0.069,1454
-10,World War II Military Operations,1870,1879,0.0,1104
-10,World War II Military Operations,1880,1889,0.0,1434
-10,World War II Military Operations,1890,1899,0.0,1689
-10,World War II Military Operations,1900,1909,0.05,1982
-10,World War II Military Operations,1910,1919,2.225,1393
-10,World War II Military Operations,1920,1929,1.143,1050
-10,World War II Military Operations,1930,1939,0.996,904
-10,World War II Military Operations,1940,1949,50.801,874
-10,World War II Military Operations,1950,1959,0.667,750
-10,World War II Military Operations,1960,1969,0.706,4248
-10,World War II Military Operations,1970,1979,0.611,1637
-10,World War II Military Operations,1980,1989,0.951,2523
-10,World War II Military Operations,1990,1999,1.244,1849
-10,World War II Military Operations,2000,2009,0.601,1498
-10,World War II Military Operations,2010,2019,0.636,2516
-10,World War II Military Operations,2020,2029,0.291,3096
-10,Vietnam War,1790,1799,0.0,341
-10,Vietnam War,1800,1809,0.0,351
-10,Vietnam War,1810,1819,0.0,385
-10,Vietnam War,1820,1829,0.0,645
-10,Vietnam War,1830,1839,0.0,1447
-10,Vietnam War,1840,1849,0.0,1452
-10,Vietnam War,1850,1859,0.0,1593
-10,Vietnam War,1860,1869,0.0,1454
-10,Vietnam War,1870,1879,0.0,1104
-10,Vietnam War,1880,1889,0.0,1434
-10,Vietnam War,1890,1899,0.0,1689
-10,Vietnam War,1900,1909,0.0,1982
-10,Vietnam War,1910,1919,0.0,1393
-10,Vietnam War,1920,1929,0.0,1050
-10,Vietnam War,1930,1939,0.0,904
-10,Vietnam War,1940,1949,0.0,874
-10,Vietnam War,1950,1959,1.067,750
-10,Vietnam War,1960,1969,21.398,4248
-10,Vietnam War,1970,1979,12.034,1637
-10,Vietnam War,1980,1989,1.665,2523
-10,Vietnam War,1990,1999,0.649,1849
-10,Vietnam War,2000,2009,0.267,1498
-10,Vietnam War,2010,2019,0.556,2516
-10,Vietnam War,2020,2029,0.484,3096
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1790,1799,0.0,341
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1800,1809,0.0,351
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1810,1819,0.0,385
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1820,1829,0.0,645
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1830,1839,0.0,1447
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1840,1849,0.0,1452
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1850,1859,0.0,1593
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1860,1869,0.0,1454
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1870,1879,0.0,1104
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1880,1889,0.0,1434
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1890,1899,0.0,1689
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1900,1909,0.0,1982
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1910,1919,0.0,1393
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1920,1929,0.0,1050
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1930,1939,0.0,904
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1940,1949,0.0,874
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1950,1959,0.0,750
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1960,1969,0.024,4248
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1970,1979,0.0,1637
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1980,1989,3.805,2523
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",1990,1999,7.518,1849
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",2000,2009,27.437,1498
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",2010,2019,6.717,2516
-10,"Iraq, Gulf Wars, the War on Terror & Interventions",2020,2029,5.523,3096
-20,"Military Preparedness, Armed Forces & Veterans",1780,1799,12.113,355
-20,"Military Preparedness, Armed Forces & Veterans",1800,1819,17.391,736
-20,"Military Preparedness, Armed Forces & Veterans",1820,1839,8.509,2092
-20,"Military Preparedness, Armed Forces & Veterans",1840,1859,7.718,3045
-20,"Military Preparedness, Armed Forces & Veterans",1860,1879,6.724,2558
-20,"Military Preparedness, Armed Forces & Veterans",1880,1899,9.958,3123
-20,"Military Preparedness, Armed Forces & Veterans",1900,1919,11.111,3375
-20,"Military Preparedness, Armed Forces & Veterans",1920,1939,6.602,1954
-20,"Military Preparedness, Armed Forces & Veterans",1940,1959,15.271,1624
-20,"Military Preparedness, Armed Forces & Veterans",1960,1979,6.474,5885
-20,"Military Preparedness, Armed Forces & Veterans",1980,1999,8.76,4372
-20,"Military Preparedness, Armed Forces & Veterans",2000,2019,6.801,4014
-20,"Military Preparedness, Armed Forces & Veterans",2020,2039,8.915,3096
-20,Early Naval Wars: Barbary & the War of 1812,1780,1799,0.845,355
-20,Early Naval Wars: Barbary & the War of 1812,1800,1819,14.81,736
-20,Early Naval Wars: Barbary & the War of 1812,1820,1839,0.908,2092
-20,Early Naval Wars: Barbary & the War of 1812,1840,1859,0.361,3045
-20,Early Naval Wars: Barbary & the War of 1812,1860,1879,0.117,2558
-20,Early Naval Wars: Barbary & the War of 1812,1880,1899,0.0,3123
-20,Early Naval Wars: Barbary & the War of 1812,1900,1919,0.119,3375
-20,Early Naval Wars: Barbary & the War of 1812,1920,1939,0.154,1954
-20,Early Naval Wars: Barbary & the War of 1812,1940,1959,0.185,1624
-20,Early Naval Wars: Barbary & the War of 1812,1960,1979,0.034,5885
-20,Early Naval Wars: Barbary & the War of 1812,1980,1999,0.0,4372
-20,Early Naval Wars: Barbary & the War of 1812,2000,2019,0.025,4014
-20,Early Naval Wars: Barbary & the War of 1812,2020,2039,0.065,3096
-20,Mexican War,1780,1799,0.0,355
-20,Mexican War,1800,1819,0.0,736
-20,Mexican War,1820,1839,0.0,2092
-20,Mexican War,1840,1859,6.535,3045
-20,Mexican War,1860,1879,0.039,2558
-20,Mexican War,1880,1899,0.064,3123
-20,Mexican War,1900,1919,0.0,3375
-20,Mexican War,1920,1939,0.0,1954
-20,Mexican War,1940,1959,0.0,1624
-20,Mexican War,1960,1979,0.017,5885
-20,Mexican War,1980,1999,0.0,4372
-20,Mexican War,2000,2019,0.0,4014
-20,Mexican War,2020,2039,0.0,3096
-20,World War I Mobilization & War Aims,1780,1799,0.0,355
-20,World War I Mobilization & War Aims,1800,1819,0.0,736
-20,World War I Mobilization & War Aims,1820,1839,0.0,2092
-20,World War I Mobilization & War Aims,1840,1859,0.0,3045
-20,World War I Mobilization & War Aims,1860,1879,0.039,2558
-20,World War I Mobilization & War Aims,1880,1899,0.032,3123
-20,World War I Mobilization & War Aims,1900,1919,4.889,3375
-20,World War I Mobilization & War Aims,1920,1939,1.842,1954
-20,World War I Mobilization & War Aims,1940,1959,0.369,1624
-20,World War I Mobilization & War Aims,1960,1979,0.119,5885
-20,World War I Mobilization & War Aims,1980,1999,0.137,4372
-20,World War I Mobilization & War Aims,2000,2019,0.125,4014
-20,World War I Mobilization & War Aims,2020,2039,0.0,3096
-20,World War II Military Operations,1780,1799,0.0,355
-20,World War II Military Operations,1800,1819,0.0,736
-20,World War II Military Operations,1820,1839,0.0,2092
-20,World War II Military Operations,1840,1859,0.0,3045
-20,World War II Military Operations,1860,1879,0.039,2558
-20,World War II Military Operations,1880,1899,0.0,3123
-20,World War II Military Operations,1900,1919,0.948,3375
-20,World War II Military Operations,1920,1939,1.075,1954
-20,World War II Military Operations,1940,1959,27.648,1624
-20,World War II Military Operations,1960,1979,0.68,5885
-20,World War II Military Operations,1980,1999,1.075,4372
-20,World War II Military Operations,2000,2019,0.623,4014
-20,World War II Military Operations,2020,2039,0.291,3096
-20,Vietnam War,1780,1799,0.0,355
-20,Vietnam War,1800,1819,0.0,736
-20,Vietnam War,1820,1839,0.0,2092
-20,Vietnam War,1840,1859,0.0,3045
-20,Vietnam War,1860,1879,0.0,2558
-20,Vietnam War,1880,1899,0.0,3123
-20,Vietnam War,1900,1919,0.0,3375
-20,Vietnam War,1920,1939,0.0,1954
-20,Vietnam War,1940,1959,0.493,1624
-20,Vietnam War,1960,1979,18.794,5885
-20,Vietnam War,1980,1999,1.235,4372
-20,Vietnam War,2000,2019,0.448,4014
-20,Vietnam War,2020,2039,0.484,3096
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1780,1799,0.0,355
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1800,1819,0.0,736
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1820,1839,0.0,2092
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1840,1859,0.0,3045
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1860,1879,0.0,2558
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1880,1899,0.0,3123
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1900,1919,0.0,3375
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1920,1939,0.0,1954
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1940,1959,0.0,1624
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1960,1979,0.017,5885
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",1980,1999,5.375,4372
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",2000,2019,14.449,4014
-20,"Iraq, Gulf Wars, the War on Terror & Interventions",2020,2039,5.523,3096
+source_issue,unit,bucket_years,topic,requested_start,requested_end,observed_start,observed_end,numerator,denominator,share_percent,partial_period,support_status,interval_status
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1780,1789,1789,1789,0,14,0.0,True,low_support,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1790,1799,1790,1799,43,341,12.609970674486803,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1800,1809,1800,1809,64,351,18.233618233618234,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1810,1819,1810,1819,64,385,16.623376623376622,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1820,1829,1820,1829,115,645,17.829457364341085,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1830,1839,1830,1839,63,1447,4.353835521769177,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1840,1849,1840,1849,128,1452,8.81542699724518,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1850,1859,1850,1859,107,1593,6.716886377903326,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1860,1869,1860,1869,83,1454,5.708390646492434,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1870,1879,1870,1879,89,1104,8.06159420289855,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1880,1889,1880,1889,138,1434,9.623430962343097,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1890,1899,1890,1899,173,1689,10.242747187685021,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1900,1909,1900,1909,244,1982,12.31079717457114,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1910,1919,1910,1919,131,1393,9.40416367552046,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1920,1929,1920,1929,92,1050,8.761904761904763,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1930,1939,1930,1939,37,904,4.092920353982301,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1940,1949,1940,1949,141,874,16.132723112128147,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1950,1959,1951,1959,107,750,14.266666666666666,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1960,1969,1960,1969,292,4248,6.87382297551789,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1970,1979,1970,1979,89,1637,5.436774587660354,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1980,1989,1980,1989,240,2523,9.512485136741974,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",1990,1999,1990,1999,143,1849,7.733910221741482,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",2000,2009,2000,2009,122,1498,8.144192256341789,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",2010,2019,2010,2019,151,2516,6.001589825119237,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Military Preparedness, Armed Forces & Veterans",2020,2029,2020,2026,276,3096,8.914728682170542,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1780,1789,1789,1789,0,14,0.0,True,low_support,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1790,1799,1790,1799,3,341,0.8797653958944283,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1800,1809,1800,1809,20,351,5.698005698005698,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1810,1819,1810,1819,89,385,23.116883116883116,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1820,1829,1820,1829,15,645,2.3255813953488373,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1830,1839,1830,1839,4,1447,0.27643400138217,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1840,1849,1840,1849,3,1452,0.2066115702479339,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1850,1859,1850,1859,8,1593,0.5021971123666039,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1860,1869,1860,1869,2,1454,0.1375515818431912,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1870,1879,1870,1879,1,1104,0.09057971014492754,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1880,1889,1880,1889,0,1434,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1890,1899,1890,1899,0,1689,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1900,1909,1900,1909,4,1982,0.20181634712411706,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1910,1919,1910,1919,0,1393,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1920,1929,1920,1929,3,1050,0.2857142857142857,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1930,1939,1930,1939,0,904,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1940,1949,1940,1949,3,874,0.34324942791762014,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1950,1959,1951,1959,0,750,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1960,1969,1960,1969,1,4248,0.023540489642184557,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1970,1979,1970,1979,1,1637,0.061087354917532075,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1980,1989,1980,1989,0,2523,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,1990,1999,1990,1999,0,1849,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,2000,2009,2000,2009,1,1498,0.06675567423230974,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,2010,2019,2010,2019,0,2516,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Early Naval Wars: Barbary & the War of 1812,2020,2029,2020,2026,2,3096,0.06459948320413438,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1780,1789,1789,1789,0,14,0.0,True,low_support,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1790,1799,1790,1799,0,341,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1800,1809,1800,1809,0,351,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1810,1819,1810,1819,0,385,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1820,1829,1820,1829,0,645,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1830,1839,1830,1839,0,1447,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1840,1849,1840,1849,187,1452,12.878787878787879,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1850,1859,1850,1859,12,1593,0.7532956685499058,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1860,1869,1860,1869,1,1454,0.0687757909215956,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1870,1879,1870,1879,0,1104,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1880,1889,1880,1889,2,1434,0.1394700139470014,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1890,1899,1890,1899,0,1689,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1900,1909,1900,1909,0,1982,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1910,1919,1910,1919,0,1393,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1920,1929,1920,1929,0,1050,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1930,1939,1930,1939,0,904,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1940,1949,1940,1949,0,874,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1950,1959,1951,1959,0,750,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1960,1969,1960,1969,1,4248,0.023540489642184557,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1970,1979,1970,1979,0,1637,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1980,1989,1980,1989,0,2523,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,1990,1999,1990,1999,0,1849,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,2000,2009,2000,2009,0,1498,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,2010,2019,2010,2019,0,2516,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Mexican War,2020,2029,2020,2026,0,3096,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1780,1789,1789,1789,0,14,0.0,True,low_support,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1790,1799,1790,1799,0,341,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1800,1809,1800,1809,0,351,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1810,1819,1810,1819,0,385,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1820,1829,1820,1829,0,645,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1830,1839,1830,1839,0,1447,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1840,1849,1840,1849,0,1452,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1850,1859,1850,1859,0,1593,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1860,1869,1860,1869,1,1454,0.0687757909215956,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1870,1879,1870,1879,0,1104,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1880,1889,1880,1889,0,1434,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1890,1899,1890,1899,1,1689,0.059206631142687975,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1900,1909,1900,1909,0,1982,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1910,1919,1910,1919,165,1393,11.844938980617373,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1920,1929,1920,1929,34,1050,3.2380952380952377,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1930,1939,1930,1939,2,904,0.22123893805309736,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1940,1949,1940,1949,6,874,0.6864988558352403,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1950,1959,1951,1959,0,750,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1960,1969,1960,1969,7,4248,0.1647834274952919,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1970,1979,1970,1979,0,1637,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1980,1989,1980,1989,2,2523,0.07927070947284978,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,1990,1999,1990,1999,4,1849,0.2163331530557058,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,2000,2009,2000,2009,1,1498,0.06675567423230974,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,2010,2019,2010,2019,4,2516,0.1589825119236884,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War I Mobilization & War Aims,2020,2029,2020,2026,0,3096,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1780,1789,1789,1789,0,14,0.0,True,low_support,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1790,1799,1790,1799,0,341,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1800,1809,1800,1809,0,351,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1810,1819,1810,1819,0,385,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1820,1829,1820,1829,0,645,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1830,1839,1830,1839,0,1447,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1840,1849,1840,1849,0,1452,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1850,1859,1850,1859,0,1593,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1860,1869,1860,1869,1,1454,0.0687757909215956,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1870,1879,1870,1879,0,1104,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1880,1889,1880,1889,0,1434,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1890,1899,1890,1899,0,1689,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1900,1909,1900,1909,1,1982,0.050454086781029264,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1910,1919,1910,1919,31,1393,2.2254127781765973,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1920,1929,1920,1929,12,1050,1.1428571428571428,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1930,1939,1930,1939,9,904,0.995575221238938,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1940,1949,1940,1949,444,874,50.800915331807786,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1950,1959,1951,1959,5,750,0.6666666666666667,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1960,1969,1960,1969,30,4248,0.7062146892655368,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1970,1979,1970,1979,10,1637,0.6108735491753208,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1980,1989,1980,1989,24,2523,0.9512485136741973,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,1990,1999,1990,1999,23,1849,1.2439156300703083,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,2000,2009,2000,2009,9,1498,0.6008010680907877,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,2010,2019,2010,2019,16,2516,0.6359300476947536,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,World War II Military Operations,2020,2029,2020,2026,9,3096,0.29069767441860467,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1780,1789,1789,1789,0,14,0.0,True,low_support,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1790,1799,1790,1799,0,341,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1800,1809,1800,1809,0,351,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1810,1819,1810,1819,0,385,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1820,1829,1820,1829,0,645,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1830,1839,1830,1839,0,1447,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1840,1849,1840,1849,0,1452,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1850,1859,1850,1859,0,1593,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1860,1869,1860,1869,0,1454,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1870,1879,1870,1879,0,1104,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1880,1889,1880,1889,0,1434,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1890,1899,1890,1899,0,1689,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1900,1909,1900,1909,0,1982,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1910,1919,1910,1919,0,1393,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1920,1929,1920,1929,0,1050,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1930,1939,1930,1939,0,904,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1940,1949,1940,1949,0,874,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1950,1959,1951,1959,8,750,1.0666666666666667,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1960,1969,1960,1969,909,4248,21.398305084745765,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1970,1979,1970,1979,197,1637,12.034208918753817,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1980,1989,1980,1989,42,2523,1.6646848989298455,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,1990,1999,1990,1999,12,1849,0.6489994591671173,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,2000,2009,2000,2009,4,1498,0.26702269692923897,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,2010,2019,2010,2019,14,2516,0.5564387917329093,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,Vietnam War,2020,2029,2020,2026,15,3096,0.4844961240310077,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1780,1789,1789,1789,0,14,0.0,True,low_support,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1790,1799,1790,1799,0,341,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1800,1809,1800,1809,0,351,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1810,1819,1810,1819,0,385,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1820,1829,1820,1829,0,645,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1830,1839,1830,1839,0,1447,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1840,1849,1840,1849,0,1452,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1850,1859,1850,1859,0,1593,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1860,1869,1860,1869,0,1454,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1870,1879,1870,1879,0,1104,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1880,1889,1880,1889,0,1434,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1890,1899,1890,1899,0,1689,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1900,1909,1900,1909,0,1982,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1910,1919,1910,1919,0,1393,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1920,1929,1920,1929,0,1050,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1930,1939,1930,1939,0,904,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1940,1949,1940,1949,0,874,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1950,1959,1951,1959,0,750,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1960,1969,1960,1969,1,4248,0.023540489642184557,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1970,1979,1970,1979,0,1637,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1980,1989,1980,1989,96,2523,3.804994054696789,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",1990,1999,1990,1999,139,1849,7.5175770686857755,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",2000,2009,2000,2009,411,1498,27.436582109479307,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",2010,2019,2010,2019,169,2516,6.717011128775835,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,10,"Iraq, Gulf Wars, the War on Terror & Interventions",2020,2029,2020,2026,171,3096,5.523255813953488,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1780,1799,1789,1799,43,355,12.112676056338028,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1800,1819,1800,1819,128,736,17.391304347826086,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1820,1839,1820,1839,178,2092,8.508604206500955,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1840,1859,1840,1859,235,3045,7.717569786535304,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1860,1879,1860,1879,172,2558,6.724003127443315,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1880,1899,1880,1899,311,3123,9.958373358949729,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1900,1919,1900,1919,375,3375,11.11111111111111,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1920,1939,1920,1939,129,1954,6.601842374616172,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1940,1959,1940,1959,248,1624,15.270935960591133,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1960,1979,1960,1979,381,5885,6.4740866610025485,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",1980,1999,1980,1999,383,4372,8.760292772186643,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",2000,2019,2000,2019,273,4014,6.801195814648729,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Military Preparedness, Armed Forces & Veterans",2020,2039,2020,2026,276,3096,8.914728682170542,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1780,1799,1789,1799,3,355,0.8450704225352111,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1800,1819,1800,1819,109,736,14.80978260869565,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1820,1839,1820,1839,19,2092,0.9082217973231358,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1840,1859,1840,1859,11,3045,0.361247947454844,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1860,1879,1860,1879,3,2558,0.11727912431587179,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1880,1899,1880,1899,0,3123,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1900,1919,1900,1919,4,3375,0.11851851851851852,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1920,1939,1920,1939,3,1954,0.15353121801432956,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1940,1959,1940,1959,3,1624,0.18472906403940886,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1960,1979,1960,1979,2,5885,0.033984706881903144,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,1980,1999,1980,1999,0,4372,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,2000,2019,2000,2019,1,4014,0.024912805181863475,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Early Naval Wars: Barbary & the War of 1812,2020,2039,2020,2026,2,3096,0.06459948320413438,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1780,1799,1789,1799,0,355,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1800,1819,1800,1819,0,736,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1820,1839,1820,1839,0,2092,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1840,1859,1840,1859,199,3045,6.535303776683087,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1860,1879,1860,1879,1,2558,0.039093041438623924,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1880,1899,1880,1899,2,3123,0.06404098623118795,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1900,1919,1900,1919,0,3375,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1920,1939,1920,1939,0,1954,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1940,1959,1940,1959,0,1624,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1960,1979,1960,1979,1,5885,0.016992353440951572,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,1980,1999,1980,1999,0,4372,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,2000,2019,2000,2019,0,4014,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Mexican War,2020,2039,2020,2026,0,3096,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1780,1799,1789,1799,0,355,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1800,1819,1800,1819,0,736,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1820,1839,1820,1839,0,2092,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1840,1859,1840,1859,0,3045,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1860,1879,1860,1879,1,2558,0.039093041438623924,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1880,1899,1880,1899,1,3123,0.032020493115593976,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1900,1919,1900,1919,165,3375,4.888888888888889,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1920,1939,1920,1939,36,1954,1.842374616171955,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1940,1959,1940,1959,6,1624,0.3694581280788177,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1960,1979,1960,1979,7,5885,0.11894647408666101,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,1980,1999,1980,1999,6,4372,0.1372369624885636,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,2000,2019,2000,2019,5,4014,0.1245640259093174,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War I Mobilization & War Aims,2020,2039,2020,2026,0,3096,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1780,1799,1789,1799,0,355,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1800,1819,1800,1819,0,736,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1820,1839,1820,1839,0,2092,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1840,1859,1840,1859,0,3045,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1860,1879,1860,1879,1,2558,0.039093041438623924,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1880,1899,1880,1899,0,3123,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1900,1919,1900,1919,32,3375,0.9481481481481482,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1920,1939,1920,1939,21,1954,1.0747185261003072,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1940,1959,1940,1959,449,1624,27.647783251231527,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1960,1979,1960,1979,40,5885,0.6796941376380629,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,1980,1999,1980,1999,47,4372,1.0750228728270814,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,2000,2019,2000,2019,25,4014,0.6228201295465869,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,World War II Military Operations,2020,2039,2020,2026,9,3096,0.29069767441860467,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1780,1799,1789,1799,0,355,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1800,1819,1800,1819,0,736,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1820,1839,1820,1839,0,2092,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1840,1859,1840,1859,0,3045,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1860,1879,1860,1879,0,2558,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1880,1899,1880,1899,0,3123,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1900,1919,1900,1919,0,3375,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1920,1939,1920,1939,0,1954,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1940,1959,1940,1959,8,1624,0.49261083743842365,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1960,1979,1960,1979,1106,5885,18.79354290569244,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,1980,1999,1980,1999,54,4372,1.2351326623970724,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,2000,2019,2000,2019,18,4014,0.4484304932735426,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,Vietnam War,2020,2039,2020,2026,15,3096,0.4844961240310077,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1780,1799,1789,1799,0,355,0.0,True,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1800,1819,1800,1819,0,736,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1820,1839,1820,1839,0,2092,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1840,1859,1840,1859,0,3045,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1860,1879,1860,1879,0,2558,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1880,1899,1880,1899,0,3123,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1900,1919,1900,1919,0,3375,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1920,1939,1920,1939,0,1954,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1940,1959,1940,1959,0,1624,0.0,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1960,1979,1960,1979,1,5885,0.016992353440951572,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",1980,1999,1980,1999,235,4372,5.375114364135407,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",2000,2019,2000,2019,580,4014,14.449427005480816,False,descriptive,not_estimated
+War & military,share of eligible paragraphs,20,"Iraq, Gulf Wars, the War on Terror & Interventions",2020,2039,2020,2026,171,3096,5.523255813953488,True,descriptive,not_estimated

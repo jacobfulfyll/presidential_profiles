@@ -2,17 +2,20 @@
 
 import html
 import re
+from urllib.parse import urljoin, urlsplit, urlunsplit
 
 import numpy as np
 import pandas as pd
 
-from .corpus import DATA_DIR, load
+from .corpus import DATA_DIR, PARTY, load
 from .fetch import PARAGRAPHS_PATH
 from . import indices, issues, rhetoric, similarity, topic_quality, trends
 
 DISTINCTIVE_PATH = DATA_DIR / "president_distinctive.parquet"
 
-MILLER_URL = "https://millercenter.org/the-presidency/presidential-speeches/"
+MILLER_ORIGIN = "https://millercenter.org"
+MILLER_SPEECH_PATH = "/the-presidency/presidential-speeches/"
+MILLER_URL = MILLER_ORIGIN + MILLER_SPEECH_PATH
 
 # --- Issue card thresholds -------------------------------------------------
 # These are fixed from first principles, NOT tuned against which presidents
@@ -41,7 +44,14 @@ MIN_ISSUE_PARAS = 4
 # Below this, a president's rates are too thin to state without a caveat.
 # Mirrors the dashboard's sparse-president cutoff (site.py), which drops them
 # from per-president graphics entirely; profiles keep them but say so.
-SPARSE_MIN_SPEECHES = 5
+SPARSE_MIN_SPEECHES = indices.PRESIDENT_PERCENTILE_MIN_SPEECHES
+
+# Canonical corpus keys remain unchanged in data contracts and URLs. These
+# two abbreviated source labels receive their full public display forms.
+PRESIDENT_DISPLAY_NAMES = {
+    "William Harrison": "William Henry Harrison",
+    "William Taft": "William Howard Taft",
+}
 
 # Conservative invocation patterns: full names / titled surnames only, so
 # Jefferson Davis, Hillary Clinton, and Henry Ford don't count. Ambiguous
@@ -134,6 +144,99 @@ def slug(president: str) -> str:
     return re.sub(r"[^a-z]+", "-", president.lower()).strip("-")
 
 
+def public_display_name(president: str) -> str:
+    """Return the public-facing full name without changing corpus identity."""
+    return PRESIDENT_DISPLAY_NAMES.get(president, president)
+
+
+def president_chronology(
+    presidents,
+    *,
+    require_complete: bool = False,
+) -> list[str]:
+    """Order profile keys by the repository's declared presidency sequence."""
+    supplied = list(presidents)
+    if require_complete and len(supplied) != len(set(supplied)):
+        raise ValueError("Complete profile president keys must be unique")
+    names = list(dict.fromkeys(supplied))
+    name_set = set(names)
+    if require_complete and (
+        len(names) != len(PARTY) or name_set != set(PARTY)
+    ):
+        missing = sorted(set(PARTY) - name_set)
+        extra = sorted(name_set - set(PARTY))
+        raise ValueError(
+            f"Profile president keys do not match corpus.PARTY; "
+            f"expected={len(PARTY)}, observed={len(names)}, "
+            f"missing={missing}, extra={extra}"
+        )
+    ordered = [name for name in PARTY if name in name_set]
+    ordered.extend(sorted(name_set - set(PARTY)))
+    if len({slug(name) for name in ordered}) != len(ordered):
+        raise ValueError("Profile president slugs must be unique")
+    return ordered
+
+
+def format_ordinal(value) -> str:
+    """Format a whole-number ordinal with the 11/12/13 exceptions."""
+    number = int(round(float(value)))
+    remainder_100 = abs(number) % 100
+    if 11 <= remainder_100 <= 13:
+        suffix = "th"
+    else:
+        suffix = {1: "st", 2: "nd", 3: "rd"}.get(abs(number) % 10, "th")
+    return f"{number}{suffix}"
+
+
+def format_percentile(value, *, unavailable: str = "Not ranked") -> str:
+    """Format a nullable percentile without manufacturing a midpoint."""
+    if value is None or (isinstance(value, float) and not np.isfinite(value)):
+        return unavailable
+    return f"{format_ordinal(value)} percentile"
+
+
+def format_speech_count(value) -> str:
+    """Use the shared singular/plural label for corpus speech counts."""
+    count = int(value)
+    return f"{count:,} {'speech' if count == 1 else 'speeches'}"
+
+
+def miller_speech_url(value: str) -> str:
+    """Normalize a Miller Center speech slug, route, or absolute URL.
+
+    Corpus rows usually store an already-prefixed route. Absolute URLs are
+    never concatenated, and an accidental duplicated Miller route is reduced
+    to one canonical prefix.
+    """
+    raw = str(value or "").strip()
+    if not raw:
+        return MILLER_URL
+    parsed = urlsplit(raw)
+    if parsed.scheme in {"http", "https"} and parsed.netloc:
+        if parsed.netloc.lower().removeprefix("www.") != "millercenter.org":
+            return raw
+        path = parsed.path
+        last_prefix = path.rfind(MILLER_SPEECH_PATH)
+        if last_prefix > 0:
+            path = MILLER_SPEECH_PATH + path[last_prefix + len(MILLER_SPEECH_PATH):]
+        return urlunsplit(
+            (parsed.scheme, parsed.netloc, path, parsed.query, parsed.fragment)
+        )
+
+    route = raw.replace("\\", "/")
+    prefixed = MILLER_SPEECH_PATH.lstrip("/")
+    if route.startswith("/"):
+        path = route
+    elif route.startswith(prefixed):
+        path = "/" + route
+    else:
+        path = MILLER_SPEECH_PATH + route.lstrip("/")
+    last_prefix = path.rfind(MILLER_SPEECH_PATH)
+    if last_prefix > 0:
+        path = MILLER_SPEECH_PATH + path[last_prefix + len(MILLER_SPEECH_PATH):]
+    return urljoin(MILLER_ORIGIN, path)
+
+
 def build_distinctive(df: pd.DataFrame, force: bool = False) -> pd.DataFrame:
     """Top distinctive terms per president (log-odds vs all other presidents)."""
     if DISTINCTIVE_PATH.exists() and not force:
@@ -177,7 +280,7 @@ def signature_speeches(df: pd.DataFrame, adj: pd.DataFrame, top_n: int = 5) -> d
         top = group.assign(score=scores).nlargest(top_n, "score")
         out[p] = [
             {"title": r["title"], "year": int(r["year"]),
-             "url": MILLER_URL + r["doc_name"]}
+             "url": miller_speech_url(r["doc_name"])}
             for _, r in top.iterrows()
         ]
     return out

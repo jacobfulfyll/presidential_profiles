@@ -18,43 +18,43 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 635.1724484160852,
-      "percentile": 20.0
+      "percentile": 19.047619047619047
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 257.24182940910686,
-      "percentile": 24.444444444444443
+      "percentile": 23.809523809523807
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8475894245723172,
-      "percentile": 88.88888888888889
+      "percentile": 88.09523809523809
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 62.05130779657613,
-      "percentile": 51.11111111111111
+      "percentile": 52.38095238095239
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.43280701754385964,
-      "percentile": 66.66666666666666
+      "percentile": 69.04761904761905
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 8.587379683154731,
-      "percentile": 6.666666666666667
+      "percentile": 7.142857142857142
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4119292929292929,
-      "percentile": 55.55555555555556
+      "percentile": 57.14285714285714
     },
     {
       "key": "religiosity",
@@ -92,13 +92,13 @@
     "fk_grade": 8.587379683154731,
     "self_reference": 0.43280701754385964,
     "ttr": 0.4119292929292929,
-    "pct_hope": 20.0,
-    "pct_fear": 24.444444444444443,
-    "pct_certainty": 88.88888888888889,
-    "pct_us_vs_them": 51.11111111111111,
-    "pct_self_reference": 66.66666666666666,
-    "pct_formality": 6.666666666666667,
-    "pct_vocabulary": 55.55555555555556,
+    "pct_hope": 19.047619047619047,
+    "pct_fear": 23.809523809523807,
+    "pct_certainty": 88.09523809523809,
+    "pct_us_vs_them": 52.38095238095239,
+    "pct_self_reference": 69.04761904761905,
+    "pct_formality": 7.142857142857142,
+    "pct_vocabulary": 57.14285714285714,
     "pct_religiosity": 66.66666666666666
   },
   "legacy_issue_attention": [
@@ -1027,22 +1027,22 @@
     {
       "title": "January 16, 1991: Address to the Nation on the Invasion of Iraq",
       "year": 1991,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-16-1991-address-nation-invasion-iraq"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-16-1991-address-nation-invasion-iraq"
     },
     {
       "title": "February 27, 1991: Address on the End of the Gulf War",
       "year": 1991,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-27-1991-address-end-gulf-war"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-27-1991-address-end-gulf-war"
     },
     {
       "title": "March 6, 1991: Address Before a Joint Session of Congress on the End of the Gulf War",
       "year": 1991,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-6-1991-address-joint-session-congress-end-gulf-war"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-6-1991-address-joint-session-congress-end-gulf-war"
     },
     {
       "title": "August 8, 1990: Address on Iraq's Invasion of Kuwait",
       "year": 1990,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-8-1990-address-iraqs-invasion-kuwait"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-8-1990-address-iraqs-invasion-kuwait"
     },
     {
       "title": "September 11, 1990: Address Before a Joint Session of Congress",

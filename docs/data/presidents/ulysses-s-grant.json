@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 670.5112672643567,
-      "percentile": 51.11111111111111
+      "percentile": 52.38095238095239
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 253.3559486309668,
-      "percentile": 22.22222222222222
+      "percentile": 21.428571428571427
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.4710820895522388,
-      "percentile": 11.11111111111111
+      "percentile": 9.523809523809524
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 49.333656409013805,
-      "percentile": 26.666666666666668
+      "percentile": 26.190476190476193
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.5833333333333334,
-      "percentile": 95.55555555555556
+      "percentile": 95.23809523809523
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 18.430427911862257,
-      "percentile": 64.44444444444444
+      "percentile": 66.66666666666666
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.40270873786407757,
-      "percentile": 31.11111111111111
+      "percentile": 33.33333333333333
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 5.039980615459171,
-      "percentile": 26.666666666666668
+      "percentile": 28.57142857142857
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 18.430427911862257,
     "self_reference": 0.5833333333333334,
     "ttr": 0.40270873786407757,
-    "pct_hope": 51.11111111111111,
-    "pct_fear": 22.22222222222222,
-    "pct_certainty": 11.11111111111111,
-    "pct_us_vs_them": 26.666666666666668,
-    "pct_self_reference": 95.55555555555556,
-    "pct_formality": 64.44444444444444,
-    "pct_vocabulary": 31.11111111111111,
-    "pct_religiosity": 26.666666666666668
+    "pct_hope": 52.38095238095239,
+    "pct_fear": 21.428571428571427,
+    "pct_certainty": 9.523809523809524,
+    "pct_us_vs_them": 26.190476190476193,
+    "pct_self_reference": 95.23809523809523,
+    "pct_formality": 66.66666666666666,
+    "pct_vocabulary": 33.33333333333333,
+    "pct_religiosity": 28.57142857142857
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "May 14, 1869: Message Submitting State Constitutions to a Vote",
       "year": 1869,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-14-1869-message-submitting-state-constitutions-vote"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-14-1869-message-submitting-state-constitutions-vote"
     },
     {
       "title": "April 18, 1875: Veto of Legislation Fixing the Presidential Salary",
       "year": 1875,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-18-1875-veto-legislation-fixing-presidential-salary"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-18-1875-veto-legislation-fixing-presidential-salary"
     },
     {
       "title": "May 19, 1869: Proclamation Establishing Eight Hour Workday",
       "year": 1869,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/may-19-1869-proclamation-establishing-eight-hour-workday"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/may-19-1869-proclamation-establishing-eight-hour-workday"
     },
     {
       "title": "October 17, 1871: Proclamation Suspending Habeas Corpus",
       "year": 1871,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-17-1871-proclamation-suspending-habeas-corpus"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-17-1871-proclamation-suspending-habeas-corpus"
     },
     {
       "title": "December 7, 1875: Seventh Annual Message",
       "year": 1875,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-7-1875-seventh-annual-message"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-7-1875-seventh-annual-message"
     }
   ],
   "legacy_invocations": {

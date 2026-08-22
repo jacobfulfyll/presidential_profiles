@@ -13,14 +13,13 @@ import requests
 from PIL import Image, ImageDraw, ImageOps
 
 from .figures import REPO_ROOT
-from .profiles import slug
+from .profiles import PRESIDENT_DISPLAY_NAMES, slug
 
 PORTRAIT_DIR = REPO_ROOT / "docs" / "portraits"
 
 # Corpus name -> Wikipedia page title, where they differ.
 WIKI_TITLES = {
-    "William Harrison": "William Henry Harrison",
-    "William Taft": "William Howard Taft",
+    **PRESIDENT_DISPLAY_NAMES,
     "Richard M. Nixon": "Richard Nixon",
 }
 

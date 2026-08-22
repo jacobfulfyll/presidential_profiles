@@ -1,5 +1,79 @@
 # Completed Tasks
 
+- [x] refocus-president-comparison-on-visuals Restored graph-first Compare with
+  corpus and AI percentile radars in one accessible tab-switched graph stage,
+  exact disclosed tables, five
+  portrait-and-meter neighbor lenses, selected-record footprint bars, compact
+  evidence signals, and collapsed source excerpts while preserving the V2
+  selection/history/download and thin-record contracts. Focused and broader
+  suites pass 12 and 60 tests; the canonical 73-HTML/182-JSON build and
+  130-script parser pass; the full run records 2,695 passes and the known
+  unrelated `low`-versus-`xhigh` runtime-receipt failure; desktop,
+  three-president, thin-record, pointer/keyboard tab, and 390px browser QA have
+  zero overflow; no deployment -- 2026-08-19
+
+- [x] redesign-summary-time-as-president-portrait-scatter Replaced Summary's
+  era-level future/nostalgia line with an all-45-president portrait comparison:
+  exact pooled future rate on x, nostalgia rate on y, and fixed-scale
+  first-person singular share as portrait area. Added fail-closed three-source
+  joins, exact receipts/table, Story-era dim-only controls, immutable Plotly
+  style restoration, calibrated thin-record halos, true-zero/N/A behavior, and
+  mobile-contained size keys while keeping the founding annual-message audit
+  separate. The 56-test focused suite, 73-HTML/182-JSON build, 130-script
+  parser, compilation, diff check, and Reggie Doctor pass; the full run has
+  2,694 passes and
+  the unrelated runtime-receipt assertion expecting `low` in an `ultra`
+  session; no deployment -- 2026-08-08
+
+- [x] redesign-conflict-target-mix-at-era-grain Replaced the five-line
+  president-succession target timeline with five vertically aligned
+  small-multiple trajectories at canonical `trends.ERAS` grain, one for each of
+  nation, group, person, institution, and other. The panels use one shared
+  percentage scale, print exact values at every era point, and retain pooled
+  `speaker_audited_all` mention counts, shares, and support in an era table; the
+  three-frame portrait remains president-grain -- 2026-08-07
+
+- [x] replace-conflict-target-stack-with-timeline Replaced Summary's tall
+  president target stacks with five category lines across fixed presidential
+  succession; preserved exact adversarial-mention shares, gaps, and thin-record
+  states; added a visible category guide plus all-president text alternative;
+  removed the standalone Enemy naming, Zero-sum framing, and Partisan attack
+  graphs while retaining the joint portrait view. The 36-test Story/Summary
+  suite, canonical 73-HTML/182-JSON build, 130-script parser, diff check, and
+  Reggie Doctor pass; no deployment -- 2026-08-07
+
+- [x] add-three-frame-president-portrait-scatter Restored Summary's existing
+  procedure/performance view to legal/procedural x and hype y; added a separate
+  all-president Conflict portrait scatter with zero-sum framing on x, partisan
+  attack on y, and portrait area proportional to enemy naming; retained the
+  four direct Conflict graphs and added exact hover/table receipts, thin-record
+  states, metric registration, and responsive containment; focused tests,
+  canonical site build, static JavaScript, browser QA, and Reggie Doctor pass;
+  no deployment -- 2026-08-07
+
+- [x] redesign-issues-pages Rebuilt the 16-route Issues directory and profiles
+  around one validated view model; aligned canonical supported-period
+  headlines, keyed corpus excerpts, eligible-president rankings, broad and
+  exploratory fine-topic charts, exact tables, JSON, and three tidy exports;
+  added semantic/mobile/accessibility/failure-state contracts, shared deferred
+  assets, and manifest-scoped stale cleanup. The 161 focused tests,
+  73-HTML/182-JSON build, 130-script parser, browser matrix, compilation, diff
+  check, frozen-artifact check, and Reggie Doctor pass; the full run records
+  2,676 passes and one unrelated runtime-receipt assertion expecting `low` in
+  the requested `ultra` session; no deployment -- 2026-08-07
+
+- [x] redesign-president-comparison-page Replaced the Plotly-first Compare page
+  with a server-rendered, mobile-first two/three-president workspace backed by
+  a compact Profile V3 projection; added labeled selectors and support cards,
+  complete 8+6 semantic measure matrices, deterministic shared agenda rows,
+  five separate neighbor instruments, grouped evidence, normalized URL/history
+  state, and on-demand `president-comparison-v2` downloads. The generated page
+  was 346,507 bytes with no Plotly request at that checkpoint; 79 focused
+  tests, the canonical 73-HTML/165-JSON build, 146-script parser, browser matrix, diff check, and
+  Reggie Doctor pass. The full run records 2,665 passes and one unrelated
+  runtime-receipt assertion expecting `low` in the requested `ultra` session;
+  no deployment -- 2026-08-07
+
 - [x] publish-current-site-to-github-pages Published the reviewed generator,
   governed release artifacts, and canonical `docs/` tree through pull request
   #2 and site-content merge `b3c2e7567979d1ad5c72c178890fe6b0bafa43e2`;

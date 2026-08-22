@@ -18,49 +18,49 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 642.0023329829058,
-      "percentile": 24.444444444444443
+      "percentile": 23.809523809523807
     },
     {
       "key": "fear",
       "label": "Fear appeal",
       "absolute": 265.41280836417576,
-      "percentile": 37.77777777777778
+      "percentile": 38.095238095238095
     },
     {
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.472289156626506,
-      "percentile": 13.333333333333334
+      "percentile": 11.904761904761903
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 39.89112746439321,
-      "percentile": 20.0
+      "percentile": 21.428571428571427
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.6013001083423619,
-      "percentile": 97.77777777777777
+      "percentile": 97.61904761904762
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 19.2726574915029,
-      "percentile": 75.55555555555556
+      "percentile": 78.57142857142857
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.4073333333333334,
-      "percentile": 40.0
+      "percentile": 42.857142857142854
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 4.176327424070047,
-      "percentile": 17.77777777777778
+      "percentile": 19.047619047619047
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 19.2726574915029,
     "self_reference": 0.6013001083423619,
     "ttr": 0.4073333333333334,
-    "pct_hope": 24.444444444444443,
-    "pct_fear": 37.77777777777778,
-    "pct_certainty": 13.333333333333334,
-    "pct_us_vs_them": 20.0,
-    "pct_self_reference": 97.77777777777777,
-    "pct_formality": 75.55555555555556,
-    "pct_vocabulary": 40.0,
-    "pct_religiosity": 17.77777777777778
+    "pct_hope": 23.809523809523807,
+    "pct_fear": 38.095238095238095,
+    "pct_certainty": 11.904761904761903,
+    "pct_us_vs_them": 21.428571428571427,
+    "pct_self_reference": 97.61904761904762,
+    "pct_formality": 78.57142857142857,
+    "pct_vocabulary": 42.857142857142854,
+    "pct_religiosity": 19.047619047619047
   },
   "legacy_issue_attention": [
     {
@@ -1027,27 +1027,27 @@
     {
       "title": "April 9, 1844: Message Regarding Disturbances in Rhode Island",
       "year": 1844,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/april-9-1844-message-regarding-disturbances-rhode-island"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/april-9-1844-message-regarding-disturbances-rhode-island"
     },
     {
       "title": "December 30, 1842: Message to Congress Regarding US-Hawaiian Relations",
       "year": 1842,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-30-1842-message-congress-regarding-us-hawaiian"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-30-1842-message-congress-regarding-us-hawaiian"
     },
     {
       "title": "August 18, 1842: Message Regarding Treaty with Texas",
       "year": 1842,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-18-1842-message-regarding-treaty-texas"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-18-1842-message-regarding-treaty-texas"
     },
     {
       "title": "February 20, 1845: Message Regarding the Slave Trade",
       "year": 1845,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/february-20-1845-message-regarding-slave-trade"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/february-20-1845-message-regarding-slave-trade"
     },
     {
       "title": "June 11, 1844: Veto Message Regarding Infrastructure Improvements",
       "year": 1844,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/june-11-1844-veto-message-regarding-infrastructure"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/june-11-1844-veto-message-regarding-infrastructure"
     }
   ],
   "legacy_invocations": {

@@ -225,6 +225,25 @@ def test_procedural_scatter_has_all_eras_faces_and_persistent_points(scores):
     figure = site.fig_procedural_eras(scores, faces)
     assert len(figure.data[0].x) == 45
     assert len(figure.layout.images) == 45
+    ordered = scores.sort_values(["first_year", "last_year"])
+    assert np.allclose(figure.data[0].x, ordered.mechanism)
+    assert np.allclose(figure.data[0].y, ordered.hype)
+    assert np.allclose(
+        [image.x for image in figure.layout.images], ordered.mechanism
+    )
+    assert np.allclose(
+        [image.y for image in figure.layout.images], ordered.hype
+    )
+    assert (
+        figure.layout.xaxis.title.text
+        == "legal/procedural vocabulary per 10,000 words"
+    )
+    assert (
+        figure.layout.yaxis.title.text
+        == "hype vocabulary per 10,000 words"
+    )
+    assert "legal/procedural %{x:.1f}" in figure.data[0].hovertemplate
+    assert "hype %{y:.1f}" in figure.data[0].hovertemplate
     plotted_eras = {row[3] for row in figure.data[0].customdata}
     assert plotted_eras == {name for name, _, _ in era_profiles.STORY_ERAS}
     body = site._procedural_era_html(scores)
@@ -233,6 +252,9 @@ def test_procedural_scatter_has_all_eras_faces_and_persistent_points(scores):
     assert body.count('class="era-chip"') == 9
     assert "Text alternative · all president points" in body
     assert "Unselected presidents remain visible" in body
+    assert body.index("<th>Legal / procedural per 10,000</th>") < body.index(
+        "<th>Hype per 10,000</th>"
+    )
 
 
 def test_progressive_heatmap_replaces_staged_points_and_keeps_one_scale(artifacts):
@@ -455,7 +477,7 @@ def test_story_html_has_clean_sections_filters_reduced_motion_and_no_numbered_gu
     assert "data-story-index" not in page
     assert "data-era-choice" in page
     assert "Plotly.relayout(chart, imageUpdates)" in page
-    assert "all other presidents remain visible" in page
+    assert "all other plotted presidents remain visible" in page
     assert 'get("motion") === "reduce"' in page
     assert "date range" not in page  # rendered values, not a generic placeholder
     assert "Taxonomy limit" not in page

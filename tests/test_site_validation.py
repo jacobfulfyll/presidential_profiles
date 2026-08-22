@@ -51,6 +51,16 @@ def test_substantive_chart_requires_lesson_and_evidence_controls(tmp_path):
         validate_site(tmp_path)
 
 
+@pytest.mark.parametrize("constant", ["NaN", "Infinity", "-Infinity"])
+def test_json_validation_rejects_nonfinite_constants(tmp_path, constant):
+    (tmp_path / "index.html").write_text(
+        '<body><nav aria-label="Primary"></nav></body>'
+    )
+    (tmp_path / "payload.json").write_text(f'{{"value": {constant}}}')
+    with pytest.raises(ValueError, match="non-finite JSON value"):
+        validate_site(tmp_path)
+
+
 def test_plotly_runtime_is_bundled_with_depth_correct_paths(tmp_path):
     nested = tmp_path / "issues"
     nested.mkdir()

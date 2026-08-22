@@ -18,7 +18,7 @@
       "key": "hope",
       "label": "Hope",
       "absolute": 718.4749361594658,
-      "percentile": 82.22222222222221
+      "percentile": 83.33333333333334
     },
     {
       "key": "fear",
@@ -30,37 +30,37 @@
       "key": "certainty",
       "label": "Certainty",
       "absolute": 0.8600328048113723,
-      "percentile": 93.33333333333333
+      "percentile": 92.85714285714286
     },
     {
       "key": "us_vs_them",
       "label": "Us vs them",
       "absolute": 71.74460044711759,
-      "percentile": 71.11111111111111
+      "percentile": 69.04761904761905
     },
     {
       "key": "self_reference",
       "label": "Self-reference",
       "absolute": 0.28526776411752447,
-      "percentile": 15.555555555555555
+      "percentile": 14.285714285714285
     },
     {
       "key": "formality",
       "label": "Formality",
       "absolute": 10.042558661453674,
-      "percentile": 20.0
+      "percentile": 21.428571428571427
     },
     {
       "key": "vocabulary",
       "label": "Vocabulary",
       "absolute": 0.42942452830188677,
-      "percentile": 80.0
+      "percentile": 78.57142857142857
     },
     {
       "key": "religiosity",
       "label": "Religiosity",
       "absolute": 16.93060323458707,
-      "percentile": 88.88888888888889
+      "percentile": 90.47619047619048
     }
   ],
   "raw_stats": {
@@ -92,14 +92,14 @@
     "fk_grade": 10.042558661453674,
     "self_reference": 0.28526776411752447,
     "ttr": 0.42942452830188677,
-    "pct_hope": 82.22222222222221,
+    "pct_hope": 83.33333333333334,
     "pct_fear": 100.0,
-    "pct_certainty": 93.33333333333333,
-    "pct_us_vs_them": 71.11111111111111,
-    "pct_self_reference": 15.555555555555555,
-    "pct_formality": 20.0,
-    "pct_vocabulary": 80.0,
-    "pct_religiosity": 88.88888888888889
+    "pct_certainty": 92.85714285714286,
+    "pct_us_vs_them": 69.04761904761905,
+    "pct_self_reference": 14.285714285714285,
+    "pct_formality": 21.428571428571427,
+    "pct_vocabulary": 78.57142857142857,
+    "pct_religiosity": 90.47619047619048
   },
   "legacy_issue_attention": [
     {
@@ -1028,27 +1028,27 @@
     {
       "title": "October 3, 2008: Remarks on Emergency Economic Stabilization Act of 2008",
       "year": 2008,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/october-3-2008-remarks-emergency-economic-stabilization-act"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/october-3-2008-remarks-emergency-economic-stabilization-act"
     },
     {
       "title": "August 31, 2005: Remarks on Hurricane Katrina Relief Efforts",
       "year": 2005,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/august-31-2005-remarks-hurricane-katrina-relief-efforts"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/august-31-2005-remarks-hurricane-katrina-relief-efforts"
     },
     {
       "title": "January 20, 2004: State of the Union Address",
       "year": 2004,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/january-20-2004-state-union-address"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/january-20-2004-state-union-address"
     },
     {
       "title": "March 20, 2003: Address on the Start of the Iraq War",
       "year": 2003,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/march-20-2003-address-start-iraq-war"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/march-20-2003-address-start-iraq-war"
     },
     {
       "title": "December 8, 2003: Address on Signing Medicare Legislation",
       "year": 2003,
-      "url": "https://millercenter.org/the-presidency/presidential-speeches//the-presidency/presidential-speeches/december-8-2003-address-signing-medicare-legislation"
+      "url": "https://millercenter.org/the-presidency/presidential-speeches/december-8-2003-address-signing-medicare-legislation"
     }
   ],
   "legacy_invocations": {
