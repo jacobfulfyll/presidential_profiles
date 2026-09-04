@@ -20,11 +20,16 @@ from __future__ import annotations
 
 from dataclasses import asdict
 import json
+import os
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pandas as pd
 
 from . import attention, corpus, era_profiles
+
+if TYPE_CHECKING:
+    from .story_foundation import StoryFoundationBundle
 
 
 PRESIDENT_COLORS = (
@@ -39,7 +44,7 @@ PRESIDENT_COLORS = (
     "#7f5b70",
     "#4c6c91",
 )
-AGENDA_MIN_SPEECHES = 5
+AGENDA_MIN_APPEARANCES = 5
 
 AGENDA_DOMAIN_SHORT_LABELS = {
     "Foreign Relations & Diplomacy": "Diplomacy",
@@ -192,26 +197,30 @@ def _communication_rows(
     ]
 
 
-def _president_rows(era_speeches: pd.DataFrame) -> list[dict]:
+def _president_rows(era_appearances: pd.DataFrame) -> list[dict]:
     rows = (
-        era_speeches.groupby("president", observed=True)
+        era_appearances.groupby(
+            ["attributed_speaker_profile_id", "attributed_speaker"],
+            observed=True,
+        )
         .agg(
             first_year=("year", "min"),
             last_year=("year", "max"),
-            speeches=("doc_name", "nunique"),
+            appearances=("doc_name", "size"),
         )
         .reset_index()
-        .sort_values(["first_year", "president"])
+        .sort_values(["first_year", "attributed_speaker"])
     )
     return [
         {
-            "name": str(row.president),
+            "profile_id": str(row.attributed_speaker_profile_id),
+            "name": str(row.attributed_speaker),
             "years": (
                 str(int(row.first_year))
                 if row.first_year == row.last_year
                 else f"{int(row.first_year)}–{int(row.last_year)}"
             ),
-            "speeches": int(row.speeches),
+            "appearances": int(row.appearances),
             "color": PRESIDENT_COLORS[index % len(PRESIDENT_COLORS)],
         }
         for index, row in enumerate(rows.itertuples(index=False))
@@ -231,13 +240,13 @@ def _agenda(
     non-additive.  Raw-word presence is retained only as a sensitivity receipt.
     """
     president_order = [row["name"] for row in presidents]
-    speech_support = {
-        row["name"]: int(row["speeches"]) for row in presidents
+    appearance_support = {
+        row["name"]: int(row["appearances"]) for row in presidents
     }
     supported_presidents = [
         president
         for president in president_order
-        if speech_support[president] >= AGENDA_MIN_SPEECHES
+        if appearance_support[president] >= AGENDA_MIN_APPEARANCES
     ]
     thin_presidents = [
         president
@@ -432,7 +441,7 @@ def _agenda(
         })
         president_support.append({
             "president": president,
-            "speeches": speech_support[president],
+            "appearances": appearance_support[president],
             "paragraphs": paragraph_denominator,
             "words": int(word_denominator),
             "assigned_paragraphs": int(assigned_paragraphs),
@@ -474,7 +483,7 @@ def _agenda(
         "compositions": compositions,
         "supported_presidents": supported_presidents,
         "thin_presidents": thin_presidents,
-        "minimum_supported_speeches": AGENDA_MIN_SPEECHES,
+        "minimum_supported_appearances": AGENDA_MIN_APPEARANCES,
         "president_support": president_support,
         "weighting_sensitivity": {
             "supported_records": len(supported_compositions),
@@ -505,7 +514,7 @@ def _agenda(
 
 
 def _governance(
-    era_speeches: pd.DataFrame,
+    era_appearances: pd.DataFrame,
     presidents: list[dict],
 ) -> dict:
     audience_labels = {
@@ -521,8 +530,8 @@ def _governance(
     rows = []
     for president_row in presidents:
         president = president_row["name"]
-        group = era_speeches[
-            era_speeches["president"].eq(president)
+        group = era_appearances[
+            era_appearances["president"].eq(president)
         ].copy()
         group["audience_group"] = group["audience"].map(audience_labels)
         group["medium_group"] = group["medium"].map(medium_labels)
@@ -550,7 +559,7 @@ def _governance(
         )
         rows.append({
             "president": president,
-            "speeches": len(group),
+            "appearances": len(group),
             "color": president_row["color"],
             "written_count": int(
                 group["medium"].eq("written_message").sum()
@@ -580,10 +589,10 @@ def _governance(
         })
     return {
         "audience_options": _communication_rows(
-            era_speeches, era_profiles.AUDIENCE_GROUPS, "audience"
+            era_appearances, era_profiles.AUDIENCE_GROUPS, "audience"
         ),
         "medium_options": _communication_rows(
-            era_speeches, era_profiles.MEDIUM_GROUPS, "medium"
+            era_appearances, era_profiles.MEDIUM_GROUPS, "medium"
         ),
         "presidents": rows,
     }
@@ -595,36 +604,47 @@ def _adversaries(
     presidents: list[dict],
 ) -> dict:
     president_order = [row["name"] for row in presidents]
+    generic = {value.casefold() for value in era_profiles.GENERIC_ADVERSARIES}
     adversarial = era_entities[
-        era_entities["stance"].eq("adversarial")
-        & ~era_entities["entity"].isin(era_profiles.GENERIC_ADVERSARIES)
+        era_entities["analysis_eligible"]
+        & era_entities["ai_entity"].notna()
+        & era_entities["ai_stance"].eq("adversarial")
+        & ~era_entities["normalized_entity"].isin(generic)
     ].copy()
-    adversarial["display_entity"] = adversarial["entity"].map(
-        era_profiles.ADVERSARY_ALIASES
-    ).fillna(adversarial["entity"])
     normalized = adversarial.drop_duplicates(
-        ["president", "display_entity", "doc_name", "para_idx"]
+        ["attributed_speaker", "normalized_entity", "doc_name", "para_idx"]
     )
     named_paragraphs = normalized.drop_duplicates(
-        ["president", "doc_name", "para_idx"]
+        ["attributed_speaker", "doc_name", "para_idx"]
     )
 
     summaries = []
     edges = []
     for president in president_order:
         president_rows = normalized[
-            normalized["president"].eq(president)
+            normalized["attributed_speaker"].eq(president)
         ]
         president_named_paragraphs = named_paragraphs[
-            named_paragraphs["president"].eq(president)
+            named_paragraphs["attributed_speaker"].eq(president)
         ]
         total_words = int(
             era_paragraphs.loc[
                 era_paragraphs["president"].eq(president), "word_count"
             ].sum()
         )
+        adversary_keys = president_named_paragraphs[
+            ["doc_name", "para_idx"]
+        ].drop_duplicates()
         adversary_words = int(
-            president_named_paragraphs["word_count"].sum()
+            era_paragraphs.loc[
+                era_paragraphs["president"].eq(president),
+                ["doc_name", "para_idx", "word_count"],
+            ].merge(
+                adversary_keys,
+                on=["doc_name", "para_idx"],
+                how="inner",
+                validate="one_to_one",
+            )["word_count"].sum()
         )
         summaries.append({
             "president": president,
@@ -641,10 +661,18 @@ def _adversaries(
             "named_paragraphs": int(len(president_named_paragraphs)),
         })
         counts = (
-            president_rows.groupby("display_entity", observed=True)
-            .size()
-            .rename("paragraphs")
-            .reset_index()
+            president_rows.groupby(
+                ["normalized_entity", "display_entity"], observed=True
+            ).agg(
+                paragraphs=("para_idx", "size"),
+                ai_ner_paragraphs=(
+                    "source_badge", lambda values: int(values.eq("AI + NER").sum())
+                ),
+                ai_only_paragraphs=(
+                    "source_badge", lambda values: int(values.eq("AI only").sum())
+                ),
+                cross_owner_paragraphs=("cross_owner_paragraph", "sum"),
+            ).reset_index()
             .sort_values(
                 ["paragraphs", "display_entity"],
                 ascending=[False, True],
@@ -662,17 +690,21 @@ def _adversaries(
             raw_entities = sorted(
                 set(
                     president_rows.loc[
-                        president_rows["display_entity"].eq(
-                            row.display_entity
+                        president_rows["normalized_entity"].eq(
+                            row.normalized_entity
                         ),
-                        "entity",
+                        "ai_entity",
                     ].astype(str)
                 )
             )
             edges.append({
                 "president": president,
                 "adversary": str(row.display_entity),
+                "normalized_entity": str(row.normalized_entity),
                 "paragraphs": int(row.paragraphs),
+                "ai_ner_paragraphs": int(row.ai_ner_paragraphs),
+                "ai_only_paragraphs": int(row.ai_only_paragraphs),
+                "cross_owner_paragraphs": int(row.cross_owner_paragraphs),
                 "raw_entities": raw_entities,
             })
     return {
@@ -686,102 +718,76 @@ def _adversaries(
 
 
 def build_era_visualizations(
-    speeches: pd.DataFrame,
-    paragraphs: pd.DataFrame,
     paragraph_annotations: pd.DataFrame,
     speech_annotations: pd.DataFrame,
-    paragraph_entities: pd.DataFrame,
     taxonomy: dict,
+    foundation: "StoryFoundationBundle",
 ) -> dict[str, dict]:
     """Derive all three reusable graphs for every canonical era."""
-    speech_required = {"doc_name", "president", "year"}
-    missing = sorted(speech_required - set(speeches.columns))
-    if missing:
-        raise ValueError(
-            f"speeches is missing era-visualization columns: {missing}"
-        )
-    speech_frame = _strict_one_to_one_merge(
-        speeches[sorted(speech_required)],
-        speech_annotations[["doc_name", "audience", "medium"]],
-        ["doc_name"],
-        "era visualizations speeches x speech annotations",
-    )
-    speech_frame["era_key"] = era_profiles.story_era_key_series(
-        speech_frame["year"], speech_frame["president"]
-    )
-
-    paragraph_frame = _strict_one_to_one_merge(
-        paragraphs[["doc_name", "para_idx", "word_count"]],
+    if paragraph_annotations.duplicated(["doc_name", "para_idx"]).any():
+        raise ValueError("era visualization paragraph annotations have duplicate keys")
+    paragraph_frame = foundation.paragraph_view[
+        foundation.paragraph_view["analysis_eligible"]
+    ].merge(
         paragraph_annotations[["doc_name", "para_idx", "topics"]],
-        ["doc_name", "para_idx"],
-        "era visualizations paragraphs x paragraph annotations",
-    )
-    paragraph_frame = paragraph_frame.merge(
-        speech_frame[["doc_name", "president", "year", "era_key"]],
-        on="doc_name",
+        on=["doc_name", "para_idx"],
         how="left",
-        validate="many_to_one",
+        validate="one_to_one",
     )
-    if paragraph_frame[["president", "year"]].isna().any().any():
+    if paragraph_frame["topics"].isna().any():
         raise ValueError(
-            "era visualizations contain paragraphs with unknown speeches"
+            "era visualizations contain eligible speaker paragraphs without annotations"
         )
+    paragraph_frame["president"] = paragraph_frame["attributed_speaker"]
+    paragraph_frame["era_key"] = paragraph_frame["story_era_key"]
     label_map = attention.canonical_label_map(taxonomy)
     paragraph_frame["topic_set"] = [
         frozenset(attention.normalize_topics(raw, label_map))
         for raw in paragraph_frame["topics"]
     ]
 
-    entity_required = {"doc_name", "para_idx", "entity", "stance"}
-    missing = sorted(entity_required - set(paragraph_entities.columns))
-    if missing:
-        raise ValueError(
-            f"paragraph_entities is missing era-visualization columns: {missing}"
-        )
-    entity_frame = paragraph_entities[sorted(entity_required)].merge(
-        paragraph_frame[
-            [
-                "doc_name", "para_idx", "president", "year", "era_key",
-                "word_count",
-            ]
-        ],
-        on=["doc_name", "para_idx"],
+    if speech_annotations.duplicated(["doc_name"]).any():
+        raise ValueError("era visualization speech annotations have duplicate documents")
+    appearance_frame = foundation.appearances.merge(
+        speech_annotations[["doc_name", "audience", "medium"]],
+        on="doc_name",
         how="left",
         validate="many_to_one",
     )
-    if entity_frame["year"].isna().any():
-        raise ValueError(
-            "era visualizations contain entities with unknown paragraphs"
-        )
+    if appearance_frame[["audience", "medium"]].isna().any().any():
+        raise ValueError("speaker appearances contain unclassified source documents")
+    appearance_frame["president"] = appearance_frame["attributed_speaker"]
+    appearance_frame["era_key"] = appearance_frame["story_era_key"]
+    entity_frame = foundation.entity_mentions.copy()
 
     visualizations = {}
     for spec in era_profiles.ERA_PROFILE_SPECS:
-        era_speeches = speech_frame[
-            speech_frame["era_key"].eq(spec.key)
+        era_appearances = appearance_frame[
+            appearance_frame["era_key"].eq(spec.key)
         ].copy()
         era_paragraphs = paragraph_frame[
             paragraph_frame["era_key"].eq(spec.key)
         ].copy()
         era_entities = entity_frame[
-            entity_frame["era_key"].eq(spec.key)
+            entity_frame["story_era_key"].eq(spec.key)
         ].copy()
-        if era_speeches.empty or era_paragraphs.empty:
+        if era_appearances.empty or era_paragraphs.empty:
             raise ValueError(
                 f"era visualization {spec.key!r} has no corpus rows"
             )
-        presidents = _president_rows(era_speeches)
+        presidents = _president_rows(era_appearances)
         visualizations[spec.key] = {
             **asdict(spec),
             "years": f"{spec.start_year}–{spec.end_year}",
             "presidents": presidents,
             "agenda": _agenda(era_paragraphs, presidents, taxonomy),
-            "governance": _governance(era_speeches, presidents),
+            "governance": _governance(era_appearances, presidents),
             "adversaries": _adversaries(
                 era_paragraphs, era_entities, presidents
             ),
             "support": {
-                "speeches": len(era_speeches),
-                "paragraphs": len(era_paragraphs),
+                "appearances": len(era_appearances),
+                "speaker_audited_paragraphs": len(era_paragraphs),
             },
         }
     return visualizations
@@ -790,19 +796,18 @@ def build_era_visualizations(
 def load_all_era_visualizations() -> dict[str, dict]:
     """Load current artifacts and derive all reusable era graphs."""
     data_dir = corpus.DATA_DIR
+    from .story_foundation import load_story_foundation
+
+    foundation = load_story_foundation()
     return build_era_visualizations(
-        corpus.load(),
-        pd.read_parquet(data_dir / "paragraphs.parquet"),
         pd.read_parquet(
             data_dir / "llm_annotations" / "paragraph_annotations.parquet"
         ),
         pd.read_parquet(
             data_dir / "llm_annotations" / "speech_annotations.parquet"
         ),
-        pd.read_parquet(
-            data_dir / "llm_annotations" / "paragraph_entities.parquet"
-        ),
         attention.load_taxonomy(),
+        foundation,
     )
 
 
@@ -820,14 +825,16 @@ def write_era_visualizations(
     path = site_dir / "data" / "era_visualizations.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "schema_version": "era-visualizations-v8",
+        "schema_version": "era-visualizations-v9",
         "era_order": [
             spec.key for spec in era_profiles.ERA_PROFILE_SPECS
         ],
         "visualizations": visualizations,
     }
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)
-        + "\n"
+    temp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    temp.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
     )
+    os.replace(temp, path)
     return path

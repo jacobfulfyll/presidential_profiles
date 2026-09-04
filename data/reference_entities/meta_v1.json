@@ -1,0 +1,38 @@
+{
+  "alias_version": "reference-entity-alias-v1",
+  "annotation_generation": "5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307",
+  "artifacts": {
+    "alias_map_v1.json": "sha256:0b4307756a987d2b6e40ac387a2d05fdbf1be221cd92b4e7416a18a9ac38b76f",
+    "entity_mentions_v1.parquet": "sha256:c792b08e377fcfe98ff66b1b30f3caa081299a4002475153bfc086908cda057f",
+    "era_distinctive_v1.parquet": "sha256:ddcda9e7b4e1f8d03819ccbbcc08c2ca1b6cdccb6341568310e3b177345e1853",
+    "ner_mentions_v1.parquet": "sha256:06a460d5c4b40764c50115a26b6d68df4533c86c47746b3503cb4345770bd6fb",
+    "source_quality_v1.json": "sha256:12deae93db9568e4216cd7fb590e65ed8abe51b568d37be9964739723d5db826"
+  },
+  "attribution_run_id": "speaker-attribution-v1-primary-20260806",
+  "canonical_corpus_fingerprint": "1994fc58c35584d0af12d29806d084ce84dcd7335925b563c441047a3a80a32c",
+  "denominator": "every speaker-audited paragraph in the governed Story era, including paragraphs without entities",
+  "entity_schema_version": "reference-entity-v1",
+  "era_candidates": 45,
+  "era_schema_version": "era-distinctive-reference-v1",
+  "hybrid_entities": 186093,
+  "metadata_sha256": "sha256:a1d7e26a5a05f58cb6846fc9c18d9217bfc9be36f13cd88c0fe8ba359a26526f",
+  "ner_mentions": 199604,
+  "ner_pipeline_version": "spacy-ner-v1",
+  "paragraph_entity_deduplication": "one normalized entity at most once per paragraph",
+  "primary_ai_source": "data/annotation_ledger/materialized/generations/5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307/current_labels.parquet",
+  "primary_ai_source_sha256": "sha256:8de365f3a9b0fb9737cb3ef3a9b25006da2a2e0424fe44dc0efe8dc2c123a299",
+  "ranking": "Jeffreys-smoothed log odds against the other eight canonical Story eras",
+  "schema_version": "speaker-reference-foundation-v1",
+  "secondary_ai_role": "data_quality_only",
+  "spacy_model": "en_core_web_sm",
+  "spacy_model_version": "3.8.0",
+  "spacy_version": "3.8.14",
+  "thresholds": {
+    "min_eligible_paragraphs": 5,
+    "min_source_documents": 2,
+    "prior_failure": 0.5,
+    "prior_success": 0.5,
+    "top_per_era": 5
+  },
+  "timestamps": "omitted_by_design"
+}

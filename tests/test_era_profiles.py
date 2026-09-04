@@ -9,7 +9,13 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from presidential_profiles import attention, corpus, era_profiles, site
+from presidential_profiles import (
+    attention,
+    corpus,
+    era_profiles,
+    site,
+    story_foundation,
+)
 
 
 DATA = Path(__file__).resolve().parents[1] / "data"
@@ -26,11 +32,8 @@ def all_profiles() -> dict[str, dict]:
         pd.read_parquet(
             DATA / "llm_annotations" / "speech_annotations.parquet"
         ),
-        pd.read_parquet(
-            DATA / "llm_annotations" / "paragraph_entities.parquet"
-        ),
         attention.load_taxonomy(),
-        constituency_claims=None,
+        story_foundation.load_story_foundation(),
     )
 
 
@@ -92,6 +95,46 @@ def test_all_nine_profiles_have_the_complete_shared_contract(all_profiles):
         assert profile["years"] == f"{spec.start_year}–{spec.end_year}"
         assert profile["section_key"] == spec.section_key
         assert profile["presidents"]
+        assert len(profile["distinctive_references"]["rows"]) == 5
+        assert profile["distinctive_references"]["denominator"]["unit"] == (
+            "speaker_audited_paragraphs"
+        )
+        landscape = profile["reference_landscape"]
+        assert landscape["denominator"]["unit"] == "speaker_audited_paragraphs"
+        assert [row["entity_type"] for row in landscape["types"]] == [
+            "person", "institution", "group", "nation",
+        ]
+        assert landscape["selection"] == {
+            "minimum_paragraphs": 5,
+            "limited_record_minimum_paragraphs": 4,
+            "limited_record_only_when_no_supported_highlight": True,
+            "minimum_source_documents": 2,
+            "minimum_favorable_or_neutral_share": .8,
+            "excludes_displayed_named_adversaries": True,
+            "one_highlight_per_type": True,
+            "ner_supplies_stance": False,
+        }
+        adversary_names = {
+            row["normalized_entity"] for row in profile["adversaries"]
+        }
+        for row in landscape["types"]:
+            assert 0 <= row["paragraph_share"] <= 1
+            assert 0 <= row["corpus_paragraph_share"] <= 1
+            highlight = row["highlight"]
+            if highlight is None:
+                continue
+            assert highlight["entity_type"] == row["entity_type"]
+            assert highlight["normalized_entity"] not in adversary_names
+            assert highlight["support_status"] in {"supported", "limited_record"}
+            minimum_paragraphs = (
+                5 if highlight["support_status"] == "supported" else 4
+            )
+            assert highlight["support"]["paragraphs"] >= minimum_paragraphs
+            assert highlight["support"]["source_documents"] >= 2
+            stance = highlight["stance_mix"]
+            assert (
+                stance["favorable"] + stance["neutral"]
+            ) / sum(stance.values()) >= .8
         assert len(profile["adversaries"]) == 5
         assert len(profile["adversary_types"]) == 5
         assert len(profile["major_topics"]) == 6
@@ -99,6 +142,14 @@ def test_all_nine_profiles_have_the_complete_shared_contract(all_profiles):
         assert profile["footprint"]["speeches"] > 0
         assert profile["footprint"]["paragraphs"] > 0
         assert profile["footprint"]["words"] > 0
+        assert profile["footprint"]["unit"] == "source_document_corpus"
+        assert profile["major_topics_receipt"]["unit"] == (
+            "source_document_corpus"
+        )
+        assert profile["distinctive_words_receipt"]["unit"] == (
+            "source_document_corpus"
+        )
+        assert profile["style"]["unit"] == "source_document_corpus"
         assert profile["style"]["audience_options"]
         assert profile["style"]["medium_options"]
         eligibility = profile["distinctive_eligibility"]
@@ -112,6 +163,22 @@ def test_all_nine_profiles_have_the_complete_shared_contract(all_profiles):
             assert word["era_president_count"] >= (
                 eligibility["min_era_presidents"]
             )
+
+
+def test_progressives_depression_surfaces_american_legion_as_limited_record(
+    all_profiles,
+):
+    group = next(
+        row
+        for row in all_profiles["progressives-depression"]["reference_landscape"]["types"]
+        if row["entity_type"] == "group"
+    )
+    assert group["highlight"]["label"] == "American Legion"
+    assert group["highlight"]["support_status"] == "limited_record"
+    assert group["highlight"]["support"] == {
+        "paragraphs": 4,
+        "source_documents": 4,
+    }
 
 
 def test_disjoint_profile_footprints_reconcile_to_the_whole_corpus(all_profiles):
@@ -143,7 +210,7 @@ def test_founding_record_preserves_the_approved_profile(all_profiles):
         "Great Britain",
         "Aaron Burr",
         "Spain",
-        "Tripoli / Barbary states",
+        "Tripoli",
     ]
     assert [row["term"] for row in profile["distinctive_words"]] == [
         "militia",
@@ -158,22 +225,25 @@ def test_founding_record_preserves_the_approved_profile(all_profiles):
         "Executive power & courts",
         "Barbary & War of 1812",
     ]
-    assert profile["constituency_status"] == "fallback"
+    assert [row["label"] for row in profile["distinctive_references"]["rows"]] == [
+        "General Wilkinson",
+        "Aaron Burr",
+        "Cherokee Nation",
+        "Tripoli",
+        "French Republic",
+    ]
 
 
-def test_nonfounding_profiles_make_missing_constituencies_explicit(all_profiles):
-    for key, profile in all_profiles.items():
-        if key == "founding":
-            continue
-        assert profile["constituents"] == []
-        assert profile["constituency_status"] == "pending"
-        assert profile["constituency_note"] == (
-            "No promoted constituency claims yet"
-        )
+def test_profiles_remove_legacy_constituency_fields(all_profiles):
+    for profile in all_profiles.values():
+        assert {
+            "constituents", "constituency_status", "constituency_note"
+        }.isdisjoint(profile)
 
 
 def test_one_renderer_handles_every_profile_with_unique_ids(all_profiles):
     rendered = []
+    rendered_by_key = {}
     for key, profile in all_profiles.items():
         body = site._era_profile_html(
             profile,
@@ -183,6 +253,24 @@ def test_one_renderer_handles_every_profile_with_unique_ids(all_profiles):
         assert f">{profile['years']}</h3>" in body
         assert f"<strong>{profile['title'].replace('&', '&amp;')}</strong>" in body
         assert body.count('class="era-card-heading"') == 4
+        highlight_count = sum(
+            row["highlight"] is not None
+            for row in profile["reference_landscape"]["types"]
+        )
+        assert body.count('class="era-reference-highlight"') == highlight_count
+        assert body.count('class="era-reference-lane"') == 4
+        assert body.count('class="era-reference-name"') == highlight_count
+        assert "Distinctive era references</span></header>" in body
+        assert (
+            f'aria-labelledby="test-{key}-profile-reference-title"' in body
+        )
+        assert "Who and what enters the frame" not in body
+        assert "Share of actual-president paragraphs naming each kind of reference" not in body
+        assert "era-reference-track" not in body
+        assert "AI</i>AI only" not in body
+        assert "Positive Jeffreys-smoothed" not in body
+        assert "Descending log odds" not in body
+        assert "45-row reference CSV" not in body
         assert body.count('class="era-distinctive-word"') == 3
         assert body.count('class="era-adversary-bubble"') == 5
         assert body.count('class="era-president-portrait-link"') == len(
@@ -194,6 +282,16 @@ def test_one_renderer_handles_every_profile_with_unique_ids(all_profiles):
                 in body
             )
         rendered.append(body)
+        rendered_by_key[key] = body
+    assert 'data-support-status="limited_record"' in rendered_by_key[
+        "progressives-depression"
+    ]
+    assert "American Legion" in rendered_by_key["progressives-depression"]
+    assert "Limited record" in rendered_by_key["progressives-depression"]
+    assert ">AI only</span>" in rendered_by_key["progressives-depression"]
+    assert 'class="era-reference-meta"' in rendered_by_key[
+        "progressives-depression"
+    ]
     joined = "".join(rendered)
     for spec in era_profiles.ERA_PROFILE_SPECS:
         assert joined.count(f'id="test-{spec.key}-profile"') == 1
@@ -296,7 +394,7 @@ def test_adversary_pack_scales_to_avoid_collisions_in_every_era(all_profiles):
 def test_profiles_publish_as_one_switchable_json_file(all_profiles, tmp_path):
     path = era_profiles.write_era_profiles(all_profiles, tmp_path)
     payload = json.loads(path.read_text())
-    assert payload["schema_version"] == "era-profile-v4"
+    assert payload["schema_version"] == "era-profile-v6"
     assert payload["profile_order"] == list(all_profiles)
     assert payload["profiles"]["expansion"]["years"] == "1809–1849"
 

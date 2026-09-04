@@ -1,0 +1,180 @@
+{
+  "contract_version": "actual-speaker-topic-network-v1",
+  "counts": {
+    "actual_speaker_appearances": 1054,
+    "cross_owner_presidential_paragraphs": 296,
+    "default_visible_edges": 2104,
+    "edge_evidence_receipts": 11576,
+    "edges": 4408,
+    "eligible_paragraphs": 32531,
+    "excluded_paragraphs": 2863,
+    "level1_memberships": 43570,
+    "memberships": 91119,
+    "network_nodes": 112,
+    "normalized_level2_memberships": 47549,
+    "president_support_rows": 450,
+    "presidents": 45,
+    "raw_level2_assignments": 48211,
+    "removed_duplicate_or_case_variant_assignments": 662,
+    "retained_paragraphs": 35394,
+    "story_eras": 9,
+    "topic_bearing_eligible_paragraphs": 32394,
+    "topic_free_eligible_paragraphs": 137,
+    "topic_nodes": 67,
+    "topic_support_rows": 670
+  },
+  "evidence_selection_policy": "Deterministic audit examples, not representative samples or historical proof: select the first, lower-middle, and last qualifying actual-speaker appearance chronologically, deduplicate appearances, and take the lowest qualifying paragraph index within each selected appearance.",
+  "files": {
+    "edge_evidence_v1.csv": {
+      "bytes": 17169868,
+      "rows": 11576,
+      "schema_version": "actual-speaker-topic-evidence-v1",
+      "sha256": "sha256:4534ab1bfd8cc9662b6e335e9637548b51fea0c6472ee2b9026a9cfb7c49c09c"
+    },
+    "edges_v1.csv": {
+      "bytes": 5210604,
+      "rows": 4408,
+      "schema_version": "actual-speaker-topic-edge-v1",
+      "sha256": "sha256:e16cab0e1d630656fc110b15655624992feae20720988ea3a8f9b9e526d76518"
+    },
+    "memberships_v1.parquet": {
+      "bytes": 24994528,
+      "rows": 91119,
+      "schema_version": "actual-speaker-topic-membership-v1",
+      "sha256": "sha256:58191f6094167758cbd47dfb41a42e511986ffb42288408a5bd65bacbd979d9f"
+    },
+    "network_v1.json": {
+      "bytes": 10374293,
+      "rows": 1,
+      "schema_version": "actual-speaker-topic-network-public-v1",
+      "sha256": "sha256:c3797f0fbfe7a97f5bd392165c7e33d33740aa9413ac0c1c70db4b78d9cbf1a8"
+    }
+  },
+  "input_provenance": {
+    "active_topic_promotion": {
+      "active_generation_id": "5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307",
+      "current_labels_path": "data/annotation_ledger/materialized/generations/5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307/current_labels.parquet",
+      "current_labels_sha256": "sha256:8de365f3a9b0fb9737cb3ef3a9b25006da2a2e0424fe44dc0efe8dc2c123a299",
+      "generation_artifact_root": "sha256:5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307",
+      "generation_manifest_path": "data/annotation_ledger/materialized/generations/5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307/generation.json",
+      "generation_manifest_sha256": "sha256:9c5536e0e7bc9dc4c74b7197f50ec744f043a399b2d86001002e9af86d50f2ae",
+      "pointer_path": "data/annotation_ledger/materialized/current",
+      "pointer_sha256": "sha256:6d25cfeed8bd205af88dc5061d07d3e6b1fea275be0f656a3b671fd78d5a7245",
+      "promoted_topic_records_sha256": "sha256:d78420849a462d0d8205ef3222af0ae42cdffced3160c5f4203393c5645f4564",
+      "promotion_contract": {
+        "event_role": "value",
+        "label_type": "topics",
+        "promotion_channel": "primary",
+        "value_kind": "list"
+      }
+    },
+    "story_foundation": {
+      "annotation_generation": "5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307",
+      "attribution_run_id": "speaker-attribution-v1-primary-20260806",
+      "canonical_corpus_fingerprint": "1994fc58c35584d0af12d29806d084ce84dcd7335925b563c441047a3a80a32c",
+      "contract_identity": "story-foundation-public-v1",
+      "governed_schema_version": "speaker-reference-foundation-v1",
+      "reference_meta_file_sha256": "sha256:e887c1714df479cd327349d9be0d9095e490d23d5d42ea58896809d133b1525a",
+      "reference_metadata_sha256": "sha256:a1d7e26a5a05f58cb6846fc9c18d9217bfc9be36f13cd88c0fe8ba359a26526f",
+      "source_hashes": {
+        "appearances": "sha256:1bc3545e09fa6b70d18ffe4aa7578003d5c29f96c12b10f2b66b1fdcb199bbab",
+        "entity_mentions": "sha256:c792b08e377fcfe98ff66b1b30f3caa081299a4002475153bfc086908cda057f",
+        "era_distinctive": "sha256:ddcda9e7b4e1f8d03819ccbbcc08c2ca1b6cdccb6341568310e3b177345e1853",
+        "paragraph_view": "sha256:e12788604ce6d6c8513daf5834d13b0f3115763466a89952b1fb3bbafed65472"
+      },
+      "source_paths": {
+        "appearances": "data/speaker_views/appearances_v1.parquet",
+        "entity_mentions": "data/reference_entities/entity_mentions_v1.parquet",
+        "era_distinctive": "data/reference_entities/era_distinctive_v1.parquet",
+        "paragraph_view": "data/speaker_views/paragraph_view_v1.parquet"
+      },
+      "speaker_meta_file_sha256": "sha256:43fef3a450bcb5984b017a5792c5f71ba9e6e55520e30cf209858ea21ede5081",
+      "speaker_metadata_sha256": "sha256:bb832b96598bc71851d206720427ef13e9f10e8f83a0fcaf60128a8b5032f6f1",
+      "speaker_view_schema": "speaker-view-v1"
+    },
+    "topic_taxonomy": {
+      "normalization_helpers": [
+        "attention.canonical_label_map",
+        "attention.normalize_topics",
+        "attention.level1_parents"
+      ],
+      "path": "data/llm_annotations/taxonomy_v1.json",
+      "sha256": "sha256:042fc959a64108cfa426e8463b72e2e56a66944cb32460173f711a668cc440dd"
+    }
+  },
+  "interpretation_policy": "Descriptive AI-assigned topic presence in speaker-audited Miller Center paragraphs. It is not historical validation, model confidence, presidential intent, importance, influence, causality, policy success, or representation of the public or presidency as a whole.",
+  "manifest_sha256": "sha256:00b842d8736a64f1fc911f18c994eb3a716459cd4e89d943f4c1d8e57364fc92",
+  "metrics": {
+    "actual_speaker_topic_contribution": {
+      "definition": "Topic-bearing eligible paragraphs attributed to the president divided by all eligible paragraphs carrying that topic across presidents in the scope.",
+      "formula": "topic_paragraph_count / scope_topic_paragraph_count",
+      "interpretation": "Descriptive AI-assigned topic presence in speaker-audited Miller Center paragraphs. It is not historical validation, model confidence, presidential intent, importance, influence, causality, policy success, or representation of the public or presidency as a whole.",
+      "measure": "topic_contribution_share",
+      "multi_label_treatment": "Count each distinct normalized Level 2 topic once per paragraph and each distinct derived Level 1 parent once per paragraph. Preserve one full paragraph-presence membership for every topic; do not divide a paragraph fractionally. Topic shares are non-additive and may sum above 100%.",
+      "population": "Eligible actual-president paragraphs in the accepted speaker-audited foundation.",
+      "scope_behavior": "Computed for the complete eligible corpus and separately within each accepted Story era carried by the foundation.",
+      "thin_record_rules": {
+        "edge_supported_minimum_paragraphs": 5,
+        "edge_supported_minimum_topic_appearances": 2,
+        "president_supported_minimum_appearances": 5
+      },
+      "topic_free_treatment": "All eligible actual-president paragraphs, including topic-free paragraphs, remain in president and scope denominators; topic-free paragraphs create no membership and no edge.",
+      "unit": "Distinct paragraph presence; appearances are distinct (doc_name, actual-speaker profile ID) receipts."
+    },
+    "actual_speaker_topic_presence": {
+      "definition": "Topic-bearing eligible paragraphs attributed to the president divided by all eligible paragraphs attributed to that president in the scope.",
+      "formula": "topic_paragraph_count / eligible_president_paragraph_count",
+      "interpretation": "Descriptive AI-assigned topic presence in speaker-audited Miller Center paragraphs. It is not historical validation, model confidence, presidential intent, importance, influence, causality, policy success, or representation of the public or presidency as a whole.",
+      "measure": "speaker_paragraph_share",
+      "multi_label_treatment": "Count each distinct normalized Level 2 topic once per paragraph and each distinct derived Level 1 parent once per paragraph. Preserve one full paragraph-presence membership for every topic; do not divide a paragraph fractionally. Topic shares are non-additive and may sum above 100%.",
+      "population": "Eligible actual-president paragraphs in the accepted speaker-audited foundation.",
+      "scope_behavior": "Computed for the complete eligible corpus and separately within each accepted Story era carried by the foundation.",
+      "thin_record_rules": {
+        "edge_supported_minimum_paragraphs": 5,
+        "edge_supported_minimum_topic_appearances": 2,
+        "president_supported_minimum_appearances": 5
+      },
+      "topic_free_treatment": "All eligible actual-president paragraphs, including topic-free paragraphs, remain in president and scope denominators; topic-free paragraphs create no membership and no edge.",
+      "unit": "Distinct paragraph presence; appearances are distinct (doc_name, actual-speaker profile ID) receipts."
+    },
+    "topic_scope_share": {
+      "definition": "All eligible paragraphs carrying the topic divided by all eligible actual-president paragraphs in the scope.",
+      "formula": "scope_topic_paragraph_count / scope_eligible_paragraph_count",
+      "interpretation": "Descriptive AI-assigned topic presence in speaker-audited Miller Center paragraphs. It is not historical validation, model confidence, presidential intent, importance, influence, causality, policy success, or representation of the public or presidency as a whole.",
+      "measure": "topic_scope_share",
+      "multi_label_treatment": "Count each distinct normalized Level 2 topic once per paragraph and each distinct derived Level 1 parent once per paragraph. Preserve one full paragraph-presence membership for every topic; do not divide a paragraph fractionally. Topic shares are non-additive and may sum above 100%.",
+      "population": "Eligible actual-president paragraphs in the accepted speaker-audited foundation.",
+      "scope_behavior": "Computed for the complete eligible corpus and separately within each accepted Story era carried by the foundation.",
+      "thin_record_rules": {
+        "edge_supported_minimum_paragraphs": 5,
+        "edge_supported_minimum_topic_appearances": 2,
+        "president_supported_minimum_appearances": 5
+      },
+      "topic_free_treatment": "All eligible actual-president paragraphs, including topic-free paragraphs, remain in president and scope denominators; topic-free paragraphs create no membership and no edge.",
+      "unit": "Distinct paragraph presence; appearances are distinct (doc_name, actual-speaker profile ID) receipts."
+    }
+  },
+  "multi_label_counting_policy": "Count each distinct normalized Level 2 topic once per paragraph and each distinct derived Level 1 parent once per paragraph. Preserve one full paragraph-presence membership for every topic; do not divide a paragraph fractionally. Topic shares are non-additive and may sum above 100%.",
+  "schema_version": "actual-speaker-topic-network-public-manifest-v1",
+  "schema_versions": {
+    "acceptance": "actual-speaker-topic-network-acceptance-v1",
+    "edge_evidence": "actual-speaker-topic-evidence-v1",
+    "edges": "actual-speaker-topic-edge-v1",
+    "memberships": "actual-speaker-topic-membership-v1",
+    "paragraph_topics": "actual-speaker-topic-paragraph-v1",
+    "president_nodes": "actual-speaker-topic-president-node-v1",
+    "president_support": "actual-speaker-topic-president-support-v1",
+    "public_manifest": "actual-speaker-topic-network-public-manifest-v1",
+    "public_network": "actual-speaker-topic-network-public-v1",
+    "topic_nodes": "actual-speaker-topic-topic-node-v1",
+    "topic_support": "actual-speaker-topic-topic-support-v1"
+  },
+  "support_thresholds": {
+    "default_visible_minimum_paragraphs": 20,
+    "default_visible_minimum_topic_appearances": 5,
+    "edge_supported_minimum_paragraphs": 5,
+    "edge_supported_minimum_topic_appearances": 2,
+    "president_supported_minimum_appearances": 5
+  },
+  "topic_free_denominator_policy": "All eligible actual-president paragraphs, including topic-free paragraphs, remain in president and scope denominators; topic-free paragraphs create no membership and no edge."
+}

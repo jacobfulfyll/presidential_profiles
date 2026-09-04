@@ -1,0 +1,26 @@
+{
+  "agreement_sample": "data/llm_annotations/agreement_sample_v1.json",
+  "agreement_sample_sha256": "sha256:7cd0ad5c107e5f2f1b7b57c6bf02d5848b766f5455474fe898cf1d805df0a363",
+  "canonical_exact_key_documents_compared": 260,
+  "canonical_exact_key_paragraphs_compared": 8438,
+  "exact_name_set_agreement_paragraphs": 5949,
+  "exact_name_set_agreement_share": 0.7050248874140792,
+  "matched_normalized_names": 4095,
+  "mean_name_set_jaccard": 0.7574750484563236,
+  "primary_only_normalized_names": 2680,
+  "prohibited_uses": [
+    "headline_candidates",
+    "era_ranking",
+    "stance_inference"
+  ],
+  "role": "data_quality_only",
+  "sample_documents_declared": 266,
+  "schema_version": "reference-entity-source-quality-v1",
+  "secondary_artifact": "data/llm_annotations/paragraph_entities__opus4-8.parquet",
+  "secondary_artifact_sha256": "sha256:c518e47022a716a785d0f9ad9d19c4920ec2cb75c8115ebf8ea050ac1df14ccf",
+  "secondary_labeled_documents_declared": 262,
+  "secondary_labeled_paragraphs_declared": 8570,
+  "secondary_only_normalized_names": 1756,
+  "secondary_paragraph_artifact": "data/llm_annotations/paragraph_annotations__opus4-8.parquet",
+  "secondary_paragraph_artifact_sha256": "sha256:f7456d8a1aa13cb905cfa8f2947de2d62f56ba1de43939e241ba106629634f44"
+}

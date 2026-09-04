@@ -16,6 +16,7 @@ from presidential_profiles import (
     era_profiles,
     era_visualizations,
     site,
+    story_foundation,
 )
 
 
@@ -24,6 +25,7 @@ DATA = Path(__file__).resolve().parents[1] / "data"
 
 @pytest.fixture(scope="module")
 def all_contextualizations() -> dict[str, dict]:
+    foundation = story_foundation.load_story_foundation()
     return era_contextualizations.build_era_contextualizations(
         corpus.load(),
         pd.read_parquet(DATA / "paragraphs.parquet"),
@@ -31,10 +33,22 @@ def all_contextualizations() -> dict[str, dict]:
             DATA / "llm_annotations" / "paragraph_annotations.parquet"
         ),
         attention.load_taxonomy(),
-        era_profiles.load_all_era_profiles(),
+        era_profiles.build_era_profiles(
+            corpus.load(),
+            pd.read_parquet(DATA / "paragraphs.parquet"),
+            pd.read_parquet(
+                DATA / "llm_annotations" / "paragraph_annotations.parquet"
+            ),
+            pd.read_parquet(
+                DATA / "llm_annotations" / "speech_annotations.parquet"
+            ),
+            attention.load_taxonomy(),
+            foundation,
+        ),
         pd.read_parquet(
             DATA / "networks" / "invocation_evidence.parquet"
         ),
+        foundation,
     )
 
 
@@ -69,7 +83,15 @@ def test_all_nine_eras_share_one_complete_contextualization_contract(
         assert "receipts" in record["era_echoes"]
         assert record["support"]["paragraphs"] > 0
         assert record["support"]["speeches"] > 0
-        assert record["support"]["invocation_rows"] == 1_447
+        assert record["support"]["speaker_audited_paragraphs"] > 0
+        assert record["support"]["invocation_rows"] == 1_243
+        assert record["support"]["invocation_overlay"] == {
+            "source_rows": 1_447,
+            "unresolved_keys": 48,
+            "ineligible_rows": 156,
+            "reassigned_speakers": 27,
+            "retained_rows": 1_243,
+        }
     assert all(
         record["era_defined"]["status"] == "authored"
         and record["era_defined"]["visual_kind"] == "combined_trajectory"
@@ -105,7 +127,7 @@ def test_founding_definition_uses_equal_era_historical_average(
         10.9909367
     )
     assert rows["abroad"]["president_average_share"] == pytest.approx(
-        30.3794334
+        31.7343922
     )
     assert rows["native"]["aggregate_share"] == pytest.approx(18.3284457)
     assert rows["native"]["historical_average_share"] == pytest.approx(
@@ -289,35 +311,35 @@ def test_era_echoes_are_topic_networks_with_actor_receipts(
     founding = all_contextualizations["founding"]["era_echoes"]
     assert founding["direction_mode"] == "incoming"
     assert founding["outgoing"]["reference_paragraphs"] == 0
-    assert founding["incoming"]["reference_paragraphs"] == 218
-    assert founding["incoming"]["raw_mentions"] == 275
-    assert founding["incoming"]["speeches"] == 126
+    assert founding["incoming"]["reference_paragraphs"] == 198
+    assert founding["incoming"]["raw_mentions"] == 253
+    assert founding["incoming"]["speeches"] == 119
     first_topic = founding["incoming"]["topics"][0]
     assert first_topic["topic"] == "Providence, Faith & American Ideals"
-    assert first_topic["paragraphs"] == 55
-    assert first_topic["share"] == pytest.approx(55 / 218 * 100)
+    assert first_topic["paragraphs"] == 52
+    assert first_topic["share"] == pytest.approx(52 / 198 * 100)
     assert [receipt["title"] for receipt in founding["receipts"]] == [
         "Founding figures invoked",
         "Presidents looking back",
     ]
     assert founding["receipts"][0]["items"][0] == {
         "name": "Thomas Jefferson",
-        "raw_mentions": 148,
-        "paragraphs": 126,
-        "speeches": 82,
+        "raw_mentions": 130,
+        "paragraphs": 109,
+        "speeches": 76,
     }
     assert (
         founding["receipts"][1]["items"][0]["name"]
         == "Ronald Reagan"
     )
     network = founding["network"]
-    assert network["reference_paragraphs"] == 218
-    assert network["raw_mentions"] == 275
-    assert network["speeches"] == 126
+    assert network["reference_paragraphs"] == 198
+    assert network["raw_mentions"] == 253
+    assert network["speeches"] == 119
     assert [node["label"] for node in network["source_nodes"][:3]] == [
         "Ronald Reagan",
-        "Abraham Lincoln",
         "Calvin Coolidge",
+        "Abraham Lincoln",
     ]
     assert network["topic_nodes"][0]["label"] == "Faith & national ideals"
     assert [node["label"] for node in network["target_nodes"]] == [
@@ -345,9 +367,9 @@ def test_era_echoes_are_topic_networks_with_actor_receipts(
     ]
     assert [
         node["reference_paragraphs"] for node in gravity["anchor_nodes"]
-    ] == [100, 18, 126]
+    ] == [96, 18, 109]
     assert len(gravity["president_satellites"]) == 32
-    assert len(gravity["topic_satellites"]) == 40
+    assert len(gravity["topic_satellites"]) == 39
     assert all(
         node["key"] != "Other invoking presidents"
         for node in gravity["president_satellites"]
@@ -523,7 +545,7 @@ def test_one_renderer_handles_every_era_with_unique_context_screen_ids(
     assert "overlapping family shares sum to" in founding
     assert founding.count('class="era-echo-gravity-chart"') == 1
     assert founding.count("era-echo-gravity-satellite is-president") == 32
-    assert founding.count("era-echo-gravity-satellite is-topic") == 40
+    assert founding.count("era-echo-gravity-satellite is-topic") == 39
     expected_topic_president_pairs = {
         (path["topic"], path["speaker"])
         for path in all_contextualizations["founding"]["era_echoes"][
@@ -536,7 +558,7 @@ def test_one_renderer_handles_every_era_with_unique_context_screen_ids(
     assert 'data-echo-gravity' in founding
     assert 'data-topic-president-link' in founding
     assert 'data-president-keys=' in founding
-    assert "Invoking presidents:" in founding
+    assert "Invoking actual speakers:" in founding
     assert "Distance = share of connected paragraphs" in founding
     assert "shared pull" in founding
     assert 'portraits/thomas-jefferson.png' in founding
@@ -619,7 +641,11 @@ def test_shared_workspace_is_the_only_story_body_for_an_era(
     section = page[expansion_start:expansion_end]
     assert section.count('id="expansion-workspace"') == 1
     assert "data-existing-story" not in section
-    assert "<blockquote>" not in section
+    assert section.count('class="era-reference-lane"') == 4
+    assert "Distinctive era references</span></header>" in section
+    assert "Who and what enters the frame" not in section
+    assert "era-reference-track" not in section
+    assert section.count("<blockquote>") == 0
 
 
 def test_topic_life_annotation_history_is_timestamped_and_fail_closed(
@@ -715,7 +741,7 @@ def test_contextualizations_publish_as_one_switchable_json_file(
         tmp_path,
     )
     payload = json.loads(path.read_text())
-    assert payload["schema_version"] == "era-contextualizations-v10"
+    assert payload["schema_version"] == "era-contextualizations-v11"
     assert payload["era_order"] == list(all_contextualizations)
     assert (
         payload["contextualizations"]["founding"]["topic_life"][

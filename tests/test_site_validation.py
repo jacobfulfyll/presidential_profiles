@@ -78,3 +78,14 @@ def test_github_pages_marker_is_empty_and_idempotent(tmp_path):
     assert marker == tmp_path / ".nojekyll"
     assert marker.read_bytes() == b""
     assert write_github_pages_marker(tmp_path).read_bytes() == b""
+
+
+def test_story_download_links_are_validated_like_other_internal_assets(tmp_path):
+    story_dir = tmp_path / "data" / "story"
+    story_dir.mkdir(parents=True)
+    (story_dir / "era_distinctive_v1.csv").write_text("rank\n1\n")
+    (tmp_path / "index.html").write_text(
+        '<body><nav aria-label="Primary"></nav>'
+        '<a href="data/story/era_distinctive_v1.csv">download</a></body>'
+    )
+    assert validate_site(tmp_path)["ok"]

@@ -1,0 +1,1161 @@
+{
+  "carter_reagan_regression": {
+    "carter_paragraphs": 44,
+    "doc_name": "/the-presidency/presidential-speeches/october-28-1980-debate-ronald-reagan",
+    "document_owner": "Jimmy Carter",
+    "multiple_speaker_paragraphs": 43,
+    "non_president_paragraphs": 22,
+    "reagan_paragraphs": 42,
+    "shared_date": "1980-10-28 18:00:00",
+    "shared_source_url": "https://millercenter.org/the-presidency/presidential-speeches/october-28-1980-debate-ronald-reagan",
+    "shared_title": "October 28, 1980: Debate with Ronald Reagan",
+    "total_paragraphs": 151
+  },
+  "cross_owner_examples": [
+    {
+      "attributed_speaker": "Thomas Jefferson",
+      "doc_name": "/the-presidency/presidential-speeches/july-6-1852-eulogy-henry-clay",
+      "document_owner": "Abraham Lincoln",
+      "excerpt": "``I had for a long time ceased to read newspapers, or to pay any attention to public affairs, confident they were in good hands, and content to be a passenger in our bark to the shore from which I am not distant. But this momentous question, like a fire bell in the night, awakened, and filled me with terror. I considered it at once as the knell of the Union…",
+      "para_idx": 24,
+      "source_url": "https://millercenter.org/the-presidency/presidential-speeches/july-6-1852-eulogy-henry-clay",
+      "title": "July 6, 1852: Eulogy on Henry Clay"
+    },
+    {
+      "attributed_speaker": "Gerald Ford",
+      "doc_name": "/the-presidency/presidential-speeches/october-22-1976-debate-president-gerald-ford",
+      "document_owner": "Jimmy Carter",
+      "excerpt": "I think the American people will be called upon to be in the forefront in giving leadership to the solution of those problems that must be solved in the Middle East, in southern Africa, and any problems that might arise in the Pacific. The American people will be called upon to tighten their belts a bit in meeting some of the problems that we face domestica…",
+      "para_idx": 4,
+      "source_url": "https://millercenter.org/the-presidency/presidential-speeches/october-22-1976-debate-president-gerald-ford",
+      "title": "October 22, 1976: Debate with President Gerald Ford"
+    },
+    {
+      "attributed_speaker": "Ronald Reagan",
+      "doc_name": "/the-presidency/presidential-speeches/october-28-1980-debate-ronald-reagan",
+      "document_owner": "Jimmy Carter",
+      "excerpt": "GOVERNOR REAGAN. I don't know what the differences might be, because I don't know what Mr. Carter's policies are. I do know what he has said about mine. And I'm only here to tell you that I believe with all my heart that our first priority must be world peace, and that use of force is always and only a last resort, when everything else has failed, and then…",
+      "para_idx": 4,
+      "source_url": "https://millercenter.org/the-presidency/presidential-speeches/october-28-1980-debate-ronald-reagan",
+      "title": "October 28, 1980: Debate with Ronald Reagan"
+    },
+    {
+      "attributed_speaker": "Richard M. Nixon",
+      "doc_name": "/the-presidency/presidential-speeches/october-13-1960-debate-richard-nixon-new-york-and-los-angeles",
+      "document_owner": "John F. Kennedy",
+      "excerpt": "But I do say that any statement to the effect that the Republican party is trigger-happy is belied by the record. We had a war when we came into power in 1953. We got rid of that; we've kept out of other wars; and certainly that doesn't indicate that we're trigger-happy. We've been strong, but we haven't been trigger-happy. As far as Berlin is concerned, th…",
+      "para_idx": 6,
+      "source_url": "https://millercenter.org/the-presidency/presidential-speeches/october-13-1960-debate-richard-nixon-new-york-and-los-angeles",
+      "title": "October 13, 1960: Debate with Richard Nixon in New York and Los Angeles"
+    },
+    {
+      "attributed_speaker": "George Washington",
+      "doc_name": "/the-presidency/presidential-speeches/december-2-1878-second-annual-message",
+      "document_owner": "Rutherford B. Hayes",
+      "excerpt": "It will not be doubted that, with reference either to individual or national welfare, agriculture is of primary importance. In proportion as nations advance in population and other circumstances of maturity this truth becomes more apparent, and renders the cultivation of the soil more and more an object of public patronage. Institutions for promoting it gro…",
+      "para_idx": 52,
+      "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-2-1878-second-annual-message",
+      "title": "December 2, 1878: Second Annual Message"
+    }
+  ],
+  "era_candidates": [
+    {
+      "candidates": [
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 6,
+          "documents": 2,
+          "entity": "General Wilkinson",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/february-10-1807-special-message-congress-gun-boats",
+            "document": "February 10, 1807: Special Message to Congress on the Gun Boats",
+            "exact_ai_mention": "General Wilkinson",
+            "exact_ner_mention": null,
+            "excerpt": "On this subject professional men were consulted as far as we had opportunity. General Wilkinson, and the late General Gates, gave their opinions in writing, in favor of the system, as will be seen by their letters now communicated. The higher officers of the navy gave the same opinions in separate conferences, as their presence at the seat of government off…",
+            "para_idx": 2,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/february-10-1807-special-message-congress-gun-boats",
+            "speaker": "Thomas Jefferson"
+          },
+          "log_odds": 6.432000107523904,
+          "normalized_entity": "general wilkinson",
+          "paragraphs": 6,
+          "rank": 1,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 3,
+          "ai_only_paragraphs": 8,
+          "documents": 2,
+          "entity": "Aaron Burr",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/january-22-1807-special-message-congress-burr-conspiracy",
+            "document": "January 22, 1807: Special Message to Congress on the Burr Conspiracy",
+            "exact_ai_mention": "Aaron Burr",
+            "exact_ner_mention": "Aaron Burr",
+            "excerpt": "Some time in the latter part of September, I received intimations that designs were in agitation in the western country, unlawful and unfriendly to the peace of the Union; and that the prime mover in these was Aaron Burr, heretofore distinguished by the favor of his country. The grounds of these intimations being inconclusive, the objects uncertain, and the…",
+            "para_idx": 3,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/january-22-1807-special-message-congress-burr-conspiracy",
+            "speaker": "Thomas Jefferson"
+          },
+          "log_odds": 5.911431445082441,
+          "normalized_entity": "aaron burr",
+          "paragraphs": 11,
+          "rank": 2,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 6,
+          "documents": 4,
+          "entity": "Cherokee Nation",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-12-1792-proclamation-against-crimes-against-cherokee",
+            "document": "December 12, 1792: Proclamation Against Crimes Against the Cherokee Nations",
+            "exact_ai_mention": "Cherokee nation",
+            "exact_ner_mention": null,
+            "excerpt": "Whereas I have received authentic information, that certain lawless and wicked persons, of the western frontier in the State of Georgia, did lately invade, burn, and destroy a town belonging to the Cherokee nation, although in amity with the United States, and put to death several Indians of that nation; and whereas such outrageous conduct not only violates…",
+            "para_idx": 0,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-12-1792-proclamation-against-crimes-against-cherokee",
+            "speaker": "George Washington"
+          },
+          "log_odds": 4.822499417495107,
+          "normalized_entity": "cherokee nation",
+          "paragraphs": 6,
+          "rank": 3,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 5,
+          "ai_only_paragraphs": 0,
+          "documents": 5,
+          "entity": "Tripoli",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-15-1802-second-annual-message",
+            "document": "December 15, 1802: Second Annual Message",
+            "exact_ai_mention": "Tripoli",
+            "exact_ner_mention": "Tripoli",
+            "excerpt": "The cession of the Spanish Province of Louisiana to France, which took place in the course of the late war, will if carried into effect, make a change in the aspect of our foreign relations which will doubtless have just weight in any deliberations of the legislature connected with that subject. There was reason not long since to apprehend that the warfare…",
+            "para_idx": 4,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-15-1802-second-annual-message",
+            "speaker": "Thomas Jefferson"
+          },
+          "log_odds": 4.653946082176299,
+          "normalized_entity": "tripoli",
+          "paragraphs": 5,
+          "rank": 4,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 5,
+          "documents": 3,
+          "entity": "French Republic",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-3-1799-third-annual-message",
+            "document": "December 3, 1799: Third Annual Message",
+            "exact_ai_mention": "French Republic",
+            "exact_ner_mention": null,
+            "excerpt": "Persevering in the pacific and humane policy which had been invariably professed and sincerely pursued by the executive authority of the United States, when indications were made on the part of the French Republic of a disposition to accommodate the existing differences between the two countries, I felt it to be my duty to prepare for meeting their advances…",
+            "para_idx": 3,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-3-1799-third-annual-message",
+            "speaker": "John Adams"
+          },
+          "log_odds": 4.653946082176299,
+          "normalized_entity": "french republic",
+          "paragraphs": 5,
+          "rank": 5,
+          "source_badge": "AI only"
+        }
+      ],
+      "denominator_paragraphs": 672,
+      "story_era": "Establishing the republic",
+      "story_era_key": "founding"
+    },
+    {
+      "candidates": [
+        {
+          "ai_ner_paragraphs": 7,
+          "ai_only_paragraphs": 133,
+          "documents": 17,
+          "entity": "Bank of the United States",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-15-1834-protest-senate-censure",
+            "document": "April 15, 1834: Protest of Senate Censure",
+            "exact_ai_mention": "Bank of the United States",
+            "exact_ner_mention": "Bank of the United States",
+            "excerpt": "This practice was continued, with the silent acquiescence of Congress, from 1789 down to 1816, and although many banks were selected and discharged, and although a portion of the moneys were first placed in the State banks, and then in the former Bank of the United States, and upon the dissolution of that were again transferred to the State banks, no legisl…",
+            "para_idx": 46,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-15-1834-protest-senate-censure",
+            "speaker": "Andrew Jackson"
+          },
+          "log_odds": 5.738339040867468,
+          "normalized_entity": "bank of the united states",
+          "paragraphs": 140,
+          "rank": 1,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 14,
+          "documents": 7,
+          "entity": "State banks",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-1-1834-sixth-annual-message-congress",
+            "document": "December 1, 1834: Sixth Annual Message to Congress",
+            "exact_ai_mention": "State banks",
+            "exact_ner_mention": null,
+            "excerpt": "Happily it is already illustrated that the agency of such an institution is not necessary to the fiscal operations of the Government. The State banks are found fully adequate to the performance of all services which were required of the Bank of the United States, quite as promptly and with the same cheapness. They have maintained themselves and discharged a…",
+            "para_idx": 63,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-1-1834-sixth-annual-message-congress",
+            "speaker": "Andrew Jackson"
+          },
+          "log_odds": 5.379874513158663,
+          "normalized_entity": "state banks",
+          "paragraphs": 14,
+          "rank": 2,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 12,
+          "documents": 6,
+          "entity": "national bank",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-2-1839-third-annual-message-congress",
+            "document": "December 2, 1839: Third Annual Message to Congress",
+            "exact_ai_mention": "national bank",
+            "exact_ner_mention": null,
+            "excerpt": "I am aware it has been urged that this control may be best attained and exerted by means of a national bank. The constitutional objections which I am well known to entertain would prevent me in any event from proposing or assenting to that remedy; but in addition to this, I can not after past experience bring myself to think that it can any longer be extens…",
+            "para_idx": 80,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-2-1839-third-annual-message-congress",
+            "speaker": "Martin Van Buren"
+          },
+          "log_odds": 5.230932927639988,
+          "normalized_entity": "national bank",
+          "paragraphs": 12,
+          "rank": 3,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 7,
+          "ai_only_paragraphs": 3,
+          "documents": 8,
+          "entity": "Buenos Ayres",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-1-1834-sixth-annual-message-congress",
+            "document": "December 1, 1834: Sixth Annual Message to Congress",
+            "exact_ai_mention": "Buenos Ayres",
+            "exact_ner_mention": "Buenos Ayres",
+            "excerpt": "Our representatives to Central America, Peru, and Brazil are either at or on their way to their respective posts. From the Argentine Republic, from which a minister was expected to this Government, nothing further has been heard. Occasion has been taken on the departure of a new consul to Buenos Ayres to remind that Government that its long delayed minister…",
+            "para_idx": 15,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-1-1834-sixth-annual-message-congress",
+            "speaker": "Andrew Jackson"
+          },
+          "log_odds": 5.056058231999108,
+          "normalized_entity": "buenos ayres",
+          "paragraphs": 10,
+          "rank": 4,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 7,
+          "documents": 2,
+          "entity": "General Herrera",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-8-1846-second-annual-message-congress",
+            "document": "December 8, 1846: Second Annual Message to Congress",
+            "exact_ai_mention": "General Herrera",
+            "exact_ner_mention": null,
+            "excerpt": "These communications rendered it highly probable, if not absolutely certain, that our minister would not be received by the Government of General Herrera. It was also well known that but little hope could be entertained of a different result from General Paredes in case the revolutionary movement which he was prosecuting should prove successful, as was high…",
+            "para_idx": 49,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-8-1846-second-annual-message-congress",
+            "speaker": "James K. Polk"
+          },
+          "log_odds": 4.718804541834611,
+          "normalized_entity": "general herrera",
+          "paragraphs": 7,
+          "rank": 5,
+          "source_badge": "AI only"
+        }
+      ],
+      "denominator_paragraphs": 3847,
+      "story_era": "The continental republic",
+      "story_era_key": "expansion"
+    },
+    {
+      "candidates": [
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 39,
+          "documents": 2,
+          "entity": "Southern people",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-6-1864-fourth-annual-message",
+            "document": "December 6, 1864: Fourth Annual Message",
+            "exact_ai_mention": "Southern people",
+            "exact_ner_mention": null,
+            "excerpt": "Between him and us the issue is distinct, simple, and inflexible. It is an issue which can only be tried by war and decided by victory. If we yield, we are beaten; if the Southern people fail him, he is beaten. Either way it would be the victory and defeat following war. What is true, however, of him who heads the insurgent cause is not necessarily true of…",
+            "para_idx": 50,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-6-1864-fourth-annual-message",
+            "speaker": "Abraham Lincoln"
+          },
+          "log_odds": 6.823535751773653,
+          "normalized_entity": "southern people",
+          "paragraphs": 39,
+          "rank": 1,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 1,
+          "ai_only_paragraphs": 28,
+          "documents": 2,
+          "entity": "Edwin M. Stanton",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-12-1867-message-regarding-suspension-secretary",
+            "document": "December 12, 1867: Message Regarding the Suspension of Secretary Stanton",
+            "exact_ai_mention": "Edwin M. Stanton",
+            "exact_ner_mention": "EDWIN M. STANTON",
+            "excerpt": "To the Senate of the United States: On the 12th of August last I suspended Mr. Stanton from the exercise of the office of Secretary of War, and on the same day designated General Grant to act as Secretary of War ad interim. The following are copies of the Executive orders: EXECUTIVE MANSION, Washington, August 12, 1867. Hon. EDWIN M. STANTON, Secretary of W…",
+            "para_idx": 0,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-12-1867-message-regarding-suspension-secretary",
+            "speaker": "Andrew Johnson"
+          },
+          "log_odds": 6.527744104107618,
+          "normalized_entity": "edwin m. stanton",
+          "paragraphs": 29,
+          "rank": 2,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 18,
+          "documents": 2,
+          "entity": "Judge Douglas",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/june-16-1858-house-divided-speech",
+            "document": "June 16, 1858: \"A House Divided\" Speech",
+            "exact_ai_mention": "Judge Douglas",
+            "exact_ner_mention": null,
+            "excerpt": "They remind us that he is a very great man , and that the largest of us are very small ones. Let this be granted. But \"a living dog is better than a dead lion .\" Judge Douglas, if not a dead lion for this work , is at least a caged and toothless one. How can he oppose the advances of slavery? He don't care anything about it. His avowed mission is impressing…",
+            "para_idx": 30,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/june-16-1858-house-divided-speech",
+            "speaker": "Abraham Lincoln"
+          },
+          "log_odds": 6.056872537062144,
+          "normalized_entity": "judge douglas",
+          "paragraphs": 18,
+          "rank": 3,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 7,
+          "ai_only_paragraphs": 1,
+          "documents": 8,
+          "entity": "Andrew Johnson",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-2-1866-proclamation-end-confederate-insurrection",
+            "document": "April 2, 1866: Proclamation on the End of the Confederate Insurrection",
+            "exact_ai_mention": "Andrew Johnson",
+            "exact_ner_mention": "Andrew Johnson",
+            "excerpt": "Whereas the policy of the Government of the United States from the beginning of the insurrection to its overthrow and final suppression has been in conformity with the principles herein set forth and enumerated: Now, therefore, I, Andrew Johnson, President of the United States, do hereby proclaim and declare that the insurrection which heretofore existed in…",
+            "para_idx": 11,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-2-1866-proclamation-end-confederate-insurrection",
+            "speaker": "Andrew Johnson"
+          },
+          "log_odds": 5.275318108088695,
+          "normalized_entity": "andrew johnson",
+          "paragraphs": 8,
+          "rank": 4,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 3,
+          "ai_only_paragraphs": 3,
+          "documents": 2,
+          "entity": "Miramon",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-19-1859-third-annual-message",
+            "document": "December 19, 1859: Third Annual Message",
+            "exact_ai_mention": "Miramon",
+            "exact_ner_mention": "Miramon",
+            "excerpt": "This assembly elected General Miramort, but that officer repudiated the plan under which he was chosen, and Zuloaga was thus restored to his previous position. He assumed it, however, only to withdraw from it; and Miramon, having become by his appointment \"President substitute,\" continues with that title at the head of the insurgent party.",
+            "para_idx": 46,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-19-1859-third-annual-message",
+            "speaker": "James Buchanan"
+          },
+          "log_odds": 5.006285924797893,
+          "normalized_entity": "miramon",
+          "paragraphs": 6,
+          "rank": 5,
+          "source_badge": "AI + NER"
+        }
+      ],
+      "denominator_paragraphs": 2610,
+      "story_era": "Sectional crisis & constitutional rupture",
+      "story_era_key": "civil-war-reconstruction"
+    },
+    {
+      "candidates": [
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 12,
+          "documents": 6,
+          "entity": "Santo Domingo",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-1-1873-fifth-annual-message",
+            "document": "December 1, 1873: Fifth Annual Message",
+            "exact_ai_mention": "Santo Domingo",
+            "exact_ner_mention": null,
+            "excerpt": "I transmit herewith, for the consideration and determination of Congress, an application of the Republic of Santo Domingo to this Government to exercise a protectorate over that Republic. Since the adjournment of Congress the following treaties with foreign powers have been proclaimed: A naturalization convention with Denmark; a convention with Mexico for r…",
+            "para_idx": 15,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-1-1873-fifth-annual-message",
+            "speaker": "Ulysses S. Grant"
+          },
+          "log_odds": 4.56613277818851,
+          "normalized_entity": "santo domingo",
+          "paragraphs": 12,
+          "rank": 1,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 10,
+          "documents": 3,
+          "entity": "Mr. Egan",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/january-25-1892-message-regarding-valparaiso-incident",
+            "document": "January 25, 1892: Message Regarding Valparaiso Incident",
+            "exact_ai_mention": "Mr. Egan",
+            "exact_ner_mention": null,
+            "excerpt": "I do not deem it necessary in this communication to attempt any full analysis of the correspondence or of the evidence. A brief restatement of the international questions involved and of the reasons why the responses of the Chilean Government are unsatisfactory is all that I deem necessary. It may be well at the outset to say that whatever may have been sai…",
+            "para_idx": 2,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/january-25-1892-message-regarding-valparaiso-incident",
+            "speaker": "Benjamin Harrison"
+          },
+          "log_odds": 4.391481350657053,
+          "normalized_entity": "mr. egan",
+          "paragraphs": 10,
+          "rank": 2,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 9,
+          "ai_only_paragraphs": 0,
+          "documents": 3,
+          "entity": "Filipinos",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-2-1902-second-annual-message",
+            "document": "December 2, 1902: Second Annual Message",
+            "exact_ai_mention": "Filipinos",
+            "exact_ner_mention": "Filipinos",
+            "excerpt": "On July 4 last, on the one hundred and twenty-sixth anniversary of the declaration of our independence, peace and amnesty were promulgated in the Philippine Islands. Some trouble has since from time to time threatened with the Mohammedan Moros, but with the late insurrectionary Filipinos the war has entirely ceased. Civil government has now been introduced.…",
+            "para_idx": 43,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-2-1902-second-annual-message",
+            "speaker": "Theodore Roosevelt"
+          },
+          "log_odds": 4.291248905210642,
+          "normalized_entity": "filipinos",
+          "paragraphs": 9,
+          "rank": 3,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 7,
+          "documents": 5,
+          "entity": "Emperor of Germany",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-1-1873-fifth-annual-message",
+            "document": "December 1, 1873: Fifth Annual Message",
+            "exact_ai_mention": "Emperor of Germany",
+            "exact_ner_mention": null,
+            "excerpt": "By an act approved on the 14th day of February last Congress made provision for completing, jointly with an officer or commissioner to be named by Her Britannic Majesty, the determination of so much of the boundary line between the territory of the United States and the possessions of Great Britain as was left uncompleted by the commissioners appointed unde…",
+            "para_idx": 7,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-1-1873-fifth-annual-message",
+            "speaker": "Ulysses S. Grant"
+          },
+          "log_odds": 4.0545622199423015,
+          "normalized_entity": "emperor of germany",
+          "paragraphs": 7,
+          "rank": 4,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 3,
+          "ai_only_paragraphs": 3,
+          "documents": 2,
+          "entity": "White Leagues",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-7-1874-sixth-annual-message",
+            "document": "December 7, 1874: Sixth Annual Message",
+            "exact_ai_mention": "White Leagues",
+            "exact_ner_mention": "White Leagues",
+            "excerpt": "I regret to say that with preparations for the late election decided indications appeared in some localities in the Southern States of a determination, by acts of violence and intimidation, to deprive citizens of the freedom of the ballot because of their political opinions. Bands of men, masked and armed, made their appearance; White Leagues and other soci…",
+            "para_idx": 55,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-7-1874-sixth-annual-message",
+            "speaker": "Ulysses S. Grant"
+          },
+          "log_odds": 3.9113124559737287,
+          "normalized_entity": "white leagues",
+          "paragraphs": 6,
+          "rank": 5,
+          "source_badge": "AI + NER"
+        }
+      ],
+      "denominator_paragraphs": 6721,
+      "story_era": "Administrative-industrial order",
+      "story_era_key": "gilded-age"
+    },
+    {
+      "candidates": [
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 25,
+          "documents": 5,
+          "entity": "Imperial German Government",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-19-1916-message-regarding-german-actions",
+            "document": "April 19, 1916: Message Regarding German Actions",
+            "exact_ai_mention": "Imperial German Government",
+            "exact_ner_mention": null,
+            "excerpt": "Gentlemen of the Congress: A situation has arisen in the foreign relations of the country of which it is my plain duty to inform you very frankly. It will be recalled that in February, 1915, the Imperial German Government announced its intention to treat the waters surrounding Great Britain and Ireland as embraced within the seat of war and to destroy all m…",
+            "para_idx": 0,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-19-1916-message-regarding-german-actions",
+            "speaker": "Woodrow Wilson"
+          },
+          "log_odds": 6.599735048330506,
+          "normalized_entity": "imperial german government",
+          "paragraphs": 25,
+          "rank": 1,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 25,
+          "documents": 3,
+          "entity": "Democratic candidate",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/november-5-1932-campaign-speech-st-paul-minnesota",
+            "document": "November 5, 1932: Campaign speech in St Paul Minnesota",
+            "exact_ai_mention": "Democratic candidate",
+            "exact_ner_mention": null,
+            "excerpt": "We stopped this bill, but it is still on their political calendar. 10. They passed the cash prepayment of the bonus calling for immediate expenditure of $2,300 million and for actual increase in liabilities of the Federal Government over the original act by $1,300 million. We stopped this bill, but it is still on their political calendar. 11. They passed th…",
+            "para_idx": 28,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/november-5-1932-campaign-speech-st-paul-minnesota",
+            "speaker": "Herbert Hoover"
+          },
+          "log_odds": 6.599735048330506,
+          "normalized_entity": "democratic candidate",
+          "paragraphs": 25,
+          "rank": 2,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 10,
+          "documents": 3,
+          "entity": "Governor Roosevelt",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/november-5-1932-campaign-speech-st-paul-minnesota",
+            "document": "November 5, 1932: Campaign speech in St Paul Minnesota",
+            "exact_ai_mention": "Governor Roosevelt",
+            "exact_ner_mention": null,
+            "excerpt": "19. The Democratic Party makes its contribution to the emergency by proposing to reduce the tariff to a \"competitive tariff for revenue.\" Their candidate states that he supports this promise 100 percent. A competitive tariff today would be ruinous to American agriculture and industry. These are the only reliefs to this emergency that I can find in the whole…",
+            "para_idx": 32,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/november-5-1932-campaign-speech-st-paul-minnesota",
+            "speaker": "Herbert Hoover"
+          },
+          "log_odds": 5.70534632533913,
+          "normalized_entity": "governor roosevelt",
+          "paragraphs": 10,
+          "rank": 3,
+          "source_badge": "AI only"
+        },
+        {
+          "ai_ner_paragraphs": 1,
+          "ai_only_paragraphs": 5,
+          "documents": 6,
+          "entity": "Federal Farm Board",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/june-11-1929-message-regarding-farm-bill",
+            "document": "June 11, 1929: Message Regarding the Farm Bill",
+            "exact_ai_mention": "Federal Farm Board",
+            "exact_ner_mention": "Federal Farm Board",
+            "excerpt": "THE VOTE in the Senate today at best adds further delay to farm relief and may gravely jeopardize the enactment of legislation. In rejecting the report of the Senate and House conferees, which report was agreed to by members of both parties, the Senate has in effect rejected a bill which provides for the creation of the most important agency ever set up in…",
+            "para_idx": 0,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/june-11-1929-message-regarding-farm-bill",
+            "speaker": "Herbert Hoover"
+          },
+          "log_odds": 5.223892219363903,
+          "normalized_entity": "federal farm board",
+          "paragraphs": 6,
+          "rank": 4,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 6,
+          "documents": 3,
+          "entity": "German people",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-2-1917-address-congress-requesting-declaration-war",
+            "document": "April 2, 1917: Address to Congress Requesting a Declaration of War Against Germany",
+            "exact_ai_mention": "German people",
+            "exact_ner_mention": null,
+            "excerpt": "We have no quarrel with the German people. We have no feeling toward them but one of sympathy and friendship. It was not upon their impulse that their government acted in entering this war. It was not with their previous knowledge or approval. It was a war determined upon as wars used to be determined upon in the old, unhappy days when peoples were nowhere…",
+            "para_idx": 17,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-2-1917-address-congress-requesting-declaration-war",
+            "speaker": "Woodrow Wilson"
+          },
+          "log_odds": 5.223892219363903,
+          "normalized_entity": "german people",
+          "paragraphs": 6,
+          "rank": 5,
+          "source_badge": "AI only"
+        }
+      ],
+      "denominator_paragraphs": 2134,
+      "story_era": "Reform, world war & collapse",
+      "story_era_key": "progressives-depression"
+    },
+    {
+      "candidates": [
+        {
+          "ai_ner_paragraphs": 2,
+          "ai_only_paragraphs": 8,
+          "documents": 6,
+          "entity": "Axis",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/january-7-1943-state-union-address",
+            "document": "January 7, 1943: State of the Union Address",
+            "exact_ai_mention": "Axis",
+            "exact_ner_mention": "Axis",
+            "excerpt": "Of continuing importance in the year 1942 were the unending and bitterly contested battles of the convoy routes, and the gradual passing of air superiority from the Axis to the United Nations. The Axis powers knew that they must win the war in 1942 - or eventually lose everything. I do not need to tell you that our enemies did not win the war in 1942. In th…",
+            "para_idx": 2,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/january-7-1943-state-union-address",
+            "speaker": "Franklin D. Roosevelt"
+          },
+          "log_odds": 6.1463384380238555,
+          "normalized_entity": "axis",
+          "paragraphs": 10,
+          "rank": 1,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 8,
+          "ai_only_paragraphs": 0,
+          "documents": 5,
+          "entity": "Nazi",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-28-1942-fireside-chat-21-sacrifice",
+            "document": "April 28, 1942: Fireside Chat 21: On Sacrifice",
+            "exact_ai_mention": "Nazi",
+            "exact_ner_mention": "Nazi",
+            "excerpt": "In the Mediterranean area, matters remain on the surface much as they were. But the situation there is receiving very careful attention. Recently we (have) received news of a change in government in what we used to know as the Republic of France -a name dear to the hearts of all lovers of liberty -- a name and an institution which we hope will soon be resto…",
+            "para_idx": 2,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-28-1942-fireside-chat-21-sacrifice",
+            "speaker": "Franklin D. Roosevelt"
+          },
+          "log_odds": 5.933601282707314,
+          "normalized_entity": "nazi",
+          "paragraphs": 8,
+          "rank": 2,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 8,
+          "ai_only_paragraphs": 0,
+          "documents": 4,
+          "entity": "Mussolini",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-9-1941-fireside-chat-19-war-japan",
+            "document": "December 9, 1941: Fireside Chat 19: On the War with Japan",
+            "exact_ai_mention": "Mussolini",
+            "exact_ner_mention": "Mussolini",
+            "excerpt": "The course that Japan has followed for the past ten years in Asia has paralleled the course of Hitler and Mussolini in Europe and in Africa. Today, it has become far more than a parallel. It is actual collaboration so well calculated that all the continents of the world, and all the oceans, are now considered by the Axis strategists as one gigantic battlefi…",
+            "para_idx": 3,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-9-1941-fireside-chat-19-war-japan",
+            "speaker": "Franklin D. Roosevelt"
+          },
+          "log_odds": 5.933601282707314,
+          "normalized_entity": "mussolini",
+          "paragraphs": 8,
+          "rank": 3,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 2,
+          "ai_only_paragraphs": 17,
+          "documents": 8,
+          "entity": "Axis powers",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-9-1941-fireside-chat-19-war-japan",
+            "document": "December 9, 1941: Fireside Chat 19: On the War with Japan",
+            "exact_ai_mention": "Axis Powers",
+            "exact_ner_mention": "Axis Powers",
+            "excerpt": "And this year, in 1941, the Axis Powers attacked Yugoslavia and Greece and they dominated the Balkans - without warning. In 1941, also, Hitler invaded Russia - without warning. And now Japan has attacked Malaya and Thailand - and the United States - without warning. It is all of one pattern. We are now in this war. We are all in it - all the way. Every sing…",
+            "para_idx": 5,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-9-1941-fireside-chat-19-war-japan",
+            "speaker": "Franklin D. Roosevelt"
+          },
+          "log_odds": 5.673184861432376,
+          "normalized_entity": "axis powers",
+          "paragraphs": 19,
+          "rank": 4,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 6,
+          "ai_only_paragraphs": 0,
+          "documents": 6,
+          "entity": "Tokyo",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-16-1945-first-speech-congress",
+            "document": "April 16, 1945: First Speech to Congress",
+            "exact_ai_mention": "Tokyo",
+            "exact_ner_mention": "Tokyo",
+            "excerpt": "Gradually, the shackles of slavery are being broken by the forces of freedom. All of us are praying for a speedy victory. Every day peace is delayed costs a terrible toll. The armies of liberation today are bringing to an end Hitler's ghastly threat to dominate the world. Tokyo rocks under the weight of our bombs. The grand strategy of the United Nations' w…",
+            "para_idx": 6,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-16-1945-first-speech-congress",
+            "speaker": "Harry S. Truman"
+          },
+          "log_odds": 5.66391127091554,
+          "normalized_entity": "tokyo",
+          "paragraphs": 6,
+          "rank": 5,
+          "source_badge": "AI + NER"
+        }
+      ],
+      "denominator_paragraphs": 1409,
+      "story_era": "New Deal, world war & settlement",
+      "story_era_key": "war-new-deal"
+    },
+    {
+      "candidates": [
+        {
+          "ai_ner_paragraphs": 56,
+          "ai_only_paragraphs": 40,
+          "documents": 29,
+          "entity": "North Vietnam",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-1-1968-address-national-association-broadcasters",
+            "document": "April 1, 1968: Address to the National Association of Broadcasters",
+            "exact_ai_mention": "North Vietnam",
+            "exact_ner_mention": "North Vietnam",
+            "excerpt": "I pray that the message of peace that I tried so hard to convey last night will be accepted in good faith by the leaders of North Vietnam. I pray that one time soon, the evening news show will have, not another battle in the scarred hills of Vietnam, but will show men entering a room to talk about peace.",
+            "para_idx": 19,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-1-1968-address-national-association-broadcasters",
+            "speaker": "Lyndon B. Johnson"
+          },
+          "log_odds": 6.854145047682515,
+          "normalized_entity": "north vietnam",
+          "paragraphs": 96,
+          "rank": 1,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 41,
+          "ai_only_paragraphs": 18,
+          "documents": 16,
+          "entity": "South Vietnam",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-10-1975-address-us-foreign-policy",
+            "document": "April 10, 1975: Address on U.S. Foreign Policy",
+            "exact_ai_mention": "South Vietnam",
+            "exact_ner_mention": "South Vietnam",
+            "excerpt": "Encouraged by these developments, the North Vietnamese, in recent months, began sending even their reserve divisions into South Vietnam. Some 20 divisions, virtually their entire army, are now in South Vietnam. The Government of South Vietnam, uncertain of further American assistance, hastily ordered a strategic withdrawal to more defensible positions. This…",
+            "para_idx": 10,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-10-1975-address-us-foreign-policy",
+            "speaker": "Gerald Ford"
+          },
+          "log_odds": 6.363858384719356,
+          "normalized_entity": "south vietnam",
+          "paragraphs": 59,
+          "rank": 2,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 28,
+          "ai_only_paragraphs": 5,
+          "documents": 15,
+          "entity": "South Viet-Nam",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-20-1961-address-american-association-newspaper-editors",
+            "document": "April 20, 1961: Address to the American Association of Newspaper Editors",
+            "exact_ai_mention": "South Viet-Nam",
+            "exact_ner_mention": "South Viet-Nam",
+            "excerpt": "We dare not fail to see the insidious nature of this new and deeper struggle. We dare not fail to grasp the new concepts, the new tools, the new sense of urgency we will need to combat it--whether in Cuba or South Viet-Nam. And we dare not fail to realize that this struggle is taking place every day, without fanfare, in thousands of villages and markets--da…",
+            "para_idx": 12,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-20-1961-address-american-association-newspaper-editors",
+            "speaker": "John F. Kennedy"
+          },
+          "log_odds": 5.78473224277932,
+          "normalized_entity": "south viet-nam",
+          "paragraphs": 33,
+          "rank": 3,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 19,
+          "ai_only_paragraphs": 6,
+          "documents": 9,
+          "entity": "North Viet-Nam",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-20-1961-address-american-association-newspaper-editors",
+            "document": "April 20, 1961: Address to the American Association of Newspaper Editors",
+            "exact_ai_mention": "North Viet-Nam",
+            "exact_ner_mention": "North Viet-Nam",
+            "excerpt": "Power is the hallmark of this offensive-power and discipline and deceit. The legitimate discontent of yearning people is exploited. The legitimate trappings of self-determination are employed. But once in power, all talk of discontent is repressed, all self-determination disappears, and the promise of a revolution of hope is betrayed, as in Cuba, into a rei…",
+            "para_idx": 11,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-20-1961-address-american-association-newspaper-editors",
+            "speaker": "John F. Kennedy"
+          },
+          "log_odds": 5.510424982211712,
+          "normalized_entity": "north viet-nam",
+          "paragraphs": 25,
+          "rank": 4,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 0,
+          "ai_only_paragraphs": 24,
+          "documents": 18,
+          "entity": "Communist China",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-7-1965-address-johns-hopkins-university",
+            "document": "April 7, 1965: Address at Johns Hopkins University",
+            "exact_ai_mention": "Communist China",
+            "exact_ner_mention": null,
+            "excerpt": "The confused nature of this conflict cannot mask the fact that it is the new face of an old enemy. Over this war--and all Asia--is another reality: the deepening shadow of Communist China. The rulers in Hanoi are urged on by Peking. This is a regime which has destroyed freedom in Tibet, which has attacked India, and has been condemned by the United Nations…",
+            "para_idx": 6,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-7-1965-address-johns-hopkins-university",
+            "speaker": "Lyndon B. Johnson"
+          },
+          "log_odds": 5.470239759128379,
+          "normalized_entity": "communist china",
+          "paragraphs": 24,
+          "rank": 5,
+          "source_badge": "AI only"
+        }
+      ],
+      "denominator_paragraphs": 5583,
+      "story_era": "Mature Cold War",
+      "story_era_key": "cold-war"
+    },
+    {
+      "candidates": [
+        {
+          "ai_ner_paragraphs": 52,
+          "ai_only_paragraphs": 21,
+          "documents": 23,
+          "entity": "Saddam Hussein",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/august-20-1992-republican-national-convention",
+            "document": "August 20, 1992: Republican National Convention",
+            "exact_ai_mention": "Saddam Hussein",
+            "exact_ner_mention": "Saddam Hussein",
+            "excerpt": "Now, the Soviet bear may be gone, but there are still wolves in the woods. We saw that when Saddam Hussein invaded Kuwait. The Mideast might have become a nuclear powder keg, our energy supplies held hostage. So we did what was right and what was necessary. We destroyed a threat, freed a people, and locked a tyrant in the prison of his own country.",
+            "para_idx": 7,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/august-20-1992-republican-national-convention",
+            "speaker": "George H. W. Bush"
+          },
+          "log_odds": 6.459717308441438,
+          "normalized_entity": "saddam hussein",
+          "paragraphs": 73,
+          "rank": 1,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 49,
+          "ai_only_paragraphs": 10,
+          "documents": 17,
+          "entity": "Gorbachev",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-10-1987-address-nation-soviet-us-summit-meeting",
+            "document": "December 10, 1987: Address to the Nation on the Soviet-U.S. Summit Meeting",
+            "exact_ai_mention": "Gorbachev",
+            "exact_ner_mention": "Gorbachev",
+            "excerpt": "Good evening. As I am speaking to you now, General Secretary Gorbachev is leaving on his return trip to the Soviet Union. His departure marks the end of three historic days here in Washington in which Mr. Gorbachev and I continued to build a foundation for better relations between our governments and our peoples. During these three days we took a step - onl…",
+            "para_idx": 0,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-10-1987-address-nation-soviet-us-summit-meeting",
+            "speaker": "Ronald Reagan"
+          },
+          "log_odds": 6.2461050139534935,
+          "normalized_entity": "gorbachev",
+          "paragraphs": 59,
+          "rank": 2,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 17,
+          "ai_only_paragraphs": 0,
+          "documents": 8,
+          "entity": "Somalia",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/december-10-2009-acceptance-nobel-peace-prize",
+            "document": "December 10, 2009: Acceptance of Nobel Peace Prize",
+            "exact_ai_mention": "Somalia",
+            "exact_ner_mention": "Somalia",
+            "excerpt": "America alone cannot secure the peace. This is true in Afghanistan. This is true in failed states like Somalia, where terrorism and piracy is joined by famine and human suffering. And sadly, it will continue to be true in unstable regions for years to come. The leaders and soldiers of NATO countries, and other friends and allies, demonstrate this truth thro…",
+            "para_idx": 15,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/december-10-2009-acceptance-nobel-peace-prize",
+            "speaker": "Barack Obama"
+          },
+          "log_odds": 5.0154516382437215,
+          "normalized_entity": "somalia",
+          "paragraphs": 17,
+          "rank": 3,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 15,
+          "ai_only_paragraphs": 1,
+          "documents": 6,
+          "entity": "Bosnia",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/august-29-1996-remarks-democratic-national-convention",
+            "document": "August 29, 1996: Remarks at the Democratic National Convention",
+            "exact_ai_mention": "Bosnia",
+            "exact_ner_mention": "Bosnia",
+            "excerpt": "My fellow Americans, I want to build a bridge to the 21st century that makes sure we are still the nation with the world's strongest defense, that our foreign policy still advances the values of our American community in the community of nations. Our bridge to the future must include bridges to other nations, because we remain the world's indispensable nati…",
+            "para_idx": 39,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/august-29-1996-remarks-democratic-national-convention",
+            "speaker": "Bill Clinton"
+          },
+          "log_odds": 4.956447952841836,
+          "normalized_entity": "bosnia",
+          "paragraphs": 16,
+          "rank": 4,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 11,
+          "ai_only_paragraphs": 1,
+          "documents": 11,
+          "entity": "Michelle",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/april-8-2013-speech-gun-violence",
+            "document": "April 8, 2013: Speech on Gun Violence",
+            "exact_ai_mention": "Michelle",
+            "exact_ner_mention": "Michelle",
+            "excerpt": "I was in Colorado. I told a story about Michelle. She came back from a trip to rural Iowa; we were out there campaigning. Sometimes it would be miles between farms, let alone towns. And she said, you know, coming back, I can understand why somebody would want a gun for protection. If somebody drove up into the driveway and, Barack, you weren't home, the she…",
+            "para_idx": 23,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/april-8-2013-speech-gun-violence",
+            "speaker": "Barack Obama"
+          },
+          "log_odds": 4.678163740892132,
+          "normalized_entity": "michelle",
+          "paragraphs": 12,
+          "rank": 5,
+          "source_badge": "AI + NER"
+        }
+      ],
+      "denominator_paragraphs": 6144,
+      "story_era": "Conservative turn & always-on presidency",
+      "story_era_key": "post-cold-war"
+    },
+    {
+      "candidates": [
+        {
+          "ai_ner_paragraphs": 38,
+          "ai_only_paragraphs": 5,
+          "documents": 8,
+          "entity": "Biden",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/june-20-2020-campaign-rally-tulsa-oklahoma",
+            "document": "June 20, 2020: Campaign Rally in Tulsa, Oklahoma",
+            "exact_ai_mention": "Biden",
+            "exact_ner_mention": "Biden",
+            "excerpt": "Do you ever notice that Biden, no, do you ever notice that Biden oftentimes gets the state wrong? He's in Iowa and he says it's good to be in Idaho. No, no, you're in Iowa. He's in New Hampshire and he says it's great to be in Ohio. No, no, no, you're in New Hampshire. That happens to him all the time, hasn't happened to me yet. When that happens, there's n…",
+            "para_idx": 7,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/june-20-2020-campaign-rally-tulsa-oklahoma",
+            "speaker": "Donald Trump"
+          },
+          "log_odds": 6.622882970746754,
+          "normalized_entity": "biden",
+          "paragraphs": 43,
+          "rank": 1,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 11,
+          "ai_only_paragraphs": 25,
+          "documents": 5,
+          "entity": "Donald Trump",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/january-5-2024-speech-third-anniversary-january-6th-attack",
+            "document": "January 5, 2024: Speech on the Third Anniversary of the January 6th Attack",
+            "exact_ai_mention": "Donald Trump",
+            "exact_ner_mention": "Donald Trump",
+            "excerpt": "He promised it would be \"wild,\" and it was. He told the crowd to \"fight like hell,\" and all hell was unleashed. He promised he would right them - right them. Everything they did, he would be side by side with them. Then, as usual, he left the dirty work to others. He retreated to the White House. As America was attacked from within, Donald Trump watched on…",
+            "para_idx": 8,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/january-5-2024-speech-third-anniversary-january-6th-attack",
+            "speaker": "Joe Biden"
+          },
+          "log_odds": 6.44535837315935,
+          "normalized_entity": "donald trump",
+          "paragraphs": 36,
+          "rank": 2,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 28,
+          "ai_only_paragraphs": 1,
+          "documents": 21,
+          "entity": "ISIS",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/february-28-2017-address-joint-session-congress",
+            "document": "February 28, 2017: Address to Joint Session of Congress",
+            "exact_ai_mention": "ISIS",
+            "exact_ner_mention": "ISIS",
+            "excerpt": "That is why my Administration has been working on improved vetting procedures, and we will shortly take new steps to keep our Nation safe -- and to keep out those who would do us harm. As promised, I directed the Department of Defense to develop a plan to demolish and destroy ISIS -- a network of lawless savages that have slaughtered Muslims and Christians,…",
+            "para_idx": 17,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/february-28-2017-address-joint-session-congress",
+            "speaker": "Donald Trump"
+          },
+          "log_odds": 6.230364756353661,
+          "normalized_entity": "isis",
+          "paragraphs": 29,
+          "rank": 3,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 12,
+          "ai_only_paragraphs": 5,
+          "documents": 10,
+          "entity": "MS-13",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/february-15-2019-speech-declaring-national-emergency",
+            "document": "February 15, 2019: Speech Declaring a National Emergency",
+            "exact_ai_mention": "MS-13",
+            "exact_ner_mention": "MS-13",
+            "excerpt": "The probably easiest one to win is on declaring a national emergency, because we're declaring it for virtual invasion purposes: drugs, traffickers, and gangs. And one of the things, just to finish: We have removed thousands of MS-13 gang monsters. Thousands. They're out of this country. We take them out by the thousands. And they are monsters. Okay. Do you…",
+            "para_idx": 41,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/february-15-2019-speech-declaring-national-emergency",
+            "speaker": "Donald Trump"
+          },
+          "log_odds": 5.7046339802405965,
+          "normalized_entity": "ms-13",
+          "paragraphs": 17,
+          "rank": 4,
+          "source_badge": "AI + NER"
+        },
+        {
+          "ai_ner_paragraphs": 3,
+          "ai_only_paragraphs": 14,
+          "documents": 5,
+          "entity": "Vladimir Putin",
+          "evidence": {
+            "doc_name": "/the-presidency/presidential-speeches/february-21-2023-remarks-one-year-anniversary-ukraine-war",
+            "document": "February 21, 2023: Remarks on the One-Year Anniversary of the Ukraine War",
+            "exact_ai_mention": "Vladimir Putin",
+            "exact_ner_mention": "Vladimir Putin",
+            "excerpt": "THE PRESIDENT: Hello, Poland! One of our great allies. President Duda, Prime Minister - Mr. Prime Minister, Mr. Mayor, and to all the former ministers and presidents, as well as mayors and Polish political leaders from all across the country: Thank you for welcoming me back to Poland. You know, it was nearly one year ago, nearly one year ago I spoke at the…",
+            "para_idx": 0,
+            "source_url": "https://millercenter.org/the-presidency/presidential-speeches/february-21-2023-remarks-one-year-anniversary-ukraine-war",
+            "speaker": "Joe Biden"
+          },
+          "log_odds": 5.7046339802405965,
+          "normalized_entity": "vladimir putin",
+          "paragraphs": 17,
+          "rank": 5,
+          "source_badge": "AI + NER"
+        }
+      ],
+      "denominator_paragraphs": 3411,
+      "story_era": "Platform-era intensification",
+      "story_era_key": "present"
+    }
+  ],
+  "population": {
+    "appearances": 1054,
+    "coverage": [
+      {
+        "analysis_eligible": true,
+        "exclusion_reason": null,
+        "n_documents": 1044,
+        "n_paragraphs": 32531,
+        "schema_version": "speaker-view-v1",
+        "share_of_retained_paragraphs": 0.919110583714754,
+        "speaker_outcome": "canonical_president"
+      },
+      {
+        "analysis_eligible": false,
+        "exclusion_reason": "joint_or_shared",
+        "n_documents": 38,
+        "n_paragraphs": 135,
+        "schema_version": "speaker-view-v1",
+        "share_of_retained_paragraphs": 0.0038142057975928123,
+        "speaker_outcome": "joint_or_shared"
+      },
+      {
+        "analysis_eligible": false,
+        "exclusion_reason": "multiple_speakers",
+        "n_documents": 164,
+        "n_paragraphs": 1678,
+        "schema_version": "speaker-view-v1",
+        "share_of_retained_paragraphs": 0.047409165395264734,
+        "speaker_outcome": "multiple_speakers"
+      },
+      {
+        "analysis_eligible": false,
+        "exclusion_reason": "non_president",
+        "n_documents": 81,
+        "n_paragraphs": 1036,
+        "schema_version": "speaker-view-v1",
+        "share_of_retained_paragraphs": 0.029270497824490028,
+        "speaker_outcome": "non_president"
+      },
+      {
+        "analysis_eligible": false,
+        "exclusion_reason": "scaffolding",
+        "n_documents": 10,
+        "n_paragraphs": 14,
+        "schema_version": "speaker-view-v1",
+        "share_of_retained_paragraphs": 0.00039554726789851386,
+        "speaker_outcome": "scaffolding"
+      }
+    ],
+    "cross_owner_presidential_paragraphs": 296,
+    "eligible_presidential_paragraphs": 32531,
+    "excluded_paragraphs": 2863,
+    "retained_attribution_rows": 35394
+  },
+  "provenance": {
+    "attribution_run_id": "speaker-attribution-v1-primary-20260806",
+    "canonical_corpus_fingerprint": "1994fc58c35584d0af12d29806d084ce84dcd7335925b563c441047a3a80a32c",
+    "reference_metadata_sha256": "sha256:a1d7e26a5a05f58cb6846fc9c18d9217bfc9be36f13cd88c0fe8ba359a26526f",
+    "schema_version": "speaker-reference-foundation-v1",
+    "speaker_metadata_sha256": "sha256:bb832b96598bc71851d206720427ef13e9f10e8f83a0fcaf60128a8b5032f6f1"
+  },
+  "report_sha256": "sha256:c91d1dd44602a9cea0b8cbc15992eefd0fcbb4ed717c7277e5b596cf5ab0ec7f",
+  "schema_version": "speaker-reference-foundation-acceptance-v1",
+  "source_quality": {
+    "agreement_sample": "data/llm_annotations/agreement_sample_v1.json",
+    "agreement_sample_sha256": "sha256:7cd0ad5c107e5f2f1b7b57c6bf02d5848b766f5455474fe898cf1d805df0a363",
+    "canonical_exact_key_documents_compared": 260,
+    "canonical_exact_key_paragraphs_compared": 8438,
+    "exact_name_set_agreement_paragraphs": 5949,
+    "exact_name_set_agreement_share": 0.7050248874140792,
+    "matched_normalized_names": 4095,
+    "mean_name_set_jaccard": 0.7574750484563236,
+    "primary_only_normalized_names": 2680,
+    "prohibited_uses": [
+      "headline_candidates",
+      "era_ranking",
+      "stance_inference"
+    ],
+    "role": "data_quality_only",
+    "sample_documents_declared": 266,
+    "schema_version": "reference-entity-source-quality-v1",
+    "secondary_artifact": "data/llm_annotations/paragraph_entities__opus4-8.parquet",
+    "secondary_artifact_sha256": "sha256:c518e47022a716a785d0f9ad9d19c4920ec2cb75c8115ebf8ea050ac1df14ccf",
+    "secondary_labeled_documents_declared": 262,
+    "secondary_labeled_paragraphs_declared": 8570,
+    "secondary_only_normalized_names": 1756,
+    "secondary_paragraph_artifact": "data/llm_annotations/paragraph_annotations__opus4-8.parquet",
+    "secondary_paragraph_artifact_sha256": "sha256:f7456d8a1aa13cb905cfa8f2947de2d62f56ba1de43939e241ba106629634f44"
+  },
+  "status": "accepted"
+}

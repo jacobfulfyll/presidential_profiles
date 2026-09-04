@@ -18,11 +18,16 @@ from collections import Counter
 from dataclasses import asdict, dataclass
 import json
 import math
+import os
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pandas as pd
 
 from . import attention, corpus, trends, word_families
+
+if TYPE_CHECKING:
+    from .story_foundation import StoryFoundationBundle
 
 
 DISTINCTIVE_MIN_CORPUS_USES = 50
@@ -30,6 +35,18 @@ DISTINCTIVE_MIN_ERA_SPEECHES = 10
 DISTINCTIVE_MIN_ERA_PRESIDENTS = 2
 DISTINCTIVE_EVIDENCE_SCALE_USES = 100.0
 DISTINCTIVE_EFFECT_CAP_RATIO = 25.0
+
+REFERENCE_LANDSCAPE_TYPES = (
+    ("person", "People"),
+    ("institution", "Institutions"),
+    ("group", "Groups or communities"),
+    ("nation", "Nations or places"),
+)
+REFERENCE_LANDSCAPE_MIN_PARAGRAPHS = 5
+REFERENCE_LANDSCAPE_LIMITED_MIN_PARAGRAPHS = 4
+REFERENCE_LANDSCAPE_MIN_DOCUMENTS = 2
+REFERENCE_LANDSCAPE_MIN_NON_ADVERSARIAL_SHARE = 0.80
+REFERENCE_LANDSCAPE_PRIOR = 0.5
 
 ADVERSARY_TYPE_STYLES = {
     "nation": ("Nation or state", "#315f78"),
@@ -121,13 +138,6 @@ FOUNDING_MAJOR_TOPIC_GROUPS = (
         ("Early Naval Wars: Barbary & the War of 1812",),
     ),
 )
-
-FOUNDING_CONSTITUENCY_FALLBACK = (
-    "The national public",
-    "Commercial and creditor interests",
-    "Western settlers and land claimants",
-)
-
 
 @dataclass(frozen=True)
 class EraProfileSpec:
@@ -415,6 +425,258 @@ def _president_name_terms(presidents) -> frozenset[str]:
     )
 
 
+def _reference_landscape_inputs(
+    foundation: "StoryFoundationBundle",
+) -> dict[str, dict]:
+    """Build audited type-presence rows and supported highlight candidates.
+
+    Type presence is paragraph presence, so repeated mentions of one type in a
+    paragraph count once. Candidate selection stays on primary-AI-backed rows;
+    local NER is retained as source agreement and never supplies stance.
+    """
+    paragraph_key = ["doc_name", "para_idx"]
+    allowed_types = {key for key, _ in REFERENCE_LANDSCAPE_TYPES}
+    required = {
+        *paragraph_key,
+        "normalized_entity",
+        "display_entity",
+        "display_type",
+        "ai_entity",
+        "ai_stance",
+        "ner_text",
+        "analysis_eligible",
+        "story_era_key",
+        "source_badge",
+        "source_agreement",
+        "text",
+        "attributed_speaker",
+        "document_owner",
+        "cross_owner_paragraph",
+        "title",
+        "source_url",
+        "year",
+    }
+    missing = sorted(required - set(foundation.entity_mentions.columns))
+    if missing:
+        raise ValueError(
+            "foundation entity mentions are missing reference-landscape "
+            f"columns: {missing}"
+        )
+    eligible = foundation.paragraph_view[
+        foundation.paragraph_view["analysis_eligible"]
+    ][paragraph_key + ["story_era_key"]].copy()
+    if eligible.duplicated(paragraph_key).any():
+        raise ValueError("reference-landscape eligible paragraphs are not unique")
+    denominators = eligible.groupby("story_era_key", observed=True).size()
+    expected_eras = [spec.key for spec in ERA_PROFILE_SPECS]
+    if set(denominators.index) != set(expected_eras):
+        raise ValueError("reference-landscape era denominators are incomplete")
+
+    entities = foundation.entity_mentions[sorted(required)].copy()
+    entities = entities[
+        entities["analysis_eligible"]
+        & entities["ai_entity"].notna()
+        & entities["display_type"].isin(allowed_types)
+    ].copy()
+    entities = entities.drop_duplicates(
+        ["story_era_key", "normalized_entity", *paragraph_key]
+    )
+    if entities.empty:
+        raise ValueError("reference landscape has no primary-AI-backed entities")
+
+    type_presence = entities.drop_duplicates(
+        ["story_era_key", "display_type", *paragraph_key]
+    )
+    era_type_counts = type_presence.groupby(
+        ["story_era_key", "display_type"], observed=True
+    ).size()
+    corpus_type_counts = type_presence.groupby("display_type", observed=True).size()
+    corpus_denominator = len(eligible)
+    if corpus_denominator != int(denominators.sum()):
+        raise ValueError("reference-landscape denominators do not reconcile")
+
+    entity_totals = entities.groupby("normalized_entity", observed=True).size()
+    candidates: dict[str, list[dict]] = {key: [] for key in expected_eras}
+    for (era_key, normalized_entity), rows in entities.groupby(
+        ["story_era_key", "normalized_entity"], observed=True, sort=False
+    ):
+        era_paragraphs = len(rows)
+        source_documents = int(rows["doc_name"].nunique())
+        other_paragraphs = int(entity_totals[normalized_entity]) - era_paragraphs
+        era_denominator = int(denominators[era_key])
+        other_denominator = corpus_denominator - era_denominator
+        log_odds = math.log(
+            (era_paragraphs + REFERENCE_LANDSCAPE_PRIOR)
+            / (era_denominator - era_paragraphs + REFERENCE_LANDSCAPE_PRIOR)
+        ) - math.log(
+            (other_paragraphs + REFERENCE_LANDSCAPE_PRIOR)
+            / (other_denominator - other_paragraphs + REFERENCE_LANDSCAPE_PRIOR)
+        )
+        stance_counts = rows["ai_stance"].value_counts()
+        favorable = int(stance_counts.get("favorable", 0))
+        neutral = int(stance_counts.get("neutral", 0))
+        adversarial = int(stance_counts.get("adversarial", 0))
+        non_adversarial_share = (favorable + neutral) / era_paragraphs
+        if (
+            era_paragraphs < REFERENCE_LANDSCAPE_LIMITED_MIN_PARAGRAPHS
+            or source_documents < REFERENCE_LANDSCAPE_MIN_DOCUMENTS
+            or log_odds <= 0
+            or non_adversarial_share
+            < REFERENCE_LANDSCAPE_MIN_NON_ADVERSARIAL_SHARE
+        ):
+            continue
+        type_counts = rows["display_type"].value_counts()
+        entity_type = sorted(
+            type_counts[type_counts.eq(type_counts.max())].index.astype(str)
+        )[0]
+        display_counts = rows["display_entity"].value_counts()
+        label = sorted(
+            display_counts[display_counts.eq(display_counts.max())].index.astype(str)
+        )[0]
+        evidence_rows = rows[rows["ai_stance"].isin(["favorable", "neutral"])].copy()
+        evidence_rows = evidence_rows.sort_values(
+            ["source_agreement", "year", "doc_name", "para_idx"],
+            ascending=[False, True, True, True],
+            kind="mergesort",
+        )
+        evidence = evidence_rows.iloc[0]
+        candidates[str(era_key)].append({
+            "normalized_entity": str(normalized_entity),
+            "label": label,
+            "entity_type": entity_type,
+            "support_status": (
+                "supported"
+                if era_paragraphs >= REFERENCE_LANDSCAPE_MIN_PARAGRAPHS
+                else "limited_record"
+            ),
+            "support": {
+                "paragraphs": era_paragraphs,
+                "source_documents": source_documents,
+            },
+            "stance_mix": {
+                "favorable": favorable,
+                "neutral": neutral,
+                "adversarial": adversarial,
+            },
+            "source_agreement": {
+                "badge": str(evidence["source_badge"]),
+                "ai_ner": bool(evidence["source_agreement"]),
+            },
+            "evidence": {
+                "doc_name": str(evidence["doc_name"]),
+                "para_idx": int(evidence["para_idx"]),
+                "title": str(evidence["title"]),
+                "source_url": str(evidence["source_url"]),
+                "actual_speaker": str(evidence["attributed_speaker"]),
+                "document_owner": str(evidence["document_owner"]),
+                "cross_owner": bool(evidence["cross_owner_paragraph"]),
+                "excerpt": str(evidence["text"]),
+                "ai_mention": str(evidence["ai_entity"]),
+                "ner_mention": (
+                    None
+                    if pd.isna(evidence["ner_text"])
+                    else str(evidence["ner_text"])
+                ),
+                "ai_stance": str(evidence["ai_stance"]),
+            },
+            "_selection": {
+                "log_odds": float(log_odds),
+                "non_adversarial_share": float(non_adversarial_share),
+            },
+        })
+
+    output: dict[str, dict] = {}
+    for era_key in expected_eras:
+        rows = []
+        for entity_type, label in REFERENCE_LANDSCAPE_TYPES:
+            era_count = int(era_type_counts.get((era_key, entity_type), 0))
+            corpus_count = int(corpus_type_counts.get(entity_type, 0))
+            rows.append({
+                "entity_type": entity_type,
+                "label": label,
+                "paragraphs": era_count,
+                "paragraph_share": float(era_count / denominators[era_key]),
+                "corpus_paragraphs": corpus_count,
+                "corpus_paragraph_share": float(
+                    corpus_count / corpus_denominator
+                ),
+            })
+        output[era_key] = {
+            "denominator": {
+                "unit": "speaker_audited_paragraphs",
+                "paragraphs": int(denominators[era_key]),
+                "corpus_paragraphs": corpus_denominator,
+            },
+            "types": rows,
+            "candidates": candidates[era_key],
+        }
+    return output
+
+
+def _project_reference_landscape(
+    base: dict,
+    named_adversaries: set[str],
+) -> dict:
+    """Select at most one non-adversarial highlight for each reference type."""
+    candidates = [
+        row for row in base["candidates"]
+        if row["normalized_entity"] not in named_adversaries
+    ]
+    output_rows = []
+    for type_row in base["types"]:
+        type_candidates = [
+            row for row in candidates
+            if row["entity_type"] == type_row["entity_type"]
+        ]
+        type_candidates.sort(
+            key=lambda row: (
+                -row["_selection"]["log_odds"],
+                -row["support"]["paragraphs"],
+                -row["support"]["source_documents"],
+                row["normalized_entity"],
+            )
+        )
+        highlight = None
+        supported = [
+            row for row in type_candidates
+            if row["support_status"] == "supported"
+        ]
+        limited = [
+            row for row in type_candidates
+            if row["support_status"] == "limited_record"
+        ]
+        selected = supported[0] if supported else (limited[0] if limited else None)
+        if selected is not None:
+            highlight = {
+                key: value
+                for key, value in selected.items()
+                if key != "_selection"
+            }
+        output_rows.append({**type_row, "highlight": highlight})
+    return {
+        "definition": (
+            "Paragraph presence for primary-AI-backed people, institutions, "
+            "groups, and nations or places in actual-president paragraphs."
+        ),
+        "denominator": dict(base["denominator"]),
+        "selection": {
+            "minimum_paragraphs": REFERENCE_LANDSCAPE_MIN_PARAGRAPHS,
+            "limited_record_minimum_paragraphs": (
+                REFERENCE_LANDSCAPE_LIMITED_MIN_PARAGRAPHS
+            ),
+            "limited_record_only_when_no_supported_highlight": True,
+            "minimum_source_documents": REFERENCE_LANDSCAPE_MIN_DOCUMENTS,
+            "minimum_favorable_or_neutral_share": (
+                REFERENCE_LANDSCAPE_MIN_NON_ADVERSARIAL_SHARE
+            ),
+            "excludes_displayed_named_adversaries": True,
+            "one_highlight_per_type": True,
+            "ner_supplies_stance": False,
+        },
+        "types": output_rows,
+    }
+
+
 def _distinctive_words(
     spec: EraProfileSpec,
     era_speeches: pd.DataFrame,
@@ -512,9 +774,8 @@ def build_era_profiles(
     paragraphs: pd.DataFrame,
     paragraph_annotations: pd.DataFrame,
     speech_annotations: pd.DataFrame,
-    paragraph_entities: pd.DataFrame,
     taxonomy: dict,
-    constituency_claims: pd.DataFrame | None = None,
+    foundation: "StoryFoundationBundle",
 ) -> dict[str, dict]:
     """Derive all nine era profiles from keyed source artifacts."""
     speech_required = {"doc_name", "president", "year", "word_count", "transcript"}
@@ -551,51 +812,29 @@ def build_era_profiles(
         for raw in paragraph_frame["topics"]
     ]
 
-    entity_required = {"doc_name", "para_idx", "entity", "type", "stance"}
-    missing = sorted(entity_required - set(paragraph_entities.columns))
+    entity_required = {
+        "doc_name", "para_idx", "normalized_entity", "display_entity",
+        "display_type", "ai_entity", "ai_stance", "analysis_eligible",
+        "story_era_key",
+    }
+    missing = sorted(entity_required - set(foundation.entity_mentions.columns))
     if missing:
         raise ValueError(
-            f"paragraph_entities is missing era-profile columns: {missing}"
+            f"foundation entity mentions are missing era-profile columns: {missing}"
         )
-    entity_frame = paragraph_entities[sorted(entity_required)].merge(
-        paragraph_frame[
-            ["doc_name", "para_idx", "president", "year", "era_key"]
-        ],
-        on=["doc_name", "para_idx"],
-        how="left",
-        validate="many_to_one",
-    )
-    if entity_frame["year"].isna().any():
-        raise ValueError("era profiles contain entities with unknown paragraphs")
-    entity_frame["display_entity"] = entity_frame["entity"].map(
-        ADVERSARY_ALIASES
-    ).fillna(entity_frame["entity"])
+    generic = {value.casefold() for value in GENERIC_ADVERSARIES}
+    entity_frame = foundation.entity_mentions[list(entity_required)].copy()
     adversarial = entity_frame[
-        entity_frame["stance"].eq("adversarial")
-        & ~entity_frame["entity"].isin(GENERIC_ADVERSARIES)
+        entity_frame["analysis_eligible"]
+        & entity_frame["ai_entity"].notna()
+        & entity_frame["ai_stance"].eq("adversarial")
+        & ~entity_frame["normalized_entity"].isin(generic)
     ].copy()
-    corpus_type_counts = paragraph_entities["type"].value_counts()
+    corpus_type_counts = adversarial["display_type"].value_counts()
+    from .story_foundation import project_distinctive_references
 
-    claim_frame = None
-    if constituency_claims is not None and not constituency_claims.empty:
-        claim_required = {
-            "doc_name", "para_idx", "outcome", "normalized_group"
-        }
-        missing = sorted(claim_required - set(constituency_claims.columns))
-        if missing:
-            raise ValueError(
-                f"constituency_claims is missing era-profile columns: {missing}"
-            )
-        claim_frame = constituency_claims[sorted(claim_required)].merge(
-            paragraph_frame[["doc_name", "para_idx", "year", "era_key"]],
-            on=["doc_name", "para_idx"],
-            how="left",
-            validate="many_to_one",
-        )
-        if claim_frame["year"].isna().any():
-            raise ValueError(
-                "era profiles contain constituency claims with unknown paragraphs"
-            )
+    distinctive_references = project_distinctive_references(foundation)
+    reference_landscape_inputs = _reference_landscape_inputs(foundation)
 
     counts_by_key = {}
     president_name_terms = _president_name_terms(
@@ -623,58 +862,97 @@ def build_era_profiles(
         if era_speeches.empty or era_paragraphs.empty:
             raise ValueError(f"era profile {spec.key!r} has no corpus rows")
 
+        era_appearances = foundation.appearances[
+            foundation.appearances["story_era_key"].eq(spec.key)
+        ].copy()
+        era_speaker_paragraphs = foundation.paragraph_view[
+            foundation.paragraph_view["analysis_eligible"]
+            & foundation.paragraph_view["story_era_key"].eq(spec.key)
+        ].copy()
         president_rows = (
-            era_speeches.groupby("president", observed=True)
+            era_appearances.groupby(
+                ["attributed_speaker_profile_id", "attributed_speaker"],
+                observed=True,
+            )
             .agg(
-                first_year=("year", "min"),
-                last_year=("year", "max"),
-                speeches=("doc_name", "nunique"),
+                first_source_year=("year", "min"),
+                last_source_year=("year", "max"),
+                appearances=("doc_name", "size"),
+                paragraphs=("n_paragraphs", "sum"),
+                words=("n_words", "sum"),
+                cross_owner_appearances=("cross_owner_appearance", "sum"),
             )
             .reset_index()
-            .sort_values(["first_year", "president"])
+            .sort_values(["first_source_year", "attributed_speaker"])
         )
         presidents = [
             {
-                "name": str(row.president),
-                "years": (
-                    str(int(row.first_year))
-                    if row.first_year == row.last_year
-                    else f"{int(row.first_year)}–{int(row.last_year)}"
+                "profile_id": str(row.attributed_speaker_profile_id),
+                "name": str(row.attributed_speaker),
+                "first_source_year": int(row.first_source_year),
+                "last_source_year": int(row.last_source_year),
+                "source_years": sorted(
+                    int(value)
+                    for value in era_appearances.loc[
+                        era_appearances["attributed_speaker_profile_id"].eq(
+                            row.attributed_speaker_profile_id
+                        ),
+                        "year",
+                    ].unique()
                 ),
-                "speeches": int(row.speeches),
+                "appearances": int(row.appearances),
+                "paragraphs": int(row.paragraphs),
+                "words": int(row.words),
+                "cross_owner_appearances": int(row.cross_owner_appearances),
+                "cross_owner_paragraphs": int(
+                    era_speaker_paragraphs[
+                        era_speaker_paragraphs["attributed_speaker_profile_id"].eq(
+                            row.attributed_speaker_profile_id
+                        )
+                        & era_speaker_paragraphs["cross_owner_paragraph"]
+                    ].shape[0]
+                ),
+                "cross_owner_only": bool(
+                    int(row.cross_owner_appearances) == int(row.appearances)
+                ),
             }
             for row in president_rows.itertuples(index=False)
         ]
 
         era_adversarial = adversarial[
-            adversarial["era_key"].eq(spec.key)
+            adversarial["story_era_key"].eq(spec.key)
         ].copy()
         type_rows = (
-            era_adversarial.groupby(["display_entity", "type"], observed=True)
+            era_adversarial.groupby(
+                ["normalized_entity", "display_entity", "display_type"],
+                observed=True,
+            )
             .size()
             .rename("type_mentions")
             .reset_index()
             .sort_values(
-                ["display_entity", "type_mentions", "type"],
-                ascending=[True, False, True],
+                ["normalized_entity", "type_mentions", "display_entity", "display_type"],
+                ascending=[True, False, True, True],
             )
-            .drop_duplicates("display_entity")
+            .drop_duplicates("normalized_entity")
         )
         entity_counts = (
             era_adversarial.drop_duplicates(
-                ["display_entity", "doc_name", "para_idx"]
+                ["normalized_entity", "doc_name", "para_idx"]
             )
-            .groupby("display_entity", observed=True)
+            .groupby("normalized_entity", observed=True)
             .size()
             .rename("paragraphs")
             .reset_index()
             .sort_values(
-                ["paragraphs", "display_entity"], ascending=[False, True]
+                ["paragraphs", "normalized_entity"], ascending=[False, True]
             )
             .head(5)
             .merge(
-                type_rows[["display_entity", "type"]],
-                on="display_entity",
+                type_rows[
+                    ["normalized_entity", "display_entity", "display_type"]
+                ],
+                on="normalized_entity",
                 how="left",
                 validate="one_to_one",
             )
@@ -682,11 +960,16 @@ def build_era_profiles(
         adversaries = [
             {
                 "name": str(row.display_entity),
-                "type": str(row.type),
+                "normalized_entity": str(row.normalized_entity),
+                "type": str(row.display_type),
                 "paragraphs": int(row.paragraphs),
             }
             for row in entity_counts.itertuples(index=False)
         ]
+        reference_landscape = _project_reference_landscape(
+            reference_landscape_inputs[spec.key],
+            {row["normalized_entity"] for row in adversaries},
+        )
         present_types = {row["type"] for row in adversaries}
         ordered_types = [
             entity_type
@@ -714,51 +997,6 @@ def build_era_profiles(
             for entity_type in ordered_types
         ]
 
-        constituents = []
-        constituency_status = "pending"
-        constituency_note = "No promoted constituency claims yet"
-        if claim_frame is not None:
-            claims = claim_frame[
-                claim_frame["era_key"].eq(spec.key)
-                & claim_frame["outcome"].eq("claim")
-                & claim_frame["normalized_group"].notna()
-            ].copy()
-            claims["normalized_group"] = (
-                claims["normalized_group"].astype(str).str.strip()
-            )
-            claims = claims[claims["normalized_group"].ne("")]
-            if not claims.empty:
-                claim_counts = (
-                    claims.drop_duplicates(
-                        ["normalized_group", "doc_name", "para_idx"]
-                    )
-                    .groupby("normalized_group", observed=True)
-                    .size()
-                    .rename("paragraphs")
-                    .reset_index()
-                    .sort_values(
-                        ["paragraphs", "normalized_group"],
-                        ascending=[False, True],
-                    )
-                    .head(5)
-                )
-                constituents = [
-                    {
-                        "name": str(row.normalized_group),
-                        "paragraphs": int(row.paragraphs),
-                    }
-                    for row in claim_counts.itertuples(index=False)
-                ]
-                constituency_status = "artifact"
-                constituency_note = "Promoted constituency claims"
-        if not constituents and spec.key == "founding":
-            constituents = [
-                {"name": name, "paragraphs": None}
-                for name in FOUNDING_CONSTITUENCY_FALLBACK
-            ]
-            constituency_status = "fallback"
-            constituency_note = "Illustrative only · promoted claims pending"
-
         audience = _communication_rows(
             era_speeches, AUDIENCE_GROUPS, "audience"
         )
@@ -775,12 +1013,12 @@ def build_era_profiles(
             **asdict(spec),
             "years": f"{spec.start_year}–{spec.end_year}",
             "presidents": presidents,
-            "constituents": constituents,
-            "constituency_status": constituency_status,
-            "constituency_note": constituency_note,
+            "distinctive_references": distinctive_references[spec.key],
+            "reference_landscape": reference_landscape,
             "adversaries": adversaries,
             "adversary_types": adversary_types,
             "footprint": {
+                "unit": "source_document_corpus",
                 "speeches": len(era_speeches),
                 "corpus_speeches": corpus_speeches,
                 "speech_share": float(
@@ -796,14 +1034,17 @@ def build_era_profiles(
                 "word_share": float(era_words / corpus_words * 100),
             },
             "major_topics": _major_topics(spec, era_paragraphs),
+            "major_topics_receipt": {"unit": "source_document_corpus"},
             "topic_note": (
                 "Ranked by Founding-era paragraph share · labels overlap"
                 if spec.key == "founding"
                 else "Ranked by era paragraph share · labels overlap"
             ),
             "distinctive_words": distinctive_words,
+            "distinctive_words_receipt": {"unit": "source_document_corpus"},
             "distinctive_eligibility": eligibility,
             "style": {
+                "unit": "source_document_corpus",
                 "audience": max(audience, key=lambda row: row["count"]),
                 "medium": max(medium, key=lambda row: row["count"]),
                 "audience_options": audience,
@@ -813,23 +1054,12 @@ def build_era_profiles(
     return profiles
 
 
-def _load_current_constituency_claims() -> pd.DataFrame | None:
-    materialized = corpus.DATA_DIR / "annotation_ledger" / "materialized"
-    pointer = materialized / "current"
-    if not pointer.exists():
-        return None
-    generation = pointer.read_text().strip()
-    if len(generation) != 64 or any(
-        character not in "0123456789abcdef" for character in generation
-    ):
-        raise ValueError("annotation-ledger current generation is not a SHA-256 id")
-    path = materialized / "generations" / generation / "constituency_claims.parquet"
-    return pd.read_parquet(path) if path.exists() else None
-
-
 def load_all_era_profiles() -> dict[str, dict]:
     """Load current artifacts and derive every era profile."""
     data_dir = corpus.DATA_DIR
+    from .story_foundation import load_story_foundation
+
+    foundation = load_story_foundation()
     return build_era_profiles(
         corpus.load(),
         pd.read_parquet(data_dir / "paragraphs.parquet"),
@@ -839,11 +1069,8 @@ def load_all_era_profiles() -> dict[str, dict]:
         pd.read_parquet(
             data_dir / "llm_annotations" / "speech_annotations.parquet"
         ),
-        pd.read_parquet(
-            data_dir / "llm_annotations" / "paragraph_entities.parquet"
-        ),
         attention.load_taxonomy(),
-        _load_current_constituency_claims(),
+        foundation,
     )
 
 
@@ -861,11 +1088,14 @@ def write_era_profiles(
     path = site_dir / "data" / "era_profiles.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
-        "schema_version": "era-profile-v4",
+        "schema_version": "era-profile-v6",
         "profile_order": [spec.key for spec in ERA_PROFILE_SPECS],
         "profiles": profiles,
     }
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+    temp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    temp.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
     )
+    os.replace(temp, path)
     return path

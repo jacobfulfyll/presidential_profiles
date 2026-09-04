@@ -24,11 +24,16 @@ from datetime import datetime
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pandas as pd
 
 from . import attention, corpus, era_profiles, era_visualizations
+
+if TYPE_CHECKING:
+    from .story_foundation import StoryFoundationBundle
 
 
 TOPIC_LIFE_ANNOTATIONS_PATH = (
@@ -37,7 +42,7 @@ TOPIC_LIFE_ANNOTATIONS_PATH = (
     / "topic_life_annotations_v1.json"
 )
 TOPIC_LIFE_ANNOTATION_SCHEMA = "topic-life-annotations-v1"
-CONTEXTUALIZATION_SCHEMA = "era-contextualizations-v10"
+CONTEXTUALIZATION_SCHEMA = "era-contextualizations-v11"
 REFRAME_MAX_SPEARMAN = -0.50
 REFRAME_MIN_SOURCE_DECLINE_PP = 3.0
 REFRAME_MIN_SUCCESSOR_GROWTH_PP = 1.0
@@ -612,8 +617,10 @@ def _reframe_gate(
 
 def _founding_defined(
     frames: dict[str, pd.DataFrame],
+    speaker_frames: dict[str, pd.DataFrame],
 ) -> dict:
     founding = frames["founding"]
+    founding_speakers = speaker_frames["founding"]
     rows = []
     for key, icon, label, topics, explanation, color in FOUNDING_DEFINED_SPECS:
         founding_count = int(_topic_mask(founding, topics).sum())
@@ -640,7 +647,9 @@ def _founding_defined(
             "share": float(founding_share),
         }, *historical_values]
         president_values = []
-        for president, frame in founding.groupby("president", observed=True):
+        for president, frame in founding_speakers.groupby(
+            "president", observed=True
+        ):
             count = int(_topic_mask(frame, topics).sum())
             president_values.append({
                 "president": str(president),
@@ -746,7 +755,9 @@ def _founding_defined(
             "above the largest observed family share, rather than 100%. "
             "Each family is a union of assigned topic labels. Multi-label "
             "paragraphs can appear in more than one family, so the four shares "
-            "are independent rather than parts of a 100% whole."
+            "are independent rather than parts of a 100% whole. Era "
+            "trajectories use the source-document corpus; president summaries "
+            "use analysis-eligible actual-speaker paragraphs."
         ),
     }
 
@@ -755,10 +766,11 @@ def _shared_trajectory_defined(
     spec: era_profiles.EraProfileSpec,
     profile: dict,
     frames: dict[str, pd.DataFrame],
+    speaker_frames: dict[str, pd.DataFrame],
 ) -> dict:
     """Apply the Founding combined-trajectory grammar to every story era."""
     if spec.key == "founding":
-        chart = _founding_defined(frames)
+        chart = _founding_defined(frames, speaker_frames)
         chart.update({
             "focal_index": 0,
             "focal_key": spec.key,
@@ -823,6 +835,7 @@ def _shared_trajectory_defined(
         selection_basis = "four leading era-profile topics by paragraph share"
 
     focal = frames[spec.key]
+    focal_speakers = speaker_frames[spec.key]
     rows = []
     for raw in raw_specs:
         topics = raw["topics"]
@@ -837,7 +850,7 @@ def _shared_trajectory_defined(
             value["share"] for value in comparison_values
         ) / len(comparison_values)
         president_values = []
-        for president, president_frame in focal.groupby(
+        for president, president_frame in focal_speakers.groupby(
             "president",
             observed=True,
         ):
@@ -948,7 +961,9 @@ def _shared_trajectory_defined(
             "baseline, and its ceiling is the next five-point mark above the "
             "largest observed value rather than 100%. Multi-label paragraphs "
             "can appear in more than one family, so the shares are "
-            "independent rather than parts of a 100% whole."
+            "independent rather than parts of a 100% whole. Era trajectories "
+            "use the source-document corpus; president summaries use "
+            "analysis-eligible actual-speaker paragraphs."
         ),
     }
 
@@ -1268,63 +1283,30 @@ def _topic_life(
 
 def _reference_evidence(
     speeches: pd.DataFrame,
-    frames: dict[str, pd.DataFrame],
+    speaker_frames: dict[str, pd.DataFrame],
     invocation_evidence: pd.DataFrame,
-) -> tuple[pd.DataFrame, int]:
-    required = {
-        "candidate_id",
-        "speaker",
-        "target",
-        "doc_name",
-        "para_idx",
-        "era",
-        "target_status",
-    }
-    missing = sorted(required - set(invocation_evidence.columns))
-    if missing:
-        raise ValueError(
-            f"invocation_evidence is missing era-echo columns: {missing}"
-        )
+    foundation: "StoryFoundationBundle",
+) -> tuple[pd.DataFrame, int, dict[str, int]]:
+    from .story_foundation import overlay_invocation_evidence
+
     first_year = speeches.groupby("president", observed=True)["year"].min()
     target_era = {
         str(president): _era_key_for_year(int(year))
         for president, year in first_year.items()
     }
-    evidence = invocation_evidence[
-        invocation_evidence["target_status"].eq("former_president")
-        & invocation_evidence["speaker"].ne(invocation_evidence["target"])
-    ].copy()
-    speech_metadata = (
-        speeches[["doc_name", "year", "president"]]
-        .drop_duplicates()
-        .set_index("doc_name")
+    evidence, receipt = overlay_invocation_evidence(
+        foundation, invocation_evidence
     )
-    if speech_metadata.index.duplicated().any():
-        raise ValueError(
-            "era echoes require one calendar year per speech document"
-        )
-    source_by_doc = {
-        str(doc_name): era_profiles.story_era_for_speech(
-            int(row.year), str(row.president)
-        ).key
-        for doc_name, row in speech_metadata.iterrows()
-    }
-    evidence["source_key"] = evidence["doc_name"].map(source_by_doc)
     evidence["target_key"] = evidence["target"].map(target_era)
-    if evidence[["source_key", "target_key"]].isna().any().any():
-        missing_sources = sorted(
-            evidence.loc[evidence["source_key"].isna(), "doc_name"]
-            .astype(str)
-            .unique()
-        )
+    if evidence["target_key"].isna().any():
         missing_targets = sorted(
             evidence.loc[evidence["target_key"].isna(), "target"]
             .astype(str)
             .unique()
         )
         raise ValueError(
-            "era echoes could not map invocation evidence: "
-            f"source documents={missing_sources}, targets={missing_targets}"
+            "era echoes could not map invocation targets: "
+            f"{missing_targets}"
         )
     order = {
         spec.key: index
@@ -1342,10 +1324,8 @@ def _reference_evidence(
         )
     paragraph_meta = pd.concat(
         [
-            frame[
-                ["doc_name", "para_idx", "topic_set", "era_key", "president"]
-            ]
-            for frame in frames.values()
+            frame[["doc_name", "para_idx", "topic_set", "era_key"]]
+            for frame in speaker_frames.values()
         ],
         ignore_index=True,
     )
@@ -1366,7 +1346,9 @@ def _reference_evidence(
         raise ValueError(
             "era echoes disagree on source era after exact paragraph join"
         )
-    return evidence, int(len(evidence))
+    if not evidence["speaker"].eq(evidence["attributed_speaker"]).all():
+        raise ValueError("era echoes did not publish the audited actual speaker")
+    return evidence, int(len(evidence)), receipt
 
 
 def _direction_counts(evidence: pd.DataFrame) -> dict:
@@ -2106,6 +2088,7 @@ def build_era_contextualizations(
     taxonomy: dict,
     profiles_by_era: dict[str, dict],
     invocation_evidence: pd.DataFrame,
+    foundation: "StoryFoundationBundle",
     topic_life_annotations: (
         dict[tuple[str, str], dict] | None
     ) = None,
@@ -2155,6 +2138,43 @@ def build_era_contextualizations(
     if any(era_frame.empty for era_frame in frames.values()):
         empty = [key for key, era_frame in frames.items() if era_frame.empty]
         raise ValueError(f"era contextualizations have empty eras: {empty}")
+
+    if paragraph_annotations.duplicated(["doc_name", "para_idx"]).any():
+        raise ValueError(
+            "era contextualization paragraph annotations have duplicate keys"
+        )
+    speaker_frame = foundation.paragraph_view[
+        foundation.paragraph_view["analysis_eligible"]
+    ].merge(
+        paragraph_annotations[["doc_name", "para_idx", "topics"]],
+        on=["doc_name", "para_idx"],
+        how="left",
+        validate="one_to_one",
+    )
+    if speaker_frame["topics"].isna().any():
+        raise ValueError(
+            "speaker-audited paragraphs are missing primary topic annotations"
+        )
+    speaker_frame["topic_set"] = [
+        frozenset(attention.normalize_topics(raw, label_map))
+        for raw in speaker_frame["topics"]
+    ]
+    speaker_frame["era_key"] = speaker_frame["story_era_key"]
+    speaker_frame["president"] = speaker_frame["attributed_speaker"]
+    speaker_frames = {
+        spec.key: speaker_frame[
+            speaker_frame["era_key"].eq(spec.key)
+        ].copy()
+        for spec in era_profiles.ERA_PROFILE_SPECS
+    }
+    if any(era_frame.empty for era_frame in speaker_frames.values()):
+        empty = [
+            key for key, era_frame in speaker_frames.items()
+            if era_frame.empty
+        ]
+        raise ValueError(
+            f"era contextualizations have empty speaker-audited eras: {empty}"
+        )
     if topic_life_annotations is None:
         topic_life_annotations = load_topic_life_annotations(
             taxonomy,
@@ -2170,10 +2190,15 @@ def build_era_contextualizations(
         }
         for index, spec in enumerate(era_profiles.ERA_PROFILE_SPECS)
     ]
-    reference_evidence, reference_row_count = _reference_evidence(
+    (
+        reference_evidence,
+        reference_row_count,
+        invocation_overlay,
+    ) = _reference_evidence(
         speeches,
-        frames,
+        speaker_frames,
         invocation_evidence,
+        foundation,
     )
     records = {}
     for spec in era_profiles.ERA_PROFILE_SPECS:
@@ -2185,6 +2210,7 @@ def build_era_contextualizations(
                 spec,
                 profiles_by_era[spec.key],
                 frames,
+                speaker_frames,
             ),
             "topic_life": _topic_life(
                 spec,
@@ -2204,7 +2230,11 @@ def build_era_contextualizations(
                     ).eq(spec.key).sum()
                 ),
                 "paragraphs": len(frames[spec.key]),
+                "speaker_audited_paragraphs": len(
+                    speaker_frames[spec.key]
+                ),
                 "invocation_rows": reference_row_count,
+                "invocation_overlay": invocation_overlay,
             },
         }
     return records
@@ -2213,19 +2243,36 @@ def build_era_contextualizations(
 def load_all_era_contextualizations() -> dict[str, dict]:
     """Load current artifacts and derive all reusable contextualizations."""
     data_dir = corpus.DATA_DIR
+    from .story_foundation import load_story_foundation
+
     taxonomy = attention.load_taxonomy()
-    profiles_by_era = era_profiles.load_all_era_profiles()
+    foundation = load_story_foundation()
+    speeches = corpus.load()
+    paragraphs = pd.read_parquet(data_dir / "paragraphs.parquet")
+    paragraph_annotations = pd.read_parquet(
+        data_dir / "llm_annotations" / "paragraph_annotations.parquet"
+    )
+    speech_annotations = pd.read_parquet(
+        data_dir / "llm_annotations" / "speech_annotations.parquet"
+    )
+    profiles_by_era = era_profiles.build_era_profiles(
+        speeches,
+        paragraphs,
+        paragraph_annotations,
+        speech_annotations,
+        taxonomy,
+        foundation,
+    )
     return build_era_contextualizations(
-        corpus.load(),
-        pd.read_parquet(data_dir / "paragraphs.parquet"),
-        pd.read_parquet(
-            data_dir / "llm_annotations" / "paragraph_annotations.parquet"
-        ),
+        speeches,
+        paragraphs,
+        paragraph_annotations,
         taxonomy,
         profiles_by_era,
         pd.read_parquet(
             data_dir / "networks" / "invocation_evidence.parquet"
         ),
+        foundation,
         load_topic_life_annotations(
             taxonomy,
             profiles_by_era,
@@ -2253,8 +2300,11 @@ def write_era_contextualizations(
         ],
         "contextualizations": contextualizations,
     }
-    path.write_text(
+    temp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    temp.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True)
-        + "\n"
+        + "\n",
+        encoding="utf-8",
     )
+    os.replace(temp, path)
     return path

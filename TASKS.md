@@ -6,6 +6,125 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+- [x] redesign-explore-interaction-and-evidence-v1: Rebuilt Explore around a
+  searchable governed catalog, primary exact/grouped word entry, reversible
+  family chips, a six-series state model, native SVG trajectory inspection,
+  main-flow uncertainty/context controls, and compact exact evidence. Added a
+  deterministic atomic 263-file v2 projection for exact/grouped unigrams and
+  bigrams, 16 broad issues, 50 AI topics, three acronyms, all governed band
+  fields, static/selected CSV paths, hashes, parity checks, and hard budgets.
+  Retired Plotly, combined-word/chart-options state, the long flat selector,
+  and unversioned shards while preserving canonical legacy URL migration and a
+  complete no-JavaScript fallback. All 2,811 tests, the 73-HTML/376-JSON build,
+  static syntax, compilation, responsive browser QA, loading/failure checks,
+  and protected-surface review pass. Contract:
+  `notes/explore-interaction-and-evidence-v1.md`; no deployment. [P1] [high]
+  [completed]
+
+- [x] simplify-compare-add-agenda-visual-system-v1: Replaced the dashboard-like
+  Compare V2 flow with Rhetoric, Agenda, and Evidence. Added always-present
+  A/B/C selectors and canonical URL/history state; retained the two Profile V3
+  radars and exact tables; added a focused governed-order union of each selected
+  president’s top three broad topics, president-named reason badges, staggered
+  A/B/C marks, and quieter exact columns. The focused view is the only agenda
+  view; fine-topic and CorEx surfaces are absent. Selecting one exact value opens
+  its broad-topic counts and one example directly under the row.
+  Published a deterministic atomic 22-file Compare projection with 3,015 AI
+  and 720 legacy CSV rows, explicit supported/thin/zero/unavailable states,
+  Plan 3 receipts, evidence projections, hashes, and budgets. Removed neighbor,
+  proposal/values, speech-type, redundant control, and old-invocation fallback
+  surfaces. Evidence rows no longer repeat adversary/invocation receipts or
+  expose vocabulary z-scores. Current verification is recorded in
+  `notes/compare-agenda-visual-system-v1.md`; no deployment. [P1] [high]
+  [completed]
+
+- [x] redesign-summary-topic-gravity-field-v1: Replaced the single-node ego
+  interaction in Summary 05 with an owner-directed, deterministic topic field.
+  Users select up to eight fixed broad-topic anchors; all qualifying supported
+  presidents gather inside them according to existing `speaker_paragraph_share`,
+  and portrait area shows visibly non-additive selected-topic paragraph
+  memberships. Deterministic display stretch loosens dense clusters; a visible
+  size/readout key explains focused presidents, and an optional eight-president
+  comparison filter retains the full-field area scale. Plain-language support
+  thresholds replace the former observed/default shorthand. The full-width
+  layout places a single horizontally scrolling topic row above the president
+  selector and its on-demand selected-president scroller;
+  canonical taxonomy sorting makes coordinates independent of click order.
+  Summary renders only 42 supported presidents and 427 recurring edges, without
+  the lower-support toggle, bottom exact readout, Level 2/evidence UI, or
+  observed-edge table rows. Explanatory control copy, the local taxonomy note,
+  the `How to read` disclosure, embedded exact table, and former five-link row
+  are removed. A new 427-row recurring-only CSV is the sole section download;
+  the governed Plan 3 bundle remains unchanged and the Summary projection now
+  contains 20 files. Removed the Extreme Speeches evidence-card appendix so
+  Topics ends Summary, and reduced the download-to-source-footer gap to 8px
+  while retaining the footer divider.
+  The 12 focused, 106
+  related, and all 2,773 repository tests pass; the 73-HTML/204-JSON build,
+  governed audits, reproducibility, static scripts, desktop/390px interaction,
+  focus return, console, and overflow checks pass. No analytical artifacts or
+  schemas changed and no deployment occurred. [P1] [high] [completed]
+
+- [x] migrate-story-reference-landscape-v1: Replaced the visible five-name
+  Distinctive references card with four compact people/institution/group/place
+  paragraph-presence lanes and up to one non-adversarial highlight per lane,
+  with four-paragraph near misses visibly labeled as limited rather than
+  supported. Retained the governed v1 distinctive artifact for audit/download
+  parity, left Named adversaries analytically and interactively unchanged, and
+  advanced Era Profiles to schema v6. The old Jeffreys/log-odds and download
+  footer copy no longer renders; all nine desktop card pairs have equal closed
+  height and mobile has no page overflow. All 83 focused/related and 2,773
+  repository tests pass; the 73-HTML/204-JSON build and governed/static checks
+  are green. No deployment. [P1] [high] [completed]
+
+- [x] migrate-summary-actual-speaker-topic-network-v1: Replaced Summary’s
+  Audit chapter with `05 · Topics — Presidents and their recurring topics`.
+  Added a field-preserving all-corpus projection with 45 presidents, 17 broad
+  topics, all 700 observed Level 1 edges, 17 Level 2/evidence shards, and one
+  hashed manifest; the focused deterministic ego renderer uses only
+  `speaker_paragraph_share` for edge width and retains exact, no-JS, thin,
+  evidence, keyboard, reduced-motion, and mobile fallbacks. The 12 focused and
+  105 related tests pass; all 2,771 repository tests pass with 69 existing
+  warnings. The canonical build validates 73 HTML / 204 JSON, both projection
+  builds are byte-identical, all 130 inline scripts and the new renderer parse,
+  and desktop/tablet/390px browser QA has zero page overflow or console errors.
+  No deployment. [P1] [high] [completed]
+
+- [x] build-actual-speaker-topic-network-v1: Published the standalone governed
+  actual-speaker president/topic bundle with a key-complete 35,394-row promoted
+  annotation join, 32,531 eligible paragraph denominators, 91,119 Level 1/2
+  memberships, 112 nodes, 4,408 corpus/Story-era edges, and 11,576 keyed audit
+  receipts. Added explicit shares, thin/default gates, typed fail-closed
+  loading, two-build byte reproducibility, atomic rollback, public downloads,
+  metric definitions, and narrow site publication without an HTML consumer.
+  All pinned counts, 37 focused tests, 565 related tests, all 2,759 repository
+  tests, the 73-HTML/185-JSON build, 130-script parser, static JS checks, and
+  protected-input audits pass. No deployment. [P1] [high] [completed]
+
+- [x] migrate-story-reference-entities-v1: Migrated named Story speakers and
+  referenced entities to the accepted speaker/reference foundation. All nine
+  profiles now publish five keyed Distinctive references; president strips,
+  agendas, communication appearances, adversaries, and Era Echoes use eligible
+  actual-speaker evidence while aggregate chronology retains source-document
+  units. Added fail-closed bundle/public parity checks, schema v5/v9/v11,
+  atomic Story downloads, and the `era_distinctive_reference` metric. No
+  deployment. [P1] [high] [completed]
+
+- [x] build-speaker-reference-foundation-v1: Added the key-complete
+  `speaker-view-v1` paragraph layer, actual-speaker source-document appearances,
+  exclusion coverage receipts, and an inventoried migration ledger for
+  president-attributed analytical producers. Pinned local spaCy NER now
+  preserves raw spans over all retained paragraphs and conservatively aligns
+  them with promoted primary-AI entities through a versioned safe alias map;
+  the partial second model remains Data-Quality-only. Nine governed Story eras
+  each publish five support-qualified primary-AI candidates using
+  all-eligible-paragraph denominators and Jeffreys-smoothed log odds. The exact
+  fast acceptance check passes the 35,394 / 32,531 / 2,863 / 296 populations
+  and fixed Carter–Reagan 44 / 42 / 22 / 43 regression; two isolated 12-file
+  builds are byte-identical and all 2,704 repository tests pass. Public site
+  JSON, `docs/`, frozen annotations, and sealed speaker inputs remain unchanged.
+  [P1] [high] [completed]
+
 - [x] deploy-latest-site-to-github-pages: Executed the established
   `notes/github-pages-release-plan-v1.md` contract through PR #4, release commit
   `72b0149c76fbfe7c6af45d9bca26febbd9e0e0d9`, and `master` merge
@@ -343,7 +462,11 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   Presidential Agendas remain in the governed visualization contract but are
   no longer rendered in the Story workspace.
   (Story visualization conversation, 2026-07-30)
-- [ ] publish-era-constituency-categories: Replace the pending/illustrative
+- [ ] publish-era-constituency-categories: **Superseded, not completed.** The
+  owner selected `migrate-story-reference-entities-v1`, so the pending and
+  illustrative constituency card was removed from Story rather than promoted.
+  The historical plan and failed constituency evidence remain intact and are
+  no longer Story implementation prerequisites. The former task proposed replacing the pending/illustrative
   constituency state in all nine shared Era Profile screens with the leading
   five promoted `group_type` categories, measured as non-exclusive
   paragraph-level unions over each era's complete canonical denominator.
@@ -549,7 +672,12 @@ Discovered during build-annotation-provenance-layer (2026-07-14). Not fixed — 
 - [ ] triangulate-no-path-injection: `triangulate.load_arms()` / `run()` read four parquets via module-level constants (`PARAGRAPH_ANNOTATIONS_PATH`, `ISSUES_META_PATH`, `CLUSTERS_META_PATH`, `AGREEMENT_PATH`, `COMPOSITIONS_PATH`) plus a `corpus.load` re-export, with no path parameters. Join-integrity logic is therefore only reachable by monkeypatching module attributes (harness at `tests/test_triangulate.py::_write_arms`). Brittle: renaming any constant silently un-hooks the redirect and the test would then read real `data/` without failing. Accept a `paths` argument or a small dataclass. (WRITE-TESTS, topic-method-comparison, 2026-07-21)
 - [ ] default-arg-binding-blocks-monkeypatch: `topic_quality.load_names(path=NAMES_PATH)`, `write_names(..., path=NAMES_PATH)`, `build_names(..., path=NAMES_PATH)` and `triangulate._assert_canonical_topics(topic_sets, expected=N_LEVEL2_TOPICS)` bind their module constants **at def time**, so `monkeypatch.setattr(module, "NAMES_PATH", tmp)` has no effect on the `names=None` paths — you must patch the function itself. Reading the module global inside the body (`path = path or NAMES_PATH`) would make all four injectable. (WRITE-TESTS, topic-method-comparison, 2026-07-21)
 - [ ] discovered-labels-import-time-state: `profiles_site.DISCOVERED_LABELS = topic_quality.discovered_labels()` executes at module scope, and `site.py` / `issues_site.py` / `compare_site.py` all render through it. A names-file change mid-process is invisible until re-import, and it cannot be exercised per-test without `importlib.reload`. Make it a call, or a cached accessor with an explicit invalidation. (WRITE-TESTS, topic-method-comparison, 2026-07-21)
-- [ ] explorer-guard-still-misses-para-labels: `site.py:1117-1120` now watches `topic_quality.NAMES_PATH` (added by topic-method-comparison, closing the names-file half of the staleness hole), but the explorer's topic payload is also built from `issues.PARA_LABELS_PATH`, which remains unwatched. A CorEx re-label without a names-file touch still serves stale explorer labels forever. (WRITE-TESTS, topic-method-comparison, 2026-07-21)
+- [x] explorer-guard-still-misses-para-labels: Superseded by Explore v2 on
+  2026-09-03. The browser no longer consumes `PARA_LABELS_PATH`; its catalog
+  and values come from a projection that hashes issue metadata, the display
+  registry, bands, taxonomy, corpus, families, and producer sources, then
+  refuses source drift before atomic publication. Dedicated source-seal and
+  display-registry tests cover the former stale-label hole. [completed]
 - [ ] tests-package-has-no-init: `tests/` has no `__init__.py`, so helpers cannot be shared across test modules (`from tests.conftest import X` fails under pytest's prepend import mode). Every test file therefore re-declares its own synthetic-frame builders — `test_attention.py`'s `_corpus`/`_taxonomy`/`_issue_frame`/`_series` duplicate the *shape* of `test_taxonomy.py`'s `_paras`/`_issues`/`_tax` and `test_keyed_merge.py`'s `_install_parquets` by necessity, not by choice. Fix direction: promote the frame builders into `conftest.py` as fixtures rather than adding `__init__.py`. (WRITE-TESTS, issue-attention-over-time, 2026-07-21)
 - [ ] names-file-date-stamp-blocks-reproducibility: `topic_quality.default_provenance` stamps `date.today()` into `data/topic_display_names.json`, so a byte-identical rebuild is only verifiable on the day it was generated (2026-07-21). SIMPLIFY used exactly that check to prove its `write_names` de-duplication was output-preserving (10,294 bytes identical) — that verification is no longer runnable. Add a `--date`/`date=` override, or have the comparison exclude `provenance.date`, so the artifact stays permanently verifiable. Same pattern likely applies to other provenance-stamped artifacts. (SIMPLIFY, topic-method-comparison, 2026-07-21)
 - [ ] scipy-undeclared-dependency: `scipy` is imported at module scope in `issues.py` (`scipy.sparse`) and now in `triangulate.py` (`scipy.stats.spearmanr`), but is not declared in `pyproject.toml` — it resolves only transitively via `scikit-learn`/`corextopic`. Works today; breaks silently if either drops the transitive edge. Pre-existing (issues.py predates this task), surfaced while moving a mid-body import to module scope. Declare it explicitly. (SIMPLIFY, topic-method-comparison, 2026-07-21)
@@ -569,7 +697,7 @@ Discovered during build-annotation-provenance-layer (2026-07-14). Not fixed — 
 - [ ] corex-parent-ratios-is-display-string: `topic_lifecycles.parquet`'s `corex_parent_ratios` column is a formatted string (`"Civil rights & race=0.28; Immigration=0.47"`), but `attention.py`'s docstring says the column exists "so the rule can be re-litigated without recomputation" — which currently requires parsing display text. A struct or JSON column would honor the stated intent. Changing it moves the artifact sha, so it is a next-regeneration item. (SYNC-DOCS, issue-attention-over-time, 2026-07-21)
 - [ ] polygamy-one-paragraph-from-under-powered: `Polygamy in the Territories` has exactly 50 SOTU paragraphs against an `UNDER_POWERED_N = 50` guard that fires on `< 50` — so a second under-powered firing is one annotation away, and no test pins that boundary. Add a boundary test. (SYNC-DOCS, issue-attention-over-time, 2026-07-21)
 - [ ] anachronism-report-curated-not-computed: `notes/attention-findings-v1.md` §1.4 presents "seven topics" with historically impossible first appearances, but 32 topics have a positive raw-vs-substantive gap and `anachronism_report` returns all of them sorted — the 7 are a human-curated subset judged impossible, so the report's number cannot be reproduced by running the function. Add a documented cutoff or an `impossible` flag column so the published set is derivable. (SYNC-DOCS, issue-attention-over-time, 2026-07-21)
-- [ ] escape-display-names-in-rendered-html: **SECURITY (MEDIUM).** Topic display names reach `docs/*.html` unescaped through 7 sinks — `issues_site.py:121` (`<title>`), `:151` (`<h1>`), `:156`, `:185`, `profiles_site.py:116`, `:338`, and `explorer.py:336-337` (JS `chip.innerHTML`). Verified end-to-end: a names-file `display` of `<script>alert(document.domain)</script>` lands verbatim in the rendered page; the explorer sink is `innerHTML` so `<img src=x onerror=...>` is the working payload there. Output is published to GitHub Pages. MEDIUM not HIGH because the source is a committed artifact and the identical sink already exists on `master` for the 15 anchored issue names — `topic-method-comparison` widened the trusted-input set, it did not create the sink. Worth doing because `data/topic_display_names.json` is the first repo file whose *stated purpose* is hand-editing, `topic_quality.validate_surfaced` already hardens a different hand-edit hazard, and `issues_site.py:89` already calls `html.escape(q)` on corpus quotes two lines away. Fix: `html.escape` at the six server-side sinks, `textContent`/`createTextNode` for the explorer chip label — applied to **all 22 labels**, not just the discovered ones, since the anchored names share the sink. Note this changes `docs/` bytes (`&` → `&amp;`), so it regenerates the published site. Plotly `<script>` embeds are already safe (plotly's encoder emits `<`), and `profiles.slug` is proven non-traversing. [P1] [moderate] [code] (SECURITY-REVIEW MEDIUM, topic-method-comparison, 2026-07-21)
+- [x] escape-display-names-in-rendered-html: **SECURITY (MEDIUM).** Topic display names reach `docs/*.html` unescaped through 7 sinks — `issues_site.py:121` (`<title>`), `:151` (`<h1>`), `:156`, `:185`, `profiles_site.py:116`, `:338`, and `explorer.py:336-337` (JS `chip.innerHTML`). Verified end-to-end: a names-file `display` of `<script>alert(document.domain)</script>` lands verbatim in the rendered page; the explorer sink is `innerHTML` so `<img src=x onerror=...>` is the working payload there. Output is published to GitHub Pages. MEDIUM not HIGH because the source is a committed artifact and the identical sink already exists on `master` for the 15 anchored issue names — `topic-method-comparison` widened the trusted-input set, it did not create the sink. Worth doing because `data/topic_display_names.json` is the first repo file whose *stated purpose* is hand-editing, `topic_quality.validate_surfaced` already hardens a different hand-edit hazard, and `issues_site.py:89` already calls `html.escape(q)` on corpus quotes two lines away. Fix: `html.escape` at the six server-side sinks, `textContent`/`createTextNode` for the explorer chip label — applied to **all 22 labels**, not just the discovered ones, since the anchored names share the sink. Note this changes `docs/` bytes (`&` → `&amp;`), so it regenerates the published site. Plotly `<script>` embeds are already safe (plotly's encoder emits `<`), and `profiles.slug` is proven non-traversing. [P1] [moderate] [code] (SECURITY-REVIEW MEDIUM, topic-method-comparison, 2026-07-21) **Resolved across the server sinks and safe script/DOM paths; Explore v2 removed its final unsafe sink and the end-to-end security suite passes on 2026-09-03.** [completed]
 - [ ] names-file-malformed-shapes-crash-unhelpfully: `topic_quality.load_names` (`:162-177`) accepts any JSON shape. For a file designed to be hand-edited the degradation is uneven: truncated JSON raises a bare `JSONDecodeError` mid-build; a top-level list raises `AttributeError: 'list' object has no attribute 'get'`; a list-valued `topics` raises `AttributeError ... no attribute 'items'`; and worst, `"surfaced": "Discovered 5"` (string instead of list) **silently returns 12 single-character topics** — `['D','i','s','c',...]` — because `list()` on a `str` splatters characters, then `KeyError`s deep inside a DataFrame selection. Add a shape check raising a named error the way `UnanchoredTopicError` does, or at minimum guard `surfaced` with an `isinstance(list)` test. (SECURITY-REVIEW LOW, topic-method-comparison, 2026-07-21)
 - [ ] display-name-slug-collision-drops-a-page: `issues_site.py:262` derives page filenames from display names via `profiles.slug`, which erases everything outside `[a-z]`. Two display names can therefore collapse to one filename and silently overwrite each other's page, and an all-symbol display name slugs to `""` → writes `docs/issues/.html`. Not a traversal (`../../../etc/passwd` → `etc-passwd`, proven), so this is data-integrity rather than exploitability. Distinct from the already-filed `discovered-n-slug-collision`, which is about the digit-stripping in the `Discovered N` column names. (SECURITY-REVIEW LOW, topic-method-comparison, 2026-07-21)
 - [ ] five-singleton-level1-domains: `taxonomy_v1` has **five** singleton level-1 domains, not one — `Indian & Tribal Affairs`, `Ceremonial & Commemorative Address`, `Procedural & Administrative`, `Faith & National Values`, `Partisan & Media Combat`. `attention.find_successor` searches for a successor only within the same level-1 domain, so for 5 of 17 domains that search space is **empty by construction**: "no successor found" there means "we could not have found one", not "we looked and found none". `notes/attention-findings-v1.md` §6.3 discloses this for `Indian & Tribal Affairs` only. Either broaden the successor search (level-1 is not the only defensible neighbourhood) or emit a `successor_candidates_considered` column so an empty search is distinguishable from a failed one. (RE-VERIFICATION GATE, issue-attention-over-time, 2026-07-21)

@@ -23,6 +23,7 @@ from . import (
     ai_labels,
     attention,
     bands,
+    compare_projection,
     compare_site,
     corpus,
     era_boundaries_site,
@@ -32,6 +33,7 @@ from . import (
     expansion_site,
     expansion_story,
     explorer,
+    explore_projection,
     indices,
     issues,
     issues_site,
@@ -43,6 +45,9 @@ from . import (
     rhetoric,
     similarity,
     site_validation,
+    speaker_topic_network,
+    story_foundation,
+    summary_topic_network,
     trends,
     word_families,
 )
@@ -681,45 +686,8 @@ def _standing_html(
     speeches: pd.DataFrame | None = None,
     rates: pd.DataFrame | None = None,
     summary_data: dict | None = None,
+    topic_network_html: str = "",
 ) -> str:
-    rows = [
-        (
-            "Agenda",
-            "Topic breadth expands mainly between the founding and Civil War eras, then largely plateaus.",
-            "Money, war, rights, belonging, and national purpose repeatedly return under new vocabularies.",
-            "Post-1860 breadth is baseline- and taxonomy-sensitive, so it is not a Summary headline.",
-        ),
-        (
-            "Communication",
-            "The corpus moves from written messages toward broadcast performance and then an always-on environment.",
-            "The annual message remains the closest repeated genre across the whole record.",
-            "One assigned primary medium is not a complete inventory of channels, audiences, or platform activity.",
-        ),
-        (
-            "Governing voice",
-            "Legal/procedural and hedged wording recedes while promotional and opponent-centered wording rises.",
-            "Presidents still mix proposals, values, ceremony, administration, and persuasion.",
-            "Vocabulary cannot measure competence, policy depth, persuasion, or sincerity.",
-        ),
-        (
-            "Conflict",
-            "Presidents differ in both whom they name as adversaries and how often they use enemy, zero-sum, or partisan frames.",
-            "Enemy naming and zero-sum frames appear across the presidential record.",
-            "Labels describe textual framing, not whether a target was legitimate or a frame sincere.",
-        ),
-        (
-            "Time and emotion",
-            "Future and backward-looking terms can rise together; Hope/Doom varies around historical shocks.",
-            "Presidents repeatedly promise renewal while describing danger.",
-            "Dictionary matches are not intent; event markers orient time and do not identify causes.",
-        ),
-    ]
-    body = "".join(
-        f"<tr><th scope=\"row\">{html.escape(theme)}</th>"
-        f"<td>{html.escape(changed)}</td><td>{html.escape(persisted)}</td>"
-        f"<td>{html.escape(uncertain)}</td></tr>"
-        for theme, changed, persisted, uncertain in rows
-    )
     long_run_inputs = (scores, speeches, rates)
     if any(value is not None for value in long_run_inputs) and not all(
         value is not None for value in long_run_inputs
@@ -769,7 +737,7 @@ presidents, and it starts with the complete record visible.</p>
 <nav class="summary-chapter-route" aria-label="Summary argument">
   <a href="#summary-performance">Congress → public</a><a href="#summary-enemy">Enemies by president</a>
   <a href="#summary-time">Tomorrow + yesterday</a><a href="#summary-emotion">Hope ÷ doom</a>
-  <a href="#summary-audit">What survives</a>
+  <a href="#summary-topics">Topics by president</a>
 </nav>
 
 <section class="summary-chapter" id="summary-performance" aria-labelledby="summary-performance-title">
@@ -886,27 +854,7 @@ presidents, and it starts with the complete record visible.</p>
   {_event_callouts(SUMMARY_RATIO_EVENTS)}
 </section>
 
-<section class="summary-chapter" id="summary-audit" aria-labelledby="summary-audit-title">
-  <p class="summary-chapter-no">05 · Audit</p>
-  <h2 id="summary-audit-title">What America’s presidential record can—and cannot—say</h2>
-  <div class="synthesis-matrix table-scroll"><table>
-<thead><tr><th>Through-line</th><th>What changed</th><th>What persisted</th>
-<th>What remains uncertain</th></tr></thead><tbody>{body}</tbody></table></div>
-  <p><a href="data-quality.html">Inspect data quality and nulls →</a> ·
-  <a href="methodology.html">Inspect the annotation instruments →</a> ·
-  <a href="feedback.html">Challenge a method or submit a correction →</a></p>
-</section>"""
-
-
-def _records_appendix_html(records: list[dict]) -> str:
-    return f"""<details class="story-appendix">
-<summary>Open the extreme-speeches evidence cards</summary>
-<p>These rankings are a post-story interlude, not an era in the chronology. They compare
-speeches of at least 1,500 words so a short ceremonial statement cannot win on a handful
-of matches. Rates still require context: a dictionary cannot settle quotation, sarcasm,
-negation, or whether the president endorsed the matched words.</p>
-{_records_html(records)}
-</details>"""
+{topic_network_html}"""
 
 
 SUMMARY_REGISTER_PERIODS = (1770, 1800, 1830, 1860, 1890, 1920, 1950, 1980, 2010)
@@ -4447,36 +4395,6 @@ FOUNDING_FINANCE_TOPICS = (
     "Public Debt, Revenue & Treasury Finance",
     "Taxes, Budget Deficits & Federal Spending",
 )
-FOUNDING_TEST_SPECS = (
-    (
-        "union",
-        "🏛️",
-        "Hold the union together",
-        FOUNDING_UNION_TOPICS,
-        "#315f78",
-    ),
-    (
-        "finance",
-        "💰",
-        "Finance the government",
-        FOUNDING_FISCAL_SYSTEM_TOPICS,
-        "#9a7133",
-    ),
-    (
-        "native",
-        "🪶",
-        "Navigate Native nations and continental power",
-        (FOUNDING_NATIVE_TOPIC,),
-        "#a24f52",
-    ),
-    (
-        "abroad",
-        "⚓",
-        "Exercise independence abroad",
-        FOUNDING_FOREIGN_INDEPENDENCE_TOPICS,
-        "#4f7557",
-    ),
-)
 FOUNDING_TEST_EXPLANATIONS = {
     "union": "Make constitutional authority hold at home.",
     "finance": "Establish credit, revenue, money, and banking.",
@@ -4492,50 +4410,6 @@ FOUNDING_THREAD_ICONS = {
     "Early Naval Wars: Barbary & the War of 1812": "⚓",
     "Public Debt, Revenue & Treasury Finance": "↳",
     "Taxes, Budget Deficits & Federal Spending": "↳",
-}
-FOUNDING_TOPIC_SHORT_LABELS = {
-    "Constitutional Union & Federalism": "Constitutional union & federalism",
-    "Crime, Insurrection & Federal Law Enforcement": "Federal law enforcement",
-    "Executive Power, Vetoes & the Courts": "Executive power & courts",
-    "Public Debt, Revenue & Treasury Finance": "Debt, revenue & Treasury",
-    "Taxes, Budget Deficits & Federal Spending": "Taxes, budgets & spending",
-    "Coinage, Currency & Specie": "Currency & specie",
-    "National Bank & Banking Crises": "National bank & banking",
-    "Tariffs, Reciprocity & Navigation Laws": "Tariffs & navigation laws",
-    "Treaties, Diplomacy & International Arbitration": "Treaties & diplomacy",
-    "Neutral Rights & Maritime Depredations": "Maritime rights",
-    "Military Preparedness, Armed Forces & Veterans": "Military preparedness",
-    "Early Naval Wars: Barbary & the War of 1812": "Naval wars",
-    FOUNDING_NATIVE_TOPIC: "Native affairs",
-    "Faith, Providence & National Ideals": "Faith & national ideals",
-    "Relations with Spain, Mexico & Territorial Claims": "Territorial claims",
-}
-FOUNDING_ADVERSARY_ALIASES = {
-    "Britain": "Great Britain",
-    "British": "Great Britain",
-    "British Government": "Great Britain",
-    "British cabinet": "Great Britain",
-    "British commander": "Great Britain",
-    "British commanders": "Great Britain",
-    "British naval force": "Great Britain",
-    "British squadron": "Great Britain",
-    "British vessel": "Great Britain",
-    "French Republic": "France",
-    "Executive Directory": "France",
-    "French Directory": "France",
-    "the Directory": "France",
-    "Barbary Powers": "Tripoli / Barbary states",
-    "Barbary states": "Tripoli / Barbary states",
-    "Tripoli": "Tripoli / Barbary states",
-    "Tripoline cruisers": "Tripoli / Barbary states",
-    "western Pennsylvania insurgents": "Pennsylvania insurgents",
-}
-FOUNDING_ADVERSARY_TYPE_STYLES = {
-    "nation": ("Nation or state", "#315f78"),
-    "person": ("Person", "#a24f52"),
-    "group": ("Group", "#4f7557"),
-    "institution": ("Institution", "#9a7133"),
-    "other": ("Other", "#74695f"),
 }
 FOUNDING_DISTINCTIVE_MIN_CORPUS_USES = 50
 FOUNDING_DISTINCTIVE_MIN_ERA_SPEECHES = 10
@@ -4604,38 +4478,6 @@ FOUNDING_THREAD_SPECS = (
         "disappearing",
     ),
 )
-FOUNDING_CONSTITUENCY_FALLBACK = (
-    "The national public",
-    "Commercial and creditor interests",
-    "Western settlers and land claimants",
-)
-FOUNDING_GENERIC_ADVERSARIES = frozenset({
-    "the enemy",
-    "belligerent powers",
-    "faction",
-    "insurgents",
-    "foreign and domestic factions",
-    "foreign influence",
-    "spirit of party",
-    "the savages",
-})
-
-
-def _load_current_constituency_claims() -> pd.DataFrame | None:
-    """Read the promoted constituency projection, or return None when absent."""
-    materialized = corpus.DATA_DIR / "annotation_ledger" / "materialized"
-    pointer = materialized / "current"
-    if not pointer.exists():
-        return None
-    generation = pointer.read_text().strip()
-    if not re.fullmatch(r"[0-9a-f]{64}", generation):
-        raise ValueError("annotation-ledger current generation is not a SHA-256 id")
-    path = materialized / "generations" / generation / "constituency_claims.parquet"
-    if not path.exists():
-        return None
-    return pd.read_parquet(path)
-
-
 def _strict_one_to_one_merge(
     left: pd.DataFrame,
     right: pd.DataFrame,
@@ -4700,8 +4542,7 @@ def founding_story_data(
     agreement: pd.DataFrame,
     lifecycles: pd.DataFrame,
     taxonomy: dict,
-    paragraph_entities: pd.DataFrame | None = None,
-    constituency_claims: pd.DataFrame | None = None,
+    foundation: story_foundation.StoryFoundationBundle,
     invocation_evidence: pd.DataFrame | None = None,
 ) -> dict:
     """Recompute every founding-story value from frozen, key-validated artifacts."""
@@ -4806,18 +4647,6 @@ def founding_story_data(
         _topic_mask(founding, (FOUNDING_EXTERNAL_TOPICS[0],))
         & _topic_mask(founding, (FOUNDING_EXTERNAL_TOPICS[1],))
     )
-    native_by_president = []
-    for president, group in founding.groupby("president", sort=False):
-        mask = _topic_mask(group, (FOUNDING_NATIVE_TOPIC,))
-        native_by_president.append({
-            "president": president,
-            "count": int(mask.sum()),
-            "denominator": len(group),
-            "share": float(mask.mean() * 100),
-        })
-    native_share_leader = max(native_by_president, key=lambda row: row["share"])
-    native_count_leader = max(native_by_president, key=lambda row: row["count"])
-
     external_mask = _topic_mask(founding, FOUNDING_EXTERNAL_TOPICS)
     native_mask = _topic_mask(founding, (FOUNDING_NATIVE_TOPIC,))
     sovereignty_security = external_mask | native_mask
@@ -4930,438 +4759,6 @@ def founding_story_data(
         "min_era_speeches": FOUNDING_DISTINCTIVE_MIN_ERA_SPEECHES,
         "min_era_presidents": FOUNDING_DISTINCTIVE_MIN_ERA_PRESIDENTS,
     }
-    president_rows = (
-        founding_speeches.groupby("president", sort=False)
-        .agg(
-            first_year=("year", "min"),
-            last_year=("year", "max"),
-            speeches=("doc_name", "nunique"),
-        )
-        .reset_index()
-        .sort_values(["first_year", "president"])
-    )
-    presidents = [
-        {
-            "name": str(row.president),
-            "years": f"{int(row.first_year)}–{int(row.last_year)}",
-            "speeches": int(row.speeches),
-        }
-        for row in president_rows.itertuples(index=False)
-    ]
-    president_order = [row["name"] for row in presidents]
-
-    test_topic_sets = [
-        frozenset(topics) for _, _, _, topics, _ in FOUNDING_TEST_SPECS
-    ]
-    for left_index, left_topics in enumerate(test_topic_sets):
-        for right_topics in test_topic_sets[left_index + 1:]:
-            duplicate_topics = sorted(left_topics & right_topics)
-            if duplicate_topics:
-                raise ValueError(
-                    "founding tests must use disjoint topic definitions; "
-                    f"duplicates={duplicate_topics}"
-                )
-
-    founding_tests = []
-    test_masks = {}
-    for key, icon, label, topics, color in FOUNDING_TEST_SPECS:
-        mask = _topic_mask(founding, topics)
-        test_masks[key] = mask
-        by_president = []
-        for president in president_order:
-            group = founding[founding["president"].eq(president)]
-            president_mask = _topic_mask(group, topics)
-            by_president.append({
-                "president": president,
-                "count": int(president_mask.sum()),
-                "denominator": len(group),
-                "share": float(president_mask.mean() * 100),
-            })
-        founding_tests.append({
-            "key": key,
-            "icon": icon,
-            "label": label,
-            "topics": topics,
-            "color": color,
-            "count": int(mask.sum()),
-            "share": float(mask.mean() * 100),
-            "by_president": by_president,
-        })
-
-    founding_test_overlaps = []
-    for left_index, left in enumerate(founding_tests):
-        for right in founding_tests[left_index + 1:]:
-            overlap = test_masks[left["key"]] & test_masks[right["key"]]
-            founding_test_overlaps.append({
-                "left": left["key"],
-                "right": right["key"],
-                "count": int(overlap.sum()),
-                "share": float(overlap.mean() * 100),
-            })
-
-    topic_test_key = {
-        topic: key
-        for key, _, _, topics, _ in FOUNDING_TEST_SPECS
-        for topic in topics
-    }
-    president_agendas = []
-    president_topic_rows = {}
-    for president in president_order:
-        group = founding[founding["president"].eq(president)]
-        topic_counts = []
-        assigned_topics = sorted({
-            topic for assigned in group["topic_set"] for topic in assigned
-        })
-        for topic in assigned_topics:
-            count = int(group["topic_set"].map(lambda values: topic in values).sum())
-            topic_counts.append({
-                "topic": topic,
-                "label": FOUNDING_TOPIC_SHORT_LABELS.get(topic, topic),
-                "count": count,
-                "denominator": len(group),
-                "share": float(count / len(group) * 100),
-                "test_key": topic_test_key.get(topic),
-            })
-        topic_counts.sort(key=lambda row: (-row["count"], row["topic"]))
-        president_topic_rows[president] = {
-            row["topic"]: row for row in topic_counts
-        }
-        president_agendas.append({
-            "president": president,
-            "years": next(
-                row["years"] for row in presidents if row["name"] == president
-            ),
-            "denominator": len(group),
-            "topics": topic_counts[:5],
-        })
-
-    agenda_topics = sorted({
-        topic
-        for president_rows in president_topic_rows.values()
-        for topic in president_rows
-    })
-    agenda_racetrack_rows = []
-    for topic in agenda_topics:
-        by_president = []
-        for president in president_order:
-            row = president_topic_rows[president].get(topic)
-            by_president.append({
-                "president": president,
-                "count": 0 if row is None else row["count"],
-                "denominator": next(
-                    agenda["denominator"]
-                    for agenda in president_agendas
-                    if agenda["president"] == president
-                ),
-                "share": 0.0 if row is None else row["share"],
-            })
-        shares = [row["share"] for row in by_president]
-        era_count = int(
-            founding["topic_set"].map(lambda values: topic in values).sum()
-        )
-        agenda_racetrack_rows.append({
-            "topic": topic,
-            "label": FOUNDING_TOPIC_SHORT_LABELS.get(topic, topic),
-            "test_key": topic_test_key.get(topic),
-            "count": era_count,
-            "denominator": len(founding),
-            "share": float(era_count / len(founding) * 100),
-            "by_president": by_president,
-            "spread": float(max(shares) - min(shares)),
-            "max_share": float(max(shares)),
-        })
-    mandatory_topics = {
-        agenda["topics"][0]["topic"]
-        for agenda in president_agendas
-        if agenda["topics"]
-    }
-    agenda_racetrack = sorted(
-        sorted(
-            agenda_racetrack_rows,
-            key=lambda row: (
-                row["topic"] not in mandatory_topics,
-                -(row["share"] + row["spread"]),
-                -row["max_share"],
-                row["topic"],
-            ),
-        )[:8],
-        key=lambda row: (-row["max_share"], -row["share"], row["topic"]),
-    )
-
-    def communication_rows(
-        frame: pd.DataFrame, groups: tuple, column: str
-    ) -> list[dict]:
-        total = len(frame)
-        return [
-            {
-                "label": label,
-                "raw_values": raw_values,
-                "count": int(frame[column].isin(raw_values).sum()),
-                "share": float(frame[column].isin(raw_values).mean() * 100),
-            }
-            for label, raw_values in groups
-        ]
-
-    audience_labels = {
-        raw_value: label
-        for label, raw_values in FOUNDING_AUDIENCE_GROUPS
-        for raw_value in raw_values
-    }
-    medium_labels = {
-        raw_value: label
-        for label, raw_values in FOUNDING_MEDIUM_GROUPS
-        for raw_value in raw_values
-    }
-    president_communications = []
-    for president in president_order:
-        group = founding_speeches[
-            founding_speeches["president"].eq(president)
-        ].copy()
-        written = int(group["medium"].eq("written_message").sum())
-        congress = int(group["audience"].eq("congress").sum())
-        group["audience_group"] = group["audience"].map(audience_labels)
-        group["medium_group"] = group["medium"].map(medium_labels)
-        if group[["audience_group", "medium_group"]].isna().any().any():
-            raise ValueError(
-                f"founding story has an unmapped communication route for {president}"
-            )
-        route_counts = (
-            group.groupby(
-                ["audience_group", "medium_group"], observed=True
-            )
-            .size()
-            .rename("count")
-            .reset_index()
-            .sort_values(
-                ["count", "audience_group", "medium_group"],
-                ascending=[False, True, True],
-            )
-        )
-        president_communications.append({
-            "president": president,
-            "speeches": len(group),
-            "written_count": written,
-            "written_share": float(written / len(group) * 100),
-            "congress_count": congress,
-            "congress_share": float(congress / len(group) * 100),
-            "audience": communication_rows(
-                group, FOUNDING_AUDIENCE_GROUPS, "audience"
-            ),
-            "medium": communication_rows(
-                group, FOUNDING_MEDIUM_GROUPS, "medium"
-            ),
-            "routes": [
-                {
-                    "audience": str(row.audience_group),
-                    "medium": str(row.medium_group),
-                    "count": int(row.count),
-                    "share": float(row.count / len(group) * 100),
-                }
-                for row in route_counts.itertuples(index=False)
-            ],
-        })
-
-    adversaries = []
-    adversary_type_legend = []
-    adversary_network = []
-    president_adversary_summary = []
-    if paragraph_entities is not None:
-        required = {"doc_name", "para_idx", "entity", "type", "stance"}
-        missing = sorted(required - set(paragraph_entities.columns))
-        if missing:
-            raise ValueError(
-                f"paragraph_entities is missing founding-profile columns: {missing}"
-            )
-        entity_frame = paragraph_entities[sorted(required)].merge(
-            paragraph_frame[
-                [
-                    "doc_name", "para_idx", "year", "era_key", "president",
-                    "word_count",
-                ]
-            ],
-            on=["doc_name", "para_idx"],
-            how="left",
-            validate="many_to_one",
-        )
-        if entity_frame["year"].isna().any():
-            raise ValueError("paragraph_entities contains unknown paragraph keys")
-        adversarial = entity_frame[
-            entity_frame["era_key"].eq("founding")
-            & entity_frame["stance"].eq("adversarial")
-            & ~entity_frame["entity"].isin(FOUNDING_GENERIC_ADVERSARIES)
-        ].copy()
-        adversarial["display_entity"] = adversarial["entity"].map(
-            FOUNDING_ADVERSARY_ALIASES
-        ).fillna(adversarial["entity"])
-        adversary_types = (
-            adversarial.groupby(["display_entity", "type"], observed=True)
-            .size()
-            .rename("type_mentions")
-            .reset_index()
-            .sort_values(
-                ["display_entity", "type_mentions", "type"],
-                ascending=[True, False, True],
-            )
-            .drop_duplicates("display_entity")
-        )
-        adversarial = adversarial.drop_duplicates(
-            ["president", "display_entity", "doc_name", "para_idx"]
-        )
-        adversarial_paragraphs = adversarial.drop_duplicates(
-            ["president", "doc_name", "para_idx"]
-        )
-        for president in president_order:
-            president_rows = adversarial[
-                adversarial["president"].eq(president)
-            ]
-            named_paragraphs = adversarial_paragraphs[
-                adversarial_paragraphs["president"].eq(president)
-            ]
-            total_words = int(
-                founding.loc[
-                    founding["president"].eq(president), "word_count"
-                ].sum()
-            )
-            adversary_words = int(named_paragraphs["word_count"].sum())
-            president_adversary_summary.append({
-                "president": president,
-                "total_words": total_words,
-                "adversary_words": adversary_words,
-                "word_share": float(adversary_words / total_words * 100),
-                "named_adversaries": int(
-                    president_rows["display_entity"].nunique()
-                ),
-                "named_paragraphs": int(len(named_paragraphs)),
-            })
-        counts = (
-            adversarial.groupby("display_entity", observed=True)
-            .size()
-            .rename("paragraphs")
-            .reset_index()
-            .sort_values(
-                ["paragraphs", "display_entity"], ascending=[False, True]
-            )
-            .head(5)
-            .merge(
-                adversary_types[["display_entity", "type"]],
-                on="display_entity",
-                how="left",
-                validate="one_to_one",
-            )
-        )
-        adversaries = [
-            {
-                "name": str(row.display_entity),
-                "type": str(row.type),
-                "paragraphs": int(row.paragraphs),
-            }
-            for row in counts.itertuples(index=False)
-        ]
-        corpus_type_counts = paragraph_entities["type"].value_counts()
-        present_types = {row["type"] for row in adversaries}
-        ordered_types = [
-            entity_type
-            for entity_type in FOUNDING_ADVERSARY_TYPE_STYLES
-            if entity_type in corpus_type_counts.index
-        ]
-        ordered_types.extend(
-            sorted(
-                str(entity_type)
-                for entity_type in corpus_type_counts.index
-                if entity_type not in FOUNDING_ADVERSARY_TYPE_STYLES
-            )
-        )
-        adversary_type_legend = [
-            {
-                "type": entity_type,
-                "label": FOUNDING_ADVERSARY_TYPE_STYLES.get(
-                    entity_type, (entity_type.replace("_", " ").title(), "#74695f")
-                )[0],
-                "color": FOUNDING_ADVERSARY_TYPE_STYLES.get(
-                    entity_type, ("Other", "#74695f")
-                )[1],
-                "corpus_mentions": int(corpus_type_counts[entity_type]),
-                "present": entity_type in present_types,
-            }
-            for entity_type in ordered_types
-        ]
-
-        network_counts = (
-            adversarial.groupby(["president", "display_entity"], observed=True)
-            .agg(
-                paragraphs=("doc_name", "size"),
-                raw_entities=("entity", lambda values: tuple(sorted(set(values)))),
-                entity_types=("type", lambda values: tuple(sorted(set(values)))),
-            )
-            .reset_index()
-        )
-        network_rows = []
-        for president in president_order:
-            rows = network_counts[
-                network_counts["president"].eq(president)
-            ].sort_values(
-                ["paragraphs", "display_entity"], ascending=[False, True]
-            )
-            selected = rows[
-                (np.arange(len(rows)) < 3) | rows["paragraphs"].ge(4)
-            ].head(5)
-            network_rows.extend(selected.to_dict("records"))
-        adversary_network = [
-            {
-                "president": str(row["president"]),
-                "adversary": str(row["display_entity"]),
-                "paragraphs": int(row["paragraphs"]),
-                "raw_entities": tuple(str(value) for value in row["raw_entities"]),
-                "entity_types": tuple(str(value) for value in row["entity_types"]),
-            }
-            for row in network_rows
-        ]
-
-    constituents = []
-    constituency_status = "fallback"
-    if constituency_claims is not None and not constituency_claims.empty:
-        required = {"doc_name", "para_idx", "outcome", "normalized_group"}
-        missing = sorted(required - set(constituency_claims.columns))
-        if missing:
-            raise ValueError(
-                f"constituency_claims is missing founding-profile columns: {missing}"
-            )
-        claim_frame = constituency_claims[list(required)].merge(
-            paragraph_frame[["doc_name", "para_idx", "year", "era_key"]],
-            on=["doc_name", "para_idx"],
-            how="left",
-            validate="many_to_one",
-        )
-        if claim_frame["year"].isna().any():
-            raise ValueError("constituency_claims contains unknown paragraph keys")
-        claims = claim_frame[
-            claim_frame["era_key"].eq("founding")
-            & claim_frame["outcome"].eq("claim")
-            & claim_frame["normalized_group"].notna()
-        ].copy()
-        claims["normalized_group"] = claims["normalized_group"].astype(str).str.strip()
-        claims = claims[claims["normalized_group"].ne("")]
-        if not claims.empty:
-            counts = (
-                claims.drop_duplicates(
-                    ["normalized_group", "doc_name", "para_idx"]
-                )
-                .groupby("normalized_group", observed=True)
-                .size()
-                .sort_values(ascending=False)
-                .head(5)
-            )
-            constituents = [
-                {"name": str(name), "paragraphs": int(count)}
-                for name, count in counts.items()
-            ]
-            constituency_status = "artifact"
-    if not constituents:
-        constituents = [
-            {"name": name, "paragraphs": None}
-            for name in FOUNDING_CONSTITUENCY_FALLBACK
-        ]
-
     audience_values = {
         raw for _, raw_values in FOUNDING_AUDIENCE_GROUPS for raw in raw_values
     }
@@ -5587,18 +4984,15 @@ def founding_story_data(
         paragraphs,
         paragraph_annotations,
         speech_annotations,
-        paragraph_entities,
         taxonomy,
-        constituency_claims,
+        foundation,
     )
     all_era_visualization_data = (
         era_visualizations.build_era_visualizations(
-            speeches,
-            paragraphs,
             paragraph_annotations,
             speech_annotations,
-            paragraph_entities,
             taxonomy,
+            foundation,
         )
     )
     if invocation_evidence is None:
@@ -5613,6 +5007,7 @@ def founding_story_data(
             taxonomy,
             all_era_profile_data,
             invocation_evidence,
+            foundation,
         )
     )
     founding_visualization = all_era_visualization_data["founding"]
@@ -5648,9 +5043,6 @@ def founding_story_data(
         "sovereignty_security_overlap_share": float(
             sovereignty_overlap.mean() * 100
         ),
-        "native_by_president": native_by_president,
-        "native_share_leader": native_share_leader,
-        "native_count_leader": native_count_leader,
         "communications": communications,
         "agreement": {
             "audience": audience_agreement,
@@ -5659,10 +5051,6 @@ def founding_story_data(
         },
         "threads": threads,
         "finance_sublanes": finance_sublanes,
-        "founding_tests": founding_tests,
-        "founding_test_overlaps": founding_test_overlaps,
-        "president_agendas": president_agendas,
-        "agenda_racetrack": agenda_racetrack,
         "president_communications": (
             founding_visualization["governance"]["presidents"]
         ),
@@ -5728,6 +5116,17 @@ def _era_adversary_bubble_layout(adversaries: list[dict]) -> list[dict]:
     ]
 
 
+def _word_boundary_excerpt(value: object, max_chars: int = 360) -> str:
+    """Collapse whitespace and truncate without cutting through a word."""
+    text = " ".join(str(value).split())
+    if len(text) <= max_chars:
+        return text
+    prefix = text[: max_chars - 1]
+    if " " in prefix:
+        prefix = prefix.rsplit(" ", 1)[0]
+    return prefix.rstrip() + "…"
+
+
 def _era_profile_html(
     profile: dict,
     panel_id: str,
@@ -5750,14 +5149,37 @@ def _era_profile_html(
         president_name = html.escape(row["name"])
         president_name_attr = html.escape(row["name"], quote=True)
         president_slug = profiles.slug(row["name"])
+        source_years = (
+            str(row["first_source_year"])
+            if row["first_source_year"] == row["last_source_year"]
+            else f'{row["first_source_year"]}–{row["last_source_year"]}'
+        )
+        cross_owner = ""
+        if row["cross_owner_appearances"]:
+            qualifier = (
+                "cross-owner only"
+                if row["cross_owner_only"]
+                else f'{row["cross_owner_appearances"]} cross-owner'
+            )
+            cross_owner = (
+                f'<b class="era-president-cross-owner">'
+                f'{html.escape(qualifier)}</b>'
+            )
+        support = (
+            f'{row["appearances"]} source appearances · '
+            f'{row["paragraphs"]:,} speaker-audited paragraphs'
+        )
         president_cards.append(
-            f'<li title="{row["years"]} · {row["speeches"]} speeches">'
+            f'<li title="{html.escape(source_years, quote=True)} · '
+            f'{html.escape(support, quote=True)}">'
             f'<a class="era-president-portrait-link" '
             f'href="presidents/{president_slug}.html" '
             f'aria-label="Open {president_name_attr} profile">'
             f'<img src="portraits/{president_slug}.png" alt="" '
             f'width="64" height="64"></a>'
-            f'<span>{president_name}</span></li>'
+            f'<span>{president_name}</span>'
+            f'<small>{row["appearances"]} appearances</small>'
+            f'{cross_owner}</li>'
         )
     presidents_html = "".join(president_cards)
     bubble_layout = _era_adversary_bubble_layout(profile["adversaries"])
@@ -5813,19 +5235,104 @@ def _era_profile_html(
         f'{html.escape(row["label"])}</span>'
         for row in profile["adversary_types"]
     )
-    constituents = "".join(
-        f"<li>{html.escape(row['name'])}"
-        + (
-            f"<small>{row['paragraphs']}</small>"
-            if row["paragraphs"] is not None
-            else ""
+    landscape = profile["reference_landscape"]
+    reference_lanes = []
+    for row in landscape["types"]:
+        share = float(row["paragraph_share"])
+        corpus_share = float(row["corpus_paragraph_share"])
+        highlight = row["highlight"]
+        if highlight is None:
+            highlight_html = (
+                '<span class="era-reference-highlight-empty" '
+                'title="No candidate met the support, stance, and '
+                'named-adversary exclusion rules">No supported highlight</span>'
+            )
+        else:
+            evidence = highlight["evidence"]
+            support_status = str(highlight.get("support_status", "supported"))
+            is_limited = support_status == "limited_record"
+            badge = str(highlight["source_agreement"]["badge"])
+            badge_class = "ai-ner" if badge == "AI + NER" else "ai-only"
+            badge_icon_html = (
+                '<i aria-hidden="true">✓</i>' if badge == "AI + NER" else ""
+            )
+            badge_title = (
+                "Primary AI and local NER found the same normalized name "
+                "in this evidence paragraph."
+                if badge == "AI + NER"
+                else "The primary AI found this name; local NER did not "
+                "find the same normalized name in this evidence paragraph."
+            )
+            ner_mention = (
+                "not found"
+                if evidence["ner_mention"] is None
+                else str(evidence["ner_mention"])
+            )
+            if evidence["cross_owner"]:
+                ownership = (
+                    f'Actual speaker: {evidence["actual_speaker"]} · source '
+                    f'document cataloged under {evidence["document_owner"]}'
+                )
+            else:
+                ownership = (
+                    "Speaker and source owner: "
+                    f'{evidence["actual_speaker"]}'
+                )
+            stance_mix = highlight["stance_mix"]
+            stance_text = " · ".join(
+                f'{stance_mix[name]} {name}'
+                for name in ("favorable", "neutral", "adversarial")
+                if stance_mix[name]
+            )
+            key = f'({evidence["doc_name"]}, {evidence["para_idx"]})'
+            support_status_html = (
+                '<span class="era-reference-status">Limited record</span>'
+                if is_limited else ""
+            )
+            limited_note = (
+                '<p class="era-reference-limited-note"><strong>Limited record:</strong> '
+                'this name appears across multiple documents but is one paragraph '
+                'short of the five-paragraph supported-highlight floor.</p>'
+                if is_limited else ""
+            )
+            highlight_html = (
+                '<details class="era-reference-highlight" '
+                f'data-support-status="{html.escape(support_status, quote=True)}">'
+                '<summary>'
+                f'<span class="era-reference-name"><b>{html.escape(str(highlight["label"]))}</b></span>'
+                '<small class="era-reference-meta">'
+                f'<span>{highlight["support"]["paragraphs"]} paragraphs</span>'
+                f'<span>{highlight["support"]["source_documents"]} documents</span>'
+                f'<span class="era-reference-badge is-{badge_class}" '
+                f'title="{html.escape(badge_title, quote=True)}">'
+                f'{badge_icon_html}'
+                f'{html.escape(badge)}</span>'
+                f'{support_status_html}</small></summary>'
+                '<div class="era-reference-evidence">'
+                f'{limited_note}'
+                f'<p class="era-reference-excerpt">'
+                f'{html.escape(_word_boundary_excerpt(evidence["excerpt"]))}</p>'
+                f'<p><strong>AI stance across this era:</strong> '
+                f'{html.escape(stance_text)}<br>'
+                f'<strong>Selected mention:</strong> '
+                f'{html.escape(str(evidence["ai_mention"]))} · '
+                f'<strong>NER:</strong> {html.escape(ner_mention)}<br>'
+                f'{html.escape(ownership)}</p>'
+                f'<p><a href="{html.escape(str(evidence["source_url"]), quote=True)}" '
+                'target="_blank" rel="noopener">'
+                f'{html.escape(str(evidence["title"]))}</a><br>'
+                f'<code>{html.escape(key)}</code></p>'
+                '</div></details>'
+            )
+        reference_lanes.append(
+            '<li class="era-reference-lane">'
+            '<div class="era-reference-metric">'
+            f'<span>{html.escape(str(row["label"]))}</span>'
+            f'<strong>{share * 100:.1f}%</strong>'
+            f'<small>all eras {corpus_share * 100:.1f}%</small></div>'
+            f'{highlight_html}</li>'
         )
-        + "</li>"
-        for row in profile["constituents"]
-    ) or (
-        '<li class="era-constituent-empty">'
-        'Awaiting promoted constituency claims</li>'
-    )
+    reference_landscape = "".join(reference_lanes)
     distinctive_word_cards = []
     for row in profile["distinctive_words"]:
         relative_rate = (
@@ -5851,6 +5358,7 @@ def _era_profile_html(
     )
     standalone_class = "" if tab_id else " era-profile-standalone"
     title_id = f"{panel_id}-title"
+    reference_title_id = f"{panel_id}-reference-title"
     adversary_title_id = f"{panel_id}-adversary-title"
     return f"""<section class="founding-story-card founding-panel era-template{standalone_class}"
   id="{panel_id}"{panel_attrs}>
@@ -5860,13 +5368,15 @@ def _era_profile_html(
       <span>{html.escape(profile['subtitle'])}</span></p>
   </div>
   <ul class="era-president-strip"
-    aria-label="Presidents in this era">{presidents_html}</ul>
+    aria-label="Presidential voices in these sources">{presidents_html}</ul>
+  <p class="era-president-strip-label">Presidential voices in these sources ·
+    years and appearances describe source evidence, not tenure.</p>
   <div class="era-template-grid">
-    <article class="era-template-constituents"
-      data-constituency-status="{profile['constituency_status']}">
-      <header class="era-card-heading"><span>Claimed constituents</span></header>
-      <ul class="era-constituent-list">{constituents}</ul>
-      <small>{html.escape(profile['constituency_note'])}</small></article>
+    <article class="era-template-references" aria-labelledby="{reference_title_id}">
+      <header class="era-card-heading" id="{reference_title_id}">
+        <span>Distinctive era references</span></header>
+      <ul class="era-reference-landscape">{reference_landscape}</ul>
+    </article>
     <article class="era-template-adversaries">
       <header class="era-card-heading"><span>Named adversaries</span></header>
       <svg class="era-adversary-pack" viewBox="0 0 350 165"
@@ -5969,8 +5479,8 @@ def _founding_problem_summary_html(data: dict) -> str:
   </article>
 </div>
 <p class="founding-overlap"><strong>Combined lens, not reclassification.</strong>
-Native sovereignty remains historically distinct—and separate from the
-constituency-claims annotation.</p>"""
+  Native sovereignty remains historically distinct within the governed topic
+  taxonomy.</p>"""
 
 
 def _era_presidential_agendas_html(visualization: dict) -> str:
@@ -5998,7 +5508,9 @@ def _era_presidential_agendas_html(visualization: dict) -> str:
     def card_html(record: dict) -> str:
         president = record["president"]
         support = support_by_president[president]
-        speech_word = "speech" if support["speeches"] == 1 else "speeches"
+        appearance_word = (
+            "appearance" if support["appearances"] == 1 else "appearances"
+        )
         top_share = max(
             (segment["share"] for segment in record["segments"]),
             default=0.0,
@@ -6039,8 +5551,8 @@ def _era_presidential_agendas_html(visualization: dict) -> str:
             f'<img src="portraits/{profiles.slug(president)}.png" alt="">'
             '<div>'
             f"<h5>{html.escape(president)}</h5>"
-            f'<p>{support["speeches"]} {speech_word} · '
-            f'{support["paragraphs"]:,} paragraphs</p>'
+            f'<p>{support["appearances"]} source {appearance_word} · '
+            f'{support["paragraphs"]:,} speaker-audited paragraphs</p>'
             "</div></header>"
             f'<div class="agenda-card-priorities">{"".join(priorities)}</div>'
             "</article>"
@@ -6077,9 +5589,10 @@ def _era_presidential_agendas_html(visualization: dict) -> str:
         thin_html = f"""<details class="agenda-thin-support">
   <summary>Thin support · {html.escape(thin_names)}</summary>
   <p>These records use the same presence measure, but fewer than
-    {agenda['minimum_supported_speeches']} speeches makes their apparent
-    agenda unusually sensitive to individual documents. They use the same card
-    design as the supported records but remain separate supporting evidence.</p>
+    {agenda['minimum_supported_appearances']} source-document appearances makes
+    their apparent agenda unusually sensitive to individual sources. They use
+    the same card design as the supported records but remain separate supporting
+    evidence.</p>
   {cards_html(thin_records, thin=True)}
 </details>"""
     sensitivity = agenda["weighting_sensitivity"]
@@ -6144,7 +5657,7 @@ def _era_governance_visual_html(visualization: dict) -> str:
         f'style="--president-color:{color_by_president[row["president"]]}">'
         f'<img src="portraits/{profiles.slug(row["president"])}.png" alt="">'
         f'<span><strong>{html.escape(row["president"].split()[-1])}</strong>'
-        f'<small>{row["speeches"]} speeches</small></span></button>'
+        f'<small>{row["appearances"]} appearances</small></span></button>'
         for index, row in enumerate(presidents)
     )
 
@@ -6176,7 +5689,7 @@ def _era_governance_visual_html(visualization: dict) -> str:
                 )
                 tip = (
                     f"{president} · {label}: {benchmark['share']:.1f}% · "
-                    f"{benchmark['count']} speeches"
+                    f"{benchmark['count']} appearances"
                 )
                 benchmarks.append(
                     f'<i class="founding-governance-benchmark" '
@@ -6190,7 +5703,7 @@ def _era_governance_visual_html(visualization: dict) -> str:
                 )
             selected_tip = (
                 f"{selected['president']} · {label}: {value['share']:.1f}% · "
-                f"{value['count']} of {selected['speeches']} speeches; "
+                f"{value['count']} of {selected['appearances']} appearances; "
                 f"comparison: {', '.join(comparison_parts)}"
             )
             icon, short_label = labels[label]
@@ -6233,7 +5746,7 @@ def _era_governance_visual_html(visualization: dict) -> str:
             f'<b aria-hidden="true">→</b> {html.escape(route["medium"])}</strong> '
             f'was {html.escape(name.split()[-1])}’s most common combination of '
             f'intended audience and communication form: '
-            f'{route["count"]} of {row["speeches"]} speeches '
+            f'{route["count"]} of {row["appearances"]} appearances '
             f'({route["share"]:.1f}%).</p></aside></article>'
         )
     return f"""<header class="founding-visual-question">
@@ -6251,7 +5764,7 @@ def _era_governance_visual_html(visualization: dict) -> str:
   <p class="sr-only" data-governance-status aria-live="polite">
     {html.escape(presidents[0]["president"])} selected.</p>
 </div>
-<p class="founding-chart-note">Every bar uses the same 0–100% speech-share
+<p class="founding-chart-note">Every bar uses the same 0–100% appearance-share
   scale. Audience and primary form are separate distributions; the note records
   their most common exact intersection.</p>"""
 
@@ -6334,8 +5847,11 @@ def _era_adversary_network_html(visualization: dict) -> str:
         end_x = 674 - adversary_radius
         raw = ", ".join(edge["raw_entities"])
         tip = (
-            f"{edge['president']} → {edge['adversary']}: "
-            f"{edge['paragraphs']} adversarial paragraphs"
+            f"Actual speaker {edge['president']} → {edge['adversary']}: "
+            f"{edge['paragraphs']} adversarial paragraphs; "
+            f"{edge['ai_ner_paragraphs']} AI + NER and "
+            f"{edge['ai_only_paragraphs']} AI only; "
+            f"{edge['cross_owner_paragraphs']} cross-owner"
         )
         paths.append(
             f'<path class="founding-network-edge" '
@@ -6354,10 +5870,10 @@ def _era_adversary_network_html(visualization: dict) -> str:
         f'<g class="founding-adversary-node founding-adversary-president" '
         f'data-adversary-node data-node-kind="president" '
         f'data-president-key="{president_keys[name]}" tabindex="0" '
-        f'role="img" aria-label="{html.escape(name, quote=True)}">'
+        f'role="img" aria-label="Actual speaker {html.escape(name, quote=True)}">'
         f'<circle class="founding-president-node" cx="198" '
         f'cy="{president_y[name]:.2f}" r="{president_radii[name]:.2f}">'
-        f'<title>{html.escape(name)}: '
+        f'<title>Actual speaker {html.escape(name)}: '
         f'{summary_by_president[name]["word_share"]:.1f}% of words in paragraphs '
         f'naming an adversary; {summary_by_president[name]["named_adversaries"]} '
         f'distinct named adversaries</title></circle>'
@@ -6386,19 +5902,20 @@ def _era_adversary_network_html(visualization: dict) -> str:
     <h4>Who named adversaries most intensively?</h4>
   </div>
   <p>President node score = √(adversary-word share × distinct named adversaries);
-  node area scales to that score.</p>
+  node area scales to that score. All president labels identify actual speakers.</p>
 </header>
 <div class="founding-network-scroll">
   <svg class="founding-adversary-network" viewBox="0 0 900 {height}"
     data-adversary-network
-    role="img" aria-label="Presidents connected to their most frequently named adversaries; president node area combines adversary-word share and distinct adversary count; line width represents adversarial paragraph count">
+    role="img" aria-label="Actual presidential speakers connected to their most frequently named adversaries; president node area combines adversary-word share and distinct adversary count; line width represents adversarial paragraph count">
     {"".join(paths)}{left_nodes}{right_nodes}
   </svg>
 </div>
 <p class="founding-chart-note">Percentages use words in distinct paragraphs that
 name at least one adversary; name counts use all normalized named adversaries.
 The network shows leading connections only. Line width = distinct adversarial
-paragraphs; exact raw names remain in the line details.</p>"""
+paragraphs; line details report AI and NER source agreement, cross-owner support,
+and exact primary-AI names.</p>"""
 
 
 def _founding_adversary_network_html(data: dict) -> str:
@@ -7950,7 +7467,7 @@ def _era_echo_view_html(
         if node["kind"] == "president"
     }
     topic_president_label = (
-        "Invoking presidents"
+        "Invoking actual speakers"
         if view["key"] == "incoming"
         else "Earlier presidents invoked"
     )
@@ -7962,8 +7479,12 @@ def _era_echo_view_html(
             f'cx="{anchor["x"]:.2f}" cy="{anchor["y"]:.2f}" '
             f'r="{anchor["radius"] - 2:.2f}"></circle></clipPath>'
         )
+        anchor_role = (
+            "Invoked president" if view["key"] == "incoming"
+            else "Actual speaker"
+        )
         detail = (
-            f"{anchor['label']} anchors "
+            f"{anchor_role} {anchor['label']} anchors "
             f"{anchor['reference_paragraphs']:,} connected reference "
             f"paragraphs. Strongest connected presidents: "
             f"{related_text(anchor['top_presidents'], 'none')}. "
@@ -8036,10 +7557,15 @@ def _era_echo_view_html(
         )
         if node["kind"] == "president":
             related = related_text(node["top_topics"], "no assigned topic")
+            actor_role = (
+                "Actual speaker" if view["key"] == "incoming"
+                else "Invoked president"
+            )
             detail = (
-                f"{node['label']}: {node['reference_paragraphs']:,} "
+                f"{actor_role} {node['label']}: "
+                f"{node['reference_paragraphs']:,} "
                 f"distinct reference paragraphs in "
-                f"{node['speeches']:,} speeches. Gravitational pull: "
+                f"{node['speeches']:,} source documents. Gravitational pull: "
                 f"{pull}. Leading topics: {related}."
             )
         else:
@@ -8406,11 +7932,12 @@ def _era_visualize_group_html(visualization: dict) -> str:
       {_era_presidential_agendas_html(visualization)}
       {_chart_evidence(
           "paragraph_share",
-          "paragraphs.parquet + llm_annotations/paragraph_annotations.parquet",
-          measure_label="President-level assigned topic paragraph shares",
+          "speaker_views/paragraph_view_v1.parquet + llm_annotations/paragraph_annotations.parquet",
+          measure_label="Actual-speaker assigned topic paragraph shares",
           support=(
-              f"All {support['paragraphs']:,} corpus paragraphs assigned to "
-              f"the governed {years} story era."
+              f"All {support['speaker_audited_paragraphs']:,} eligible "
+              f"speaker-audited paragraphs assigned to the governed {years} "
+              "Story era."
           ),
           caveat=(
               f"{visualization['agenda']['selection']} Multi-label shares are "
@@ -8424,17 +7951,18 @@ def _era_visualize_group_html(visualization: dict) -> str:
       {_era_adversary_network_html(visualization)}
       {_chart_evidence(
           "network_edge",
-          "llm_annotations/paragraph_entities.parquet",
-          measure_label="Distinct paragraphs with adversarial named entities",
+          "reference_entities/entity_mentions_v1.parquet",
+          measure_label="Actual-speaker paragraphs with adversarial named entities",
           support=(
-              f"Named adversarial entities in the {support['paragraphs']:,} "
-              f"corpus paragraphs assigned to the governed {years} story era; "
+              f"AI-backed adversarial names in the "
+              f"{support['speaker_audited_paragraphs']:,} eligible "
+              f"speaker-audited paragraphs assigned to the governed {years} Story era; "
               f"{visualization['adversaries']['selection'].lower()}"
           ),
           caveat=(
-              "Entity stance is an AI classification. Display aliasing groups "
-              "only obvious state or state-apparatus variants and does not "
-              "turn generic opposition into a named adversary."
+              "Entity stance is a primary-AI classification. AI + NER and AI "
+              "only report source agreement, not historical validation or "
+              "model confidence."
           ),
       )}
     </section>
@@ -8559,17 +8087,18 @@ def _era_workspace_html(
     {_era_adversary_network_html(visualization)}
     {_chart_evidence(
         "network_edge",
-        "llm_annotations/paragraph_entities.parquet",
-        measure_label="Distinct paragraphs with adversarial named entities",
+        "reference_entities/entity_mentions_v1.parquet",
+        measure_label="Actual-speaker paragraphs with adversarial named entities",
         support=(
-            f"Named adversarial entities in the {support['paragraphs']:,} "
-            f"corpus paragraphs assigned to the governed {years} story era; "
+            f"AI-backed adversarial names in the "
+            f"{support['speaker_audited_paragraphs']:,} eligible "
+            f"speaker-audited paragraphs assigned to the governed {years} Story era; "
             f"{visualization['adversaries']['selection'].lower()}"
         ),
         caveat=(
-            "Entity stance is an AI classification. Display aliasing groups "
-            "only obvious state or state-apparatus variants and does not "
-            "turn generic opposition into a named adversary."
+            "Entity stance is a primary-AI classification. AI + NER and AI "
+            "only report source agreement, not historical validation or "
+            "model confidence."
         ),
     )}
   </section>
@@ -10617,123 +10146,7 @@ SECTIONS = [
      "The chronology ends and six through-lines begin: agenda breadth, communication form, "
      "governing voice, adversaries, temporal appeal, and emotional register. Confirmatory, "
      "exploratory, and descriptive evidence remain visibly separate throughout."),
-    ("records_appendix", "Post-story appendix · Extreme speeches",
-     "Extreme speeches reveal extreme moments",
-     "Outlier cards belong after the history, where their word matches, percentiles, "
-     "runner-ups, quotations, speech context, and metric definitions can be inspected "
-     "without interrupting the chronology."),
 ]
-
-
-RECORD_SPECS = [
-    ("Most fearful", "nrc_fear", "fear words / 10k"),
-    ("Most hopeful", "nrc_hope", "hope words / 10k"),
-    ("Most absolutist", "boosters", "boosters / 10k"),
-    ("Most us-vs-them", "us_them", "they / them / 10k"),
-    ("Most superlative", "superlatives", "superlatives / 10k"),
-]
-
-
-def compute_records(markers: pd.DataFrame, df: pd.DataFrame | None = None,
-                    min_words: int = 1_500) -> list[dict]:
-    """Substantial speeches only: below ~1,500 words, short ceremonial
-    statements top every emotion category on lexicon density alone."""
-    m = markers[markers["n_words"] >= min_words]
-    records = []
-    transcripts = (
-        df.set_index("doc_name")["transcript"].to_dict() if df is not None else {}
-    )
-    nrc = indices._nrc_lexicon() if transcripts else {}
-    for label, col, unit in RECORD_SPECS:
-        rate = (m[col] / m["n_words"] * 10_000).sort_values(ascending=False)
-        row, runner = m.loc[rate.index[0]], m.loc[rate.index[1]]
-        median = float(rate.median())
-        raw_count = int(row[col])
-        top_three = [
-            f"{m.loc[idx, 'president']} ({value:.0f})"
-            for idx, value in rate.head(3).items()
-        ]
-        text = str(transcripts.get(row["doc_name"], "")).lower()
-        tokens = re.findall(r"[a-z']+", text)
-        if col in {"nrc_fear", "nrc_hope"}:
-            wanted = indices.FEAR_EMOTIONS if col == "nrc_fear" else indices.HOPE_EMOTIONS
-            matches = Counter(
-                token for token in tokens if nrc.get(token, set()) & wanted
-            )
-        else:
-            pattern = re.compile(indices.MARKERS[col])
-            matches = Counter(match.group(0).lower() for match in pattern.finditer(text))
-        top_matches = ", ".join(
-            f"{word} ({count})" for word, count in matches.most_common(6)
-        ) or "No token detail available"
-        excerpt = ""
-        if text and matches:
-            lead_word = matches.most_common(1)[0][0]
-            sentences = re.split(r"(?<=[.!?])\s+", str(transcripts[row["doc_name"]]))
-            excerpt = next(
-                (sentence.strip() for sentence in sentences
-                 if re.search(rf"\b{re.escape(lead_word)}\b", sentence, re.I)),
-                "",
-            )
-            excerpt = re.sub(r"\s+", " ", excerpt)
-            if len(excerpt) > 300:
-                excerpt = excerpt[:297].rsplit(" ", 1)[0] + "…"
-        records.append({
-            "label": label,
-            "value": f"{rate.iloc[0]:.0f}",
-            "unit": unit,
-            "president": row["president"],
-            "year": int(row["year"]),
-            "title": row["title"],
-            "url": "https://millercenter.org" + row["doc_name"],
-            "runner": f"{runner['president']}, {runner['title'].split(':', 1)[-1].strip()}"
-                      f" ({rate.iloc[1]:.0f})",
-            "raw_count": raw_count,
-            "n_words": int(row["n_words"]),
-            "eligible_n": len(rate),
-            "median": median,
-            "multiple": float(rate.iloc[0] / median) if median else float("nan"),
-            "top_three": " · ".join(top_three),
-            "top_matches": top_matches,
-            "excerpt": excerpt,
-            "length_percentile": float((m["n_words"] <= row["n_words"]).mean() * 100),
-        })
-    return records
-
-
-def _records_html(records: list[dict]) -> str:
-    cards = []
-    for r in records:
-        cards.append(f"""<div class="r-card">
-  <div class="r-label">{r["label"]}</div>
-  <div class="r-value">{r["value"]} <span class="r-unit">{r["unit"]}</span></div>
-  <div class="r-who">{r["president"]}, {r["year"]}</div>
-  <a class="r-title" href="{r["url"]}" target="_blank" rel="noopener">{r["title"]}</a>
-  <div class="r-stats"><span>{r["raw_count"]:,} matched words</span>
-    <span>{r["n_words"]:,} total words</span>
-    <span>rank 1 of {r["eligible_n"]:,}</span>
-    <span>{r["multiple"]:.1f}× the eligible-speech median ({r["median"]:.1f})</span>
-    <span>longer than {r["length_percentile"]:.0f}% of eligible speeches</span>
-    <span>rate controls for speech length</span></div>
-  <div class="r-words"><strong>Most frequent matched words:</strong>
-    {html.escape(r["top_matches"])}</div>
-  <blockquote class="record-quote"><p>“{html.escape(r["excerpt"] or "No matching sentence available.")}”</p>
-    <cite>Context from the ranked source speech</cite></blockquote>
-  <div class="r-runner">runner-up: {r["runner"]}</div>
-  <details class="r-more"><summary>See the top three</summary><p>{r["top_three"]}</p></details>
-</div>""")
-    definitions = """<div class="record-definitions">
-<article><strong>Fear</strong><span>NRC fear + anger words, such as <em>fear,
-danger, attack, destroy</em>. Quotation and context can change their meaning.</span></article>
-<article><strong>Hope</strong><span>NRC trust + anticipation + joy words, such as
-<em>hope, trust, peace, future</em>.</span></article>
-<article><strong>Boosters</strong><span>Declared intensifiers including <em>never,
-always, certainly, absolutely, tremendous, incredible</em>.</span></article>
-<article><strong>Us versus them</strong><span>The literal pronouns <em>they, them,
-themselves</em>. This is a rough grammatical proxy—not proof of hostility or partisanship.</span></article>
-<article><strong>Superlatives</strong><span><em>greatest, best, finest, strongest,
-worst, biggest, most important</em>.</span></article></div>"""
-    return definitions + '<div class="records">' + "\n".join(cards) + "</div>"
 
 
 def _quotes_html(key: str) -> str:
@@ -10920,10 +10333,17 @@ def build_html(
         )
         body_class = ""
     legacy_summary_redirect = (
-        '<script>if (location.hash === "#synthesis" || '
-        'location.hash === "#records_appendix") '
-        'location.replace("summary.html" + location.hash);</script>'
+        '<script>if (location.hash === "#synthesis") '
+        'location.replace("summary.html" + location.hash); '
+        'if (location.hash === "#records_appendix") '
+        'location.replace("summary.html#summary-topics");</script>'
         if page_kind == "story"
+        else ""
+    )
+    topic_relationship_assets = (
+        f'<link rel="stylesheet" href="assets/{summary_topic_network.ASSET_CSS_NAME}">\n'
+        f'<script defer src="assets/{summary_topic_network.ASSET_JS_NAME}"></script>'
+        if page_kind == "summary"
         else ""
     )
 
@@ -10935,6 +10355,7 @@ def build_html(
 <title>{document_title}</title>
 <meta name="description" content="{document_description}">
 {plotly_src}
+{topic_relationship_assets}
 <style>
 {PAGE_CSS}
   .corpus-line {{ color: var(--muted); font-size: 0.86rem; margin-top: 14px; }}
@@ -10969,24 +10390,6 @@ def build_html(
               letter-spacing: 0.07em; text-transform: uppercase; }}
   .r-value {{ font-size: 1.6rem; font-weight: 700; margin-top: 6px; }}
   .r-unit {{ font-size: 0.8rem; font-weight: 500; color: var(--muted); }}
-  .r-who {{ margin-top: 6px; font-weight: 600; font-size: 0.94rem; }}
-  .r-title {{ display: block; color: var(--ink2); font-size: 0.85rem; margin-top: 4px; }}
-  .r-runner {{ color: var(--muted); font-size: 0.78rem; margin-top: 8px; }}
-  .r-stats {{ display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;margin-top:12px;
-              padding-top:10px;border-top:1px solid var(--grid);font-size:.76rem;color:var(--ink2); }}
-  .r-more {{ margin-top:8px;font-size:.78rem;color:var(--muted); }}
-  .r-words {{ margin-top:10px;padding-top:9px;border-top:1px solid var(--grid);
-              color:var(--ink2);font-size:.78rem;line-height:1.45; }}
-  .record-definitions {{ display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-                         gap:9px;margin:0 0 16px; }}
-  .record-definitions article {{ background:#f6f1e9;border:1px solid #dfd3c3;
-                                 border-radius:10px;padding:11px 13px; }}
-  .record-definitions strong,.record-definitions span {{ display:block; }}
-  .record-definitions span {{ color:var(--ink2);font-size:.8rem;line-height:1.45;margin-top:4px; }}
-  .record-quote {{ margin:12px 0 0;padding:10px 12px;background:var(--page);
-                   border-left:3px solid #8b6c42;border-radius:7px; }}
-  .record-quote p {{ margin:0;font-size:.82rem;line-height:1.5; }}
-  .record-quote cite {{ display:block;margin-top:5px;color:var(--muted);font-size:.72rem; }}
   .kinships {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
                gap: 12px; }}
   .k-card {{ background: var(--surface); border: 1px solid var(--border);
@@ -11047,6 +10450,9 @@ def build_html(
   .summary-document main > .eyebrow {{ display:none; }}
   .summary-document main > .story-section > h2,
   .summary-document main > .story-section > .section-deck {{ display:none; }}
+  .summary-document main {{ padding-bottom:0; }}
+  .summary-document .summary-topic-section {{ margin-bottom:0; }}
+  .summary-document footer {{ margin-top:8px; }}
   .summary-thesis {{ margin:14px 0 20px;padding:clamp(20px,4vw,34px);
                      background:#1f2d36;color:white;border-radius:18px; }}
   .summary-thesis span {{ color:#efc58f;font-size:.72rem;font-weight:850;
@@ -11534,8 +10940,6 @@ def build_html(
   .expansion-receipt-group cite {{ display:block;margin-top:8px;color:var(--muted);
                                    font-style:normal;font-size:.68rem;line-height:1.4; }}
   .expansion-receipt-group a {{ color:#315f78; }}
-  .synthesis-matrix th:first-child {{ min-width:135px; }}
-  .synthesis-matrix td {{ min-width:220px;line-height:1.5; }}
   .communication-summary {{ margin:36px 0;padding:22px;border:1px solid var(--border);
                             border-radius:16px;background:#faf7f1; }}
   .communication-summary-heading > span {{ color:#8b5e34;font-size:.68rem;font-weight:800;
@@ -11567,8 +10971,6 @@ def build_html(
                            filter:saturate(.75);cursor:help; }}
   .communication-summary-note {{ margin:10px 0 0;color:var(--muted);
                                  font-size:.68rem;line-height:1.5; }}
-  .story-appendix {{ padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--surface); }}
-  .story-appendix > summary {{ cursor:pointer;font-weight:800;font-size:1rem; }}
   .coverage-toy {{ display:grid;gap:14px;margin:22px 0 10px;padding:16px;
                    background:#f6f1e9;border:1px solid #ded2c2;border-radius:12px; }}
   .coverage-row {{ display:grid;grid-template-columns:125px 1fr;gap:8px 12px;align-items:center; }}
@@ -11663,6 +11065,13 @@ def build_html(
   .era-president-portrait-link:focus-visible {{ outline:none; }}
   .era-president-strip span {{ max-width:92px;font-size:.58rem;font-weight:750;
                                line-height:1.12; }}
+  .era-president-strip small {{ max-width:100px;color:var(--muted);font-size:.49rem;
+                                line-height:1.2; }}
+  .era-president-cross-owner {{ padding:2px 5px;border:1px solid #8b5e34;
+                                border-radius:999px;color:#6f4828;font-size:.45rem;
+                                line-height:1.1; }}
+  .era-president-strip-label {{ margin:-7px 0 12px!important;color:var(--muted);
+                                font-size:.55rem!important;text-align:center; }}
   .era-template-grid {{ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
                         grid-auto-rows:auto;gap:8px; }}
   .era-template-grid article {{ display:flex;min-width:0;min-height:230px;height:auto;overflow:hidden;
@@ -11691,9 +11100,59 @@ def build_html(
   .era-template-grid article > p span {{ color:var(--muted);font-size:.6rem;line-height:1.3; }}
   .era-template-grid article > small {{ display:block;margin-top:8px;color:var(--muted);
                                         font-size:.58rem;line-height:1.4; }}
-  .era-template-constituents[data-constituency-status="fallback"] {{
-    border-style:dashed;background:#fffaf0;
-  }}
+  .era-template-grid .era-template-references,
+  .era-template-grid .era-template-adversaries {{ min-height:230px;align-self:stretch; }}
+  .era-template-grid .era-template-references {{ overflow:visible; }}
+  .era-reference-landscape {{ display:grid;flex:1;min-width:0;margin:0;padding:0;
+    list-style:none; }}
+  .era-reference-lane {{ display:grid;grid-template-columns:minmax(116px,.72fr)
+    minmax(170px,1.28fr);align-items:stretch;gap:0;
+    min-width:0;padding:0!important;border-top:1px solid var(--grid); }}
+  .era-reference-lane:first-child {{ border-top:0; }}
+  .era-reference-metric {{ display:grid;grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;align-content:center;gap:1px 5px;min-width:0;padding:6px 12px 6px 0; }}
+  .era-reference-metric span {{ min-width:0;color:#6f4828;font-size:.55rem;
+    font-weight:800;line-height:1.15;overflow-wrap:anywhere; }}
+  .era-reference-metric strong {{ color:var(--ink);font:680 .8rem/1 Georgia,serif; }}
+  .era-reference-metric small {{ grid-column:1/-1;float:none!important;color:var(--muted)!important;
+    font-size:.45rem!important;font-weight:650!important; }}
+  .era-reference-highlight,.era-reference-highlight-empty {{ display:block!important;min-width:0;
+    align-self:stretch;border:0;border-left:1px solid #d2c5b4;border-radius:0;
+    background:#f3ede4;box-shadow:none; }}
+  .era-reference-highlight[data-support-status="limited_record"] {{ background:#f7f2e9; }}
+  .era-reference-highlight > summary {{ display:grid;grid-template-columns:minmax(0,1fr);
+    justify-items:center;align-content:center;gap:3px;min-width:0;padding:7px 8px;
+    text-align:center;cursor:pointer; }}
+  .era-reference-highlight > summary:focus-visible {{ outline:3px solid rgba(208,139,69,.45);
+    outline-offset:2px;border-radius:5px; }}
+  .era-reference-name {{ display:block!important;width:100%;min-width:0; }}
+  .era-reference-highlight > summary b {{ display:block;min-width:0;color:var(--ink2);
+    font:700 .74rem/1.2 Georgia,serif;overflow-wrap:anywhere; }}
+  .era-template-grid .era-reference-meta {{ display:flex!important;align-items:center;
+    justify-content:center;flex-wrap:wrap;min-width:0;color:var(--muted)!important;
+    font-size:.42rem!important;font-weight:650!important;line-height:1.3; }}
+  .era-template-grid .era-reference-meta > span {{ display:inline-flex;align-items:center; }}
+  .era-template-grid .era-reference-meta > span + span::before {{ content:"·";
+    margin:0 4px;color:#9b8c7d;font-weight:700; }}
+  .era-reference-highlight-empty {{ padding:9px 10px;color:var(--muted);
+    font-size:.5rem;font-style:italic;line-height:1.2;text-align:center; }}
+  .era-reference-status {{ display:inline;color:#6e5945;font-size:.4rem;font-weight:850;
+    letter-spacing:.02em;white-space:nowrap; }}
+  .era-reference-badge {{ display:inline-flex!important;align-items:center;gap:3px;padding:0;
+    border:0;border-radius:0;color:#6f6255;font-size:.43rem;
+    font-weight:800;white-space:nowrap; }}
+  .era-reference-badge i {{ color:#6f4828;font-style:normal; }}
+  .era-reference-evidence {{ grid-column:1/-1;min-width:0;margin:0;padding:9px 10px;
+    border-top:1px solid #d8ccbc;border-radius:0;background:#faf7f2;
+    overflow-wrap:anywhere; }}
+  .era-reference-evidence p {{ display:block!important;margin:0 0 7px!important;
+    font-size:.58rem;line-height:1.45; }}
+  .era-reference-evidence p:last-child {{ margin-bottom:0!important; }}
+  .era-reference-evidence .era-reference-limited-note {{ margin-bottom:8px!important;
+    color:#5f4b38;font-size:.54rem!important; }}
+  .era-reference-excerpt {{ margin:7px 0;padding:8px 9px;border-left:2px solid #315f78;
+    background:rgba(255,255,255,.7);font:500 .62rem/1.5 Georgia,serif; }}
+  .era-reference-evidence code {{ font-size:.5rem;white-space:normal;overflow-wrap:anywhere; }}
   .era-adversary-pack {{ display:block;width:100%;height:auto;max-height:154px;
                          flex:1;overflow:visible; }}
   .era-adversary-bubble circle {{
@@ -11716,7 +11175,6 @@ def build_html(
     border:1px solid var(--adversary-color);background:transparent;
   }}
   .era-adversary-empty {{ fill:var(--muted);font:650 12px/1 system-ui; }}
-  .era-constituent-list {{ flex:1; }}
   .era-style-scroll {{ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;
                        max-height:145px;overflow-y:auto;overscroll-behavior:contain;
                        padding:1px 4px 2px 1px;scrollbar-width:thin; }}
@@ -11732,9 +11190,10 @@ def build_html(
   .era-style-scroll li > span {{ font-size:.72rem; }}
   .era-style-scroll li > b {{ min-width:0;font-size:.54rem;font-weight:650;line-height:1.15; }}
   .era-style-scroll li > strong {{ color:#8b5e34;font-size:.54rem; }}
-  .era-footprint-core {{ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px; }}
+  .era-footprint-core {{ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+                         gap:5px;flex:1 1 0; }}
   .era-footprint-core p {{ position:relative;display:flex;min-width:0;min-height:65px;
-                           flex-direction:column;justify-content:flex-end;gap:2px;
+                           flex-direction:column;justify-content:center;gap:2px;
                            margin:0;padding:8px;border-radius:8px;
                            background:#f6f1e9; }}
   .era-footprint-core strong {{ color:var(--ink);font:690 1.22rem/1 Georgia,serif; }}
@@ -11744,7 +11203,7 @@ def build_html(
   .era-footprint-core small {{ min-width:0;color:var(--muted);font-size:.5rem;
                                line-height:1.15;overflow-wrap:anywhere; }}
   .era-footprint-language {{ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-                             gap:5px;margin-top:5px; }}
+                             gap:5px;margin-top:5px;flex:1 1 0; }}
   .era-footprint-language p {{ display:grid;grid-template-columns:minmax(0,1fr);
                                align-content:center;gap:2px;margin:0;padding:6px 7px;
                                border:1px solid var(--grid);border-radius:8px; }}
@@ -13114,6 +12573,8 @@ def build_html(
     .era-visualize-heading p{{text-align:left}}
     .era-template-grid{{grid-auto-rows:auto}}
     .era-template-grid > article{{grid-column:1}}
+    .era-reference-lane{{grid-template-columns:minmax(102px,.68fr)
+      minmax(0,1.32fr)}}
     .founding-panel-heading{{grid-template-columns:1fr}}
     .founding-visual-question{{grid-template-columns:1fr;gap:7px}}
     .founding-visual-question p{{text-align:left}}
@@ -13844,6 +13305,18 @@ def main() -> None:
                         help="also write a self-contained copy (plotly.js embedded)")
     args = parser.parse_args()
 
+    story_bundle = story_foundation.load_story_foundation()
+    story_foundation.check_story_contract(story_bundle)
+    topic_network_bundle = speaker_topic_network.load_network_bundle(
+        foundation=story_bundle
+    )
+    summary_topic_projection = summary_topic_network.build_projection(
+        topic_network_bundle
+    )
+    summary_topic_section = summary_topic_network.render_summary_section(
+        summary_topic_projection
+    )
+
     df = corpus.load()
     word_families.build_families(df)      # before keyword_trends: term_groups reads the map
     trends.term_groups.cache_clear()
@@ -13870,11 +13343,9 @@ def main() -> None:
     expansion_metrics = expansion_story.load_metrics()
     expansion_meta = expansion_story.load_meta()
     agreement_table = pd.read_parquet(ai_labels.AGREEMENT_PATH)
-    paragraph_entities = pd.read_parquet(ai_labels.ENTITY_PATH)
     invocation_evidence = pd.read_parquet(
         corpus.DATA_DIR / "networks" / "invocation_evidence.parquet"
     )
-    constituency_claims = _load_current_constituency_claims()
     lifecycle_table = pd.read_parquet(attention.LIFECYCLES_PATH)
     taxonomy = attention.load_taxonomy()
     band_table = pd.read_parquet(corpus.DATA_DIR / "bands.parquet")
@@ -13887,8 +13358,7 @@ def main() -> None:
         agreement_table,
         lifecycle_table,
         taxonomy,
-        paragraph_entities,
-        constituency_claims,
+        story_bundle,
         invocation_evidence,
     )
     all_era_profile_data = founding_data["era_profiles"]
@@ -13936,6 +13406,41 @@ def main() -> None:
     profile_data["feature_neighbors"] = profiles.feature_neighbors(
         profile_data, ai_data
     )
+    display_issues = topic_quality.display_issues(issue_meta["issues"])
+    profile_views = profiles_site.build_profile_view_models(
+        profile_data,
+        display_issues,
+        require_complete=True,
+    )
+    compare_projection_bundle = compare_projection.build_projection(
+        topic_network_bundle,
+        profile_data,
+        profile_views,
+        display_issues,
+    )
+    compare_projection_repeat = compare_projection.build_projection(
+        topic_network_bundle,
+        profile_data,
+        profile_views,
+        display_issues,
+    )
+    if compare_projection_repeat.files != compare_projection_bundle.files:
+        raise compare_projection.CompareProjectionError(
+            "two in-memory Compare projection builds were not byte-identical"
+        )
+    explore_projection_bundle = explore_projection.build_projection(
+        speeches=df,
+        band_table=band_table,
+    )
+    explore_projection_repeat = explore_projection.build_projection(
+        speeches=df,
+        band_table=band_table,
+    )
+    if explore_projection_repeat.files != explore_projection_bundle.files:
+        raise explore_projection.ExploreProjectionError(
+            "two in-memory Explore projection builds were not byte-identical"
+        )
+    del explore_projection_repeat
     conflict_contract = summary_data["conflict_presidents"]
     conflict_target_contract = summary_data["conflict_targets"]
     conflict_figs = {
@@ -14093,8 +13598,8 @@ def main() -> None:
             speeches=df,
             rates=rates,
             summary_data=summary_data,
+            topic_network_html=summary_topic_section,
         ),
-        "records_appendix": _records_appendix_html(compute_records(markers, df)),
     }
     stats_line = {
         "speeches": len(df),
@@ -14103,7 +13608,7 @@ def main() -> None:
         "start": int(df["year"].min()),
         "end": int(df["year"].max()),
     }
-    summary_section_keys = {"synthesis", "records_appendix"}
+    summary_section_keys = {"synthesis"}
     summary_figure_keys = {
         "procedural_eras", "naming_progressive",
         "summary_audience", "summary_medium",
@@ -14125,6 +13630,21 @@ def main() -> None:
 
     SITE_DIR.mkdir(parents=True, exist_ok=True)
     write_github_pages_marker(SITE_DIR)
+    summary_topic_network.write_public_projection(
+        topic_network_bundle,
+        SITE_DIR,
+        projection=summary_topic_projection,
+    )
+    summary_topic_network.write_renderer_assets(SITE_DIR)
+    compare_projection.write_public_projection(
+        compare_projection_bundle,
+        SITE_DIR,
+        network_bundle=topic_network_bundle,
+    )
+    explore_projection.write_public_projection(
+        explore_projection_bundle,
+        SITE_DIR,
+    )
     era_profiles.write_era_profiles(all_era_profile_data, SITE_DIR)
     era_visualizations.write_era_visualizations(
         all_era_visualization_data, SITE_DIR
@@ -14132,6 +13652,8 @@ def main() -> None:
     era_contextualizations.write_era_contextualizations(
         all_era_contextualization_data, SITE_DIR
     )
+    story_foundation.write_story_downloads(story_bundle, SITE_DIR)
+    speaker_topic_network.write_public_downloads(topic_network_bundle, SITE_DIR)
     out = SITE_DIR / "index.html"
     out.write_text(build_html(
         story_figs,
@@ -14156,34 +13678,21 @@ def main() -> None:
         f"({summary_out.stat().st_size / 1e6:.1f} MB)"
     )
 
-    profile_views = profiles_site.write_profiles(profile_data, SITE_DIR)
+    profile_views = profiles_site.write_profiles(
+        profile_data,
+        SITE_DIR,
+        views=profile_views,
+    )
     expansion_site.write(SITE_DIR)
 
-    meta = explorer.EXPLORER_DIR / "meta.json"
-    # Every input the explorer payload is built FROM must be watched, not just
-    # the word families. Its topic series come from issues.ISSUES_META_PATH and
-    # its topic LABELS from topic_quality.NAMES_PATH, so without those two a
-    # renamed or newly-surfaced topic would serve stale labels forever. The
-    # grouping module is also an input because its spelling normalizations can
-    # change grouped counts without rewriting the cached family-map artifact.
-    explorer_inputs = (
-        Path(word_families.__file__), word_families.FAMILIES_PATH,
-        issues.ISSUES_META_PATH,
-        topic_quality.NAMES_PATH,
-        ai_labels.ANNOTATIONS_DIR / "paragraph_annotations.parquet",
-        ai_labels.ANNOTATIONS_DIR / "taxonomy_v1.json",
-    )
-    if (not meta.exists()
-            or any(p.exists() and p.stat().st_mtime > meta.stat().st_mtime
-                   for p in explorer_inputs)):
-        explorer.build_explorer_data(ai_data)      # rebuild if any input changed
-    explorer.write_page()
+    explorer.write_page(explore_projection_bundle, SITE_DIR)
     issues_site.write_issue_pages(SITE_DIR, issue_df, issue_meta, scores, faces,
                                   ai_data=ai_data)
     compare_site.write_compare(
         profile_data,
-        topic_quality.display_issues(issue_meta["issues"]),
+        display_issues,
         profile_views=profile_views,
+        projection=compare_projection_bundle,
     )
     methodology_site.write_methodology(ai_data)
     era_boundaries_site.write_era_boundaries(SITE_DIR)
@@ -14201,6 +13710,15 @@ def main() -> None:
     bundle_plotly_runtime(SITE_DIR)
     expansion_site.add_global_navigation(SITE_DIR)
     report = site_validation.validate_site(SITE_DIR)
+    story_foundation.check_story_contract(story_bundle, SITE_DIR)
+    speaker_topic_network.validate_publication(topic_network_bundle, SITE_DIR)
+    summary_topic_network.validate_publication(topic_network_bundle, SITE_DIR)
+    compare_projection.validate_publication(
+        compare_projection_bundle,
+        SITE_DIR,
+        network_bundle=topic_network_bundle,
+    )
+    explore_projection.validate_publication(explore_projection_bundle, SITE_DIR)
     print(f"  validated {report['html_pages']} HTML pages and {report['json_shards']} JSON shards")
 
 

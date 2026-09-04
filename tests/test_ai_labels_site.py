@@ -164,13 +164,17 @@ def test_compare_payload_uses_real_v3_profile_model_and_keeps_thin_state(tiny_ai
         ["Issue"],
         profile_views={"President A": view},
     )
-    compared = compare_payload["presidents"]["President A"]
+    compared = compare_payload["presidents"]["president-a"]
 
     assert shared["schema_version"] == "president-profile-v3"
     assert tuple(compared) == (
-        "president", "display_name", "slug", "party", "years", "sample",
-        "measures", "agenda", "neighbors", "evidence",
+        "president_id", "president", "display_name", "slug", "party", "years",
+        "source_document_speech_count", "source_document_support_state",
+        "actual_speaker_appearance_count", "actual_speaker_support_state",
+        "measures", "profile_url", "profile_data_url", "portrait_url",
+        "short_name",
     )
+    assert compared["short_name"] == "A"
     assert compared["president"] == shared["president"]
     assert compared["slug"] == shared["slug"]
     assert compared["years"] == shared["years"]
@@ -178,13 +182,14 @@ def test_compare_payload_uses_real_v3_profile_model_and_keeps_thin_state(tiny_ai
     assert "raw_stats" not in compared
     assert "issue_evidence" not in compared
     assert "signature_speeches" not in compared
-    assert compared["sample"]["thin_record"] is True
-    assert compared["sample"]["speech_count_label"] == "1 speech"
+    assert compared["source_document_support_state"] == "thin"
+    assert compared["actual_speaker_support_state"] == "unavailable"
+    assert compared["source_document_speech_count"] == 1
     assert len(compared["measures"]["corpus"]) == len(profiles.RADAR_AXES)
     assert len(compared["measures"]["ai"]) == 6
     assert all(
-        row[2] is None
-        and row[3] == "N/A · Insufficient record"
+        row["percentile"] is None
+        and row["rank_display"] == "N/A · Insufficient record"
         for layer in ("corpus", "ai")
         for row in compared["measures"][layer]
     )

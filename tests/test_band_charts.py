@@ -1188,7 +1188,7 @@ class TestProseExtraThreading:
 
     def test_the_sentence_does_not_leak_into_any_other_section(self):
         html = site.build_html(
-            self._figs("written_republic", "synthesis", "records_appendix"),
+            self._figs("written_republic", "synthesis"),
             self.STATS,
             {},
             inline=False,

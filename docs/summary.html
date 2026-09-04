@@ -6,6 +6,8 @@
 <title>America in Summary · Presidential Profiles</title>
 <meta name="description" content="Change, continuity, and uncertainty across the presidential speech record, 1789-2026.">
 <script src="assets/plotly-3.0.1.min.js"></script>
+<link rel="stylesheet" href="assets/topic-relationship-browser-v1.css">
+<script defer src="assets/topic-relationship-browser-v1.js"></script>
 <style>
 
   :root {
@@ -66,24 +68,6 @@
               letter-spacing: 0.07em; text-transform: uppercase; }
   .r-value { font-size: 1.6rem; font-weight: 700; margin-top: 6px; }
   .r-unit { font-size: 0.8rem; font-weight: 500; color: var(--muted); }
-  .r-who { margin-top: 6px; font-weight: 600; font-size: 0.94rem; }
-  .r-title { display: block; color: var(--ink2); font-size: 0.85rem; margin-top: 4px; }
-  .r-runner { color: var(--muted); font-size: 0.78rem; margin-top: 8px; }
-  .r-stats { display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;margin-top:12px;
-              padding-top:10px;border-top:1px solid var(--grid);font-size:.76rem;color:var(--ink2); }
-  .r-more { margin-top:8px;font-size:.78rem;color:var(--muted); }
-  .r-words { margin-top:10px;padding-top:9px;border-top:1px solid var(--grid);
-              color:var(--ink2);font-size:.78rem;line-height:1.45; }
-  .record-definitions { display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-                         gap:9px;margin:0 0 16px; }
-  .record-definitions article { background:#f6f1e9;border:1px solid #dfd3c3;
-                                 border-radius:10px;padding:11px 13px; }
-  .record-definitions strong,.record-definitions span { display:block; }
-  .record-definitions span { color:var(--ink2);font-size:.8rem;line-height:1.45;margin-top:4px; }
-  .record-quote { margin:12px 0 0;padding:10px 12px;background:var(--page);
-                   border-left:3px solid #8b6c42;border-radius:7px; }
-  .record-quote p { margin:0;font-size:.82rem;line-height:1.5; }
-  .record-quote cite { display:block;margin-top:5px;color:var(--muted);font-size:.72rem; }
   .kinships { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
                gap: 12px; }
   .k-card { background: var(--surface); border: 1px solid var(--border);
@@ -144,6 +128,9 @@
   .summary-document main > .eyebrow { display:none; }
   .summary-document main > .story-section > h2,
   .summary-document main > .story-section > .section-deck { display:none; }
+  .summary-document main { padding-bottom:0; }
+  .summary-document .summary-topic-section { margin-bottom:0; }
+  .summary-document footer { margin-top:8px; }
   .summary-thesis { margin:14px 0 20px;padding:clamp(20px,4vw,34px);
                      background:#1f2d36;color:white;border-radius:18px; }
   .summary-thesis span { color:#efc58f;font-size:.72rem;font-weight:850;
@@ -631,8 +618,6 @@
   .expansion-receipt-group cite { display:block;margin-top:8px;color:var(--muted);
                                    font-style:normal;font-size:.68rem;line-height:1.4; }
   .expansion-receipt-group a { color:#315f78; }
-  .synthesis-matrix th:first-child { min-width:135px; }
-  .synthesis-matrix td { min-width:220px;line-height:1.5; }
   .communication-summary { margin:36px 0;padding:22px;border:1px solid var(--border);
                             border-radius:16px;background:#faf7f1; }
   .communication-summary-heading > span { color:#8b5e34;font-size:.68rem;font-weight:800;
@@ -664,8 +649,6 @@
                            filter:saturate(.75);cursor:help; }
   .communication-summary-note { margin:10px 0 0;color:var(--muted);
                                  font-size:.68rem;line-height:1.5; }
-  .story-appendix { padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--surface); }
-  .story-appendix > summary { cursor:pointer;font-weight:800;font-size:1rem; }
   .coverage-toy { display:grid;gap:14px;margin:22px 0 10px;padding:16px;
                    background:#f6f1e9;border:1px solid #ded2c2;border-radius:12px; }
   .coverage-row { display:grid;grid-template-columns:125px 1fr;gap:8px 12px;align-items:center; }
@@ -760,6 +743,13 @@
   .era-president-portrait-link:focus-visible { outline:none; }
   .era-president-strip span { max-width:92px;font-size:.58rem;font-weight:750;
                                line-height:1.12; }
+  .era-president-strip small { max-width:100px;color:var(--muted);font-size:.49rem;
+                                line-height:1.2; }
+  .era-president-cross-owner { padding:2px 5px;border:1px solid #8b5e34;
+                                border-radius:999px;color:#6f4828;font-size:.45rem;
+                                line-height:1.1; }
+  .era-president-strip-label { margin:-7px 0 12px!important;color:var(--muted);
+                                font-size:.55rem!important;text-align:center; }
   .era-template-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
                         grid-auto-rows:auto;gap:8px; }
   .era-template-grid article { display:flex;min-width:0;min-height:230px;height:auto;overflow:hidden;
@@ -788,9 +778,59 @@
   .era-template-grid article > p span { color:var(--muted);font-size:.6rem;line-height:1.3; }
   .era-template-grid article > small { display:block;margin-top:8px;color:var(--muted);
                                         font-size:.58rem;line-height:1.4; }
-  .era-template-constituents[data-constituency-status="fallback"] {
-    border-style:dashed;background:#fffaf0;
-  }
+  .era-template-grid .era-template-references,
+  .era-template-grid .era-template-adversaries { min-height:230px;align-self:stretch; }
+  .era-template-grid .era-template-references { overflow:visible; }
+  .era-reference-landscape { display:grid;flex:1;min-width:0;margin:0;padding:0;
+    list-style:none; }
+  .era-reference-lane { display:grid;grid-template-columns:minmax(116px,.72fr)
+    minmax(170px,1.28fr);align-items:stretch;gap:0;
+    min-width:0;padding:0!important;border-top:1px solid var(--grid); }
+  .era-reference-lane:first-child { border-top:0; }
+  .era-reference-metric { display:grid;grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;align-content:center;gap:1px 5px;min-width:0;padding:6px 12px 6px 0; }
+  .era-reference-metric span { min-width:0;color:#6f4828;font-size:.55rem;
+    font-weight:800;line-height:1.15;overflow-wrap:anywhere; }
+  .era-reference-metric strong { color:var(--ink);font:680 .8rem/1 Georgia,serif; }
+  .era-reference-metric small { grid-column:1/-1;float:none!important;color:var(--muted)!important;
+    font-size:.45rem!important;font-weight:650!important; }
+  .era-reference-highlight,.era-reference-highlight-empty { display:block!important;min-width:0;
+    align-self:stretch;border:0;border-left:1px solid #d2c5b4;border-radius:0;
+    background:#f3ede4;box-shadow:none; }
+  .era-reference-highlight[data-support-status="limited_record"] { background:#f7f2e9; }
+  .era-reference-highlight > summary { display:grid;grid-template-columns:minmax(0,1fr);
+    justify-items:center;align-content:center;gap:3px;min-width:0;padding:7px 8px;
+    text-align:center;cursor:pointer; }
+  .era-reference-highlight > summary:focus-visible { outline:3px solid rgba(208,139,69,.45);
+    outline-offset:2px;border-radius:5px; }
+  .era-reference-name { display:block!important;width:100%;min-width:0; }
+  .era-reference-highlight > summary b { display:block;min-width:0;color:var(--ink2);
+    font:700 .74rem/1.2 Georgia,serif;overflow-wrap:anywhere; }
+  .era-template-grid .era-reference-meta { display:flex!important;align-items:center;
+    justify-content:center;flex-wrap:wrap;min-width:0;color:var(--muted)!important;
+    font-size:.42rem!important;font-weight:650!important;line-height:1.3; }
+  .era-template-grid .era-reference-meta > span { display:inline-flex;align-items:center; }
+  .era-template-grid .era-reference-meta > span + span::before { content:"·";
+    margin:0 4px;color:#9b8c7d;font-weight:700; }
+  .era-reference-highlight-empty { padding:9px 10px;color:var(--muted);
+    font-size:.5rem;font-style:italic;line-height:1.2;text-align:center; }
+  .era-reference-status { display:inline;color:#6e5945;font-size:.4rem;font-weight:850;
+    letter-spacing:.02em;white-space:nowrap; }
+  .era-reference-badge { display:inline-flex!important;align-items:center;gap:3px;padding:0;
+    border:0;border-radius:0;color:#6f6255;font-size:.43rem;
+    font-weight:800;white-space:nowrap; }
+  .era-reference-badge i { color:#6f4828;font-style:normal; }
+  .era-reference-evidence { grid-column:1/-1;min-width:0;margin:0;padding:9px 10px;
+    border-top:1px solid #d8ccbc;border-radius:0;background:#faf7f2;
+    overflow-wrap:anywhere; }
+  .era-reference-evidence p { display:block!important;margin:0 0 7px!important;
+    font-size:.58rem;line-height:1.45; }
+  .era-reference-evidence p:last-child { margin-bottom:0!important; }
+  .era-reference-evidence .era-reference-limited-note { margin-bottom:8px!important;
+    color:#5f4b38;font-size:.54rem!important; }
+  .era-reference-excerpt { margin:7px 0;padding:8px 9px;border-left:2px solid #315f78;
+    background:rgba(255,255,255,.7);font:500 .62rem/1.5 Georgia,serif; }
+  .era-reference-evidence code { font-size:.5rem;white-space:normal;overflow-wrap:anywhere; }
   .era-adversary-pack { display:block;width:100%;height:auto;max-height:154px;
                          flex:1;overflow:visible; }
   .era-adversary-bubble circle {
@@ -813,7 +853,6 @@
     border:1px solid var(--adversary-color);background:transparent;
   }
   .era-adversary-empty { fill:var(--muted);font:650 12px/1 system-ui; }
-  .era-constituent-list { flex:1; }
   .era-style-scroll { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;
                        max-height:145px;overflow-y:auto;overscroll-behavior:contain;
                        padding:1px 4px 2px 1px;scrollbar-width:thin; }
@@ -829,9 +868,10 @@
   .era-style-scroll li > span { font-size:.72rem; }
   .era-style-scroll li > b { min-width:0;font-size:.54rem;font-weight:650;line-height:1.15; }
   .era-style-scroll li > strong { color:#8b5e34;font-size:.54rem; }
-  .era-footprint-core { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px; }
+  .era-footprint-core { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+                         gap:5px;flex:1 1 0; }
   .era-footprint-core p { position:relative;display:flex;min-width:0;min-height:65px;
-                           flex-direction:column;justify-content:flex-end;gap:2px;
+                           flex-direction:column;justify-content:center;gap:2px;
                            margin:0;padding:8px;border-radius:8px;
                            background:#f6f1e9; }
   .era-footprint-core strong { color:var(--ink);font:690 1.22rem/1 Georgia,serif; }
@@ -841,7 +881,7 @@
   .era-footprint-core small { min-width:0;color:var(--muted);font-size:.5rem;
                                line-height:1.15;overflow-wrap:anywhere; }
   .era-footprint-language { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-                             gap:5px;margin-top:5px; }
+                             gap:5px;margin-top:5px;flex:1 1 0; }
   .era-footprint-language p { display:grid;grid-template-columns:minmax(0,1fr);
                                align-content:center;gap:2px;margin:0;padding:6px 7px;
                                border:1px solid var(--grid);border-radius:8px; }
@@ -2211,6 +2251,8 @@
     .era-visualize-heading p{text-align:left}
     .era-template-grid{grid-auto-rows:auto}
     .era-template-grid > article{grid-column:1}
+    .era-reference-lane{grid-template-columns:minmax(102px,.68fr)
+      minmax(0,1.32fr)}
     .founding-panel-heading{grid-template-columns:1fr}
     .founding-visual-question{grid-template-columns:1fr;gap:7px}
     .founding-visual-question p{text-align:left}
@@ -2395,7 +2437,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
   <h1>America in Summary</h1>
   <p class="hero-subheadline">What the formal presidential record says—and cannot say—across 1789–2026</p>
   <p class="corpus-line">1,057 speeches · 4.2M words · 45 presidents · 1789 - April 2026</p>
-  <nav class="era-route" aria-label="Summary sections"><a href="#synthesis"><span>Synthesis</span>Change, continuity, and uncertainty</a><a href="#records_appendix"><span>Post-story appendix</span>Extreme speeches</a></nav>
+  <nav class="era-route" aria-label="Summary sections"><a href="#synthesis"><span>Synthesis</span>Change, continuity, and uncertainty</a></nav>
 </header>
 
 <main>
@@ -2418,7 +2460,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
 <nav class="summary-chapter-route" aria-label="Summary argument">
   <a href="#summary-performance">Congress → public</a><a href="#summary-enemy">Enemies by president</a>
   <a href="#summary-time">Tomorrow + yesterday</a><a href="#summary-emotion">Hope ÷ doom</a>
-  <a href="#summary-audit">What survives</a>
+  <a href="#summary-topics">Topics by president</a>
 </nav>
 
 <section class="summary-chapter" id="summary-performance" aria-labelledby="summary-performance-title">
@@ -2691,134 +2733,24 @@ the corpus mixes genres, and the Miller Center collection is not exhaustive.</p>
   <div class="event-callouts" role="note" aria-label="Historical event context"><ul><li><span>1812</span>War of 1812</li><li><span>1861</span>Civil War begins</li><li><span>1929</span>Market crash</li><li><span>1941</span>U.S. enters World War II</li><li><span>2001</span>September 11 attacks</li><li><span>2020</span>COVID-19 pandemic</li></ul><p>Events orient time; they do not establish that an event caused a measured movement.</p></div>
 </section>
 
-<section class="summary-chapter" id="summary-audit" aria-labelledby="summary-audit-title">
-  <p class="summary-chapter-no">05 · Audit</p>
-  <h2 id="summary-audit-title">What America’s presidential record can—and cannot—say</h2>
-  <div class="synthesis-matrix table-scroll"><table>
-<thead><tr><th>Through-line</th><th>What changed</th><th>What persisted</th>
-<th>What remains uncertain</th></tr></thead><tbody><tr><th scope="row">Agenda</th><td>Topic breadth expands mainly between the founding and Civil War eras, then largely plateaus.</td><td>Money, war, rights, belonging, and national purpose repeatedly return under new vocabularies.</td><td>Post-1860 breadth is baseline- and taxonomy-sensitive, so it is not a Summary headline.</td></tr><tr><th scope="row">Communication</th><td>The corpus moves from written messages toward broadcast performance and then an always-on environment.</td><td>The annual message remains the closest repeated genre across the whole record.</td><td>One assigned primary medium is not a complete inventory of channels, audiences, or platform activity.</td></tr><tr><th scope="row">Governing voice</th><td>Legal/procedural and hedged wording recedes while promotional and opponent-centered wording rises.</td><td>Presidents still mix proposals, values, ceremony, administration, and persuasion.</td><td>Vocabulary cannot measure competence, policy depth, persuasion, or sincerity.</td></tr><tr><th scope="row">Conflict</th><td>Presidents differ in both whom they name as adversaries and how often they use enemy, zero-sum, or partisan frames.</td><td>Enemy naming and zero-sum frames appear across the presidential record.</td><td>Labels describe textual framing, not whether a target was legitimate or a frame sincere.</td></tr><tr><th scope="row">Time and emotion</th><td>Future and backward-looking terms can rise together; Hope/Doom varies around historical shocks.</td><td>Presidents repeatedly promise renewal while describing danger.</td><td>Dictionary matches are not intent; event markers orient time and do not identify causes.</td></tr></tbody></table></div>
-  <p><a href="data-quality.html">Inspect data quality and nulls →</a> ·
-  <a href="methodology.html">Inspect the annotation instruments →</a> ·
-  <a href="feedback.html">Challenge a method or submit a correction →</a></p>
-</section>
-
-</section>
-<div class="eyebrow">Post-story appendix · Extreme speeches</div>
-<section id="records_appendix"
-  data-story-range="Post-story appendix"
-  data-story-era="Extreme speeches"
-  data-story-title="Extreme speeches reveal extreme moments">
-  <h2>Extreme speeches reveal extreme moments</h2>
-  <p class="section-deck">Outlier cards belong after the history, where their word matches, percentiles, runner-ups, quotations, speech context, and metric definitions can be inspected without interrupting the chronology.</p>
-
-
-  <details class="story-appendix">
-<summary>Open the extreme-speeches evidence cards</summary>
-<p>These rankings are a post-story interlude, not an era in the chronology. They compare
-speeches of at least 1,500 words so a short ceremonial statement cannot win on a handful
-of matches. Rates still require context: a dictionary cannot settle quotation, sarcasm,
-negation, or whether the president endorsed the matched words.</p>
-<div class="record-definitions">
-<article><strong>Fear</strong><span>NRC fear + anger words, such as <em>fear,
-danger, attack, destroy</em>. Quotation and context can change their meaning.</span></article>
-<article><strong>Hope</strong><span>NRC trust + anticipation + joy words, such as
-<em>hope, trust, peace, future</em>.</span></article>
-<article><strong>Boosters</strong><span>Declared intensifiers including <em>never,
-always, certainly, absolutely, tremendous, incredible</em>.</span></article>
-<article><strong>Us versus them</strong><span>The literal pronouns <em>they, them,
-themselves</em>. This is a rough grammatical proxy—not proof of hostility or partisanship.</span></article>
-<article><strong>Superlatives</strong><span><em>greatest, best, finest, strongest,
-worst, biggest, most important</em>.</span></article></div><div class="records"><div class="r-card">
-  <div class="r-label">Most fearful</div>
-  <div class="r-value">659 <span class="r-unit">fear words / 10k</span></div>
-  <div class="r-who">Harry S. Truman, 1951</div>
-  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches/april-11-1951-report-american-people-korea" target="_blank" rel="noopener">April 11, 1951: Report to the American People on Korea</a>
-  <div class="r-stats"><span>162 matched words</span>
-    <span>2,460 total words</span>
-    <span>rank 1 of 734</span>
-    <span>2.4× the eligible-speech median (279.7)</span>
-    <span>longer than 23% of eligible speeches</span>
-    <span>rate controls for speech length</span></div>
-  <div class="r-words"><strong>Most frequent matched words:</strong>
-    war (24), aggression (17), attack (13), fighting (9), military (8), conquest (7)</div>
-  <blockquote class="record-quote"><p>“In the simplest terms, what we are doing in Korea is this: We are trying to prevent a third world war.”</p>
-    <cite>Context from the ranked source speech</cite></blockquote>
-  <div class="r-runner">runner-up: George W. Bush, Address to the Nation on Iraq (651)</div>
-  <details class="r-more"><summary>See the top three</summary><p>Harry S. Truman (659) · George W. Bush (651) · George W. Bush (593)</p></details>
-</div>
-<div class="r-card">
-  <div class="r-label">Most hopeful</div>
-  <div class="r-value">1155 <span class="r-unit">hope words / 10k</span></div>
-  <div class="r-who">Harry S. Truman, 1945</div>
-  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches/april-16-1945-first-speech-congress" target="_blank" rel="noopener">April 16, 1945: First Speech to Congress</a>
-  <div class="r-stats"><span>217 matched words</span>
-    <span>1,878 total words</span>
-    <span>rank 1 of 734</span>
-    <span>1.7× the eligible-speech median (662.0)</span>
-    <span>longer than 8% of eligible speeches</span>
-    <span>rate controls for speech length</span></div>
-  <div class="r-words"><strong>Most frequent matched words:</strong>
-    peace (23), hope (10), united (8), freedom (7), justice (5), victory (5)</div>
-  <blockquote class="record-quote"><p>“Today, the entire world is looking to America for enlightened leadership to peace and progress.”</p>
-    <cite>Context from the ranked source speech</cite></blockquote>
-  <div class="r-runner">runner-up: Dwight D. Eisenhower, Second Inaugural Address (1019)</div>
-  <details class="r-more"><summary>See the top three</summary><p>Harry S. Truman (1155) · Dwight D. Eisenhower (1019) · Gerald Ford (1012)</p></details>
-</div>
-<div class="r-card">
-  <div class="r-label">Most absolutist</div>
-  <div class="r-value">116 <span class="r-unit">boosters / 10k</span></div>
-  <div class="r-who">Richard M. Nixon, 1974</div>
-  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches/august-9-1974-remarks-departure-white-house" target="_blank" rel="noopener">August 9, 1974: Remarks on Departure From the White House</a>
-  <div class="r-stats"><span>21 matched words</span>
-    <span>1,815 total words</span>
-    <span>rank 1 of 734</span>
-    <span>9.6× the eligible-speech median (12.1)</span>
-    <span>longer than 7% of eligible speeches</span>
-    <span>rate controls for speech length</span></div>
-  <div class="r-words"><strong>Most frequent matched words:</strong>
-    always (15), never (6)</div>
-  <blockquote class="record-quote"><p>“Members of the Cabinet, members of the White House Staff, all of our friends here: I think the record should show that this is one of those spontaneous things that we always arrange whenever the President comes in to speak, and it will be so reported in the press, and we don&#x27;t mind, because they…”</p>
-    <cite>Context from the ranked source speech</cite></blockquote>
-  <div class="r-runner">runner-up: Donald Trump, Address at the World Economic Forum (95)</div>
-  <details class="r-more"><summary>See the top three</summary><p>Richard M. Nixon (116) · Donald Trump (95) · Donald Trump (93)</p></details>
-</div>
-<div class="r-card">
-  <div class="r-label">Most us-vs-them</div>
-  <div class="r-value">335 <span class="r-unit">they / them / 10k</span></div>
-  <div class="r-who">Donald Trump, 2020</div>
-  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches/november-5-2020-remarks-2020-election" target="_blank" rel="noopener">November 5, 2020: Remarks on the 2020 Election</a>
-  <div class="r-stats"><span>88 matched words</span>
-    <span>2,628 total words</span>
-    <span>rank 1 of 734</span>
-    <span>5.5× the eligible-speech median (61.4)</span>
-    <span>longer than 27% of eligible speeches</span>
-    <span>rate controls for speech length</span></div>
-  <div class="r-words"><strong>Most frequent matched words:</strong>
-    they (79), them (9)</div>
-  <blockquote class="record-quote"><p>“If you count the illegal votes, they can try to steal the election from us.”</p>
-    <cite>Context from the ranked source speech</cite></blockquote>
-  <div class="r-runner">runner-up: Harry S. Truman, Democratic National Convention (324)</div>
-  <details class="r-more"><summary>See the top three</summary><p>Donald Trump (335) · Harry S. Truman (324) · Donald Trump (282)</p></details>
-</div>
-<div class="r-card">
-  <div class="r-label">Most superlative</div>
-  <div class="r-value">46 <span class="r-unit">superlatives / 10k</span></div>
-  <div class="r-who">Barack Obama, 2012</div>
-  <a class="r-title" href="https://millercenter.org/the-presidency/presidential-speeches/november-6-2012-2012-election-night-victory-speech" target="_blank" rel="noopener">November 6, 2012: 2012 Election Night Victory Speech</a>
-  <div class="r-stats"><span>10 matched words</span>
-    <span>2,152 total words</span>
-    <span>rank 1 of 734</span>
-    <span>5.8× the eligible-speech median (8.0)</span>
-    <span>longer than 15% of eligible speeches</span>
-    <span>rate controls for speech length</span></div>
-  <div class="r-words"><strong>Most frequent matched words:</strong>
-    best (8), strongest (1), greatest (1)</div>
-  <blockquote class="record-quote"><p>“Tonight, in this election, you, the American people, reminded us that while our road has been hard, while our journey has been long, we have picked ourselves up, we have fought our way back, and we know in our hearts that for the United States of America, the best is yet to come.”</p>
-    <cite>Context from the ranked source speech</cite></blockquote>
-  <div class="r-runner">runner-up: Richard M. Nixon, Remarks on Departure From the White House (44)</div>
-  <details class="r-more"><summary>See the top three</summary><p>Barack Obama (46) · Richard M. Nixon (44) · Harry S. Truman (41)</p></details>
-</div></div>
-</details>
+<section class="summary-chapter summary-topic-section" id="summary-topics"
+  aria-labelledby="summary-topics-title" data-summary-topic-browser
+  data-index-url="data/summary-topic-network/index_v1.json"
+  data-chart-key="summary_topic_relationships"
+  data-edge-width-measure="speaker_paragraph_share"
+  data-node-size-measure="selected_topic_paragraph_memberships"><p class="summary-chapter-no">05 · Topics</p><h2 id="summary-topics-title">Presidents and their recurring topics</h2><p class="summary-lede">Choose up to eight broad topics to see how presidents gather between
+  them. Each president is pulled toward topics that recur more often in paragraphs actually
+  attributed to that president. The view describes this
+  speaker-audited corpus; it does not measure importance, intent, influence, or policy success.</p><p class="summary-topic-population"><strong>32,531</strong> eligible actual-president paragraphs
+  <span>·</span><strong>45</strong> presidents <span>·</span><strong>17</strong> broad topics</p><div class="summary-topic-browser"><section class="summary-topic-controls" aria-labelledby="summary-topic-choose-title"><div class="summary-topic-control-heading"><h3 id="summary-topic-choose-title">Choose Topics</h3><div class="summary-topic-selection-tools"><strong data-summary-topic-selection-count>0 of 8 selected</strong><button type="button" data-summary-topic-clear disabled>Clear</button></div></div><div class="summary-topic-picker" data-summary-topic-picker><button type="button" aria-pressed="false" data-summary-topic-choice="topic_53f9c63ed6aedcab84709226f843c89a577ea30928250cda0021a52c0d9dd5d2" title="Conduct of relations with other nations: treaties, diplomacy, neutrality, alliances, hemispheric and great-power policy, foreign aid, and international organizations.">Foreign Relations &amp; Diplomacy</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_07f03bf056ab3503c6f721cf2a606b728b9cbb858d7d919fca46cd6135a32a2b" title="The waging of wars and military campaigns, reports on operations, and the raising, equipping, and honoring of the armed forces and veterans.">War &amp; Military Affairs</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_43ec056a6101afa1e938480103aecd71dd5f41580556a5f8d2a92b6a7cb39e2e" title="Monetary policy, coinage and the mint, specie, paper currency, the gold standard, national and state banks, and financial crises.">Money, Banking &amp; Currency</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_3e8647a4799e061a665118eb000c5f9ad645c931743a74bfe085cbb18238ed6e" title="Regulation of foreign and interstate commerce, tariffs, reciprocity, navigation laws, and control of corporate monopoly.">Trade, Commerce &amp; Tariffs</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_c111a85539516b19ce3d0ebf88102afc3f5136f06811be7ef7952ae6cc9d714c" title="Government revenue, the public debt, appropriations, taxes, budgets, deficits, and federal spending.">Public Finance &amp; Taxation</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_4e7a42711424fc04c1b91600a4625e488e9f3c4736eb917f66eed248a70edbc0" title="The general economic condition, employment, wages and labor relations, poverty and welfare, health and old-age security, and prosperity of ordinary Americans.">Economy, Labor &amp; Social Welfare</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_ef78a18511fbadc390b6b2c81b7205f6fbf8a9bd8b0b3a6b135e894f47157e83" title="Farming and farm prices, disposal and settlement of public lands, and conservation of natural resources and the environment.">Agriculture, Land &amp; Environment</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_c092ca5bdad12513ef74aa364f2bf7a6db5cb739f929d0f0ef4779e5c868cbcd" title="Federal support for roads, canals, harbors, energy, and other public works and large-scale national development projects.">Infrastructure &amp; Internal Improvements</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_69c2f2e5246434489ce5d23ab22aff61e0e45f95df48cd62755c0cc84ca18853" title="Slavery and emancipation, racial equality and voting rights, discrimination, and the admission and treatment of immigrants.">Civil Rights &amp; Immigration</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_3493d9b6ff51b17cc78f8191a4ac1b2eae5bb4ff7f269114b248d590851a7ed8" title="Relations with Indian tribes: treaties, hostilities, removal, reservations, allotment, and efforts at assimilation.">Indian &amp; Tribal Affairs</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_3676810b2915e5e08405c3c9e3ed6b588696c94d35d477e10ed9cc62058597b4" title="Enforcement of federal law, suppression of insurrection, crime and courts, and morals legislation in the Territories.">Law, Crime &amp; Justice</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_b9fc73bb18ca058e7f189c867a51071c93e7fea7d67167933f18846a43f46e2c" title="The constitutional structure of the government: federalism and union, executive power, civil-service reform, territorial organization and statehood, and the integrity of elections.">Constitutional Order &amp; Governance</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_ba4e1562b35cd37c83f78a1460d65e49337ac54a9561805b51da67a33fb4d23e" title="Non-policy ceremonial speech: eulogies, tributes to founders and heroes, anniversary commemorations, and national mourning.">Ceremonial &amp; Commemorative Address</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_b06b6b33b3356fbb9bf02b5cf3a44db3f664b60ffabf997972a749619b7acfe4" title="Non-policy personal speech: the president&#x27;s humility about office, autobiographical storytelling, humor, and boasting of achievements.">Personal Narrative &amp; Reflection</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_808789d7a0e8edad0be5ec687efb103a704d7b1ebd37e9e78d628803197b9205" title="Non-policy housekeeping: routine departmental reports, postal operations, and the mechanics of executive-legislative business.">Procedural &amp; Administrative</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_73fe8a26a7881c104f8ac0ee90b445177eabd28ec5e36d34a3bdcacd0505cba1" title="Non-policy appeals to Providence, faith, patriotism, civic ideals, and the shared moral character of the nation.">Faith &amp; National Values</button><button type="button" aria-pressed="false" data-summary-topic-choice="topic_601685849419f6dd5585ab27f3ab7a941ea2cbf86f3099bca73b67a038d9ce17" title="Non-policy political combat: attacks on opponents and parties, campaign debate, press-conference exchanges, and clashes with the media.">Partisan &amp; Media Combat</button></div><div class="summary-topic-president-filter"><div class="summary-topic-president-line"><label for="summary-topic-president-filter">Compare presidents</label><select id="summary-topic-president-filter" data-summary-topic-president-filter><option value="">Add a president…</option><option value="george-washington">George Washington</option><option value="john-adams">John Adams</option><option value="thomas-jefferson">Thomas Jefferson</option><option value="james-madison">James Madison</option><option value="james-monroe">James Monroe</option><option value="john-quincy-adams">John Quincy Adams</option><option value="andrew-jackson">Andrew Jackson</option><option value="martin-van-buren">Martin Van Buren</option><option value="john-tyler">John Tyler</option><option value="james-k-polk">James K. Polk</option><option value="millard-fillmore">Millard Fillmore</option><option value="franklin-pierce">Franklin Pierce</option><option value="james-buchanan">James Buchanan</option><option value="abraham-lincoln">Abraham Lincoln</option><option value="andrew-johnson">Andrew Johnson</option><option value="ulysses-s-grant">Ulysses S. Grant</option><option value="rutherford-b-hayes">Rutherford B. Hayes</option><option value="chester-a-arthur">Chester A. Arthur</option><option value="grover-cleveland">Grover Cleveland</option><option value="benjamin-harrison">Benjamin Harrison</option><option value="william-mckinley">William McKinley</option><option value="theodore-roosevelt">Theodore Roosevelt</option><option value="william-taft">William Taft</option><option value="woodrow-wilson">Woodrow Wilson</option><option value="warren-g-harding">Warren G. Harding</option><option value="calvin-coolidge">Calvin Coolidge</option><option value="herbert-hoover">Herbert Hoover</option><option value="franklin-d-roosevelt">Franklin D. Roosevelt</option><option value="harry-s-truman">Harry S. Truman</option><option value="dwight-d-eisenhower">Dwight D. Eisenhower</option><option value="john-f-kennedy">John F. Kennedy</option><option value="lyndon-b-johnson">Lyndon B. Johnson</option><option value="richard-m-nixon">Richard M. Nixon</option><option value="gerald-ford">Gerald Ford</option><option value="jimmy-carter">Jimmy Carter</option><option value="ronald-reagan">Ronald Reagan</option><option value="george-h-w-bush">George H. W. Bush</option><option value="bill-clinton">Bill Clinton</option><option value="george-w-bush">George W. Bush</option><option value="barack-obama">Barack Obama</option><option value="donald-trump">Donald Trump</option><option value="joe-biden">Joe Biden</option></select></div><div class="summary-topic-president-row" data-summary-topic-president-row hidden><button type="button" data-summary-topic-president-clear>Show all presidents</button><div class="summary-topic-president-chips" data-summary-topic-president-chips></div></div></div><p class="summary-topic-status" role="status" aria-live="polite"
+         data-summary-topic-status></p></section><figure class="summary-topic-stage"><div class="summary-topic-stage-tools"><p data-summary-topic-stage-readout>Hover, focus, or select a president to inspect it here.</p><p data-summary-topic-size-key><strong>Portrait area</strong> = selected-topic paragraph
+        memberships. One paragraph can count under more than one topic.</p></div><svg viewBox="0 0 900 610" role="img" aria-labelledby="summary-topic-svg-title summary-topic-svg-desc"
+           data-summary-topic-svg><title id="summary-topic-svg-title">President topic-gravity field</title><desc id="summary-topic-svg-desc">No topics are selected. Choose up to eight broad topics.</desc></svg><figcaption>Topics stay fixed around the edge. A president begins at its share-weighted
+      center; deterministic display stretch and collision spacing separate nearby portraits.
+      Absolute distance has no separate meaning. Bubble area shows selected-topic paragraph
+      memberships, which overlap because topics are multi-label.</figcaption><noscript><p>The topic-gravity field requires JavaScript. Download the exact recurring-topic
+      table below for the supported relationship values.</p></noscript></figure></div><p class="summary-topic-download"><a href="data/summary-topic-network/recurring_topic_table_v1.csv"
+  download>Download the exact recurring-topic table</a></p></section>
 
 </section>
 

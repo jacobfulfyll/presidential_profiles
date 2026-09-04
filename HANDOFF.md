@@ -1,5 +1,371 @@
 # Handoff
 
+## Latest addendum — Final Release Program Steps 1–6 integration
+
+- On 2026-09-04 the owner approved preserving the completed Story,
+  actual-speaker/reference foundation, reusable topic network, Summary Topics,
+  Compare, and Explore work as one cohesive local default-branch checkpoint.
+- These surfaces were implemented and verified together in the repository's
+  single shared worktree. They are intentionally integrated rather than
+  reconstructed as separate page branches after the fact.
+- The release boundary includes the governed `data/reference_entities/`,
+  `data/speaker_views/`, and `data/speaker_topic_network/` artifacts plus the
+  canonical generated `docs/` tree. The local `data/annotation_ledger/`,
+  `.codex/operators/`, and `.claude/stats.json` telemetry remain outside the
+  release commit.
+- The last code-changing verification remains 2,811 passing repository tests
+  with 64 existing warnings, a canonical 73-HTML/376-JSON build, parsed inline
+  and external JavaScript, clean compilation and whitespace checks, and the
+  completed four-viewport browser matrix recorded below. This integration step
+  changes Git ownership only; it does not change application code or generated
+  output.
+- No remote push or deployment is authorized by this checkpoint. The next safe
+  action is owner review of the integrated local site before choosing Step 7 or
+  requesting publication.
+
+## Latest addendum — Explore interaction and evidence v1
+
+- Explore now follows `Choose series → Trends → Data and methods`. The default
+  is exact `tariff`, `freedom`, and `border`; uncertainty is on, context is
+  none, disclosures are closed, and the ordered selection limit is six.
+- Series discovery uses one searchable governed catalog: 16 deterministic
+  broad issues, 50 AI topics nested under 17 taxonomy parents, and three
+  case-sensitive acronyms. Search uses published terms and AND-prefix matching;
+  current chips and a persistent count replace a nondeterministic recent list.
+- Exact versus audited word-family counting is a primary pre-entry choice and
+  a reversible per-chip action. Grouped chips name the canonical family, state
+  that grouping is on, give the form count, and disclose the exact existing
+  algorithmic forms without implying linguistic equivalence.
+- Explore no longer loads Plotly. The safe-DOM SVG renderer provides whole-line
+  pointer/focus highlighting, A–F letter/color/dash/shape redundancy, exact
+  period inspection, arrow/Home/End navigation, Enter/Space/click/tap pinning,
+  Escape, live keyboard announcements, reduced motion, forced-colors support,
+  and four-width responsive reflow with no page overflow.
+- The main-flow uncertainty toggle preserves period `ci_status`, cell
+  `interval_unresolvable`, null-as-unknown semantics, markers, exact text, and
+  method-specific `ci_components` when ranges are hidden. The old combined-word
+  and chart-options state is retired; one governed historical-context select
+  remains presentation-only.
+- Auditability is now one prominent 38-field selected CSV, one collapsed
+  five-column/one-series exact table, permanent compact unit/provenance copy,
+  and Methods/Data Quality links. No-JavaScript and injected load failures keep
+  a semantic default SVG, 708 exact rows, three static downloads, honest
+  disabled controls, and retry/dismiss messaging.
+- `explore_projection.py` publishes a deterministic atomic 263-file v2
+  contract: 236 lexical periods; 4,599 families / 7,391 resolver entries; four
+  64-shard exact/group unigram/bigram namespaces; 1,234 field-preserving topic
+  rows; and three CSVs. The manifest seals inputs, schemas, hashes, row counts,
+  sizes, routing, budgets, and exact inventory. Two builds must be byte-equal;
+  the final projection is 78,370,786 raw / 19,312,004 gzip bytes and its largest
+  shard is 522,404 / 125,031, below every hard budget.
+- Cold default loading is four public data requests and seven successful
+  resources, 803,827 raw / 201,243 gzip-equivalent bytes—87.4% less compressed
+  than the prior Plotly path. Final page/assets are 201,824 raw bytes combined.
+- Verification is green: 31 dedicated Explore tests, 396 focused/related tests,
+  and all 2,811 repository tests pass with 64 existing warnings. The canonical
+  build validates 73 HTML pages and 376 JSON files/shards; all 128 executable
+  inline scripts and generated external JavaScript parse; compilation,
+  whitespace, display-name security, metrics, deterministic publication,
+  loading/failure, exact/download, URL/history, focus-return, console, and
+  1280×720 / 1024×768 / 768×1024 / 390×844 browser checks pass.
+- Story, Summary 05, Compare, Profile V3, Issues V2, governed analytical and
+  frozen paid artifacts, and unrelated worktree changes were not redesigned or
+  cleaned. No deployment, staging, commit, or push occurred. Proposed-order
+  Step 7 is next only after owner approval.
+- The full contract and completion receipt are in
+  `notes/explore-interaction-and-evidence-v1.md`.
+
+## Latest addendum — Compare agenda visual system v1
+
+- Compare retains the Rhetoric → Agenda → Evidence narrative and always-present
+  A/B/C native selectors. Selection state uses only `a`, `b`, and optional
+  `c`; obsolete `agenda` and `topic` parameters canonicalize away.
+- Agenda now has one focused view: the governed-order union of each selected
+  president’s top three Level 1 AI topics by existing
+  `speaker_paragraph_share`. There is no all-topic toggle, fine-topic UI,
+  CorEx disclosure/download, or method bridge.
+- Each reason badge names the president or presidents whose top-three set caused
+  the row to appear. Exact controls visibly pair slots with collision-safe names
+  such as `A · Lincoln`, `B · F.D. Roosevelt`, and `C · Washington`.
+  Vertically staggered circle/square/diamond marks preserve overlaps.
+- Selecting one president value opens a blue detail directly beneath that topic
+  row with the exact share, topic-paragraph numerator, eligible-paragraph
+  denominator, topic-bearing appearance count, support state, and exactly one
+  deterministic broad-topic example. The parent shard is used only to retrieve
+  that broad receipt; Level 2 rows never render.
+- The projection schema and deterministic 22-file inventory remain unchanged
+  for provenance and compatibility. The visible page uses only Level 1 cells
+  and links only the full AI-topic CSV. Profile V3, Story, Summary, and governed
+  data remain unchanged.
+- The evidence area remains comparison-wide. Adversary/invocation receipt lists
+  and vocabulary z-scores remain omitted from the visible page.
+- Verification: 53 focused Compare/integration tests and all 2,784 repository
+  tests pass (64 existing warnings). The canonical build validates 73 HTML pages
+  and 224 JSON shards; both generated JavaScript assets parse. Compare is
+  155,518 bytes raw / 23,254 gzip. Live three-president browser checks passed at
+  1280×720, 1024×768, 768×1024, and 390×844 with zero guarded overflow and
+  targets above 44px. The tested detail contained the exact
+  7.09% / 47 / 663 / 7 relationship and one receipt; no fine rows, CorEx
+  surfaces, or console errors were present.
+- The local preview remains available at
+  `http://127.0.0.1:8010/compare.html?a=abraham-lincoln&b=franklin-d-roosevelt&c=george-washington#rhetoric`.
+  No deployment, commit, push, or unrelated worktree cleanup occurred.
+- The durable contract and full receipt are in
+  `notes/compare-agenda-visual-system-v1.md`.
+## Latest addendum — Summary topic gravity field v1
+
+- Summary 05 now opens as an owner-directed topic field rather than the earlier
+  president/topic ego browser. Users choose one to eight broad AI topics;
+  selected topics stay fixed around the perimeter and president portraits
+  settle inside them using the existing `speaker_paragraph_share` as their
+  only gravitational weight. Deterministic display stretch and a fixed
+  collision pass separate nearby portraits; absolute distance has no separate
+  meaning, and there is no continuous or stochastic simulation.
+- President portrait area shows the sum of `topic_paragraph_count` over the
+  selected topics. The interface names this `selected-topic paragraph
+  memberships`, states that it is not a unique-paragraph total, and repeats the
+  multi-label non-additivity limitation. Faint line width continues to encode
+  only `speaker_paragraph_share`.
+- The default field includes the 42 supported presidents when connected.
+  Desktop can draw all qualifying presidents; 390px caps only the diagram at 18.
+  Users may optionally choose up to eight
+  supported presidents to compare; the portrait-area scale remains fixed to the
+  full qualifying field rather than renormalizing the subset.
+- A visible size key names portrait area and its largest current membership
+  total. Pointer, keyboard focus, and pinning all update a compact stage readout
+  with president, membership count, strongest topic, exact share, and connected
+  lines. `Choose topics`, its count, and Clear share one compact heading line;
+  the topics occupy one horizontal scroller. Compare presidents is one line,
+  with Show all presidents and selected-president chips in a second horizontal
+  scroller only when selections exist. The graph takes the full content width,
+  and the bottom exact relationship readout is removed.
+- Summary now exposes only the supported recurring view: 42 selectable
+  presidents and 427 president/topic relationships meeting the 20-paragraph,
+  five-appearance floor. The observed/thin reveal, thin president choices,
+  Level 2/evidence interaction, and the HTML exact-value table no longer render.
+  The governed all-edge bundle remains unchanged. A deterministic 427-row CSV
+  containing only these supported recurring relationships is now the section's
+  sole download, bringing the public Summary projection to 20 files.
+- Selected topics are canonicalized into frozen taxonomy display order before
+  layout, so clicking the same set in any order produces identical anchors and
+  president coordinates. The inline topic/president descriptions, recurring-key
+  paragraph, live-status text, taxonomy-provenance card, `How to read` disclosure,
+  embedded exact table, and former Plan 3/Data Quality/Methods/Feedback link row
+  are removed. The graph now ends with one exact recurring-topic CSV link.
+- The accepted Plan 3 bundle remains unchanged; the Summary projection is now
+  20 files because its manifest owns the new filtered CSV.
+- The former Extreme Speeches evidence-card appendix is removed from Summary's
+  section inventory and generator path. Topics is now the final section. Its
+  download sits 8px above the existing source/method footer on desktop and
+  mobile instead of inheriting a full chapter gap; the footer divider remains.
+  Legacy `index.html#records_appendix` links now land on Summary Topics.
+  All 183 focused/related and 2,773 repository tests pass with 64 warnings.
+  The canonical build validates 73 HTML / 204 JSON; source
+  audits, projection reproducibility/parity, compilation, 130 inline scripts,
+  the renderer asset, whitespace, desktop/390px overflow, interaction, and
+  console checks pass. No deployment, commit, push, schema change, frozen-data
+  edit, or unrelated cleanup occurred.
+
+## Latest addendum — Story reference landscape v1
+
+- The Era Profile top-left card is now a visibly headed four-lane
+  `Distinctive era references` card for people, institutions, groups or
+  communities, and nations or places. `Distinctive` means unusually
+  concentrated here, not exclusive to this era. It shows exact era and
+  all-corpus percentages without an explanatory deck or comparison bars, and
+  may expose one compact, keyed evidence receipt per lane. The percentages and
+  names form two scan columns;
+  a quiet vertical rule separates a flat shaded name/evidence column from the
+  percentages. The right side has no rounded container or inset accent, and
+  `AI only` appears once rather than as a repeated icon-plus-label. Selected
+  names are centered and enlarged above one small paragraph/document/source
+  metadata line.
+- Highlights require five paragraphs, two source documents, positive era
+  concentration, and at least 80 percent favorable/neutral primary-AI stance;
+  displayed Named adversaries are excluded. NER supplies only evidence-span
+  agreement, never stance or NER-only promotion.
+- When no supported candidate exists, a four-paragraph candidate may appear as
+  a visibly labeled `Limited record` only if every other gate passes. This
+  surfaces American Legion for 1913–1932 (four paragraphs across four source
+  documents) without lowering the five-paragraph supported-highlight floor.
+- Named adversary rows, counts, types, bubble packing, legend, and interaction
+  are unchanged. The new compact card and Named adversaries measure the same
+  closed desktop height in all nine eras. The visible reference card contains
+  none of the former Jeffreys/log-odds, ranking-policy, source-agreement essay,
+  or download-footer text.
+- Corpus Footprint now assigns its spare lower-row height to the three primary
+  statistic tiles and the three distinctive-word tiles in equal shares. Both
+  rows now have matching box heights, with their contents vertically centered,
+  so the card finishes with Major Topics instead of leaving an internal gap.
+- Era Profiles advance to `era-profile-v6`; v9 visualizations and v11
+  contextualizations remain unchanged. The governed 45-row distinctive
+  artifact and v5 projection field remain intact for foundation and public
+  download parity, but no longer render in the profile.
+- Verification is green: 83 focused/related tests and all 2,773 repository
+  tests pass with 69 existing warnings. The canonical build validates 73 HTML
+  pages and 204 JSON files; foundation, Story v6/v9/v11, Plan 3, Summary
+  projection, compilation, 130 inline scripts, static JavaScript, and
+  whitespace checks pass. Browser QA confirms equal 230px closed desktop
+  card heights in all nine eras, functional evidence, and zero page overflow
+  at desktop and 390px-class mobile width.
+- The contract is `notes/story-reference-landscape-v1.md`. No frozen paid
+  artifact, foundation Parquet, speaker attribution, adversary analysis,
+  deployment, commit, push, or unrelated cleanup is part of this change.
+
+## Latest addendum — Summary actual-speaker topic relationships v1
+
+- Summary now uses `05 · Topics — Presidents and their recurring topics` in
+  place of the former Audit chapter. Its initial 17-topic overview draws no
+  edges; president/topic selection opens a deterministic ego view, while the
+  ranked list and complete server-rendered matrix retain exact values. Extreme
+  Speeches remains the post-story appendix, and compact Plan 3 download, Data
+  Quality, Methods, and Feedback links remain.
+- `summary_topic_network.py` derives a field-preserving all-corpus projection
+  only from the accepted `SpeakerTopicNetworkBundle`. The index contains all 45
+  presidents, 17 Level 1 topics, 700 observed edges, 42 supported presidents,
+  three thin presidents, and 427 default-visible edges. Seventeen shards cover
+  all 50 Level 2 topics and their Plan 3 evidence exactly once. No speaker,
+  topic, denominator, share, support, era, or receipt is recalculated.
+- `docs/data/summary-topic-network/` contains the compact index, 17 on-demand
+  topic shards, and self-hashed manifest. The index is 363,779 bytes raw / 58,553
+  gzip; the largest shard is 819,063 / 209,031; the renderer is under 29 KB raw.
+  All are below the locked budgets. Two independent builds produce the same 19
+  files byte-for-byte, and publication validation compares every selected row
+  and value back to Plan 3.
+- The page-agnostic renderer uses `speaker_paragraph_share` as its only edge-
+  width encoding. It supports ARIA tabs, native selectors, pointer/focus
+  preview parity, Enter/Space/click pinning, three-step Escape, explicit thin
+  reveal, Level 2 return, non-modal deterministic audit examples with focus
+  restoration, reduced motion, failure fallbacks, and safe DOM construction
+  without data-driven `innerHTML`. Topic mode caps only the diagram at 12;
+  mobile caps it at six while retaining the complete list.
+- Verification is green: 12 focused tests, 105 related tests, and all 2,771
+  repository tests pass with 69 existing warnings. The canonical build
+  validates 73 HTML pages and 204 JSON files; 130 inline scripts and both static
+  renderer assets parse. Foundation, Story v5/v9/v11, and Plan 3 publication
+  checks pass. Browser QA at 1280×720, 1024×768, 768×1024, 390×844, and
+  `?motion=reduce` confirms stable layouts, correct interaction/focus state,
+  44px targets, zero page overflow, and an empty console. The no-JavaScript
+  route is covered by the server-rendered topic links, policies, downloads, and
+  exact table tests.
+- The accepted implementation contract is
+  `notes/summary-actual-speaker-topic-network-plan-v1.md`. No deployment,
+  staging, commit, push, Plan 3 schema change, frozen paid-artifact edit, or
+  unrelated worktree cleanup occurred.
+
+## Latest addendum — Actual-speaker topic network v1
+
+- `data/speaker_topic_network/` now publishes the reusable
+  `actual-speaker-topic-network-v1` contract. Its typed reader resolves the
+  annotation ledger's active pointer, verifies the generation artifact root,
+  requires the complete 35,394-key one-to-one paragraph join before filtering,
+  and reuses actual-speaker, appearance, and Story-era identity from the
+  accepted foundation. Document ownership never determines president edges.
+- The governed census is 32,531 eligible paragraph rows, 91,119 distinct
+  multi-label memberships, 45 president and 67 topic nodes, 450 president/scope
+  support rows, 670 topic/scope support rows, 4,408 observed corpus/Story-era
+  edges, and 11,576 keyed first/lower-middle/last evidence receipts. All pinned
+  support, level, default-visible, topic-free, normalization, and cross-owner
+  acceptances match exactly.
+- Edges publish `speaker_paragraph_share`, `topic_contribution_share`, and
+  `topic_scope_share` with explicit paragraph/appearance numerators and
+  denominators. Topic-free eligible rows stay in denominators; multi-label
+  shares are non-additive. Thin records remain downloadable. No confidence,
+  similarity, influence, importance, causality, layout, or generic weight is
+  manufactured.
+- `docs/data/speaker-topic-network/` contains validated network JSON, edge and
+  evidence CSVs, membership Parquet, and a self-hashed manifest. The canonical
+  site validates the accepted bundle before writes and publishes downloads, but
+  zero HTML pages consume or render the network. Story's generated hash remains
+  unchanged from the pre-task capture; Plan 2 schemas remain v5/v9/v11.
+- Two independent governed/public builds produce the same 15 files byte for
+  byte. The 37 focused tests, 565 related tests, and all 2,759 repository tests
+  pass with 69 existing warnings. Compilation, 73-HTML/185-JSON canonical
+  validation, Story/foundation/network audits, 130 inline scripts, static JS,
+  protected-input checks, and Reggie Doctor pass. No deployment, staging,
+  commit, push, adapter installation, or unrelated cleanup was performed.
+- The durable contract and Plan 4 consumer rules are in
+  `notes/story-actual-speaker-topic-network-v1.md`. Plan 4 may consider an
+  all-corpus Level 1 Summary view, but it must load this bundle and must not
+  independently recompute topics, speakers, appearances, eras, denominators,
+  support, or evidence.
+
+## Latest addendum — Story reference-entity migration v1
+
+- Story now loads one audited `StoryFoundationBundle` before generated-site
+  writes and passes it to the era profile, visualization, contextualization,
+  Founding compatibility data, and public-download producers. Public contracts
+  are `era-profile-v5`, `era-visualizations-v9`, and
+  `era-contextualizations-v11`.
+- All nine profiles replace the blocked constituency surface with five native
+  `Distinctive references` disclosures. The 45 rows preserve exact evidence,
+  full speaker/owner identity, nullable primary-AI stance, 29 `AI + NER` and
+  16 `AI only` source-agreement receipts, and governed Miller Center links.
+  President strips use 1,054 actual-speaker source appearances and visibly
+  mark cross-owner evidence.
+- President agendas, appearance-based communication forms, adversary edges,
+  president-level contextualization values, and 1,243 retained Era Echoes
+  paths use eligible actual-speaker evidence. Aggregate chronology, topic,
+  vocabulary, style, and footprint measures remain explicitly labeled
+  source-document corpus quantities. The Echoes overlay reports 48 unresolved,
+  156 ineligible, and 27 reassigned rows from 1,447 source rows.
+- `docs/data/story/` publishes a 45-row distinctive CSV, compact 1,054-row
+  appearance CSV, byte-identical full entity Parquet, and hashed manifest.
+  The fast Story receipt validates public JSON/download parity. Frozen paid
+  annotations and sealed speaker attribution remain unchanged; no deployment,
+  staging, commit, push, or unrelated cleanup was performed.
+- The requested 99-test focused suite and all 2,725 repository tests pass with
+  69 existing warnings. The canonical build validates 73 HTML pages and 183
+  JSON shards; 130 inline scripts parse; desktop/mobile, keyboard/focus,
+  reduced-motion, no-overflow, source-link, and console browser checks pass.
+- The implementation contract is
+  `notes/story-reference-entity-migration-v1.md`. The former
+  `publish-era-constituency-categories` task is superseded, not completed, and
+  its historical evidence remains untouched.
+- The pre-existing `.claude/stats.json`, `.codex/operators/`,
+  `data/annotation_ledger/`, foundation inputs, and other dirty-worktree changes
+  remain user-owned. This migration neither cleaned nor reclassified them.
+
+## Latest addendum — Speaker/reference foundation v1
+
+- `data/speaker_views/paragraph_view_v1.parquet` now joins the corrected corpus,
+  source metadata, and governed attribution one-to-one on
+  `(doc_name, para_idx)`. It retains all 35,394 rows, marks 32,531
+  actual-president paragraphs eligible, preserves 2,863 exclusions with
+  reasons, and identifies 296 cross-owner presidential paragraphs.
+  `appearances_v1.parquet` assembles those eligible rows into 1,054
+  `(doc_name, attributed_speaker_profile_id)` texts without speaker mixing;
+  `coverage_v1.parquet` and `consumer_inventory_v1.json` provide population and
+  migration receipts.
+- The pinned local `spaCy 3.8.14` / `en_core_web_sm 3.8.0` pass preserves
+  199,604 raw spans over every retained paragraph.
+  `entity_mentions_v1.parquet` holds 186,093 paragraph-local normalized hybrid
+  rows with conservative safe aliases, explicit `AI + NER` / `AI only` /
+  `NER only` source state, and nullable AI stance. Historically distinct
+  entities remain unmerged; NER corroborates a mention, not stance or history.
+  The partial second model is restricted to Data Quality and compares its
+  exact canonical overlap of 260 documents / 8,438 paragraphs.
+- `era_distinctive_v1.parquet` publishes five primary-AI candidates for each of
+  the nine governed Story eras. It de-duplicates by normalized entity and
+  paragraph, uses every eligible era paragraph as the denominator, applies
+  Jeffreys-smoothed log odds against the other eras, enforces five paragraphs
+  across two documents, and carries source-agreement counts plus keyed evidence.
+  NER-only discoveries stay in the data layer. Public JSON and generated
+  `docs/` were not changed.
+- `arch -x86_64 .venv/bin/python -m presidential_profiles.foundation_audit
+  --check` passes the 35,394 / 32,531 / 2,863 / 296 populations, matching
+  fingerprints and protected inventories, all 45 evidence-backed era rows,
+  and the 151-paragraph Carter–Reagan split (44 Carter, 42 Reagan, 22
+  non-president, 43 mixed, zero cross-contamination). Eight new focused tests
+  and the 107-test broader speaker/foundation/combat/era/site-validation set
+  pass. The complete repository suite passes all 2,704 tests with 69 existing
+  warnings. Two isolated full rebuilds emit the same 12 files byte-for-byte.
+- The compact governed contract is
+  `notes/speaker-reference-foundation-v1.md`; the acceptance report is
+  `data/reference_entities/acceptance_report_v1.json`. No API call, paid
+  regeneration, frozen or sealed input edit, site build, deployment, staging,
+  commit, push, branch switch, or unrelated worktree cleanup occurred.
+
 ## Latest addendum — GitHub Pages deployment (2026-08-22)
 
 - Pull request [#4](https://github.com/jacobfulfyll/presidential_profiles/pull/4)

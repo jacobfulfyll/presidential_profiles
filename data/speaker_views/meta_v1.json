@@ -1,0 +1,207 @@
+{
+  "annotation_generation": "5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307",
+  "appearances": 1054,
+  "artifacts": {
+    "appearances_v1.parquet": "sha256:1bc3545e09fa6b70d18ffe4aa7578003d5c29f96c12b10f2b66b1fdcb199bbab",
+    "consumer_inventory_v1.json": "sha256:573b54d09e57b951490001f65a7821077f54da280bc81cf6864076e7dbe7ac0a",
+    "coverage_v1.parquet": "sha256:f0c516f82195656f0945f422dc7cfdf19263b69249ed5760539e0a1f5b2a1552",
+    "paragraph_view_v1.parquet": "sha256:e12788604ce6d6c8513daf5834d13b0f3115763466a89952b1fb3bbafed65472"
+  },
+  "attribution_run_id": "speaker-attribution-v1-primary-20260806",
+  "attribution_spec_version": "speaker-attribution-v1",
+  "canonical_corpus_fingerprint": "1994fc58c35584d0af12d29806d084ce84dcd7335925b563c441047a3a80a32c",
+  "cross_owner_presidential_paragraphs": 296,
+  "eligible_presidential_paragraphs": 32531,
+  "excluded_paragraphs": 2863,
+  "frozen_paid_inventory": [
+    {
+      "path": "data/llm_annotations/agreement_sample_v1.json",
+      "sha256": "sha256:7cd0ad5c107e5f2f1b7b57c6bf02d5848b766f5455474fe898cf1d805df0a363",
+      "size": 75703
+    },
+    {
+      "path": "data/llm_annotations/agreement_v1.parquet",
+      "sha256": "sha256:9e6ecd6474e9da9e315c98f7201a5f47969866c69183d9e5efa1278126770970",
+      "size": 5651
+    },
+    {
+      "path": "data/llm_annotations/crosswalk_v1.json",
+      "sha256": "sha256:88a78b2f520d1e6539c8e520f99f4c43da0fcaf2253066e816997c6d30ccd1b3",
+      "size": 4470
+    },
+    {
+      "path": "data/llm_annotations/invocation_tone.parquet",
+      "sha256": "sha256:75dc37b1e877fd06d3f780a619c95310b6850d770c6c5630d69931897c69172a",
+      "size": 23858
+    },
+    {
+      "path": "data/llm_annotations/manifests/2026-07-12-invocation-tone-fable5.json",
+      "sha256": "sha256:5a051fc135033556ecb79afbcaa240e34005eceacd41f9b4b355ba49bde58275",
+      "size": 2158
+    },
+    {
+      "path": "data/llm_annotations/manifests/factual-full-20260720.json",
+      "sha256": "sha256:5fce97acc244a0b5231a674c3dd06357d41e64abb0d1f07063214267f1842ce2",
+      "size": 958
+    },
+    {
+      "path": "data/llm_annotations/manifests/factual-r2-20260720.json",
+      "sha256": "sha256:633bc4d8ad27142bc77cd131239cce0ad6d8eeef2b0bdb40f212ba647e2ec4e8",
+      "size": 948
+    },
+    {
+      "path": "data/llm_annotations/manifests/judgment-chunk1-20260720.json",
+      "sha256": "sha256:56bf9c29ac886d489b89627e3a66d454a64bd3779c48f4a78ac567692d010edd",
+      "size": 1169
+    },
+    {
+      "path": "data/llm_annotations/manifests/judgment-chunk10-20260720.json",
+      "sha256": "sha256:b6f0fac3121dcd5b753d932f9be2b29fa24a46b85d1db10d9ea3c4e5bb7ecf2f",
+      "size": 2083
+    },
+    {
+      "path": "data/llm_annotations/manifests/judgment-chunk2-20260720.json",
+      "sha256": "sha256:a697e8c1caea1f7f96b35f9ed3cd4e38bae1cb3762e417e10919ff0189cdeccc",
+      "size": 1306
+    },
+    {
+      "path": "data/llm_annotations/manifests/judgment-chunk25-20260720.json",
+      "sha256": "sha256:5d87abf71dfbe16cf4da64faf2b3747a72e0d428344cdde2adedab95565a37e6",
+      "size": 3938
+    },
+    {
+      "path": "data/llm_annotations/manifests/judgment-chunk5-20260720.json",
+      "sha256": "sha256:64242690fbc78fe732df39e7b86b104ca6d8ee47446e166a1695a015d521979b",
+      "size": 1472
+    },
+    {
+      "path": "data/llm_annotations/manifests/judgment-full-20260720.json",
+      "sha256": "sha256:ec28a495b76a0a6ed603d574187e93afef6b0827be4a8d6f59649d7b1138596d",
+      "size": 1159
+    },
+    {
+      "path": "data/llm_annotations/manifests/judgment-r2-20260720.json",
+      "sha256": "sha256:5eb75f6a22a7ab1fc7d69aec1dc247b39dbae71a9b210bcb2ef95f331ac7fc9c",
+      "size": 1148
+    },
+    {
+      "path": "data/llm_annotations/manifests/opus-factual-20260721.json",
+      "sha256": "sha256:71d59ac667d9724fd48f3a3dcf83b1eb7b2c89a25ca5a9882abdc82756c897a9",
+      "size": 961
+    },
+    {
+      "path": "data/llm_annotations/manifests/opus-judgment-20260721.json",
+      "sha256": "sha256:6fc7ebdb8b7299a25bf174b859877713a38efca533414c9af55df89dee3f40ad",
+      "size": 1170
+    },
+    {
+      "path": "data/llm_annotations/manifests/opus-judgment-r2-20260722.json",
+      "sha256": "sha256:c4eb6883c92ee1be1c12215e9aa1ff07b08cf8a34e7545f3a7903462e426dc83",
+      "size": 1167
+    },
+    {
+      "path": "data/llm_annotations/manifests/pilot-v2-20260720.json",
+      "sha256": "sha256:deee0289cdbe50de639ad211ed620cde07b64a328fbda673ceb1015af7a9dbfb",
+      "size": 1321
+    },
+    {
+      "path": "data/llm_annotations/manifests/taxonomy-v1-20260719.json",
+      "sha256": "sha256:637d612f730213d89007484a757f3870573e5ee6636d3789c5324902ce9063b7",
+      "size": 1114
+    },
+    {
+      "path": "data/llm_annotations/paragraph_annotations.parquet",
+      "sha256": "sha256:52ff6e8a90188f001241ffb3ac96046b019dd70d7b6b3cfa9954d3d60c9a4227",
+      "size": 111862
+    },
+    {
+      "path": "data/llm_annotations/paragraph_annotations__opus4-8.parquet",
+      "sha256": "sha256:f7456d8a1aa13cb905cfa8f2947de2d62f56ba1de43939e241ba106629634f44",
+      "size": 33607
+    },
+    {
+      "path": "data/llm_annotations/paragraph_entities.parquet",
+      "sha256": "sha256:ade6e4f03c7ff2c1806a365b3a7feeed752ec9e64e1d3e0edb8192d89fee67ff",
+      "size": 203439
+    },
+    {
+      "path": "data/llm_annotations/paragraph_entities__opus4-8.parquet",
+      "sha256": "sha256:c518e47022a716a785d0f9ad9d19c4920ec2cb75c8115ebf8ea050ac1df14ccf",
+      "size": 50636
+    },
+    {
+      "path": "data/llm_annotations/speech_annotations.parquet",
+      "sha256": "sha256:d16c8b11d4ea3f3ecf3f5b92f73b993149b8d1c33c306ec5bada5c9c64607bf8",
+      "size": 30778
+    },
+    {
+      "path": "data/llm_annotations/speech_annotations__opus4-8.parquet",
+      "sha256": "sha256:c92d05747255d2788e7f0a21d16cd216b59a9920e730c80c4a8d367866e85eb7",
+      "size": 11471
+    },
+    {
+      "path": "data/llm_annotations/taxonomy_v1.json",
+      "sha256": "sha256:042fc959a64108cfa426e8463b72e2e56a66944cb32460173f711a668cc440dd",
+      "size": 240083
+    }
+  ],
+  "frozen_paid_inventory_sha256": "sha256:4b967a98cb4f83b6c961f69ea177ca3ed56d6b58622f050388c9b289257201eb",
+  "input_inventory": [
+    {
+      "path": "data/annotation_ledger/materialized/current",
+      "sha256": "sha256:6d25cfeed8bd205af88dc5061d07d3e6b1fea275be0f656a3b671fd78d5a7245",
+      "size": 65
+    },
+    {
+      "path": "data/annotation_ledger/materialized/generations/5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307/current_labels.parquet",
+      "sha256": "sha256:8de365f3a9b0fb9737cb3ef3a9b25006da2a2e0424fe44dc0efe8dc2c123a299",
+      "size": 24158290
+    },
+    {
+      "path": "data/corpus_corrections/canonical_paragraphs_v1.parquet",
+      "sha256": "sha256:2ae4075f5971ccbf9146b0f2cf919a999117ed3a3420e2f1116a209c835a5620",
+      "size": 13495406
+    },
+    {
+      "path": "data/corpus_corrections/canonical_speeches_v1.parquet",
+      "sha256": "sha256:44a3f5bfc7bd5412467e2a67eb35fa601f1861c6a702f6563a704cc9f932d187",
+      "size": 13335225
+    },
+    {
+      "path": "data/corpus_corrections/meta_v1.json",
+      "sha256": "sha256:05c2408c309c7e9f30ffaaabb199849d77d79e8c879659fb1c14c80d19488c65",
+      "size": 1676
+    },
+    {
+      "path": "data/llm_annotations/agreement_sample_v1.json",
+      "sha256": "sha256:7cd0ad5c107e5f2f1b7b57c6bf02d5848b766f5455474fe898cf1d805df0a363",
+      "size": 75703
+    },
+    {
+      "path": "data/llm_annotations/paragraph_annotations__opus4-8.parquet",
+      "sha256": "sha256:f7456d8a1aa13cb905cfa8f2947de2d62f56ba1de43939e241ba106629634f44",
+      "size": 33607
+    },
+    {
+      "path": "data/llm_annotations/paragraph_entities__opus4-8.parquet",
+      "sha256": "sha256:c518e47022a716a785d0f9ad9d19c4920ec2cb75c8115ebf8ea050ac1df14ccf",
+      "size": 50636
+    },
+    {
+      "path": "data/speaker_attribution/meta_v1.json",
+      "sha256": "sha256:1a4334186da9d4a14185b59ba077c00dd8fd57f9a630f9a2576676a44aeb4a7d",
+      "size": 1722
+    },
+    {
+      "path": "data/speaker_attribution/paragraph_attribution_v1.parquet",
+      "sha256": "sha256:b89bb775f14d5ee963b41f9c431dee55b567fbe09f8c3e1281a612353a6a5afa",
+      "size": 2397558
+    }
+  ],
+  "input_inventory_sha256": "sha256:6d8f038e73d42759232db7c9957d6d35d6d21b3f81f5182eccbac9fc8209bb1b",
+  "metadata_sha256": "sha256:bb832b96598bc71851d206720427ef13e9f10e8f83a0fcaf60128a8b5032f6f1",
+  "paragraphs": 35394,
+  "schema_version": "speaker-reference-foundation-v1",
+  "timestamps": "omitted_by_design",
+  "view_schema_version": "speaker-view-v1"
+}

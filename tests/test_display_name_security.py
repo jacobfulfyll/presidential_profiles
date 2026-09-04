@@ -20,7 +20,7 @@ import plotly.graph_objects as go
 
 from presidential_profiles import (
     compare_site,
-    explorer,
+    explore_assets,
     issues_site,
     profiles,
     profiles_site,
@@ -210,48 +210,33 @@ def test_direct_plotly_serialization_keeps_display_name_out_of_markup():
     assert r"\u003c\u002fscript\u003e" in page
 
 
-def test_explorer_display_name_chips_use_safe_dom_construction(
-    monkeypatch, tmp_path
-):
-    (tmp_path / "docs").mkdir()
-    monkeypatch.setattr(explorer, "REPO_ROOT", tmp_path)
-    explorer.write_page()
-    page = (tmp_path / "docs" / "explorer.html").read_text()
-    chips = page[
-        page.index("function renderChips()"):
-        page.index("function msg(", page.index("function renderChips()"))
-    ]
-    tooltip = page[
-        page.index("function showTip("):
-        page.index("function moveTip(", page.index("function showTip("))
-    ]
+def test_explorer_display_names_use_safe_dom_construction():
+    script = explore_assets.EXPLORE_JS
 
-    assert "innerHTML" not in chips
-    assert "createTextNode(` ${s.label} `)" in chips
-    assert "innerHTML" not in tooltip
-    assert "heading.textContent" in tooltip
-    assert "o.textContent =" in page
+    assert "innerHTML" not in script
+    assert "outerHTML" not in script
+    assert "insertAdjacentHTML" not in script
+    assert "document.createElement" in script
+    assert "document.createElementNS" in script
+    assert "textContent" in script
+    assert "replaceChildren" in script
 
 
 def test_comparison_payload_and_issue_labels_use_safe_script_and_dom(
     monkeypatch, tmp_path
 ):
-    (tmp_path / "docs").mkdir()
-    monkeypatch.setattr(compare_site, "REPO_ROOT", tmp_path)
-    monkeypatch.setattr(
-        compare_site.profiles_site,
-        "public_profile_payload",
-        lambda president, data, issues: _shared_profile_payload(SCRIPT_BREAKOUT),
-    )
-    compare_site.write_compare(_compare_data(), ["Discovered 5"])
-    page = (tmp_path / "docs" / "compare.html").read_text()
+    shared = _shared_profile_payload(SCRIPT_BREAKOUT)
+    shared["party"] = SCRIPT_BREAKOUT
+    payload = compare_site.comparison_payload({"President A": shared})
+    page = compare_site.render_compare_page(payload)
 
     assert SCRIPT_BREAKOUT not in page
     assert r"\u003c/script\u003e" in page
     assert html.escape(SCRIPT_BREAKOUT) in page
-    assert "const escapeHTML = value =>" in page
-    assert "option.textContent = P[name].display_name" in page
-    assert "escapeHTML(row.name)" in page
+    assert "innerHTML" not in compare_site.COMPARE_V3_JS
+    assert "innerHTML" not in compare_site.AGENDA_COMPARISON_JS
+    assert "textContent" in compare_site.COMPARE_V3_JS
+    assert "textContent" in compare_site.AGENDA_COMPARISON_JS
 
 
 def test_all_embedded_display_name_payloads_use_script_safe_json():

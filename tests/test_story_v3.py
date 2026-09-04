@@ -401,12 +401,11 @@ def test_generated_long_run_charts_appear_only_inside_summary():
     story = (ROOT / "docs" / "index.html").read_text()
     summary = (ROOT / "docs" / "summary.html").read_text()
     synthesis_start = summary.index('<section id="synthesis"')
-    synthesis_end = summary.index(
-        '<section id="records_appendix"', synthesis_start
-    )
+    synthesis_end = summary.index("</main>", synthesis_start)
     synthesis = summary[synthesis_start:synthesis_end]
     assert '<section id="synthesis"' not in story
     assert '<section id="records_appendix"' not in story
+    assert '<section id="records_appendix"' not in summary
     for chart in ("procedural_eras", "naming_progressive"):
         marker = f'<div class="chart" data-fig="{chart}"'
         payload_key = f'"{chart}":'

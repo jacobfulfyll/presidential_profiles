@@ -1,0 +1,36 @@
+{
+  "counts": {
+    "eligible_presidential_paragraphs": 32531,
+    "entity_mentions": 186093,
+    "era_candidates": 45,
+    "retained_paragraphs": 35394,
+    "speaker_appearances": 1054
+  },
+  "files": {
+    "entity_mentions_v1.parquet": {
+      "bytes": 30826983,
+      "sha256": "sha256:c792b08e377fcfe98ff66b1b30f3caa081299a4002475153bfc086908cda057f"
+    },
+    "era_distinctive_v1.csv": {
+      "bytes": 56380,
+      "sha256": "sha256:ae80145ca4f3bbb00ada19ff18fe9418fa5c2b903f7c4b97a364023e7781f4ec"
+    },
+    "speaker_appearances_v1.csv": {
+      "bytes": 692383,
+      "sha256": "sha256:f7a8f228669f47648479a532c5ca27194572ea4f0e0cad9323ddc622fbac4665"
+    }
+  },
+  "provenance": {
+    "annotation_generation": "5b3f0e252c63a3b6cf3cba5d5e84e23def38eaa8edf29b89af827c92e5bce307",
+    "attribution_run_id": "speaker-attribution-v1-primary-20260806",
+    "canonical_corpus_fingerprint": "1994fc58c35584d0af12d29806d084ce84dcd7335925b563c441047a3a80a32c",
+    "reference_metadata_sha256": "sha256:a1d7e26a5a05f58cb6846fc9c18d9217bfc9be36f13cd88c0fe8ba359a26526f",
+    "speaker_metadata_sha256": "sha256:bb832b96598bc71851d206720427ef13e9f10e8f83a0fcaf60128a8b5032f6f1"
+  },
+  "schema_version": "story-foundation-public-v1",
+  "schema_versions": {
+    "era_distinctive": "era-distinctive-reference-v1",
+    "reference_entity": "reference-entity-v1",
+    "speaker_view": "speaker-view-v1"
+  }
+}

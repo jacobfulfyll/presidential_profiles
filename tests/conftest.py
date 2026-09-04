@@ -49,6 +49,22 @@ from presidential_profiles import llm_annotations as ann
 FIXTURES = Path(__file__).parent / "fixtures"
 
 
+@pytest.fixture(scope="session")
+def explore_projection_bundle():
+    """One full-corpus Explore build shared by focused tests."""
+    from presidential_profiles import explore_projection
+
+    return explore_projection.build_projection()
+
+
+@pytest.fixture(scope="session")
+def explore_projection_pair(explore_projection_bundle):
+    """A second independent build for the byte-determinism assertion."""
+    from presidential_profiles import explore_projection
+
+    return explore_projection_bundle, explore_projection.build_projection()
+
+
 # ---------------------------------------------------------------------------
 # global guardrails (autouse)
 # ---------------------------------------------------------------------------

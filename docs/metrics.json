@@ -80,6 +80,24 @@
     "source": "speech_markers.parquet",
     "status": "descriptive"
   },
+  "explore_centered_lexical_rate": {
+    "label": "Centered five-year lexical rate",
+    "question": "How often does one exact form or audited word family appear around each corpus year?",
+    "definition": "Exact or grouped matches and all indexed source-document words are summed from center year minus two through center year plus two; the match total is divided by the word total and scaled to 10,000 only when the window exceeds 20,000 indexed words.",
+    "example": "Forty matches among 80,000 indexed words in a centered five-year window equals 5 uses per 10,000 words.",
+    "steps": [
+      "Tokenize every complete source-document transcript with the Explore word tokenizer",
+      "For grouped series, replace forms only through the frozen audited word-family map",
+      "Sum matches and indexed words over the five calendar years centered on the displayed year",
+      "Publish only when the window contains more than 20,000 indexed words",
+      "Divide matches by words and multiply by 10,000"
+    ],
+    "formula": "\u03a3 matches(center\u22122\u2026center+2) / \u03a3 indexed words(center\u22122\u2026center+2) \u00d7 10,000",
+    "unit": "uses per 10,000 indexed words",
+    "limitations": "A match does not establish meaning, intent, endorsement, or context. Grouped forms follow an audited deterministic algorithm and do not imply universal linguistic equivalence; sparse windows are unknown rather than zero.",
+    "source": "speeches.parquet + word_families.json",
+    "status": "descriptive"
+  },
   "paragraph_share": {
     "label": "Share of paragraphs",
     "question": "How much of the record carries a label?",
@@ -95,6 +113,93 @@
     "limitations": "Paragraphs vary greatly in length, and AI labels can disagree.",
     "source": "paragraph_annotations.parquet",
     "status": "exploratory AI descriptive"
+  },
+  "era_distinctive_reference": {
+    "label": "Era-distinctive reference",
+    "question": "Which normalized names are unusually concentrated in one Story era?",
+    "definition": "Positive Jeffreys-smoothed paragraph log odds compare one era with the other eight on eligible speaker-audited paragraphs.",
+    "example": "A name supported by six paragraphs in an era and none elsewhere can rank above a more common name that is also widespread across other eras.",
+    "steps": [
+      "Count each normalized entity once per eligible paragraph",
+      "Keep names supported by at least five paragraphs and two source documents",
+      "Apply a 0.5 Jeffreys prior to present and absent counts in the era and comparison corpus",
+      "Rank positive log odds by score, era paragraphs, source documents, then normalized name"
+    ],
+    "formula": "log((era name paragraphs + 0.5)/(era other paragraphs + 0.5)) \u2212 log((other-era name paragraphs + 0.5)/(other-era other paragraphs + 0.5))",
+    "unit": "speaker-audited paragraph log odds",
+    "limitations": "AI + NER and AI only describe source agreement, not historical validation or confidence. Distinctive does not mean important, representative, prevalent, endorsed, or historically significant.",
+    "source": "reference_entities/era_distinctive_v1.parquet + speaker_views/paragraph_view_v1.parquet",
+    "status": "exploratory descriptive"
+  },
+  "reference_type_presence": {
+    "label": "Reference-type paragraph presence",
+    "question": "What kinds of named actors and places enter an era's presidential record?",
+    "definition": "Distinct eligible paragraphs actually attributed to a president and carrying at least one primary-AI-backed entity of the named type, divided by every eligible actual-president paragraph in the Story era.",
+    "example": "If 100 of 500 eligible actual-president paragraphs name at least one person, person presence is 20%.",
+    "steps": [
+      "Use every eligible actual-president paragraph in the era as the denominator",
+      "Keep primary-AI-backed people, institutions, groups, and nations or places",
+      "Count a paragraph once per entity type even when it names several entities of that type",
+      "Divide each type's distinct paragraph count by the complete era denominator"
+    ],
+    "formula": "distinct paragraphs carrying entity type / all eligible actual-president paragraphs",
+    "unit": "share of speaker-audited paragraphs",
+    "limitations": "Entity types come from the primary AI and can overlap within a paragraph, so the four shares are non-additive. NER source agreement does not establish confidence, stance, or historical importance.",
+    "source": "reference_entities/entity_mentions_v1.parquet + speaker_views/paragraph_view_v1.parquet",
+    "status": "exploratory descriptive"
+  },
+  "actual_speaker_topic_presence": {
+    "label": "Actual-speaker topic presence",
+    "question": "What share of one president's eligible speaker-audited paragraph record carries an AI-assigned topic?",
+    "definition": "Distinct eligible paragraphs actually attributed to the president and carrying the canonical topic, divided by every eligible paragraph attributed to that president in the complete corpus or one accepted Story era. Topic-free eligible paragraphs remain in the denominator.",
+    "example": "Twenty topic-bearing paragraphs among 100 eligible paragraphs actually attributed to the president is a 20% speaker-paragraph share.",
+    "steps": [
+      "Use only actual-president paragraphs marked eligible by the accepted speaker foundation",
+      "Count each normalized topic once per paragraph and derive each Level 1 parent once",
+      "Keep topic-free eligible paragraphs in the president denominator",
+      "Compute corpus-wide and accepted Story-era scopes without recomputing eras",
+      "Label presidents with 1\u20134 eligible actual-speaker appearances thin and require five appearances for supported status"
+    ],
+    "formula": "topic paragraphs attributed to president / all eligible paragraphs attributed to president in scope",
+    "unit": "speaker-audited paragraph share",
+    "limitations": "Multi-label shares are non-additive and may sum above 100%. AI topic presence is descriptive and non-causal; it is not confidence, intent, importance, influence, success, or representation of the public or presidency as a whole. Supported edges additionally require five topic paragraphs and two topic-bearing appearances.",
+    "source": "speaker_topic_network/edges_v1.parquet",
+    "status": "exploratory AI descriptive"
+  },
+  "actual_speaker_topic_contribution": {
+    "label": "Actual-speaker topic contribution",
+    "question": "What share of a scope's eligible paragraph evidence assigned to a topic comes from one actual president speaker?",
+    "definition": "Distinct eligible topic-bearing paragraphs actually attributed to the president, divided by all eligible paragraphs carrying that canonical topic across actual president speakers in the complete corpus or one accepted Story era.",
+    "example": "If 30 of a scope's 120 eligible paragraphs carrying a topic are actually attributed to one president, the topic-contribution share is 25%.",
+    "steps": [
+      "Use the accepted actual-speaker population and keyed topic memberships",
+      "Count every distinct normalized topic presence fully in multi-label paragraphs",
+      "Divide the president's topic paragraphs by all scope paragraphs carrying that topic",
+      "Retain explicit paragraph and actual-speaker appearance counts",
+      "Mark 1\u20134-appearance presidents and under-threshold edges as thin"
+    ],
+    "formula": "topic paragraphs attributed to president / all eligible paragraphs carrying topic in scope",
+    "unit": "share of eligible topic-bearing paragraphs",
+    "limitations": "Multi-label topic shares are non-additive and may sum above 100%; topic-free paragraphs create no topic contribution but remain in scope corpus denominators. The measure is descriptive and non-causal, not confidence, intent, importance, influence, success, or representation of the public or presidency as a whole.",
+    "source": "speaker_topic_network/edges_v1.parquet",
+    "status": "exploratory AI descriptive"
+  },
+  "legacy_issue_attention": {
+    "label": "Legacy issue attention",
+    "question": "What share of a president's source-document paragraphs carries one displayed CorEx issue?",
+    "definition": "Boolean-positive paragraphs for the displayed CorEx issue divided by every corpus paragraph in speeches owned by that president.",
+    "example": "Twenty positive paragraphs among 100 source-document paragraphs is 20% legacy issue attention.",
+    "steps": [
+      "Join paragraphs to speeches by document identity",
+      "Group the joined paragraphs by source-document president owner",
+      "Count Boolean-positive paragraphs for the displayed issue",
+      "Divide by every source-document paragraph owned by that president"
+    ],
+    "formula": "issue-positive source-document paragraphs / all source-document paragraphs",
+    "unit": "percent of source-document paragraphs",
+    "limitations": "CorEx issues are multi-label and methodologically distinct from actual-speaker AI topics. Source-document ownership is not speaker attribution, and the measure is descriptive rather than causal.",
+    "source": "issues_president.parquet + paragraph_issues.parquet",
+    "status": "exploratory descriptive"
   },
   "president_percentile": {
     "label": "President percentile",

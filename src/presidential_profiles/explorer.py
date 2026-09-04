@@ -1,773 +1,385 @@
-"""Build the data behind the word & phrase explorer.
-
-Precomputes per-year counts for every unigram (>=30 total uses) and bigram
-(>=15), sharded by first letter so the explorer page can lazy-load only
-what the user searches for. Also ships per-year issue shares so topics can
-be overlaid on the same chart.
-"""
+"""Generate the Explore v2 page from the governed public projection."""
+from __future__ import annotations
 
 import json
-import re
-from collections import Counter, defaultdict
+from html import escape
+from pathlib import Path
+from typing import Any, Mapping, Sequence
 
-import pandas as pd
-
-from .corpus import load
-from . import ai_labels, issues, metrics, topic_quality, trends, word_families
+from . import explore_assets, explore_projection, topic_quality
 from .figures import REPO_ROOT
+from .site_style import PAGE_CSS
+
 
 EXPLORER_DIR = REPO_ROOT / "docs" / "explorer"
-
-WORD_RE = re.compile(r"[a-z']+")
-MIN_UNIGRAM = 30
-MIN_BIGRAM = 15
-_ACRONYM_RES = {acr: re.compile(rf"\b{acr}\b") for acr in word_families.ACRONYMS}
+SLOT_COLORS = ("#2A78D6", "#9B6200", "#008300")
+SLOT_DASHES = ("", "9 5", "2 5")
 
 
-def _shard(entries: dict, prefix: str, value_key: str = "c") -> None:
-    """Write per-first-letter shards: {term: {y:[years], c:[counts]}}."""
-    shards: dict[str, dict] = defaultdict(dict)
-    for term, years in entries.items():
-        first = term[0]
-        key = first if first.isalpha() else "0"
-        pairs = sorted(years.items())
-        shards[key][term] = {"y": [y for y, _ in pairs],
-                             value_key: [c for _, c in pairs]}
-    for key, content in shards.items():
-        (EXPLORER_DIR / f"{prefix}_{key}.json").write_text(
-            json.dumps(content, separators=(",", ":")))
+def _validate_catalog_display_names(
+    projection: explore_projection.ExploreProjectionBundle,
+) -> None:
+    """Refuse page rendering when CorEx labels bypass the governed registry."""
+    names = topic_quality.load_names()
+    for item in projection.index["catalog"]["broad_issues"]:
+        source_name = str(item["source_label"])
+        expected = topic_quality.display_name(source_name, names)
+        if item["label"] != expected:
+            raise explore_projection.ExploreProjectionError(
+                "Explore broad-issue display label drifted from the registry: "
+                f"{source_name!r}"
+            )
 
 
-def build_explorer_data(ai_data: dict | None = None) -> None:
-    df = load()
-    EXPLORER_DIR.mkdir(parents=True, exist_ok=True)
-    fam = word_families.build_families(df)          # {form: node_label}
-
-    # Pass 1: exact tokens (byte-identical to the pre-grouping build), plus a
-    # parallel grouped tokenization with case-collision acronyms peeled off, and
-    # the acronym counts themselves as their own entity series.
-    uni_total: Counter = Counter()
-    bi_total: Counter = Counter()
-    guni_total: Counter = Counter()
-    gbi_total: Counter = Counter()
-    speech_tokens: list[tuple[int, list[str], list[str]]] = []
-    acr_years: dict[str, Counter] = defaultdict(Counter)
-    for _, sp in df.iterrows():
-        year = int(sp["year"])
-        raw = sp["transcript"]
-        toks = WORD_RE.findall(raw.lower())          # exact: unchanged
-        # grouped: strip lexicalized acronyms case-sensitively, then normalize
-        g_raw = raw
-        for acr, label in word_families.ACRONYMS.items():
-            n = len(_ACRONYM_RES[acr].findall(g_raw))
-            if n:
-                acr_years[label][year] += n
-                g_raw = _ACRONYM_RES[acr].sub(" ", g_raw)
-        gtoks = [fam.get(t, t) for t in word_families.tokenize(g_raw)]
-        speech_tokens.append((year, toks, gtoks))
-        uni_total.update(toks)
-        bi_total.update(" ".join(p) for p in zip(toks, toks[1:]))
-        guni_total.update(gtoks)
-        gbi_total.update(" ".join(p) for p in zip(gtoks, gtoks[1:]))
-    keep_uni = {w for w, n in uni_total.items() if n >= MIN_UNIGRAM}
-    keep_bi = {b for b, n in bi_total.items() if n >= MIN_BIGRAM}
-    keep_guni = {w for w, n in guni_total.items() if n >= MIN_UNIGRAM}
-    keep_gbi = {b for b, n in gbi_total.items() if n >= MIN_BIGRAM}
-
-    # Pass 2: per-year counts for kept exact and grouped terms.
-    per_year_words: Counter = Counter()
-    uni_years: dict[str, Counter] = defaultdict(Counter)
-    bi_years: dict[str, Counter] = defaultdict(Counter)
-    guni_years: dict[str, Counter] = defaultdict(Counter)
-    gbi_years: dict[str, Counter] = defaultdict(Counter)
-    for year, toks, gtoks in speech_tokens:
-        per_year_words[year] += len(toks)
-        for w in toks:
-            if w in keep_uni:
-                uni_years[w][year] += 1
-        for b in (" ".join(p) for p in zip(toks, toks[1:])):
-            if b in keep_bi:
-                bi_years[b][year] += 1
-        for w in gtoks:
-            if w in keep_guni:
-                guni_years[w][year] += 1
-        for b in (" ".join(p) for p in zip(gtoks, gtoks[1:])):
-            if b in keep_gbi:
-                gbi_years[b][year] += 1
-
-    _shard(uni_years, "u")           # exact  (byte-identical to before)
-    _shard(bi_years, "b")
-    _shard(guni_years, "gu")         # grouped, keyed by node label
-    _shard(gbi_years, "gb")
-
-    # Client-side form -> node lookup (every form whose label differs, so the
-    # explorer can resolve a typed "immigrants" to the "immigration" node, and
-    # resolve each half of a grouped bigram). Also map each NORMALIZE variant to
-    # its canonical node, so a word folded out of the grouped vocabulary
-    # ("defence" -> "defense") still resolves when the toggle is on.
-    resolve = {f: lab for f, lab in fam.items() if lab != f}
-    for variant, canon in word_families.NORMALIZE.items():
-        if canon in fam:
-            resolve[variant] = fam[canon]
-    (EXPLORER_DIR / "families.json").write_text(
-        json.dumps(resolve, separators=(",", ":")))
-
-    # Topics: share of paragraphs per year for each display issue.
-    para_labels = pd.read_parquet(issues.PARA_LABELS_PATH)
-    meta_issues = json.loads(issues.ISSUES_META_PATH.read_text())
-    display = topic_quality.display_issues(meta_issues["issues"])
-    labels = topic_quality.discovered_labels()
-    topic_data = {}
-    year_counts = para_labels.groupby("year").size()
-    for name in display:
-        label = labels.get(name, name)
-        share = (para_labels.groupby("year")[name].mean() * 100)
-        share = share[year_counts >= 10].round(2)
-        topic_data[label] = {"y": [int(y) for y in share.index],
-                             "v": list(share.values)}
-    # The semantic label layer is kept alongside (not silently substituted for)
-    # the deterministic CorEx topics. Prefixes make the instrument visible in
-    # chips, legends, screenshots, and copied links.
-    ai_data = ai_labels.build_ai_data() if ai_data is None else ai_data
-    legacy_topic_names = list(topic_data)
-    ai_topic_data = ai_labels.explorer_topic_series(ai_data)
-    topic_data.update(ai_topic_data)
-
-    # Entities: the acronyms peeled out of their colliding word, as term-like
-    # per-year counts (rate per 10k words), offered from the dropdown.
-    entities = {}
-    for label, years in acr_years.items():
-        pairs = sorted(years.items())
-        entities[label] = {"y": [y for y, _ in pairs],
-                           "c": [c for _, c in pairs]}
-
-    years = sorted(per_year_words)
-    meta = {
-        "years": years,
-        "totals": [per_year_words[y] for y in years],
-        "topics": topic_data,
-        "topic_groups": {
-            "Legacy deterministic issues": legacy_topic_names,
-            "AI-labeled corpus topics": list(ai_topic_data),
-        },
-        "entities": entities,
-    }
-    (EXPLORER_DIR / "meta.json").write_text(json.dumps(meta, separators=(",", ":")))
-    n_files = len(list(EXPLORER_DIR.glob("*.json")))
-    size = sum(f.stat().st_size for f in EXPLORER_DIR.glob("*.json")) / 1e6
-    print(f"  explorer: {len(keep_uni):,} words / {len(keep_guni):,} grouped, "
-          f"{len(keep_bi):,} phrases, {n_files} files, {size:.1f} MB")
+def _default_models(
+    projection: explore_projection.ExploreProjectionBundle,
+) -> list[dict[str, Any]]:
+    axis = projection.index["lexical_axis"]
+    models = []
+    for order, query in enumerate(("tariff", "freedom", "border"), start=1):
+        filename = explore_projection.lexical_shard_path(
+            "lexical-exact-unigram", query
+        )
+        payload = json.loads(projection.files[filename])
+        record = payload["records"].get(query)
+        if record is None:
+            raise explore_projection.ExploreProjectionError(
+                f"default series is missing from its shard: {query}"
+            )
+        rows = explore_projection._lexical_public_rows(
+            selection_order=order,
+            series_id=f"lexical-exact:{query}",
+            label=query,
+            kind="lexical-exact",
+            instrument="Exact lexical form",
+            query=query,
+            grouping_active=False,
+            family_label=None,
+            family_forms=None,
+            record=record,
+            axis=axis,
+        )
+        models.append(
+            {
+                "id": f"lexical-exact:{query}",
+                "label": query,
+                "instrument": "Exact lexical form",
+                "rows": rows,
+            }
+        )
+    return models
 
 
-def write_page() -> None:
-    from .figures import BASELINE, GRID, INK, INK2, MUTED, SERIES, SURFACE
-    from .site_style import FONT, PAGE_CSS
+def _line_path(
+    rows: Sequence[Mapping[str, Any]],
+    *,
+    y_max: float,
+    width: float = 900,
+    height: float = 300,
+) -> str:
+    left, right, top, bottom = 58.0, 14.0, 14.0, 38.0
+    plot_width = width - left - right
+    plot_height = height - top - bottom
+    parts: list[str] = []
+    drawing = False
+    for row in rows:
+        value = row.get("display_value")
+        if value is None:
+            drawing = False
+            continue
+        x = left + (float(row["x"]) - 1785) / (2026 - 1785) * plot_width
+        y = top + plot_height - max(0.0, min(y_max, float(value))) / y_max * plot_height
+        parts.append(f"{'L' if drawing else 'M'}{x:.2f} {y:.2f}")
+        drawing = True
+    return "".join(parts)
 
-    presets = {
-        "crisis-language": {"label": "Crisis language", "words": ["crisis", "emergency", "threat", "danger"],
-            "rationale": "Declared emergency and danger terms.", "ambiguities": "Crisis can describe an event without endorsing alarm."},
-        "superlative-politics": {"label": "Superlative politics", "words": ["greatest", "best", "worst", "ever"],
-            "rationale": "Extremal praise and condemnation.", "ambiguities": "Ever can be temporal rather than superlative."},
-        "legal-procedural": {"label": "Legal and procedural vocabulary", "words": ["act", "bill", "treaty", "law", "section", "appropriation"],
-            "rationale": "Formal public wording about governing instruments.", "ambiguities": "Act and bill also have everyday meanings; this does not measure competence or policy depth."},
-        "national-unity": {"label": "National unity", "words": ["unity", "united", "together", "common"],
-            "rationale": "Explicit collective-unity language.", "ambiguities": "United often occurs inside the country name."},
-        "decline-restoration": {"label": "Decline and restoration", "words": ["decline", "restore", "again", "lost"],
-            "rationale": "Language of deterioration and return.", "ambiguities": "Again and lost frequently have nonpolitical uses."},
-        "war-peace": {"label": "War and peace", "words": ["war", "peace", "military", "conflict"],
-            "rationale": "Direct armed-conflict and peace vocabulary.", "ambiguities": "War is also used metaphorically."},
-        "economic-hardship": {"label": "Economic hardship", "words": ["unemployment", "poverty", "inflation", "hardship"],
-            "rationale": "Concrete hardship and price-pressure terms.", "ambiguities": "Words do not distinguish diagnosis from claimed improvement."},
-        "immigration": {"label": "Immigration", "words": ["immigration", "immigrant", "border", "alien"],
-            "rationale": "Migration, border, and historical legal terminology.", "ambiguities": "Border and alien have non-immigration senses."},
-        "democratic-institutions": {"label": "Democratic institutions", "words": ["democracy", "constitution", "election", "vote", "congress"],
-            "rationale": "Electoral and constitutional institutions.", "ambiguities": "Democratic may refer to the political party."},
-    }
-    period_keys = [
-        "founding", "expansion", "civil-war", "gilded-age",
-        "progressives-depression", "war-new-deal", "cold-war",
-        "post-cold-war", "present",
+
+def _default_svg(models: Sequence[Mapping[str, Any]]) -> str:
+    width, height = 900, 300
+    left, right, top, bottom = 58, 14, 14, 38
+    values = [
+        float(row["display_value"])
+        for model in models
+        for row in model["rows"]
+        if row["display_value"] is not None
     ]
-    def display_era(label: str) -> str:
-        cleaned = label.removeprefix("The ")
-        return cleaned[:1].upper() + cleaned[1:]
+    y_max = (max(values) * 1.05) if values and max(values) > 0 else 1.0
+    grid = []
+    for fraction in (0.0, 0.5, 1.0):
+        y = top + (height - top - bottom) * (1 - fraction)
+        grid.append(
+            f'<line class="grid-line" x1="{left}" y1="{y:.2f}" '
+            f'x2="{width-right}" y2="{y:.2f}"/>'
+            f'<text x="{left-8}" y="{y+4:.2f}" text-anchor="end">'
+            f'{y_max*fraction:.1f}</text>'
+        )
+    for year in (1785, 1850, 1900, 1950, 2000, 2026):
+        x = left + (year - 1785) / (2026 - 1785) * (width - left - right)
+        anchor = "start" if year == 1785 else "end" if year == 2026 else "middle"
+        grid.append(
+            f'<line class="grid-line" x1="{x:.2f}" y1="{top}" '
+            f'x2="{x:.2f}" y2="{height-bottom}"/>'
+            f'<text x="{x:.2f}" y="{height-12}" text-anchor="{anchor}">{year}</text>'
+        )
+    paths = []
+    for index, model in enumerate(models):
+        path = _line_path(model["rows"], y_max=y_max)
+        dash = f' stroke-dasharray="{SLOT_DASHES[index]}"' if SLOT_DASHES[index] else ""
+        paths.append(
+            f'<path class="trajectory" d="{path}" stroke="{SLOT_COLORS[index]}"{dash}/>'
+        )
+    return (
+        '<svg class="trend-svg" viewBox="0 0 900 300" role="img" '
+        'aria-labelledby="fallback-chart-title fallback-chart-desc">'
+        '<title id="fallback-chart-title">Default word trends: tariff, freedom, and border</title>'
+        '<desc id="fallback-chart-desc">Exact-form rates per 10,000 indexed words in centered five-year windows. '
+        'The three lines use solid, long-dashed, and dotted patterns as well as different colors.</desc>'
+        + "".join(grid)
+        + f'<line class="axis-line" x1="{left}" y1="{height-bottom}" '
+        f'x2="{width-right}" y2="{height-bottom}"/>'
+        + "".join(paths)
+        + "</svg>"
+    )
 
-    periods = {
-        key: [display_era(label), start, end]
-        for key, (label, start, end) in zip(period_keys, trends.ERAS)
-    }
-    html = f"""<!DOCTYPE html>
+
+def _fallback_legend(models: Sequence[Mapping[str, Any]]) -> str:
+    items = []
+    for index, model in enumerate(models):
+        dash = f' stroke-dasharray="{SLOT_DASHES[index]}"' if SLOT_DASHES[index] else ""
+        items.append(
+            '<span class="legend-button" aria-hidden="true">'
+            '<svg class="legend-symbol" viewBox="0 0 30 14">'
+            f'<line x1="1" y1="7" x2="29" y2="7" stroke="{SLOT_COLORS[index]}" '
+            f'stroke-width="2.6"{dash}/></svg>'
+            f'<span>{chr(65+index)} · {escape(str(model["label"]))}</span></span>'
+        )
+    return "".join(items)
+
+
+def _format_value(value: Any) -> str:
+    return "Unknown" if value is None else f"{float(value):.2f} uses per 10,000 indexed words"
+
+
+def _fallback_table(model: Mapping[str, Any]) -> str:
+    body = []
+    for row in model["rows"]:
+        period = f'{row["period_start"]}–{row["period_end"]}'
+        support = (
+            "Window does not clear the word floor"
+            if row["denominator_count"] is None
+            else f'{int(row["denominator_count"]):,} indexed words'
+        )
+        status = {
+            "observed": "Observed",
+            "observed_zero": "Observed zero",
+            "unknown_low_words": "Not published: 20,000 indexed words or fewer",
+        }.get(str(row["value_status"]), str(row["value_status"]))
+        cells = (
+            period,
+            _format_value(row["display_value"]),
+            "Not published for this measure",
+            support,
+            status,
+        )
+        body.append(
+            "<tr>" + "".join(f"<td>{escape(value)}</td>" for value in cells) + "</tr>"
+        )
+    caption = (
+        f'{escape(str(model["label"]))}. Exact lexical form; centered five-year periods; '
+        "uses per 10,000 indexed source-document words; complete source-document transcripts."
+    )
+    return (
+        '<div class="table-wrap"><table class="exact-table">'
+        f'<caption>{caption}</caption><thead><tr>'
+        '<th scope="col">Period</th><th scope="col">Estimate</th>'
+        '<th scope="col">Published uncertainty</th><th scope="col">Evidence / support</th>'
+        '<th scope="col">Status</th></tr></thead><tbody>'
+        + "".join(body)
+        + "</tbody></table></div>"
+    )
+
+
+def render_page(projection: explore_projection.ExploreProjectionBundle) -> str:
+    """Render semantic server HTML with a complete default no-JavaScript path."""
+    if (
+        projection.index.get("schema_version") != explore_projection.INDEX_SCHEMA
+        or projection.families.get("schema_version") != explore_projection.FAMILY_SCHEMA
+        or projection.topics.get("schema_version") != explore_projection.TOPIC_SCHEMA
+    ):
+        raise explore_projection.ExploreProjectionError(
+            "Explore page received an incompatible projection"
+        )
+    _validate_catalog_display_names(projection)
+    models = _default_models(projection)
+    fallback_tables = "".join(_fallback_table(model) for model in models)
+    fallback_selected = ", ".join(escape(str(model["label"])) for model in models)
+    return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Word explorer - Presidential Profiles</title>
-<script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
-<style>
-{PAGE_CSS}
-  header {{ padding:20px 0 10px; }}
-  header h1 {{ margin:0 0 5px; }}
-  header .sub {{ max-width:760px; margin:0; line-height:1.45; }}
-  .explorer-tools {{ max-width:980px; margin:0 auto; }}
-  .controls {{ display:grid; grid-template-columns:minmax(240px,1fr) minmax(240px,1fr);
-               gap:14px; margin-top:8px; }}
-  .control-group {{ display:flex; flex-direction:column; gap:6px; }}
-  .control-group {{ min-width:0; }}
-  .control-group > label {{ font-weight:700; color:var(--ink); }}
-  .control-group small {{ color:var(--muted); line-height:1.35; }}
-  .input-row {{ display:flex; gap:8px; }}
-  .controls input {{ flex: 1; min-width: 220px; padding: 10px 14px; font-size: 1rem;
-                     border: 1px solid var(--border); border-radius: 10px;
-                     background: var(--surface); color: var(--ink);
-                     font-family: inherit; }}
-  :where(input, select, button, summary):focus-visible {{ outline:3px solid var(--muted);
-                                                          outline-offset:2px; }}
-  .controls select {{ padding: 10px 12px; border: 1px solid var(--border);
-                      border-radius: 10px; background: var(--surface);
-                      color: var(--ink); font-family: inherit; font-size: 0.95rem;
-                      min-width: 0; width:100%; max-width: 100%; }}
-  .controls button, .action {{ padding: 10px 18px; border: 1px solid var(--border);
-                      border-radius: 10px; background: var(--ink); color: var(--page);
-                      font-family: inherit; font-size: 0.95rem; cursor: pointer; }}
-  .chips {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; min-height: 34px; }}
-  .chip {{ display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px;
-           background: var(--surface); border: 1px solid var(--border);
-           border-radius: 999px; font-size: 0.9rem; }}
-  .chip .swatch {{ width: 10px; height: 10px; border-radius: 50%; }}
-  .chip .count {{ color: var(--muted); font-size: 0.78rem; cursor: help;
-                  border-bottom: 1px dotted var(--border); }}
-  #tip {{ position: fixed; z-index: 50; max-width: 340px; padding: 8px 11px;
-          background: var(--surface); border: 1px solid var(--border);
-          border-radius: 8px; font-size: 0.84rem; color: var(--ink);
-          line-height: 1.5; pointer-events: none;
-          box-shadow: 0 6px 20px rgba(0,0,0,0.14); }}
-  #tip[hidden] {{ display: none; }}
-  #tip .thead {{ color: var(--muted); font-size: 0.72rem; text-transform: uppercase;
-                 letter-spacing: 0.04em; margin-bottom: 4px; }}
-  .chip button {{ border: none; background: none; cursor: pointer; color: var(--muted);
-                  font-size: 1rem; padding: 0; }}
-  #msg {{ color: var(--muted); font-size: 0.88rem; min-height: 1.3em; }}
-  #unitnote {{ color:var(--ink2); font-size:.92rem; margin:12px 0 4px; font-weight:650; }}
-  #unitnote.mixed {{ background:#fff3cd; border:2px solid #9a6b00; border-radius:10px;
-                     padding:10px 12px; color:#563b00; }}
-  #chart-summary {{ color:var(--muted); font-size:.88rem; margin:4px 0 8px; }}
-  .grouptoggle {{ display: inline-flex; align-items: center; gap: 7px;
-                  font-size: 0.9rem; color: var(--ink2); cursor: pointer;
-                  margin: 6px 0 2px; }}
-  .grouptoggle input {{ flex: none; min-width: 0; width: auto; margin: 0;
-                        accent-color: var(--ink); cursor: pointer; }}
-  .preset-row {{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }}
-  .preset-row button {{ padding:6px 10px; border:1px solid var(--border); border-radius:999px;
-                        background:var(--surface); color:var(--ink2); cursor:pointer; }}
-  .preset-note {{ background:var(--surface); border-left:3px solid var(--muted);
-                  padding:9px 12px; font-size:.84rem; margin-top:10px; }}
-  .period-picker {{ background:var(--surface);border:1px solid var(--border);border-radius:12px;
-                    padding:12px 14px;margin-top:14px; }}
-  .period-picker strong {{ display:block;font-size:.86rem;margin-bottom:8px; }}
-  .period-options {{ display:flex;flex-wrap:wrap;gap:7px 12px; }}
-  .period-options label {{ font-size:.82rem;color:var(--ink2);cursor:pointer; }}
-  .period-options input {{ accent-color:var(--ink); }}
-  .secondary-actions {{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }}
-  .secondary-actions button, #download-chart {{ background:var(--surface); color:var(--ink2); }}
-  .evidence-table {{ width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }}
-  .evidence-table th, .evidence-table td {{ padding:6px 8px; border-bottom:1px solid var(--border);
-                                           text-align:left; }}
-  .table-wrap {{ overflow:auto; max-height:460px; }}
-  .members {{ margin:5px 0 0; color:var(--muted); font-size:.78rem; }}
-  @media (max-width:600px) {{
-    .controls {{ grid-template-columns:1fr; }} .chart-scroll {{ overflow:hidden; min-width:0; }}
-    #chart {{ width:100%!important; min-width:0!important; }} .explorer-tools {{ min-width:0; }}
-  }}
-</style>
+<title>Explore language and topics - Presidential Profiles</title>
+<style>{PAGE_CSS}</style>
+<link rel="stylesheet" href="assets/{explore_assets.CSS_FILE}">
+<script defer src="assets/{explore_assets.JS_FILE}"></script>
 </head>
 <body>
-<header>
-  <h1>Word explorer</h1>
-  <p class="sub">Compare indexed words, phrases, topics, and named acronyms across
-  240 years of presidential speech. Every line uses a centered five-year smoothing window.</p>
-</header>
-<main class="explorer-tools">
-  <div class="controls">
-    <div class="control-group"><label for="q">Add a word or phrase</label>
-      <div class="input-row"><input id="q" aria-describedby="q-help" placeholder="e.g. tariff or middle class" autocomplete="off">
-      <button id="add" type="button">Add word</button></div>
-      <small id="q-help">One word or a two-word phrase; corpus thresholds apply.</small></div>
-    <div class="control-group"><label for="topic">Add a topic or acronym series</label>
-      <select id="topic" aria-describedby="topic-help"><option value="">Choose a series…</option></select>
-      <small id="topic-help">Deterministic topics, AI topics, and case-sensitive named acronyms.</small></div>
-  </div>
-  <div class="chips" id="chips"></div>
-  <div id="msg" role="status" aria-live="polite" aria-atomic="true"></div>
-  <div id="tip" hidden></div>
-  <p id="unitnote"></p>
-  <h2 id="chart-heading">Trends over time</h2>
-  <p id="chart-summary"></p>
-  <div class="chart-scroll"><div class="chart" id="chart" style="height:480px"></div></div>
-  <div class="secondary-actions"><button class="action" id="clear-series" type="button">Clear series</button>
-    <button class="action" id="clear-periods" type="button">Clear era bands</button>
-    <button class="action" id="reset-chart" type="button">Reset chart</button></div>
-  <details id="guided"><summary>Guided comparisons</summary>
-    <div class="preset-row" id="presets" aria-label="Word-picker presets"></div>
-    <div class="preset-note" id="preset-note">Choose a preset to see its editable words, rationale, and ambiguities.</div></details>
-  <details id="options"><summary>Chart options: combine words and era shading</summary>
-    <label class="grouptoggle" for="grp"><input type="checkbox" id="grp"> Group word forms</label>
-    <p id="group-description">Grouped chips list every included surface form for keyboard and screen-reader access.</p>
-    <label class="grouptoggle" for="combine"><input type="checkbox" id="combine"> Combine all selected words into one summed trend line</label>
-    <div class="period-picker"><strong>Select era bands</strong><div class="period-options" id="periods"></div></div></details>
-  <details id="evidence"><summary>Inspect the evidence</summary>
-    <h3>Evidence and exact values</h3><p>{metrics.lesson_html("rate_10k")} The table is generated when this section opens.</p>
-    <div id="exact-values"></div><button id="download-chart" class="action" type="button">Download chart CSV</button>
-    <p><a href="explorer/meta.json">Inspect corpus totals and topic registry</a>.</p></details>
+<main class="explore-page" id="explore-app"
+ data-index-url="explorer/{explore_projection.INDEX_FILE}"
+ data-families-url="explorer/{explore_projection.FAMILY_FILE}"
+ data-topics-url="explorer/{explore_projection.TOPIC_FILE}">
+  <header>
+    <h1>Explore language and topics</h1>
+    <p class="explore-intro">Find exact words, audited word families, broad deterministic issues,
+    detailed AI-labeled topics, and three case-sensitive named acronyms. Each measure keeps its
+    own unit and published time grain.</p>
+  </header>
+
+  <section class="explore-section" aria-labelledby="choose-series-heading">
+    <div class="selection-heading">
+      <h2 id="choose-series-heading">Choose series</h2>
+      <span class="selection-count" id="selected-count">3 of 6 selected</span>
+      <div class="selection-actions">
+        <button class="secondary-button" id="clear-series" type="button" data-hydration-control disabled>Clear</button>
+        <button class="secondary-button" id="reset-explore" type="button" data-hydration-control disabled>Reset</button>
+      </div>
+    </div>
+    <p class="fallback-selected server-only"><strong>Selected:</strong> {fallback_selected}.</p>
+    <div class="selected-list" id="selected-list"></div>
+    <div class="selection-grid">
+      <section class="selector-card" aria-labelledby="word-entry-heading">
+        <h3 id="word-entry-heading">Add a word or phrase</h3>
+        <p>Use one word or a two-word phrase. Punctuation separates exact words; audited spelling
+        normalization applies only when grouping is on.</p>
+        <fieldset class="word-mode">
+          <legend class="visually-hidden">How to count the next word</legend>
+          <label><input id="word-mode-exact" name="word-mode" type="radio" value="exact" checked data-hydration-control disabled> Exact form</label>
+          <label><input id="word-mode-family" name="word-mode" type="radio" value="family" data-hydration-control disabled> Group word forms</label>
+        </fieldset>
+        <div class="word-entry">
+          <input id="word-query" type="text" autocomplete="off" placeholder="e.g. tariff or middle class"
+            aria-describedby="word-help" data-hydration-control disabled>
+          <button class="primary-button" id="add-word" type="button" data-hydration-control disabled>Add word</button>
+        </div>
+        <p id="word-help">Exact words need 30 corpus uses; exact phrases need 15. Grouped searches
+        use the existing audited family map and do not claim that every form is linguistically equivalent.</p>
+      </section>
+      <section class="selector-card" aria-labelledby="catalog-heading">
+        <h3 id="catalog-heading">Browse governed series</h3>
+        <label class="visually-hidden" for="catalog-search">Search governed series</label>
+        <input class="catalog-search" id="catalog-search" type="search" placeholder="Search labels, definitions, or anchor words"
+          data-hydration-control disabled>
+        <div class="catalog-groups" id="catalog-groups"></div>
+        <p class="catalog-no-results" id="catalog-no-results" hidden></p>
+        <p class="server-only">JavaScript enables the searchable, grouped catalog. Its complete
+        accessible inventory is available in <a href="explorer/{explore_projection.SERIES_CATALOG_FILE}">series catalog CSV</a>.</p>
+      </section>
+    </div>
+    <div class="control-bar">
+      <label class="uncertainty-control"><input id="uncertainty-toggle" type="checkbox" checked
+        data-hydration-control disabled> Show uncertainty ranges for topic series</label>
+      <label class="context-control" for="context-select">Historical context
+        <select class="context-select" id="context-select" data-hydration-control disabled><option>None</option></select>
+      </label>
+    </div>
+    <details class="guided" id="guided">
+      <summary>Guided comparisons</summary>
+      <div class="guided-body">
+        <div class="preset-list" id="preset-list"></div>
+        <p class="preset-note" id="preset-note">Loading a guide replaces the current selection with its editable exact words.</p>
+        <div class="server-only"><p>The nine guides cover crisis language, superlative politics,
+        legal and procedural vocabulary, national unity, decline and restoration, war and peace,
+        economic hardship, immigration, and democratic institutions. JavaScript is required to
+        load a guide interactively.</p></div>
+      </div>
+    </details>
+    <p class="status-line" id="explore-status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <div class="failure-panel" id="explore-failure" role="alert" hidden></div>
+    <noscript><p class="failure-panel">Interactive selection requires JavaScript. The default
+    chart, all default exact values, and three complete downloads remain available.</p></noscript>
+  </section>
+
+  <section class="explore-section" aria-labelledby="trends-heading">
+    <h2 id="trends-heading">Trends</h2>
+    <p class="chart-summary" id="chart-summary">Three exact-word series in centered five-year
+    windows. The static fallback uses native rates and a zero baseline.</p>
+    <div class="chart-panels" id="chart-panels">
+      <section class="trend-panel server-only">
+        <h3>Words and named acronyms</h3>
+        <p class="panel-unit">Uses per 10,000 indexed words</p>
+        <div class="series-legend">{_fallback_legend(models)}</div>
+        {_default_svg(models)}
+      </section>
+    </div>
+    <div class="chart-readout" id="chart-readout">
+      <strong>Static default</strong><span>Use the exact-value disclosure below for every published period.</span>
+    </div>
+    <div class="visually-hidden" id="chart-live" aria-live="polite" aria-atomic="true"></div>
+    <div class="download-row">
+      <button class="download-selected client-only primary-button" id="download-selected" type="button">Download selected exact values (CSV)</button>
+      <a class="download-selected server-only" href="explorer/{explore_projection.DEFAULT_VALUES_FILE}" download>Download default exact values (CSV)</a>
+      <p>The selected download includes every period, range, support field, provenance component,
+      and explicit unknown or zero state—not only what is visible in the chart.</p>
+    </div>
+    <details class="exact-details" id="exact-values">
+      <summary>Exact values and support</summary>
+      <div class="exact-body">
+        <div class="exact-control client-only">
+          <label for="exact-series">Series</label>
+          <select class="exact-series" id="exact-series"></select>
+        </div>
+        <div class="server-only">{fallback_tables}</div>
+        <div id="exact-table-mount"></div>
+      </div>
+    </details>
+  </section>
+
+  <section class="explore-section method-compact" aria-labelledby="explore-method-heading">
+    <h2 id="explore-method-heading">Data and methods</h2>
+    <p><strong>Measures.</strong> Word and acronym rates use complete source-document transcripts
+    and source-document word totals. Broad issues use deterministic-model paragraph shares in
+    five-year periods. Detailed topics use exploratory AI-labeled paragraph shares in nine named
+    eras. Explore is not filtered to actual-president paragraph speakers, and overlapping topic
+    labels need not sum to 100%.</p>
+    <p>Topic uncertainty comes from the governed speech-clustered bands. A dotted line marked † is
+    low-support; ‡ means a range was not estimated; ◇ means the estimate exists but the bootstrap
+    could not resolve a range. Missing bounds are unknown, never zero. See
+    <a href="methodology.html">Methods</a> and <a href="data-quality.html">Data Quality</a>.</p>
+    <p class="server-only">Complete non-interactive downloads:
+      <a href="explorer/{explore_projection.DEFAULT_VALUES_FILE}">default values</a> ·
+      <a href="explorer/{explore_projection.TOPIC_VALUES_FILE}">all governed topic values</a> ·
+      <a href="explorer/{explore_projection.SERIES_CATALOG_FILE}">series catalog</a>.
+    </p>
+  </section>
+  <footer class="source-footer">
+    <p>Source: Miller Center presidential-speech corpus, 1,057 source documents, 1789–2026.
+    Lexical forms are indexed only when they meet the published corpus floor. Frozen annotations
+    and governed uncertainty artifacts are read, not recalculated, by this page.</p>
+  </footer>
 </main>
-<footer>
-  <p>Words with at least 30 uses and phrases with at least 15 across the corpus are
-  indexed. Data: <a href="https://data.millercenter.org">Miller Center of Public
-  Affairs, University of Virginia</a>. <a href="methodology.html">AI label method</a>.</p>
-</footer>
-<script>
-const COLORS = {json.dumps(SERIES)};
-const CHROME = {{surface:"{SURFACE}", ink:"{INK}", ink2:"{INK2}", muted:"{MUTED}",
-                 grid:"{GRID}", baseline:"{BASELINE}"}};
-const FONT = "{FONT}";
-const PRESETS = {json.dumps(presets)};
-const PERIODS = {json.dumps(periods)};
-let META = null;
-let FAMILIES = {{}};
-const MEMBERS = {{}};        // node label -> [surface forms folded into it]
-let grouped = false;
-const shardCache = {{}};
-let series = [];
-let activePreset = "";
-let activePeriods = new Set();
-let combineWords = false;
-let customizedFrom = "";
-const pendingTerms = new Set();
-let exactTableBuilt = false;
-
-// The surface forms counted under each position of a (grouped) query, e.g.
-// ["immigration"] -> [["immigration","immigrants","immigrant"]].
-function memberForms(words) {{
-  return words.map(w => {{
-    const lab = node(w);
-    return [...new Set([lab].concat(MEMBERS[lab] || []))];
-  }});
-}}
-
-async function loadJSON(path) {{
-  const r = await fetch(path);
-  if (!r.ok) throw new Error(path);
-  return r.json();
-}}
-async function getShard(prefix, letter) {{
-  const key = prefix + "_" + letter;
-  if (!(key in shardCache)) {{
-    shardCache[key] = await loadJSON("explorer/" + key + ".json");
-  }}
-  return shardCache[key];
-}}
-function rolling(years, values, allYears, window) {{
-  const map = new Map(years.map((y, i) => [y, values[i]]));
-  const half = Math.floor(window / 2);
-  return allYears.map(y => {{
-    let s = 0;
-    for (let d = -half; d <= half; d++) s += map.get(y + d) || 0;
-    return s;
-  }});
-}}
-function seriesTrace(s, idx, indexed) {{
-  let x, y;
-  if (s.type === "word" || s.type === "entity") {{
-    const counts = rolling(s.data.y, s.data.c, META.years, 5);
-    const totals = rolling(META.years, META.totals, META.years, 5);
-    x = META.years;
-    y = counts.map((c, i) => totals[i] > 20000 ? c / totals[i] * 10000 : null);
-  }} else {{
-    const m = new Map(s.data.y.map((yy, i) => [yy, s.data.v[i]]));
-    x = META.years;
-    const vals = META.years.map(yy => m.has(yy) ? m.get(yy) : null);
-    y = x.map((yy, i) => {{
-      let s2 = 0, n = 0;
-      for (let d = -2; d <= 2; d++) {{
-        const v = m.get(yy + d);
-        if (v != null) {{ s2 += v; n++; }}
-      }}
-      return n ? s2 / n : null;
-    }});
-  }}
-  if (indexed) {{
-    const mx = Math.max(...y.filter(v => v != null));
-    y = y.map(v => v == null ? null : v / mx * 100);
-  }}
-  const extra = s.members ? s.label + "<br>" + s.members : s.label;
-  return {{x, y, name: s.label, mode: "lines", connectgaps: false,
-          kind: s.type,
-          line: {{color: COLORS[idx % COLORS.length], width: 2.4,
-                 dash: s.type === "topic" ? "dash" : (s.type === "entity" ? "dot" : "solid")}},
-          hovertemplate: "%{{y:.2f}}<extra>" + extra + "</extra>"}};
-}}
-function displayTraces() {{
-  let traces = series.map((s, i) => seriesTrace(s, i, false));
-  if (combineWords) {{
-    const words = traces.filter(t => t.kind === "word");
-    const otherSeries = traces.filter(t => t.kind !== "word");
-    if (words.length) {{
-      const combined = words[0].x.map((_, i) => {{
-        const values = words.map(t => t.y[i]).filter(v => v != null);
-        return values.length ? values.reduce((a, b) => a + b, 0) : null;
-      }});
-      traces = [{{x:words[0].x,y:combined,name:`Combined words (${{words.length}})`,
-        kind:"word",mode:"lines",connectgaps:false,
-        line:{{color:COLORS[0],width:3}},
-        hovertemplate:"%{{y:.2f}} per 10,000<extra>combined selected words</extra>"}}].concat(otherSeries);
-    }}
-  }}
-  const mixed = traces.some(t => t.kind === "topic") && traces.some(t => t.kind !== "topic");
-  if (mixed) traces = traces.map(trace => {{
-    const mx = Math.max(...trace.y.filter(v => v != null));
-    return {{...trace,y:trace.y.map(v => v == null ? null : v / mx * 100)}};
-  }});
-  traces.forEach((trace,i) => trace.line = {{...trace.line,color:COLORS[i % COLORS.length]}});
-  return {{traces,mixed}};
-}}
-function redraw() {{
-  const {{traces,mixed}} = displayTraces();
-  const ylabel = mixed ? "% of each series' own peak"
-    : (series[0] && series[0].type === "topic" ? "% of paragraphs"
-       : "uses per 10,000 words");
-  const selectedPeriods = [...activePeriods].filter(key => PERIODS[key]);
-  const shapes = selectedPeriods.map((key, i) => ({{
-    type:"rect",xref:"x",yref:"paper",x0:PERIODS[key][1],x1:PERIODS[key][2],y0:0,y1:1,
-    fillcolor:COLORS[i % COLORS.length]+"18",
-    line:{{width:1,color:COLORS[i % COLORS.length]+"55"}},layer:"below"}}));
-  const annotations = selectedPeriods.map((key, i) => ({{
-    x:(PERIODS[key][1]+PERIODS[key][2])/2,y:1.02,xref:"x",yref:"paper",
-    text:PERIODS[key][0],showarrow:false,
-    font:{{size:9,color:COLORS[i % COLORS.length]}}}}));
-  Plotly.react("chart", traces, {{
-    template: "simple_white", paper_bgcolor: CHROME.surface,
-    plot_bgcolor: CHROME.surface,
-    font: {{family: FONT, color: CHROME.ink, size: 13}},
-    margin: {{l: 56, r: 24, t: 24, b: 44}},
-    xaxis: {{range: [1786, 2029], gridcolor: CHROME.grid,
-            linecolor: CHROME.baseline, tickfont: {{color: CHROME.muted, size: 11}}}},
-    yaxis: {{title: ylabel, gridcolor: CHROME.grid, linecolor: CHROME.baseline,
-            tickfont: {{color: CHROME.muted, size: 11}}, rangemode: "tozero"}},
-    legend: {{orientation: "h", yanchor: "bottom", y: 1.01, x: 0}},
-    shapes, annotations,
-  }}, {{displayModeBar: false, responsive: true}});
-  const note = document.getElementById("unitnote");
-  note.textContent = mixed
-    ? "Different source units — each line is indexed to its own peak (=100)."
-    : `Current scale: ${{ylabel}}.`;
-  note.classList.toggle("mixed", mixed);
-  const labels = traces.length ? traces.map(t => t.name).join(", ") : "No active series";
-  const eras = selectedPeriods.length ? selectedPeriods.map(k => PERIODS[k][0]).join(", ") : "none";
-  document.getElementById("chart-summary").textContent =
-    `${{labels}}. ${{ylabel}}; centered five-year smoothing. Era bands: ${{eras}}.`;
-  document.getElementById("chart").setAttribute("role", "img");
-  document.getElementById("chart").setAttribute("aria-labelledby", "chart-heading chart-summary");
-  exactTableBuilt = false;
-  document.getElementById("exact-values").replaceChildren();
-  renderChips();
-  syncURL();
-}}
-function downloadChart() {{
-  const {{traces,mixed}} = displayTraces();
-  const rows = ["series,series_type,year,value,unit,scale,grouped"];
-  traces.forEach(trace => trace.x.forEach((year, i) => {{
-    const value = trace.y[i];
-    const unit = mixed ? "own_peak_index" : (trace.kind === "topic" ? "percent_of_paragraphs" : "uses_per_10000_words");
-    const scale = mixed ? "own_peak_100" : "absolute";
-    rows.push(`"${{trace.name.replaceAll('"','""')}}",${{trace.kind}},${{year}},${{value == null ? "" : value}},${{unit}},${{scale}},${{grouped}}`);
-  }}));
-  const blob = new Blob([rows.join("\\n")], {{type:"text/csv"}});
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "presidential-word-explorer.csv";
-  link.click();
-  URL.revokeObjectURL(link.href);
-}}
-function renderChips() {{
-  const el = document.getElementById("chips");
-  el.replaceChildren();
-  series.forEach((s, i) => {{
-    const chip = document.createElement("span");
-    chip.className = "chip";
-    const topicIndex = series.slice(0, i).filter(x => x.type === "topic").length;
-    const swatch = combineWords
-      ? (s.type === "term" ? COLORS[0] : COLORS[(topicIndex + 1) % COLORS.length])
-      : COLORS[i % COLORS.length];
-    const swatchEl = document.createElement("span");
-    swatchEl.className = "swatch";
-    swatchEl.style.background = swatch;
-    chip.append(swatchEl, document.createTextNode(` ${{s.label}} `));
-    if (s.members) {{
-      const badge = document.createElement("span");
-      badge.className = "count";
-      badge.textContent = `${{s.nforms}} forms`;
-      chip.append(badge, document.createTextNode(" "));
-    }}
-    const remove = document.createElement("button");
-    remove.setAttribute("aria-label", `Remove ${{s.label}}.`);
-    remove.textContent = "×";
-    remove.onclick = () => {{ series.splice(i, 1); hideTip(); redraw(); }};
-    chip.appendChild(remove);
-    if (s.members) {{
-      chip.addEventListener("mousemove", e => showTip(s, e));
-      chip.addEventListener("mouseleave", hideTip);
-    }}
-    if (s.members) {{
-      const membership = document.createElement("p"); membership.className = "members";
-      membership.textContent = `Includes: ${{s.members}}`;
-      chip.appendChild(membership);
-    }}
-    el.appendChild(chip);
-  }});
-}}
-function msg(t) {{ document.getElementById("msg").textContent = t; }}
-function showTip(s, e) {{
-  const tip = document.getElementById("tip");
-  const list = s.members.split(" / ").join(", ").split("  +  ").join("  •  ");
-  const heading = document.createElement("div");
-  heading.className = "thead";
-  heading.textContent = `counted as “${{s.label}}” (${{s.nforms}} forms)`;
-  tip.replaceChildren(heading, document.createTextNode(list));
-  tip.hidden = false;
-  moveTip(e);
-}}
-function moveTip(e) {{
-  const tip = document.getElementById("tip"), pad = 14, r = tip.getBoundingClientRect();
-  let x = e.clientX + pad, y = e.clientY + pad;
-  if (x + r.width > innerWidth) x = e.clientX - r.width - pad;
-  if (y + r.height > innerHeight) y = e.clientY - r.height - pad;
-  tip.style.left = Math.max(4, x) + "px"; tip.style.top = Math.max(4, y) + "px";
-}}
-function hideTip() {{ document.getElementById("tip").hidden = true; }}
-function reconcilePreset() {{
-  if (!activePreset) return;
-  const activeWords = series.filter(s => s.type === "word").map(s => s.q.trim().toLowerCase());
-  if (JSON.stringify(activeWords) !== JSON.stringify(PRESETS[activePreset].words)) {{
-    customizedFrom = activePreset; activePreset = "";
-    document.getElementById("preset-note").textContent = `Customized from ${{PRESETS[customizedFrom].label}}.`;
-  }}
-}}
-function syncURL() {{
-  reconcilePreset();
-  const url = new URL(location.href);
-  ["s","words","topics","entities"].forEach(k => url.searchParams.delete(k));
-  series.forEach(s => url.searchParams.append("s", `${{s.type}}:${{s.type === "word" ? s.q : s.label}}`));
-  url.searchParams.set("state", "1");
-  grouped ? url.searchParams.set("grouped", "1") : url.searchParams.delete("grouped");
-  combineWords ? url.searchParams.set("combine", "1") : url.searchParams.delete("combine");
-  activePreset ? url.searchParams.set("preset", activePreset) : url.searchParams.delete("preset");
-  customizedFrom ? url.searchParams.set("from", customizedFrom) : url.searchParams.delete("from");
-  activePeriods.size ? url.searchParams.set("periods", [...activePeriods].join(",")) : url.searchParams.delete("periods");
-  url.searchParams.delete("scenario");
-  history.replaceState(null, "", url);
-}}
-const node = w => (grouped && FAMILIES[w]) ? FAMILIES[w] : w;
-const shardLetter = w => /[a-z]/.test(w[0]) ? w[0] : "0";
-async function addTerm(raw, silent) {{
-  const q = raw.trim().toLowerCase().replace(/[^a-z' ]/g, "").replace(/ +/g, " ");
-  if (!q) {{ if (!silent) msg("Enter a word or two-word phrase."); return false; }}
-  const words = q.split(" ");
-  if (words.length > 2) {{ msg("Use no more than two words."); return false; }}
-  // Resolve to the family node when grouping is on: "immigrants" -> "immigration".
-  const key = words.map(node).join(" ");
-  const label = grouped ? key : q;
-  const pendingKey = `${{grouped}}:${{key}}`;
-  if (pendingTerms.has(pendingKey) || series.some(s => s.type === "word" && s.label === label)) {{
-    if (!silent) msg(`“${{label}}” is already on the chart or being added.`); return false; }}
-  const shardPrefix = grouped ? (words.length === 1 ? "gu" : "gb")
-                              : (words.length === 1 ? "u" : "b");
-  if (!silent) msg(`Loading “${{q}}”…`);
-  pendingTerms.add(pendingKey);
-  let shard;
-  try {{ shard = await getShard(shardPrefix, shardLetter(key)); }}
-  catch (error) {{
-    if (!silent) msg(`Could not load corpus data for “${{q}}”. Try again.`);
-    pendingTerms.delete(pendingKey); return false;
-  }}
-  pendingTerms.delete(pendingKey);
-  if (!(key in shard)) {{
-    if (!silent) msg(`“${{q}}” ${{words.length === 1
-      ? "appears fewer than 30 times in 240 years of presidential speech"
-      : "appears fewer than 15 times as a phrase"}}`);
-    return false;
-  }}
-  msg("");
-  // What's actually being counted, for the chip badge and hover tooltip.
-  let members = null, nforms = 0;
-  if (grouped) {{
-    const perPos = memberForms(words);
-    const total = perPos.reduce((a, f) => a + f.length, 0);
-    if (total > words.length) {{        // at least one position folds >1 form
-      members = perPos.map(f => f.join(" / ")).join("  +  ");
-      nforms = words.length === 1 ? perPos[0].length : total;
-    }}
-  }}
-  series.push({{label, q, type: "word", data: shard[key], members, nforms}});
-  if (!silent) redraw();
-  return true;
-}}
-function addTopic(name, silent=false) {{
-  if (!name || !META.topics[name]) {{ if (!silent) msg(`Unknown topic skipped: “${{name}}”.`); return false; }}
-  if (series.some(s => s.type === "topic" && s.label === name)) {{ if (!silent) msg(`“${{name}}” is already on the chart.`); return false; }}
-  series.push({{label: name, type: "topic", data: META.topics[name]}});
-  if (!silent) redraw(); return true;
-}}
-function addEntity(name, silent=false) {{
-  if (!name || !META.entities[name]) {{ if (!silent) msg(`Unknown named entity skipped: “${{name}}”.`); return false; }}
-  if (series.some(s => s.type === "entity" && s.label === name)) {{ if (!silent) msg(`“${{name}}” is already on the chart.`); return false; }}
-  series.push({{label: name, type: "entity", data: META.entities[name]}});
-  if (!silent) redraw(); return true;
-}}
-async function regroup() {{
-  grouped = document.getElementById("grp").checked;
-  const queries = series.filter(s => s.q !== undefined).map(s => s.q);
-  series = series.filter(s => s.type !== "word");
-  for (const q of queries) await addTerm(q, true);
-  redraw();
-}}
-async function applyPreset(key) {{
-  const preset = PRESETS[key];
-  if (!preset) {{ msg(`Unknown preset skipped: “${{key}}”.`); return; }}
-  activePreset = key;
-  customizedFrom = "";
-  series = series.filter(s => s.type !== "word");
-  for (const word of preset.words) await addTerm(word, true);
-  document.getElementById("preset-note").textContent =
-    `${{preset.label}}. Exact words: ${{preset.words.join(", ")}}. ` +
-    `Why included: ${{preset.rationale}} Known ambiguities: ${{preset.ambiguities}} ` +
-    `Remove any chip or add your own term above.`;
-  redraw();
-}}
-function buildExactTable() {{
-  if (exactTableBuilt) return;
-  exactTableBuilt = true;
-  const {{traces,mixed}} = displayTraces();
-  const table = document.createElement("table"); table.className = "evidence-table";
-  const head = document.createElement("thead");
-  const headerRow = document.createElement("tr");
-  ["Series","Type","Year","Value","Unit"].forEach(value => {{
-    const th = document.createElement("th"); th.scope = "col"; th.textContent = value; headerRow.appendChild(th);
-  }}); head.appendChild(headerRow); table.appendChild(head);
-  const body = document.createElement("tbody");
-  traces.forEach(trace => trace.x.forEach((year, i) => {{
-    if (trace.y[i] == null) return;
-    const row = document.createElement("tr");
-    const unit = mixed ? "own peak = 100" : (trace.kind === "topic" ? "% of paragraphs" : "uses per 10,000 words");
-    [trace.name, trace.kind, year, trace.y[i].toFixed(2), unit].forEach(value => {{
-      const td = document.createElement("td"); td.textContent = value; row.appendChild(td);
-    }}); body.appendChild(row);
-  }})); table.appendChild(body);
-  const wrap = document.createElement("div"); wrap.className = "table-wrap"; wrap.appendChild(table);
-  document.getElementById("exact-values").replaceChildren(wrap);
-}}
-(async () => {{
- try {{
-  [META, FAMILIES] = await Promise.all([
-    loadJSON("explorer/meta.json"), loadJSON("explorer/families.json")]);
-  for (const f in FAMILIES) (MEMBERS[FAMILIES[f]] ||= []).push(f);
-  const sel = document.getElementById("topic");
-  const presetBox = document.getElementById("presets");
-  Object.entries(PRESETS).forEach(([key, preset]) => {{
-    const button = document.createElement("button"); button.type = "button";
-    button.textContent = preset.label; button.onclick = () => applyPreset(key);
-    presetBox.appendChild(button);
-  }});
-  const periodBox = document.getElementById("periods");
-  Object.entries(PERIODS).forEach(([key, value]) => {{
-    const label = document.createElement("label");
-    label.innerHTML = `<input type="checkbox" value="${{key}}"> ${{value[0]}}`;
-    const input = label.querySelector("input");
-    input.onchange = () => {{
-      input.checked ? activePeriods.add(key) : activePeriods.delete(key);
-      redraw();
-    }};
-    periodBox.appendChild(label);
-  }});
-  const groups = META.topic_groups || {{"Topics": Object.keys(META.topics)}};
-  Object.entries(groups).forEach(([label, topics]) => {{
-    const group = document.createElement("optgroup"); group.label = label;
-    topics.forEach(t => {{
-      const o = document.createElement("option"); o.value = "t:" + t;
-      o.textContent = t.startsWith("AI topic · ") ? t.slice(11) : t; group.appendChild(o);
-    }});
-    sel.appendChild(group);
-  }});
-  Object.keys(META.entities || {{}}).forEach(t => {{
-    const o = document.createElement("option"); o.value = "e:" + t; o.textContent = t;
-    sel.appendChild(o);
-  }});
-  sel.onchange = () => {{
-    const v = sel.value;
-    if (v.startsWith("t:")) addTopic(v.slice(2));
-    else if (v.startsWith("e:")) addEntity(v.slice(2));
-    sel.value = "";
-  }};
-  const input = document.getElementById("q");
-  input.addEventListener("keydown", async e => {{
-    if (e.key === "Enter" && await addTerm(input.value)) input.value = "";
-  }});
-  document.getElementById("add").onclick = async () => {{ if (await addTerm(input.value)) input.value = ""; }};
-  document.getElementById("download-chart").onclick = downloadChart;
-  document.getElementById("grp").addEventListener("change", regroup);
-  document.getElementById("combine").addEventListener("change", e => {{
-    combineWords = e.target.checked; redraw();
-  }});
-  document.getElementById("evidence").addEventListener("toggle", e => {{ if (e.target.open) buildExactTable(); }});
-  document.getElementById("clear-series").onclick = () => {{ series = []; activePreset = ""; customizedFrom = ""; redraw(); }};
-  document.getElementById("clear-periods").onclick = () => {{ activePeriods.clear(); document.querySelectorAll("#periods input").forEach(i => i.checked=false); redraw(); }};
-  document.getElementById("reset-chart").onclick = () => {{ location.search = "?state=1"; }};
-  const params = new URLSearchParams(location.search);
-  grouped = params.get("grouped") === "1"; document.getElementById("grp").checked = grouped;
-  combineWords = params.get("combine") === "1"; document.getElementById("combine").checked = combineWords;
-  const requestedPeriods = (params.get("periods") || "").split(",").filter(Boolean);
-  activePeriods = new Set(requestedPeriods.filter(key => PERIODS[key]));
-  document.querySelectorAll("#periods input").forEach(input => input.checked = activePeriods.has(input.value));
-  const skipped = requestedPeriods.filter(key => !PERIODS[key]).map(key => `unknown era “${{key}}”`);
-  const presetKey = params.get("preset");
-  if (presetKey && !PRESETS[presetKey]) skipped.push(`unknown preset “${{presetKey}}”`);
-  activePreset = presetKey && PRESETS[presetKey] ? presetKey : "";
-  const fromKey = params.get("from");
-  customizedFrom = fromKey && PRESETS[fromKey] ? fromKey : "";
-  if (customizedFrom) document.getElementById("preset-note").textContent =
-    `Customized from ${{PRESETS[customizedFrom].label}}.`;
-  if (params.has("state")) {{
-    for (const encoded of params.getAll("s")) {{
-      const split = encoded.indexOf(":");
-      const type = split > 0 ? encoded.slice(0, split) : "";
-      const value = split > 0 ? encoded.slice(split + 1) : "";
-      let ok = false;
-      if (type === "word") ok = await addTerm(value, true);
-      else if (type === "topic") ok = addTopic(value, true);
-      else if (type === "entity") ok = addEntity(value, true);
-      if (!ok) skipped.push(`invalid ${{type || "series"}} “${{value || encoded}}”`);
-    }}
-  }} else if (activePreset) {{
-    for (const word of PRESETS[activePreset].words) await addTerm(word, true);
-  }} else {{
-    for (const t of (params.get("words") || "tariff,freedom,border").split(",").filter(Boolean)) await addTerm(t, true);
-    for (const topic of (params.get("topics") || "").split("|").filter(Boolean)) {{ if (!addTopic(topic, true)) skipped.push(`unknown topic “${{topic}}”`); }}
-  }}
-  if (activePreset) reconcilePreset();
-  if (activePreset) {{
-    const preset = PRESETS[activePreset];
-    document.getElementById("preset-note").textContent =
-      `${{preset.label}}. Exact words: ${{preset.words.join(", ")}}. ` +
-      `Why included: ${{preset.rationale}} Known ambiguities: ${{preset.ambiguities}}`;
-  }}
-  redraw();
-  if (skipped.length) msg(`Skipped ${{skipped.join("; ")}}.`);
- }} catch (error) {{
-   msg("The Explorer metadata could not be loaded. Reload the page to try again.");
-   document.getElementById("chart-summary").textContent = "Chart unavailable because initial metadata failed to load.";
- }}
-}})();
-</script>
 </body>
 </html>
 """
-    (REPO_ROOT / "docs" / "explorer.html").write_text(html)
-    print("  wrote docs/explorer.html")
+
+
+def write_page(
+    projection: explore_projection.ExploreProjectionBundle,
+    site_dir: Path | None = None,
+) -> Path:
+    """Write Explore HTML and its two external renderer assets."""
+    site_dir = REPO_ROOT / "docs" if site_dir is None else site_dir
+    site_dir.mkdir(parents=True, exist_ok=True)
+    explore_assets.write_assets(site_dir)
+    output = site_dir / "explorer.html"
+    output.write_text(render_page(projection))
+    display = output.relative_to(REPO_ROOT) if output.is_relative_to(REPO_ROOT) else output
+    print(f"  wrote {display}")
+    return output
+
+
+def build_explorer_data(ai_data: dict | None = None) -> explore_projection.ExploreProjectionBundle:
+    """Compatibility entry point: build and atomically publish Explore v2 data."""
+    del ai_data
+    projection = explore_projection.build_projection()
+    explore_projection.write_public_projection(projection, REPO_ROOT / "docs")
+    return projection

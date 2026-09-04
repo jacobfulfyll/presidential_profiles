@@ -1,0 +1,107 @@
+{
+  "all_pinned_acceptance_values_match": true,
+  "checks": {
+    "actual_speaker_identity_reused": true,
+    "appearance_identity_reused": true,
+    "edges_are_undirected_bipartite_president_topic_only": true,
+    "evidence_receipts_reconcile": true,
+    "exact_key_set_before_eligibility": true,
+    "multi_label_memberships_non_additive": true,
+    "one_to_one_topic_join": true,
+    "story_era_identity_reused": true,
+    "topic_free_paragraphs_retained_in_denominators": true,
+    "topic_taxonomy_canonical": true
+  },
+  "contract_version": "actual-speaker-topic-network-v1",
+  "counts": {
+    "actual_speaker_appearances": 1054,
+    "cross_owner_presidential_paragraphs": 296,
+    "default_visible_edges": 2104,
+    "edge_evidence_receipts": 11576,
+    "edges": 4408,
+    "eligible_paragraphs": 32531,
+    "excluded_paragraphs": 2863,
+    "level1_memberships": 43570,
+    "memberships": 91119,
+    "network_nodes": 112,
+    "normalized_level2_memberships": 47549,
+    "president_support_rows": 450,
+    "presidents": 45,
+    "raw_level2_assignments": 48211,
+    "removed_duplicate_or_case_variant_assignments": 662,
+    "retained_paragraphs": 35394,
+    "story_eras": 9,
+    "topic_bearing_eligible_paragraphs": 32394,
+    "topic_free_eligible_paragraphs": 137,
+    "topic_nodes": 67,
+    "topic_support_rows": 670
+  },
+  "distributions": {
+    "edge_scope_and_level": {
+      "corpus|level1": 700,
+      "corpus|level2": 1464,
+      "story_era|level1": 728,
+      "story_era|level2": 1516
+    },
+    "edge_support_status": {
+      "supported": 3340,
+      "thin_edge": 864,
+      "thin_president": 204
+    },
+    "president_support_status": {
+      "no_record": 355,
+      "supported": 85,
+      "thin": 10
+    },
+    "topic_support_status": {
+      "no_record": 81,
+      "observed": 589
+    }
+  },
+  "expected_counts": {
+    "actual_speaker_appearances": 1054,
+    "cross_owner_presidential_paragraphs": 296,
+    "default_visible_edges": 2104,
+    "edge_evidence_receipts": 11576,
+    "edges": 4408,
+    "eligible_paragraphs": 32531,
+    "excluded_paragraphs": 2863,
+    "level1_memberships": 43570,
+    "memberships": 91119,
+    "network_nodes": 112,
+    "normalized_level2_memberships": 47549,
+    "president_support_rows": 450,
+    "presidents": 45,
+    "raw_level2_assignments": 48211,
+    "removed_duplicate_or_case_variant_assignments": 662,
+    "retained_paragraphs": 35394,
+    "story_eras": 9,
+    "topic_bearing_eligible_paragraphs": 32394,
+    "topic_free_eligible_paragraphs": 137,
+    "topic_nodes": 67,
+    "topic_support_rows": 670
+  },
+  "expected_distributions": {
+    "edge_scope_and_level": {
+      "corpus|level1": 700,
+      "corpus|level2": 1464,
+      "story_era|level1": 728,
+      "story_era|level2": 1516
+    },
+    "edge_support_status": {
+      "supported": 3340,
+      "thin_edge": 864,
+      "thin_president": 204
+    },
+    "president_support_status": {
+      "no_record": 355,
+      "supported": 85,
+      "thin": 10
+    },
+    "topic_support_status": {
+      "no_record": 81,
+      "observed": 589
+    }
+  },
+  "schema_version": "actual-speaker-topic-network-acceptance-v1"
+}
