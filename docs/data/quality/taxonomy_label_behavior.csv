@@ -1,10 +1,10 @@
-era,n_paragraphs,unlabeled_paragraphs,multi_label_paragraphs,mean_labels
-Civil War & Reconstruction,3881,7,1550,1.4349394485957228
-Expansion,3708,5,1421,1.4228694714131607
-Post-Cold War,4950,41,2112,1.4983838383838384
-Progressives & Depression,4718,4,1733,1.4194573972022044
-The Cold War,9143,104,4184,1.5386634583834629
-The Gilded Age,3589,13,1044,1.3131791585399832
-The founding,927,5,400,1.5016181229773462
-The present era,4120,224,1596,1.391990291262136
-War & New Deal,1193,1,677,1.6663872590108968
+era_key,era_label,era_order,n_paragraphs,unlabeled_paragraphs,multi_label_paragraphs,normalized_assignments,mean_labels
+founding,Establishing the republic,0,679,4,270,964,1.4197349042709868
+expansion,The continental republic,1,3956,6,1517,5582,1.4110212335692618
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,2967,3,1172,4209,1.4186046511627908
+gilded-age,Administrative-industrial order,3,7034,19,2100,9282,1.31959056013648
+progressives-depression,"Reform, world war & collapse",4,2187,2,972,3285,1.5020576131687242
+war-new-deal,"New Deal, world war & settlement",5,1397,2,751,2266,1.6220472440944882
+cold-war,Mature Cold War,6,6831,66,3089,10343,1.5141267749963403
+post-cold-war,Conservative turn & always-on presidency,7,7058,78,3050,10497,1.487248512326438
+present,Platform-era intensification,8,4120,224,1586,5705,1.3847087378640777

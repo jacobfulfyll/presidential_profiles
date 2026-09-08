@@ -80,6 +80,24 @@
     "source": "speech_markers.parquet",
     "status": "descriptive"
   },
+  "explore_centered_lexical_rate": {
+    "label": "Centered five-year lexical rate",
+    "question": "How often does one exact form or audited word family appear around each corpus year?",
+    "definition": "Exact or grouped matches and all indexed source-document words are summed from center year minus two through center year plus two; the match total is divided by the word total and scaled to 10,000 only when the window exceeds 20,000 indexed words.",
+    "example": "Forty matches among 80,000 indexed words in a centered five-year window equals 5 uses per 10,000 words.",
+    "steps": [
+      "Tokenize every complete source-document transcript with the Explore word tokenizer",
+      "For grouped series, replace forms only through the frozen audited word-family map",
+      "Sum matches and indexed words over the five calendar years centered on the displayed year",
+      "Publish only when the window contains more than 20,000 indexed words",
+      "Divide matches by words and multiply by 10,000"
+    ],
+    "formula": "\u03a3 matches(center\u22122\u2026center+2) / \u03a3 indexed words(center\u22122\u2026center+2) \u00d7 10,000",
+    "unit": "uses per 10,000 indexed words",
+    "limitations": "A match does not establish meaning, intent, endorsement, or context. Grouped forms follow an audited deterministic algorithm and do not imply universal linguistic equivalence; sparse windows are unknown rather than zero.",
+    "source": "speeches.parquet + word_families.json",
+    "status": "descriptive"
+  },
   "paragraph_share": {
     "label": "Share of paragraphs",
     "question": "How much of the record carries a label?",
@@ -95,6 +113,110 @@
     "limitations": "Paragraphs vary greatly in length, and AI labels can disagree.",
     "source": "paragraph_annotations.parquet",
     "status": "exploratory AI descriptive"
+  },
+  "era_distinctive_reference": {
+    "label": "Era-distinctive reference",
+    "question": "Which normalized names are unusually concentrated in one Story era?",
+    "definition": "Positive Jeffreys-smoothed paragraph log odds compare one era with the other eight on eligible speaker-audited paragraphs.",
+    "example": "A name supported by six paragraphs in an era and none elsewhere can rank above a more common name that is also widespread across other eras.",
+    "steps": [
+      "Count each normalized entity once per eligible paragraph",
+      "Keep names supported by at least five paragraphs and two source documents",
+      "Apply a 0.5 Jeffreys prior to present and absent counts in the era and comparison corpus",
+      "Rank positive log odds by score, era paragraphs, source documents, then normalized name"
+    ],
+    "formula": "log((era name paragraphs + 0.5)/(era other paragraphs + 0.5)) \u2212 log((other-era name paragraphs + 0.5)/(other-era other paragraphs + 0.5))",
+    "unit": "speaker-audited paragraph log odds",
+    "limitations": "AI + NER and AI only describe source agreement, not historical validation or confidence. Distinctive does not mean important, representative, prevalent, endorsed, or historically significant.",
+    "source": "reference_entities/era_distinctive_v1.parquet + speaker_views/paragraph_view_v1.parquet",
+    "status": "exploratory descriptive"
+  },
+  "reference_type_presence": {
+    "label": "Reference-type paragraph presence",
+    "question": "What kinds of named actors and places enter an era's presidential record?",
+    "definition": "Distinct eligible paragraphs actually attributed to a president and carrying at least one primary-AI-backed entity of the named type, divided by every eligible actual-president paragraph in the Story era.",
+    "example": "If 100 of 500 eligible actual-president paragraphs name at least one person, person presence is 20%.",
+    "steps": [
+      "Use every eligible actual-president paragraph in the era as the denominator",
+      "Keep primary-AI-backed people, institutions, groups, and nations or places",
+      "Count a paragraph once per entity type even when it names several entities of that type",
+      "Divide each type's distinct paragraph count by the complete era denominator"
+    ],
+    "formula": "distinct paragraphs carrying entity type / all eligible actual-president paragraphs",
+    "unit": "share of speaker-audited paragraphs",
+    "limitations": "Entity types come from the primary AI and can overlap within a paragraph, so the four shares are non-additive. NER source agreement does not establish confidence, stance, or historical importance.",
+    "source": "reference_entities/entity_mentions_v1.parquet + speaker_views/paragraph_view_v1.parquet",
+    "status": "exploratory descriptive"
+  },
+  "actual_speaker_topic_presence": {
+    "label": "Actual-speaker topic presence",
+    "question": "What share of one president's eligible speaker-audited paragraph record carries an AI-assigned topic?",
+    "definition": "Distinct eligible paragraphs actually attributed to the president and carrying the canonical topic, divided by every eligible paragraph attributed to that president in the complete corpus or one accepted Story era. Topic-free eligible paragraphs remain in the denominator.",
+    "example": "Twenty topic-bearing paragraphs among 100 eligible paragraphs actually attributed to the president is a 20% speaker-paragraph share.",
+    "steps": [
+      "Use only actual-president paragraphs marked eligible by the accepted speaker foundation",
+      "Count each normalized topic once per paragraph and derive each Level 1 parent once",
+      "Keep topic-free eligible paragraphs in the president denominator",
+      "Compute corpus-wide and accepted Story-era scopes without recomputing eras",
+      "Label presidents with 1\u20134 eligible actual-speaker appearances thin and require five appearances for supported status"
+    ],
+    "formula": "topic paragraphs attributed to president / all eligible paragraphs attributed to president in scope",
+    "unit": "speaker-audited paragraph share",
+    "limitations": "Multi-label shares are non-additive and may sum above 100%. AI topic presence is descriptive and non-causal; it is not confidence, intent, importance, influence, success, or representation of the public or presidency as a whole. Supported edges additionally require five topic paragraphs and two topic-bearing appearances.",
+    "source": "speaker_topic_network/edges_v1.parquet",
+    "status": "exploratory AI descriptive"
+  },
+  "actual_speaker_topic_contribution": {
+    "label": "Actual-speaker topic contribution",
+    "question": "What share of a scope's eligible paragraph evidence assigned to a topic comes from one actual president speaker?",
+    "definition": "Distinct eligible topic-bearing paragraphs actually attributed to the president, divided by all eligible paragraphs carrying that canonical topic across actual president speakers in the complete corpus or one accepted Story era.",
+    "example": "If 30 of a scope's 120 eligible paragraphs carrying a topic are actually attributed to one president, the topic-contribution share is 25%.",
+    "steps": [
+      "Use the accepted actual-speaker population and keyed topic memberships",
+      "Count every distinct normalized topic presence fully in multi-label paragraphs",
+      "Divide the president's topic paragraphs by all scope paragraphs carrying that topic",
+      "Retain explicit paragraph and actual-speaker appearance counts",
+      "Mark 1\u20134-appearance presidents and under-threshold edges as thin"
+    ],
+    "formula": "topic paragraphs attributed to president / all eligible paragraphs carrying topic in scope",
+    "unit": "share of eligible topic-bearing paragraphs",
+    "limitations": "Multi-label topic shares are non-additive and may sum above 100%; topic-free paragraphs create no topic contribution but remain in scope corpus denominators. The measure is descriptive and non-causal, not confidence, intent, importance, influence, success, or representation of the public or presidency as a whole.",
+    "source": "speaker_topic_network/edges_v1.parquet",
+    "status": "exploratory AI descriptive"
+  },
+  "actual_speaker_invocation_paragraph_count": {
+    "label": "Actual-speaker invocation paragraph count",
+    "question": "In how many distinct eligible paragraphs did one actual president speaker invoke a named former president?",
+    "definition": "The count of distinct keyed paragraphs attributed to the source president that contain at least one accepted invocation row for the target president.",
+    "example": "Three accepted mentions of the same former president in two keyed paragraphs produce a displayed bar value of two paragraphs.",
+    "steps": [
+      "Validate accepted invocation evidence against its governed candidates and classifier replay",
+      "Overlay each keyed paragraph with the accepted actual-speaker attribution",
+      "Keep resolved, eligible, former-president, non-self rows",
+      "Count each distinct source document and paragraph key once for an actual-speaker to target edge"
+    ],
+    "formula": "count distinct (doc_name, para_idx) by actual speaker \u2192 named former president",
+    "unit": "eligible reference paragraphs",
+    "limitations": "The count describes qualifying named references in this corpus, not historical contact, influence, endorsement, rivalry, importance, or a rate adjusted for corpus size. Target status follows corpus speech dates rather than an independent legal-term calendar.",
+    "source": "invocations_v2 accepted evidence + speaker_views/paragraph_view_v1.parquet",
+    "status": "exploratory AI descriptive"
+  },
+  "legacy_issue_attention": {
+    "label": "Legacy issue attention",
+    "question": "What share of a president's source-document paragraphs carries one displayed CorEx issue?",
+    "definition": "Boolean-positive paragraphs for the displayed CorEx issue divided by every corpus paragraph in speeches owned by that president.",
+    "example": "Twenty positive paragraphs among 100 source-document paragraphs is 20% legacy issue attention.",
+    "steps": [
+      "Join paragraphs to speeches by document identity",
+      "Group the joined paragraphs by source-document president owner",
+      "Count Boolean-positive paragraphs for the displayed issue",
+      "Divide by every source-document paragraph owned by that president"
+    ],
+    "formula": "issue-positive source-document paragraphs / all source-document paragraphs",
+    "unit": "percent of source-document paragraphs",
+    "limitations": "CorEx issues are multi-label and methodologically distinct from actual-speaker AI topics. Source-document ownership is not speaker attribution, and the measure is descriptive rather than causal.",
+    "source": "issues_president.parquet + paragraph_issues.parquet",
+    "status": "exploratory descriptive"
   },
   "president_percentile": {
     "label": "President percentile",
@@ -261,21 +383,20 @@
     "status": "descriptive"
   },
   "temporal_portrait": {
-    "label": "Temporal appeal and self-reference",
-    "question": "How often does each president invoke tomorrow or recovery, and how personally is the record voiced?",
-    "definition": "Future and nostalgia rates per 10,000 marker words position each president; portrait area is the first-person singular share among counted singular and plural first-person pronouns.",
-    "example": "A president at 8 future and 5 nostalgia matches per 10,000 words with a 40% singular share sits at (8, 5), with portrait area proportional to 40%.",
+    "label": "Temporal appeals by president and over time",
+    "question": "How often does presidential wording invoke tomorrow or recovery of yesterday?",
+    "definition": "Future and nostalgia matches per 10,000 marker words position each president and form two separate trailing four-year rolling averages of annual rates.",
+    "example": "A president at 8 future and 5 nostalgia matches per 10,000 words sits at (8, 5); a timeline point averages the four annual rates ending in its displayed year.",
     "steps": [
       "Pool every available corpus speech assigned to the president",
       "Count future and nostalgia families and divide each by marker words",
-      "Count singular-family forms (I, me, my, mine, myself)",
-      "Divide singular forms by singular plus plural first-person forms",
-      "Encode that bounded share as portrait area, not diameter"
+      "For the timeline, calculate each annual rate and average four consecutive years",
+      "Require coverage in all four years and at least 10,000 total window words"
     ],
-    "formula": "x = future/words \u00d7 10,000; y = nostalgia/words \u00d7 10,000; area = singular/(singular + plural)",
-    "unit": "axis matches per 10,000 marker words; portrait-area percent singular",
-    "limitations": "Dictionary matches do not establish intent or accuracy. Singular share is not ego or personality; genre, quotations, other speakers, and the referent of collective pronouns can change the value.",
-    "source": "speech_markers.parquet + speech_stats.parquet + speeches.parquet",
+    "formula": "future rate = future/words \u00d7 10,000; nostalgia rate = nostalgia/words \u00d7 10,000",
+    "unit": "matches per 10,000 marker words",
+    "limitations": "Each year receives equal weight in the rolling average even when its speech volume differs. Dictionary matches do not establish intent, feasibility, or historical accuracy; genre, quotations, other speakers, and uneven coverage can change the rates.",
+    "source": "speech_markers.parquet + speeches.parquet",
     "status": "descriptive"
   },
   "hope_doom_ratio": {
@@ -298,17 +419,18 @@
   "uncertainty_envelope": {
     "label": "Uncertainty envelope",
     "question": "How much uncertainty comes from sampling and AI disagreement?",
-    "definition": "The combined interval expands sampling variation by measured annotator disagreement.",
-    "example": "A sampling-only 4\u20138% range may become 3\u201310% after model disagreement is added.",
+    "definition": "The displayed interval width is the upper bound minus the lower bound in percentage points; a combined interval expands sampling variation by measured annotator disagreement.",
+    "example": "A sampling-only 4\u20138% range is 4 percentage points wide; a 3\u201310% combined range is 7 points wide.",
     "steps": [
-      "Bootstrap speeches",
-      "Measure paired-model disagreement",
-      "Combine the two components"
+      "Bootstrap speeches with source bounds stored as 0\u20131 shares",
+      "Measure paired-model disagreement where applicable",
+      "Combine the two components",
+      "Subtract lower from upper and multiply by 100 for the displayed width"
     ],
-    "formula": "sampling interval \u00b1 disagreement half-width",
-    "unit": "share",
+    "formula": "displayed width = (upper share \u2212 lower share) \u00d7 100 percentage points",
+    "unit": "percentage-point interval width (source bounds stored as 0\u20131 shares)",
     "limitations": "Disagreement measured on a sample is assumed to transfer to the corpus.",
-    "source": "bands.parquet",
+    "source": "data/quality/uncertainty_decomposition.csv (derived from bands.parquet)",
     "status": "quality-aware descriptive"
   },
   "p_value": {
@@ -393,6 +515,23 @@
     "source": "speech_markers.parquet",
     "status": "descriptive"
   },
+  "legal_hype_ratio": {
+    "label": "Legal/procedural vocabulary divided by hype",
+    "question": "How many legal or procedural matches appear for each hype match in one supported time window?",
+    "definition": "The aggregate legal/procedural count divided by the aggregate hype count in a centered five-year window.",
+    "example": "A value of 2 means two legal/procedural dictionary matches per hype dictionary match.",
+    "steps": [
+      "Sum both dictionaries and words within the window",
+      "Require at least 20,000 words",
+      "Suppress a zero hype denominator",
+      "Divide legal/procedural matches by hype matches"
+    ],
+    "formula": "\u03a3 legal/procedural matches / \u03a3 hype matches",
+    "unit": "legal/procedural matches per hype match",
+    "limitations": "The dictionaries differ in breadth. The ratio can rise when legal/procedural wording increases or hype falls, so both rates remain available in exact details.",
+    "source": "speech_markers.parquet",
+    "status": "descriptive"
+  },
   "hype_doom": {
     "label": "Hype and doom vocabulary",
     "question": "How often did speeches use extreme positive or negative wording?",
@@ -425,5 +564,210 @@
     "limitations": "A high score is resemblance within the named inputs, not influence, ideology, agreement, or general similarity.",
     "source": "president_edges.parquet",
     "status": "exploratory"
+  },
+  "annotation_population_lineage": {
+    "label": "Annotation population lineage",
+    "question": "Which records enter each annotation and evaluation population?",
+    "definition": "A keyed ledger carries every reported population from its source corpus through ownership correction, eligibility, annotation, and paired evaluation.",
+    "example": "The paired-model population is a subset of the sampled population, not a substitute for the full eligible corpus.",
+    "steps": [
+      "Name the source population",
+      "Apply each declared inclusion or exclusion rule",
+      "Validate keyed one-to-one transitions",
+      "Publish counts and downstream consumers"
+    ],
+    "formula": "population after step = population before step \u2212 declared exclusions + declared additions",
+    "unit": "documents, speeches, or paragraphs at the named grain",
+    "limitations": "Counts at different grains are not interchangeable, and lineage establishes scope rather than validity.",
+    "source": "data/quality/population_ledger.csv + data/quality/manifest_v2.json",
+    "status": "quality audit"
+  },
+  "annotation_evidence_visibility": {
+    "label": "Annotation evidence visibility",
+    "question": "Can a published judgment be traced back to governed evidence?",
+    "definition": "A provenance receipt links a claim to its population, method, uncertainty, artifact, status, limitation, and downstream use.",
+    "example": "A chart value is inspectable when its source artifact and population contract are both named beside it.",
+    "steps": [
+      "Identify the public claim",
+      "Name its population and unit",
+      "Link the governed artifact and method",
+      "Declare uncertainty, status, and limitation"
+    ],
+    "formula": "receipt = claim + population + method + uncertainty + artifact + status + limitation + use",
+    "unit": "provenance fields",
+    "limitations": "A complete receipt improves auditability but does not prove that a model judgment is historically valid.",
+    "source": "data/quality/manifest_v2.json",
+    "status": "quality audit"
+  },
+  "annotation_pipeline_lineage": {
+    "label": "Annotation pipeline lineage",
+    "question": "Which governed processing stages connect source text to a public judgment?",
+    "definition": "An ordered provenance flow names corpus segmentation, taxonomy discovery and freeze, masked judgment, normalization, and independent reproducibility audit as distinct stages.",
+    "example": "A paragraph can be traced from its source key through a frozen prompt and normalized output without treating second-model availability as completion of the whole pipeline.",
+    "steps": [
+      "Identify the source corpus and semantic key",
+      "Record discovery and taxonomy-freeze receipts",
+      "Record masked judgment prompt and run identity",
+      "Normalize outputs",
+      "Link the separate reproducibility audit"
+    ],
+    "formula": "source key \u2192 discovery/freeze \u2192 masked judgment \u2192 normalization \u2192 audit receipt",
+    "unit": "ordered governed processing stages",
+    "limitations": "Pipeline traceability does not establish human validity, and the final audit stage can be incomplete without invalidating primary annotations.",
+    "source": "data/llm_annotations/manifests/*.json + data/quality/manifest_v2.json",
+    "status": "quality audit"
+  },
+  "annotation_processing_completion": {
+    "label": "Paired-evaluation availability",
+    "question": "How much of the planned second-model sample has a keyed paired judgment?",
+    "definition": "Completed keyed paragraph pairs divided by every paragraph selected for paired evaluation; missing records stay explicit.",
+    "example": "A missing second judgment reduces paired-evaluation availability but is not recoded as a negative label.",
+    "steps": [
+      "Load the deterministic sample ledger",
+      "Validate unique paragraph keys",
+      "Match completed second-model rows by key",
+      "Report completed and missing counts by speech and era"
+    ],
+    "formula": "completed paired paragraph keys / selected paragraph keys",
+    "unit": "percent of sampled paragraphs",
+    "limitations": "High completion does not establish cross-model agreement, human validity, or representative corpus coverage.",
+    "source": "data/quality/population_ledger.csv + data/quality/second_model_by_speech.csv",
+    "status": "quality audit"
+  },
+  "intermodel_agreement_overall": {
+    "label": "Overall cross-model reproducibility",
+    "question": "How consistently do two model passes apply the same frozen rubric?",
+    "definition": "Field-appropriate agreement measures summarize the complete keyed paired-evaluation population, with prevalence and support shown alongside them.",
+    "example": "Binary fields use \u03ba and raw agreement, while multi-label fields use set overlap; these values belong in separate metric families.",
+    "steps": [
+      "Restrict to completed keyed pairs",
+      "Normalize with the governed taxonomy",
+      "Choose a measure appropriate to the field",
+      "Publish prevalence, support, and a speech-clustered interval"
+    ],
+    "formula": "agreement measure appropriate to field over all completed pairs",
+    "unit": "agreement, overlap, or exact-match scale",
+    "limitations": "The second model is another instrument, not human ground truth; measures from different families must not be ranked as one league table.",
+    "source": "agreement_v1.parquet + data/quality/agreement_by_field_and_era.csv",
+    "status": "cross-model reproducibility"
+  },
+  "intermodel_agreement_by_story_era": {
+    "label": "Cross-model reproducibility by Story era",
+    "question": "Does rubric reproducibility vary across the governed Story eras?",
+    "definition": "Field-appropriate agreement is recomputed within the nine governed chronological Story eras, with paragraph and speech support retained.",
+    "example": "A lower interval in one era can reflect fewer speeches, different prevalence, or harder language rather than a proven historical trend.",
+    "steps": [
+      "Assign each pair from its speech year to a governed Story era",
+      "Preserve governed chronological era order",
+      "Compute the field's agreement measure",
+      "Cluster resampling by speech and report support"
+    ],
+    "formula": "agreement(field | governed Story era)",
+    "unit": "agreement, overlap, or exact-match scale by Story era",
+    "limitations": "Story eras are editorial periods rather than random samples, and their estimates can be unstable at low support.",
+    "source": "agreement_v1.parquet + data/quality/agreement_by_field_and_era.csv",
+    "status": "cross-model reproducibility"
+  },
+  "entity_name_and_stance_reproducibility": {
+    "label": "Entity detection-to-stance reproducibility",
+    "question": "Do two model passes find the same normalized names and then assign the same stance?",
+    "definition": "A funnel first measures matched normalized name instances among all detected instances, then measures stance agreement only among matched names; paragraph Jaccard is reported under both declared empty-set treatments.",
+    "example": "Both-empty paragraphs increase all-pair Jaccard but do not contribute a detected name to the stance stage.",
+    "steps": [
+      "Normalize entity names with the governed function",
+      "Pair detections by paragraph and name",
+      "Count matched detections among the detection union",
+      "Evaluate stance only on matches and publish both Jaccard denominators"
+    ],
+    "formula": "name match = matched instances / union instances; stance = matching stance / matched instances",
+    "unit": "percent of entity instances or paragraph-level Jaccard",
+    "limitations": "Case normalization is not complete historical alias resolution, and model-to-model reproducibility is not human validity.",
+    "source": "data/quality/entity_name_agreement.csv + data/quality/entity_stance_matches.csv",
+    "status": "cross-model reproducibility"
+  },
+  "coarse_pos_share": {
+    "label": "Coarse part-of-speech share",
+    "question": "What share of tagged alphabetic tokens receives each universal part-of-speech label?",
+    "definition": "Deterministic spaCy token counts are divided by all alphabetic tokens at the declared speech or aggregate grain.",
+    "example": "A 12% pronoun share means 12 of every 100 tagged alphabetic tokens were classified as pronouns.",
+    "steps": [
+      "Fingerprint the complete source corpus",
+      "Tag each speech with the pinned spaCy model",
+      "Keep alphabetic tokens",
+      "Count universal tags and divide by the declared token denominator"
+    ],
+    "formula": "tokens with POS tag / all tagged alphabetic tokens",
+    "unit": "percent of tagged alphabetic tokens",
+    "limitations": "Historical spelling, transcription, quotations, genre, and model errors can move the shares; they do not identify syntax or causality.",
+    "source": "data/grammar/speech_pos.parquet + data/grammar/manifest.json",
+    "status": "derived feature engineering"
+  },
+  "exact_agreement": {
+    "label": "Exact agreement",
+    "question": "How often are two normalized judgments identical?",
+    "definition": "The share of paired records whose complete normalized value is identical across the two model passes.",
+    "example": "For a multi-label field, {A, B} and {B, A} match after normalization, while {A} and {A, B} do not.",
+    "steps": [
+      "Normalize both values",
+      "Compare each keyed pair",
+      "Count identical pairs",
+      "Divide by every eligible completed pair"
+    ],
+    "formula": "identical normalized pairs / eligible completed pairs",
+    "unit": "percent of pairs",
+    "limitations": "Exact agreement can be dominated by common negatives and does not correct for chance or partial set overlap.",
+    "source": "agreement_v1.parquet",
+    "status": "cross-model reproducibility"
+  },
+  "jaccard": {
+    "label": "Jaccard set overlap",
+    "question": "How much of the combined set did two judgments share?",
+    "definition": "Intersection size divided by union size, with the treatment of two empty sets declared explicitly.",
+    "example": "Topic sets {A, B} and {B, C} share one of three combined labels, for Jaccard 0.33.",
+    "steps": [
+      "Normalize both sets",
+      "Count their intersection",
+      "Count their union",
+      "Divide and state whether both-empty pairs are included"
+    ],
+    "formula": "|A \u2229 B| / |A \u222a B|",
+    "unit": "0\u20131 overlap",
+    "limitations": "Averages depend materially on whether both-empty pairs are included and do not identify which model is correct.",
+    "source": "agreement_v1.parquet",
+    "status": "cross-model reproducibility"
+  },
+  "era_annual_abruptness": {
+    "label": "Annual transition abruptness",
+    "question": "Where do adjacent historical windows differ most across the governed feature system?",
+    "definition": "The Euclidean magnitude of right-minus-left standardized axis changes is ranked separately for symmetric four- and eight-year windows, then their within-window percentiles are averaged.",
+    "example": "Several adjacent high-scoring years form one annual transition mountain rather than several independent boundaries.",
+    "steps": [
+      "Build governed feature vectors on both sides of every eligible year",
+      "Scale each right-minus-left axis difference by that axis's population standard deviation across governed 8-year-bin fingerprints",
+      "Measure the right-minus-left vector magnitude",
+      "Combine four- and eight-year percentile ranks"
+    ],
+    "formula": "consensus = (percentile(rank\u2084) + percentile(rank\u2088)) / 2",
+    "unit": "0\u20131 consensus abruptness percentile",
+    "limitations": "Abruptness diagnoses change but cannot choose a historically meaningful boundary by itself; overlapping windows are dependent.",
+    "source": "era_boundaries/consensus_scores.parquet + era_boundaries/sliding_scores.parquet",
+    "status": "derived sensitivity diagnostic"
+  },
+  "era_segmentation_sensitivity": {
+    "label": "Era segmentation sensitivity",
+    "question": "Which proposed boundaries persist when reasonable modeling choices change?",
+    "definition": "A condition matrix records the dynamic-programming partition starts and compares each partition with the primary nine-segment condition across cluster counts, minimum lengths, grid offsets, weighting, terminal coverage, feature omissions, and common genre.",
+    "example": "A boundary supported under most comparable conditions is robust within this specification space, not historically inevitable.",
+    "steps": [
+      "Build four-year cycle fingerprints",
+      "Standardize the retained feature axes",
+      "Minimize within-segment squared distance under each declared condition",
+      "Compare starts, support, objective, and partition similarity"
+    ],
+    "formula": "argmin partition \u03a3 within-segment squared distance",
+    "unit": "boundary support, objective, and adjusted Rand similarity",
+    "limitations": "Results depend on the declared feature system and condition grid; the incomplete terminal cycle is explicitly right-censored.",
+    "source": "era_boundaries/sensitivity.parquet + era_boundaries/meta.json",
+    "status": "derived sensitivity analysis"
   }
 }

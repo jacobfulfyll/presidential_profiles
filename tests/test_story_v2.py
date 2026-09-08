@@ -31,7 +31,7 @@ def _story_map() -> dict[str, tuple[str, str, str]]:
     }
 
 
-def test_chronology_has_nine_eras_then_synthesis_and_post_story_appendix():
+def test_chronology_has_nine_eras_then_synthesis():
     keys = [row[0] for row in site.SECTIONS]
     assert keys == [
         "written_republic",
@@ -44,7 +44,6 @@ def test_chronology_has_nine_eras_then_synthesis_and_post_story_appendix():
         "always_on",
         "platform_dominance",
         "synthesis",
-        "records_appendix",
     ]
     chapters = [row[1] for row in site.SECTIONS]
     assert chapters[:9] == [
@@ -59,7 +58,6 @@ def test_chronology_has_nine_eras_then_synthesis_and_post_story_appendix():
         "2017–2026 · Platform-era intensification",
     ]
     assert chapters[9].startswith("Synthesis ·")
-    assert chapters[10].startswith("Post-story appendix ·")
     assert "llm_topics" not in keys
     assert "issues" not in keys
 
@@ -67,7 +65,7 @@ def test_chronology_has_nine_eras_then_synthesis_and_post_story_appendix():
 def test_story_and_summary_render_as_separate_documents():
     keys = [row[0] for row in site.SECTIONS]
     assert keys[:9][-1] == "platform_dominance"
-    assert keys[9:] == ["synthesis", "records_appendix"]
+    assert keys[9:] == ["synthesis"]
     assert not any(key == "summary" for key in keys)
     bodies = {key: "<p>Evidence body.</p>" for key in keys}
     stats = {
@@ -85,7 +83,8 @@ def test_story_and_summary_render_as_separate_documents():
     assert 'location.replace("summary.html" + location.hash)' in story
     assert '<section id="written_republic"' not in summary
     assert '<section id="synthesis"' in summary
-    assert '<section id="records_appendix"' in summary
+    assert '<section id="records_appendix"' not in summary
+    assert "extreme-speeches evidence cards" not in summary.lower()
     assert "America in Summary" in summary
 
 
@@ -132,6 +131,35 @@ def test_build_html_marks_the_end_of_chronology_and_progress_metadata():
     assert 'classList.add("reduced-motion")' in page
     assert "scroll-margin-top:calc(var(--global-nav-height,48px) + 48px)" in page
     assert "overflow-x: auto; overflow-y: hidden" in page
+
+
+def test_reference_landscape_css_preserves_disclosures_and_mobile_wrapping():
+    page = site.build_html(
+        {},
+        {"speeches": 1, "words": 100, "presidents": 1,
+         "start": 1789, "end": 2026},
+        {key: "" for key, *_ in site.SECTIONS[:9]},
+        inline=False,
+        page_kind="story",
+    )
+    assert ".era-reference-highlight > summary:focus-visible" in page
+    assert ".era-template-grid .era-template-references" in page
+    assert ".era-template-grid .era-template-adversaries" in page
+    assert ".era-reference-lane" in page
+    assert ".era-reference-name" in page
+    assert ".era-reference-meta" in page
+    assert '.era-reference-highlight[data-support-status="limited_record"]' in page
+    assert "border-left:1px solid #d2c5b4" in page
+    assert "box-shadow:inset 3px 0 0" not in page
+    assert ".era-reference-track" not in page
+    assert ".era-reference-intro" not in page
+    assert "min-height:230px;align-self:stretch" in page
+    assert ".era-reference-evidence" in page
+    assert "gap:5px;flex:1 1 0" in page
+    assert "gap:5px;margin-top:5px;flex:1 1 0" in page
+    assert "flex-direction:column;justify-content:center" in page
+    assert ".era-template-constituents" not in page
+    assert ".era-constituent-list" not in page
 
 
 def test_naming_crossover_is_derived_as_1910_from_the_real_corpus():

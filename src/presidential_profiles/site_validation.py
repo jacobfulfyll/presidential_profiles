@@ -8,20 +8,113 @@ from urllib.parse import unquote, urlsplit
 
 HREF_RE = re.compile(r"""(?:href|src)=["']([^"']+)["']""", re.I)
 ID_RE = re.compile(r"""(?:id|name)=["']([^"']+)["']""", re.I)
-CLASS_RE = re.compile(r"""class=["']([^"']+)["']""", re.I)
-EVIDENCE_SUMMARY_RE = re.compile(
-    r"<summary>\s*(?:Inspect (?:the |edge )?evidence|"
-    r"<span[^>]*>.*?</span>\s*Evidence\s*·[^<]*)\s*</summary>", re.I
+SEMANTIC_CHART_RE = re.compile(
+    r"<(?:figure|div)\b[^>]*\bdata-substantive-chart(?:=(?:[\"'][^\"']*[\"']))?[^>]*>",
+    re.I,
 )
-MEASURE_SUMMARY_RE = re.compile(
-    r"<summary>\s*(?:Explain this measure|"
-    r"<span[^>]*>.*?</span>\s*Measure\s*·[^<]*)\s*</summary>", re.I
+SEMANTIC_FIGURE_BLOCK_RE = re.compile(
+    r"(<figure\b[^>]*\bdata-substantive-chart(?:=(?:[\"'][^\"']*[\"']))?[^>]*>)"
+    r"(.*?)</figure>",
+    re.I | re.S,
 )
+FIGURE_RE = re.compile(r"<figure\b[^>]*>", re.I)
+CHARTISH_CONTAINER_RE = re.compile(
+    r"<(?:figure|div)\b[^>]*\bclass=[\"'][^\"']*(?:chart|plot)[^\"']*[\"'][^>]*>",
+    re.I,
+)
+ATTRIBUTE_RE = re.compile(r"([:\w-]+)=[\"']([^\"']*)[\"']", re.I)
 RETIRED_PUBLIC_ROUTES = {"networks.html"}
+GOVERNED_ANALYTICAL_ROUTES = {
+    "data-quality.html",
+    "methodology.html",
+    "era-boundaries.html",
+    "label-models.html",
+    "metrics.html",
+}
 
 
 def _reject_nonfinite_json(value: str):
     raise ValueError(f"non-finite JSON value {value}")
+
+
+def _semantic_chart_errors(
+    page: Path, text: str, *, governed_route: bool = False
+) -> tuple[int, list[str]]:
+    """Validate explicit substantive-figure semantics and metric receipts."""
+    tags = SEMANTIC_CHART_RE.findall(text)
+    errors: list[str] = []
+    for index, tag in enumerate(tags, start=1):
+        attributes = {
+            name.casefold(): value.strip()
+            for name, value in ATTRIBUTE_RE.findall(tag)
+        }
+        prefix = f"{page}: substantive chart {index}"
+        if not tag.lstrip().casefold().startswith("<figure"):
+            errors.append(f"{prefix} must use semantic figure markup")
+        metric_value = attributes.get("data-metric", "")
+        if not metric_value:
+            errors.append(f"{prefix} is missing data-metric")
+        else:
+            from .metrics import METRICS
+
+            metric_names = {
+                name
+                for name in re.split(r"[\s,]+", metric_value)
+                if name
+            }
+            unknown = sorted(metric_names - set(METRICS))
+            if unknown:
+                errors.append(
+                    f"{prefix} names unregistered data-metric values {unknown}"
+                )
+        if not attributes.get("data-evidence"):
+            errors.append(f"{prefix} is missing data-evidence")
+        if not (
+            attributes.get("aria-label")
+            or attributes.get("aria-labelledby")
+        ):
+            errors.append(f"{prefix} is missing an accessible name")
+    if governed_route:
+        unmarked_figures = [
+            tag
+            for tag in FIGURE_RE.findall(text)
+            if "data-substantive-chart" not in tag.casefold()
+        ]
+        if unmarked_figures:
+            errors.append(
+                f"{page}: {len(unmarked_figures)} figure(s) lack "
+                "data-substantive-chart"
+            )
+
+        outside_marked_figures = SEMANTIC_FIGURE_BLOCK_RE.sub("", text)
+        unmarked_chartish = CHARTISH_CONTAINER_RE.findall(outside_marked_figures)
+        if unmarked_chartish:
+            errors.append(
+                f"{page}: {len(unmarked_chartish)} chart/plot container(s) are "
+                "outside a marked substantive figure"
+            )
+
+        for index, (tag, body) in enumerate(
+            SEMANTIC_FIGURE_BLOCK_RE.findall(text), start=1
+        ):
+            attributes = {
+                name.casefold(): value.strip()
+                for name, value in ATTRIBUTE_RE.findall(tag)
+            }
+            metric_names = filter(
+                None, re.split(r"[\s,]+", attributes.get("data-metric", ""))
+            )
+            for metric_name in metric_names:
+                metric_link = re.compile(
+                    rf"href=[\"'][^\"']*metrics\.html#{re.escape(metric_name)}[\"']",
+                    re.I,
+                )
+                if not metric_link.search(body):
+                    errors.append(
+                        f"{page}: substantive chart {index} does not visibly link "
+                        f"metric definition {metric_name}"
+                    )
+    return len(tags), errors
 
 
 def _target(page: Path, site_dir: Path, href: str) -> tuple[Path | None, str]:
@@ -47,21 +140,12 @@ def validate_site(site_dir: Path, write_report: bool = True) -> dict:
         text = page.read_text()
         if 'aria-label="Primary"' not in text:
             errors.append(f"{page.relative_to(site_dir)}: missing primary navigation")
-        chart_count = sum(
-            "chart" in classes.split() for classes in CLASS_RE.findall(text)
+        _, semantic_errors = _semantic_chart_errors(
+            page.relative_to(site_dir),
+            text,
+            governed_route=relative_page in GOVERNED_ANALYTICAL_ROUTES,
         )
-        lesson_count = len(MEASURE_SUMMARY_RE.findall(text))
-        evidence_count = len(EVIDENCE_SUMMARY_RE.findall(text))
-        if lesson_count < chart_count:
-            errors.append(
-                f"{page.relative_to(site_dir)}: {chart_count} substantive charts "
-                f"but only {lesson_count} metric lessons"
-            )
-        if evidence_count < chart_count:
-            errors.append(
-                f"{page.relative_to(site_dir)}: {chart_count} substantive charts "
-                f"but only {evidence_count} evidence controls"
-            )
+        errors.extend(semantic_errors)
         for href in HREF_RE.findall(text):
             if "${" in href or "function(" in href or len(href) > 500:
                 continue
@@ -100,7 +184,7 @@ def validate_site(site_dir: Path, write_report: bool = True) -> dict:
         except (json.JSONDecodeError, UnicodeDecodeError, ValueError) as exc:
             invalid_json.append(f"{path.relative_to(site_dir)}: {exc}")
     errors.extend(invalid_json)
-    report = {"schema_version": "site-validation-v1", "html_pages": len(pages),
+    report = {"schema_version": "site-validation-v2", "html_pages": len(pages),
               "json_shards": len(list(site_dir.rglob("*.json"))),
               "errors": errors, "ok": not errors}
     if write_report:

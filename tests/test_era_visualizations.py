@@ -14,6 +14,7 @@ from presidential_profiles import (
     era_profiles,
     era_visualizations,
     site,
+    story_foundation,
 )
 
 
@@ -23,18 +24,14 @@ DATA = Path(__file__).resolve().parents[1] / "data"
 @pytest.fixture(scope="module")
 def all_visualizations() -> dict[str, dict]:
     return era_visualizations.build_era_visualizations(
-        corpus.load(),
-        pd.read_parquet(DATA / "paragraphs.parquet"),
         pd.read_parquet(
             DATA / "llm_annotations" / "paragraph_annotations.parquet"
         ),
         pd.read_parquet(
             DATA / "llm_annotations" / "speech_annotations.parquet"
         ),
-        pd.read_parquet(
-            DATA / "llm_annotations" / "paragraph_entities.parquet"
-        ),
         attention.load_taxonomy(),
+        story_foundation.load_story_foundation(),
     )
 
 
@@ -88,22 +85,22 @@ def test_all_nine_eras_share_one_complete_visualization_contract(
         assert len(visualization["governance"]["medium_options"]) == 4
         assert visualization["adversaries"]["president_summary"]
         assert visualization["adversaries"]["edges"]
-        assert visualization["support"]["speeches"] > 0
-        assert visualization["support"]["paragraphs"] > 0
+        assert visualization["support"]["appearances"] > 0
+        assert visualization["support"]["speaker_audited_paragraphs"] > 0
 
 
 def test_each_graph_uses_era_local_denominators(all_visualizations):
     assert sum(
-        record["support"]["speeches"]
+        record["support"]["appearances"]
         for record in all_visualizations.values()
-    ) == 1_057
+    ) == 1_054
     assert sum(
-        record["support"]["paragraphs"]
+        record["support"]["speaker_audited_paragraphs"]
         for record in all_visualizations.values()
-    ) == 36_229
+    ) == 32_531
     for visualization in all_visualizations.values():
-        paragraph_total = visualization["support"]["paragraphs"]
-        speech_total = visualization["support"]["speeches"]
+        paragraph_total = visualization["support"]["speaker_audited_paragraphs"]
+        appearance_total = visualization["support"]["appearances"]
         agenda = visualization["agenda"]
         assert sum(
             row["paragraphs"] for row in agenda["president_support"]
@@ -123,13 +120,13 @@ def test_each_graph_uses_era_local_denominators(all_visualizations):
         governance = visualization["governance"]
         assert sum(
             row["count"] for row in governance["audience_options"]
-        ) == speech_total
+        ) == appearance_total
         assert sum(
             row["count"] for row in governance["medium_options"]
-        ) == speech_total
+        ) == appearance_total
         assert sum(
-            row["speeches"] for row in governance["presidents"]
-        ) == speech_total
+            row["appearances"] for row in governance["presidents"]
+        ) == appearance_total
 
 
 def test_founding_graphs_use_the_individual_agenda_display(
@@ -188,7 +185,9 @@ def test_founding_graphs_use_the_individual_agenda_display(
         if edge["president"] == "Thomas Jefferson"
         and edge["adversary"] == "Great Britain"
     )
-    assert jefferson_edge["paragraphs"] == 14
+    assert jefferson_edge["paragraphs"] == 12
+    assert jefferson_edge["ai_ner_paragraphs"] == 2
+    assert jefferson_edge["ai_only_paragraphs"] == 10
 
 
 def test_agenda_rows_separate_thin_presidential_records(
@@ -209,7 +208,7 @@ def test_agenda_rows_separate_thin_presidential_records(
         "William Harrison",
         "Zachary Taylor",
     ]
-    assert agenda["minimum_supported_speeches"] == 5
+    assert agenda["minimum_supported_appearances"] == 5
     assert "may sum above 100%" in agenda["measure"]
     assert all(
         row["status"] == (
@@ -221,9 +220,9 @@ def test_agenda_rows_separate_thin_presidential_records(
     )
     body = site._era_presidential_agendas_html(expansion)
     assert "Thin support · William Harrison, Zachary Taylor" in body
-    assert "1 speech · 57 paragraphs" in body
-    assert "2 speeches · 62 paragraphs" in body
-    assert "remain separate supporting evidence" in body
+    assert "1 source appearance · 57 speaker-audited paragraphs" in body
+    assert "2 source appearances · 62 speaker-audited paragraphs" in body
+    assert "separate supporting" in body
     assert body.count("data-agenda-cards") == 1
     assert body.count("data-agenda-thin-cards") == 1
 
@@ -247,7 +246,7 @@ def test_agenda_counts_multilabel_paragraphs_in_each_applicable_domain():
     })
     agenda = era_visualizations._agenda(
         frame,
-        [{"name": "Test President", "speeches": 5}],
+        [{"name": "Test President", "appearances": 5}],
         taxonomy,
     )
     composition = agenda["compositions"][0]
@@ -388,11 +387,11 @@ def test_visualizations_publish_as_one_switchable_json_file(
         all_visualizations, tmp_path
     )
     payload = json.loads(path.read_text())
-    assert payload["schema_version"] == "era-visualizations-v8"
+    assert payload["schema_version"] == "era-visualizations-v9"
     assert payload["era_order"] == list(all_visualizations)
     assert (
-        payload["visualizations"]["cold-war"]["support"]["speeches"]
-        == 192
+        payload["visualizations"]["cold-war"]["support"]["appearances"]
+        == 200
     )
 
 

@@ -41,6 +41,56 @@
   deliberately removed from `combat_meta.json` so that a dirty `git status data/combat/` means the
   numbers actually moved, not that the clock did. Keep it that way; provenance identity is the
   `corpus_fingerprint`, and *when* it ran is git's job.
+- `data/speaker_views/` and `data/reference_entities/` are the governed
+  `speaker-reference-foundation-v1` layer. Use `paragraph_view_v1.parquet` for
+  actual-speaker paragraph analysis and `appearances_v1.parquet` for
+  speech-level president analysis; excluded rows remain in the paragraph view
+  with reasons. Headline era entities come only from promoted primary-AI
+  candidates, while local pinned spaCy NER supplies source agreement and
+  NER-only download rows. Never infer AI stance from NER. Run the quick reader
+  guard with `python -m presidential_profiles.foundation_audit --check`; keep
+  the slower NER rebuild and byte gate separate.
+- Story consumes that layer only through `story_foundation.py`. Load and
+  validate one bundle before any `docs/` write, then pass it to the profile,
+  visualization, contextualization, and download producers. Named-president
+  claims use eligible actual-speaker rows; aggregate chronology stays on the
+  source-document corpus. `AI + NER` / `AI only` are source-agreement labels,
+  never confidence or historical validation. The active migration contract is
+  `notes/story-reference-entity-migration-v1.md`. Era Profiles publish the
+  active `era-profile-v6` reference landscape described in
+  `notes/story-reference-landscape-v1.md`; the governed five-name projection
+  remains a retained audit/download field and is not the visible top-left card.
+- `data/speaker_topic_network/` is the governed
+  `actual-speaker-topic-network-v1` contract. Load it through
+  `speaker_topic_network.load_network_bundle()`; consumers must not independently
+  rejoin speakers, topics, appearances, or Story eras. Topic-free eligible
+  paragraphs stay in denominators, multi-label presence is non-additive, and
+  thin/default-visible flags never delete observed edges. Rebuild only with
+  `arch -x86_64 .venv/bin/python -m presidential_profiles.speaker_topic_network
+  --rebuild`, then run `--check`. Summary consumes a field-preserving
+  all-corpus projection through `summary_topic_network.py`; it never loads the
+  full public network or recalculates Plan 3 fields. The current renderer uses
+  one to eight fixed topic anchors, positions presidents by existing
+  `speaker_paragraph_share`, and sizes them by explicitly non-additive
+  selected-topic paragraph memberships. Deterministic display stretch and
+  collision spacing are presentation state, not a new score; optional named-
+  president filtering must preserve the full-field area scale. Canonicalize
+  selected topics into governed taxonomy order before layout. Summary renders
+  only supported/default-visible recurring relationships. Its sole local
+  download is the 427-row exact recurring-topic CSV; complete governed rows
+  remain in the accepted Plan 3 bundle. Validate the 20-file
+  projection with `python -m presidential_profiles.summary_topic_network
+  --check --site-dir docs`. See
+  `notes/summary-actual-speaker-topic-network-plan-v1.md`.
+- Explore v2 is governed by `notes/explore-interaction-and-evidence-v1.md` and
+  consumes only the 263-file projection produced by `explore_projection.py`.
+  Keep lexical rates, family aggregation, topic cells, support labels, and both
+  band trust gates generator-owned; browser code may decode compact transport
+  fields but must not derive analysis. The canonical site build verifies two
+  byte-identical in-memory projections, source hashes, budgets, exact inventory,
+  atomic publication, and final public parity. `docs/explorer/` and the Explore
+  assets are generated output; never patch them directly or restore the retired
+  unversioned shards.
 - `ci_status` (in `data/combat/{combativeness,peak_decades,ratios}.parquet`) is the
   machine-readable **trust gate** for downstream consumers — `era-atlas` depends on this table.
   Never read `rate`/`ratio` without it: `suppressed_n_floor` = too few speech clusters for an

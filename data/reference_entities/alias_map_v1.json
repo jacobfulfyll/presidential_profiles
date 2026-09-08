@@ -1,0 +1,49 @@
+{
+  "aliases": {
+    "the congress": "congress",
+    "the democratic party": "democratic party",
+    "the republican party": "republican party",
+    "the united states": "united states",
+    "the united states of america": "united states",
+    "u.s": "united states",
+    "u.s.": "united states",
+    "u.s. congress": "congress",
+    "u.s.a": "united states",
+    "u.s.a.": "united states",
+    "united states congress": "congress",
+    "united states of america": "united states",
+    "usa": "united states"
+  },
+  "deliberately_unmerged": [
+    [
+      "great britain",
+      "united kingdom"
+    ],
+    [
+      "prussia",
+      "germany"
+    ],
+    [
+      "austria-hungary",
+      "austria"
+    ],
+    [
+      "soviet union",
+      "russia"
+    ],
+    [
+      "yugoslavia",
+      "serbia"
+    ],
+    [
+      "ottoman empire",
+      "turkey"
+    ]
+  ],
+  "normalization": [
+    "Unicode-preserving casefold",
+    "whitespace collapse"
+  ],
+  "policy": "safe lexical equivalents only; historically distinct entities remain distinct",
+  "schema_version": "reference-entity-alias-v1"
+}

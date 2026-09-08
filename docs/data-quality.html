@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Data quality · Presidential Profiles</title>
+<title>Can I trust the data? · Presidential Profiles</title>
 <style>
   :root {
     --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
@@ -33,12 +33,14 @@
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
 align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
-color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+box-sizing:border-box;min-width:44px;min-height:44px;color:#172a38;text-decoration:none;font-weight:760;
+letter-spacing:-.015em;white-space:nowrap}
 .nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
 background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
 align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
 .nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
-min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+box-sizing:border-box;min-width:44px;min-height:44px;border:0;border-radius:8px;
+padding:7px 9px;background:transparent;
 color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
 white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
 .nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
@@ -47,23 +49,35 @@ background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6p
 border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
 transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
 .nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
-.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
-min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
-background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
-.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
-padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+.nav-submenu{position:absolute;top:100%;right:0;z-index:120;padding-top:7px}
+.nav-submenu-panel{display:grid;min-width:178px;padding:7px;
+border:1px solid rgba(11,11,11,.14);border-radius:11px;background:#fff;
+box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:flex;align-items:center;
+box-sizing:border-box;min-height:44px;border-radius:7px;padding:9px 10px;
+color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
 white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
-html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu,
+html:not(.nav-enhanced) .nav-group:focus-within>.nav-submenu{display:block!important}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
 .nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
 gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
-width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+width:100%;min-width:44px;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
 .nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
+@media(forced-colors:active){.global-nav{background:Canvas;border-color:CanvasText;
+backdrop-filter:none}.nav-submenu-panel{background:Canvas;color:CanvasText;
+border:2px solid CanvasText;box-shadow:none}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger,.nav-submenu a:hover{background:Canvas;color:CanvasText;
+outline:1px solid currentColor}.nav-item>a[aria-current=page],
+.nav-group.nav-group-current>.nav-trigger,.nav-submenu a[aria-current=page]{
+background:Canvas;color:CanvasText;text-decoration:underline;text-decoration-thickness:3px;
+text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
+.nav-submenu a:focus-visible,.nav-brand:focus-visible{outline-color:Highlight}}
 
 .note,.audit-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
 .audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
@@ -75,48 +89,67 @@ button,select,input{font:inherit} .tabs,.filters{display:flex;flex-wrap:wrap;gap
 .tabs button[aria-selected=true]{background:var(--ink);color:var(--page)} .panel[hidden]{display:none}
 .network-plot{height:620px} .sr-note{color:var(--muted);font-size:.85rem}
 @media(max-width:700px){.network-plot{height:460px}}
-</style></head><body><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div><div class="nav-item nav-group nav-group-current" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="data-quality.html" aria-current="page">Data Quality</a><a href="methodology.html">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+</style></head><body><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><div class="nav-submenu-panel"><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div></div><div class="nav-item nav-group nav-group-current" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><div class="nav-submenu-panel"><a href="data-quality.html" aria-current="page">Data Quality</a><a href="methodology.html">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
   if (!nav || !nav.matches(".global-nav")) return;
-  document.documentElement.classList.add("nav-enhanced");
   const groups = [...nav.querySelectorAll(".nav-group")];
-  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
-  const close = (group, restoreFocus = false) => {
+  const hoverPointer = matchMedia("(any-hover: hover)");
+  let openGroup = null;
+  let openMode = null;
+  const sync = (group, isOpen) => {
     const trigger = group.querySelector(".nav-trigger");
     const submenu = group.querySelector(".nav-submenu");
-    trigger.setAttribute("aria-expanded", "false");
-    submenu.hidden = true;
-    group.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    submenu.hidden = !isOpen;
+    group.classList.toggle("is-open", isOpen);
+  };
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    if (openGroup === group) {
+      openGroup = null;
+      openMode = null;
+    }
+    sync(group, false);
     if (restoreFocus) trigger.focus();
   };
-  const closeOthers = active => groups.forEach(group => {
-    if (group !== active) close(group);
-  });
-  const open = group => {
-    closeOthers(group);
-    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
-    group.querySelector(".nav-submenu").hidden = false;
-    group.classList.add("is-open");
+  const open = (group, mode) => {
+    if (openGroup && openGroup !== group) sync(openGroup, false);
+    openGroup = group;
+    openMode = mode;
+    sync(group, true);
+  };
+  const activate = group => {
+    if (openGroup !== group) {
+      open(group, "pinned");
+      return;
+    }
+    if (openMode === "hover") {
+      openMode = "pinned";
+      sync(group, true);
+      return;
+    }
+    close(group);
   };
   groups.forEach(group => {
     const trigger = group.querySelector(".nav-trigger");
-    const toggle = () => {
-      if (trigger.getAttribute("aria-expanded") === "true") close(group);
-      else open(group);
-    };
-    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("click", () => activate(group));
     trigger.addEventListener("keydown", event => {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      toggle();
+      activate(group);
     });
-    group.addEventListener("pointerenter", () => {
-      if (finePointer.matches) open(group);
+    group.addEventListener("pointerenter", event => {
+      if (event.pointerType === "touch") return;
+      const canHover = event.pointerType === "mouse" ||
+        (event.pointerType === "pen" && hoverPointer.matches);
+      if (canHover && openGroup !== group) open(group, "hover");
     });
-    group.addEventListener("pointerleave", () => {
-      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    group.addEventListener("pointerleave", event => {
+      if (event.pointerType === "touch") return;
+      if (openGroup === group && openMode === "hover" &&
+          !group.contains(document.activeElement)) close(group);
     });
     group.addEventListener("focusout", () => setTimeout(() => {
       if (!group.contains(document.activeElement)) close(group);
@@ -124,6 +157,7 @@ button,select,input{font:inherit} .tabs,.filters{display:flex;flex-wrap:wrap;gap
     group.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
       event.preventDefault();
+      event.stopPropagation();
       close(group, true);
     });
   });
@@ -138,209 +172,371 @@ button,select,input{font:inherit} .tabs,.filters{display:flex;flex-wrap:wrap;gap
   if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
   else addEventListener("resize", setNavHeight);
 
+  document.documentElement.classList.add("nav-enhanced");
 })();
 </script>
-<header><h1>Data quality</h1><p class="sub">What is missing, where models disagree, and how thin records are handled.</p></header>
+<header><h1>Can I trust the data?</h1><p class="sub">A layered audit of population, completeness, reproducibility, uncertainty, and known limits.</p></header>
 <main>
 <style>
-.quality-chart{height:410px;margin-top:14px}.quality-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.quality-grid .quality-chart{height:390px}@media(max-width:820px){.quality-grid{grid-template-columns:1fr}}
-.quality-context{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
-.quality-context article{border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--surface)}
-.quality-context strong{display:block;margin-bottom:5px}.quality-context p{font-size:.84rem;margin:0}
-.quality-context .good{border-top:4px solid #4f8a68}.quality-context .caution{border-top:4px solid #b17a43}
-.quality-context .meaning{border-top:4px solid #2d6f9d}.matrix-reading{font-size:1rem;line-height:1.65}
-@media(max-width:820px){.quality-context{grid-template-columns:1fr}}
+.quality-nav{position:sticky;top:calc(var(--global-nav-height,60px) + 8px);z-index:20;
+display:flex;gap:7px;overflow-x:auto;padding:9px;margin:0 0 22px;background:rgba(249,249,247,.96);
+border:1px solid var(--border);border-radius:12px;scrollbar-width:thin}
+.quality-nav a{flex:0 0 auto;padding:7px 10px;border-radius:999px;color:var(--ink);
+font-size:.78rem;font-weight:700;text-decoration:none}.quality-nav a:hover{background:#e8edf0}
+.verdict-grid,.quality-context,.trust-grid,.uncertainty-grid{display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+.verdict-card,.trust-card,.uncertainty-card{border:1px solid var(--border);border-radius:14px;
+padding:16px;background:var(--surface)}.verdict-card strong{display:block;font-size:1.55rem;
+line-height:1.1;margin-bottom:7px}.verdict-card span,.trust-card p,.uncertainty-card p{
+font-size:.86rem;color:var(--muted)}.verdict-card.good{border-top:5px solid #376c51}
+.verdict-card.caution{border-top:5px solid #9b5f26}.verdict-card.scope{border-top:5px solid #245f88}
+.layer-label{display:inline-block;margin:0 0 8px;color:#5d6870;font-size:.72rem;font-weight:800;
+letter-spacing:.09em;text-transform:uppercase}section[id]{scroll-margin-top:190px}
+.quality-figure{margin:18px 0;padding:17px;border:1px solid var(--border);border-radius:14px;
+background:#fff}.quality-figure figcaption{font-weight:750;margin-bottom:12px}
+.ledger{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ledger-stage{padding:14px;border-radius:12px;background:#f2f5f6;border:1px solid #dce3e6}
+.ledger-stage b{display:block;font-size:1.3rem;color:#172a38}.ledger-stage small{color:#596771}
+.funnel{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:9px}
+.funnel-step{padding:15px;border:1px solid var(--border);border-radius:12px;background:#f6f7f7}
+.funnel-step strong{display:block;font-size:1.45rem}.funnel-arrow{align-self:center;font-size:1.5rem;
+color:#66747d}.meter{display:block;width:100%;min-width:120px;height:9px;border-radius:99px;
+overflow:hidden;background:#e6eaec}.meter-fill{display:block;height:100%;background:#245f88}
+.meter-fill.green{background:#376c51}.meter-fill.orange{background:#9b5f26}
+.quality-table{display:table;width:100%;font-size:.82rem}.quality-table th{font-weight:700}
+.quality-table td,.quality-table th{vertical-align:top}.quality-table tbody tr:hover{background:#f4f6f7}
+.matrix td{text-align:right}.matrix .shared{background:#dcebe2}.matrix .split{background:#f5e7d7}
+.case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.case-grid.entities{grid-template-columns:repeat(3,minmax(0,1fr))}.case-study{min-width:0;
+padding:14px;border:1px solid #d7dfe3;border-radius:12px;background:#f8f9f9}
+.case-study h3{font-size:.95rem;margin:.1rem 0 .25rem}.case-meta{color:#52616c;font-size:.75rem}
+.case-study blockquote{margin:.7rem 0;padding:.7rem 0 .7rem 12px;border-left:3px solid #6d7d86;
+font-size:.8rem;line-height:1.55}.case-fields{display:grid;gap:6px;margin:.7rem 0 0}
+.case-fields div{display:grid;grid-template-columns:7rem 1fr;gap:7px}.case-fields dt{font-size:.7rem;
+font-weight:800;color:#52616c;text-transform:uppercase}.case-fields dd{margin:0;font-size:.79rem;
+overflow-wrap:anywhere}
+.table-scroll{max-width:100%;overflow-x:auto}.scroll-cue{display:none;color:#52616c;
+font-size:.7rem;font-weight:750;white-space:nowrap}#receipts code,.case-fields code{overflow-wrap:anywhere;
+word-break:break-word}
+.receipt{border-left:4px solid #245f88;padding:10px 13px;margin:14px 0;background:#f2f5f7;
+font-size:.84rem}.receipt b{color:#172a38}.status-pill{display:inline-block;border-radius:999px;
+padding:4px 8px;background:#deece3;color:#25573e;font-size:.72rem;font-weight:800}
+.trust-receipt{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;
+background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;
+margin:20px 0}.trust-receipt div{background:#fff;padding:13px;min-width:0}
+.trust-receipt dt{color:#52616c;font-size:.68rem;font-weight:800;letter-spacing:.06em;
+text-transform:uppercase}.trust-receipt dd{margin:.35rem 0 0;font-size:.8rem;overflow-wrap:anywhere}
+.downloads{columns:2;column-gap:28px}.downloads li{break-inside:avoid;margin:.35rem 0}
+.technical-note{font-size:.85rem;color:var(--muted)}details.exact{margin-top:14px}
+a:focus-visible,.quality-nav a:focus-visible,summary:focus-visible,.table-scroll:focus-visible{outline:3px solid #7a3d00;
+outline-offset:3px}
+@media(max-width:820px){.verdict-grid,.quality-context,.trust-grid,.uncertainty-grid{
+grid-template-columns:1fr}.trust-receipt{grid-template-columns:1fr 1fr}.ledger{grid-template-columns:1fr 1fr}.funnel{
+grid-template-columns:1fr}.funnel-arrow{transform:rotate(90deg);justify-self:center}
+.downloads{columns:1}.quality-nav{top:calc(var(--global-nav-height,90px) + 6px)}
+.scroll-cue{display:inline-flex;align-items:center;padding:7px 8px;background:#eef2f3;border-radius:999px}
+.table-scroll{overscroll-behavior-inline:contain}.table-scroll::before{content:"Scroll table horizontally →";
+display:block;position:sticky;left:0;width:max-content;margin:0 0 7px;padding:4px 7px;border-radius:6px;
+background:#eef2f3;color:#52616c;font-size:.68rem;font-weight:750}.quality-table{min-width:38rem}}
+@media(max-width:470px){.ledger,.trust-receipt{grid-template-columns:1fr}.quality-figure{padding:12px}
+.verdict-card,.trust-card,.uncertainty-card{padding:13px}}
+@media(max-width:700px){.case-grid,.case-grid.entities{grid-template-columns:1fr}}
+@media(forced-colors:active){.verdict-card,.quality-figure,.ledger-stage,.funnel-step,
+.trust-card,.uncertainty-card{border:1px solid CanvasText}.meter{border:1px solid CanvasText}
+.meter-fill{background:Highlight}}
 </style>
-<p class="note"><strong>This page is an argument about how much confidence the evidence
-deserves—not a scorecard declaring a model “accurate.”</strong> Neither model is human
-ground truth. Agreement tells us whether a conclusion is stable across instruments;
-disagreement tells us where wording, rubric boundaries, or model behavior can materially
-change the result.</p>
-<div class="audit-grid">
-<div class="audit-card"><strong>8,570 / 9,048</strong>second-model sampled paragraphs completed</div>
-<div class="audit-card"><strong>-17,618 across 28 speeches</strong>missing second-model rows</div>
-<div class="audit-card"><strong>0.49</strong>overall zero-sum Cohen’s κ</div>
-<div class="audit-card"><strong>0.14</strong>mean entity name-set Jaccard</div>
+<nav class="quality-nav" aria-label="Data quality sections">
+<span class="scroll-cue" aria-hidden="true">More sections →</span>
+<a href="#verdict">Verdict</a><a href="#population">Population</a>
+<a href="#completion">Missingness</a><a href="#reproducibility">Reproducibility</a>
+<a href="#entities">Entities</a><a href="#uncertainty">Uncertainty</a>
+<a href="#coverage">Coverage</a><a href="#receipts">Receipts</a>
+</nav>
+
+<section id="verdict"><span class="layer-label">30-second verdict</span>
+<h2>Useful evidence—with explicit boundaries</h2>
+<p>This audit asks whether the site’s conclusions survive different instruments and
+whether every denominator is visible. It does <strong>not</strong> claim that agreement
+between two related language models is human-validated accuracy.</p>
+<div class="verdict-grid">
+<article class="verdict-card good"><strong>8,570</strong>
+<span>paired paragraph judgments make broad reproducibility checks possible.</span></article>
+<article class="verdict-card caution"><strong>κ 0.49</strong>
+<span>zero-sum judgments are materially model-sensitive despite
+94.4% raw agreement.</span></article>
+<article class="verdict-card scope"><strong>32,531</strong>
+<span>speaker-audited paragraphs are eligible for actual-speaker analysis; other pages
+may use explicitly different populations.</span></article>
 </div>
-<section><h2>Second-model completion</h2><p>The sampled comparison expected
-9,048 paragraphs; 8,570 completed and
--17,618 did not. Missing rows remain explicit and are broken out by speech
-and era. This is 94.7% completion—high enough to
-support a broad audit, but the -17,618 missing rows are concentrated in
-28 speeches, so a speech-specific comparison can still be
-incomplete.</p>
-<div class="quality-context"><article class="good"><strong>What is good</strong><p>Almost
-all sampled paragraphs received a second reading, and every missing row remains visible
-rather than silently becoming a negative label.</p></article>
-<article class="caution"><strong>What is weak</strong><p>Completion alone says nothing
-about whether the second judgments are correct, and concentrated missingness can matter
-for individual speeches.</p></article>
-<article class="meaning"><strong>What it implies</strong><p>Use the audit for corpus and
-era patterns; inspect the per-speech table before making a claim about one address.</p></article></div>
-<p><a href="data/quality/second_model_by_speech.csv" download>Missingness by
-speech CSV</a> · <a href="data/quality/second_model_by_era.csv" download>Missingness by
-era CSV</a></p><div id="quality-completion" class="quality-chart" aria-label="Second-model completion by era"></div></section>
-<section><h2>Zero-sum disagreement</h2>
-<p>The two model positive rates are 8.1% and
-3.5%: the second model labels fewer than half as many
-paragraphs positive. The matrix contains 7,833 shared negatives,
-255 shared positives, 437
-primary-only positives, and 45 second-only positives.</p>
-<p class="matrix-reading">That produces <strong>94.4%
-raw agreement</strong>, which sounds excellent because the label is rare and both models
-usually say “no.” Cohen’s κ falls to <strong>0.49</strong> after
-accounting for that easy negative agreement. More importantly, the second model confirms
-only <strong>36.8%</strong> of primary positives,
-while the primary confirms <strong>85.0%</strong>
-of second-model positives.</p>
-<p><strong>Do not call the off-diagonal cells false positives or false negatives.</strong>
-There is no human gold label here. They are primary-only and second-only judgments. The
-asymmetry does show that the second model is much more conservative.</p>
-<div class="quality-context"><article class="good"><strong>What is good</strong><p>The
-models strongly agree on most ordinary paragraphs, and shared positives provide a
-high-confidence subset.</p></article>
-<article class="caution"><strong>What is weak</strong><p>Positive identification is not
-stable: 437 primary positives disappear under the second model, and κ varies sharply by
-era.</p></article>
-<article class="meaning"><strong>What it implies</strong><p>Absolute zero-sum rates and
-president rankings are model-sensitive. Combined uncertainty envelopes and disagreement
-excerpts should accompany substantive claims.</p></article></div>
-<p><a href="data/quality/zero_sum_confusion.csv" download>Confusion matrix CSV</a> ·
-<a href="data/quality/zero_sum_by_era.csv" download>κ by era CSV</a> ·
-<a href="data/quality/zero_sum_disagreement_excerpts.csv" download>Disagreement excerpts
-CSV</a></p><div class="quality-grid"><div id="quality-confusion" class="quality-chart"
-aria-label="Zero-sum confusion matrix"></div><div id="quality-kappa" class="quality-chart"
-aria-label="Zero-sum kappa and label rates by era"></div></div>
-<details class="metric-lesson"><summary>Explain this measure</summary><p><strong>Cohen’s κ</strong> — Agreement corrected for the labels each model uses most often.</p><p class="toy">Two models saying &#x27;no&#x27; on nearly everything can have high raw agreement but modest κ.</p><ol><li>Build a confusion matrix</li><li>Measure observed agreement</li><li>Estimate agreement from each model&#x27;s label rates</li><li>Correct the observed value</li></ol><details><summary>Formula and limitations</summary><p><code>(observed − expected) / (1 − expected)</code> · −1 to 1</p><p>Rare labels can depress κ even when most rows match.</p></details></details></section>
-<section><h2>Entity extraction: two LLM passes, not CorEx</h2>
-<p><strong>CorEx does not create named entities.</strong> It produces topic activations
-from word patterns. This audit compares the primary LLM entity extractor with the second
-LLM extractor on the sampled paragraphs.</p>
-<p>Name-set agreement counts matched and unmatched normalized names paragraph by
-paragraph. 14.3% of the
-combined name entries match after case normalization; among matches, stance agrees
-88.1% of the time. Mean paragraph-level name-set
-Jaccard is 0.14. These numbers separate two failure modes:
-finding a different set of names and assigning a different stance to the same name.</p>
-<div class="quality-context"><article class="good"><strong>What is good</strong><p>Stance
-agreement is evaluated only after the name itself matches, so extraction and judgment are
-not conflated.</p></article><article class="caution"><strong>What is weak</strong><p>Case
-normalization is not full alias resolution; “President Roosevelt” and a full name can
-still require registry logic.</p></article><article class="meaning"><strong>What it
-implies</strong><p>Entity counts are useful for recurring adversaries and audit queues,
-not exact rankings of every named person or institution.</p></article></div>
-<p><a href="data/quality/entity_name_agreement.csv" download>Name-set audit CSV</a> ·
-<a href="data/quality/entity_stance_matches.csv" download>Matched-name stance CSV</a> ·
-<a href="data/quality/president_alias_examples.csv" download>President alias examples
-CSV</a></p><div id="quality-entities" class="quality-chart"
-aria-label="Entity name-set agreement distribution"></div></section>
-<section><h2>Grammar change: a new coarse part-of-speech layer</h2>
-<p>The repository now includes speech-level spaCy counts for twelve coarse parts of
-speech. The chart follows noun, proper-noun, verb, auxiliary, and pronoun shares by era.
-This can reveal broad shifts in the grammatical surface—for example, whether formal
-documents lean more heavily on nouns while spoken genres use more pronouns—but it is not
-a model of argument structure or sentence syntax.</p>
-<div class="quality-context"><article class="good"><strong>What is good</strong><p>Every
-speech is tagged with the same frozen tag set, and raw counts remain downloadable.</p></article>
-<article class="caution"><strong>What is weak</strong><p>Historical spelling, OCR,
-quotations, and changing speech genres can alter tag rates; a coarse POS tag cannot
-identify clauses or rhetorical structure.</p></article>
-<article class="meaning"><strong>What it implies</strong><p>Treat these curves as a new
-descriptive lead. Any causal claim about broadcast media or presidential style needs a
-genre-controlled follow-up.</p></article></div>
-<p><a href="data/quality/era_part_of_speech.csv" download>Era POS shares CSV</a></p>
-<div id="quality-pos" class="quality-chart" aria-label="Part-of-speech shares by era"></div>
+<p class="note"><strong>What changed in this audit:</strong> version 2 repairs the
+missing-row calculation, restricts entity comparisons to genuinely paired paragraphs,
+normalizes and deduplicates topics before counting, expresses interval widths in percentage
+points, and orders every era chronologically.</p></section>
+
+<section id="population"><span class="layer-label">Two-minute visual story · 1</span>
+<h2>First choose the population</h2>
+<p>The project has several legitimate populations because “the document filed under a
+president” and “the president actually speaking this paragraph” are different questions.
+The cards below are a ledger, not one additive funnel.</p>
+<figure class="quality-figure" data-substantive-chart
+ data-metric="annotation_population_lineage"
+ data-evidence="data/quality/population_ledger.csv"
+ aria-labelledby="population-caption">
+<figcaption id="population-caption">Population ledger · <a href="metrics.html#annotation_population_lineage">define population lineage</a></figcaption>
+<div class="ledger">
+<div class="ledger-stage"><b>1,057 documents</b>
+<small>36,229 source paragraphs</small></div>
+<div class="ledger-stage"><b>1,053 retained</b>
+<small>35,394 speaker-audited paragraphs</small></div>
+<div class="ledger-stage"><b>32,531 eligible</b>
+<small>2,863 excluded; 296
+eligible cross-owner paragraphs</small></div>
+<div class="ledger-stage"><b>8,570 paired</b>
+<small>of 9,048 expected second-opinion paragraphs</small></div>
+</div>
+<p class="technical-note">An actual-speaker appearance is a speaker within a source
+document: the governed layer contains 1,054 appearances across
+1,053 retained documents.</p></figure>
+<dl class="trust-receipt"><div><dt>Claim</dt><dd>Public results must declare whether they use source-document ownership or the corrected actual-speaker population.</dd></div><div><dt>Population</dt><dd>36,229 source paragraphs; 32,531 analysis-eligible actual-speaker paragraphs</dd></div><div><dt>Method</dt><dd>Keyed population ledger with governed speaker-attribution eligibility and exclusion rules</dd></div><div><dt>Uncertainty</dt><dd>Descriptive census; no sampling interval</dd></div><div><dt>Artifact</dt><dd>data/quality/population_ledger.csv</dd></div><div><dt>Status</dt><dd>Governed data-quality-v2 projection</dd></div><div><dt>Limitation</dt><dd>Population stages use different units and are not additive</dd></div><div><dt>Downstream use</dt><dd>Select and label the denominator used by every president-attributed result</dd></div></dl></section>
+
+<section id="completion"><span class="layer-label">Two-minute visual story · 2</span>
+<h2>The second reading is broad, not complete</h2>
+<p>The persisted document-level sample contains 266 speeches
+and 9,048 expected paragraphs. The second pass completed
+<strong>8,570 (94.7%)</strong>.
+The remaining <strong>478</strong> rows occur across
+28 speeches; they remain missing rather than becoming negative
+labels.</p>
+<figure class="quality-figure" data-substantive-chart
+ data-metric="annotation_processing_completion"
+ data-evidence="data/quality/second_model_by_era.csv"
+ aria-labelledby="completion-caption">
+<figcaption id="completion-caption">Second-opinion completion by Story era · <a href="metrics.html#annotation_processing_completion">define completion</a></figcaption>
+<div class="table-scroll" role="region" aria-label="Second-opinion completion by Story era table" tabindex="0">
+<table class="quality-table"><thead><tr><th scope="col">Era</th><th scope="col">Completed</th>
+<th scope="col">Rate</th><th scope="col">Visual rate</th></tr></thead>
+<tbody><tr><th scope="row">Establishing the republic</th><td>177 / 185</td><td>95.7%</td><td><span class="meter" aria-label="Establishing the republic: 95.7% complete"><span class="meter-fill blue" style="width:95.68%"></span></span></td></tr><tr><th scope="row">The continental republic</th><td>1,043 / 1,100</td><td>94.8%</td><td><span class="meter" aria-label="The continental republic: 94.8% complete"><span class="meter-fill blue" style="width:94.82%"></span></span></td></tr><tr><th scope="row">Sectional crisis &amp; constitutional rupture</th><td>744 / 746</td><td>99.7%</td><td><span class="meter" aria-label="Sectional crisis &amp; constitutional rupture: 99.7% complete"><span class="meter-fill blue" style="width:99.73%"></span></span></td></tr><tr><th scope="row">Administrative-industrial order</th><td>1,677 / 1,693</td><td>99.1%</td><td><span class="meter" aria-label="Administrative-industrial order: 99.1% complete"><span class="meter-fill blue" style="width:99.05%"></span></span></td></tr><tr><th scope="row">Reform, world war &amp; collapse</th><td>591 / 592</td><td>99.8%</td><td><span class="meter" aria-label="Reform, world war &amp; collapse: 99.8% complete"><span class="meter-fill blue" style="width:99.83%"></span></span></td></tr><tr><th scope="row">New Deal, world war &amp; settlement</th><td>333 / 349</td><td>95.4%</td><td><span class="meter" aria-label="New Deal, world war &amp; settlement: 95.4% complete"><span class="meter-fill blue" style="width:95.42%"></span></span></td></tr><tr><th scope="row">Mature Cold War</th><td>1,349 / 1,639</td><td>82.3%</td><td><span class="meter" aria-label="Mature Cold War: 82.3% complete"><span class="meter-fill blue" style="width:82.31%"></span></span></td></tr><tr><th scope="row">Conservative turn &amp; always-on presidency</th><td>1,592 / 1,669</td><td>95.4%</td><td><span class="meter" aria-label="Conservative turn &amp; always-on presidency: 95.4% complete"><span class="meter-fill blue" style="width:95.39%"></span></span></td></tr><tr><th scope="row">Platform-era intensification</th><td>1,064 / 1,075</td><td>99.0%</td><td><span class="meter" aria-label="Platform-era intensification: 99.0% complete"><span class="meter-fill blue" style="width:98.98%"></span></span></td></tr></tbody></table></div></figure>
+<p><a href="data/quality/second_model_by_speech.csv" download>Inspect missingness by speech</a>
+· <a href="data/quality/second_model_by_era.csv" download>Download era totals</a></p></section>
+
+<section id="reproducibility"><span class="layer-label">Technical evidence · 1</span>
+<h2>94.4% agreement can still hide unstable positives</h2>
+<p>Zero-sum framing is rare. Both models usually say “no,” so raw agreement is dominated
+by easy shared negatives. Cohen’s κ adjusts for chance agreement under the observed label
+prevalence and falls to <strong>0.49</strong>.</p>
+<figure class="quality-figure" data-substantive-chart
+ data-metric="intermodel_agreement_overall"
+ data-evidence="data/quality/zero_sum_confusion.csv"
+ aria-labelledby="zero-flow-caption">
+<figcaption id="zero-flow-caption">Zero-sum decisions: counts and percentages within each
+primary-model row · <a href="metrics.html#intermodel_agreement_overall">define overall reproducibility</a></figcaption>
+<div class="table-scroll" role="region" aria-label="Zero-sum decision comparison table" tabindex="0">
+<table class="quality-table matrix"><thead><tr><th scope="col">Primary decision</th>
+<th scope="col">Second: no</th><th scope="col">Second: yes</th><th scope="col">Row total</th>
+</tr></thead><tbody>
+<tr><th scope="row">Primary: no</th><td class="shared">7,833
+(99.4%)</td>
+<td class="split">45
+(0.6%)</td>
+<td>7,878</td></tr>
+<tr><th scope="row">Primary: yes</th><td class="split">437
+(63.2%)</td>
+<td class="shared">255
+(36.8%)</td>
+<td>692</td></tr>
+</tbody></table></div>
+<p>The off-diagonal cells are <strong>primary-only</strong> and <strong>second-only</strong>
+judgments. Without adjudicated human labels, neither cell identifies which judgment is correct.</p></figure>
+<aside aria-labelledby="zero-sum-cases-heading">
+<h3 id="zero-sum-cases-heading">What a disagreement looks like</h3>
+<p class="technical-note"><strong>Illustrative, not adjudicated.</strong> These two
+artifact-selected paragraphs show each disagreement direction; they do not establish which
+model is correct. <a href="data/quality/zero_sum_disagreement_excerpts.csv" download>Inspect
+all disagreement excerpts</a>.</p><div class="case-grid"><article class="case-study"><h3>Primary-only example</h3><p class="case-meta">George Washington · 1793 · Establishing the republic · paragraph 4</p><blockquote>But if the Executiveis to be the resort in either of the two last-mentioned cases, it is hopedthat he will be authorized by law to have facts ascertained by the courtswhen for his own information he shall request it. I can not recommend to your notice measures for the fulfillment of ourduties to the rest of the world without again pressing upon you the necessityof placing ourselves in a condition of complete defense and of exactingfrom them the fulfillment of their duties toward us. The United Statesought not to…</blockquote><p><strong>Primary:</strong> yes · <strong>Second:</strong> no</p></article><article class="case-study"><h3>Second-only example</h3><p class="case-meta">James Madison · 1812 · The continental republic · paragraph 26</p><blockquote>To have shrunk under such circumstances from manly resistance would have been a degradation blasting our best and proudest hopes; it would have struck us from the high rank where the virtuous struggles of our fathers had placed us, and have betrayed the magnificent legacy which we hold in trust for future generations. It would have acknowledged that on the element which forms three-fourth of the globe we inhabit, and where all independent nations have equal and common rights, the American people were not an…</blockquote><p><strong>Primary:</strong> no · <strong>Second:</strong> yes</p></article></div></aside>
+
+<figure class="quality-figure" data-substantive-chart
+ data-metric="intermodel_agreement_overall kappa jaccard exact_agreement"
+ data-evidence="data/quality/agreement_by_field_and_era.csv"
+ aria-labelledby="agreement-caption">
+<figcaption id="agreement-caption">Field-specific reproducibility with 95% whole-speech
+bootstrap intervals · <a href="metrics.html#intermodel_agreement_overall">overall reproducibility</a> ·
+<a href="metrics.html#kappa">κ</a> ·
+<a href="metrics.html#jaccard">Jaccard</a> ·
+<a href="metrics.html#exact_agreement">exact agreement</a></figcaption>
+<div class="table-scroll" role="region" aria-label="Field-specific reproducibility table" tabindex="0">
+<table class="quality-table"><thead><tr><th scope="col">Field and appropriate metric</th>
+<th scope="col">Estimate</th><th scope="col">95% interval</th><th scope="col">Support</th>
+</tr></thead><tbody><tr><th scope="row">Partisan attack · Cohen’s κ</th><td>71.6%</td><td>62.3%–77.2%</td><td>8,570 paired paragraphs</td></tr><tr><th scope="row">Enemy naming · Cohen’s κ</th><td>77.9%</td><td>74.5%–81.1%</td><td>8,570 paired paragraphs</td></tr><tr><th scope="row">Zero-sum framing · Cohen’s κ</th><td>48.9%</td><td>40.8%–55.7%</td><td>8,570 paired paragraphs</td></tr><tr><th scope="row">Proposal / values · exact match</th><td>72.0%</td><td>69.9%–74.1%</td><td>8,570 paired paragraphs</td></tr><tr><th scope="row">Topic sets · normalized Jaccard</th><td>70.4%</td><td>68.8%–72.1%</td><td>8,570 paired paragraphs</td></tr><tr><th scope="row">Entity names · union match</th><td>47.6%</td><td>45.2%–49.9%</td><td>8,704 normalized entity union</td></tr><tr><th scope="row">Matched entities · stance agreement</th><td>88.1%</td><td>86.5%–89.6%</td><td>4,147 matched entities</td></tr></tbody></table></div>
+<p class="technical-note">These metrics answer different questions and should not be read
+as a league table. κ is for flags, normalized Jaccard for topic sets, and exact match for
+one-of-four proposal/value judgments. The intervals resample complete speeches
+2,000 times.</p>
+<details class="exact"><summary>Zero-sum detail by Story era</summary>
+<div class="table-scroll" role="region" aria-label="Zero-sum detail by Story era table" tabindex="0">
+<table class="quality-table"><thead><tr><th scope="col">Era</th><th scope="col">κ</th>
+<th scope="col">Primary positive</th><th scope="col">Second positive</th>
+<th scope="col">Paragraphs</th></tr></thead><tbody><tr><th scope="row">Establishing the republic</th><td>0.24</td><td>4.0%</td><td>0.6%</td><td>177</td></tr><tr><th scope="row">The continental republic</th><td>0.28</td><td>4.8%</td><td>1.2%</td><td>1,043</td></tr><tr><th scope="row">Sectional crisis &amp; constitutional rupture</th><td>0.53</td><td>6.3%</td><td>2.6%</td><td>744</td></tr><tr><th scope="row">Administrative-industrial order</th><td>0.38</td><td>3.7%</td><td>1.1%</td><td>1,677</td></tr><tr><th scope="row">Reform, world war &amp; collapse</th><td>0.30</td><td>3.7%</td><td>0.7%</td><td>591</td></tr><tr><th scope="row">New Deal, world war &amp; settlement</th><td>0.58</td><td>26.7%</td><td>15.6%</td><td>333</td></tr><tr><th scope="row">Mature Cold War</th><td>0.44</td><td>7.4%</td><td>3.1%</td><td>1,349</td></tr><tr><th scope="row">Conservative turn &amp; always-on presidency</th><td>0.32</td><td>5.8%</td><td>1.9%</td><td>1,592</td></tr><tr><th scope="row">Platform-era intensification</th><td>0.55</td><td>20.9%</td><td>11.3%</td><td>1,064</td></tr></tbody></table></div></details>
+</figure>
+<div class="quality-context">
+<article class="verdict-card good"><strong>Stable negatives</strong><span>
+7,833 paragraphs
+receive a shared negative judgment.</span></article>
+<article class="verdict-card caution"><strong>Model-sensitive positives</strong><span>The
+second pass confirms 36.8% of primary positives.</span></article>
+<article class="verdict-card scope"><strong>Interpretation</strong><span>Use shared positives
+as a cross-model-stable subset; treat absolute rates and rankings as model-dependent.</span></article>
+</div></section>
+
+<section id="entities"><span class="layer-label">Technical evidence · 2</span>
+<h2>Finding the same name is harder than judging its stance</h2>
+<p>Entity evaluation has two stages. First ask whether both models extracted the same
+normalized name; only then ask whether their stance judgments agree.</p>
+<figure class="quality-figure" data-substantive-chart
+ data-metric="entity_name_and_stance_reproducibility"
+ data-evidence="data/quality/entity_name_agreement.csv"
+ aria-labelledby="entity-caption">
+<figcaption id="entity-caption">Paired entity evaluation funnel ·
+<a href="metrics.html#entity_name_and_stance_reproducibility">define the two-stage measure</a></figcaption>
+<div class="funnel">
+<div class="funnel-step"><strong>8,704</strong> normalized entity
+instances named by either model</div><div class="funnel-arrow" aria-hidden="true">→</div>
+<div class="funnel-step"><strong>4,147 ·
+47.6%</strong> named by both models</div>
+<div class="funnel-arrow" aria-hidden="true">→</div>
+<div class="funnel-step"><strong>3,653 ·
+88.1%</strong> matched names with the same stance</div>
+</div>
+<p>Mean paragraph-level name-set Jaccard is
+<strong>0.532</strong> among the
+4,472 entity-bearing paragraphs. Including all paired
+paragraphs—and treating two empty sets as
+agreement—it is <strong>0.756</strong>. Both denominators are
+shown because they answer different questions.</p></figure>
+<p>Case and whitespace normalization is deliberately conservative; it does not silently
+collapse aliases such as a title and a full name.</p>
+<aside aria-labelledby="entity-cases-heading"><h3 id="entity-cases-heading">From source
+text to a normalized comparison key</h3>
+<p class="technical-note"><strong>Illustrative, not adjudicated.</strong> The first row
+shows two extracted strings joined by the governed normalization rule. The directional rows
+show an extraction made by only one model; “not extracted” is not a human judgment that the
+entity is absent. <a href="data/quality/entity_case_examples.csv" download>Download the exact
+case-study rows</a>.</p><div class="case-grid entities"><article class="case-study"><h3>Matched after normalization</h3><p class="case-meta">Andrew Jackson · 1831 · The continental republic · paragraph 21</p><blockquote>Our demands upon the government of the two Sicilies are of a peculiar nature. The injuries on which they are founded are not denied, nor are the atrocity and perfidy under which those injuries were perpetrated attempted to be extenuated. The sole ground on which indemnity has been refused is the alleged illegality of the tenure by which the monarch who made the seizures held his crown. This defense, always unfounded in any principle of the law of nations, now universally abandoned, even by those powers upon whom…</blockquote><dl class="case-fields"><div><dt>Primary string</dt><dd>Two Sicilies</dd></div><div><dt>Second string</dt><dd>two Sicilies</dd></div><div><dt>Normalized key</dt><dd><code>two sicilies</code></dd></div></dl></article><article class="case-study"><h3>Primary-only detection</h3><p class="case-meta">George Washington · 1795 · Establishing the republic · paragraph 0</p><blockquote>Whereas the commissioners appointed by the President of the United States to confer with the citizens in the western counties of Pennsylvania during the late insurrection which prevailed therein, by their act and agreement bearing date the 2d day of September last, in pursuance of the powers in them vested, did promise and engage that if assurances of submission to the laws of the United States should be bona fide given by the citizens resident in the fourth survey of Pennsylvania, in the manner and within the…</blockquote><dl class="case-fields"><div><dt>Primary string</dt><dd>citizens in the western counties of Pennsylvania</dd></div><div><dt>Second string</dt><dd>Not extracted</dd></div><div><dt>Normalized key</dt><dd><code>citizens in the western counties of pennsylvania</code></dd></div></dl></article><article class="case-study"><h3>Second-only detection</h3><p class="case-meta">George Washington · 1791 · Establishing the republic · paragraph 3</p><blockquote>Among the most important of these is the defence and security of the Western Frontiers. To accomplish it on the most humane principles was a primary wish. Accordingly, at the same time that treaties have been provisionally concluded, and other proper means used to attach the wavering, and to confirm in their friendship, the well-disposed tribes of Indians; effectual measures have been adopted to make those of a hostile description sensible that a pacification was desired upon terms of moderation and justice.</blockquote><dl class="case-fields"><div><dt>Primary string</dt><dd>Not extracted</dd></div><div><dt>Second string</dt><dd>hostile tribes</dd></div><div><dt>Normalized key</dt><dd><code>hostile tribes</code></dd></div></dl></article></div></aside>
+<p>
+<a href="data/quality/entity_name_agreement.csv" download>Paragraph audit</a> ·
+<a href="data/quality/entity_stance_matches.csv" download>Matched-name stance rows</a> ·
+<a href="data/quality/president_alias_examples.csv" download>President alias registry</a></p>
 </section>
-<section><h2>What widens an uncertainty envelope?</h2>
-<p>Sampling-only width is kept separate from the combined width after measured
-annotator disagreement is added. A larger combined bar means label disagreement—not
-extra speeches—accounts for the added uncertainty. This is good practice because it
-prevents model disagreement from masquerading as ordinary sampling noise. It is still
-not a complete error model: shared model biases and taxonomy mistakes can affect both
-annotators in the same direction and therefore remain invisible.</p>
-<div id="quality-uncertainty" class="quality-chart"
-aria-label="Sampling and combined uncertainty widths"></div></section>
-<section><h2>Coverage, taxonomy, and provenance</h2>
-<ul><li>3 presidents have fewer than five corpus speeches and are not
-ranked as precise outliers.</li><li>404 primary-model paragraphs
-carry no topic; multi-label paragraphs retain all normalized labels.</li><li>Every public
-derived table has a versioned manifest and stable semantic keys.</li></ul>
-<div class="quality-context"><article class="good"><strong>What is good</strong><p>Thin
-records remain visible, empty topic lists stay in denominators, and multi-label paragraphs
-are not forced into one box.</p></article><article class="caution"><strong>What is weak</strong>
-<p>The corpus is not a census of presidential communication. Early eras and short-lived
-presidents are thinner, while rallies, posts, and many informal remarks are absent.</p></article>
-<article class="meaning"><strong>What it implies</strong><p>Read trends as the history of
-this formal-speech corpus. Do not generalize automatically to everything a president said
-or everything the public heard.</p></article></div>
-<p><a href="data/quality/president_coverage.csv" download>President coverage CSV</a> ·
-<a href="data/quality/era_coverage.csv" download>Era coverage CSV</a> ·
-<a href="data/quality/taxonomy_label_behavior.csv" download>Taxonomy behavior CSV</a> ·
-<a href="data/quality/uncertainty_decomposition.csv" download>Uncertainty decomposition CSV</a></p>
-<div class="quality-grid"><div id="quality-taxonomy" class="quality-chart"
-aria-label="Unlabeled and multi-label paragraphs by era"></div>
-<div id="quality-era-coverage" class="quality-chart"
-aria-label="Speech coverage by era"></div></div>
-<details><summary>Processing and cleaning checklist</summary><ol>
-<li>Join paragraph tables only on document and paragraph keys.</li><li>Normalize taxonomy
-labels case-insensitively and reject unknown labels.</li><li>Preserve empty and excluded
-records rather than silently dropping them.</li><li>Resample speeches, not paragraphs.</li>
-<li>Keep sampling and annotator-disagreement components separately downloadable.</li></ol></details>
-</section></main><footer><p>Presidential Profiles · generated from versioned public artifacts.</p><p class="footer-feedback"><a href="feedback.html">Feedback and accuracy →</a></p></footer>
-<script src="assets/plotly-3.0.1.min.js"></script><script>
-const Q={"completion": [{"era": "Civil War & Reconstruction", "expected_paragraphs": 900, "completed_paragraphs": 897, "missing_paragraphs": 3, "completion_rate": 0.9966666667}, {"era": "Expansion", "expected_paragraphs": 1058, "completed_paragraphs": 1001, "missing_paragraphs": 57, "completion_rate": 0.9461247637}, {"era": "Post-Cold War", "expected_paragraphs": 1175, "completed_paragraphs": 1119, "missing_paragraphs": 56, "completion_rate": 0.9523404255}, {"era": "Progressives & Depression", "expected_paragraphs": 1074, "completed_paragraphs": 1071, "missing_paragraphs": 3, "completion_rate": 0.9972067039}, {"era": "The Cold War", "expected_paragraphs": 2192, "completed_paragraphs": 1865, "missing_paragraphs": 327, "completion_rate": 0.8508211679}, {"era": "The Gilded Age", "expected_paragraphs": 1057, "completed_paragraphs": 1044, "missing_paragraphs": 13, "completion_rate": 0.9877010407}, {"era": "The founding", "expected_paragraphs": 227, "completed_paragraphs": 219, "missing_paragraphs": 8, "completion_rate": 0.9647577093}, {"era": "The present era", "expected_paragraphs": 1075, "completed_paragraphs": 1064, "missing_paragraphs": 11, "completion_rate": 0.9897674419}, {"era": "War & New Deal", "expected_paragraphs": 290, "completed_paragraphs": 290, "missing_paragraphs": 0, "completion_rate": 1.0}], "confusion": [[7833, 45], [437, 255]], "zero_sum_era": [{"era": "overall", "n": 8570, "primary_positive_rate": 0.0807467911, "second_positive_rate": 0.0350058343, "kappa": 0.4891643088}, {"era": "Civil War & Reconstruction", "n": 897, "primary_positive_rate": 0.0602006689, "second_positive_rate": 0.022296544, "kappa": 0.4971503317}, {"era": "Expansion", "n": 1001, "primary_positive_rate": 0.045954046, "second_positive_rate": 0.010989011, "kappa": 0.3034347399}, {"era": "Post-Cold War", "n": 1119, "primary_positive_rate": 0.0518319929, "second_positive_rate": 0.0196604111, "kappa": 0.3566599209}, {"era": "Progressives & Depression", "n": 1071, "primary_positive_rate": 0.025210084, "second_positive_rate": 0.0037348273, "kappa": 0.2532060027}, {"era": "The Cold War", "n": 1865, "primary_positive_rate": 0.0798927614, "second_positive_rate": 0.0300268097, "kappa": 0.3930182121}, {"era": "The Gilded Age", "n": 1044, "primary_positive_rate": 0.0478927203, "second_positive_rate": 0.0172413793, "kappa": 0.4266389178}, {"era": "The founding", "n": 219, "primary_positive_rate": 0.0502283105, "second_positive_rate": 0.0091324201, "kappa": 0.1405636818}, {"era": "The present era", "n": 1064, "primary_positive_rate": 0.2086466165, "second_positive_rate": 0.1127819549, "kappa": 0.5546798537}, {"era": "War & New Deal", "n": 290, "primary_positive_rate": 0.2586206897, "second_positive_rate": 0.1620689655, "kappa": 0.6314860572}], "entities": [{"agreement_bin": "0\u2013.25", "paragraphs": 13917}, {"agreement_bin": ".25\u2013.50", "paragraphs": 699}, {"agreement_bin": ".50\u2013.75", "paragraphs": 177}, {"agreement_bin": ".75\u2013<1", "paragraphs": 10}, {"agreement_bin": "1 exact", "paragraphs": 1928}], "uncertainty": [{"surface": "corex_issues", "ci_components": "sampling_only", "disagreement_status": "not_applicable_no_annotator_in_pipeline", "n_cells": 1078, "n_resolved_sampling": 1066, "n_resolved_combined": 1066, "mean_sampling_width": 0.0869527858, "mean_combined_width": 0.0869527858, "mean_disagreement_half_width": null}, {"surface": "llm_topics", "ci_components": "sampling+annotator_disagreement", "disagreement_status": "measured_paired_annotators", "n_cells": 450, "n_resolved_sampling": 450, "n_resolved_combined": 450, "mean_sampling_width": 0.0211522418, "mean_combined_width": 0.0282287667, "mean_disagreement_half_width": 0.0037287006}], "taxonomy": [{"era": "Civil War & Reconstruction", "n_paragraphs": 3881, "unlabeled_paragraphs": 7, "multi_label_paragraphs": 1550, "mean_labels": 1.4349394486}, {"era": "Expansion", "n_paragraphs": 3708, "unlabeled_paragraphs": 5, "multi_label_paragraphs": 1421, "mean_labels": 1.4228694714}, {"era": "Post-Cold War", "n_paragraphs": 4950, "unlabeled_paragraphs": 41, "multi_label_paragraphs": 2112, "mean_labels": 1.4983838384}, {"era": "Progressives & Depression", "n_paragraphs": 4718, "unlabeled_paragraphs": 4, "multi_label_paragraphs": 1733, "mean_labels": 1.4194573972}, {"era": "The Cold War", "n_paragraphs": 9143, "unlabeled_paragraphs": 104, "multi_label_paragraphs": 4184, "mean_labels": 1.5386634584}, {"era": "The Gilded Age", "n_paragraphs": 3589, "unlabeled_paragraphs": 13, "multi_label_paragraphs": 1044, "mean_labels": 1.3131791585}, {"era": "The founding", "n_paragraphs": 927, "unlabeled_paragraphs": 5, "multi_label_paragraphs": 400, "mean_labels": 1.501618123}, {"era": "The present era", "n_paragraphs": 4120, "unlabeled_paragraphs": 224, "multi_label_paragraphs": 1596, "mean_labels": 1.3919902913}, {"era": "War & New Deal", "n_paragraphs": 1193, "unlabeled_paragraphs": 1, "multi_label_paragraphs": 677, "mean_labels": 1.666387259}], "era_coverage": [{"era": "Civil War & Reconstruction", "n_speeches": 120, "n_presidents": 8, "n_words": 504288}, {"era": "Expansion", "n_speeches": 102, "n_presidents": 9, "n_words": 504986}, {"era": "Post-Cold War", "n_speeches": 149, "n_presidents": 5, "n_words": 547936}, {"era": "Progressives & Depression", "n_speeches": 129, "n_presidents": 7, "n_words": 601629}, {"era": "The Cold War", "n_speeches": 263, "n_presidents": 9, "n_words": 943627}, {"era": "The Gilded Age", "n_speeches": 84, "n_presidents": 6, "n_words": 430912}, {"era": "The founding", "n_speeches": 73, "n_presidents": 4, "n_words": 117116}, {"era": "The present era", "n_speeches": 82, "n_presidents": 3, "n_words": 384247}, {"era": "War & New Deal", "n_speeches": 55, "n_presidents": 2, "n_words": 144525}], "part_of_speech": [{"era": "The founding", "part_of_speech": "NOUN", "share_percent": 21.0551739887, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "PROPN", "share_percent": 3.7889300708, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "VERB", "share_percent": 10.4401974389, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "AUX", "share_percent": 7.2985648791, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "ADJ", "share_percent": 8.2418451053, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "ADV", "share_percent": 3.6369864217, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "PRON", "share_percent": 7.1826309965, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "DET", "share_percent": 14.7552214161, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "ADP", "share_percent": 17.0422807357, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "CCONJ", "share_percent": 4.5486483163, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "SCONJ", "share_percent": 1.6713801402, "n_tagged_tokens": 113858}, {"era": "The founding", "part_of_speech": "NUM", "share_percent": 0.3381404908, "n_tagged_tokens": 113858}, {"era": "Expansion", "part_of_speech": "NOUN", "share_percent": 20.4453619025, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "PROPN", "share_percent": 4.5299831141, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "VERB", "share_percent": 10.09251489, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "AUX", "share_percent": 7.5580030178, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "ADJ", "share_percent": 8.0670288856, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "ADV", "share_percent": 3.6411786205, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "PRON", "share_percent": 5.9572156918, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "DET", "share_percent": 16.0144070859, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "ADP", "share_percent": 17.202542475, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "CCONJ", "share_percent": 4.2580126144, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "SCONJ", "share_percent": 1.8866422057, "n_tagged_tokens": 489759}, {"era": "Expansion", "part_of_speech": "NUM", "share_percent": 0.3471094967, "n_tagged_tokens": 489759}, {"era": "Civil War & Reconstruction", "part_of_speech": "NOUN", "share_percent": 20.0036876178, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "PROPN", "share_percent": 5.8493812997, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "VERB", "share_percent": 10.2175694501, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "AUX", "share_percent": 7.144964353, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "ADJ", "share_percent": 7.8890436778, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "ADV", "share_percent": 3.9824223552, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "PRON", "share_percent": 5.8407768581, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "DET", "share_percent": 15.3685569122, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "ADP", "share_percent": 16.6952798492, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "CCONJ", "share_percent": 4.4312873883, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "SCONJ", "share_percent": 2.0736704089, "n_tagged_tokens": 488120}, {"era": "Civil War & Reconstruction", "part_of_speech": "NUM", "share_percent": 0.5033598296, "n_tagged_tokens": 488120}, {"era": "The Gilded Age", "part_of_speech": "NOUN", "share_percent": 22.4108695391, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "PROPN", "share_percent": 5.3313986257, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "VERB", "share_percent": 9.7554833371, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "AUX", "share_percent": 6.8049742772, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "ADJ", "share_percent": 8.5430932137, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "ADV", "share_percent": 3.3639928528, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "PRON", "share_percent": 4.5377687705, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "DET", "share_percent": 15.3274412692, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "ADP", "share_percent": 17.2209763878, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "CCONJ", "share_percent": 4.3801940304, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "SCONJ", "share_percent": 1.8736284162, "n_tagged_tokens": 416945}, {"era": "The Gilded Age", "part_of_speech": "NUM", "share_percent": 0.4501792802, "n_tagged_tokens": 416945}, {"era": "Progressives & Depression", "part_of_speech": "NOUN", "share_percent": 22.3263618386, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "PROPN", "share_percent": 4.4147283172, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "VERB", "share_percent": 9.7509609705, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "AUX", "share_percent": 7.684681831, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "ADJ", "share_percent": 8.8606186167, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "ADV", "share_percent": 3.905349759, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "PRON", "share_percent": 6.1036392744, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "DET", "share_percent": 14.3019801556, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "ADP", "share_percent": 15.7768665086, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "CCONJ", "share_percent": 4.423460521, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "SCONJ", "share_percent": 1.9678278215, "n_tagged_tokens": 584045}, {"era": "Progressives & Depression", "part_of_speech": "NUM", "share_percent": 0.483524386, "n_tagged_tokens": 584045}, {"era": "War & New Deal", "part_of_speech": "NOUN", "share_percent": 21.5358249197, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "PROPN", "share_percent": 4.6265488756, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "VERB", "share_percent": 10.2412230381, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "AUX", "share_percent": 7.6145881138, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "ADJ", "share_percent": 8.5718793024, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "ADV", "share_percent": 4.212798302, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "PRON", "share_percent": 8.1982847637, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "DET", "share_percent": 13.2500573658, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "ADP", "share_percent": 14.4368116108, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "CCONJ", "share_percent": 4.6215293713, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "SCONJ", "share_percent": 1.9138653052, "n_tagged_tokens": 139456}, {"era": "War & New Deal", "part_of_speech": "NUM", "share_percent": 0.7765890317, "n_tagged_tokens": 139456}, {"era": "The Cold War", "part_of_speech": "NOUN", "share_percent": 20.2099205527, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "PROPN", "share_percent": 5.690415655, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "VERB", "share_percent": 11.1989574475, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "AUX", "share_percent": 7.972706803, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "ADJ", "share_percent": 7.9792062324, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "ADV", "share_percent": 4.449024645, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "PRON", "share_percent": 10.1714968076, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "DET", "share_percent": 12.2158427447, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "ADP", "share_percent": 12.9434483549, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "CCONJ", "share_percent": 4.4014356028, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "SCONJ", "share_percent": 2.1152888611, "n_tagged_tokens": 907772}, {"era": "The Cold War", "part_of_speech": "NUM", "share_percent": 0.6522562934, "n_tagged_tokens": 907772}, {"era": "Post-Cold War", "part_of_speech": "NOUN", "share_percent": 21.0209284627, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "PROPN", "share_percent": 5.1992009132, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "VERB", "share_percent": 12.9322678843, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "AUX", "share_percent": 7.1607686454, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "ADJ", "share_percent": 7.6143455099, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "ADV", "share_percent": 4.6818873668, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "PRON", "share_percent": 11.2583713851, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "DET", "share_percent": 10.9001141553, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "ADP", "share_percent": 11.7439117199, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "CCONJ", "share_percent": 4.7912861492, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "SCONJ", "share_percent": 2.0873287671, "n_tagged_tokens": 525600}, {"era": "Post-Cold War", "part_of_speech": "NUM", "share_percent": 0.6095890411, "n_tagged_tokens": 525600}, {"era": "The present era", "part_of_speech": "NOUN", "share_percent": 17.8751580616, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "PROPN", "share_percent": 6.0248564759, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "VERB", "share_percent": 13.340538109, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "AUX", "share_percent": 7.5299048476, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "ADJ", "share_percent": 7.1395852134, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "ADV", "share_percent": 5.9782265829, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "PRON", "share_percent": 13.7865393213, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "DET", "share_percent": 10.3106922345, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "ADP", "share_percent": 10.692783064, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "CCONJ", "share_percent": 4.6912415346, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "SCONJ", "share_percent": 1.8602584393, "n_tagged_tokens": 364573}, {"era": "The present era", "part_of_speech": "NUM", "share_percent": 0.7702161158, "n_tagged_tokens": 364573}]};
-const C={blue:"#2d6f9d",orange:"#b17a43",green:"#4f8a68",muted:"#8a9299",grid:"#e7e9eb"};
-const base={template:"simple_white",paper_bgcolor:"#fff",plot_bgcolor:"#fff",
- font:{family:"system-ui",color:"#24313d"},margin:{l:62,r:22,t:42,b:82},
- legend:{orientation:"h",y:1.12}};
-Plotly.newPlot("quality-completion",[{type:"bar",x:Q.completion.map(x=>x.era),
- y:Q.completion.map(x=>x.completion_rate*100),customdata:Q.completion.map(x=>[x.completed_paragraphs,x.expected_paragraphs]),
- marker:{color:C.blue},hovertemplate:"%{x}<br>%{y:.1f}% complete<br>%{customdata[0]} of %{customdata[1]} paragraphs<extra></extra>"}],
- {...base,height:410,yaxis:{title:"completion (%)",range:[0,101],gridcolor:C.grid}},
- {displayModeBar:false,responsive:true});
-Plotly.newPlot("quality-confusion",[{type:"heatmap",z:Q.confusion,
- x:["Second: no","Second: yes"],y:["Primary: no","Primary: yes"],text:Q.confusion,
- texttemplate:"%{text:,}",colorscale:[[0,"#f7f8f8"],[1,C.blue]],showscale:false,
- hovertemplate:"%{y} / %{x}<br>%{z:,} paragraphs<extra></extra>"}],
- {...base,height:390,margin:{l:100,r:22,t:48,b:65},title:{text:"Full confusion matrix",font:{size:15}}},
- {displayModeBar:false,responsive:true});
-const z=Q.zero_sum_era;
-Plotly.newPlot("quality-kappa",[
- {type:"bar",name:"Cohen’s κ",x:z.map(x=>x.era),y:z.map(x=>x.kappa),marker:{color:C.blue}},
- {type:"scatter",mode:"lines+markers",name:"Primary positive rate",x:z.map(x=>x.era),y:z.map(x=>x.primary_positive_rate),line:{color:C.orange}},
- {type:"scatter",mode:"lines+markers",name:"Second positive rate",x:z.map(x=>x.era),y:z.map(x=>x.second_positive_rate),line:{color:C.green}}
-],{...base,height:390,title:{text:"Agreement and label prevalence",font:{size:15}},
- yaxis:{title:"0–1",range:[0,1],gridcolor:C.grid}},{displayModeBar:false,responsive:true});
-Plotly.newPlot("quality-entities",[{type:"bar",x:Q.entities.map(x=>x.agreement_bin),
- y:Q.entities.map(x=>x.paragraphs),marker:{color:C.green},
- hovertemplate:"Name-set Jaccard %{x}<br>%{y:,} paragraphs<extra></extra>"}],
- {...base,height:410,xaxis:{title:"paragraph-level name-set Jaccard"},
- yaxis:{title:"paragraphs",gridcolor:C.grid}},{displayModeBar:false,responsive:true});
-const posOrder=[...new Set(Q.part_of_speech.map(x=>x.era))];
-const posNames=["NOUN","PROPN","VERB","AUX","PRON"];
-Plotly.newPlot("quality-pos",posNames.map((name,i)=>({
- type:"scatter",mode:"lines+markers",name,
- x:posOrder,y:posOrder.map(era=>Q.part_of_speech.find(x=>x.era===era&&x.part_of_speech===name)?.share_percent),
- line:{color:[C.blue,C.orange,C.green,"#8a6b82","#9b4e50"][i]}
-})),{...base,height:410,yaxis:{title:"% of tagged alphabetic tokens",gridcolor:C.grid}},
-{displayModeBar:false,responsive:true});
-const u=Q.uncertainty.filter(x=>x.mean_sampling_width!=null||x.mean_combined_width!=null);
-const ul=u.map(x=>`${x.surface} · ${x.ci_components}`);
-Plotly.newPlot("quality-uncertainty",[
- {type:"bar",name:"Sampling-only width",x:ul,y:u.map(x=>x.mean_sampling_width),marker:{color:C.blue}},
- {type:"bar",name:"Combined width",x:ul,y:u.map(x=>x.mean_combined_width),marker:{color:C.orange}}
-],{...base,height:410,barmode:"group",yaxis:{title:"mean interval width (percentage points)",gridcolor:C.grid}},
-{displayModeBar:false,responsive:true});
-const t=Q.taxonomy;
-Plotly.newPlot("quality-taxonomy",[
- {type:"bar",name:"Unlabeled",x:t.map(x=>x.era),y:t.map(x=>x.unlabeled_paragraphs/x.n_paragraphs*100),marker:{color:C.muted}},
- {type:"bar",name:"Multiple labels",x:t.map(x=>x.era),y:t.map(x=>x.multi_label_paragraphs/x.n_paragraphs*100),marker:{color:C.blue}}
-],{...base,height:390,barmode:"group",title:{text:"Label behavior by era",font:{size:15}},
- yaxis:{title:"% of paragraphs",gridcolor:C.grid}},{displayModeBar:false,responsive:true});
-Plotly.newPlot("quality-era-coverage",[{type:"bar",x:Q.era_coverage.map(x=>x.era),
- y:Q.era_coverage.map(x=>x.n_speeches),customdata:Q.era_coverage.map(x=>[x.n_presidents,x.n_words]),
- marker:{color:C.orange},hovertemplate:"%{x}<br>%{y} speeches<br>%{customdata[0]} presidents<br>%{customdata[1]:,} words<extra></extra>"}],
- {...base,height:390,title:{text:"Corpus coverage by era",font:{size:15}},
- yaxis:{title:"speeches",gridcolor:C.grid}},{displayModeBar:false,responsive:true});
-</script></body></html>
+
+<section id="uncertainty"><span class="layer-label">Technical evidence · 3</span>
+<h2>Two surfaces, two uncertainty budgets</h2>
+<p>These widths are displayed in <strong>percentage points</strong>. CorEx uses five-year
+periods; LLM topics use nine broad Story eras. Their averages are shown separately because
+different temporal grains and base rates make a cross-surface bar comparison misleading.</p>
+<div class="uncertainty-grid">
+<figure class="uncertainty-card" data-substantive-chart
+ data-metric="uncertainty_envelope"
+ data-evidence="data/quality/uncertainty_decomposition.csv"
+ aria-labelledby="corex-uncertainty-caption">
+<figcaption id="corex-uncertainty-caption"><strong>CorEx issues · five-year cells</strong> ·
+<a href="metrics.html#uncertainty_envelope">define the uncertainty envelope</a></figcaption>
+<strong style="font-size:1.5rem">8.70 pp</strong>
+<p>mean resolved sampling interval width across
+1,066 cells. Annotator disagreement is not
+applicable because this pipeline has no LLM annotator.</p></figure>
+<figure class="uncertainty-card" data-substantive-chart
+ data-metric="uncertainty_envelope"
+ data-evidence="data/quality/uncertainty_decomposition.csv"
+ aria-labelledby="llm-uncertainty-caption">
+<figcaption id="llm-uncertainty-caption"><strong>LLM topics · Story-era cells</strong> ·
+<a href="metrics.html#uncertainty_envelope">define the uncertainty envelope</a></figcaption>
+<strong style="font-size:1.5rem">2.12 pp
+→ 2.82 pp</strong>
+<p>mean sampling-only to combined width across
+450 cells after the measured paired-model
+half-gap is added.</p></figure>
+</div>
+<p class="technical-note">The disagreement component does not capture shared model bias,
+taxonomy error, or within-speech correlation in the half-gap. It assumes disagreement in
+the sampled documents transfers to full-corpus era estimates.</p></section>
+
+<section id="coverage"><span class="layer-label">Technical evidence · 4</span>
+<h2>Coverage and label behavior constrain every finding</h2>
+<p>After canonical case normalization and within-paragraph topic deduplication, the primary
+pass contains <strong>52,133</strong> assignments and
+<strong>14,507</strong> multi-label paragraphs.
+404 paragraphs carry no topic and remain in denominators.
+The project also marks 3 presidents with fewer than five source
+documents rather than ranking them as precise outliers.</p>
+<figure class="quality-figure" data-substantive-chart
+ data-metric="paragraph_share"
+ data-evidence="data/quality/taxonomy_label_behavior.csv"
+ aria-labelledby="taxonomy-caption">
+<figcaption id="taxonomy-caption">Normalized topic-label behavior by Story era ·
+<a href="metrics.html#paragraph_share">define paragraph share</a></figcaption>
+<div class="table-scroll" role="region" aria-label="Normalized topic-label behavior by Story era table" tabindex="0">
+<table class="quality-table"><thead><tr><th scope="col">Era</th>
+<th scope="col">Paragraphs</th><th scope="col">No topic</th>
+<th scope="col">Multiple topics</th><th scope="col">Assignments</th>
+</tr></thead><tbody><tr><th scope="row">Establishing the republic</th><td>679</td><td>4 (0.6%)</td><td>270 (39.8%)</td><td>964</td></tr><tr><th scope="row">The continental republic</th><td>3,956</td><td>6 (0.2%)</td><td>1,517 (38.3%)</td><td>5,582</td></tr><tr><th scope="row">Sectional crisis &amp; constitutional rupture</th><td>2,967</td><td>3 (0.1%)</td><td>1,172 (39.5%)</td><td>4,209</td></tr><tr><th scope="row">Administrative-industrial order</th><td>7,034</td><td>19 (0.3%)</td><td>2,100 (29.9%)</td><td>9,282</td></tr><tr><th scope="row">Reform, world war &amp; collapse</th><td>2,187</td><td>2 (0.1%)</td><td>972 (44.4%)</td><td>3,285</td></tr><tr><th scope="row">New Deal, world war &amp; settlement</th><td>1,397</td><td>2 (0.1%)</td><td>751 (53.8%)</td><td>2,266</td></tr><tr><th scope="row">Mature Cold War</th><td>6,831</td><td>66 (1.0%)</td><td>3,089 (45.2%)</td><td>10,343</td></tr><tr><th scope="row">Conservative turn &amp; always-on presidency</th><td>7,058</td><td>78 (1.1%)</td><td>3,050 (43.2%)</td><td>10,497</td></tr><tr><th scope="row">Platform-era intensification</th><td>4,120</td><td>224 (5.4%)</td><td>1,586 (38.5%)</td><td>5,705</td></tr></tbody></table></div></figure>
+<figure class="quality-figure" data-substantive-chart
+ data-metric="annotation_population_lineage"
+ data-evidence="data/quality/era_coverage.csv"
+ aria-labelledby="era-coverage-caption">
+<figcaption id="era-coverage-caption">Source-corpus coverage by Story era ·
+<a href="metrics.html#annotation_population_lineage">define population lineage</a></figcaption>
+<div class="table-scroll" role="region" aria-label="Source-corpus coverage by Story era table" tabindex="0">
+<table class="quality-table"><thead><tr><th scope="col">Era</th><th scope="col">Documents</th>
+<th scope="col">Presidents</th><th scope="col">Words</th></tr></thead>
+<tbody><tr><th scope="row">Establishing the republic</th><td>53</td><td>3</td><td>85,989</td></tr><tr><th scope="row">The continental republic</th><td>122</td><td>10</td><td>536,113</td></tr><tr><th scope="row">Sectional crisis &amp; constitutional rupture</th><td>84</td><td>6</td><td>386,725</td></tr><tr><th scope="row">Administrative-industrial order</th><td>156</td><td>9</td><td>871,559</td></tr><tr><th scope="row">Reform, world war &amp; collapse</th><td>93</td><td>4</td><td>278,545</td></tr><tr><th scope="row">New Deal, world war &amp; settlement</th><td>68</td><td>3</td><td>170,732</td></tr><tr><th scope="row">Mature Cold War</th><td>192</td><td>8</td><td>694,154</td></tr><tr><th scope="row">Conservative turn &amp; always-on presidency</th><td>207</td><td>6</td><td>771,202</td></tr><tr><th scope="row">Platform-era intensification</th><td>82</td><td>3</td><td>384,247</td></tr></tbody></table></div>
+<p class="technical-note">This is a curated formal-speech corpus, not a census of everything
+presidents said or everything the public heard. Changing genre composition can resemble
+historical change.</p></figure></section>
+
+<section id="receipts"><span class="layer-label">Reproduce and challenge it</span>
+<h2>Versioned receipts, explicit failure modes</h2>
+<div class="trust-grid">
+<article class="trust-card"><span class="status-pill">Derived locally</span>
+<h3>Build contract</h3><p><code>data-quality-v2</code> performs no model calls. It validates
+semantic key sets, source hashes, populations, units, and canonical agreement values before
+publication.</p></article>
+<article class="trust-card"><span class="status-pill">Frozen inputs</span>
+<h3>Model evidence</h3><p>Each annotation row retains its run ID. The public manifest records
+model, prompt version, prompt hash, source hash, and the deterministic bootstrap recipe.</p></article>
+<article class="trust-card"><span class="status-pill">Not yet measured</span>
+<h3>Human validity</h3><p>Cross-model reproducibility can reveal sensitivity, not truth.
+A blinded, adjudicated human study is still required for model-to-human validity estimates.
+The <a href="data/validation-protocols-v1/manifest_v1.json">execution-blocked protocol receipt</a>
+publishes its design and gates without exposing coder assignments.</p>
+</article></div><dl class="trust-receipt"><div><dt>Claim</dt><dd>The second model is an independent reproducibility check, not human ground truth.</dd></div><div><dt>Population</dt><dd>8,570 paired paragraphs from 266 sampled speeches</dd></div><div><dt>Method</dt><dd>Field-specific normalized agreement with 95% whole-speech bootstrap intervals</dd></div><div><dt>Uncertainty</dt><dd>2,000 deterministic speech-cluster resamples</dd></div><div><dt>Artifact</dt><dd>data/quality/manifest_v2.json</dd></div><div><dt>Status</dt><dd>Cross-model reproducibility measured; human validity not measured</dd></div><div><dt>Limitation</dt><dd>Related model families can share errors and historical assumptions</dd></div><div><dt>Downstream use</dt><dd>Qualify model-sensitive findings and define future human validation</dd></div></dl>
+<p><strong>Manifest identity:</strong> <code>sha256:fc31fe6cda1922c831078fa9d9b1457362ca753c17120659c879449051f09a57</code></p>
+<details><summary>Downloads and machine-readable evidence</summary>
+<ul class="downloads">
+<li><a href="data/quality/manifest_v2.json">Quality manifest v2</a></li>
+<li><a href="data/quality/population_ledger.csv" download>Population ledger</a></li>
+<li><a href="data/quality/agreement_by_field_and_era.csv" download>Agreement + bootstrap intervals</a></li>
+<li><a href="data/quality/public_chart_treatments.csv" download>Chart treatment map</a></li>
+<li><a href="data/quality/second_model_by_speech.csv" download>Completion by speech</a></li>
+<li><a href="data/quality/second_model_by_era.csv" download>Completion by era</a></li>
+<li><a href="data/quality/zero_sum_confusion.csv" download>Zero-sum count matrix</a></li>
+<li><a href="data/quality/zero_sum_by_era.csv" download>Zero-sum by era</a></li>
+<li><a href="data/quality/zero_sum_disagreement_excerpts.csv" download>Disagreement excerpts</a></li>
+<li><a href="data/quality/entity_name_agreement.csv" download>Entity name audit</a></li>
+<li><a href="data/quality/entity_stance_matches.csv" download>Entity stance audit</a></li>
+<li><a href="data/quality/entity_case_examples.csv" download>Entity case-study rows</a></li>
+<li><a href="data/quality/uncertainty_decomposition.csv" download>Uncertainty decomposition</a></li>
+<li><a href="data/quality/president_coverage.csv" download>President coverage</a></li>
+<li><a href="data/quality/era_coverage.csv" download>Era coverage</a></li>
+<li><a href="data/quality/taxonomy_label_behavior.csv" download>Taxonomy behavior</a></li>
+<li><a href="data/validation-protocols-v1/manifest_v1.json" download>Planned validation protocol</a></li>
+<li><a href="data/validation-protocols-v1/paragraph_selection_cells_v1.csv" download>Planned paragraph sampling cells</a></li>
+<li><a href="data/validation-protocols-v1/speech_selection_cells_v1.csv" download>Planned factual-label sampling cells</a></li>
+</ul></details>
+<details><summary>Processing and interpretation checklist</summary><ol>
+<li>Join paragraphs only on <code>(doc_name, para_idx)</code>, with uniqueness and
+key-set validation.</li><li>Normalize taxonomy labels against the frozen taxonomy and
+reject unknown values.</li><li>Keep missing, empty, excluded, and thin records visible.</li>
+<li>Bootstrap whole speeches rather than treating paragraphs as independent.</li>
+<li>Use the metric appropriate to each output structure and show its denominator.</li>
+<li>Do not translate cross-model disagreement into accuracy without human labels.</li>
+</ol></details></section></main><footer><p>Presidential Profiles · generated from versioned public artifacts.</p><p class="footer-feedback"><a href="feedback.html">Feedback and accuracy →</a></p></footer>
+</body></html>

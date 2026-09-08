@@ -1,0 +1,600 @@
+{
+  "artifacts": {
+    "current_context_prompt_v1.json": {
+      "bytes": 25442,
+      "filename": "current_context_prompt_v1.json",
+      "rows": null,
+      "sha256": "sha256:12e95611a81c795bfe9071d0340b48e958887f6203703fbfa48859d7fbedd67c"
+    },
+    "decade_hidden_prompt_v1.json": {
+      "bytes": 25026,
+      "filename": "decade_hidden_prompt_v1.json",
+      "rows": null,
+      "sha256": "sha256:2011f0991db2b7a71c97a6c882021739f130228258809176d7ec95a39979eb50"
+    },
+    "paragraph_selection_cells_v1.csv": {
+      "bytes": 7885,
+      "filename": "paragraph_selection_cells_v1.csv",
+      "rows": 63,
+      "sha256": "sha256:725fb74ff4794f0b43b4bf58c180e1c550b1d084bc05ee0da1ddcf7f6d1ac65e"
+    },
+    "restricted/assignments/paragraph_coder_tasks_v1.jsonl": {
+      "bytes": 312419,
+      "filename": "restricted/assignments/paragraph_coder_tasks_v1.jsonl",
+      "rows": 360,
+      "sha256": "sha256:97164af9b44f39adcd40ba8f1db82cb011cb0fb5e0eb5fcd8f8367882c6c6428"
+    },
+    "restricted/assignments/speech_coder_tasks_v1.jsonl": {
+      "bytes": 324685,
+      "filename": "restricted/assignments/speech_coder_tasks_v1.jsonl",
+      "rows": 90,
+      "sha256": "sha256:6bc34af593da9a2d38885e012637fe4ae714f461f1582af8b11650f7d32b7680"
+    },
+    "restricted/invariance/invariance_request_plan_v1.csv": {
+      "bytes": 98371,
+      "filename": "restricted/invariance/invariance_request_plan_v1.csv",
+      "rows": 360,
+      "sha256": "sha256:3a4c777277f5b7d0834cd493a1f93ac8b81bb2e181e61910de8c8e5e924ba287"
+    },
+    "restricted/selection/paragraph_sample_v1.csv": {
+      "bytes": 235644,
+      "filename": "restricted/selection/paragraph_sample_v1.csv",
+      "rows": 360,
+      "sha256": "sha256:a797a2b23dcb5525abf1652e79cc79c2257c8124efe25e740e96abfdfe3673c8"
+    },
+    "restricted/selection/speech_sample_v1.csv": {
+      "bytes": 47051,
+      "filename": "restricted/selection/speech_sample_v1.csv",
+      "rows": 90,
+      "sha256": "sha256:01050370f7b0e7ad147c8923676d5ba7a68cfe01c9650ad30dabccfdf59f2335"
+    },
+    "speech_selection_cells_v1.csv": {
+      "bytes": 5902,
+      "filename": "speech_selection_cells_v1.csv",
+      "rows": 45,
+      "sha256": "sha256:7c6bb6d69af3e91c16c3f77a90b0c009abd50e114b1c904838ab9c4410a781dd"
+    }
+  },
+  "blinding": {
+    "paragraph_evidence": "paragraph text plus decade only",
+    "paragraph_task_fields": [
+      "decade",
+      "item_id",
+      "paragraph_text",
+      "schema_version"
+    ],
+    "prohibited_fields": [
+      "doc_name",
+      "enemy_naming",
+      "entities",
+      "para_idx",
+      "party",
+      "party_attack",
+      "president",
+      "proposal_values",
+      "run_id",
+      "selection_arm",
+      "source_url",
+      "story_era_key",
+      "topics",
+      "zero_sum"
+    ],
+    "speech_evidence": "title, year, and up to the first five source paragraphs",
+    "speech_task_fields": [
+      "item_id",
+      "opening_paragraphs",
+      "schema_version",
+      "title",
+      "year"
+    ],
+    "validation_status": "passed"
+  },
+  "execution_authorized": false,
+  "frozen_annotation_runs": [
+    {
+      "manifest_path": "data/llm_annotations/manifests/factual-full-20260720.json",
+      "manifest_sha256": "sha256:5fce97acc244a0b5231a674c3dd06357d41e64abb0d1f07063214267f1842ce2",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "speech_annotations=sha256:450c667db92e324c1a1455914dd17528a999c88d3e32989e0d32fb3a0a7e95f1",
+      "prompt_version": "speech_annotations=speech-factual/v1",
+      "run_id": "factual-full-20260720"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/factual-r2-20260720.json",
+      "manifest_sha256": "sha256:633bc4d8ad27142bc77cd131239cce0ad6d8eeef2b0bdb40f212ba647e2ec4e8",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "speech_annotations=sha256:450c667db92e324c1a1455914dd17528a999c88d3e32989e0d32fb3a0a7e95f1",
+      "prompt_version": "speech_annotations=speech-factual/v1",
+      "run_id": "factual-r2-20260720"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/judgment-chunk1-20260720.json",
+      "manifest_sha256": "sha256:56bf9c29ac886d489b89627e3a66d454a64bd3779c48f4a78ac567692d010edd",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-chunk1-20260720"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/judgment-chunk10-20260720.json",
+      "manifest_sha256": "sha256:b6f0fac3121dcd5b753d932f9be2b29fa24a46b85d1db10d9ea3c4e5bb7ecf2f",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-chunk10-20260720"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/judgment-chunk25-20260720.json",
+      "manifest_sha256": "sha256:5d87abf71dfbe16cf4da64faf2b3747a72e0d428344cdde2adedab95565a37e6",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-chunk25-20260720"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/judgment-chunk5-20260720.json",
+      "manifest_sha256": "sha256:64242690fbc78fe732df39e7b86b104ca6d8ee47446e166a1695a015d521979b",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-chunk5-20260720"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/judgment-full-20260720.json",
+      "manifest_sha256": "sha256:ec28a495b76a0a6ed603d574187e93afef6b0827be4a8d6f59649d7b1138596d",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-full-20260720"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/judgment-r2-20260720.json",
+      "manifest_sha256": "sha256:5eb75f6a22a7ab1fc7d69aec1dc247b39dbae71a9b210bcb2ef95f331ac7fc9c",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-r2-20260720"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/opus-judgment-20260721.json",
+      "manifest_sha256": "sha256:6fc7ebdb8b7299a25bf174b859877713a38efca533414c9af55df89dee3f40ad",
+      "model": "claude-opus-4-8",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "opus-judgment-20260721"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/opus-judgment-r2-20260722.json",
+      "manifest_sha256": "sha256:c4eb6883c92ee1be1c12215e9aa1ff07b08cf8a34e7545f3a7903462e426dc83",
+      "model": "claude-opus-4-8",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "opus-judgment-r2-20260722"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/pilot-v2-20260720.json",
+      "manifest_sha256": "sha256:deee0289cdbe50de639ad211ed620cde07b64a328fbda673ceb1015af7a9dbfb",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe,speech_annotations=sha256:450c667db92e324c1a1455914dd17528a999c88d3e32989e0d32fb3a0a7e95f1",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1,speech_annotations=speech-factual/v1",
+      "run_id": "pilot-v2-20260720"
+    },
+    {
+      "manifest_path": "data/llm_annotations/manifests/taxonomy-v1-20260719.json",
+      "manifest_sha256": "sha256:637d612f730213d89007484a757f3870573e5ee6636d3789c5324902ce9063b7",
+      "model": "claude-opus-4-8 (+ claude-sonnet-5 for coverage)",
+      "prompt_hash": "sha256:498d33f88314f2e6cb3301bc9123af2112c52a7087c2e43055662ec63c0f6b6c",
+      "prompt_version": "taxonomy/v1",
+      "run_id": "taxonomy-v1-20260719"
+    }
+  ],
+  "generation_status": "deterministic_local_no_api_calls",
+  "human_validity_study": {
+    "adjudication": {
+      "all_field_disagreements": true,
+      "deterministic_agreement_audit_fraction": 0.1,
+      "third_reviewer_required": true
+    },
+    "coders": {
+      "independent_blinded_coders_required": 2,
+      "named_coders": []
+    },
+    "execution_gates": {
+      "codebook_frozen": "blocked_unset",
+      "conflict_and_privacy_review": "blocked_unset",
+      "key_and_blinding_checks": "passed",
+      "named_coders": "blocked_unset",
+      "written_approval": "blocked_unset"
+    },
+    "metrics": [
+      "human-human Cohen kappa for binary and factual fields",
+      "human-human exact proposal/values agreement",
+      "topic mean Jaccard and micro/macro precision recall F1",
+      "entity strict normalized-name detection plus type and stance agreement",
+      "model-human precision recall F1 against both coders and adjudication"
+    ],
+    "reporting": {
+      "bootstrap_draws": 2000,
+      "bootstrap_unit": "doc_name",
+      "confidence_interval": "95% percentile",
+      "enrichment_population_weighting_prohibited": true,
+      "minimum_evaluated_units": 20,
+      "minimum_positive_cases": 5,
+      "minimum_source_documents": 5,
+      "population_weighted_results": "allowed only for hash-random first-pass genre strata with design_weight_available; enriched and fallback rows excluded",
+      "suppression_status": "suppressed_low_support",
+      "unweighted_enriched_results": true
+    },
+    "status": "planned_not_run"
+  },
+  "measurement_invariance_study": {
+    "approver": null,
+    "cost_estimation": {
+      "batch_discount_multiplier": null,
+      "cache_creation_input_tokens": null,
+      "cache_read_input_tokens": null,
+      "cache_read_multiplier": null,
+      "cache_write_multiplier": null,
+      "estimated_cost_usd": null,
+      "formula": "batch_discount_multiplier * ((input_tokens + cache_creation_input_tokens * cache_write_multiplier + cache_read_input_tokens * cache_read_multiplier) * input_usd_per_million + output_tokens * output_usd_per_million) / 1_000_000",
+      "input_tokens": null,
+      "input_usd_per_million": null,
+      "output_tokens": null,
+      "output_usd_per_million": null,
+      "status": "blocked_model_price_and_token_inputs_unset"
+    },
+    "decoding_configuration": null,
+    "diagnostic_thresholds": {
+      "interpretation": "diagnostic only; not evidence that either arm is correct",
+      "overall_absolute_prevalence_shift_pp": 2.0,
+      "paired_kappa_below": 0.8,
+      "story_era_absolute_prevalence_shift_pp": 5.0
+    },
+    "execution_gates": {
+      "current_prices_recorded": "blocked_unset",
+      "prompt_hashes": "passed",
+      "prompt_only_difference": "passed",
+      "retry_policy_frozen": "blocked_unset",
+      "runtime_model_assigned": "blocked_unset",
+      "sample_hash": "passed",
+      "source_hashes": "passed",
+      "token_projection_recorded": "blocked_unset",
+      "truncation_recovery_dry_run": "blocked_unset",
+      "written_cost_approval": "blocked_unset"
+    },
+    "hard_max_cost_usd": null,
+    "planned_comparisons": [
+      "paired field-specific agreement between prompt arms",
+      "paired marginal prevalence difference in percentage points for flags and topics",
+      "proposal/values exact-switch matrix",
+      "entity-stance exact-switch matrix",
+      "overall and Story-era estimates with low-support suppression"
+    ],
+    "prompt_pair": {
+      "current_context_file": "current_context_prompt_v1.json",
+      "current_context_sha256": "sha256:12e95611a81c795bfe9071d0340b48e958887f6203703fbfa48859d7fbedd67c",
+      "decade_hidden_file": "decade_hidden_prompt_v1.json",
+      "decade_hidden_sha256": "sha256:2011f0991db2b7a71c97a6c882021739f130228258809176d7ec95a39979eb50",
+      "difference_policy": "same rubric, taxonomy, examples, output schema, and paragraph slot; only the decade field and explicit era-anchoring instructions are removed",
+      "difference_validation_status": "passed"
+    },
+    "request_partition": {
+      "one_paragraph_per_request": true,
+      "planned_evaluations_total": 720,
+      "presentation_order_persisted": true,
+      "requests_per_arm": 360
+    },
+    "retry_policy": null,
+    "runtime_model": null,
+    "same_360_key_sample": true,
+    "status": "dry_run_only_blocked_not_run"
+  },
+  "metadata_sha256": "sha256:d718e76d7af79d0e957c7ec570c6541822be1bf42e14222d4d914d57a5c8f374",
+  "populations": {
+    "eligible_paragraphs": 32531,
+    "eligible_source_documents": 1044,
+    "factual_candidate_source_documents": 1057,
+    "paired_evaluation_paragraphs_within_eligible": 7723,
+    "selected_factual_source_documents": 90,
+    "selected_human_validity_paragraphs": 360
+  },
+  "protocol_version": "data-trust-validation-protocols-v1",
+  "public_artifacts": [
+    "paragraph_selection_cells_v1.csv",
+    "speech_selection_cells_v1.csv",
+    "current_context_prompt_v1.json",
+    "decade_hidden_prompt_v1.json",
+    "manifest_v1.json"
+  ],
+  "publication_status": "planned_validation_only_no_results",
+  "restricted_artifacts": [
+    "restricted/selection/paragraph_sample_v1.csv",
+    "restricted/assignments/paragraph_coder_tasks_v1.jsonl",
+    "restricted/selection/speech_sample_v1.csv",
+    "restricted/assignments/speech_coder_tasks_v1.jsonl",
+    "restricted/invariance/invariance_request_plan_v1.csv"
+  ],
+  "restriction_contract": {
+    "coder_assignments": "restricted_coder_only",
+    "invariance_request_plan": "restricted_pre_execution",
+    "public_projection_contains_identifying_crosswalk": false,
+    "rule": "never publish a selected semantic key or study-item crosswalk beside coder-facing evidence",
+    "selection_masters": "restricted_internal"
+  },
+  "schema_version": "data-trust-validation-manifest-v1",
+  "selection": {
+    "arm_priority": [
+      "high-disagreement",
+      "rare-positive",
+      "genre-balanced-base"
+    ],
+    "factual_speech_key_set_sha256": "sha256:8cb151a5b96ce2e533814b46ab94c98a9283abc95f82a307d56d66e5a259e8cb",
+    "factual_speech_quota": {
+      "family_targets": {
+        "annual/governance": 3,
+        "ceremonial": 2,
+        "interactive/political": 2,
+        "public/other": 3
+      },
+      "per_story_era": 10,
+      "speech_level_hash_para_idx_sentinel": -1
+    },
+    "paragraph_key_set_sha256": "sha256:e8c86719bbbb110c54fa076c13295a24d3db85728c56c692bccf1fd4d2720aad",
+    "paragraph_quota": {
+      "genre_balanced_base": 20,
+      "high_disagreement": 10,
+      "per_story_era": 40,
+      "rare_positive": 10
+    },
+    "paragraph_sample_sha256": "sha256:8a402b8b29efd3217e58047586e96f314cb0dbe20c29e3da49055ff8263f8440",
+    "population_inference_gate": "never use high-disagreement, rare-positive, or fallback rows for population-weighted inference; report them descriptively",
+    "presentation_order_sha256": "sha256:4ebd49f0822633cae00752c3fbdb4def2c88c09f488b01953d689623f49c0293",
+    "probability_sampling_hash_arms": {
+      "base_document": "genre-balanced-base-document with para_idx=-1",
+      "base_fallback": "genre-balanced-base-fallback",
+      "base_paragraph_within_document": "genre-balanced-base-paragraph",
+      "factual_document": "factual-speech with para_idx=-1"
+    },
+    "rare_label_min_global_eligible_paragraphs": 20,
+    "selection_probability_status": "design probabilities and inverse weights exist only for independent hash-random first-pass base/factual strata; purposive enrichment and sequential fallback rows have null population weights",
+    "tie_break_material": "<seed namespace>|<arm>|<story_era_key>|<doc_name>|<para_idx>"
+  },
+  "selection_seed_namespace": "presidential-profiles/data-trust/v1/20260908",
+  "semantic_key": [
+    "doc_name",
+    "para_idx"
+  ],
+  "source_inventory": [
+    {
+      "bytes": 75703,
+      "path": "data/llm_annotations/agreement_sample_v1.json",
+      "sha256": "sha256:7cd0ad5c107e5f2f1b7b57c6bf02d5848b766f5455474fe898cf1d805df0a363",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 958,
+      "path": "data/llm_annotations/manifests/factual-full-20260720.json",
+      "sha256": "sha256:5fce97acc244a0b5231a674c3dd06357d41e64abb0d1f07063214267f1842ce2",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 948,
+      "path": "data/llm_annotations/manifests/factual-r2-20260720.json",
+      "sha256": "sha256:633bc4d8ad27142bc77cd131239cce0ad6d8eeef2b0bdb40f212ba647e2ec4e8",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 1169,
+      "path": "data/llm_annotations/manifests/judgment-chunk1-20260720.json",
+      "sha256": "sha256:56bf9c29ac886d489b89627e3a66d454a64bd3779c48f4a78ac567692d010edd",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 2083,
+      "path": "data/llm_annotations/manifests/judgment-chunk10-20260720.json",
+      "sha256": "sha256:b6f0fac3121dcd5b753d932f9be2b29fa24a46b85d1db10d9ea3c4e5bb7ecf2f",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 3938,
+      "path": "data/llm_annotations/manifests/judgment-chunk25-20260720.json",
+      "sha256": "sha256:5d87abf71dfbe16cf4da64faf2b3747a72e0d428344cdde2adedab95565a37e6",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 1472,
+      "path": "data/llm_annotations/manifests/judgment-chunk5-20260720.json",
+      "sha256": "sha256:64242690fbc78fe732df39e7b86b104ca6d8ee47446e166a1695a015d521979b",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 1159,
+      "path": "data/llm_annotations/manifests/judgment-full-20260720.json",
+      "sha256": "sha256:ec28a495b76a0a6ed603d574187e93afef6b0827be4a8d6f59649d7b1138596d",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 1148,
+      "path": "data/llm_annotations/manifests/judgment-r2-20260720.json",
+      "sha256": "sha256:5eb75f6a22a7ab1fc7d69aec1dc247b39dbae71a9b210bcb2ef95f331ac7fc9c",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 1170,
+      "path": "data/llm_annotations/manifests/opus-judgment-20260721.json",
+      "sha256": "sha256:6fc7ebdb8b7299a25bf174b859877713a38efca533414c9af55df89dee3f40ad",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 1167,
+      "path": "data/llm_annotations/manifests/opus-judgment-r2-20260722.json",
+      "sha256": "sha256:c4eb6883c92ee1be1c12215e9aa1ff07b08cf8a34e7545f3a7903462e426dc83",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 1321,
+      "path": "data/llm_annotations/manifests/pilot-v2-20260720.json",
+      "sha256": "sha256:deee0289cdbe50de639ad211ed620cde07b64a328fbda673ceb1015af7a9dbfb",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 1114,
+      "path": "data/llm_annotations/manifests/taxonomy-v1-20260719.json",
+      "sha256": "sha256:637d612f730213d89007484a757f3870573e5ee6636d3789c5324902ce9063b7",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 111862,
+      "path": "data/llm_annotations/paragraph_annotations.parquet",
+      "sha256": "sha256:52ff6e8a90188f001241ffb3ac96046b019dd70d7b6b3cfa9954d3d60c9a4227",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 33607,
+      "path": "data/llm_annotations/paragraph_annotations__opus4-8.parquet",
+      "sha256": "sha256:f7456d8a1aa13cb905cfa8f2947de2d62f56ba1de43939e241ba106629634f44",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 203439,
+      "path": "data/llm_annotations/paragraph_entities.parquet",
+      "sha256": "sha256:ade6e4f03c7ff2c1806a365b3a7feeed752ec9e64e1d3e0edb8192d89fee67ff",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 50636,
+      "path": "data/llm_annotations/paragraph_entities__opus4-8.parquet",
+      "sha256": "sha256:c518e47022a716a785d0f9ad9d19c4920ec2cb75c8115ebf8ea050ac1df14ccf",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 30778,
+      "path": "data/llm_annotations/speech_annotations.parquet",
+      "sha256": "sha256:d16c8b11d4ea3f3ecf3f5b92f73b993149b8d1c33c306ec5bada5c9c64607bf8",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 240083,
+      "path": "data/llm_annotations/taxonomy_v1.json",
+      "sha256": "sha256:042fc959a64108cfa426e8463b72e2e56a66944cb32460173f711a668cc440dd",
+      "status": "frozen_paid_read_only"
+    },
+    {
+      "bytes": 13515945,
+      "path": "data/paragraphs.parquet",
+      "sha256": "sha256:7f647adbde21bedb8ffa9ef65b2e5a14e87ebddf8918febe511992700264e4d3",
+      "status": "source_corpus_read_only"
+    },
+    {
+      "bytes": 8519,
+      "path": "data/speaker_views/meta_v1.json",
+      "sha256": "sha256:43fef3a450bcb5984b017a5792c5f71ba9e6e55520e30cf209858ea21ede5081",
+      "status": "governed_derived_read_only"
+    },
+    {
+      "bytes": 15947914,
+      "path": "data/speaker_views/paragraph_view_v1.parquet",
+      "sha256": "sha256:e12788604ce6d6c8513daf5834d13b0f3115763466a89952b1fb3bbafed65472",
+      "status": "governed_derived_read_only"
+    },
+    {
+      "bytes": 13488375,
+      "path": "data/speeches.parquet",
+      "sha256": "sha256:065c24997b03483a1fc7bc689144699a505b627ab95ab1eb79d02c54f86348b5",
+      "status": "source_corpus_read_only"
+    },
+    {
+      "bytes": 40205,
+      "path": "src/presidential_profiles/era_profiles.py",
+      "sha256": "sha256:658d0a73ec88b58f15863cdb6cd2d7081935ae2c593c4e55e6d8e76f01daaa95",
+      "status": "governed_source_code"
+    },
+    {
+      "bytes": 21932,
+      "path": "src/presidential_profiles/prompts/annotation_v1.py",
+      "sha256": "sha256:e3f4f80fb8e75ed05c543a1127854e5c43907c1d26153b10b7d868b25ea0da91",
+      "status": "governed_source_code"
+    },
+    {
+      "bytes": 100767,
+      "path": "src/presidential_profiles/validation_protocols.py",
+      "sha256": "sha256:671d94ab391ad913285bec10e16d20ba86c764fb923b06a5f610b62c73eaf5d2",
+      "status": "governed_source_code"
+    }
+  ],
+  "story_eras": [
+    {
+      "end_year": 1808,
+      "key": "founding",
+      "label": "Establishing the republic",
+      "order": 0,
+      "start_year": 1789
+    },
+    {
+      "end_year": 1849,
+      "key": "expansion",
+      "label": "The continental republic",
+      "order": 1,
+      "start_year": 1809
+    },
+    {
+      "end_year": 1868,
+      "key": "civil-war-reconstruction",
+      "label": "Sectional crisis & constitutional rupture",
+      "order": 2,
+      "start_year": 1850
+    },
+    {
+      "end_year": 1912,
+      "key": "gilded-age",
+      "label": "Administrative-industrial order",
+      "order": 3,
+      "start_year": 1869
+    },
+    {
+      "end_year": 1932,
+      "key": "progressives-depression",
+      "label": "Reform, world war & collapse",
+      "order": 4,
+      "start_year": 1913
+    },
+    {
+      "end_year": 1952,
+      "key": "war-new-deal",
+      "label": "New Deal, world war & settlement",
+      "order": 5,
+      "start_year": 1933
+    },
+    {
+      "end_year": 1980,
+      "key": "cold-war",
+      "label": "Mature Cold War",
+      "order": 6,
+      "start_year": 1953
+    },
+    {
+      "end_year": 2016,
+      "key": "post-cold-war",
+      "label": "Conservative turn & always-on presidency",
+      "order": 7,
+      "start_year": 1981
+    },
+    {
+      "end_year": 2026,
+      "key": "present",
+      "label": "Platform-era intensification",
+      "order": 8,
+      "start_year": 2017
+    }
+  ],
+  "validation_results": {
+    "coder_blinding": "passed",
+    "era_and_arm_quotas": "passed",
+    "genre_fallback": "passed",
+    "no_network_or_execution": "passed",
+    "probability_and_weight_statuses": "passed_no_weights_for_purposive_or_fallback_rows",
+    "prompt_only_difference": "passed",
+    "source_hashes": "passed",
+    "unique_semantic_keys": "passed"
+  }
+}

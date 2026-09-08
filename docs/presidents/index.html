@@ -27,30 +27,47 @@
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
   footer a { color: var(--ink2); }
 
-  .crumbs { margin-bottom: 18px; font-size: .88rem; }
-  .directory-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(230px,1fr)); gap: 11px; margin-top: 24px; }
-  .president-card { display: grid; grid-template-columns: 48px minmax(0,1fr); gap: 11px; padding: 13px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--ink); text-decoration: none; }
+  .directory-search { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; max-width: 620px; margin-top: 22px; }
+  .directory-search label { grid-column: 1/-1; font-size: .78rem; font-weight: 740; }
+  .directory-search input { width: 100%; min-height: 44px; padding: 9px 11px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; }
+  .directory-search button { min-width: 76px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 720; }
+  .directory-results { grid-column: 1/-1; margin: 0; color: var(--muted); font-size: .78rem; }
+  .directory-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 11px; margin: 24px 0 0; padding: 0; list-style: none; }
+  .directory-grid > li { min-width: 0; }
+  .president-card { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 11px; height: 100%; padding: 13px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--ink); text-decoration: none; }
   .president-card:hover { border-color: #726d64; }
-  .president-card img { width: 48px; height: 48px; border: 1px solid var(--border); border-radius: 50%; object-fit: cover; }
+  .president-card:focus-visible, .directory-search :focus-visible { outline: 3px solid #315f78; outline-offset: 2px; }
+  .president-card img { width: 64px; height: 64px; border: 1px solid var(--border); border-radius: 50%; object-fit: cover; }
   .president-card strong { display: block; line-height: 1.25; }
   .card-meta { margin-top: 3px; color: var(--muted); font-size: .75rem; }
+  .card-speeches { grid-column: 1/-1; color: var(--ink2); font-size: .8rem; font-weight: 700; }
   .card-measure { grid-column: 1/-1; color: var(--ink2); font-size: .8rem; }
-  .card-measure span { margin-right: 4px; color: var(--muted); font-size: .64rem; font-weight: 760; letter-spacing: .045em; text-transform: uppercase; }
+  .card-measure span { display: block; margin-bottom: 2px; color: var(--muted); font-size: .64rem; font-weight: 760; letter-spacing: .045em; text-transform: uppercase; }
   .card-support { grid-column: 1/-1; font-size: .7rem; font-weight: 720; color: #34523c; }
   .card-support.thin { color: #6b4c0c; }
-  @media (max-width: 420px) { .directory-grid { grid-template-columns: 1fr; } }
+  .directory-no-results { margin-top: 20px; padding: 13px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); }
+  body > footer a { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; }
+  [hidden] { display: none!important; }
+  @media (max-width: 959px) { .directory-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+  @media (max-width: 599px) { .directory-grid { grid-template-columns: 1fr; } }
+  @media (forced-colors: active) {
+    .president-card, .directory-search input, .directory-search button { border-color: CanvasText; }
+    .president-card:focus-visible, .directory-search :focus-visible { outline-color: Highlight; }
+  }
 </style></head>
 <body><style>
 .global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
 align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
-color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+box-sizing:border-box;min-width:44px;min-height:44px;color:#172a38;text-decoration:none;font-weight:760;
+letter-spacing:-.015em;white-space:nowrap}
 .nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
 background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
 align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
 .nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
-min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+box-sizing:border-box;min-width:44px;min-height:44px;border:0;border-radius:8px;
+padding:7px 9px;background:transparent;
 color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
 white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
 .nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
@@ -59,65 +76,96 @@ background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6p
 border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
 transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
 .nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
-.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
-min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
-background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
-.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
-padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+.nav-submenu{position:absolute;top:100%;right:0;z-index:120;padding-top:7px}
+.nav-submenu-panel{display:grid;min-width:178px;padding:7px;
+border:1px solid rgba(11,11,11,.14);border-radius:11px;background:#fff;
+box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:flex;align-items:center;
+box-sizing:border-box;min-height:44px;border-radius:7px;padding:9px 10px;
+color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
 white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
-html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu,
+html:not(.nav-enhanced) .nav-group:focus-within>.nav-submenu{display:block!important}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
 .nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
 gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
-width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+width:100%;min-width:44px;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
 .nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
-</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="../presidents/index.html" aria-current="page">Presidents</a><a href="../issues/index.html">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+@media(forced-colors:active){.global-nav{background:Canvas;border-color:CanvasText;
+backdrop-filter:none}.nav-submenu-panel{background:Canvas;color:CanvasText;
+border:2px solid CanvasText;box-shadow:none}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger,.nav-submenu a:hover{background:Canvas;color:CanvasText;
+outline:1px solid currentColor}.nav-item>a[aria-current=page],
+.nav-group.nav-group-current>.nav-trigger,.nav-submenu a[aria-current=page]{
+background:Canvas;color:CanvasText;text-decoration:underline;text-decoration-thickness:3px;
+text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
+.nav-submenu a:focus-visible,.nav-brand:focus-visible{outline-color:Highlight}}
+</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><div class="nav-submenu-panel"><a href="../presidents/index.html" aria-current="page">Presidents</a><a href="../issues/index.html">Issues</a></div></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><div class="nav-submenu-panel"><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
   if (!nav || !nav.matches(".global-nav")) return;
-  document.documentElement.classList.add("nav-enhanced");
   const groups = [...nav.querySelectorAll(".nav-group")];
-  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
-  const close = (group, restoreFocus = false) => {
+  const hoverPointer = matchMedia("(any-hover: hover)");
+  let openGroup = null;
+  let openMode = null;
+  const sync = (group, isOpen) => {
     const trigger = group.querySelector(".nav-trigger");
     const submenu = group.querySelector(".nav-submenu");
-    trigger.setAttribute("aria-expanded", "false");
-    submenu.hidden = true;
-    group.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    submenu.hidden = !isOpen;
+    group.classList.toggle("is-open", isOpen);
+  };
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    if (openGroup === group) {
+      openGroup = null;
+      openMode = null;
+    }
+    sync(group, false);
     if (restoreFocus) trigger.focus();
   };
-  const closeOthers = active => groups.forEach(group => {
-    if (group !== active) close(group);
-  });
-  const open = group => {
-    closeOthers(group);
-    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
-    group.querySelector(".nav-submenu").hidden = false;
-    group.classList.add("is-open");
+  const open = (group, mode) => {
+    if (openGroup && openGroup !== group) sync(openGroup, false);
+    openGroup = group;
+    openMode = mode;
+    sync(group, true);
+  };
+  const activate = group => {
+    if (openGroup !== group) {
+      open(group, "pinned");
+      return;
+    }
+    if (openMode === "hover") {
+      openMode = "pinned";
+      sync(group, true);
+      return;
+    }
+    close(group);
   };
   groups.forEach(group => {
     const trigger = group.querySelector(".nav-trigger");
-    const toggle = () => {
-      if (trigger.getAttribute("aria-expanded") === "true") close(group);
-      else open(group);
-    };
-    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("click", () => activate(group));
     trigger.addEventListener("keydown", event => {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      toggle();
+      activate(group);
     });
-    group.addEventListener("pointerenter", () => {
-      if (finePointer.matches) open(group);
+    group.addEventListener("pointerenter", event => {
+      if (event.pointerType === "touch") return;
+      const canHover = event.pointerType === "mouse" ||
+        (event.pointerType === "pen" && hoverPointer.matches);
+      if (canHover && openGroup !== group) open(group, "hover");
     });
-    group.addEventListener("pointerleave", () => {
-      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    group.addEventListener("pointerleave", event => {
+      if (event.pointerType === "touch") return;
+      if (openGroup === group && openMode === "hover" &&
+          !group.contains(document.activeElement)) close(group);
     });
     group.addEventListener("focusout", () => setTimeout(() => {
       if (!group.contains(document.activeElement)) close(group);
@@ -125,6 +173,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
     group.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
       event.preventDefault();
+      event.stopPropagation();
       close(group, true);
     });
   });
@@ -139,234 +188,276 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
   if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
   else addEventListener("resize", setNavHeight);
 
+  document.documentElement.classList.add("nav-enhanced");
 })();
 </script>
-<header><p class="crumbs"><a href="../index.html">← Dashboard</a> · <a href="../compare.html">Compare</a> · <a href="../methodology.html">How the AI labels work</a></p>
-<h1>President Profiles</h1><p class="sub">Evidence-first profiles for every president in the corpus. Cards keep corpus-derived, AI-labeled, and legacy issue measurements visibly separate.</p>
-<div class="directory-grid"><a class="president-card" href="george-washington.html">
-  <img src="../portraits/george-washington.png" width="48" height="48" alt="">
-  <div><strong>George Washington</strong><div class="card-meta">Unaffiliated · 1789–1796 · 21 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Crime &amp; justice</div><div class="card-measure"><span>AI topic</span>Indian Affairs, Removal &amp; Allotment</div>
+<header><h1>President Profiles</h1><p class="sub">Every president in canonical chronology, with one AI-topic preview and explicit corpus support.</p>
+<form class="directory-search" role="search" data-directory-search hidden>
+  <label for="president-search">Search by president name</label>
+  <input id="president-search" type="search" autocomplete="off" spellcheck="false">
+  <button type="button" data-directory-clear>Clear</button>
+  <p class="directory-results" data-directory-count aria-live="polite"></p>
+</form>
+<p class="directory-no-results" data-directory-empty hidden>No presidents match that name. Clear the search to restore the full chronology.</p>
+<ol class="directory-grid"><li data-president-card data-search-name="george washington"><a class="president-card" href="george-washington.html">
+  <img src="../portraits/george-washington.png" width="64" height="64" alt="" loading="eager" decoding="async">
+  <div><strong>George Washington</strong><div class="card-meta">Unaffiliated<br>Corpus record 1789–1796</div></div>
+  <div class="card-speeches">21 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Indian Affairs, Removal &amp; Allotment · 22.5%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="john-adams.html">
-  <img src="../portraits/john-adams.png" width="48" height="48" alt="">
-  <div><strong>John Adams</strong><div class="card-meta">Federalist · 1797–1800 · 9 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Neutral Rights &amp; Maritime Depredations</div>
+</a></li><li data-president-card data-search-name="john adams"><a class="president-card" href="john-adams.html">
+  <img src="../portraits/john-adams.png" width="64" height="64" alt="" loading="eager" decoding="async">
+  <div><strong>John Adams</strong><div class="card-meta">Federalist<br>Corpus record 1797–1800</div></div>
+  <div class="card-speeches">9 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Neutral Rights &amp; Maritime Depredations · 35.3%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="thomas-jefferson.html">
-  <img src="../portraits/thomas-jefferson.png" width="48" height="48" alt="">
-  <div><strong>Thomas Jefferson</strong><div class="card-meta">Democratic-Republican · 1801–1809 · 24 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Indian Affairs, Removal &amp; Allotment</div>
+</a></li><li data-president-card data-search-name="thomas jefferson"><a class="president-card" href="thomas-jefferson.html">
+  <img src="../portraits/thomas-jefferson.png" width="64" height="64" alt="" loading="eager" decoding="async">
+  <div><strong>Thomas Jefferson</strong><div class="card-meta">Democratic-Republican<br>Corpus record 1801–1809</div></div>
+  <div class="card-speeches">24 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Indian Affairs, Removal &amp; Allotment · 20.8%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="james-madison.html">
-  <img src="../portraits/james-madison.png" width="48" height="48" alt="">
-  <div><strong>James Madison</strong><div class="card-meta">Democratic-Republican · 1809–1817 · 21 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Early Naval Wars: Barbary &amp; the War of 1812</div>
+</a></li><li data-president-card data-search-name="james madison"><a class="president-card" href="james-madison.html">
+  <img src="../portraits/james-madison.png" width="64" height="64" alt="" loading="eager" decoding="async">
+  <div><strong>James Madison</strong><div class="card-meta">Democratic-Republican<br>Corpus record 1809–1817</div></div>
+  <div class="card-speeches">21 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Early Naval Wars: Barbary &amp; the War of 1812 · 31.4%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="james-monroe.html">
-  <img src="../portraits/james-monroe.png" width="48" height="48" alt="">
-  <div><strong>James Monroe</strong><div class="card-meta">Democratic-Republican · 1817–1824 · 10 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+</a></li><li data-president-card data-search-name="james monroe"><a class="president-card" href="james-monroe.html">
+  <img src="../portraits/james-monroe.png" width="64" height="64" alt="" loading="eager" decoding="async">
+  <div><strong>James Monroe</strong><div class="card-meta">Democratic-Republican<br>Corpus record 1817–1824</div></div>
+  <div class="card-speeches">10 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 23.6%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="john-quincy-adams.html">
-  <img src="../portraits/john-quincy-adams.png" width="48" height="48" alt="">
-  <div><strong>John Quincy Adams</strong><div class="card-meta">Democratic-Republican · 1821–1828 · 8 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Tariffs, Reciprocity &amp; Navigation Laws</div>
+</a></li><li data-president-card data-search-name="john quincy adams"><a class="president-card" href="john-quincy-adams.html">
+  <img src="../portraits/john-quincy-adams.png" width="64" height="64" alt="" loading="eager" decoding="async">
+  <div><strong>John Quincy Adams</strong><div class="card-meta">Democratic-Republican<br>Corpus record 1821–1828</div></div>
+  <div class="card-speeches">8 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Tariffs, Reciprocity &amp; Navigation Laws · 18.5%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="andrew-jackson.html">
-  <img src="../portraits/andrew-jackson.png" width="48" height="48" alt="">
-  <div><strong>Andrew Jackson</strong><div class="card-meta">Democratic · 1829–1837 · 26 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Constitutional Union &amp; Federalism</div>
+</a></li><li data-president-card data-search-name="andrew jackson"><a class="president-card" href="andrew-jackson.html">
+  <img src="../portraits/andrew-jackson.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Andrew Jackson</strong><div class="card-meta">Democratic<br>Corpus record 1829–1837</div></div>
+  <div class="card-speeches">26 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Constitutional Union &amp; Federalism · 20.3%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="martin-van-buren.html">
-  <img src="../portraits/martin-van-buren.png" width="48" height="48" alt="">
-  <div><strong>Martin Van Buren</strong><div class="card-meta">Democratic · 1837–1841 · 10 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>National Bank &amp; Banking Crises</div>
+</a></li><li data-president-card data-search-name="martin van buren"><a class="president-card" href="martin-van-buren.html">
+  <img src="../portraits/martin-van-buren.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Martin Van Buren</strong><div class="card-meta">Democratic<br>Corpus record 1837–1841</div></div>
+  <div class="card-speeches">10 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>National Bank &amp; Banking Crises · 31.4%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="william-harrison.html">
-  <img src="../portraits/william-harrison.png" width="48" height="48" alt="">
-  <div><strong>William Henry Harrison</strong><div class="card-meta">Whig · 1841–1841 · 1 speech</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Executive Power, Vetoes &amp; the Courts</div>
-  <div class="card-support thin">Insufficient record for ranks</div>
-</a><a class="president-card" href="john-tyler.html">
-  <img src="../portraits/john-tyler.png" width="48" height="48" alt="">
-  <div><strong>John Tyler</strong><div class="card-meta">Whig · 1841–1845 · 18 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+</a></li><li data-president-card data-search-name="william henry harrison"><a class="president-card" href="william-harrison.html">
+  <img src="../portraits/william-harrison.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>William Henry Harrison</strong><div class="card-meta">Whig<br>Corpus record 1841–1841</div></div>
+  <div class="card-speeches">1 speech</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Executive Power, Vetoes &amp; the Courts · 42.1%</div>
+  <div class="card-support thin">Insufficient record for percentile ranking</div>
+</a></li><li data-president-card data-search-name="john tyler"><a class="president-card" href="john-tyler.html">
+  <img src="../portraits/john-tyler.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>John Tyler</strong><div class="card-meta">Whig<br>Corpus record 1841–1845</div></div>
+  <div class="card-speeches">18 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 26.7%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="james-k-polk.html">
-  <img src="../portraits/james-k-polk.png" width="48" height="48" alt="">
-  <div><strong>James K. Polk</strong><div class="card-meta">Democratic · 1845–1849 · 25 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Mexican War</div>
+</a></li><li data-president-card data-search-name="james k. polk"><a class="president-card" href="james-k-polk.html">
+  <img src="../portraits/james-k-polk.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>James K. Polk</strong><div class="card-meta">Democratic<br>Corpus record 1845–1849</div></div>
+  <div class="card-speeches">25 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Mexican War · 25.2%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="zachary-taylor.html">
-  <img src="../portraits/zachary-taylor.png" width="48" height="48" alt="">
-  <div><strong>Zachary Taylor</strong><div class="card-meta">Whig · 1849–1850 · 4 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
-  <div class="card-support thin">Insufficient record for ranks</div>
-</a><a class="president-card" href="millard-fillmore.html">
-  <img src="../portraits/millard-fillmore.png" width="48" height="48" alt="">
-  <div><strong>Millard Fillmore</strong><div class="card-meta">Whig · 1850–1852 · 7 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+</a></li><li data-president-card data-search-name="zachary taylor"><a class="president-card" href="zachary-taylor.html">
+  <img src="../portraits/zachary-taylor.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Zachary Taylor</strong><div class="card-meta">Whig<br>Corpus record 1849–1850</div></div>
+  <div class="card-speeches">4 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 28.8%</div>
+  <div class="card-support thin">Insufficient record for percentile ranking</div>
+</a></li><li data-president-card data-search-name="millard fillmore"><a class="president-card" href="millard-fillmore.html">
+  <img src="../portraits/millard-fillmore.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Millard Fillmore</strong><div class="card-meta">Whig<br>Corpus record 1850–1852</div></div>
+  <div class="card-speeches">7 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 18.3%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="franklin-pierce.html">
-  <img src="../portraits/franklin-pierce.png" width="48" height="48" alt="">
-  <div><strong>Franklin Pierce</strong><div class="card-meta">Democratic · 1853–1856 · 15 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+</a></li><li data-president-card data-search-name="franklin pierce"><a class="president-card" href="franklin-pierce.html">
+  <img src="../portraits/franklin-pierce.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Franklin Pierce</strong><div class="card-meta">Democratic<br>Corpus record 1853–1856</div></div>
+  <div class="card-speeches">15 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 16.7%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="james-buchanan.html">
-  <img src="../portraits/james-buchanan.png" width="48" height="48" alt="">
-  <div><strong>James Buchanan</strong><div class="card-meta">Democratic · 1857–1861 · 14 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Constitutional Union &amp; Federalism</div>
+</a></li><li data-president-card data-search-name="james buchanan"><a class="president-card" href="james-buchanan.html">
+  <img src="../portraits/james-buchanan.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>James Buchanan</strong><div class="card-meta">Democratic<br>Corpus record 1857–1861</div></div>
+  <div class="card-speeches">14 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Constitutional Union &amp; Federalism · 16.8%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="abraham-lincoln.html">
-  <img src="../portraits/abraham-lincoln.png" width="48" height="48" alt="">
-  <div><strong>Abraham Lincoln</strong><div class="card-meta">Republican · 1852–1865 · 15 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Civil rights &amp; race</div><div class="card-measure"><span>AI topic</span>Slavery, Emancipation &amp; Sectionalism</div>
+</a></li><li data-president-card data-search-name="abraham lincoln"><a class="president-card" href="abraham-lincoln.html">
+  <img src="../portraits/abraham-lincoln.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Abraham Lincoln</strong><div class="card-meta">Republican<br>Corpus record 1852–1865</div></div>
+  <div class="card-speeches">15 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Slavery, Emancipation &amp; Sectionalism · 62.9%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="andrew-johnson.html">
-  <img src="../portraits/andrew-johnson.png" width="48" height="48" alt="">
-  <div><strong>Andrew Johnson</strong><div class="card-meta">Democratic · 1865–1868 · 31 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Reconstruction &amp; Southern Self-Government</div>
+</a></li><li data-president-card data-search-name="andrew johnson"><a class="president-card" href="andrew-johnson.html">
+  <img src="../portraits/andrew-johnson.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Andrew Johnson</strong><div class="card-meta">Democratic<br>Corpus record 1865–1868</div></div>
+  <div class="card-speeches">31 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Reconstruction &amp; Southern Self-Government · 33.9%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="ulysses-s-grant.html">
-  <img src="../portraits/ulysses-s-grant.png" width="48" height="48" alt="">
-  <div><strong>Ulysses S. Grant</strong><div class="card-meta">Republican · 1869–1877 · 32 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+</a></li><li data-president-card data-search-name="ulysses s. grant"><a class="president-card" href="ulysses-s-grant.html">
+  <img src="../portraits/ulysses-s-grant.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Ulysses S. Grant</strong><div class="card-meta">Republican<br>Corpus record 1869–1877</div></div>
+  <div class="card-speeches">32 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 19.7%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="rutherford-b-hayes.html">
-  <img src="../portraits/rutherford-b-hayes.png" width="48" height="48" alt="">
-  <div><strong>Rutherford B. Hayes</strong><div class="card-meta">Republican · 1877–1881 · 16 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Taxes &amp; budget</div><div class="card-measure"><span>AI topic</span>Elections &amp; Voting Integrity</div>
+</a></li><li data-president-card data-search-name="rutherford b. hayes"><a class="president-card" href="rutherford-b-hayes.html">
+  <img src="../portraits/rutherford-b-hayes.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Rutherford B. Hayes</strong><div class="card-meta">Republican<br>Corpus record 1877–1881</div></div>
+  <div class="card-speeches">16 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Elections &amp; Voting Integrity · 15.2%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="james-a-garfield.html">
-  <img src="../portraits/james-a-garfield.png" width="48" height="48" alt="">
-  <div><strong>James A. Garfield</strong><div class="card-meta">Republican · 1881–1881 · 1 speech</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Civil rights &amp; race</div><div class="card-measure"><span>AI topic</span>Constitutional Union &amp; Federalism</div>
-  <div class="card-support thin">Insufficient record for ranks</div>
-</a><a class="president-card" href="chester-a-arthur.html">
-  <img src="../portraits/chester-a-arthur.png" width="48" height="48" alt="">
-  <div><strong>Chester A. Arthur</strong><div class="card-meta">Republican · 1881–1884 · 11 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+</a></li><li data-president-card data-search-name="james a. garfield"><a class="president-card" href="james-a-garfield.html">
+  <img src="../portraits/james-a-garfield.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>James A. Garfield</strong><div class="card-meta">Republican<br>Corpus record 1881–1881</div></div>
+  <div class="card-speeches">1 speech</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Constitutional Union &amp; Federalism · 24.1%</div>
+  <div class="card-support thin">Insufficient record for percentile ranking</div>
+</a></li><li data-president-card data-search-name="chester a. arthur"><a class="president-card" href="chester-a-arthur.html">
+  <img src="../portraits/chester-a-arthur.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Chester A. Arthur</strong><div class="card-meta">Republican<br>Corpus record 1881–1884</div></div>
+  <div class="card-speeches">11 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 19.7%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="grover-cleveland.html">
-  <img src="../portraits/grover-cleveland.png" width="48" height="48" alt="">
-  <div><strong>Grover Cleveland</strong><div class="card-meta">Democratic · 1885–1897 · 32 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+</a></li><li data-president-card data-search-name="grover cleveland"><a class="president-card" href="grover-cleveland.html">
+  <img src="../portraits/grover-cleveland.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Grover Cleveland</strong><div class="card-meta">Democratic<br>Corpus record 1885–1897</div></div>
+  <div class="card-speeches">32 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 17.9%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="benjamin-harrison.html">
-  <img src="../portraits/benjamin-harrison.png" width="48" height="48" alt="">
-  <div><strong>Benjamin Harrison</strong><div class="card-meta">Republican · 1889–1893 · 16 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Trade &amp; tariffs</div><div class="card-measure"><span>AI topic</span>Tariffs, Reciprocity &amp; Navigation Laws</div>
+</a></li><li data-president-card data-search-name="benjamin harrison"><a class="president-card" href="benjamin-harrison.html">
+  <img src="../portraits/benjamin-harrison.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Benjamin Harrison</strong><div class="card-meta">Republican<br>Corpus record 1889–1893</div></div>
+  <div class="card-speeches">16 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Tariffs, Reciprocity &amp; Navigation Laws · 18.1%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="william-mckinley.html">
-  <img src="../portraits/william-mckinley.png" width="48" height="48" alt="">
-  <div><strong>William McKinley</strong><div class="card-meta">Republican · 1897–1901 · 14 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+</a></li><li data-president-card data-search-name="william mckinley"><a class="president-card" href="william-mckinley.html">
+  <img src="../portraits/william-mckinley.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>William McKinley</strong><div class="card-meta">Republican<br>Corpus record 1897–1901</div></div>
+  <div class="card-speeches">14 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 23.6%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="theodore-roosevelt.html">
-  <img src="../portraits/theodore-roosevelt.png" width="48" height="48" alt="">
-  <div><strong>Theodore Roosevelt</strong><div class="card-meta">Republican · 1901–1908 · 22 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Infrastructure</div><div class="card-measure"><span>AI topic</span>Military Preparedness, Armed Forces &amp; Veterans</div>
+</a></li><li data-president-card data-search-name="theodore roosevelt"><a class="president-card" href="theodore-roosevelt.html">
+  <img src="../portraits/theodore-roosevelt.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Theodore Roosevelt</strong><div class="card-meta">Republican<br>Corpus record 1901–1908</div></div>
+  <div class="card-speeches">22 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Military Preparedness, Armed Forces &amp; Veterans · 13.3%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="william-taft.html">
-  <img src="../portraits/william-taft.png" width="48" height="48" alt="">
-  <div><strong>William Howard Taft</strong><div class="card-meta">Republican · 1909–1912 · 12 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Trade &amp; tariffs</div><div class="card-measure"><span>AI topic</span>Tariffs, Reciprocity &amp; Navigation Laws</div>
+</a></li><li data-president-card data-search-name="william howard taft"><a class="president-card" href="william-taft.html">
+  <img src="../portraits/william-taft.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>William Howard Taft</strong><div class="card-meta">Republican<br>Corpus record 1909–1912</div></div>
+  <div class="card-speeches">12 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Tariffs, Reciprocity &amp; Navigation Laws · 18.9%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="woodrow-wilson.html">
-  <img src="../portraits/woodrow-wilson.png" width="48" height="48" alt="">
-  <div><strong>Woodrow Wilson</strong><div class="card-meta">Democratic · 1913–1920 · 33 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>World War I Mobilization &amp; War Aims</div>
+</a></li><li data-president-card data-search-name="woodrow wilson"><a class="president-card" href="woodrow-wilson.html">
+  <img src="../portraits/woodrow-wilson.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Woodrow Wilson</strong><div class="card-meta">Democratic<br>Corpus record 1913–1920</div></div>
+  <div class="card-speeches">33 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>World War I Mobilization &amp; War Aims · 24.1%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="warren-g-harding.html">
-  <img src="../portraits/warren-g-harding.png" width="48" height="48" alt="">
-  <div><strong>Warren G. Harding</strong><div class="card-meta">Republican · 1917–1922 · 18 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>Providence, Faith &amp; American Ideals</div>
+</a></li><li data-president-card data-search-name="warren g. harding"><a class="president-card" href="warren-g-harding.html">
+  <img src="../portraits/warren-g-harding.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Warren G. Harding</strong><div class="card-meta">Republican<br>Corpus record 1917–1922</div></div>
+  <div class="card-speeches">18 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Providence, Faith &amp; American Ideals · 19.8%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="calvin-coolidge.html">
-  <img src="../portraits/calvin-coolidge.png" width="48" height="48" alt="">
-  <div><strong>Calvin Coolidge</strong><div class="card-meta">Republican · 1923–1928 · 12 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Taxes &amp; budget</div><div class="card-measure"><span>AI topic</span>Internal Improvements, Energy &amp; Infrastructure</div>
+</a></li><li data-president-card data-search-name="calvin coolidge"><a class="president-card" href="calvin-coolidge.html">
+  <img src="../portraits/calvin-coolidge.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Calvin Coolidge</strong><div class="card-meta">Republican<br>Corpus record 1923–1928</div></div>
+  <div class="card-speeches">12 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Internal Improvements, Energy &amp; Infrastructure · 15.1%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="herbert-hoover.html">
-  <img src="../portraits/herbert-hoover.png" width="48" height="48" alt="">
-  <div><strong>Herbert Hoover</strong><div class="card-meta">Republican · 1928–1932 · 30 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Economy &amp; jobs</div><div class="card-measure"><span>AI topic</span>Great Depression Recovery</div>
+</a></li><li data-president-card data-search-name="herbert hoover"><a class="president-card" href="herbert-hoover.html">
+  <img src="../portraits/herbert-hoover.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Herbert Hoover</strong><div class="card-meta">Republican<br>Corpus record 1928–1932</div></div>
+  <div class="card-speeches">30 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Great Depression Recovery · 20.2%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="franklin-d-roosevelt.html">
-  <img src="../portraits/franklin-d-roosevelt.png" width="48" height="48" alt="">
-  <div><strong>Franklin D. Roosevelt</strong><div class="card-meta">Democratic · 1933–1945 · 49 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>World War II Military Operations</div>
+</a></li><li data-president-card data-search-name="franklin d. roosevelt"><a class="president-card" href="franklin-d-roosevelt.html">
+  <img src="../portraits/franklin-d-roosevelt.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Franklin D. Roosevelt</strong><div class="card-meta">Democratic<br>Corpus record 1933–1945</div></div>
+  <div class="card-speeches">49 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>World War II Military Operations · 37.5%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="harry-s-truman.html">
-  <img src="../portraits/harry-s-truman.png" width="48" height="48" alt="">
-  <div><strong>Harry S. Truman</strong><div class="card-meta">Democratic · 1945–1953 · 19 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+</a></li><li data-president-card data-search-name="harry s. truman"><a class="president-card" href="harry-s-truman.html">
+  <img src="../portraits/harry-s-truman.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Harry S. Truman</strong><div class="card-meta">Democratic<br>Corpus record 1945–1953</div></div>
+  <div class="card-speeches">19 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Cold War &amp; Great-Power Rivalry · 22.7%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="dwight-d-eisenhower.html">
-  <img src="../portraits/dwight-d-eisenhower.png" width="48" height="48" alt="">
-  <div><strong>Dwight D. Eisenhower</strong><div class="card-meta">Republican · 1953–1961 · 15 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Economy &amp; jobs</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+</a></li><li data-president-card data-search-name="dwight d. eisenhower"><a class="president-card" href="dwight-d-eisenhower.html">
+  <img src="../portraits/dwight-d-eisenhower.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Dwight D. Eisenhower</strong><div class="card-meta">Republican<br>Corpus record 1953–1961</div></div>
+  <div class="card-speeches">15 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Cold War &amp; Great-Power Rivalry · 22.7%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="john-f-kennedy.html">
-  <img src="../portraits/john-f-kennedy.png" width="48" height="48" alt="">
-  <div><strong>John F. Kennedy</strong><div class="card-meta">Democratic · 1960–1963 · 44 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+</a></li><li data-president-card data-search-name="john f. kennedy"><a class="president-card" href="john-f-kennedy.html">
+  <img src="../portraits/john-f-kennedy.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>John F. Kennedy</strong><div class="card-meta">Democratic<br>Corpus record 1960–1963</div></div>
+  <div class="card-speeches">44 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Cold War &amp; Great-Power Rivalry · 35.5%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="lyndon-b-johnson.html">
-  <img src="../portraits/lyndon-b-johnson.png" width="48" height="48" alt="">
-  <div><strong>Lyndon B. Johnson</strong><div class="card-meta">Democratic · 1963–1969 · 71 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Crime &amp; justice</div><div class="card-measure"><span>AI topic</span>Vietnam War</div>
+</a></li><li data-president-card data-search-name="lyndon b. johnson"><a class="president-card" href="lyndon-b-johnson.html">
+  <img src="../portraits/lyndon-b-johnson.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Lyndon B. Johnson</strong><div class="card-meta">Democratic<br>Corpus record 1963–1969</div></div>
+  <div class="card-speeches">71 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Vietnam War · 31.2%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="richard-m-nixon.html">
-  <img src="../portraits/richard-m-nixon.png" width="48" height="48" alt="">
-  <div><strong>Richard M. Nixon</strong><div class="card-meta">Republican · 1952–1974 · 23 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Vietnam War</div>
+</a></li><li data-president-card data-search-name="richard m. nixon"><a class="president-card" href="richard-m-nixon.html">
+  <img src="../portraits/richard-m-nixon.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Richard M. Nixon</strong><div class="card-meta">Republican<br>Corpus record 1952–1974</div></div>
+  <div class="card-speeches">23 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Vietnam War · 30.6%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="gerald-ford.html">
-  <img src="../portraits/gerald-ford.png" width="48" height="48" alt="">
-  <div><strong>Gerald Ford</strong><div class="card-meta">Republican · 1974–1977 · 14 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Foreign policy</div><div class="card-measure"><span>AI topic</span>Providence, Faith &amp; American Ideals</div>
+</a></li><li data-president-card data-search-name="gerald ford"><a class="president-card" href="gerald-ford.html">
+  <img src="../portraits/gerald-ford.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Gerald Ford</strong><div class="card-meta">Republican<br>Corpus record 1974–1977</div></div>
+  <div class="card-speeches">14 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Providence, Faith &amp; American Ideals · 15.1%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="jimmy-carter.html">
-  <img src="../portraits/jimmy-carter.png" width="48" height="48" alt="">
-  <div><strong>Jimmy Carter</strong><div class="card-meta">Democratic · 1976–1981 · 22 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Money &amp; banking</div><div class="card-measure"><span>AI topic</span>Taxes, Budget Deficits &amp; Federal Spending</div>
+</a></li><li data-president-card data-search-name="jimmy carter"><a class="president-card" href="jimmy-carter.html">
+  <img src="../portraits/jimmy-carter.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Jimmy Carter</strong><div class="card-meta">Democratic<br>Corpus record 1976–1981</div></div>
+  <div class="card-speeches">22 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Taxes, Budget Deficits &amp; Federal Spending · 13.5%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="ronald-reagan.html">
-  <img src="../portraits/ronald-reagan.png" width="48" height="48" alt="">
-  <div><strong>Ronald Reagan</strong><div class="card-meta">Republican · 1964–1989 · 60 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Taxes &amp; budget</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+</a></li><li data-president-card data-search-name="ronald reagan"><a class="president-card" href="ronald-reagan.html">
+  <img src="../portraits/ronald-reagan.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Ronald Reagan</strong><div class="card-meta">Republican<br>Corpus record 1964–1989</div></div>
+  <div class="card-speeches">60 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Cold War &amp; Great-Power Rivalry · 18.4%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="george-h-w-bush.html">
-  <img src="../portraits/george-h-w-bush.png" width="48" height="48" alt="">
-  <div><strong>George H. W. Bush</strong><div class="card-meta">Republican · 1988–1993 · 23 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Treaties, Diplomacy &amp; International Arbitration</div>
+</a></li><li data-president-card data-search-name="george h. w. bush"><a class="president-card" href="george-h-w-bush.html">
+  <img src="../portraits/george-h-w-bush.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>George H. W. Bush</strong><div class="card-meta">Republican<br>Corpus record 1988–1993</div></div>
+  <div class="card-speeches">23 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Treaties, Diplomacy &amp; International Arbitration · 12.6%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="bill-clinton.html">
-  <img src="../portraits/bill-clinton.png" width="48" height="48" alt="">
-  <div><strong>Bill Clinton</strong><div class="card-meta">Democratic · 1993–2001 · 39 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Education</div><div class="card-measure"><span>AI topic</span>Welfare, Poverty &amp; Economic Opportunity</div>
+</a></li><li data-president-card data-search-name="bill clinton"><a class="president-card" href="bill-clinton.html">
+  <img src="../portraits/bill-clinton.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Bill Clinton</strong><div class="card-meta">Democratic<br>Corpus record 1993–2001</div></div>
+  <div class="card-speeches">39 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Welfare, Poverty &amp; Economic Opportunity · 14.5%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="george-w-bush.html">
-  <img src="../portraits/george-w-bush.png" width="48" height="48" alt="">
-  <div><strong>George W. Bush</strong><div class="card-meta">Republican · 2001–2009 · 38 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Security &amp; peace</div><div class="card-measure"><span>AI topic</span>Iraq, Gulf Wars, the War on Terror &amp; Interventions</div>
+</a></li><li data-president-card data-search-name="george w. bush"><a class="president-card" href="george-w-bush.html">
+  <img src="../portraits/george-w-bush.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>George W. Bush</strong><div class="card-meta">Republican<br>Corpus record 2001–2009</div></div>
+  <div class="card-speeches">38 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Iraq, Gulf Wars, the War on Terror &amp; Interventions · 32.3%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="barack-obama.html">
-  <img src="../portraits/barack-obama.png" width="48" height="48" alt="">
-  <div><strong>Barack Obama</strong><div class="card-meta">Democratic · 2008–2017 · 51 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Economy &amp; jobs</div><div class="card-measure"><span>AI topic</span>Providence, Faith &amp; American Ideals</div>
+</a></li><li data-president-card data-search-name="barack obama"><a class="president-card" href="barack-obama.html">
+  <img src="../portraits/barack-obama.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Barack Obama</strong><div class="card-meta">Democratic<br>Corpus record 2008–2017</div></div>
+  <div class="card-speeches">51 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Providence, Faith &amp; American Ideals · 14.9%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="donald-trump.html">
-  <img src="../portraits/donald-trump.png" width="48" height="48" alt="">
-  <div><strong>Donald Trump</strong><div class="card-meta">Republican · 2017–2026 · 53 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>Immigration</div><div class="card-measure"><span>AI topic</span>Partisan Combat, Press Conferences &amp; Media Attacks</div>
+</a></li><li data-president-card data-search-name="donald trump"><a class="president-card" href="donald-trump.html">
+  <img src="../portraits/donald-trump.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Donald Trump</strong><div class="card-meta">Republican<br>Corpus record 2017–2026</div></div>
+  <div class="card-speeches">53 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Partisan Combat, Press Conferences &amp; Media Attacks · 14.6%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a><a class="president-card" href="joe-biden.html">
-  <img src="../portraits/joe-biden.png" width="48" height="48" alt="">
-  <div><strong>Joe Biden</strong><div class="card-meta">Democratic · 2021–2025 · 28 speeches</div></div>
-  <div class="card-measure"><span>Legacy issue</span>War &amp; military</div><div class="card-measure"><span>AI topic</span>Cold War &amp; Great-Power Rivalry</div>
+</a></li><li data-president-card data-search-name="joe biden"><a class="president-card" href="joe-biden.html">
+  <img src="../portraits/joe-biden.png" width="64" height="64" alt="" loading="lazy" decoding="async">
+  <div><strong>Joe Biden</strong><div class="card-meta">Democratic<br>Corpus record 2021–2025</div></div>
+  <div class="card-speeches">28 speeches</div><div class="card-measure"><span>Top AI topic by source-document paragraph share</span>Cold War &amp; Great-Power Rivalry · 18.1%</div>
   <div class="card-support ">Supported for percentile ranking</div>
-</a></div></header>
-<footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs, University of Virginia</a>. <a href="../methodology.html">AI labeling method</a>.</p><p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer></body></html>
+</a></li></ol></header>
+<footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs, University of Virginia</a>.</p><p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer>
+<script>
+(() => {
+  const form = document.querySelector("[data-directory-search]");
+  const input = document.querySelector("#president-search");
+  const clear = document.querySelector("[data-directory-clear]");
+  const count = document.querySelector("[data-directory-count]");
+  const empty = document.querySelector("[data-directory-empty]");
+  const cards = Array.from(document.querySelectorAll("[data-president-card]"));
+  if (!form || !input || !clear || !count || !empty || !cards.length) return;
+  const normalize = value => value.normalize("NFKD").replace(/[̀-ͯ]/g, "").toLocaleLowerCase("en-US");
+  const apply = () => {
+    const query = normalize(input.value.trim());
+    let visible = 0;
+    for (const card of cards) {
+      const matches = !query || card.dataset.searchName.includes(query);
+      card.hidden = !matches;
+      if (matches) visible += 1;
+    }
+    count.textContent = `${visible} president${visible === 1 ? "" : "s"} shown in chronological order.`;
+    empty.hidden = visible !== 0;
+    clear.disabled = !query;
+  };
+  input.addEventListener("input", apply);
+  form.addEventListener("submit", event => { event.preventDefault(); apply(); });
+  input.addEventListener("keydown", event => {
+    if (event.key !== "Escape") return;
+    event.preventDefault();
+    input.value = "";
+    apply();
+  });
+  clear.addEventListener("click", () => { input.value = ""; apply(); input.focus(); });
+  apply();
+  form.hidden = false;
+})();
+</script></body></html>

@@ -33,12 +33,14 @@
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
 align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
-color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+box-sizing:border-box;min-width:44px;min-height:44px;color:#172a38;text-decoration:none;font-weight:760;
+letter-spacing:-.015em;white-space:nowrap}
 .nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
 background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
 align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
 .nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
-min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+box-sizing:border-box;min-width:44px;min-height:44px;border:0;border-radius:8px;
+padding:7px 9px;background:transparent;
 color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
 white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
 .nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
@@ -47,23 +49,35 @@ background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6p
 border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
 transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
 .nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
-.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
-min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
-background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
-.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
-padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+.nav-submenu{position:absolute;top:100%;right:0;z-index:120;padding-top:7px}
+.nav-submenu-panel{display:grid;min-width:178px;padding:7px;
+border:1px solid rgba(11,11,11,.14);border-radius:11px;background:#fff;
+box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:flex;align-items:center;
+box-sizing:border-box;min-height:44px;border-radius:7px;padding:9px 10px;
+color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
 white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
-html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu,
+html:not(.nav-enhanced) .nav-group:focus-within>.nav-submenu{display:block!important}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
 .nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
 gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
-width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+width:100%;min-width:44px;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
 .nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
+@media(forced-colors:active){.global-nav{background:Canvas;border-color:CanvasText;
+backdrop-filter:none}.nav-submenu-panel{background:Canvas;color:CanvasText;
+border:2px solid CanvasText;box-shadow:none}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger,.nav-submenu a:hover{background:Canvas;color:CanvasText;
+outline:1px solid currentColor}.nav-item>a[aria-current=page],
+.nav-group.nav-group-current>.nav-trigger,.nav-submenu a[aria-current=page]{
+background:Canvas;color:CanvasText;text-decoration:underline;text-decoration-thickness:3px;
+text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
+.nav-submenu a:focus-visible,.nav-brand:focus-visible{outline-color:Highlight}}
 
 .note,.audit-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
 .audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
@@ -75,48 +89,67 @@ button,select,input{font:inherit} .tabs,.filters{display:flex;flex-wrap:wrap;gap
 .tabs button[aria-selected=true]{background:var(--ink);color:var(--page)} .panel[hidden]{display:none}
 .network-plot{height:620px} .sr-note{color:var(--muted);font-size:.85rem}
 @media(max-width:700px){.network-plot{height:460px}}
-</style></head><body><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div><div class="nav-item nav-group nav-group-current" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="data-quality.html">Data Quality</a><a href="methodology.html" aria-current="page">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+</style></head><body><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><div class="nav-submenu-panel"><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div></div><div class="nav-item nav-group nav-group-current" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><div class="nav-submenu-panel"><a href="data-quality.html">Data Quality</a><a href="methodology.html" aria-current="page">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
   if (!nav || !nav.matches(".global-nav")) return;
-  document.documentElement.classList.add("nav-enhanced");
   const groups = [...nav.querySelectorAll(".nav-group")];
-  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
-  const close = (group, restoreFocus = false) => {
+  const hoverPointer = matchMedia("(any-hover: hover)");
+  let openGroup = null;
+  let openMode = null;
+  const sync = (group, isOpen) => {
     const trigger = group.querySelector(".nav-trigger");
     const submenu = group.querySelector(".nav-submenu");
-    trigger.setAttribute("aria-expanded", "false");
-    submenu.hidden = true;
-    group.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    submenu.hidden = !isOpen;
+    group.classList.toggle("is-open", isOpen);
+  };
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    if (openGroup === group) {
+      openGroup = null;
+      openMode = null;
+    }
+    sync(group, false);
     if (restoreFocus) trigger.focus();
   };
-  const closeOthers = active => groups.forEach(group => {
-    if (group !== active) close(group);
-  });
-  const open = group => {
-    closeOthers(group);
-    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
-    group.querySelector(".nav-submenu").hidden = false;
-    group.classList.add("is-open");
+  const open = (group, mode) => {
+    if (openGroup && openGroup !== group) sync(openGroup, false);
+    openGroup = group;
+    openMode = mode;
+    sync(group, true);
+  };
+  const activate = group => {
+    if (openGroup !== group) {
+      open(group, "pinned");
+      return;
+    }
+    if (openMode === "hover") {
+      openMode = "pinned";
+      sync(group, true);
+      return;
+    }
+    close(group);
   };
   groups.forEach(group => {
     const trigger = group.querySelector(".nav-trigger");
-    const toggle = () => {
-      if (trigger.getAttribute("aria-expanded") === "true") close(group);
-      else open(group);
-    };
-    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("click", () => activate(group));
     trigger.addEventListener("keydown", event => {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      toggle();
+      activate(group);
     });
-    group.addEventListener("pointerenter", () => {
-      if (finePointer.matches) open(group);
+    group.addEventListener("pointerenter", event => {
+      if (event.pointerType === "touch") return;
+      const canHover = event.pointerType === "mouse" ||
+        (event.pointerType === "pen" && hoverPointer.matches);
+      if (canHover && openGroup !== group) open(group, "hover");
     });
-    group.addEventListener("pointerleave", () => {
-      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    group.addEventListener("pointerleave", event => {
+      if (event.pointerType === "touch") return;
+      if (openGroup === group && openMode === "hover" &&
+          !group.contains(document.activeElement)) close(group);
     });
     group.addEventListener("focusout", () => setTimeout(() => {
       if (!group.contains(document.activeElement)) close(group);
@@ -124,6 +157,7 @@ button,select,input{font:inherit} .tabs,.filters{display:flex;flex-wrap:wrap;gap
     group.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
       event.preventDefault();
+      event.stopPropagation();
       close(group, true);
     });
   });
@@ -138,105 +172,168 @@ button,select,input{font:inherit} .tabs,.filters{display:flex;flex-wrap:wrap;gap
   if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
   else addEventListener("resize", setNavHeight);
 
+  document.documentElement.classList.add("nav-enhanced");
 })();
 </script>
-<header><h1>How the label models differ</h1><p class="sub">A detailed, evidence-backed comparison of the anchored CorEx issue model and the LLM semantic taxonomy.</p></header>
-<main>
-<style>
-.method-contrast{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.method-lane{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px}
-.method-lane h2{margin-top:0}.method-lane.corex{border-top:5px solid #9b6b39}
-.method-lane.llm{border-top:5px solid #2d6f9d}.method-steps li{margin:.65rem 0}
-.model-chart{height:500px}.verdict{border-left:4px solid #8a6d3b;background:#fff8e8;padding:14px 16px}
-@media(max-width:760px){.method-contrast{grid-template-columns:1fr}.model-chart{height:420px}}
+<header><h1>How the label models differ</h1><p class="sub">One shared corpus, two measuring instruments, and a preregistered prediction that failed.</p></header>
+<main><style>
+.methods-local-nav{position:sticky;top:var(--global-nav-height,0);z-index:30;
+margin:20px 0 28px;background:rgba(249,249,247,.97);border-block:1px solid var(--border);
+overflow-x:auto;scrollbar-width:thin}.methods-local-nav ul{display:flex;list-style:none;
+padding:6px 0;margin:0;min-width:max-content}.methods-local-nav a{display:grid;
+place-items:center;min-height:40px;padding:6px 12px;white-space:nowrap;color:var(--ink2);
+text-decoration:none;font-size:.78rem;font-weight:680;border-radius:8px}
+.methods-scroll-cue{display:none;align-items:center;white-space:nowrap;padding:6px 10px;
+color:#52616c;font-size:.7rem;font-weight:750}
+.methods-local-nav a:hover{background:#ece7df}.methods-local-nav a[aria-current=page]{
+background:#172a38;color:#fff}.appendix-kicker{color:#275d8c;font-size:.72rem;
+font-weight:800;letter-spacing:.08em;text-transform:uppercase}.verdict-panel{display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0 32px}
+.verdict-panel article,.receipt-card,.instrument-card{background:var(--surface);
+border:1px solid var(--border);border-radius:14px;padding:17px}.verdict-panel h2,
+.verdict-panel h3{font-size:1rem;margin:.35rem 0}.verdict-panel p{font-size:.86rem;
+color:var(--ink2)}.appendix-section{margin-top:50px;scroll-margin-top:190px}
+.appendix-section>h2{font:700 clamp(1.45rem,3vw,2rem)/1.15 Georgia,serif}
+.appendix-section>p{max-width:800px;color:var(--ink2)}.trust-receipt{display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--border);
+border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:20px 0}
+.trust-receipt div{background:#fff;padding:13px;min-width:0}.trust-receipt dt{
+color:#52616c;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.trust-receipt dd{margin:.35rem 0 0;font-size:.8rem;overflow-wrap:anywhere}
+.metric-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:end;padding:15px;
+background:var(--surface);border:1px solid var(--border);border-radius:14px;margin:18px 0}
+.metric-search{display:grid;gap:5px;min-width:min(100%,260px);flex:1}.metric-search span{
+font-size:.75rem;font-weight:750}.metric-search input{min-height:44px;border:1px solid #8b969e;
+border-radius:9px;padding:9px 11px;background:#fff;color:var(--ink)}.metric-filters{
+display:flex;flex-wrap:wrap;gap:6px}.metric-filters button{min-height:40px;border:1px solid #83909a;
+border-radius:999px;background:#fff;color:var(--ink2);padding:7px 11px;cursor:pointer}
+.metric-filters button[aria-pressed=true]{background:#172a38;color:#fff;border-color:#172a38}
+.metric-results{min-height:1.3em;color:var(--muted);font-size:.8rem;margin-top:8px}
+.metric-group{margin-top:38px;scroll-margin-top:190px}.metric-group>h2{font-size:1.35rem}
+.metric-card-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;
+margin-top:14px}.metric-card{position:relative;background:#fff;border:1px solid var(--border);
+border-radius:14px;padding:17px;scroll-margin-top:190px}.metric-card h3{font-size:1rem;
+padding-right:28px}.metric-card .metric-question{font-weight:700;margin-top:8px}
+.metric-card .metric-definition{font-size:.86rem;color:var(--ink2);margin-top:7px}
+.metric-card .deep-link{position:absolute;right:12px;top:11px;color:#52616c;
+font-weight:800;text-decoration:none;padding:5px;min-width:24px;box-sizing:border-box;
+text-align:center}.metric-card details{margin-top:13px;background:var(--surface)}
+.metric-card dl{display:grid;grid-template-columns:minmax(90px,.35fr) 1fr;gap:7px 12px;
+font-size:.78rem}.metric-card dt{font-weight:750}.metric-card dd{margin:0;overflow-wrap:anywhere}
+.metric-card ol{padding-left:20px}.metric-card li{margin:5px 0}.metric-empty{padding:24px;
+border:1px dashed #87939c;border-radius:12px}.instrument-grid{display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.instrument-card h2{font-size:1.15rem}
+.instrument-card .eyebrow{font-size:.69rem;letter-spacing:.06em;text-transform:uppercase;
+font-weight:800}.instrument-card ul{padding-left:20px}.instrument-card li{margin:.55rem 0}
+.failed-prediction{border:2px solid #82551f;border-left-width:8px;border-radius:14px;
+background:#fff7e8;padding:20px;margin:22px 0}.failed-prediction .result{font:700 1.4rem Georgia,serif}
+.failed-prediction p{max-width:850px}.comparison-figure{margin:24px 0;background:var(--surface);
+border:1px solid var(--border);border-radius:16px;padding:18px}.comparison-figure figcaption{
+margin-bottom:16px}.comparison-figure figcaption strong,.comparison-figure figcaption span{
+display:block}.comparison-figure figcaption span{color:var(--muted);font-size:.82rem;margin-top:4px}
+.comparison-figure ol{list-style:none;padding:0}.rate-row{display:grid;
+grid-template-columns:minmax(145px,.8fr) minmax(260px,2fr);gap:14px;padding:12px 0;
+border-top:1px solid var(--grid)}.rate-row h3{font-size:.86rem}.rate-pair{display:grid;gap:7px}
+.rate-line{display:grid;grid-template-columns:108px minmax(90px,1fr) 52px;gap:8px;
+align-items:center;font-size:.75rem}.track{height:10px;background:#e4e8ea;border-radius:999px;
+overflow:hidden}.fill{display:block;height:100%;width:calc(var(--value) * 1%);min-width:1px;
+background:#205f8f}.corex .fill{background:repeating-linear-gradient(135deg,#87561f 0 5px,
+#c99452 5px 9px)}.agreement-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+gap:9px;list-style:none;padding:0}.agreement-row{background:#fff;border:1px solid var(--border);
+border-radius:12px;padding:13px}.agreement-row h3{font-size:.88rem}.agreement-values{display:grid;
+grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.agreement-values div{border-left:4px solid #205f8f;
+padding-left:8px}.agreement-values div+div{border-left-color:#87561f}.agreement-values span,
+.agreement-values strong{display:block}.agreement-values span{font-size:.69rem;color:var(--muted)}
+.agreement-values small{display:block;color:var(--muted);margin-top:8px;font-size:.68rem}
+.anchor-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;
+list-style:none;padding:0}.anchor-list li{background:#fff;border:1px solid var(--border);
+border-radius:11px;padding:13px}.anchor-list strong,.anchor-list span{display:block}
+.anchor-list span{font-size:.78rem;color:var(--ink2);margin-top:5px}.receipt-grid{display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.receipt-card span{color:#275d8c;
+font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800}.receipt-card h3{
+font-size:.95rem;margin-top:6px}.receipt-card p,.receipt-card code{font-size:.76rem;
+overflow-wrap:anywhere}.download-links{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0}
+.download-links a{display:block;background:#fff;border:1px solid var(--border);border-radius:9px;
+padding:9px 11px}.methods-local-nav a:focus-visible,.metric-card a:focus-visible,
+.metric-tools button:focus-visible,.metric-tools input:focus-visible,.download-links a:focus-visible{
+outline:3px solid #824600;outline-offset:2px}
+@media(max-width:780px){.verdict-panel,.trust-receipt,.receipt-grid{grid-template-columns:1fr 1fr}
+.methods-scroll-cue{display:flex}
+.metric-card-list,.instrument-grid,.agreement-list{grid-template-columns:1fr}.rate-row{grid-template-columns:1fr}}
+@media(max-width:430px){.verdict-panel,.trust-receipt,.receipt-grid{grid-template-columns:1fr}
+.comparison-figure{padding:14px}.rate-line{grid-template-columns:92px minmax(70px,1fr) 48px}
+.metric-card{padding:15px}.anchor-list{grid-template-columns:1fr}}
+@media(forced-colors:active){.fill{background:Highlight}.corex .fill{background:CanvasText}}
 </style>
-<section><h2>One corpus, two different measuring instruments</h2>
-<p>Both systems label the same paragraph-sized units and both allow more than one label.
-They differ in what they can “see.” CorEx is a deterministic, anchored word-pattern model.
-The LLM layer applies a frozen semantic rubric that can recognize an idea even when its
-historic wording changes. Neither is ground truth.</p>
-<div class="method-contrast">
-<article class="method-lane corex"><h2>CorEx: anchored word patterns</h2>
-<p><strong>15 hand-defined issues + 7 free topics.</strong> Sixteen are public after the
-free-topic quality gate.</p><ol class="method-steps">
-<li>Turn 36,229 paragraphs into binary word-presence vectors.</li>
-<li>Remove common English and speech-register words; retain words appearing in at least
-20 paragraphs and at most 30% of paragraphs, capped at 25,000 features.</li>
-<li>Give each of 15 issues an era-spanning anchor list, with anchor strength 6.</li>
-<li>Fit 22 latent factors with seed 42: 15 anchored factors and 7 unsupplied factors.</li>
-<li>Store a Boolean activation for every paragraph-topic pair.</li></ol>
-<p><strong>Strength:</strong> repeatable, cheap, inspectable vocabulary. <strong>Blind spot:</strong>
-renamed concepts and meanings that use none of the anchor vocabulary.</p></article>
-<article class="method-lane llm"><h2>LLM: frozen semantic rubric</h2>
-<p><strong>50 fine topics inside 17 broad domains.</strong> Labels were derived from
-era-isolated corpus samples, frozen, then applied paragraph by paragraph with president,
-party, and title hidden.</p><ol class="method-steps">
-<li>Use embeddings and era-balanced samples to expose subjects the legacy list missed.</li>
-<li>Normalize proposals into a closed 50-topic taxonomy with definitions and boundaries.</li>
-<li>Give the model only paragraph text and decade, then allow multi-label assignments.</li>
-<li>Re-label a stratified speech sample with a second model to measure disagreement.</li>
-<li>Carry sampling and annotator disagreement separately, then combine them into the
-default uncertainty envelope.</li></ol>
-<p><strong>Strength:</strong> meaning can survive vocabulary drift. <strong>Blind spot:</strong>
-subjective rubric judgments, model disagreement, and a more granular taxonomy.</p></article>
-</div></section>
-<section><h2>Does CorEx create named entities?</h2>
-<p><strong>No.</strong> CorEx produces paragraph-topic activations from correlated word
-patterns. It does not emit people, countries, organizations, stance, partisan attack,
-zero-sum framing, or proposal-versus-values judgments.</p>
-<p>Named entities come from a separate LLM extraction pass. The entity agreement numbers
-compare that primary LLM pass with a second LLM pass on the same sampled paragraphs—they
-are <em>not</em> CorEx-versus-LLM agreement. The audit separates whether the models found
-the same normalized names from whether they assigned the same stance after a name
-matched. <a href="data-quality.html">See the contextualized entity audit →</a></p></section>
-<section><h2>Where they agree—and why a mismatch is not automatically an error</h2>
-<p>The 50 fine LLM topics are projected through a declared many-to-many crosswalk onto
-the 15 legacy issues. The charts below use all 35,825 comparable
-paragraphs. A paragraph can activate several issues in either system.</p>
-<div id="model-rates" class="model-chart" aria-label="CorEx and LLM positive rates by issue"></div>
-<div id="model-agreement" class="model-chart" aria-label="CorEx and LLM agreement by issue"></div>
-<details class="metric-lesson"><summary>Explain this measure</summary><p><strong>Cohen’s κ</strong> — Agreement corrected for the labels each model uses most often.</p><p class="toy">Two models saying &#x27;no&#x27; on nearly everything can have high raw agreement but modest κ.</p><ol><li>Build a confusion matrix</li><li>Measure observed agreement</li><li>Estimate agreement from each model&#x27;s label rates</li><li>Correct the observed value</li></ol><details><summary>Formula and limitations</summary><p><code>(observed − expected) / (1 − expected)</code> · −1 to 1</p><p>Rare labels can depress κ even when most rows match.</p></details></details>
-<details><summary>Inspect the evidence</summary><p>
-<a href="data/method-agreement.csv" download>Download paragraph-level agreement summaries</a> ·
-<a href="data/method-compositions.csv" download>Download speech-level method compositions</a>.
-Jaccard is overlap divided by the union; κ adjusts observed agreement for the two
-systems' label rates.</p></details>
-<p class="verdict"><strong>The preregistered coherence prediction failed.</strong>
-Anchor-word coherence did not predict cross-method agreement (Spearman ρ = −0.054
-for Jaccard, no-change surprise 85.0%). Immigration is the clearest counterexample:
-its anchor words rarely co-occur, yet its CorEx and LLM labels agree relatively well.
-That is evidence that word co-occurrence and label precision are different questions.</p></section>
-<section><h2>The exact CorEx anchor vocabulary</h2>
-<p>These words guide the factors; they are not a simple keyword OR rule. CorEx also learns
-correlated non-anchor words. Low NPMI is published as a caveat, but anchored issues are not
-deleted for low coherence because their lists intentionally span vocabulary across eras.</p>
-<table><thead><tr><th>Anchored issue</th><th>Declared anchors</th></tr></thead>
-<tbody><tr><td>Economy &amp; jobs</td><td>economy, jobs, unemployment, industry, business, prosperity, wages, workers</td></tr><tr><td>Taxes &amp; budget</td><td>tax, taxes, budget, deficit, debt, spending, revenue, appropriations</td></tr><tr><td>War &amp; military</td><td>war, military, army, navy, troops, defense, soldiers, battle</td></tr><tr><td>Foreign policy</td><td>treaty, foreign, diplomatic, allies, alliance, relations, embassy, negotiations</td></tr><tr><td>Immigration</td><td>immigration, immigrants, border, citizenship, naturalization, aliens</td></tr><tr><td>Civil rights &amp; race</td><td>slavery, race, racial, discrimination, segregation, equality, emancipation, negro</td></tr><tr><td>Health care</td><td>health, medicare, medicaid, insurance, hospitals, disease, doctors, patients</td></tr><tr><td>Education</td><td>education, schools, teachers, students, colleges, learning</td></tr><tr><td>Crime &amp; justice</td><td>crime, police, prison, courts, drugs, violence, criminals</td></tr><tr><td>Energy &amp; environment</td><td>oil, environment, climate, conservation, pollution, forests, coal</td></tr><tr><td>Trade &amp; tariffs</td><td>tariff, trade, commerce, exports, imports, markets</td></tr><tr><td>Agriculture</td><td>farmers, agriculture, farm, crops, livestock</td></tr><tr><td>Religion &amp; values</td><td>god, faith, prayer, moral, church, spiritual</td></tr><tr><td>Money &amp; banking</td><td>currency, gold, silver, bank, banking, inflation, dollar, coinage</td></tr><tr><td>Infrastructure</td><td>railroad, railroads, roads, highways, canals, infrastructure, broadband, bridges</td></tr></tbody></table>
-<p class="sr-note">Stored model metadata reports 36,229 paragraphs,
-anchor strength 6, seven free topics, and a fixed random seed of 42.</p></section>
-<section><h2>Which view should you use?</h2>
-<ul><li><strong>Use CorEx</strong> for the long-run broad issue biographies and a completely
-deterministic historical lens.</li><li><strong>Use the LLM taxonomy</strong> for finer subjects,
-semantic drift, proposals/values, and paragraph judgments—while keeping its uncertainty
-envelopes visible.</li><li><strong>Use the comparison</strong> when a claim depends on one
-instrument. Agreement supports robustness; disagreement identifies a place to inspect wording,
-taxonomy boundaries, and source paragraphs.</li></ul></section></main><footer><p>Presidential Profiles · generated from versioned public artifacts.</p><p class="footer-feedback"><a href="feedback.html">Feedback and accuracy →</a></p></footer>
-<script src="assets/plotly-3.0.1.min.js"></script>
+<nav class="methods-local-nav" aria-label="Methods sections"><ul><li class="methods-scroll-cue" aria-hidden="true">More sections →</li><li><a href="methodology.html#overview">Overview</a></li><li><a href="methodology.html#labeling">Labeling</a></li><li><a href="methodology.html#evaluation">Evaluation</a></li><li><a href="methodology.html#populations">Populations</a></li><li><a href="label-models.html" aria-current="page">Model Comparison</a></li><li><a href="metrics.html">Metric Dictionary</a></li><li><a href="methodology.html#downloads">Downloads</a></li></ul></nav>
+<p class="appendix-kicker">Methods appendix · model comparison</p>
+<section class="verdict-panel" aria-label="Model comparison verdict">
+<article><span class="appendix-kicker">30-second answer</span><h2>These are different instruments</h2>
+<p>CorEx follows inspectable word patterns. The LLM applies a frozen semantic rubric. Agreement supports robustness; mismatch identifies sensitivity.</p></article>
+<article><span class="appendix-kicker">Shared population</span><h2>35,825 topic-bearing paragraphs</h2>
+<p>The preregistered <code>drop_unlabeled=True</code> estimand excludes
+404 primary-LLM no-topic paragraphs from
+36,229 source paragraphs. Neither model is treated as a gold label.</p></article>
+<article><span class="appendix-kicker">Scientific result</span><h2>A prediction failed</h2>
+<p>Anchor-word coherence did not predict cross-method Jaccard. The failed preregistered expectation remains prominent.</p></article></section>
+<section class="failed-prediction" aria-labelledby="failed-title"><p class="appendix-kicker">Preregistered result · failed prediction</p>
+<h2 id="failed-title">Cleaner anchor co-occurrence did not imply stronger cross-method agreement</h2>
+<p class="result">Spearman ρ = -0.054 · two-sided p = 0.850</p>
+<p>Across 15 anchored issues, the relationship is essentially absent.
+Immigration supplies the sharpest counterexample: it has the lowest
+anchor coherence yet a Jaccard overlap of 0.374. Publishing this
+failure is evidence of a testable workflow—not evidence that either labeling system is true.</p></section>
+<section class="appendix-section" id="instruments"><h2>The two-minute visual explanation</h2>
+<div class="instrument-grid"><article class="instrument-card"><p class="eyebrow">CorEx · deterministic local model</p>
+<h2>15 anchored issue factors</h2><ul><li>Binary word-presence features from the complete paragraph corpus.</li>
+<li>Declared era-spanning anchors guide correlated-word factors.</li><li>Strength: repeatable vocabulary evidence.</li>
+<li>Blind spot: semantic continuity when historical wording changes.</li></ul></article>
+<article class="instrument-card"><p class="eyebrow">LLM · frozen paid judgments</p><h2>50 topics in 17 domains</h2>
+<ul><li>Corpus-derived taxonomy frozen before the complete paragraph pass.</li><li>Text and decade visible; identity and title masked for paragraph judgments.</li>
+<li>Strength: meaning beyond exact anchor words.</li><li>Blind spot: rubric interpretation and shared model-family bias.</li></ul></article></div>
+<p><strong>Named entities are not a CorEx output.</strong> Entity detection and stance come from a separate LLM pass and are evaluated as model-to-model reproducibility on Data Quality.</p></section>
+<section class="appendix-section" id="rates"><h2>How often each instrument activates an issue</h2>
+<p>Paired bars share one percentage scale and the same denominator: the 35,825
+primary-LLM topic-bearing paragraphs retained by the preregistered comparison estimand. The
+404 no-topic paragraphs are excluded.
+Patterns distinguish the instruments; they do not decide which instrument is correct.</p>
+<figure class="comparison-figure" data-substantive-chart data-metric="paragraph_share"
+data-evidence="data/method-agreement.csv" aria-labelledby="rates-title"><figcaption id="rates-title">
+<strong>Positive paragraph share by public issue</strong><span>Exact values are printed beside every server-rendered bar; JavaScript is not required. <a href="metrics.html#paragraph_share">Define paragraph share.</a></span></figcaption>
+<ol><li class="rate-row"><h3>Immigration</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:2.199581"></span></span><strong>2.2%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:2.710398"></span></span><strong>2.7%</strong></div></div></li><li class="rate-row"><h3>Agriculture</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:3.165387"></span></span><strong>3.2%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:2.791347"></span></span><strong>2.8%</strong></div></div></li><li class="rate-row"><h3>Health care</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:3.335659"></span></span><strong>3.3%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:4.521982"></span></span><strong>4.5%</strong></div></div></li><li class="rate-row"><h3>Money &amp; banking</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:4.209351"></span></span><strong>4.2%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:5.666434"></span></span><strong>5.7%</strong></div></div></li><li class="rate-row"><h3>Infrastructure</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:5.529658"></span></span><strong>5.5%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:8.343336"></span></span><strong>8.3%</strong></div></div></li><li class="rate-row"><h3>Energy &amp; environment</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:7.168179"></span></span><strong>7.2%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:2.808095"></span></span><strong>2.8%</strong></div></div></li><li class="rate-row"><h3>Trade &amp; tariffs</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:7.628751"></span></span><strong>7.6%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:9.166783"></span></span><strong>9.2%</strong></div></div></li><li class="rate-row"><h3>Taxes &amp; budget</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:8.329379"></span></span><strong>8.3%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:10.894627"></span></span><strong>10.9%</strong></div></div></li><li class="rate-row"><h3>Crime &amp; justice</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:8.502442"></span></span><strong>8.5%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:5.415213"></span></span><strong>5.4%</strong></div></div></li><li class="rate-row"><h3>Education</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:8.993719"></span></span><strong>9.0%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:4.371249"></span></span><strong>4.4%</strong></div></div></li><li class="rate-row"><h3>Civil rights &amp; race</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:9.822749"></span></span><strong>9.8%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:4.521982"></span></span><strong>4.5%</strong></div></div></li><li class="rate-row"><h3>Religion &amp; values</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:10.233077"></span></span><strong>10.2%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:6.054431"></span></span><strong>6.1%</strong></div></div></li><li class="rate-row"><h3>Economy &amp; jobs</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:10.453594"></span></span><strong>10.5%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:15.966504"></span></span><strong>16.0%</strong></div></div></li><li class="rate-row"><h3>War &amp; military</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:17.024424"></span></span><strong>17.0%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:22.445220"></span></span><strong>22.4%</strong></div></div></li><li class="rate-row"><h3>Foreign policy</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:26.394976"></span></span><strong>26.4%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:15.422191"></span></span><strong>15.4%</strong></div></div></li><li class="rate-row"><h3>Security &amp; peace</h3><div class="rate-pair"><div class="rate-line llm"><span>LLM projection</span><span class="track" aria-hidden="true"><span class="fill" style="--value:31.251919"></span></span><strong>31.3%</strong></div><div class="rate-line corex"><span>CorEx</span><span class="track" aria-hidden="true"><span class="fill" style="--value:20.625262"></span></span><strong>20.6%</strong></div></div></li></ol></figure></section>
+<section class="appendix-section" id="agreement"><h2>Overlap and chance-adjusted agreement answer different questions</h2>
+<p>Jaccard asks how much of the positive union overlaps. κ uses the complete yes/no table and corrects for expected agreement from each instrument’s prevalence.</p>
+<figure class="comparison-figure" data-substantive-chart data-metric="jaccard kappa"
+data-evidence="data/method-agreement.csv" aria-labelledby="agreement-title"><figcaption id="agreement-title">
+<strong>Agreement by metric family</strong><span><a href="metrics.html#jaccard">Define Jaccard.</a> <a href="metrics.html#kappa">Define Cohen’s κ.</a> Support stays visible because rare issues can be unstable.</span></figcaption>
+<ol class="agreement-list"><li class="agreement-row"><h3>Money &amp; banking</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.465</strong></div><div><span>Cohen’s κ</span><strong>0.616</strong></div></div><small>1,123 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Taxes &amp; budget</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.428</strong></div><div><span>Cohen’s κ</span><strong>0.558</strong></div></div><small>2,065 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Immigration</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.374</strong></div><div><span>Cohen’s κ</span><strong>0.533</strong></div></div><small>479 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Agriculture</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.330</strong></div><div><span>Cohen’s κ</span><strong>0.481</strong></div></div><small>530 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Health care</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.333</strong></div><div><span>Cohen’s κ</span><strong>0.480</strong></div></div><small>704 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Trade &amp; tariffs</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.342</strong></div><div><span>Cohen’s κ</span><strong>0.465</strong></div></div><small>1,532 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>War &amp; military</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.390</strong></div><div><span>Cohen’s κ</span><strong>0.456</strong></div></div><small>3,966 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Security &amp; peace</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.388</strong></div><div><span>Cohen’s κ</span><strong>0.414</strong></div></div><small>5,198 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Economy &amp; jobs</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.267</strong></div><div><span>Cohen’s κ</span><strong>0.337</strong></div></div><small>1,993 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Religion &amp; values</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.221</strong></div><div><span>Cohen’s κ</span><strong>0.310</strong></div></div><small>1,057 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Foreign policy</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.283</strong></div><div><span>Cohen’s κ</span><strong>0.306</strong></div></div><small>3,307 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Civil rights &amp; race</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.211</strong></div><div><span>Cohen’s κ</span><strong>0.305</strong></div></div><small>895 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Energy &amp; environment</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.200</strong></div><div><span>Cohen’s κ</span><strong>0.305</strong></div></div><small>595 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Infrastructure</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.202</strong></div><div><span>Cohen’s κ</span><strong>0.289</strong></div></div><small>835 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Crime &amp; justice</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.191</strong></div><div><span>Cohen’s κ</span><strong>0.272</strong></div></div><small>799 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li><li class="agreement-row"><h3>Education</h3><div class="agreement-values"><div><span>Jaccard</span><strong>0.123</strong></div><div><span>Cohen’s κ</span><strong>0.170</strong></div></div><small>523 shared positive paragraphs · 35,825 topic-bearing comparison paragraphs</small></li></ol></figure><dl class="trust-receipt"><div><dt>Claim</dt><dd>The two instruments often differ without either difference being a known error.</dd></div><div><dt>Population</dt><dd>35,825 primary-LLM topic-bearing paragraphs; 404 no-topic paragraphs excluded</dd></div><div><dt>Method</dt><dd>16 issue-wise prevalence, Jaccard, and Cohen’s kappa comparisons</dd></div><div><dt>Uncertainty</dt><dd>Point-estimate comparison; per-issue support is visible</dd></div><div><dt>Artifact</dt><dd>data/method-agreement.csv</dd></div><div><dt>Status</dt><dd>Cross-instrument descriptive audit</dd></div><div><dt>Limitation</dt><dd>Neither instrument is human ground truth and the taxonomies are not identical</dd></div><div><dt>Downstream use</dt><dd>Choose a lens, qualify model-sensitive findings, and inspect disagreements</dd></div></dl></section>
+<section class="appendix-section" id="technical-evidence"><h2>Technical evidence and reproducibility</h2>
+<div class="receipt-grid"><article class="receipt-card"><span>Deterministic input</span><h3>method_agreement.parquet</h3><p><code>sha256:f3e38c2992ee82d3525e51ac36639b54f78e861c7dbe21035f637dd01d4bd56b</code></p></article><article class="receipt-card"><span>Deterministic input</span><h3>method_compositions.parquet</h3><p><code>sha256:2717753dc9706fe6faa7d925bdb3d709ef1c38f0d80fe3a3fa64c947ca6099bd</code></p></article><article class="receipt-card"><span>Deterministic input</span><h3>paragraph_annotations.parquet</h3><p><code>sha256:52ff6e8a90188f001241ffb3ac96046b019dd70d7b6b3cfa9954d3d60c9a4227</code></p></article><article class="receipt-card"><span>Deterministic input</span><h3>issues_meta.json</h3><p><code>sha256:33041eff83e78c0cc2f4a901bd86fee3f8ac532b3019600dbf3aad96c643f41d</code></p></article><article class="receipt-card"><span>Frozen paid input</span><h3>taxonomy_v1.json</h3><p><code>sha256:042fc959a64108cfa426e8463b72e2e56a66944cb32460173f711a668cc440dd</code></p></article></div><div class="receipt-grid">
+<article class="receipt-card"><span>Output · schema identity</span><h3>Public comparison tables</h3>
+<p><code>method-comparison-public-v1</code><br>
+<code>docs/data/method-agreement.csv</code> · semantic key <code>(issue, era)</code><br>
+<code>docs/data/method-compositions.csv</code> · semantic key <code>(doc_name, method, topic)</code></p>
+<p>Both CSVs are deterministic projections of the hash-identified Parquet inputs above.</p></article>
+<article class="receipt-card"><span>Command</span><h3>Deterministic site projection</h3><p><code>arch -x86_64 .venv/bin/python -m presidential_profiles.site</code></p></article>
+<article class="receipt-card"><span>Tests</span><h3>Schema, values, rendering</h3><p><code>tests/test_trust_appendices.py</code><br><code>tests/test_ai_labels_site.py</code></p></article></div>
+<details><summary>Inspect the exact CorEx anchor vocabulary</summary><p>Anchors guide factors; they are not a keyword OR rule. CorEx can learn correlated non-anchor words.</p>
+<ul class="anchor-list"><li><strong>Economy &amp; jobs</strong><span>economy, jobs, unemployment, industry, business, prosperity, wages, workers</span></li><li><strong>Taxes &amp; budget</strong><span>tax, taxes, budget, deficit, debt, spending, revenue, appropriations</span></li><li><strong>War &amp; military</strong><span>war, military, army, navy, troops, defense, soldiers, battle</span></li><li><strong>Foreign policy</strong><span>treaty, foreign, diplomatic, allies, alliance, relations, embassy, negotiations</span></li><li><strong>Immigration</strong><span>immigration, immigrants, border, citizenship, naturalization, aliens</span></li><li><strong>Civil rights &amp; race</strong><span>slavery, race, racial, discrimination, segregation, equality, emancipation, negro</span></li><li><strong>Health care</strong><span>health, medicare, medicaid, insurance, hospitals, disease, doctors, patients</span></li><li><strong>Education</strong><span>education, schools, teachers, students, colleges, learning</span></li><li><strong>Crime &amp; justice</strong><span>crime, police, prison, courts, drugs, violence, criminals</span></li><li><strong>Energy &amp; environment</strong><span>oil, environment, climate, conservation, pollution, forests, coal</span></li><li><strong>Trade &amp; tariffs</strong><span>tariff, trade, commerce, exports, imports, markets</span></li><li><strong>Agriculture</strong><span>farmers, agriculture, farm, crops, livestock</span></li><li><strong>Religion &amp; values</strong><span>god, faith, prayer, moral, church, spiritual</span></li><li><strong>Money &amp; banking</strong><span>currency, gold, silver, bank, banking, inflation, dollar, coinage</span></li><li><strong>Infrastructure</strong><span>railroad, railroads, roads, highways, canals, infrastructure, broadband, bridges</span></li></ul></details></section>
+<section class="appendix-section" id="downloads"><h2>Downloads and next checks</h2><ul class="download-links">
+<li><a href="data/method-agreement.csv" download>Issue agreement · CSV</a></li>
+<li><a href="data/method-compositions.csv" download>Speech compositions · CSV</a></li>
+<li><a href="data-quality.html">Data Quality audit</a></li><li><a href="methodology.html#evaluation">Evaluation design</a></li>
+<li><a href="metrics.html">Metric Dictionary</a></li></ul></section></main><footer><p>Presidential Profiles · generated from versioned public artifacts.</p><p class="footer-feedback"><a href="feedback.html">Feedback and accuracy →</a></p></footer>
 <script>
-const M=[{"issue": "Money & banking", "llm_rate": 4.2094, "corex_rate": 5.6664, "jaccard": 0.465, "kappa": 0.6163, "n_both": 1123}, {"issue": "Taxes & budget", "llm_rate": 8.3294, "corex_rate": 10.8946, "jaccard": 0.4282, "kappa": 0.5579, "n_both": 2065}, {"issue": "Immigration", "llm_rate": 2.1996, "corex_rate": 2.7104, "jaccard": 0.3742, "kappa": 0.5333, "n_both": 479}, {"issue": "Agriculture", "llm_rate": 3.1654, "corex_rate": 2.7913, "jaccard": 0.3304, "kappa": 0.4813, "n_both": 530}, {"issue": "Health care", "llm_rate": 3.3357, "corex_rate": 4.522, "jaccard": 0.3335, "kappa": 0.4802, "n_both": 704}, {"issue": "Trade & tariffs", "llm_rate": 7.6288, "corex_rate": 9.1668, "jaccard": 0.3416, "kappa": 0.4646, "n_both": 1532}, {"issue": "War & military", "llm_rate": 17.0244, "corex_rate": 22.4452, "jaccard": 0.3898, "kappa": 0.4555, "n_both": 3966}, {"issue": "Security & peace", "llm_rate": 31.2519, "corex_rate": 20.6253, "jaccard": 0.3883, "kappa": 0.4137, "n_both": 5198}, {"issue": "Economy & jobs", "llm_rate": 10.4536, "corex_rate": 15.9665, "jaccard": 0.2667, "kappa": 0.3374, "n_both": 1993}, {"issue": "Religion & values", "llm_rate": 10.2331, "corex_rate": 6.0544, "jaccard": 0.2212, "kappa": 0.3098, "n_both": 1057}, {"issue": "Foreign policy", "llm_rate": 26.395, "corex_rate": 15.4222, "jaccard": 0.2833, "kappa": 0.3065, "n_both": 3307}, {"issue": "Civil rights & race", "llm_rate": 9.8227, "corex_rate": 4.522, "jaccard": 0.2109, "kappa": 0.3053, "n_both": 895}, {"issue": "Energy & environment", "llm_rate": 7.1682, "corex_rate": 2.8081, "jaccard": 0.1997, "kappa": 0.3049, "n_both": 595}, {"issue": "Infrastructure", "llm_rate": 5.5297, "corex_rate": 8.3433, "jaccard": 0.2019, "kappa": 0.2887, "n_both": 835}, {"issue": "Crime & justice", "llm_rate": 8.5024, "corex_rate": 5.4152, "jaccard": 0.1908, "kappa": 0.2724, "n_both": 799}, {"issue": "Education", "llm_rate": 8.9937, "corex_rate": 4.3712, "jaccard": 0.1226, "kappa": 0.1696, "n_both": 523}];
-const common={template:"simple_white",paper_bgcolor:"#fff",plot_bgcolor:"#fff",
- font:{family:"system-ui",color:"#24313d"},margin:{l:190,r:24,t:26,b:48},
- yaxis:{automargin:true},legend:{orientation:"h",y:1.08}};
-const ordered=[...M].sort((a,b)=>a.llm_rate-b.llm_rate);
-Plotly.newPlot("model-rates",[
- {type:"bar",orientation:"h",name:"LLM projected to issue",y:ordered.map(x=>x.issue),x:ordered.map(x=>x.llm_rate),marker:{color:"#2d6f9d"}},
- {type:"bar",orientation:"h",name:"CorEx anchored issue",y:ordered.map(x=>x.issue),x:ordered.map(x=>x.corex_rate),marker:{color:"#b17a43"}}
-],{...common,barmode:"group",height:500,xaxis:{title:"% of paragraphs",rangemode:"tozero",gridcolor:"#e8e8e8"}},
-{displayModeBar:false,responsive:true});
-const ranked=[...M].sort((a,b)=>a.kappa-b.kappa);
-Plotly.newPlot("model-agreement",[
- {type:"scatter",mode:"markers",name:"Cohen’s κ",y:ranked.map(x=>x.issue),x:ranked.map(x=>x.kappa),marker:{size:10,color:"#2d6f9d"}},
- {type:"scatter",mode:"markers",name:"Jaccard",y:ranked.map(x=>x.issue),x:ranked.map(x=>x.jaccard),marker:{size:9,color:"#b17a43",symbol:"diamond"}}
-],{...common,height:500,xaxis:{title:"agreement (higher = more overlap)",range:[0,1],gridcolor:"#e8e8e8"}},
-{displayModeBar:false,responsive:true});
+(() => {
+  const nav = document.querySelector(".methods-local-nav");
+  const current = nav?.querySelector("[aria-current='page']");
+  if (!nav || !current) return;
+  const reveal = () => {
+    if (!window.matchMedia("(max-width: 780px)").matches) return;
+    const left = current.offsetLeft - (nav.clientWidth - current.offsetWidth) / 2;
+    nav.scrollTo({left: Math.max(0, left), behavior: "auto"});
+  };
+  reveal();
+  window.addEventListener("resize", reveal, {passive: true});
+})();
 </script></body></html>

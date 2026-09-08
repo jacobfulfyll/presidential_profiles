@@ -50,7 +50,6 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics import cohen_kappa_score
 
 from . import annotate, llm_annotations as ann
 from .corpus import REPO_ROOT, load
@@ -217,9 +216,38 @@ def compute_kappa(a: Sequence, b: Sequence) -> tuple[float, int]:
         return math.nan, 0
     a2 = [p[0] for p in pairs]
     b2 = [p[1] for p in pairs]
-    if len(set(a2) | set(b2)) < 2:
-        return math.nan, n
-    return float(cohen_kappa_score(a2, b2)), n
+    categories = list(dict.fromkeys([*a2, *b2]))
+    lookup = {value: index for index, value in enumerate(categories)}
+    contingency = np.zeros((len(categories), len(categories)), dtype=np.int64)
+    for left, right in zip(a2, b2, strict=True):
+        contingency[lookup[left], lookup[right]] += 1
+    return compute_contingency_metric(contingency, "cohen_kappa"), n
+
+
+def compute_contingency_metric(counts: np.ndarray, metric: str) -> float:
+    """Compute an agreement statistic from a square count matrix.
+
+    This is the shared count-level core used by ``compute_kappa`` and by
+    speech-cluster bootstrap projections. Keeping it here prevents public-page
+    audit code from maintaining a second agreement implementation.
+    """
+    matrix = np.asarray(counts, dtype=float)
+    if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1]:
+        raise ValueError("agreement contingency matrix must be square")
+    if not np.isfinite(matrix).all() or (matrix < 0).any():
+        raise ValueError("agreement contingency counts must be finite and nonnegative")
+    total = float(matrix.sum())
+    if total <= 0:
+        return math.nan
+    observed = float(np.trace(matrix) / total)
+    if metric == "exact_match":
+        return observed
+    if metric != "cohen_kappa":
+        raise ValueError(f"unsupported contingency agreement metric {metric!r}")
+    expected = float((matrix.sum(axis=1) @ matrix.sum(axis=0)) / (total * total))
+    if math.isclose(expected, 1.0):
+        return math.nan
+    return (observed - expected) / (1.0 - expected)
 
 
 def jaccard(a: Iterable, b: Iterable) -> float:
@@ -286,6 +314,42 @@ def _entity_stance_map(ent: pd.DataFrame) -> dict[tuple, str]:
     return out
 
 
+def entity_agreement_details(
+    primary_ent: pd.DataFrame, opus_ent: pd.DataFrame
+) -> pd.DataFrame:
+    """One canonical row per normalized entity key in either model pass."""
+    primary = _entity_stance_map(primary_ent)
+    second = _entity_stance_map(opus_ent)
+    rows = []
+    for doc_name, para_idx, normalized_name in sorted(set(primary) | set(second)):
+        key = (doc_name, para_idx, normalized_name)
+        primary_present = key in primary
+        second_present = key in second
+        rows.append(
+            {
+                "doc_name": doc_name,
+                "para_idx": int(para_idx),
+                "entity_normalized": normalized_name,
+                "primary_present": primary_present,
+                "second_present": second_present,
+                "stance_primary": primary.get(key),
+                "stance_second": second.get(key),
+                "stance_agrees": bool(
+                    primary_present
+                    and second_present
+                    and primary[key] == second[key]
+                ),
+            }
+        )
+    return pd.DataFrame(
+        rows,
+        columns=[
+            "doc_name", "para_idx", "entity_normalized", "primary_present",
+            "second_present", "stance_primary", "stance_second", "stance_agrees",
+        ],
+    )
+
+
 def compute_entity_metrics(primary_ent: pd.DataFrame, opus_ent: pd.DataFrame) -> dict:
     """Entity agreement between the two models' entity rows.
 
@@ -300,21 +364,32 @@ def compute_entity_metrics(primary_ent: pd.DataFrame, opus_ent: pd.DataFrame) ->
       * unmatched_primary_rate / unmatched_opus_rate = each side's entities the
         other side did not name, over that side's own entity count
     """
-    a = _entity_stance_map(primary_ent)
-    b = _entity_stance_map(opus_ent)
-    ka, kb = set(a), set(b)
-    matched = ka & kb
-    union = ka | kb
+    detail = entity_agreement_details(primary_ent, opus_ent)
+    primary_present = detail["primary_present"] if len(detail) else pd.Series(dtype=bool)
+    second_present = detail["second_present"] if len(detail) else pd.Series(dtype=bool)
+    matched = primary_present & second_present
+    n_union = int(len(detail))
+    n_matched = int(matched.sum())
+    n_primary = int(primary_present.sum())
+    n_opus = int(second_present.sum())
     return {
-        "name_match_rate": (len(matched) / len(union)) if union else 1.0,
-        "n_union": len(union),
+        "name_match_rate": (n_matched / n_union) if n_union else 1.0,
+        "n_union": n_union,
         "stance_agreement": (
-            sum(1 for k in matched if a[k] == b[k]) / len(matched) if matched else math.nan),
-        "n_matched": len(matched),
-        "unmatched_primary_rate": (len(ka - kb) / len(ka)) if ka else math.nan,
-        "n_primary": len(ka),
-        "unmatched_opus_rate": (len(kb - ka) / len(kb)) if kb else math.nan,
-        "n_opus": len(kb),
+            float(detail.loc[matched, "stance_agrees"].mean())
+            if n_matched else math.nan
+        ),
+        "n_matched": n_matched,
+        "unmatched_primary_rate": (
+            int((primary_present & ~second_present).sum()) / n_primary
+            if n_primary else math.nan
+        ),
+        "n_primary": n_primary,
+        "unmatched_opus_rate": (
+            int((second_present & ~primary_present).sum()) / n_opus
+            if n_opus else math.nan
+        ),
+        "n_opus": n_opus,
     }
 
 

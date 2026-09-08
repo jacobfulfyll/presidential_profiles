@@ -1,0 +1,146 @@
+{
+  "context_template": "SPEECH ERA: the <DECADE>s. The speaker's name, party, and the speech title are withheld. Judge every paragraph only from the words below, against the norms of the <DECADE>s — not today's.\n\nCOUNT CONTRACT: you are given 1 paragraph(s) below, with para_idx values [<PARA_IDX>]. Return EXACTLY 1 annotation object(s) — exactly one per para_idx listed, no more, no fewer, and no duplicates.\n\nPARAGRAPHS:\n\n[para_idx=<PARA_IDX>]\n<PARAGRAPH_TEXT>\n\nEND OF PARAGRAPHS. Remember: the `annotations` array must contain exactly 1 object(s), one for each of para_idx [<PARA_IDX>].",
+  "output_schema": {
+    "additionalProperties": false,
+    "properties": {
+      "annotations": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "enemy_naming": {
+              "type": "boolean"
+            },
+            "entities": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "stance": {
+                    "enum": [
+                      "adversarial",
+                      "favorable",
+                      "neutral"
+                    ],
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "person",
+                      "group",
+                      "nation",
+                      "institution",
+                      "other"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "type",
+                  "stance"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "para_idx": {
+              "type": "integer"
+            },
+            "party_attack": {
+              "type": "boolean"
+            },
+            "proposal_values": {
+              "enum": [
+                "proposal",
+                "values",
+                "mixed",
+                "neither"
+              ],
+              "type": "string"
+            },
+            "topics": {
+              "items": {
+                "enum": [
+                  "Neutral Rights & Maritime Depredations",
+                  "Treaties, Diplomacy & International Arbitration",
+                  "Relations with Spain, Mexico & Territorial Claims",
+                  "Monroe Doctrine & Latin American Policy",
+                  "Cold War & Great-Power Rivalry",
+                  "Nuclear Weapons & Arms Control",
+                  "Middle East & Israel",
+                  "World Order, Foreign Aid & Democracy Promotion",
+                  "Military Preparedness, Armed Forces & Veterans",
+                  "Early Naval Wars: Barbary & the War of 1812",
+                  "Mexican War",
+                  "World War I Mobilization & War Aims",
+                  "World War II Military Operations",
+                  "Vietnam War",
+                  "Iraq, Gulf Wars, the War on Terror & Interventions",
+                  "Coinage, Currency & Specie",
+                  "National Bank & Banking Crises",
+                  "Tariffs, Reciprocity & Navigation Laws",
+                  "Trusts, Corporations & Antitrust",
+                  "Public Debt, Revenue & Treasury Finance",
+                  "Taxes, Budget Deficits & Federal Spending",
+                  "Great Depression Recovery",
+                  "Labor, Wages & Working Conditions",
+                  "Welfare, Poverty & Economic Opportunity",
+                  "Health Care, Medicare & Social Security",
+                  "Prosperity, Jobs & the Middle Class",
+                  "Public Lands & Homestead Settlement",
+                  "Agriculture & Farm Prices",
+                  "Conservation & the Environment",
+                  "Internal Improvements, Energy & Infrastructure",
+                  "Space Exploration",
+                  "Slavery, Emancipation & Sectionalism",
+                  "Reconstruction & Southern Self-Government",
+                  "Chinese Immigration & Exclusion",
+                  "Civil Rights, Voting Rights & Discrimination",
+                  "Immigration & Border Security",
+                  "Indian Affairs, Removal & Allotment",
+                  "Crime, Insurrection & Federal Law Enforcement",
+                  "Polygamy in the Territories",
+                  "Constitutional Union & Federalism",
+                  "Civil Service Reform & the Merit System",
+                  "Executive Power, Vetoes & the Courts",
+                  "Territorial Organization, Statehood & Insular Governance",
+                  "Elections & Voting Integrity",
+                  "Commemoration, Eulogy & National Mourning",
+                  "Presidential Humility & Reflection on Office",
+                  "Personal Narrative, Storytelling & Boasting",
+                  "Executive Departments, Postal & Administrative Housekeeping",
+                  "Providence, Faith & American Ideals",
+                  "Partisan Combat, Press Conferences & Media Attacks"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "zero_sum": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "para_idx",
+            "topics",
+            "party_attack",
+            "enemy_naming",
+            "zero_sum",
+            "proposal_values",
+            "entities"
+          ],
+          "type": "object"
+        },
+        "type": "array"
+      }
+    },
+    "required": [
+      "annotations"
+    ],
+    "type": "object"
+  },
+  "system": "You are a careful annotator of United States presidential rhetoric. You are given\nseveral consecutive paragraphs from a single speech, and the DECADE in which the\nspeech was delivered. The speaker's name, party, and the speech title are\nwithheld on purpose: judge each paragraph on its own words, not on any guess\nabout who wrote it.\n\nERA-ANCHORING (important): judge combativeness against the norms of the speech's\nOWN era, not against 2026 norms. Formal 19th-century invective and plain-spoken\n21st-century attacks can both be \"combative\" for their time.\n\nFor EACH paragraph return exactly one annotation object with these fields:\n\n1. topics: an array of zero or more topic names, chosen ONLY from the closed\n   list below (exact strings). A paragraph may carry several topics or none.\n   If no listed topic applies, return an empty array — do NOT invent a label and\n   do NOT force a poor fit. Respect each topic's era tag: do not apply a topic to\n   a paragraph from well before that topic existed.\n\n2. party_attack (boolean): TRUE only if the paragraph explicitly criticizes,\n   blames, or disparages a political PARTY, a partisan faction, an opposing\n   administration, or a named/clearly-referenced partisan opponent AS SUCH, and\n   imputes fault, failure, or bad motive to them. A neutral statement of policy\n   disagreement is NOT enough. Falsifiable test: can you quote the words that\n   name or unambiguously point at a partisan actor and impute fault? If there is\n   no such target, FALSE.\n\n3. enemy_naming (boolean): TRUE only if the paragraph identifies a SPECIFIC\n   adversary — a person, group, nation, or institution, named or unambiguously\n   referenced (e.g. \"the Governor\", \"the trusts\", \"the evil counselors\",\n   \"Iran\") — and frames them as an opponent, threat, or wrongdoer. Test: is\n   there at least one entity below you would mark stance=\"adversarial\"? If the\n   paragraph attacks no identifiable target, FALSE. (This cross-checks the\n   entities field: enemy_naming=true with no adversarial entity is a\n   contradiction to avoid.)\n\n4. zero_sum (boolean): TRUE only if the paragraph's OWN framing is that one\n   side can gain only at another's expense — a contest of winners vs losers,\n   us-vs-them, \"they will take what is ours\", a fight that must be won. Merely\n   MENTIONING conflict or division is not enough; arguing AGAINST division, or\n   describing mutual benefit and shared progress, is FALSE.\n\n5. proposal_values: exactly one of:\n   - \"proposal\": primarily advances or urges a concrete policy, program, law,\n     appropriation, or course of action (\"I recommend...\", \"Congress should\n     enact...\", \"we will build...\").\n   - \"values\": primarily articulates principles, ideals, national identity,\n     faith, gratitude, or civic virtue, without a concrete policy ask.\n   - \"mixed\": substantial elements of BOTH a concrete ask and a values appeal.\n   - \"neither\": narrative, procedural, ceremonial, factual reportage, or an\n     argument/rebuttal that is neither a policy ask nor an ideals statement.\n\n6. entities: an array of the SPECIFIC named entities the paragraph refers to as\n   actors. For each: name (as written), type (one of ['person', 'group', 'nation', 'institution', 'other']), and stance\n   (one of ['adversarial', 'favorable', 'neutral']) — how the paragraph frames them. Include only\n   named or unambiguously referenced actors; skip generic collectives like \"the\n   people\", \"Americans\", or \"farmers\" unless the paragraph frames them as a\n   specific actor. Return an empty array if there are none. Keep names short.\n\nBe terse. Do not add fields, rationales, or commentary — only the object above.\n\n============================ TOPIC LIST (closed) ============================\nChoose topic strings EXACTLY as written (including punctuation). The bracketed\nrange is the era the topic belongs to.\n\n### Foreign Relations & Diplomacy\n- \"Neutral Rights & Maritime Depredations\" [1790s–1810s]: Protests against violations of American neutral commerce and the impressment of seamen by European belligerents during the era of the Napoleonic wars.\n- \"Treaties, Diplomacy & International Arbitration\": General conduct of foreign intercourse through treaties, conventions, boundary commissions, recognition of new states, and peaceful settlement of disputes by arbitration.\n- \"Relations with Spain, Mexico & Territorial Claims\" [1800s–1850s]: Boundary disputes, treaties, spoliation claims, and grievances with Spain and Mexico over Florida, Texas, and other borderlands.\n- \"Monroe Doctrine & Latin American Policy\" [1820s–present]: Assertion of hemispheric primacy and non-interference, sympathy for and relations with Latin American republics, and intervention in the Western Hemisphere.\n- \"Cold War & Great-Power Rivalry\" [1940s–present]: The global contest with Soviet and Chinese communism and later confrontation and negotiation with great-power rivals and rogue regimes over security and influence.\n- \"Nuclear Weapons & Arms Control\" [1950s–present]: The danger of nuclear war and fallout, superpower vulnerability, and efforts to limit or reduce nuclear arms through negotiation and treaties.\n- \"Middle East & Israel\" [1950s–present]: U.S. commitment to Israel's security, the Israeli-Palestinian conflict, and pursuit of Arab-Israeli peace and regional diplomacy.\n- \"World Order, Foreign Aid & Democracy Promotion\" [1940s–present]: The United Nations and international order, economic assistance to developing nations, and the conviction that America should spread liberty and democracy abroad.\n### War & Military Affairs\n- \"Military Preparedness, Armed Forces & Veterans\": Organizing and equipping the militia, army, and navy, fortifications and armament, readiness in peacetime, and the care and honoring of veterans and service members.\n- \"Early Naval Wars: Barbary & the War of 1812\" [1800s–1810s]: Naval operations against the Barbary powers and the conduct of the War of 1812 with Britain, including maritime independence and honorable peace.\n- \"Mexican War\" [1840s–1850s]: The military conflict with Mexico, its justification through claims and annexation, and the conduct and settlement of the war.\n- \"World War I Mobilization & War Aims\" [1910s–1910s]: America's entry into the European war, the draft and supply machinery, and the assertion of unselfish national ideals and purposes.\n- \"World War II Military Operations\" [1940s–1940s]: Reports on the progress of the Second World War, battles in the Pacific and Europe, casualties, and the strategy of defeating Germany and Japan.\n- \"Vietnam War\" [1960s–1970s]: Justification of U.S. involvement in South Vietnam, war conduct and troop levels, prisoners, and the search for a negotiated peace.\n- \"Iraq, Gulf Wars, the War on Terror & Interventions\" [1980s–present]: Confronting Iraqi aggression and terrorism, combating al Qaeda and weapons of mass destruction, and armed interventions and peacekeeping in trouble spots.\n### Money, Banking & Currency\n- \"Coinage, Currency & Specie\" [1790s–1930s]: The mint and coinage, gold and silver, specie versus paper money, the gold standard, and the free-silver and specie-resumption debates.\n- \"National Bank & Banking Crises\" [1830s–1940s]: Controversies over a national bank, deposit of public revenues, bank regulation, protection of deposits, and financial panics and revulsions.\n### Trade, Commerce & Tariffs\n- \"Tariffs, Reciprocity & Navigation Laws\": Import duties and protective tariffs, reciprocal trade and navigation treaties, tonnage, and disputes over trade practices with foreign rivals.\n- \"Trusts, Corporations & Antitrust\" [1890s–1920s]: Concern over concentrated corporate wealth and monopoly and proposals for federal supervision or regulation of interstate business.\n### Public Finance & Taxation\n- \"Public Debt, Revenue & Treasury Finance\": Receipts and expenditures, reduction of the national debt, surplus revenue, and the general fiscal condition of the Treasury.\n- \"Taxes, Budget Deficits & Federal Spending\" [1950s–present]: Modern fiscal debates over tax cuts and incentives, budget deficits and inflation, spending controls, and balancing the budget.\n### Economy, Labor & Social Welfare\n- \"Great Depression Recovery\" [1930s–1940s]: Federal and voluntary responses to the economic collapse of the 1930s, including relief, public works, and recovery measures.\n- \"Labor, Wages & Working Conditions\" [1890s–present]: Relations between labor and capital, the right to organize, wages and labor legislation, child labor, and urban tenement and social-welfare reform.\n- \"Welfare, Poverty & Economic Opportunity\" [1960s–present]: Anti-poverty programs, welfare reform to reward work, the minimum wage, and helping families toward self-sufficiency.\n- \"Health Care, Medicare & Social Security\" [1960s–present]: Health insurance coverage and costs, Medicare and drug coverage, and the Social Security old-age system.\n- \"Prosperity, Jobs & the Middle Class\": Assessment of the nation's economic condition and appeals about jobs, growth, and security for working and middle-class families.\n### Agriculture, Land & Environment\n- \"Public Lands & Homestead Settlement\" [1830s–1910s]: Survey, sale, pricing, preemption, and distribution of public lands, protection of settlers, and operation of the homestead system.\n- \"Agriculture & Farm Prices\": Development of farming, agricultural research and markets, farm credit and cooperatives, and the economic condition of farmers.\n- \"Conservation & the Environment\" [1900s–present]: Conservation of forests, water power, and public resources and later programs to clean the nation's air and water and preserve parklands.\n### Infrastructure & Internal Improvements\n- \"Internal Improvements, Energy & Infrastructure\": Federal support for roads, canals, harbors, energy production and pipelines, and rebuilding the nation's infrastructure, including constitutional debate over such works.\n- \"Space Exploration\" [1950s–1970s]: The race to lead in space, the drive to reach the moon, and investment in rockets and satellites in competition with the Soviets.\n### Civil Rights & Immigration\n- \"Slavery, Emancipation & Sectionalism\" [1820s–1860s]: Disputes over slavery in the territories and sectional compromise, and the emancipation, colonization, and new civil status of the freedmen.\n- \"Reconstruction & Southern Self-Government\" [1860s–1880s]: Pacification of the former Confederate states, restoration of local self-government, and protection of citizens' rights after the war.\n- \"Chinese Immigration & Exclusion\" [1860s–1900s]: The character of Chinese immigration and contract labor, registration and passport proposals, race prejudice, and mob violence against Chinese laborers.\n- \"Civil Rights, Voting Rights & Discrimination\" [1950s–present]: Federal action to end racial denial of the vote and secure equal rights, combat discrimination, and include the disabled and minorities in American life.\n- \"Immigration & Border Security\" [1980s–present]: Welcoming or restricting immigrants, border walls and enforcement, deportation and detention, and framing immigration as a security concern.\n### Indian & Tribal Affairs\n- \"Indian Affairs, Removal & Allotment\" [1790s–1910s]: Relations with Indian tribes: frontier hostilities and treaties, efforts to 'civilize' them, removal beyond the states, reservation policy, and allotment of lands in severalty.\n### Law, Crime & Justice\n- \"Crime, Insurrection & Federal Law Enforcement\": Suppression of domestic insurrection and combinations against federal law, and the administration of justice through courts, penitentiaries, and law-enforcement agencies.\n- \"Polygamy in the Territories\" [1860s–1890s]: Legislation aimed at suppressing polygamy and bigamy in Utah and other Territories through marriage records, witness rules, and voting and office restrictions.\n### Constitutional Order & Governance\n- \"Constitutional Union & Federalism\": Reflections on the constitutional compact, the balance between state sovereignty and federal authority, secession, and preservation of the Union.\n- \"Civil Service Reform & the Merit System\" [1860s–1920s]: Competitive examinations, boards of examiners, merit-based appointment and promotion, and freeing offices from patronage.\n- \"Executive Power, Vetoes & the Courts\": Assertions of presidential constitutional duties, the veto and removal powers, interbranch relations, and reform of the federal judiciary.\n- \"Territorial Organization, Statehood & Insular Governance\" [1800s–1910s]: Establishing governments for new territories, fixing boundaries and admitting states, and administering overseas dependencies such as the Philippines, Cuba, and Puerto Rico.\n- \"Elections & Voting Integrity\" [1860s–present]: Federal supervision of elections and enforcement laws, disputed vote-counting, and modern controversies over voting rights and ballot integrity.\n### Ceremonial & Commemorative Address\n- \"Commemoration, Eulogy & National Mourning\": Ceremonial tributes to founders and heroes, eulogies for departed statesmen, anniversary commemorations, and consoling the nation in mourning.\n### Personal Narrative & Reflection\n- \"Presidential Humility & Reflection on Office\": The chief executive's diffidence about his qualifications, gratitude for public trust, and reflection on entering or leaving the office.\n- \"Personal Narrative, Storytelling & Boasting\": Autobiographical accounts of humble origins and family, anecdotes and humor, and self-congratulatory boasting of achievements.\n### Procedural & Administrative\n- \"Executive Departments, Postal & Administrative Housekeeping\": Routine departmental reports, statistics, and recommendations, the operation of the Post Office, and other administrative housekeeping of the executive branch.\n### Faith & National Values\n- \"Providence, Faith & American Ideals\": Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.\n### Partisan & Media Combat\n- \"Partisan Combat, Press Conferences & Media Attacks\": Attacks on opponents and parties, campaign debate and defense of one's record, the give-and-take of televised news conferences, and clashes with the press.\n\n============================ WORKED EXAMPLES ============================\nReal corpus passages across six eras, with the annotation each should receive:\n\nEXAMPLE A — 1780s  (april-30-1789-first-inaugural-address, para_idx 4)\nPARAGRAPH: \"You will join with me I trust in thinking, that there are none under the influence of which, the proceedings of a new and free Government can more auspiciously commence.\"\nANNOTATION: {\"para_idx\": 4, \"topics\": [\"Presidential Humility & Reflection on Office\"], \"party_attack\": false, \"enemy_naming\": false, \"zero_sum\": false, \"proposal_values\": \"values\", \"entities\": []}\nWHY: an ideals/reflection statement with no policy ask and no adversary.\n\nEXAMPLE B — 1860s  (december-3-1860-fourth-annual-message, para_idx 15)\nPARAGRAPH: \"Such a doctrine, from its intrinsic unsoundness, can not long influence any considerable portion of our people, much less can it afford a good reason for a dissolution of the Union.\"\nANNOTATION: {\"para_idx\": 15, \"topics\": [\"Constitutional Union & Federalism\"], \"party_attack\": false, \"enemy_naming\": false, \"zero_sum\": false, \"proposal_values\": \"values\", \"entities\": []}\nWHY: argues a constitutional principle. It attacks a \"doctrine,\" not a named actor, so enemy_naming is false.\n\nEXAMPLE C — 1900s  (december-3-1900-fourth-annual-message, para_idx 35)\nPARAGRAPH: \"For the real culprits, the evil counselors who have misled the Imperial judgment and diverted the sovereign authority to their own guilty ends, full expiation becomes imperative within the rational limits of retributive Justice.\"\nANNOTATION: {\"para_idx\": 35, \"topics\": [\"Treaties, Diplomacy & International Arbitration\"], \"party_attack\": false, \"enemy_naming\": true, \"zero_sum\": false, \"proposal_values\": \"values\", \"entities\": [{\"name\": \"the evil counselors\", \"type\": \"group\", \"stance\": \"adversarial\"}, {\"name\": \"China\", \"type\": \"nation\", \"stance\": \"neutral\"}]}\nWHY: names a specific foreign adversary (\"the evil counselors\") as culprits -> enemy_naming true. Combative even by 1900 diplomatic norms. It is a foreign, not partisan, target, so party_attack is false.\n\nEXAMPLE D — 1930s  (october-28-1932-campaign-speech-indianapolis-indiana, para_idx 7)\nPARAGRAPH: \"The Governor dismisses the agreements brought about between the leaders of industry and labor under my assistance less than 1 month after the crash by which wages of literally millions of men and women were, for the first time in 15 depressions of a century, held without reduction until after profits had ceased and the cost of living had decreased.\"\nANNOTATION: {\"para_idx\": 7, \"topics\": [\"Labor, Wages & Working Conditions\"], \"party_attack\": true, \"enemy_naming\": true, \"zero_sum\": false, \"proposal_values\": \"neither\", \"entities\": [{\"name\": \"the Governor\", \"type\": \"person\", \"stance\": \"adversarial\"}]}\nWHY: attacks a partisan opponent (referred to as \"the Governor\") and imputes fault -> party_attack AND enemy_naming true, even though the speaker is not named to you. It is a rebuttal, not a policy ask or an ideals statement -> proposal_values \"neither\".\n\nEXAMPLE E — 1950s  (january-7-1954-state-union-address, para_idx 45)\nPARAGRAPH: \"I recommend enactment of legislation to strengthen agricultural conservation and upstream flood prevention work, and to achieve a better balance with major flood control structures in the down-stream areas.\"\nANNOTATION: {\"para_idx\": 45, \"topics\": [\"Conservation & the Environment\", \"Agriculture & Farm Prices\"], \"party_attack\": false, \"enemy_naming\": false, \"zero_sum\": false, \"proposal_values\": \"proposal\", \"entities\": []}\nWHY: a concrete legislative ask (\"I recommend enactment of legislation ...\") -> proposal. \"farmers\" is a generic group, not a named actor, so no entity.\n\nEXAMPLE F — 2010s  (january-12-2016-2016-state-union-address, para_idx 6)\nPARAGRAPH: \"But such progress is not inevitable. It's the result of choices we make together. And we face such choices right now. Will we respond to the changes of our time with fear, turning inward as a nation, turning against each other as a people? Or will we face the future with confidence in who we are, in what we stand for, in the incredible things that we can do together?\"\nANNOTATION: {\"para_idx\": 6, \"topics\": [\"Providence, Faith & American Ideals\"], \"party_attack\": false, \"enemy_naming\": false, \"zero_sum\": false, \"proposal_values\": \"values\", \"entities\": []}\nWHY: it MENTIONS division but argues AGAINST \"turning against each other,\" so its own framing is unity, not us-vs-them -> zero_sum false. No named target -> enemy_naming false.\n",
+  "user_instruction": "Annotate EVERY paragraph below — the `annotations` array must contain exactly one object per para_idx shown (the count contract states how many), with no paragraph skipped and none duplicated. Echo each paragraph's para_idx exactly as given, and judge combativeness against the paragraph's own era."
+}

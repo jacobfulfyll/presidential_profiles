@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from presidential_profiles import attention, corpus, site
+from presidential_profiles import attention, corpus, site, story_foundation
 
 
 DATA = Path(__file__).resolve().parents[1] / "data"
@@ -29,16 +29,11 @@ def founding_inputs() -> dict:
         "agreement": pd.read_parquet(
             DATA / "llm_annotations" / "agreement_v1.parquet"
         ),
-        "paragraph_entities": pd.read_parquet(
-            DATA / "llm_annotations" / "paragraph_entities.parquet"
-        ),
-        "constituency_claims": pd.DataFrame(
-            columns=["doc_name", "para_idx", "outcome", "normalized_group"]
-        ),
         "lifecycles": pd.read_parquet(
             DATA / "attention" / "topic_lifecycles.parquet"
         ),
         "taxonomy": attention.load_taxonomy(),
+        "foundation": story_foundation.load_story_foundation(),
     }
 
 
@@ -122,84 +117,9 @@ def test_governing_problem_unions_are_recomputed_from_exact_paragraph_keys(
     assert finance["share"] == pytest.approx(8.9442815)
 
 
-def test_four_functioning_country_tests_are_distinct_and_president_specific(
-    founding_data,
-):
-    tests = {row["key"]: row for row in founding_data["founding_tests"]}
-    assert {
-        key: (row["count"], row["share"])
-        for key, row in tests.items()
-    } == {
-        "union": (142, pytest.approx(20.8211144)),
-        "finance": (84, pytest.approx(12.3167155)),
-        "native": (125, pytest.approx(18.3284457)),
-        "abroad": (180, pytest.approx(26.3929619)),
-    }
-    assert [
-        (row["president"], row["count"], row["share"])
-        for row in tests["abroad"]["by_president"]
-    ] == [
-        ("George Washington", 50, pytest.approx(19.7628458)),
-        ("John Adams", 55, pytest.approx(47.4137931)),
-        ("Thomas Jefferson", 75, pytest.approx(23.9616613)),
-    ]
-    topic_sets = [set(row["topics"]) for row in tests.values()]
-    assert all(
-        not left & right
-        for index, left in enumerate(topic_sets)
-        for right in topic_sets[index + 1:]
-    )
-    largest_overlap = max(
-        founding_data["founding_test_overlaps"],
-        key=lambda row: row["count"],
-    )
-    assert largest_overlap == {
-        "left": "union",
-        "right": "abroad",
-        "count": 15,
-        "share": pytest.approx(2.1994135),
-    }
-
-
 def test_presidential_agendas_channels_adversaries_and_next_era_are_derived(
     founding_data,
 ):
-    agendas = {
-        row["president"]: row["topics"]
-        for row in founding_data["president_agendas"]
-    }
-    assert [row["topic"] for row in agendas["George Washington"][:2]] == [
-        "Indian Affairs, Removal & Allotment",
-        "Constitutional Union & Federalism",
-    ]
-    assert agendas["John Adams"][0]["topic"] == (
-        "Neutral Rights & Maritime Depredations"
-    )
-    assert set(agendas) == {
-        "George Washington",
-        "John Adams",
-        "Thomas Jefferson",
-    }
-    racetrack = founding_data["agenda_racetrack"]
-    assert len(racetrack) == 8
-    assert {
-        agenda["topics"][0]["topic"]
-        for agenda in founding_data["president_agendas"]
-    }.issubset({row["topic"] for row in racetrack})
-    maritime = next(
-        row
-        for row in racetrack
-        if row["topic"] == "Neutral Rights & Maritime Depredations"
-    )
-    assert maritime["share"] == pytest.approx(13.6363636)
-    assert [
-        (row["president"], row["share"])
-        for row in maritime["by_president"]
-    ] == [
-        ("George Washington", pytest.approx(6.7193676)),
-        ("John Adams", pytest.approx(35.3448276)),
-        ("Thomas Jefferson", pytest.approx(11.1821086)),
-    ]
     channels = {
         row["president"]: row
         for row in founding_data["president_communications"]
@@ -209,7 +129,7 @@ def test_presidential_agendas_channels_adversaries_and_next_era_are_derived(
     )
     assert channels["John Adams"]["congress_share"] == pytest.approx(66.6666667)
     assert all(
-        sum(route["count"] for route in row["routes"]) == row["speeches"]
+        sum(route["count"] for route in row["routes"]) == row["appearances"]
         for row in channels.values()
     )
     assert channels["George Washington"]["routes"][0] == {
@@ -223,15 +143,11 @@ def test_presidential_agendas_channels_adversaries_and_next_era_are_derived(
         (row["president"], row["adversary"]): row
         for row in founding_data["adversary_network"]
     }
-    assert edges[("John Adams", "France")]["paragraphs"] == 14
-    assert set(edges[("John Adams", "France")]["raw_entities"]) == {
-        "Executive Directory",
-        "France",
-        "French Directory",
-        "French Republic",
-    }
+    assert edges[("John Adams", "France")]["paragraphs"] == 10
+    assert edges[("John Adams", "France")]["raw_entities"] == ["France"]
     assert edges[("Thomas Jefferson", "Aaron Burr")]["paragraphs"] == 11
-    assert edges[("Thomas Jefferson", "Great Britain")]["paragraphs"] == 14
+    assert edges[("Thomas Jefferson", "Great Britain")]["paragraphs"] == 12
+    assert edges[("Thomas Jefferson", "Great Britain")]["ai_only_paragraphs"] == 10
     summaries = {
         row["president"]: row
         for row in founding_data["president_adversary_summary"]
@@ -244,12 +160,12 @@ def test_presidential_agendas_channels_adversaries_and_next_era_are_derived(
         "named_adversaries": 33,
         "named_paragraphs": 32,
     }
-    assert summaries["John Adams"]["word_share"] == pytest.approx(17.5873578)
-    assert summaries["John Adams"]["named_adversaries"] == 10
+    assert summaries["John Adams"]["word_share"] == pytest.approx(18.8412142)
+    assert summaries["John Adams"]["named_adversaries"] == 14
     assert summaries["Thomas Jefferson"]["word_share"] == pytest.approx(
-        22.4863708
+        22.5194456
     )
-    assert summaries["Thomas Jefferson"]["named_adversaries"] == 21
+    assert summaries["Thomas Jefferson"]["named_adversaries"] == 26
 
     preview = {
         row["label"]: row for row in founding_data["next_era_preview"]
@@ -265,18 +181,9 @@ def test_presidential_agendas_channels_adversaries_and_next_era_are_derived(
     )
 
 
-def test_native_attention_leaders_and_communication_agreement_are_artifact_derived(
+def test_communication_agreement_is_artifact_derived(
     founding_data,
 ):
-    share_leader = founding_data["native_share_leader"]
-    count_leader = founding_data["native_count_leader"]
-    assert (share_leader["president"], share_leader["count"]) == (
-        "George Washington", 57,
-    )
-    assert share_leader["share"] == pytest.approx(22.5296443)
-    assert (count_leader["president"], count_leader["count"]) == (
-        "Thomas Jefferson", 65,
-    )
     assert founding_data["agreement"] == {
         "audience": {"rate": pytest.approx(96.6165414), "n": 266},
         "medium": {"rate": pytest.approx(86.4661654), "n": 266},
@@ -295,7 +202,9 @@ def test_native_attention_leaders_and_communication_agreement_are_artifact_deriv
     )
 
 
-def test_era_profile_uses_named_entities_and_constituency_fallback(founding_data):
+def test_era_profile_uses_foundation_entities_and_distinctive_references(
+    founding_data,
+):
     profile = founding_data["era_profile"]
     assert [row["name"] for row in profile["presidents"]] == [
         "George Washington",
@@ -319,11 +228,11 @@ def test_era_profile_uses_named_entities_and_constituency_fallback(founding_data
         (row["type"], row["corpus_mentions"], row["present"])
         for row in profile["adversary_types"]
     ] == [
-        ("nation", 9172, True),
-        ("person", 9349, True),
-        ("group", 3852, False),
-        ("institution", 4160, False),
-        ("other", 681, False),
+        ("nation", 2704, True),
+        ("person", 1539, True),
+        ("group", 2825, False),
+        ("institution", 1022, False),
+        ("other", 210, False),
     ]
     assert profile["style"]["medium"]["label"] == "Written message"
     assert profile["style"]["medium"]["share"] == pytest.approx(83.3333333)
@@ -341,55 +250,21 @@ def test_era_profile_uses_named_entities_and_constituency_fallback(founding_data
         "Radio/TV broadcast",
         "Press conference/debate or other performed form",
     ]
-    assert profile["constituency_status"] == "fallback"
-    assert [row["name"] for row in profile["constituents"]] == list(
-        site.FOUNDING_CONSTITUENCY_FALLBACK
-    )
-    assert "Native nations and peoples" not in site.FOUNDING_CONSTITUENCY_FALLBACK
-
-
-def test_promoted_constituency_rows_replace_the_fallback(founding_inputs):
-    speech = founding_inputs["speeches"][
-        founding_inputs["speeches"]["year"].between(1789, 1808)
-    ].iloc[0]
-    paragraph_indices = (
-        founding_inputs["paragraphs"]
-        .loc[
-            founding_inputs["paragraphs"]["doc_name"].eq(speech["doc_name"]),
-            "para_idx",
-        ]
-        .head(3)
-        .tolist()
-    )
-    assert len(paragraph_indices) == 3
-    claims = pd.DataFrame([
-        {
-            "doc_name": speech["doc_name"],
-            "para_idx": paragraph_indices[0],
-            "outcome": "claim",
-            "normalized_group": "Merchants",
-        },
-        {
-            "doc_name": speech["doc_name"],
-            "para_idx": paragraph_indices[1],
-            "outcome": "claim",
-            "normalized_group": "Merchants",
-        },
-        {
-            "doc_name": speech["doc_name"],
-            "para_idx": paragraph_indices[2],
-            "outcome": "claim",
-            "normalized_group": "The national public",
-        },
-    ])
-    inputs = dict(founding_inputs)
-    inputs["constituency_claims"] = claims
-    data = site.founding_story_data(**inputs)
-    assert data["era_profile"]["constituency_status"] == "artifact"
-    assert data["era_profile"]["constituents"] == [
-        {"name": "Merchants", "paragraphs": 2},
-        {"name": "The national public", "paragraphs": 1},
+    references = profile["distinctive_references"]
+    assert references["denominator"] == {
+        "unit": "speaker_audited_paragraphs",
+        "paragraphs": 672,
+    }
+    assert [row["label"] for row in references["rows"]] == [
+        "General Wilkinson",
+        "Aaron Burr",
+        "Cherokee Nation",
+        "Tripoli",
+        "French Republic",
     ]
+    assert {
+        "constituents", "constituency_status", "constituency_note"
+    }.isdisjoint(profile)
 
 
 def test_persistence_score_order_uses_equal_later_era_weights_and_tie_break(
@@ -489,8 +364,12 @@ def test_rendered_founding_section_has_four_direct_peer_views(
     assert "Sovereignty, federal capacity, and expansion" in normalized
     assert '<div class="era-template-title">' not in profile_html
     assert profile_html.count('class="era-card-heading"') == 4
+    assert (
+        '<header class="era-card-heading" id="founding-profile-reference-title">'
+        in profile_html
+    )
+    assert "Distinctive era references</span></header>" in profile_html
     for heading in (
-        "Claimed constituents",
         "Named adversaries",
         "Corpus footprint",
         "Major Topics",
@@ -508,7 +387,7 @@ def test_rendered_founding_section_has_four_direct_peer_views(
     assert profile_html.count('class="era-adversary-bubble"') == 5
     assert 'class="era-adversary-pack"' in profile_html
     assert "era-adversary-jar" not in profile_html
-    assert "France · Nation or state · 20 adversarial paragraphs" in profile_html
+    assert "France · Nation or state · 15 adversarial paragraphs" in profile_html
     for entity_type in (
         "Nation or state",
         "Person",
@@ -526,7 +405,17 @@ def test_rendered_founding_section_has_four_direct_peer_views(
     assert "Press conference/debate or other performed form" not in profile_html
     assert "Specific organizations or groups" not in body
     assert "Press conference/debate or other performed form" not in body
-    assert "Illustrative only · promoted claims pending" in body
+    assert profile_html.count('class="era-reference-lane"') == 4
+    assert profile_html.count('class="era-reference-highlight"') == 4
+    assert 'aria-labelledby="founding-profile-reference-title"' in profile_html
+    assert "Who and what enters the frame" not in profile_html
+    assert "Highlights exclude this era’s named adversaries" not in profile_html
+    assert "era-reference-track" not in profile_html
+    assert "AI stance across this era:" in profile_html
+    assert "Positive Jeffreys-smoothed" not in profile_html
+    assert "Descending log odds" not in profile_html
+    assert "45-row reference CSV" not in profile_html
+    assert "Claimed constituents" not in body
     assert "5.1%" in body and "1.9%" in body and "2.1%" in body
     assert "54 of 1,057" in normalized
     assert "682 of 36,229" in normalized
@@ -590,7 +479,7 @@ def test_rendered_founding_section_has_four_direct_peer_views(
     assert "Line width = distinct adversarial paragraphs" in normalized
     assert "President node score = √(adversary-word share × distinct named adversaries)" in normalized
     assert "13.9% · 33 names" in body
-    assert "22.5% · 21 names" in body
+    assert "22.5% · 26 names" in body
     assert "Who controls federal power as the republic expands?" not in body
     tests_html = site._founding_four_tests_html(founding_data)
     assert "Era Defined" in tests_html

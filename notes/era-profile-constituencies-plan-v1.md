@@ -1,7 +1,10 @@
 # Era-profile constituency publication plan
 
-Status: groomed backlog plan; blocked at the two entry gates below. This plan does not authorize
-promotion, materialization, a site build, or deployment.
+Status: superseded historical plan; not completed. The owner selected the
+reference-entity migration documented in
+`notes/story-reference-entity-migration-v1.md` instead. This plan does not
+authorize promotion, materialization, a site build, or deployment and is no
+longer an implementation prerequisite for Story.
 
 Task ID: `publish-era-constituency-categories`
 

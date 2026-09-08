@@ -219,7 +219,7 @@ def test_rights_era_view_exposes_annual_support_and_full_history_bands(artifacts
     assert "Civil Rights Act" not in labels
 
 
-def test_procedural_scatter_has_all_eras_faces_and_persistent_points(scores):
+def test_procedural_scatter_has_all_eras_faces_and_persistent_points(scores, rates):
     assert len(scores) == 45
     faces = portraits.data_uris(list(scores.index))
     figure = site.fig_procedural_eras(scores, faces)
@@ -246,15 +246,24 @@ def test_procedural_scatter_has_all_eras_faces_and_persistent_points(scores):
     assert "hype %{y:.1f}" in figure.data[0].hovertemplate
     plotted_eras = {row[3] for row in figure.data[0].customdata}
     assert plotted_eras == {name for name, _, _ in era_profiles.STORY_ERAS}
-    body = site._procedural_era_html(scores)
-    assert body.count("data-era-choice") == 9
-    assert body.count("data-era-preset") == 6
-    assert body.count('class="era-chip"') == 9
-    assert "Text alternative · all president points" in body
-    assert "Unselected presidents remain visible" in body
-    assert body.index("<th>Legal / procedural per 10,000</th>") < body.index(
-        "<th>Hype per 10,000</th>"
-    )
+    body = site._procedural_era_html(scores, rates)
+    assert body.count("data-era-select") == 1
+    assert body.count("data-era-choice") == 0
+    assert body.count("data-era-preset") == 0
+    assert body.count('class="era-chip"') == 0
+    assert body.count("<option value=") == 11
+    assert body.count("data-register-view=") == 2
+    assert 'data-register-timeline-figure="summary_register_timeline"' in body
+    assert ">By president</button>" in body
+    assert ">Over time</button>" in body
+    assert "Text alternative" not in body
+    assert "Numbered historical event context" not in body
+    assert "Administration transition context" not in body
+    assert "Explanations for selected timeline movements" not in body
+    assert "Selected turns in the line" not in body
+    assert "The interactive register chart requires JavaScript" in body
+    assert "Audience, delivery, and register across the same eras" in body
+    assert "Every president remains inspectable" not in body
 
 
 def test_progressive_heatmap_replaces_staged_points_and_keeps_one_scale(artifacts):
@@ -382,6 +391,9 @@ def test_summary_collects_the_three_full_record_comparisons(
         rates=rates,
     )
     assert summary.count('data-fig="procedural_eras"') == 1
+    assert summary.count(
+        'data-register-timeline-figure="summary_register_timeline"'
+    ) == 1
     assert summary.count('data-fig="naming_progressive"') == 1
     assert summary.count('data-fig="weather_map"') == 1
     assert summary.index('data-fig="procedural_eras"') < summary.index(
@@ -390,8 +402,9 @@ def test_summary_collects_the_three_full_record_comparisons(
     assert summary.index('data-fig="naming_progressive"') < summary.index(
         'data-fig="weather_map"'
     )
-    assert "Refine by specific era" in summary
-    assert summary.count("data-era-preset") == 6
+    assert "Emphasize an era" in summary
+    assert summary.count("data-era-select") == 1
+    assert summary.count("data-era-preset") == 0
     assert "1910 is the first start that passes; 1909 fails" in summary
     with pytest.raises(ValueError, match="scores, speeches, and rates"):
         site._standing_html(scores=scores)
@@ -401,20 +414,40 @@ def test_generated_long_run_charts_appear_only_inside_summary():
     story = (ROOT / "docs" / "index.html").read_text()
     summary = (ROOT / "docs" / "summary.html").read_text()
     synthesis_start = summary.index('<section id="synthesis"')
-    synthesis_end = summary.index(
-        '<section id="records_appendix"', synthesis_start
-    )
+    synthesis_end = summary.index("</main>", synthesis_start)
     synthesis = summary[synthesis_start:synthesis_end]
     assert '<section id="synthesis"' not in story
     assert '<section id="records_appendix"' not in story
+    assert '<section id="records_appendix"' not in summary
     for chart in ("procedural_eras", "naming_progressive"):
-        marker = f'<div class="chart" data-fig="{chart}"'
+        marker = f'data-fig="{chart}"'
         payload_key = f'"{chart}":'
         assert marker not in story
         assert payload_key not in story
         assert summary.count(marker) == 1
         assert payload_key in summary
         assert marker in synthesis
+    for chart in ("summary_modals", "summary_pronouns"):
+        assert f'"{chart}":' in summary
+        assert chart in synthesis
+        assert f'data-fig="{chart}"' not in summary
+    assert 'data-fig="summary_register_timeline"' not in summary
+    assert '"summary_register_timeline":' in summary
+    assert 'data-register-timeline-figure="summary_register_timeline"' in synthesis
+    assert 'aria-label="Language change chart"' in synthesis
+    assert '>National name</button>' in synthesis
+    assert '>Modal words</button>' in synthesis
+    assert '>Personal voice</button>' in synthesis
+    assert "setupSummaryLanguageHighlight" in summary
+    assert "summaryLanguageBaseWidths" in summary
+    assert "Object.freeze" in summary
+    assert 'chart.on("plotly_hover"' in summary
+    assert "summary-language-reset" in summary
+    assert "Hover any line to highlight its full" in synthesis
+    assert "centered seven-year windows above 10,000 words" in synthesis
+    assert "Presidents:" in summary
+    assert "More openly partisan, yes" in synthesis
+    assert "More divisive in every broader sense, no" in synthesis
     assert '<div class="chart" data-fig="weather_map"' not in summary
     assert '"weather_map":' not in summary
 
@@ -457,13 +490,13 @@ def test_generated_story_uses_only_the_shared_three_part_era_structure():
 
 
 def test_story_html_has_clean_sections_filters_reduced_motion_and_no_numbered_guides(
-    scores,
+    scores, rates,
 ):
     bodies = {key: "<p>Evidence body.</p>" for key, *_ in site.SECTIONS}
     bodies["written_republic"] = site._view_toggle_html(
         ["era", "full"], ["Era.", "Full scale."], 500, "primary_medium"
     )
-    bodies["procedural_presidency"] = site._procedural_era_html(scores)
+    bodies["procedural_presidency"] = site._procedural_era_html(scores, rates)
     page = site.build_html(
         {},
         {"speeches": 1, "words": 100, "presidents": 1,
@@ -475,9 +508,22 @@ def test_story_html_has_clean_sections_filters_reduced_motion_and_no_numbered_gu
     assert ".story-section::before" not in page
     assert ".story-section::after" not in page
     assert "data-story-index" not in page
-    assert "data-era-choice" in page
+    assert "data-era-select" in page
+    assert 'eraSelect.value === "__none__"' in page
+    assert "eraSelect.disabled = isTimeline" in page
+    assert 'explorer.classList.toggle("is-timeline-view", isTimeline)' in page
+    assert ".president-era-explorer.is-timeline-view .chart" in page
+    assert ".president-era-explorer.is-timeline-view .register-timeline-context" not in page
+    assert ".register-window-notes dl" not in page
+    assert ".register-moment-year" not in page
+    assert ".register-moment-title" not in page
+    assert ".register-context-group" not in page
+    assert ".register-transition-group" not in page
+    assert "void activateRegisterView" in page
     assert "Plotly.relayout(chart, imageUpdates)" in page
     assert "all other plotted presidents remain visible" in page
+    assert "@media (forced-colors:active)" in page
+    assert ".summary-register-sequence li + li::before" in page
     assert 'get("motion") === "reduce"' in page
     assert "date range" not in page  # rendered values, not a generic placeholder
     assert "Taxonomy limit" not in page
@@ -491,7 +537,9 @@ def test_new_charts_are_registered():
     expected = {
         "written_full", "expansion_story", "fear_index_era", "fear_index_full",
         "civil_rights_yearly", "civil_rights_full", "procedural_eras",
+        "summary_register_timeline",
         "progressive_heatmap", "platform_era", "platform_full",
     }
     assert expected <= set(metrics.CHART_METRICS)
+    assert "legal_hype_ratio" in metrics.CHART_METRICS["summary_register_timeline"]
     metrics.validate_charts(expected)

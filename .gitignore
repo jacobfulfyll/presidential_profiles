@@ -16,6 +16,10 @@ data/raw/
 # tracked — this is only the scratch space ingest replays from.
 data/llm_annotations/runs/
 
+# Data Trust study identities and blinded task plans are local-only. The five
+# declared public-safe protocol receipts remain trackable at the v1 root.
+data/validation_protocols/v1/restricted/
+
 # ML model caches
 .cache/
 
@@ -33,6 +37,9 @@ data/llm_annotations/runs/
 
 .pipeline/
 .worktree/
+
+# Local tool telemetry is never part of a portable release.
+.claude/stats.json
 
 # Coverage artifacts
 .coverage

@@ -1,0 +1,152 @@
+{
+  "consumers": [
+    {
+      "consumer": "combat.president_conflict_v2",
+      "current_unit": "speaker-attributed paragraph",
+      "denominator": "speaker_audited_all paragraphs credited to the actual president",
+      "follow_on": "Summary",
+      "migration_status": "already_speaker_audited; adapter_to_foundation_pending",
+      "replacement_unit": "speaker-view-v1 paragraph",
+      "surface": "Summary / Conflict president portrait"
+    },
+    {
+      "consumer": "indices.president_scores",
+      "current_unit": "document-owned speech and speech-marker row",
+      "denominator": "speaker appearances and words attributed to the actual president",
+      "follow_on": "Profiles/Compare/Summary",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker appearance",
+      "surface": "Profiles, Compare, networks, Summary president measures"
+    },
+    {
+      "consumer": "ai_labels.build_ai_labels",
+      "current_unit": "paragraph joined to document owner",
+      "denominator": "all speaker-audited paragraphs for the actual president",
+      "follow_on": "Profiles/Compare",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker-view-v1 paragraph and reference entity",
+      "surface": "Profile and Compare AI topics, flags, adversaries"
+    },
+    {
+      "consumer": "profiles.distinctive_words",
+      "current_unit": "document-owned speech transcript",
+      "denominator": "all words in the president's speaker appearances",
+      "follow_on": "Profiles/Compare",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker appearance text",
+      "surface": "Profile vocabulary and Compare vocabulary chips"
+    },
+    {
+      "consumer": "profiles.signature_speeches",
+      "current_unit": "document-owned speech",
+      "denominator": "eligible speaker appearances for the actual president",
+      "follow_on": "Profiles/Compare",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker appearance within a source document",
+      "surface": "Profile and Compare signature-speech ranking"
+    },
+    {
+      "consumer": "similarity.build_similarity",
+      "current_unit": "document-owned president vector",
+      "denominator": "all eligible appearances or their attributed paragraphs by lens",
+      "follow_on": "Compare/Profiles",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker-appearance president vector",
+      "surface": "Profile and Compare nearest-neighbor lenses"
+    },
+    {
+      "consumer": "networks.build_network_atlas",
+      "current_unit": "document-owned speech/paragraph",
+      "denominator": "actual-speaker appearances and attributed paragraphs",
+      "follow_on": "Explore",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker appearance and speaker-view-v1 paragraph",
+      "surface": "Explore network atlas"
+    },
+    {
+      "consumer": "issues.president_emphasis",
+      "current_unit": "paragraph joined to document owner",
+      "denominator": "eligible attributed paragraphs for the president",
+      "follow_on": "Issues",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker-view-v1 paragraph",
+      "surface": "Issue detail president emphasis"
+    },
+    {
+      "consumer": "era_profiles.president_composition",
+      "current_unit": "document-owned speech and paragraph",
+      "denominator": "actual-speaker appearances/paragraphs assigned to the governed Story era",
+      "follow_on": "Story",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker appearance and speaker-view-v1 paragraph",
+      "surface": "Story era profiles"
+    },
+    {
+      "consumer": "era_visualizations.president_measures",
+      "current_unit": "document-owned paragraph/word totals",
+      "denominator": "actual-speaker paragraphs or words within each Story era",
+      "follow_on": "Story",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker-view-v1 paragraph/word totals",
+      "surface": "Story era president charts"
+    },
+    {
+      "consumer": "site.summary_temporal_president_contract",
+      "current_unit": "document-owned speech",
+      "denominator": "all available actual-speaker appearances and their marker words",
+      "follow_on": "Summary",
+      "migration_status": "explicit_document_owner_current; migration_deferred",
+      "replacement_unit": "speaker appearance",
+      "surface": "Summary / Time all-president portrait"
+    },
+    {
+      "consumer": "site.founding_president_contracts",
+      "current_unit": "document-owned speech/paragraph",
+      "denominator": "actual-speaker evidence within the Founding Story era",
+      "follow_on": "Story",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker appearance and speaker-view-v1 paragraph",
+      "surface": "Founding Story president comparisons"
+    },
+    {
+      "consumer": "invocations.build",
+      "current_unit": "document-owned concatenated transcript",
+      "denominator": "all words in the president's speaker appearances",
+      "follow_on": "Profiles",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker appearance text",
+      "surface": "Profiles and rhetoric invocation measures"
+    },
+    {
+      "consumer": "rhetoric.build",
+      "current_unit": "document-owned speech",
+      "denominator": "actual-speaker appearances and words",
+      "follow_on": "Profiles/Compare",
+      "migration_status": "foundation_ready_not_migrated",
+      "replacement_unit": "speaker appearance",
+      "surface": "President rhetoric summaries"
+    },
+    {
+      "consumer": "expansion_site.data_quality",
+      "current_unit": "sampled document paragraph",
+      "denominator": "canonical paragraphs in retained sampled documents",
+      "follow_on": "Data/Methods",
+      "migration_status": "data_quality_only; prohibited_from_headline_ranking",
+      "replacement_unit": "unchanged data-quality-only paragraph sample",
+      "surface": "Data Quality second-model entity audit"
+    },
+    {
+      "consumer": "convergence.president_window_compositions",
+      "current_unit": "paragraph joined to document-owned presidential career",
+      "denominator": "eligible attributed paragraphs within each president/window pool",
+      "follow_on": "Data/Methods",
+      "migration_status": "foundation_ready_not_migrated; registered_result_requires_new_preregistration",
+      "replacement_unit": "speaker-view-v1 paragraph joined to actual-speaker career",
+      "surface": "Registered convergence analysis and findings"
+    }
+  ],
+  "default_rule": "actual-speaker attribution for president-attributed results",
+  "document_rule": "explicit document-level questions may retain ownership only when labeled",
+  "schema_version": "president-attributed-consumer-inventory-v1",
+  "scope": "analytical producers; render-only pass-throughs are folded into their producer"
+}

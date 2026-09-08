@@ -3,8 +3,8 @@
 Sink inventory:
 
 * issue page title, heading, prose, and issue-index card: escaped HTML text;
-* profile issue card and president-index badge: escaped HTML text;
-* dashboard/profile Plotly bundles and comparison payload: script-safe JSON;
+* profile issue card: escaped HTML text; the directory has no legacy issue badge;
+* dashboard Plotly bundles and comparison payload: script-safe JSON;
 * issue-page Plotly bundle: Plotly's direct ``to_json`` escaping;
 * Explorer chip labels and comparison issue labels: DOM ``textContent`` /
   ``createTextNode`` construction;
@@ -20,7 +20,7 @@ import plotly.graph_objects as go
 
 from presidential_profiles import (
     compare_site,
-    explorer,
+    explore_assets,
     issues_site,
     profiles,
     profiles_site,
@@ -170,7 +170,18 @@ def test_profile_cards_and_index_escape_every_issue_label(monkeypatch):
     assert HOSTILE not in cards
     assert html.escape(HOSTILE) in cards
     assert HOSTILE not in index
-    assert html.escape(HOSTILE) in index
+    assert html.escape(HOSTILE) not in index
+    assert "Legacy issue" not in index
+
+
+def test_profile_legacy_quote_fallback_canonicalizes_hostile_markup():
+    data = _profile_card_data("Economic policy")
+    data["issue_cards"]["President A"]["cards"][0]["quote"] = SCRIPT_BREAKOUT
+
+    cards = profiles_site._issue_cards_html("President A", data)
+
+    assert SCRIPT_BREAKOUT not in cards
+    assert html.escape(SCRIPT_BREAKOUT) in cards
 
 
 def test_ordinary_punctuation_is_escaped_once_and_renders_as_text():
@@ -210,59 +221,40 @@ def test_direct_plotly_serialization_keeps_display_name_out_of_markup():
     assert r"\u003c\u002fscript\u003e" in page
 
 
-def test_explorer_display_name_chips_use_safe_dom_construction(
-    monkeypatch, tmp_path
-):
-    (tmp_path / "docs").mkdir()
-    monkeypatch.setattr(explorer, "REPO_ROOT", tmp_path)
-    explorer.write_page()
-    page = (tmp_path / "docs" / "explorer.html").read_text()
-    chips = page[
-        page.index("function renderChips()"):
-        page.index("function msg(", page.index("function renderChips()"))
-    ]
-    tooltip = page[
-        page.index("function showTip("):
-        page.index("function moveTip(", page.index("function showTip("))
-    ]
+def test_explorer_display_names_use_safe_dom_construction():
+    script = explore_assets.EXPLORE_JS
 
-    assert "innerHTML" not in chips
-    assert "createTextNode(` ${s.label} `)" in chips
-    assert "innerHTML" not in tooltip
-    assert "heading.textContent" in tooltip
-    assert "o.textContent =" in page
+    assert "innerHTML" not in script
+    assert "outerHTML" not in script
+    assert "insertAdjacentHTML" not in script
+    assert "document.createElement" in script
+    assert "document.createElementNS" in script
+    assert "textContent" in script
+    assert "replaceChildren" in script
 
 
 def test_comparison_payload_and_issue_labels_use_safe_script_and_dom(
     monkeypatch, tmp_path
 ):
-    (tmp_path / "docs").mkdir()
-    monkeypatch.setattr(compare_site, "REPO_ROOT", tmp_path)
-    monkeypatch.setattr(
-        compare_site.profiles_site,
-        "public_profile_payload",
-        lambda president, data, issues: _shared_profile_payload(SCRIPT_BREAKOUT),
-    )
-    compare_site.write_compare(_compare_data(), ["Discovered 5"])
-    page = (tmp_path / "docs" / "compare.html").read_text()
+    shared = _shared_profile_payload(SCRIPT_BREAKOUT)
+    shared["party"] = SCRIPT_BREAKOUT
+    payload = compare_site.comparison_payload({"President A": shared})
+    page = compare_site.render_compare_page(payload)
 
     assert SCRIPT_BREAKOUT not in page
     assert r"\u003c/script\u003e" in page
     assert html.escape(SCRIPT_BREAKOUT) in page
-    assert "const escapeHTML = value =>" in page
-    assert "option.textContent = P[name].display_name" in page
-    assert "escapeHTML(row.name)" in page
+    assert "innerHTML" not in compare_site.COMPARE_V3_JS
+    assert "innerHTML" not in compare_site.AGENDA_COMPARISON_JS
+    assert "textContent" in compare_site.COMPARE_V3_JS
+    assert "textContent" in compare_site.AGENDA_COMPARISON_JS
 
 
 def test_all_embedded_display_name_payloads_use_script_safe_json():
-    profile_source = profiles_site.render_profile.__code__.co_consts
-    assert any(
-        isinstance(value, str) and "const FIGS = " in value
-        for value in profile_source
-    )
-    assert "json_for_script(fig_json)" in open(
-        profiles_site.__file__, encoding="utf-8"
-    ).read()
+    profile_source = open(profiles_site.__file__, encoding="utf-8").read()
+    assert "const FIGS = " not in profile_source
+    assert "json_for_script(fig_json)" not in profile_source
+    assert "Plotly.newPlot" not in profile_source
     from presidential_profiles import site
 
     assert "json_for_script(fig_json)" in open(

@@ -1,8 +1,10 @@
-"""Contract and rendering regressions for evidence-first president profiles."""
+"""Contract and rendering regressions for corpus-based president profiles."""
 
 from __future__ import annotations
 
+import html as html_lib
 import json
+import inspect
 import math
 import re
 from pathlib import Path
@@ -12,7 +14,14 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from presidential_profiles import indices, profiles, profiles_site, topic_quality
+from presidential_profiles import (
+    ai_labels,
+    indices,
+    llm_annotations,
+    profiles,
+    profiles_site,
+    topic_quality,
+)
 from presidential_profiles.corpus import PARTY
 
 
@@ -406,7 +415,10 @@ def test_rich_and_thin_page_order_and_warning_placement(profile_bundle):
     _, _, views = profile_bundle
     rich = profiles_site.render_profile(views["Franklin D. Roosevelt"])
     thin = profiles_site.render_profile(views["William Harrison"])
-    section_ids = ["overview", "agenda", "rhetoric", "evidence", "similarity", "speeches"]
+    section_ids = [
+        "overview", "agenda", "rhetoric", "connections", "similarity",
+        "speeches", "evidence",
+    ]
 
     assert [rich.index(f'<section id="{section_id}"') for section_id in section_ids] == sorted(
         rich.index(f'<section id="{section_id}"') for section_id in section_ids
@@ -427,43 +439,68 @@ def test_navigation_evidence_similarity_and_speech_structure(profile_bundle):
     page = profiles_site.render_profile(views["Franklin D. Roosevelt"])
 
     for label, target in (
-        ("Overview", "overview"), ("Agenda", "agenda"), ("Evidence", "evidence"),
-        ("Similarity", "similarity"), ("Speeches", "speeches"),
+        ("Overview", "overview"), ("Agenda", "agenda"), ("Rhetoric", "rhetoric"),
+        ("Connections", "connections"), ("Similarity", "similarity"),
+        ("Speeches", "speeches"), ("Evidence", "evidence"),
     ):
         assert f'<a href="#{target}">{label}</a>' in page
+    nav_links = [
+        page.index(f'<a href="#{target}">{label}</a>')
+        for label, target in (
+            ("Overview", "overview"), ("Agenda", "agenda"), ("Rhetoric", "rhetoric"),
+            ("Connections", "connections"), ("Similarity", "similarity"),
+            ("Speeches", "speeches"), ("Evidence", "evidence"),
+        )
+    ]
+    assert nav_links == sorted(nav_links)
+    assert ".profile-page :where(a, button, summary) { min-width: 44px; min-height: 44px; }" in page
+    speeches = page.index('<section id="speeches"')
+    evidence = page.index('<section id="evidence"')
+    download = page.index('<p class="download-row">')
+    adjacent_navigation = page.index('aria-label="Adjacent president profiles"')
+    assert speeches < evidence < download < adjacent_navigation
+    evidence_disclosure = page.index('<details class="evidence-section-disclosure">')
+    assert evidence < page.index("<h2>Evidence</h2>", evidence) < evidence_disclosure
+    assert "<details class=\"evidence-section-disclosure\" open" not in page
+    assert evidence_disclosure < page.index("Legacy issue model · named artifacts")
     first = page.index("Evidence excerpt 1.")
     second = page.index("Evidence excerpt 2.")
-    disclosure = page.index("Additional issue evidence (1)")
+    disclosure = page.index("More issue evidence (1)")
     third = page.index("Evidence excerpt 3.")
     assert first < second < disclosure < third
     assert page.count("data-similarity=") == 5
+    assert page.count('class="similarity-kicker"') == 5
+    assert 'class="similarity-match"' in page
+    assert ".similarity-match { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; align-items: center; min-height: 44px; }" in page
+    assert ".similarity-card li a { display: flex; min-height: 44px; align-items: center;" in page
+    assert ".similarity-card data { display: inline-flex; min-height: 30px; align-items: center; justify-content: center;" in page
+    assert ".similarity-card data { float:" not in page
     assert "not combined into an overall likeness" in page
     assert '<ol class="signature-list">' in page
     assert 'aria-label="Adjacent president profiles"' in page
+    assert "Corpus-based presidential profile" in page
+    assert "Evidence-first presidential profile" not in page
 
 
-def test_chart_names_summaries_tables_and_figure_keys_match(profile_bundle):
+def test_semantic_rhetoric_bars_and_closed_exact_tables_replace_plotly(profile_bundle):
     _, _, views = profile_bundle
     view = views["Franklin D. Roosevelt"]
     figures = profiles_site.profile_figure_payload(view)
     page = profiles_site.render_profile(view)
-    rendered_keys = re.findall(r'data-fig="([^"]+)"', page)
-
-    assert list(figures) == ["rhetoric_legacy", "rhetoric_ai"]
-    assert rendered_keys == list(figures)
-    for key in figures:
-        assert (
-            f'data-fig="{key}" role="img" aria-labelledby="{key}-title" '
-            f'aria-describedby="{key}-summary"'
-        ) in page
+    assert figures == {}
+    assert 'data-fig="' not in page
+    for key in ("rhetoric_legacy", "rhetoric_ai"):
         assert f'id="{key}-title"' in page
         assert f'class="chart-summary" id="{key}-summary"' in page
-    assert page.count("structured data alternative</caption>") == 2
+    assert page.count('<ol class="percentile-bars"') == 2
+    assert page.count("Exact values and eligible-president ranks</summary>") == 2
+    assert page.count("exact values and eligible-president ranks</caption>") == 2
     assert page.count('scope="col"') >= 6
     assert page.count('scope="row"') == (
         len(profiles_site.LEGACY_MEASURE_SPECS) + len(profiles_site.AI_MEASURE_SPECS)
     )
-    assert '<script src="../assets/plotly-3.0.1.min.js"></script>' in page
+    assert "Plotly" not in page
+    assert "plotly" not in page.lower()
     assert "cdn.plot.ly" not in page
 
 
@@ -474,12 +511,48 @@ def test_mobile_and_keyboard_accessibility_guards_are_in_profile_html(profile_bu
     assert '<meta name="viewport" content="width=device-width, initial-scale=1">' in page
     assert "body.profile-page { overflow-x: clip; }" in page
     assert "@media (max-width: 600px)" in page
-    assert ".profile-figure { display: none; }" in page
+    assert ".profile-nav ul { display: flex; width: max-content" in page
+    assert ".profile-nav a { min-width: 92px; min-height: 44px" in page
+    assert ".percentile-row" in page
     assert ".measure-table, .measure-table tbody { display: block; }" in page
     assert "overflow-wrap: anywhere" in page
     assert ":focus-visible" in page
     assert "outline: 3px solid var(--focus)" in page
     assert 'aria-label="On this profile"' in page
+
+
+def test_directory_is_chronological_name_only_and_progressive(profile_bundle):
+    data, display_issues, _ = profile_bundle
+    page = profiles_site.render_index(data, display_issues)
+
+    assert '<ol class="directory-grid">' in page
+    assert page.count("<li data-president-card") == len(SMALL_PRESIDENTS)
+    assert [page.index(profiles.slug(name) + ".html") for name in SMALL_PRESIDENTS] == sorted(
+        page.index(profiles.slug(name) + ".html") for name in SMALL_PRESIDENTS
+    )
+    assert "Legacy issue" not in page
+    assert "Top AI topic by source-document paragraph share" in page
+    assert "Corpus record " in page
+    assert 'data-directory-search hidden' in page
+    assert "card.dataset.searchName.includes(query)" in page
+    assert "card.hidden = !matches" in page
+    assert 'form.addEventListener("submit"' in page
+    assert "event.preventDefault(); apply();" in page
+    assert "toLocaleLowerCase" in page
+    assert 'event.key !== "Escape"' in page
+    assert "history." not in page
+    assert "localStorage" not in page
+    assert "grid-template-columns: repeat(3" in page
+    assert "@media (max-width: 959px)" in page
+    assert "@media (max-width: 599px)" in page
+
+
+def test_connections_module_fallback_keeps_the_same_600px_lazy_boundary():
+    source = inspect.getsource(profiles_site._connections_content)
+    assert "bounds.top > innerHeight + 600" in source
+    assert 'addEventListener("scroll", maybeLoad' in source
+    assert 'addEventListener("resize", maybeLoad' in source
+    assert "else {\n    load().catch" not in source
 
 
 @pytest.mark.parametrize(
@@ -497,6 +570,128 @@ def test_miller_signature_urls_are_normalized_once(source, expected):
     assert profiles.miller_speech_url(source) == expected
 
 
+@pytest.mark.parametrize(
+    "source",
+    [None, "", "javascript:alert(1)", "https://example.test/not-corpus"],
+)
+def test_profile_source_urls_fail_closed_outside_miller_speech_corpus(source):
+    with pytest.raises(ValueError, match="Profile source URL"):
+        profiles_site._normalized_profile_source_url(source)
+
+
+def test_enriched_evidence_renders_exact_denominator_and_method_copy():
+    info = {
+        "method_definitions": {
+            "legacy_stance_v3": "Declared stance method copy.",
+            "legacy_distinctive_vocabulary_v3": "Declared vocabulary method copy.",
+        },
+        "cards": [{
+            "issue": "Economic policy",
+            "legacy_v3": {
+                "issue": "Economic policy", "share": .2, "rel": 1.0,
+                "base": .1, "topic_of_day": False, "words": ["work"],
+                "quote": None, "cite": None, "stance": "supportive",
+            },
+            "claim": {"type": "absolute_and_era_relative_emphasis", "text": "Both thresholds passed."},
+            "exact_evidence": {
+                "issue_paragraph_count": 20,
+                "total_document_owned_paragraph_count": 100,
+                "percentage": 20.0,
+                "source_document_count": 3,
+                "corpus_baseline_percentage": 10.0,
+                "corpus_baseline_multiple": 2.0,
+                "era_difference_percentage_points": 1.0,
+            },
+            "why_shown": {"text": "The declared absolute and era thresholds passed."},
+            "receipts": [],
+            "method": {
+                "stance": "supportive",
+                "stance_method": "legacy_stance_v3",
+                "distinctive_vocabulary": ["work"],
+                "distinctive_vocabulary_method": "legacy_distinctive_vocabulary_v3",
+            },
+            "limitation": "Document-owner limitation.",
+        }],
+    }
+
+    rendered = profiles_site._evidence_cards_from_info(info)
+
+    assert "20 / 100 (20.0%)" in rendered
+    assert "Declared stance method copy." in rendered
+    assert "Declared vocabulary method copy." in rendered
+    assert "legacy_stance_v3</p>" not in rendered
+
+
+def test_enriched_evidence_receipts_are_keyed_attributed_disclosed_and_escaped():
+    receipt = {
+        "doc_name": "test-address",
+        "para_idx": 7,
+        "title": "Test address",
+        "speech_date": "1900-01-02",
+        "year": 1900,
+        "source_url": (
+            "https://millercenter.org/the-presidency/presidential-speeches/"
+            "test-address"
+        ),
+        "source_document_owner": "Owner <unsafe>",
+        "source_document_owner_profile_id": "owner-id",
+        "actual_speaker": "Speaker <unsafe>",
+        "actual_speaker_profile_id": "speaker-id",
+        "cross_owner": True,
+        "speaker_eligibility_state": "eligible",
+        "speaker_exclusion_reason": None,
+        "excerpt": "</blockquote><script>alert(1)</script>",
+        "selection_role": "primary",
+    }
+    card = {
+        "issue": "Economic policy",
+        "legacy_v3": {
+            "issue": "Economic policy", "share": .2, "rel": 1.0,
+            "base": .1, "topic_of_day": False, "words": [],
+            "quote": None, "cite": None, "stance": None,
+        },
+        "claim": {"text": "Both thresholds passed."},
+        "exact_evidence": {
+            "issue_paragraph_count": 20,
+            "total_document_owned_paragraph_count": 100,
+            "percentage": 20.0,
+            "source_document_count": 3,
+            "corpus_baseline_percentage": 10.0,
+            "corpus_baseline_multiple": 2.0,
+            "era_difference_percentage_points": 1.0,
+        },
+        "why_shown": {"text": "Both declared thresholds passed."},
+        "receipts": [
+            receipt,
+            {**receipt, "doc_name": "second-address", "para_idx": 2,
+             "source_url": "https://millercenter.org/the-presidency/presidential-speeches/second-address",
+             "selection_role": "additional_1"},
+            {**receipt, "doc_name": "third-address", "para_idx": 3,
+             "source_url": "https://millercenter.org/the-presidency/presidential-speeches/third-address",
+             "selection_role": "additional_2"},
+        ],
+        "method": {},
+        "limitation": "Document-owner limitation.",
+    }
+
+    rendered = profiles_site._evidence_cards_from_info({
+        "cards": [card],
+        "thin_record_warning": "Fewer than five source speeches are present.",
+    })
+
+    assert "<script>alert(1)</script>" not in rendered
+    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in rendered
+    assert "(test-address, 7)" in rendered
+    assert "Corpus year 1900" in rendered
+    assert "Owner &lt;unsafe&gt; (owner-id)" in rendered
+    assert "Speaker &lt;unsafe&gt; (speaker-id)" in rendered
+    assert "Cross-owner: actual speaker differs" in rendered
+    assert "Additional keyed receipts (2)" in rendered
+    assert rendered.index("test-address") < rendered.index("second-address")
+    assert "Thin source-document record." in rendered
+    assert "Document-owner limitation." in rendered
+
+
 def test_all_45_unique_profiles_and_public_json_are_written(generated_profiles):
     site_dir, views = generated_profiles
     html_files = sorted((site_dir / "presidents").glob("*.html"))
@@ -507,11 +702,41 @@ def test_all_45_unique_profiles_and_public_json_are_written(generated_profiles):
     assert len([path for path in html_files if path.name != "index.html"]) == 45
     assert len(json_files) == 45
     assert {path.stem for path in json_files} == {view["slug"] for view in views.values()}
+    directory = (site_dir / "presidents" / "index.html").read_text(encoding="utf-8")
+    assert directory.count("<li data-president-card") == 45
+    assert directory.count('loading="eager"') == 6
+    assert directory.count('loading="lazy"') == 39
+    assert directory.count('decoding="async"') == 45
+    assert len(directory.encode("utf-8")) <= 45_000
     for path in json_files:
         payload = json.loads(path.read_text(encoding="utf-8"))
         assert tuple(payload) == profiles_site.PROFILE_PUBLIC_KEYS
         assert payload["schema_version"] == "president-profile-v3"
         _assert_finite_json(payload)
+
+
+def test_real_president_profile_v3_payloads_remain_value_for_value_unchanged(monkeypatch):
+    annotation_dir = REPO_ROOT / "data" / "llm_annotations"
+    monkeypatch.setattr(llm_annotations, "ANNOTATIONS_DIR", annotation_dir)
+    monkeypatch.setattr(ai_labels, "AGREEMENT_PATH", annotation_dir / "agreement_v1.parquet")
+    data = profiles.build_profile_data()
+    data["ai"] = ai_labels.build_ai_data()
+    data["feature_neighbors"] = profiles.feature_neighbors(data, data["ai"])
+    display_issues = topic_quality.display_issues(data["issue_meta"]["issues"])
+    views = profiles_site.build_profile_view_models(
+        data, display_issues, require_complete=True,
+    )
+    directory = profiles_site.render_index(data, display_issues)
+
+    for view in views.values():
+        expected_path = REPO_ROOT / "docs" / "data" / "presidents" / f"{view['slug']}.json"
+        expected = json.loads(expected_path.read_text(encoding="utf-8"))
+        assert profiles_site.profile_public_payload(view) == expected
+        card_start = directory.index(f'href="{view["slug"]}.html"')
+        card = directory[card_start:directory.index("</li>", card_start)]
+        leading = view["_view"]["leading_ai_topic"]
+        assert html_lib.escape(str(leading["name"])) in card
+        assert f'{float(leading["share"]):.1f}%' in card
 
 
 def test_generated_portrait_compare_json_signature_and_profile_links_are_valid(
@@ -551,3 +776,26 @@ def test_generated_portrait_compare_json_signature_and_profile_links_are_valid(
             r'<a class="(?:previous|next)" href="([^"]+\.html)"', page
         ):
             assert (president_dir / adjacent).is_file()
+
+
+def test_final_generated_profile_budget_validator_covers_post_shell_inventory(tmp_path):
+    president_dir = tmp_path / "presidents"
+    shard_dir = tmp_path / "data" / "profile-context" / "presidents"
+    asset_dir = tmp_path / "assets"
+    president_dir.mkdir(parents=True)
+    shard_dir.mkdir(parents=True)
+    asset_dir.mkdir(parents=True)
+    (president_dir / "index.html").write_text("<html><body>Directory</body></html>")
+    for index in range(45):
+        slug_value = f"president-{index}"
+        (president_dir / f"{slug_value}.html").write_text(
+            '<html><body><img src="../portraits/example.png"></body></html>'
+        )
+        (shard_dir / f"{slug_value}_v1.json").write_text("{}\n")
+    (tmp_path / "data" / "profile-context" / "index_v1.json").write_text("{}\n")
+    (asset_dir / "profile-connections-v1.js").write_text("export const ready = true;\n")
+
+    report = profiles_site.validate_generated_profile_budgets(tmp_path)
+
+    assert report["profiles"] == 45
+    assert report["maximum_profile_raw_bytes"] > 0

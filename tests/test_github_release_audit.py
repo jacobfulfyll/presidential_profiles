@@ -25,6 +25,14 @@ def test_release_boundary_rejects_control_plane_and_telemetry():
     assert not forbidden("data/networks/network_atlas.json")
 
 
+def test_release_boundary_allows_removing_but_never_publishing_telemetry():
+    policy = AUDIT["release_path_error"]
+    assert policy(".claude/stats.json", present_in_index=False) is None
+    assert policy(".claude/stats.json", present_in_index=True) == (
+        "forbidden release path: .claude/stats.json"
+    )
+
+
 def test_unlisted_top_level_paths_fail_closed():
     allowed = AUDIT["allowed"]
     assert not allowed(".env")
