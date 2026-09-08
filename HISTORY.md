@@ -1,5 +1,15 @@
 # Completed Tasks
 
+- [x] deploy-mobile-experience-v1 Published the reviewed mobile refinement through content PR
+  [#8](https://github.com/jacobfulfyll/presidential_profiles/pull/8). Release commit
+  `b048e4358fee34e37755178f4e47b2a20c0ca0d4` merged to `master` as
+  `67f8ff24a1df14727a1237403ea4e4f1d590eefa`; matching Pages run
+  [34273709409](https://github.com/jacobfulfyll/presidential_profiles/actions/runs/34273709409)
+  succeeded. Twenty representative public routes, assets, JSON, and CSV downloads returned HTTPS
+  200 and matched the reviewed `docs/` bytes. The 3,025-test suite, complete mobile browser matrix,
+  desktop lock, build/static checks, 115-path release audit, credential scan, protected-data check,
+  and Reggie Doctor passed. Frozen annotations and governed data remained unchanged -- 2026-09-08
+
 - [x] implement-mobile-experience-v1 Refined all 73 canonical routes and the self-contained Story
   for 320–760px phones with a 56px native-disclosure navigation bar, safe-area gutters, 44px
   controls, readable type, sticky-anchor clearance, named local scrollers, coarse-landscape rules,
@@ -8,8 +18,8 @@
   audit passes 74 physical pages × five viewports (370 observations), rich interaction/failure/
   no-JavaScript/preference scenarios, and 60 pre-edit desktop screenshot/geometry states. All 3,025
   tests pass with 64 known warnings; JavaScript, compilation, Data Trust, protected-data,
-  whitespace, and Reggie gates pass. Frozen annotations and governed data are unchanged; no
-  deployment -- 2026-09-08
+  whitespace, and Reggie gates pass. Frozen annotations and governed data are unchanged; the
+  subsequently authorized deployment is recorded above -- 2026-09-08
 
 - [x] deploy-data-trust-redesign-v1 Published the reviewed Profiles, navigation, Summary, and Data
   Trust release through content PR [#6](https://github.com/jacobfulfyll/presidential_profiles/pull/6).

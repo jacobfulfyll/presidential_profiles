@@ -1,6 +1,6 @@
 # Mobile experience v1
 
-Status: **implemented and verified locally on 2026-09-08; not deployed**
+Status: **implemented, verified, and deployed on 2026-09-08**
 
 This contract improves the generated site for phones without changing its analytical content or
 desktop presentation. It covers all 73 canonical HTML routes and the physical
@@ -56,7 +56,8 @@ desktop presentation. It covers all 73 canonical HTML routes and the physical
 - Frozen paid annotations and governed derived layers are not regenerated or hand-edited.
 - Existing resource-loading boundaries remain; this pass adds no eager dependency and does not
   split the shared static HTML payload by device.
-- Publication and deployment are outside scope.
+- The implementation contract did not itself authorize publication. The owner later authorized the
+  GitHub Pages release recorded below.
 
 ## Acceptance
 
@@ -93,5 +94,10 @@ desktop presentation. It covers all 73 canonical HTML routes and the physical
   Data Trust browser audit passed five pages at three widths.
 - `data/llm_annotations/` remains byte-identical at fingerprint
   `9a8ac49ed29d63c94f4d7bdeb9f753cf0f38b45b8202ed7e7afa4de1c4297b54`; no governed derived-data
-  directory changed. Reggie Doctor reports 0 errors, 0 warnings, and 3 informational findings. No
-  file was staged, committed, pushed, or deployed.
+  directory changed. Reggie Doctor reports 0 errors, 0 warnings, and 3 informational findings.
+- Owner-authorized content PR [#8](https://github.com/jacobfulfyll/presidential_profiles/pull/8)
+  merged release commit `b048e4358fee34e37755178f4e47b2a20c0ca0d4` to `master` as
+  `67f8ff24a1df14727a1237403ea4e4f1d590eefa`. GitHub Pages run
+  [34273709409](https://github.com/jacobfulfyll/presidential_profiles/actions/runs/34273709409)
+  succeeded, and 20 representative public routes, assets, JSON, and CSV files returned HTTPS 200
+  with byte-for-byte parity against the reviewed `docs/` tree.

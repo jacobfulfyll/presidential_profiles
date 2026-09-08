@@ -6,6 +6,15 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+- [x] deploy-mobile-experience-v1: Published the reviewed 115-path mobile release through content
+  PR [#8](https://github.com/jacobfulfyll/presidential_profiles/pull/8), release commit
+  `b048e4358fee34e37755178f4e47b2a20c0ca0d4`, and `master` merge
+  `67f8ff24a1df14727a1237403ea4e4f1d590eefa`. SHA-matched Pages run
+  [34273709409](https://github.com/jacobfulfyll/presidential_profiles/actions/runs/34273709409)
+  succeeded, and 20 representative public routes/assets/downloads returned HTTPS 200 with exact
+  local-byte parity. All implementation, browser, desktop-lock, build, static, release-boundary,
+  credential, protected-data, and Reggie gates passed. [P1] [high] [completed]
+
 - [x] implement-mobile-experience-v1: Refined every canonical page and the self-contained Story for
   320–760px phones while preserving fine-pointer desktop behavior at 768px and above. Added the
   compact native/no-JavaScript menu, safe-area and 44px primitives, mobile chart/network scrollers,
@@ -13,7 +22,8 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   `notes/mobile-experience-v1.md` contract, and a dependency-free 74-page browser audit. The final
   73-HTML/429-JSON inline build, 3,025-test suite, 370-observation mobile matrix, 60-state desktop
   lock, JavaScript/Python/Data Trust/protected-data/whitespace checks, and Reggie Doctor all pass.
-  Frozen annotations and governed data did not change; no deployment. [P1] [high] [completed]
+  Frozen annotations and governed data did not change; its later authorized deployment is recorded
+  above. [P1] [high] [completed]
 
 - [x] deploy-data-trust-redesign-v1: Published the reviewed Profiles, navigation, Summary, and Data
   Trust snapshot through content PR [#6](https://github.com/jacobfulfyll/presidential_profiles/pull/6),
