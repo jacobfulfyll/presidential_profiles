@@ -262,6 +262,9 @@ def test_server_renderer_has_stable_sections_default_graph_and_no_js_fallback(co
     assert page.count('id="topic-network"') == 1
     assert page.count('id="invocations"') == 1
     assert "Fixed radial layout" in page
+    assert 'class="pc-network-scroll" role="region"' in page
+    assert 'aria-label="Shared topic network; scroll horizontally on narrow screens" tabindex="0"' in page
+    assert "Swipe or scroll to inspect the network →" in page
     assert "president → topic → president" in page
     assert "speaker_paragraph_share" in page
     assert 'data-pc-relation="t0"' in page
@@ -416,8 +419,14 @@ def test_css_locks_responsive_accessibility_and_system_preferences():
     assert "min-height:44px" in PROFILE_CONNECTIONS_CSS
     assert "outline:3px" in PROFILE_CONNECTIONS_CSS
     assert "@media(max-width:768px)" in PROFILE_CONNECTIONS_CSS
+    assert "@media(max-width:760px)" in PROFILE_CONNECTIONS_CSS
     assert "@media(max-width:390px)" in PROFILE_CONNECTIONS_CSS
     assert ".pc-mobile-hidden{display:none}" in PROFILE_CONNECTIONS_CSS
+    assert ".pc-network-svg{width:720px;min-width:720px}" in PROFILE_CONNECTIONS_CSS
+    assert ".pc-network-scroll{overflow-x:auto" in PROFILE_CONNECTIONS_CSS
+    assert ".profile-connections figcaption,.pc-kicker,.pc-audit-values dt" in PROFILE_CONNECTIONS_CSS
+    assert ".pc-invocation-bar-row p,.pc-invocation-audit-record h6{font-size:12px}" in PROFILE_CONNECTIONS_CSS
+    assert ".pc-svg-label{font-size:11px}.pc-peer-label{font-size:11px}" in PROFILE_CONNECTIONS_CSS
     assert "prefers-reduced-motion:reduce" in PROFILE_CONNECTIONS_CSS
     assert "forced-colors:active" in PROFILE_CONNECTIONS_CSS
     assert "stroke-dasharray" in PROFILE_CONNECTIONS_CSS

@@ -1550,7 +1550,7 @@ selected corpus excerpts, eligible-president emphasis, and a distinct explorator
 <div class="issue-fact"><span>Highest eligible president</span>{owner_fact}</div>
 <div class="issue-fact"><span>Exploratory fine crosswalk</span><strong>{topic_count} {topic_word}</strong>
 <small>All selected initially · 10/20-year descriptive buckets</small></div></div></header>
-<nav class="issue-local-nav" aria-label="On this issue"><ul>
+<nav class="issue-local-nav" aria-label="On this issue"><span class="issue-nav-cue" aria-hidden="true">More sections →</span><ul>
 <li><a href="#broad-trend">Broad trend</a></li><li><a href="#selected-excerpts">Selected excerpts</a></li>
 <li><a href="#president-emphasis">President emphasis</a></li><li><a href="#fine-topics">Fine topics</a></li>
 <li><a href="#data-method">Data & method</a></li></ul></nav>

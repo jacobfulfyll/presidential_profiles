@@ -546,6 +546,12 @@ def test_index_and_detail_have_semantic_accessible_fallbacks(real_views):
     assert '<a class="skip-link" href="#main-content">' in detail
     assert '<nav class="breadcrumbs" aria-label="Breadcrumb">' in detail
     assert '<nav class="issue-local-nav" aria-label="On this issue">' in detail
+    assert '<span class="issue-nav-cue" aria-hidden="true">More sections →</span>' in detail
+    assert ".issue-local-nav a{min-height:44px" in ISSUES_CSS
+    assert ".topic-controls label,.topic-picker summary,.exact-values summary,.download-links a{min-height:44px}" in ISSUES_CSS
+    assert ".issue-fact span,.excerpt-label,.receipt,.fine-definition span,.fine-selects label," in ISSUES_CSS
+    assert ".issue-adjacent span,.directory-card dt{font-size:12px!important}" in ISSUES_CSS
+    assert ".receipt{overflow-wrap:anywhere}" in ISSUES_CSS
     assert '<main id="main-content">' in detail
     for section_id in (
         "broad-trend",

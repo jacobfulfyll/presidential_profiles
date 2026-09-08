@@ -308,7 +308,11 @@ def render_page(projection: explore_projection.ExploreProjectionBundle) -> str:
         <h3>Words and named acronyms</h3>
         <p class="panel-unit">Uses per 10,000 indexed words</p>
         <div class="series-legend">{_fallback_legend(models)}</div>
-        {_default_svg(models)}
+        <p class="chart-swipe-cue">Swipe chart horizontally →</p>
+        <div class="trend-scroll" tabindex="0" role="region"
+          aria-label="Default word trends chart; scroll horizontally on narrow screens">
+          {_default_svg(models)}
+        </div>
       </section>
     </div>
     <div class="chart-readout" id="chart-readout">

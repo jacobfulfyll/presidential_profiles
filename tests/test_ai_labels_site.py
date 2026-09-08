@@ -144,6 +144,13 @@ def test_methodology_is_layered_semantic_article_with_no_js_fallbacks(tiny_ai_da
     assert page.count('tabindex="0"') >= 5
     assert "Scroll table horizontally →" in page
     assert "scroll-margin-top:190px" in page
+    assert "@media(max-width:760px)" in page
+    assert ".methods-local-nav a,details>summary,.download-list a { min-height:44px" in page
+    assert ".methods-local-nav ul { width:max-content; min-width:100%" in page
+    assert ".verdict span,.pipeline li>span,.step-label,.receipt>span,.receipt-contract dt" in page
+    assert ".trust-receipt dt { font-size:12px; }" in page
+    assert ".table-scroll::before { font-size:12px; }" in page
+    assert ".methods-local-nav a { padding-inline:10px; font-size:14px; }" in page
     assert "<svg" not in page
     assert "<script" not in page
     assert "complete frozen taxonomy" in page.lower()

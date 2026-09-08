@@ -866,7 +866,8 @@ def render_profile_connections(
     Select a topic in the graph or the list to emphasize its shared paths; select it again or press Escape to clear.
     Ring position and distance have no analytical meaning.</p>
 {thin_notice_line}    <div class="pc-network-layout">
-      <figure data-pc-topic-stage>{topic_svg}
+      <figure data-pc-topic-stage><p class="pc-network-cue" aria-hidden="true">Swipe or scroll to inspect the network →</p>
+        <div class="pc-network-scroll" role="region" aria-label="Shared topic network; scroll horizontally on narrow screens" tabindex="0">{topic_svg}</div>
         <figcaption>Fixed radial layout: focal president at center, topics on the inner ring, and comparison presidents on the outer ring.
         Shared emphasis remains a bipartite path: president → topic → president; president nodes are uniform.</figcaption></figure>
     </div>
@@ -902,6 +903,7 @@ PROFILE_CONNECTIONS_CSS = r"""
 .pc-warning{margin:14px 0;padding:12px;border:1px solid #a47b22;border-left-width:5px;background:#fff7df;color:#4e3b13}
 .pc-network-layout{margin-top:16px}
 .profile-connections :where(figure,.pc-direction){border:1px solid var(--border);border-radius:10px}.profile-connections figure{margin:0;padding:10px;overflow:hidden}
+.pc-network-cue{display:none;color:var(--muted);font-size:12px;font-weight:740}.pc-network-scroll{max-width:100%}.pc-network-scroll:focus-visible{outline:3px solid #b45f06;outline-offset:3px}
 .profile-connections figcaption{margin:7px 4px 0;color:var(--muted);font-size:.7rem}.pc-network-svg{display:block;width:100%;height:auto;max-height:600px}
 .profile-connections .pc-topic-edge{stroke:#72563f;stroke-width:var(--pc-edge-width,2px);stroke-linecap:round;opacity:.52;transition:opacity .15s ease}
 .pc-observed-edge{stroke-dasharray:8 6}.pc-topic-node circle:not(.pc-topic-hit-area){fill:#f3dfc5;stroke:#72431e;stroke-width:2}.pc-topic-hit-area{fill:transparent;stroke:none;pointer-events:all}
@@ -928,7 +930,8 @@ PROFILE_CONNECTIONS_CSS = r"""
 .pc-invocation-audit{margin-top:16px;border:1px solid var(--border);border-radius:9px}.pc-invocation-audit>summary{display:flex;align-items:center;padding:10px 12px;font-weight:700}.pc-invocation-audit-record{padding:0 12px 12px}.pc-downloads{display:flex;flex-wrap:wrap;gap:9px}.pc-downloads a{display:inline-flex;align-items:center;padding:6px 9px}
 .profile-connections [hidden]{display:none!important}
 @media(max-width:768px){.pc-relationship-list{grid-template-columns:1fr}.pc-network-svg{max-height:none}}
-@media(max-width:390px){.profile-connections :where(.pc-count-columns,.pc-audit-values){grid-template-columns:1fr}.profile-connections :where(figure,.pc-direction){padding:8px}.profile-connections .pc-mobile-hidden{display:none}.pc-svg-label{font-size:9px}.pc-invocation-switch{align-items:stretch;gap:8px}.pc-invocation-switch-label{display:flex;align-items:center}.pc-segmented-control{width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}.pc-segmented-control span{padding-inline:10px}}
+@media(max-width:760px){.profile-connections .pc-mobile-hidden{display:none}.pc-network-cue{display:block}.pc-network-scroll{overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-gutter:stable}.pc-network-svg{width:720px;min-width:720px}.profile-connections figcaption,.pc-kicker,.pc-audit-values dt,.pc-count-columns li,.pc-relationship-button span,.pc-invocation-bar-heading span,.pc-invocation-bar-row p,.pc-invocation-audit-record h6{font-size:12px}.pc-svg-label{font-size:11px}.pc-peer-label{font-size:11px}}
+@media(max-width:390px){.profile-connections :where(.pc-count-columns,.pc-audit-values){grid-template-columns:1fr}.profile-connections :where(figure,.pc-direction){padding:8px}.pc-invocation-switch{align-items:stretch;gap:8px}.pc-invocation-switch-label{display:flex;align-items:center}.pc-segmented-control{width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}.pc-segmented-control span{padding-inline:10px}}
 @media(prefers-reduced-motion:reduce){.profile-connections *,.profile-connections *::before,.profile-connections *::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 @media(forced-colors:active){.profile-connections :where(figure,.pc-direction,.pc-warning,.pc-complete-list,.pc-invocation-audit,.pc-invocation-bar-track,button,.pc-segmented-control,.pc-segmented-control label+label){border-color:currentColor}.profile-connections .pc-topic-edge{stroke:currentColor;opacity:1}.profile-connections .pc-invocation-bar-track i{background:Highlight}.profile-connections :where(.pc-topic-node circle:not(.pc-topic-hit-area),.pc-president-node circle,.pc-focal-node){fill:Canvas;stroke:currentColor}.profile-connections :where(.pc-svg-label,.pc-svg-empty){fill:CanvasText;stroke:Canvas}.profile-connections :where(.pc-relationship-button[aria-pressed=true],.pc-segmented-control input:checked+span){forced-color-adjust:none;background:Highlight;color:HighlightText}.profile-connections :where(button,a,summary):focus-visible,.profile-connections .pc-topic-control:focus-visible,.profile-connections .pc-segmented-control input:focus-visible+span{outline-color:Highlight}}
 """

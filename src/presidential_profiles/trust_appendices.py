@@ -133,6 +133,13 @@ overflow-wrap:anywhere}.download-links{display:flex;flex-wrap:wrap;gap:8px;list-
 padding:9px 11px}.methods-local-nav a:focus-visible,.metric-card a:focus-visible,
 .metric-tools button:focus-visible,.metric-tools input:focus-visible,.download-links a:focus-visible{
 outline:3px solid #824600;outline-offset:2px}
+@media(max-width:760px){.methods-local-nav{overscroll-behavior-inline:contain;scrollbar-gutter:stable}
+.methods-local-nav a,.metric-filters button,.appendix-section summary,.download-links a{min-height:44px;box-sizing:border-box}
+.methods-local-nav a{font-size:14px}.methods-scroll-cue,.appendix-kicker,.trust-receipt dt,
+.instrument-card .eyebrow,.agreement-values span,.receipt-card span{font-size:12px}
+.appendix-section summary,.download-links a{display:flex;align-items:center}
+.metric-card .deep-link{display:grid;place-items:center;min-width:44px;min-height:44px;padding:0;right:7px;top:6px}
+.metric-card h3{padding-right:44px}}
 @media(max-width:780px){.verdict-panel,.trust-receipt,.receipt-grid{grid-template-columns:1fr 1fr}
 .methods-scroll-cue{display:flex}
 .metric-card-list,.instrument-grid,.agreement-list{grid-template-columns:1fr}.rate-row{grid-template-columns:1fr}}

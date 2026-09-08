@@ -1354,6 +1354,14 @@ METHOD_CSS = r"""
     .entity-funnel ol { grid-template-columns:1fr; }
     .limitations { columns:1; }
     .scroll-cue { display:block; }
+    .methods-local-nav { overscroll-behavior-inline:contain; scrollbar-gutter:stable; }
+    .methods-local-nav ul { width:max-content; min-width:100%; margin-inline:0; }
+    .methods-scroll-cue { font-size:12px; }
+    .methods-local-nav a,details>summary,.download-list a { min-height:44px; box-sizing:border-box; }
+    .methods-local-nav a { font-size:14px; }
+    .verdict span,.pipeline li>span,.step-label,.receipt>span,.receipt-contract dt,
+    .trust-receipt dt { font-size:12px; }
+    .download-list a { display:inline-flex; align-items:center; }
   }
   @media(max-width:780px) {
     .methods-scroll-cue { display:flex; }
@@ -1363,11 +1371,14 @@ METHOD_CSS = r"""
       left:0; width:max-content; margin:0 0 7px; padding:4px 7px; border-radius:6px;
       background:#eef2f3; color:#52616c; font-size:.7rem; font-weight:750; }
   }
+  @media(max-width:760px) {
+    .table-scroll::before { font-size:12px; }
+  }
   @media(max-width:430px) {
     header,main,footer { padding-inline:15px; }
     .pipeline { grid-template-columns:1fr; } .pipeline li { min-height:0; }
     .pipeline-figure,.masking-figure,.worked-example,.evidence-figure { padding:15px; }
-    .methods-local-nav a { padding-inline:10px; font-size:.72rem; }
+    .methods-local-nav a { padding-inline:10px; font-size:14px; }
   }
   @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
   @media(forced-colors:active) { .visible,.hidden { border:1px solid CanvasText!important; } }

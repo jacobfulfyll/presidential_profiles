@@ -510,9 +510,15 @@ def test_mobile_and_keyboard_accessibility_guards_are_in_profile_html(profile_bu
 
     assert '<meta name="viewport" content="width=device-width, initial-scale=1">' in page
     assert "body.profile-page { overflow-x: clip; }" in page
+    assert "@media (max-width: 760px)" in page
     assert "@media (max-width: 600px)" in page
+    assert '<span class="profile-nav-cue" aria-hidden="true">More sections →</span>' in page
+    assert ".profile-nav-cue { display: inline-flex; min-height: 24px" in page
+    assert ".profile-page :where(.eyebrow, .glance-card span, .source-tag" in page
+    assert ".president-nav span, .invocation-cards dt) { font-size: 12px!important; }" in page
     assert ".profile-nav ul { display: flex; width: max-content" in page
     assert ".profile-nav a { min-width: 92px; min-height: 44px" in page
+    assert ".measure-table td::before { display: block; color: var(--muted); font-size: 12px" in page
     assert ".percentile-row" in page
     assert ".measure-table, .measure-table tbody { display: block; }" in page
     assert "overflow-wrap: anywhere" in page
@@ -543,6 +549,7 @@ def test_directory_is_chronological_name_only_and_progressive(profile_bundle):
     assert "history." not in page
     assert "localStorage" not in page
     assert "grid-template-columns: repeat(3" in page
+    assert ".card-measure span, .card-support { font-size: 12px; }" in page
     assert "@media (max-width: 959px)" in page
     assert "@media (max-width: 599px)" in page
 

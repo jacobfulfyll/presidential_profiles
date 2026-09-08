@@ -663,7 +663,13 @@ function renderPanel(group) {
     if(path){const hit=svg("path",{d:path,class:"hit-path"});hit.dataset.seriesId=item.id;hit.addEventListener("pointerenter",()=>{hoverId=item.id;applyEmphasis();});hit.addEventListener("pointerleave",()=>{hoverId="";applyEmphasis();});hit.addEventListener("pointermove",event=>{const rect=chart.getBoundingClientRect();const local=(event.clientX-rect.left)/rect.width*width;const target=1785+(local-left)/plotWidth*(2026-1785);inspect(item,nearestRow(item,target),false);});hit.addEventListener("click",event=>{const rect=chart.getBoundingClientRect();const local=(event.clientX-rect.left)/rect.width*width;const target=1785+(local-left)/plotWidth*(2026-1785);togglePin(item,nearestRow(item,target),true);});layer.appendChild(hit);}
     chart.appendChild(layer);
   });
-  panel.appendChild(chart);
+  const swipeCue=element("p","chart-swipe-cue","Swipe chart horizontally →");
+  const scroller=element("div","trend-scroll");
+  scroller.tabIndex=0;
+  scroller.setAttribute("role","region");
+  scroller.setAttribute("aria-label",`${group.title} chart; scroll horizontally on narrow screens`);
+  scroller.appendChild(chart);
+  panel.append(swipeCue,scroller);
   return panel;
 }
 function renderCharts() {

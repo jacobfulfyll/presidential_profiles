@@ -20,6 +20,10 @@ def test_methods_local_navigation_has_the_shared_seven_destinations():
     ):
         assert label in markup
     assert 'href="metrics.html" aria-current="page"' in markup
+    assert "@media(max-width:760px)" in trust_appendices.APPENDIX_CSS
+    assert ".methods-local-nav a,.metric-filters button,.appendix-section summary,.download-links a{min-height:44px" in trust_appendices.APPENDIX_CSS
+    assert ".metric-card .deep-link{display:grid;place-items:center;min-width:44px;min-height:44px" in trust_appendices.APPENDIX_CSS
+    assert ".instrument-card .eyebrow,.agreement-values span,.receipt-card span{font-size:12px}" in trust_appendices.APPENDIX_CSS
 
 
 def test_metric_dictionary_is_grouped_searchable_and_key_complete():

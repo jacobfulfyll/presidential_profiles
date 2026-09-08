@@ -526,3 +526,4 @@ async function audit() {
 }
 
 await audit();
+process.exit(process.exitCode || 0);

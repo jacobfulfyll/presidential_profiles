@@ -261,6 +261,15 @@ def test_every_public_figure_has_semantic_evidence_contract():
     assert "Accessible table: every condition" in page
     assert re.search(r'id="sliding-chart"[^>]*\shidden>', page)
     assert re.search(r'id="sensitivity-chart"[^>]*\shidden>', page)
+    assert 'class="sensitivity-scroll" role="region"' in page
+    assert 'aria-label="Boundary sensitivity matrix; scroll horizontally on narrow screens" tabindex="0"' in page
+    assert "Swipe or scroll to inspect the full matrix →" in page
+    assert "@media(max-width:760px)" in page
+    assert "#sensitivity-chart{width:720px;min-width:720px}" in page
+    assert "scrollbar-gutter:stable;touch-action:pan-x" in page
+    assert ".sensitivity-scroll *{pointer-events:none!important}" in page
+    assert ".local-nav a{display:inline-flex;align-items:center;min-height:44px" in page
+    assert ".receipt code{font-size:12px;overflow-wrap:anywhere}" in page
     assert 'el.removeAttribute("hidden")' in page
     assert "pending.catch(()=>{el.hidden=true;})" in page
     assert "catch(error){el.hidden=true;}" in page

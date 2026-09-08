@@ -22,7 +22,8 @@
   rgba(11,11,11,.06);list-style:none}.issue-local-nav a{display:grid;min-height:38px;place-items:center;
   padding:5px 9px;border-radius:8px;color:var(--ink2);font-size:.76rem;font-weight:720;
   text-align:center;text-decoration:none;white-space:nowrap}.issue-local-nav a:hover{background:var(--page);
-  color:var(--ink)}.issues-page main{padding-top:1px}.issues-page main>section{scroll-margin-top:
+  color:var(--ink)}.issue-nav-cue{display:none;color:var(--muted);font-size:12px;font-weight:740;
+  white-space:nowrap}.issues-page main{padding-top:1px}.issues-page main>section{scroll-margin-top:
   calc(var(--global-nav-height,0px) + 72px)}.section-kicker{margin-bottom:5px;color:#6a421b;
   font-size:.68rem;font-weight:820;letter-spacing:.09em;text-transform:uppercase}
 .issues-page section>h2{font:700 clamp(1.4rem,3vw,1.8rem)/1.15 Georgia,serif}
@@ -108,13 +109,18 @@
   font-size:.65rem;font-weight:780;letter-spacing:.04em;text-transform:uppercase}.directory-card dd{
   margin-top:2px;color:var(--ink2);font-size:.78rem}.directory-card .source-badge{margin:0 0 10px}
 @media(max-width:760px){.issue-facts{grid-template-columns:1fr}.issue-local-nav{margin-top:11px;
-  padding:0 8px}.issue-local-nav ul{padding:3px}.issue-local-nav a{min-height:40px;font-size:.7rem}
+  padding:0 8px}.issue-nav-cue{display:inline-flex;min-height:24px;align-items:center;padding-inline:7px}
+  .issue-local-nav ul{padding:3px;scrollbar-gutter:stable}.issue-local-nav a{min-height:44px;font-size:14px}
+  .issue-fact span,.excerpt-label,.receipt,.fine-definition span,.fine-selects label,
+  .issue-adjacent span,.directory-card dt{font-size:12px!important}
+  .receipt{overflow-wrap:anywhere}
   .issues-page main>section{scroll-margin-top:calc(var(--global-nav-height,0px) + 112px)}
   .excerpt-grid{grid-template-columns:1fr}.owner-scale{display:none}.owner-row{grid-template-columns:1fr;
   gap:8px}.owner-track{height:10px}.owner-value{text-align:left}.owner-person{grid-template-columns:42px 1fr}
   .owner-person img{width:42px;height:42px}.fine-controls{grid-template-columns:1fr}.fine-selects{
   display:grid;grid-template-columns:1fr 1fr}.fine-selects select,.topic-picker-actions button,
-  .topic-controls label{min-height:44px}.provenance-grid{grid-template-columns:1fr}.chart-scroll{
+  .topic-controls label,.topic-picker summary,.exact-values summary,.download-links a{min-height:44px}
+  .provenance-grid{grid-template-columns:1fr}.chart-scroll{
   margin-inline:-2px}.issue-adjacent{grid-template-columns:1fr}.issue-adjacent .next{text-align:left}}
 @media(max-width:420px){.issues-hero{padding-top:25px}.issues-hero h1{font-size:1.85rem}
   .fine-selects{grid-template-columns:1fr}.topic-picker-actions{display:grid;grid-template-columns:1fr 1fr}

@@ -1,5 +1,32 @@
 # Handoff
 
+## Latest addendum — Mobile experience v1
+
+- All 73 canonical routes plus the self-contained Story now share a 320–760px phone contract while
+  fine-pointer layouts at 768px and above retain their prior presentation and behavior. Phones use
+  one 56px native-disclosure navigation row, safe-area gutters, 44px controls, readable type,
+  sticky-stack anchor clearance, named local scrollers, visible focus, reduced-motion support, and
+  forced-color boundaries. Short coarse-pointer landscape keeps the compact shell but makes every
+  secondary rail static.
+- Story/Summary cards and stages reflow; dense evidence remains readable in local viewports.
+  Compare guarantees a 220px radar at 320px. Explore uses a 700px focusable graph viewport. Profile
+  networks retain their reduced-node phone view through 760px on a centered 720px canvas. Issues
+  and Data Trust enlarge controls and receipts; Era Choices uses a swipeable 720px matrix. Desktop
+  resource loading, URLs, analytical schemas and values, navigation destinations, section order,
+  and disclosure defaults did not change.
+- Final acceptance is green: the inline build validates 73 HTML pages and 429 JSON shards; the
+  dependency-free audit passes 74 physical pages × five viewports (370 observations) plus menu,
+  no-JavaScript, rotation/landscape, touch, failure, reduced-motion, forced-color, and 200%-text
+  scenarios. Sixty pre-edit desktop screenshot/geometry states pass the desktop lock after
+  accounting for the existing Story/Summary reveal animation. All 3,025 repository tests pass with
+  64 known warnings; 129 inline scripts, generated JavaScript, Python compilation, Data Trust's
+  15-state browser audit, and whitespace checks pass.
+- The durable contract and exact receipt are in `notes/mobile-experience-v1.md`. Frozen paid
+  annotations retain fingerprint
+  `9a8ac49ed29d63c94f4d7bdeb9f753cf0f38b45b8202ed7e7afa4de1c4297b54`; no governed data changed.
+  Reggie Doctor reports 0 errors, 0 warnings, and 3 informational findings. The work is local and
+  uncommitted; nothing was pushed or deployed.
+
 ## Latest addendum — Data Trust GitHub Pages release
 
 - The owner approved publication on 2026-09-08. Content PR
@@ -118,24 +145,27 @@
 
 - Last updated: 2026-09-08.
 - Branch: reusable `codex/github-pages-release`, fast-forwarded through the published content merge.
-- State: Data Trust redesign implementation, governed artifact generation, repository-wide
-  acceptance, PR review, merge, GitHub Pages deployment, and public byte verification are complete.
+- State: Mobile experience v1 is implemented, generated, and fully verified in the local worktree.
+  The earlier Data Trust release remains published; this mobile pass has not been committed,
+  pushed, or deployed.
 
 ## Completed task
 
-- Implement, verify, and publish the complete source-driven Data Trust redesign while preserving
-  protected Story boundaries, frozen annotations, and local-only control-plane state.
+- Implement and verify the source-driven mobile experience refinement while preserving desktop
+  behavior, protected Story contracts, frozen annotations, and governed-data provenance.
 
 ## Verification
 
-- The implementation receipt is recorded in `notes/data-trust-redesign-v1.md`; the release receipt
-  is recorded in the first addendum above. All required tests, generation, static checks, governed
-  validators, protected-input comparison, responsive/browser inspection, release-boundary audit,
-  SHA-matched Pages run, and public byte comparisons pass.
+- The mobile implementation and acceptance receipt is recorded in
+  `notes/mobile-experience-v1.md`. All required tests, canonical generation, static checks,
+  protected-input comparison, whole-site mobile inspection, desktop screenshot/geometry lock, and
+  Reggie Doctor pass.
 
 ## Worktree
 
-- The reviewed implementation is committed and published. No unrelated user files were cleaned,
+- The mobile implementation and rebuilt `docs/` output are uncommitted local changes. The worktree
+  was clean at task start; all 115 changed or untracked paths in the final Reggie receipt belong to
+  this source, test, documentation, or generated-output pass. No unrelated user file was cleaned,
   reset, or overwritten.
 - `.claude/stats.json` remains preserved as ignored user-owned local telemetry and is absent from
   Git. Frozen paid annotations and existing governed paid data were not regenerated or hand-edited.
@@ -150,8 +180,8 @@
 
 ## Next safe action
 
-- No release action remains. Future analytical changes should begin from `master`, change generator
-  source rather than `docs/` directly, and follow `notes/github-pages-release-plan-v1.md` again.
+- Review the local mobile diff and generated site. Commit or publication is a separate owner action;
+  any future release should follow `notes/github-pages-release-plan-v1.md` again.
 
 ## Latest addendum — Summary language boundary and divisiveness synthesis
 

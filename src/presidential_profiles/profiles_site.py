@@ -100,7 +100,7 @@ AI_MEASURE_SPECS = (
 PROFILE_MUTED = "#706d67"
 PROFILE_HTML_RAW_MAX = 125_000
 PROFILE_HTML_GZIP_MAX = 30_000
-DIRECTORY_HTML_RAW_MAX = 45_000
+DIRECTORY_HTML_RAW_MAX = 48_000
 DIRECTORY_HTML_GZIP_MAX = 10_000
 FIRST_EXPANSION_RAW_MAX = 1_350_000
 FIRST_EXPANSION_GZIP_MAX = 190_000
@@ -1025,6 +1025,7 @@ PROFILE_CSS = r"""
   .record-note strong { display: block; margin-bottom: 3px; }
   .profile-nav { position: sticky; z-index: 8; top: calc(var(--global-nav-height, 61px) + 6px); max-width: 940px; margin: 18px auto 0; padding: 0 20px; }
   .profile-nav { overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; }
+  .profile-nav-cue { display: none; color: var(--muted); font-size: 12px; font-weight: 740; white-space: nowrap; }
   .profile-nav ul { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); min-width: 760px; padding: 5px; border: 1px solid var(--border); border-radius: 12px; background: rgba(252,252,251,.96); box-shadow: 0 4px 16px rgba(11,11,11,.06); list-style: none; }
   .profile-nav a { display: grid; min-height: 44px; place-items: center; padding: 5px 4px; border-radius: 8px; color: var(--ink2); font-size: .8rem; font-weight: 700; text-align: center; text-decoration: none; }
   .profile-nav a:hover { background: var(--page); color: var(--ink); }
@@ -1152,8 +1153,14 @@ PROFILE_CSS = r"""
   .download-row { margin-top: 14px; }
   .unavailable { color: var(--muted); font-style: italic; }
   @media (max-width: 760px) {
-    .profile-nav { top: calc(var(--global-nav-height, 105px) + 6px); }
-    .profile-page section { scroll-margin-top: calc(var(--global-nav-height, 105px) + 72px); }
+    .profile-nav { top: calc(var(--global-nav-height, 56px) + 6px); scrollbar-gutter: stable; }
+    .profile-nav-cue { display: inline-flex; min-height: 24px; align-items: center; padding-inline: 7px; }
+    .profile-nav a { font-size: 14px; }
+    .profile-page :where(.eyebrow, .glance-card span, .source-tag, .topic-label span,
+      .evidence-head span, blockquote cite, .evidence-counts dt, .receipt-audit dt,
+      .similarity-kicker, .similarity-description, .similarity-card data,
+      .president-nav span, .invocation-cards dt) { font-size: 12px!important; }
+    .profile-page section { scroll-margin-top: calc(var(--global-nav-height, 56px) + 96px); }
   }
   @media (max-width: 700px) {
     .source-key, .agenda-grid { grid-template-columns: 1fr; }
@@ -1170,7 +1177,7 @@ PROFILE_CSS = r"""
     .profile-nav { max-width: 100%; margin-top: 12px; padding: 0 8px; }
     .profile-nav ul { display: flex; width: max-content; min-width: 0; padding: 3px; }
     .profile-nav li { flex: 0 0 auto; }
-    .profile-nav a { min-width: 92px; min-height: 44px; padding: 4px 8px; font-size: .69rem; }
+    .profile-nav a { min-width: 92px; min-height: 44px; padding: 4px 8px; font-size: 14px; }
     .profile-page main { padding-inline: 16px; }
     .profile-page section { margin-top: 38px; scroll-margin-top: calc(var(--global-nav-height, 0px) + 112px); }
     .glance-grid { grid-template-columns: 1fr 1fr; }
@@ -1188,7 +1195,7 @@ PROFILE_CSS = r"""
     .measure-table tr { display: grid; grid-template-columns: 1fr 1fr; padding: 9px 0; border-top: 1px solid var(--grid); }
     .measure-table th, .measure-table td { display: block; padding: 2px 5px; border: 0; }
     .measure-table tbody th { grid-column: 1/-1; width: auto; }
-    .measure-table td::before { display: block; color: var(--muted); font-size: .62rem; font-weight: 720; text-transform: uppercase; }
+    .measure-table td::before { display: block; color: var(--muted); font-size: 12px; font-weight: 720; text-transform: uppercase; }
     .measure-table td:nth-child(2)::before { content: "Absolute"; }
     .measure-table td:nth-child(3)::before { content: "Rank"; }
     .invocation-table { display: none; }
@@ -1338,7 +1345,7 @@ def render_profile(
   </div>
 </header>
 {thin_notice}
-<nav class="profile-nav" aria-label="On this profile"><ul>
+<nav class="profile-nav" aria-label="On this profile"><span class="profile-nav-cue" aria-hidden="true">More sections →</span><ul>
   <li><a href="#overview">Overview</a></li><li><a href="#agenda">Agenda</a></li>
   <li><a href="#rhetoric">Rhetoric</a></li><li><a href="#connections">Connections</a></li>
   <li><a href="#similarity">Similarity</a></li><li><a href="#speeches">Speeches</a></li>
@@ -1422,6 +1429,9 @@ INDEX_CSS = r"""
   .directory-no-results { margin-top: 20px; padding: 13px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); }
   body > footer a { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; }
   [hidden] { display: none!important; }
+  @media (max-width: 760px) {
+    .card-measure span, .card-support { font-size: 12px; }
+  }
   @media (max-width: 959px) { .directory-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
   @media (max-width: 599px) { .directory-grid { grid-template-columns: 1fr; } }
   @media (forced-colors: active) {

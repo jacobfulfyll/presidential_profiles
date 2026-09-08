@@ -38,6 +38,7 @@ as a flat required reading list.
 
 ## Site generation and verification
 
+- [Mobile experience v1 contract and whole-site rendered acceptance](../../notes/mobile-experience-v1.md)
 - [Human setup and generator commands](../../README.md)
 - [GitHub Pages release plan and staging boundary](../../notes/github-pages-release-plan-v1.md)
 - [Native project conventions](../../CLAUDE.md)

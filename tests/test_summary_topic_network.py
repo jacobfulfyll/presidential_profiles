@@ -218,6 +218,11 @@ def test_server_shell_keeps_topic_controls_and_only_the_exact_csv_download(proje
     assert "nine era-isolated AI proposals" not in page
     assert 'data-summary-topic-stage-readout' in page
     assert 'data-summary-topic-size-key' in page
+    assert (
+        'aria-label="President topic relationship field; scroll horizontally on narrow screens"'
+        in page
+    )
+    assert '<figure class="summary-topic-stage" tabindex="0"' in page
     assert "<noscript>" in page
     assert "exact recurring-topic table" in page.lower()
     assert "How to read this topic-gravity field" not in page
@@ -301,6 +306,13 @@ def test_scoped_css_has_mobile_touch_overflow_and_reduced_motion_contracts():
     assert "overflow-x:auto" in css
     assert ".summary-topic-control-heading" in css
     assert ".summary-topic-president-row" in css
+    assert ".summary-topic-stage-tools p{font-size:1rem;line-height:1.55}" in css
+    assert "font-size:.875rem" in css
+    assert "font-size:.75rem" in css
+    assert "align-items:stretch;flex-direction:column" in css
+    assert ".summary-topic-stage:has(.summary-topic-president)::before" in css
+    assert "width:900px;min-width:900px" in css
+    assert ".summary-topic-empty{font-size:44px}" in css
 
 
 def test_chart_registry_maps_only_primary_edge_width_measure():
