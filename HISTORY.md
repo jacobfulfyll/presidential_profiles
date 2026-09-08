@@ -1,5 +1,17 @@
 # Completed Tasks
 
+- [x] deploy-data-trust-redesign-v1 Published the reviewed Profiles, navigation, Summary, and Data
+  Trust release through content PR [#6](https://github.com/jacobfulfyll/presidential_profiles/pull/6).
+  Release commit `a586faaa3df4af08fb8b4d8232ed021810545442` merged to `master` as
+  `a92a1db1f2ab9274d8b9a1f8a1ef48141ec6b41b`; matching Pages run
+  [34251578173](https://github.com/jacobfulfyll/presidential_profiles/actions/runs/34251578173)
+  succeeded. Nineteen representative public routes/assets/downloads returned HTTPS 200 and matched
+  the reviewed `docs/` bytes. All 3,018 tests, the canonical 73-HTML/429-JSON build, 129-script
+  parser, Data Trust browser audit, compilation, diff, 724-path release-boundary, credential,
+  frozen-artifact, and Reggie checks passed. Local telemetry was removed from Git but preserved
+  locally; annotation-ledger, operator, restricted-study, and frozen paid-artifact boundaries held
+  -- 2026-09-08
+
 - [x] implement-data-trust-redesign-v1 Rebuilt Data Quality, Methods, Era Choices, Model
   Comparison, and the Metric Dictionary as one layered trust system with quick verdicts, semantic
   visual evidence, technical receipts, shared navigation, and stable metric links. Added the

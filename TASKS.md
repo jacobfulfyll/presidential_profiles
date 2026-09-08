@@ -6,15 +6,26 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+- [x] deploy-data-trust-redesign-v1: Published the reviewed Profiles, navigation, Summary, and Data
+  Trust snapshot through content PR [#6](https://github.com/jacobfulfyll/presidential_profiles/pull/6),
+  release commit `a586faaa3df4af08fb8b4d8232ed021810545442`, and `master` merge
+  `a92a1db1f2ab9274d8b9a1f8a1ef48141ec6b41b`. SHA-matched Pages run
+  [34251578173](https://github.com/jacobfulfyll/presidential_profiles/actions/runs/34251578173)
+  succeeded, and 19 representative public routes/assets/downloads returned HTTPS 200 with exact
+  local-byte parity. The 3,018-test suite and every build, syntax, browser/accessibility,
+  release-boundary, credential, frozen-artifact, and Reggie gate passed. Local telemetry remains
+  preserved but untracked; restricted control-plane state and frozen paid annotations were not
+  published or changed. [P1] [high] [completed]
+
 - [x] verify-data-trust-redesign-v1: Completed the full source-driven acceptance for Data Quality,
-  Methods, Era Choices, Model Comparison, and the Metric Dictionary. All 3,017 repository tests,
+  Methods, Era Choices, Model Comparison, and the Metric Dictionary. All 3,018 repository tests,
   the 73-HTML/429-JSON canonical build, 129-script parser, generated JavaScript and Python syntax,
   governed projection validators, frozen-artifact fingerprint, whitespace check, and Reggie
   Doctor pass. Executable and independent browser QA covers all five pages at 390/768/1280px plus
   keyboard, no-JavaScript, contrast, anchor, overflow, target-size, and console checks with no
-  remaining findings. No deployment, paid call, human labeling, frozen-artifact edit, or Story
-  boundary change occurred. Contract and exact receipt: `notes/data-trust-redesign-v1.md` and
-  `HANDOFF.md`. [P1] [high] [completed]
+  remaining findings. The implementation made no paid call, human label, frozen-artifact edit, or
+  Story-boundary change; its later authorized deployment is recorded in the task above. Contract
+  and exact receipt: `notes/data-trust-redesign-v1.md` and `HANDOFF.md`. [P1] [high] [completed]
 
 - [x] refine-profile-connections-and-similarity-interactions: Made every Shared topic emphasis
   topic node a click- and keyboard-operable 44px control that emphasizes its graph paths without

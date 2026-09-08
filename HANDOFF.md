@@ -1,5 +1,27 @@
 # Handoff
 
+## Latest addendum — Data Trust GitHub Pages release
+
+- The owner approved publication on 2026-09-08. Content PR
+  [#6](https://github.com/jacobfulfyll/presidential_profiles/pull/6) merged release commit
+  `a586faaa3df4af08fb8b4d8232ed021810545442` to `master` as
+  `a92a1db1f2ab9274d8b9a1f8a1ef48141ec6b41b` without rewriting history or deleting the reusable
+  `codex/github-pages-release` branch.
+- GitHub Pages run
+  [34251578173](https://github.com/jacobfulfyll/presidential_profiles/actions/runs/34251578173)
+  completed successfully for that exact merge SHA. Nineteen representative Story, Summary,
+  Compare, Explore, Profiles, Issues, Data Trust, asset, manifest, and CSV URLs returned HTTPS 200
+  and matched the reviewed `docs/` bytes exactly. The public site is
+  <https://jacobfulfyll.github.io/presidential_profiles/>.
+- The release gate passed 3,018 tests with 64 known warnings, the canonical 73-HTML/429-JSON build,
+  129 inline-script parsing, the five-page three-width/no-JavaScript browser audit, compilation,
+  staged and unstaged whitespace checks, the 724-path staged release audit, a changed-text
+  credential scan, frozen-artifact comparison, and Reggie Doctor with 0 errors and 0 warnings.
+- `.claude/stats.json` was removed from Git and is ignored while the existing local copy remains
+  preserved. Annotation-ledger state, `.codex/operators/`, restricted study identities/task plans,
+  and other local control-plane files were not published. Frozen paid annotations remain unchanged
+  at fingerprint `9a8ac49ed29d63c94f4d7bdeb9f753cf0f38b45b8202ed7e7afa4de1c4297b54`.
+
 ## Latest addendum — Data Trust redesign v1
 
 - The five preserved Data routes now form one layered evidence system: `data-quality.html`,
@@ -35,8 +57,9 @@
 - The durable contract and verification sequence are recorded in
   `notes/data-trust-redesign-v1.md`; the full planned-study specification remains in
   `notes/data-trust-validation-protocols-v1.md`. Frozen `data/llm_annotations/` artifacts were not
-  regenerated or hand-edited, and no deployment was authorized.
-- Final acceptance is green: 106 focused trust/era/method tests and all 3,017 repository tests
+  regenerated or hand-edited. The subsequently authorized publication is recorded in the release
+  addendum above.
+- Final acceptance is green: 106 focused trust/era/method tests and all 3,018 repository tests
   pass with 64 existing warnings; the final metric-target refinement passes 27 focused tests.
   The canonical build validates 73 HTML pages and 429 JSON shards, all 129 inline scripts and all
   generated JavaScript parse, Python compiles, every governed public projection revalidates, and
@@ -94,41 +117,41 @@
 ## Current status
 
 - Last updated: 2026-09-08.
-- Branch: `codex/summary-who-how-transition`.
-- State: Data Trust redesign implementation, governed artifact generation, and repository-wide
-  acceptance are complete in the shared dirty worktree. No publication action was authorized.
+- Branch: reusable `codex/github-pages-release`, fast-forwarded through the published content merge.
+- State: Data Trust redesign implementation, governed artifact generation, repository-wide
+  acceptance, PR review, merge, GitHub Pages deployment, and public byte verification are complete.
 
 ## Completed task
 
-- Implement and verify the complete source-driven Data Trust redesign while preserving the
-  protected Story, frozen-annotation, and no-deployment boundaries.
+- Implement, verify, and publish the complete source-driven Data Trust redesign while preserving
+  protected Story boundaries, frozen annotations, and local-only control-plane state.
 
 ## Verification
 
-- The exact final acceptance receipt is recorded in the latest addendum above and in
-  `notes/data-trust-redesign-v1.md`. All required tests, generation, static checks, governed
-  validators, protected-input comparison, responsive/browser inspection, and Reggie checks pass.
+- The implementation receipt is recorded in `notes/data-trust-redesign-v1.md`; the release receipt
+  is recorded in the first addendum above. All required tests, generation, static checks, governed
+  validators, protected-input comparison, responsive/browser inspection, release-boundary audit,
+  SHA-matched Pages run, and public byte comparisons pass.
 
 ## Worktree
 
-- The pre-existing user-owned profile, Summary, generated-site, data, and documentation changes
-  remain in place. The Data Trust work adds its source modules, tests, contract note, derived
-  governed artifacts, and generator-owned projections without cleaning or overwriting unrelated
-  work.
-- `.claude/stats.json` remains user-owned telemetry. Frozen paid annotations and existing governed
-  paid data were not regenerated or hand-edited.
+- The reviewed implementation is committed and published. No unrelated user files were cleaned,
+  reset, or overwritten.
+- `.claude/stats.json` remains preserved as ignored user-owned local telemetry and is absent from
+  Git. Frozen paid annotations and existing governed paid data were not regenerated or hand-edited.
 
 ## Decisions and blockers
 
 - Story boundaries, `president-profile-v3`, protected Compare projections, and frozen paid
   annotations remain protected. Data Trust changes explain or project those inputs; they do not
   authorize a Story migration or label replacement.
-- Deployment, paid calls, human-label collection, staging, commit, push, branch switching, and
-  worktree cleanup remain outside this task's authority.
+- The owner authorized this GitHub Pages release only. Paid calls, human-label collection,
+  restricted study execution, frozen-data changes, and Story-boundary changes remain unauthorized.
 
 ## Next safe action
 
-- Review the local generated site and intended diff. Do not deploy without explicit authorization.
+- No release action remains. Future analytical changes should begin from `master`, change generator
+  source rather than `docs/` directly, and follow `notes/github-pages-release-plan-v1.md` again.
 
 ## Latest addendum — Summary language boundary and divisiveness synthesis
 
