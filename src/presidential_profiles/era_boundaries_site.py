@@ -433,6 +433,8 @@ white-space:nowrap;padding:7px 9px;border-radius:999px;background:#edf4f8;color:
 .chart-card{{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px;margin-top:18px}}
 .chart-head{{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}}.chart-head p{{margin:5px 0 0}}
 .boundary-chart{{width:100%;height:500px}}#sensitivity-chart{{height:760px}}
+.sensitivity-scroll{{max-width:100%}}.sensitivity-scroll:focus-visible{{outline:3px solid #1c6a9e;outline-offset:3px}}
+.sensitivity-scroll-cue{{display:none;color:var(--muted);font-size:.72rem;font-weight:750;margin-top:8px}}
 .chart-note,.receipt-line{{font-size:.82rem;color:var(--muted);margin-top:8px}}
 .callout{{border-left:4px solid #6b9fc5;background:#edf4f8;border-radius:0 12px 12px 0;padding:15px 17px;margin:20px 0}}.callout p{{margin:0;max-width:none}}
 .warning{{border-left-color:#c98636;background:#fff4e7}}code{{font-size:.88em}}
@@ -450,6 +452,13 @@ details{{margin-top:12px;background:var(--surface);border:1px solid var(--border
 .era-strip{{grid-template-columns:repeat(9,minmax(108px,1fr))}}.timeline-cue{{display:block}}
 .table-wrap::before{{content:"Scroll table horizontally →";display:block;position:sticky;left:0;width:max-content;
 margin:7px;padding:4px 7px;border-radius:6px;background:#edf4f8;color:#244e6e;font-size:.68rem;font-weight:750}}}}
+@media(max-width:760px){{.local-nav{{overscroll-behavior-inline:contain;scrollbar-gutter:stable}}.local-nav a{{display:inline-flex;align-items:center;min-height:44px;box-sizing:border-box}}
+summary{{min-height:44px;box-sizing:border-box}}.sensitivity-scroll{{overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-gutter:stable;touch-action:pan-x}}
+#sensitivity-chart{{width:720px;min-width:720px}}.local-nav a{{font-size:14px}}.local-nav .scroll-cue,
+.sensitivity-scroll-cue,.table-wrap::before,.trust-receipt dt,.era-chip span{{font-size:12px}}
+.receipt code{{font-size:12px;overflow-wrap:anywhere}}
+.sensitivity-scroll *{{pointer-events:none!important}}
+.chart-card:has(#sensitivity-chart:not([hidden])) .sensitivity-scroll-cue{{display:block}}}}
 </style></head><body>{nav(current_href="era-boundaries.html")}
 <header><div class="kicker">Methods · editorial periodization</div>
 <h1>How we chose the eras</h1>
@@ -499,7 +508,8 @@ data-evidence="data/era-boundary-sensitivity.csv" aria-labelledby="sensitivity-t
 <figcaption class="chart-head"><div><strong id="sensitivity-title">Condition × boundary sensitivity matrix</strong>
 <p id="sensitivity-desc">Marker shape identifies the test family; hover shows adjusted-Rand similarity to the primary partition.
 <a href="metrics.html#era_segmentation_sensitivity">Define segmentation sensitivity.</a></p></div></figcaption>
-<div id="sensitivity-chart" class="boundary-chart" role="img" aria-label="Boundary starts under every estimable segmentation sensitivity condition" hidden></div></figure>
+<div class="sensitivity-scroll" role="region" aria-label="Boundary sensitivity matrix; scroll horizontally on narrow screens" tabindex="0"><div id="sensitivity-chart" class="boundary-chart" role="img" aria-label="Boundary starts under every estimable segmentation sensitivity condition" hidden></div></div>
+<p class="sensitivity-scroll-cue" aria-hidden="true">Swipe or scroll to inspect the full matrix →</p></figure>
 <div class="callout warning"><p><strong>Common-genre check not estimable on this grid.</strong>
 The annual-message/State-of-the-Union subset has an empty four-year unit: {common_genre_note}
 The audit records that failure rather than bridging a temporal gap or claiming genre invariance.</p></div>

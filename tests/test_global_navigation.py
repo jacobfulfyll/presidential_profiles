@@ -165,6 +165,64 @@ def test_disclosures_use_native_controls_and_cover_required_interactions():
         assert behavior in NAV_JS
 
 
+def test_phone_navigation_is_native_complete_and_current():
+    markup = nav(prefix="../", current_href="presidents/index.html")
+    assert '<div class="mobile-nav">' in markup
+    assert '<span class="mobile-current">Presidents</span>' in markup
+    assert (
+        '<details class="mobile-menu"><summary aria-controls="primary-nav-links">'
+        "Menu</summary>"
+    ) in markup
+    shared_links = markup.split('<div class="nav-links" id="primary-nav-links">', 1)[1].split(
+        '<div class="mobile-nav">', 1
+    )[0]
+    for label, href in [
+        ("Story", "../index.html"),
+        ("Summary", "../summary.html"),
+        ("Compare", "../compare.html"),
+        ("Explore", "../explorer.html"),
+        ("Presidents", "../presidents/index.html"),
+        ("Issues", "../issues/index.html"),
+        ("Data Quality", "../data-quality.html"),
+        ("Methods", "../methodology.html"),
+        ("Era Choices", "../era-boundaries.html"),
+    ]:
+        assert f'href="{href}"' in shared_links
+        assert f">{label}</a>" in shared_links
+    assert (
+        'href="../presidents/index.html" aria-current="page">Presidents</a>'
+        in shared_links
+    )
+    assert "role=\"menu\"" not in shared_links
+    assert markup.count('href="../presidents/index.html"') == 1
+
+
+def test_phone_navigation_is_56px_and_desktop_shell_is_not_reflowed():
+    compact_css = re.sub(r"\s+", "", NAV_CSS)
+    assert ".mobile-nav{display:none}" in compact_css
+    assert (
+        "@media(max-width:760px),(max-height:500px)and(max-width:932px)and(pointer:coarse)"
+        in compact_css
+    )
+    assert "min-height:56px" in compact_css
+    assert ".nav-brand-label,.nav-links{display:none}" in compact_css
+    assert ".mobile-nav{display:flex" in compact_css
+    assert "max-height:calc(100dvh-var(--global-nav-height,56px)-16px)" in compact_css
+    assert ".nav-shell:has(.mobile-menu[open])>.nav-links{position:fixed" in compact_css
+    assert ".nav-submenu[hidden]," in compact_css
+    assert "min-height:44px" in compact_css
+    assert "position:static!important;top:auto!important" in compact_css
+
+
+def test_phone_menu_escape_outside_activation_and_link_close_are_enhanced():
+    assert 'const mobileMenu = nav.querySelector(".mobile-menu")' in NAV_JS
+    assert 'event.key !== "Escape" || !mobileMenu.open' in NAV_JS
+    assert 'mobileMenu.removeAttribute("open")' in NAV_JS
+    assert "mobileSummary.focus()" in NAV_JS
+    assert "!nav.contains(event.target)" in NAV_JS
+    assert 'nav.querySelectorAll(".nav-links a")' in NAV_JS
+
+
 def test_submenu_wrapper_bridges_trigger_and_panel_without_a_dead_zone():
     compact_css = re.sub(r"\s+", "", NAV_CSS)
     assert (

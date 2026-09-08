@@ -14,6 +14,8 @@ COMPARE_V3_JS = r'''(() => {
   const selectionStrip = document.getElementById("compare-selection-strip");
   const agendaRoot = document.getElementById("compare-agenda-stage");
   const evidenceRoot = document.getElementById("compare-evidence-content");
+  const compactRadarMedia = matchMedia("(max-width: 760px)");
+  let radarResizeTimer = null;
   const state = {
     selectedPresidentIds: [],
     activeRhetoricLayer: "corpus",
@@ -172,16 +174,39 @@ COMPARE_V3_JS = r'''(() => {
       });
     });
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const sideMargin = Math.min(112, Math.max(86, target.clientWidth * .29));
-    window.Plotly.react(target, traces, {
-      margin: {l: sideMargin, r: sideMargin, t: 30, b: 54}, height: 500,
+    const compactRadar = compactRadarMedia.matches;
+    const compactDiameter = Math.max(220, Math.min(430, target.clientWidth - 64));
+    const sideMargin = compactRadar
+      ? Math.max(18, (target.clientWidth - compactDiameter) / 2)
+      : Math.min(112, Math.max(86, target.clientWidth * .29));
+    const topMargin = compactRadar ? 24 : 30;
+    const bottomMargin = compactRadar ? 84 : 54;
+    const radarHeight = compactRadar
+      ? Math.ceil(compactDiameter + topMargin + bottomMargin)
+      : 500;
+    const revision = Number(target.dataset.radarRevision || "0") + 1;
+    target.dataset.radarRevision = String(revision);
+    return window.Plotly.react(target, traces, {
+      margin: {l: sideMargin, r: sideMargin, t: topMargin, b: bottomMargin}, height: radarHeight,
       paper_bgcolor: "#fcfcfb", plot_bgcolor: "#fcfcfb", showlegend: true,
-      legend: {orientation: "h", x: 0, y: -0.12, font: {color: "#262522"}},
+      legend: {orientation: "h", x: 0, y: compactRadar ? -0.16 : -0.12, font: {color: "#262522"}},
       polar: {radialaxis: {range: [0, 100], tickvals: [0, 25, 50, 75, 100], gridcolor: "#d8d6d0"}, angularaxis: {gridcolor: "#d8d6d0"}},
       font: {family: model.font, color: "#262522", size: 12}, transition: reduced ? {duration: 0} : {duration: 180},
-    }, {responsive: true, displayModeBar: false, staticPlot: false}).then(() => window.Plotly.Plots.resize(target));
+    }, {responsive: true, displayModeBar: false, staticPlot: false}).then(() => {
+      if (!target.isConnected || target.closest("[hidden]") || Number(target.dataset.radarRevision) !== revision) return;
+      return window.Plotly.Plots.resize(target);
+    });
   }
-  function drawRadars() { drawRadar(state.activeRhetoricLayer); }
+  function drawRadars() { return drawRadar(state.activeRhetoricLayer); }
+  function scheduleRadarRedraw(event) {
+    if (!compactRadarMedia.matches && (!event || event.type !== "change")) return;
+    if (radarResizeTimer !== null) clearTimeout(radarResizeTimer);
+    radarResizeTimer = setTimeout(() => {
+      radarResizeTimer = null;
+      if (!window.Plotly) return;
+      Promise.resolve(drawRadars()).catch(() => announce("Rhetoric charts could not redraw; exact tables remain available."));
+    }, 120);
+  }
   function prepareRhetoric() {
     loadPlotly().then(drawRadars).catch(() => announce("Rhetoric charts could not load; exact tables remain available."));
   }
@@ -294,6 +319,9 @@ COMPARE_V3_JS = r'''(() => {
     });
   }));
   window.addEventListener("popstate", () => applyState(normalize(location.search), {history: "none"}));
+  window.addEventListener("resize", scheduleRadarRedraw, {passive: true});
+  window.addEventListener("orientationchange", scheduleRadarRedraw, {passive: true});
+  if (compactRadarMedia.addEventListener) compactRadarMedia.addEventListener("change", scheduleRadarRedraw);
   bindRhetoricTabs();
   const initial = normalize(location.search);
   applyState(initial, {history: initial.corrected ? "replace" : "none", announce: initial.corrected ? "Invalid comparison options were corrected." : ""});
@@ -1095,7 +1123,7 @@ summary:focus-visible {
     padding-inline: 14px;
   }
   .radar-chart {
-    min-height: 560px;
+    min-height: 328px;
   }
   .compare-nav {
     position: static;

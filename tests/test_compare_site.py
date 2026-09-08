@@ -242,10 +242,30 @@ def test_rhetoric_exact_path_and_lazy_plotly_contract(compare_page):
     assert "Hope" in compare_page and "Partisan attack" in compare_page
     assert '<script src="assets/plotly-3.0.1.min.js">' not in compare_page
     assert '"plotly": "assets/plotly-3.0.1.min.js"' in compare_page
+    assert 'assets/compare-v3.css?v=5' in compare_page
+    assert 'assets/compare-v3.js?v=5' in compare_page
     assert "loadPlotly" in COMPARE_V3_JS
     assert 'rootMargin: "600px 0px"' in COMPARE_V3_JS
-    assert "const sideMargin = Math.min(112" in COMPARE_V3_JS
+    assert "Math.min(112, Math.max(86, target.clientWidth * .29))" in COMPARE_V3_JS
     assert "window.Plotly.Plots.resize(target)" in COMPARE_V3_JS
+
+
+def test_phone_radar_preserves_a_220px_plot_and_redraws_safely():
+    js = COMPARE_V3_JS
+
+    assert 'matchMedia("(max-width: 760px)")' in js
+    assert "Math.max(220, Math.min(430, target.clientWidth - 64))" in js
+    assert "Math.ceil(compactDiameter + topMargin + bottomMargin)" in js
+    assert "height: radarHeight" in js
+    assert 'target.dataset.radarRevision = String(revision)' in js
+    assert 'target.closest("[hidden]")' in js
+    assert '!compactRadarMedia.matches && (!event || event.type !== "change")' in js
+    assert 'window.addEventListener("resize", scheduleRadarRedraw' in js
+    assert 'window.addEventListener("orientationchange", scheduleRadarRedraw' in js
+    assert 'compactRadarMedia.addEventListener("change", scheduleRadarRedraw)' in js
+    mobile_css = COMPARE_V3_CSS.split("@media (max-width: 760px)", 1)[1]
+    assert ".radar-chart" in mobile_css
+    assert "min-height: 328px" in mobile_css
 
 
 def test_evidence_is_comparison_wide_and_population_labeled(compare_page):

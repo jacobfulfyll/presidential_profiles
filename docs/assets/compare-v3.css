@@ -363,7 +363,7 @@ summary:focus-visible {
     padding-inline: 14px;
   }
   .radar-chart {
-    min-height: 560px;
+    min-height: 328px;
   }
   .compare-nav {
     position: static;

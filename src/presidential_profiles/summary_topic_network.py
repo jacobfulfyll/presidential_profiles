@@ -835,7 +835,8 @@ def render_summary_section(projection: SummaryTopicNetworkProjection) -> str:
       <p class="summary-topic-status" role="status" aria-live="polite"
          data-summary-topic-status></p>
     </section>
-    <figure class="summary-topic-stage">
+    <figure class="summary-topic-stage" tabindex="0"
+            aria-label="President topic relationship field; scroll horizontally on narrow screens">
       <div class="summary-topic-stage-tools">
         <p data-summary-topic-stage-readout>Hover, focus, or select a president to inspect it here.</p>
         <p data-summary-topic-size-key><strong>Portrait area</strong> = selected-topic paragraph

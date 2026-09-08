@@ -70,6 +70,78 @@ def _synthetic_communication_data():
     }
 
 
+def test_story_and_summary_share_a_mobile_only_accessibility_contract():
+    bodies = {key: "" for key, *_ in site.SECTIONS}
+    stats_line = {
+        "speeches": 1,
+        "words": 1,
+        "presidents": 1,
+        "start": 1789,
+        "end": 2026,
+    }
+    for page_kind in ("story", "summary"):
+        page = site.build_html(
+            {}, stats_line, bodies, inline=False, page_kind=page_kind,
+        )
+        marker = "/* Mobile Story and Summary accessibility pass."
+        marker_index = page.index(marker)
+        media_index = page.rfind("@media (max-width:760px)", 0, marker_index)
+        assert media_index >= 0
+        mobile_css = page[media_index:page.index("</style>", marker_index)]
+        assert (
+            "min-width:44px;min-height:44px;font-size:.875rem!important"
+            in mobile_css
+        )
+        assert "font-size:1rem!important;line-height:1.55" in mobile_css
+        assert "font-size:.75rem!important;line-height:1.4" in mobile_css
+        assert (
+            "scroll-margin-top:calc(var(--global-nav-height,56px) + 72px)"
+            in mobile_css
+        )
+        assert "padding-left:max(16px,env(safe-area-inset-left))" in mobile_css
+        assert ".story-meter-label span{font-size:.75rem}" in mobile_css
+        assert (
+            "main :is(small,cite,time,figcaption)"
+            "{font-size:.75rem!important;line-height:1.4}"
+            in mobile_css
+        )
+        assert (
+            "main .era-echo-direction-switch button{min-height:44px}"
+            in mobile_css
+        )
+        assert "main .js-plotly-plot :is(.xtick,.ytick) text" in mobile_css
+        assert "){font-size:12px!important}" in mobile_css
+        assert "@media (max-width:480px)" in mobile_css
+        assert (
+            ".era-footprint-core,.era-footprint-language"
+            "{grid-template-columns:repeat(2,minmax(0,1fr))}"
+            in mobile_css
+        )
+        assert (
+            ".conflict-portrait-border-key span"
+            "{white-space:normal;overflow-wrap:anywhere}"
+            in mobile_css
+        )
+        assert "grid-template-columns:1fr" in mobile_css
+        assert "overflow-wrap:anywhere;word-break:break-word" in mobile_css
+        assert 'content:"Swipe horizontally to inspect →"' in mobile_css
+
+
+def test_chart_blocks_name_and_expose_their_local_mobile_scroller():
+    block = site._chart_block(
+        "summary_hope_doom_ratio",
+        570,
+        "hope_doom_ratio",
+        measure_label="Hope divided by doom",
+    )
+    assert (
+        'aria-label="Hope divided by doom chart; scroll horizontally on narrow screens"'
+        in block
+    )
+    assert 'class="chart-scroll"' in block
+    assert 'tabindex="0"' in block
+
+
 def test_breadth_limitation_callout_is_removed():
     summary = (DATA.parent / "docs" / "summary.html").read_text()
     assert "Claim removed from the headline" not in summary

@@ -477,7 +477,7 @@ def render_compare_page(
         evidence = _server_evidence(projection, payload, selected)
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Compare presidents · Presidential Profiles</title>
-<style>{PAGE_CSS}</style><link rel="stylesheet" href="assets/agenda-comparison-v1.css?v=4"><link rel="stylesheet" href="assets/compare-v3.css?v=4"></head>
+<style>{PAGE_CSS}</style><link rel="stylesheet" href="assets/agenda-comparison-v1.css?v=4"><link rel="stylesheet" href="assets/compare-v3.css?v=5"></head>
 <body class="compare-page"><header class="compare-hero"><p class="crumbs"><a href="index.html">← Presidential Speech Record</a> · <a href="presidents/index.html">Profiles</a> · <a href="methodology.html">Methods</a></p>
 <p class="section-kicker">Compare · Profile V3 + governed topic network</p><h1>Three views of presidential speech records</h1><p class="sub">Compare rhetorical form, agendas, and traceable evidence without combining unlike populations or methods into one score.</p>
 <fieldset class="compare-controls"><legend>Compare presidents</legend><div class="selector-grid">{selectors}</div><p class="interactive-note">President selectors require JavaScript. The Lincoln–Roosevelt comparison remains fully available below.</p><p id="compare-status" role="status" aria-live="polite"></p></fieldset>
@@ -492,7 +492,7 @@ def render_compare_page(
 <section id="evidence"><p class="section-kicker">3 · Evidence from the record</p><h2>What supports this comparison?</h2><p class="section-intro">Corpus footprint stays visible. Each disclosure names its population, grain, and method before presenting comparison-wide evidence.</p><div id="compare-evidence-content">{evidence}</div>
 <div class="download-panel"><button type="button" id="compare-download">Download selected Profile V3 records</button><a href="data/compare/{compare_projection.AI_VALUES_FILE}">Full actual-speaker topic CSV</a></div></section></main>
 <footer><p>Data: Miller Center presidential speeches. AI topics are descriptive and non-causal.</p></footer>
-<script type="application/json" id="compare-page-data">{json_for_script(payload)}</script><script defer src="assets/agenda-comparison-v1.js?v=4"></script><script defer src="assets/compare-v3.js?v=4"></script></body></html>'''
+<script type="application/json" id="compare-page-data">{json_for_script(payload)}</script><script defer src="assets/agenda-comparison-v1.js?v=4"></script><script defer src="assets/compare-v3.js?v=5"></script></body></html>'''
 
 
 def write_renderer_assets(site_dir: Path) -> None:

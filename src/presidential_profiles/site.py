@@ -2086,7 +2086,9 @@ def _summary_conflict_graphs_html(
       <p class="conflict-denominator">Each era pools speaker-audited adversarial mentions ·
       across the five lines, every supported era totals 100% · lines connect aggregates only</p>
       {_summary_conflict_line_controls_html()}
-      <div class="chart-scroll conflict-target-scroll"><div class="chart"
+      <div class="chart-scroll conflict-target-scroll"
+           aria-label="Adversary target mix chart; scroll horizontally on narrow screens"
+           tabindex="0"><div class="chart"
       data-fig="summary_conflict_targets" style="height:520px"
       aria-label="Five target-type lines across nine historical eras"></div></div>
       {_summary_conflict_category_guide_html(target_contract)}
@@ -2107,7 +2109,9 @@ def _summary_conflict_graphs_html(
       All values are shares of eligible State of the Union and annual-message paragraphs.</p>
       </div></header>
       {_summary_conflict_portrait_border_key_html()}
-      <div class="chart-scroll conflict-portrait-scroll"><div class="chart"
+      <div class="chart-scroll conflict-portrait-scroll"
+           aria-label="President conflict portrait chart; scroll horizontally on narrow screens"
+           tabindex="0"><div class="chart"
       data-fig="{SUMMARY_CONFLICT_PORTRAIT_FIGURE_KEY}" style="height:650px"></div></div>
     </section>
   </section>
@@ -4456,8 +4460,14 @@ def _chart_block(
     support: str | None = None,
     caveat: str | None = None,
 ) -> str:
+    scroll_label = html.escape(
+        f"{measure_label or metrics.METRICS[metric_name]['label']} chart; "
+        "scroll horizontally on narrow screens",
+        quote=True,
+    )
     return (
-        f'<div class="chart-scroll"><div class="chart" data-fig="{key}" '
+        f'<div class="chart-scroll" aria-label="{scroll_label}" tabindex="0">'
+        f'<div class="chart" data-fig="{key}" '
         f'style="height:{height}px"></div></div>'
         + _chart_evidence(
             metric_name, source, measure_label=measure_label,
@@ -10583,7 +10593,9 @@ def _summary_language_change_html(
        data-stage-announcements="{html.escape(json.dumps(announcements), quote=True)}">
     <div class="stage-controls" role="group" aria-label="Language change chart">{buttons}</div>
     <p class="stage-status" aria-live="polite">{html.escape(announcements[0])}</p>
-    <div class="chart-scroll"><div class="chart staged-chart"
+    <div class="chart-scroll"
+         aria-label="Presidential language change chart; scroll horizontally on narrow screens"
+         tabindex="0"><div class="chart staged-chart"
          data-fig="naming_progressive" style="height:470px"></div></div>
     <p class="summary-line-status" aria-live="polite">Hover any line to highlight its full
     trajectory; click or tap to pin it, and press Escape to restore every line.</p>
@@ -13738,6 +13750,349 @@ def build_html(
     .founding-agenda-key span,.founding-governance-key span{{text-align:left}}
     .era-style-scroll,.founding-departure-grid{{grid-template-columns:1fr}}
     .founding-step-footer{{align-items:flex-start;flex-direction:column}}
+  }}
+  @media (max-width:760px) {{
+    /* Mobile Story and Summary accessibility pass. Keep desktop geometry unchanged. */
+    html{{scroll-padding-top:calc(var(--global-nav-height,56px) + 72px)}}
+    body > header,main,body > footer{{
+      padding-left:max(16px,env(safe-area-inset-left));
+      padding-right:max(16px,env(safe-area-inset-right))
+    }}
+    .story-meter{{padding-left:max(16px,env(safe-area-inset-left));
+      padding-right:max(16px,env(safe-area-inset-right))}}
+    .story-meter-label span{{font-size:.75rem}}
+    .story-section{{scroll-margin-top:calc(var(--global-nav-height,56px) + 64px)}}
+    .summary-document .summary-chapter{{
+      scroll-margin-top:calc(var(--global-nav-height,56px) + 72px)
+    }}
+    .founding-workspace,.founding-story-card,
+    .founding-screen-stage > [data-founding-screen]{{
+      scroll-margin-top:calc(var(--global-nav-height,56px) + 64px)
+    }}
+
+    header .era-route a,header .scroll-cue,main button,main select,
+    main details > summary,main .summary-chapter-route a,main .era-chip,
+    main .founding-step-footer a,main .conflict-president-identity a{{
+      box-sizing:border-box;min-width:44px;min-height:44px;font-size:.875rem!important
+    }}
+    main button > strong,main details > summary > :is(span,strong),
+    main .founding-movement-route strong,main .era-chip-copy strong,
+    main .founding-governance-president strong{{font-size:.875rem!important}}
+    main button small,main details > summary > small,
+    main .founding-movement-route small,main .era-chip-copy small,
+    main .founding-governance-president small{{font-size:.75rem!important}}
+    header .era-route span{{font-size:.75rem}}
+    main .founding-screen-tabs button,
+    main .era-echo-direction-switch button{{min-height:44px}}
+    main .conflict-president-identity a strong{{font-size:.875rem!important}}
+    main :is(small,cite,time,figcaption){{font-size:.75rem!important;line-height:1.4}}
+    main .era-template-grid .era-reference-meta,
+    main .era-reference-highlight-empty,main .era-adversary-legend span,
+    main .era-footprint-core span,
+    main .era-footprint-language :is(strong,span,small),
+    main .era-topic-bars li :is(span,strong){{font-size:.75rem!important;line-height:1.4}}
+    main :is(
+      .summary-thesis > span,
+      .communication-audit-grid li,
+      .conflict-graph-heading p,
+      .conflict-treatment strong,
+      .conflict-graph-deck span,
+      .conflict-question-heading > span,
+      .conflict-question-heading p,
+      .conflict-portrait-border-key > strong,
+      .conflict-portrait-border-key span,
+      .temporal-portrait-heading p,
+      .era-defined-combined-scale,
+      .era-defined-trajectory-key,
+      .era-defined-trajectory-head,
+      .era-defined-benchmark-values,
+      .era-defined-benchmark-values b,
+      .era-defined-benchmark-values strong,
+      .era-defined-trajectory-axis div,
+      .era-defined-family strong,
+      .era-defined-pending > span,
+      .expansion-defined-phase-grid > article > span,
+      .expansion-defined-phase-grid > article > strong,
+      .expansion-defined-key,
+      .expansion-defined-events strong,
+      .topic-life-key,
+      .topic-life-axis,
+      .topic-life-label strong,
+      .topic-life-trend,
+      .topic-life-level,
+      .topic-life-label em,
+      .era-echo-summary,
+      .era-echo-direction-status,
+      .era-echo-gravity-key,
+      .era-echo-gravity-readout,
+      .era-echo-empty
+    ){{font-size:.75rem!important;line-height:1.4}}
+    main .era-adversary-bubble text,
+    main .era-adversary-bubble .era-adversary-count,
+    main .founding-adversary-network .founding-network-meta{{font-size:12px!important}}
+    main .js-plotly-plot :is(.xtick,.ytick) text,
+    main .js-plotly-plot .annotation-text,
+    main .js-plotly-plot .bartext,
+    main .js-plotly-plot tspan.line,
+    main .js-plotly-plot .line tspan,
+    main :is(
+      .era-defined-combined-grid text,
+      .era-defined-point-value,
+      .era-defined-end-label,
+      .era-defined-combined-axis text,
+      .expansion-defined-guides text,
+      .expansion-defined-y-guides text,
+      .expansion-defined-axis-title,
+      .expansion-defined-peak-value,
+      .expansion-defined-end-label text,
+      .expansion-defined-event-node text,
+      .era-echo-gravity-center-label,
+      .era-echo-gravity-anchor-label,
+      .era-echo-gravity-anchor-label tspan,
+      .era-echo-gravity-topic-icon,
+      .era-echo-gravity-satellite-label,
+      .founding-test-guides .founding-test-date
+    ){{font-size:12px!important}}
+    main .founding-bubble{{width:44px;height:44px}}
+    main .founding-bubble-cell{{min-height:48px}}
+
+    main :is(
+      .summary-register-bridge > p,
+      .conflict-atlas-deck,
+      .conflict-graph-deck,
+      .conflict-measure-panel > header p,
+      .conflict-category-guide dd,
+      .conflict-category-guide-body > p,
+      .communication-mosaic-heading > span,
+      .communication-audit-grid p,
+      .era-control-intro,
+      .stage-step span,
+      .message-evidence blockquote p,
+      .expansion-story-role,
+      .expansion-overlap-note,
+      .expansion-receipt-group blockquote p,
+      .communication-summary-heading p,
+      .communication-summary-note,
+      .toy-note,
+      .era-context-question p,
+      .era-context-note,
+      .era-reference-evidence p,
+      .founding-chart-note,
+      .founding-visual-question p,
+      .agenda-card-note,
+      .agenda-card-description > p,
+      .agenda-method-note p,
+      .agenda-thin-support > p,
+      .founding-era-argument p,
+      .founding-problem > p:not(.founding-problem-value),
+      .founding-overlap,
+      .founding-governance-takeaway p,
+      .founding-departure-grid article p,
+      .founding-evidence-boundary p,
+      .event-callouts li,
+      .event-callouts p,
+      .inspector-panel p,
+      .inspector-panel ol,
+      .naming-method > p,
+      .naming-examples blockquote p,
+      .summary-language-boundary > p:not(.summary-language-kicker),
+      .summary-language-takeaways span,
+      .summary-divisiveness-card h4 + p,
+      .summary-divisiveness-null,
+      .era-defined-pending p,
+      .expansion-defined-phase-grid p,
+      .expansion-defined-events span
+    ){{font-size:1rem!important;line-height:1.55}}
+
+    main :is(
+      .conflict-treatment small,
+      .conflict-president-identity a small,
+      .conflict-question-heading small,
+      .conflict-portrait-border-key small,
+      .communication-mosaic-key small,
+      .communication-mosaic-card header small,
+      .communication-mosaic-cell small,
+      .adversary-era li small,
+      .tradeoff-summary small,
+      .communication-era-card small,
+      .era-president-strip small,
+      .era-template-grid li small,
+      .era-card-heading > strong small,
+      .era-template-grid article > small,
+      .era-reference-metric small,
+      .era-footprint-core small,
+      .era-footprint-language small,
+      .era-distinctive-method > small,
+      .era-defined-family small,
+      .expansion-defined-phase-grid small,
+      .expansion-defined-table small,
+      .founding-departure-change small,
+      .founding-thread-label small,
+      .founding-thread-table small,
+      .era-chip-copy small,
+      .expansion-receipt-group cite,
+      .naming-examples cite,
+      .expansion-defined-events time,
+      figcaption
+    ){{font-size:.75rem!important;line-height:1.4}}
+    main :is(.era-reference-evidence,.inspector-panel,.summary-evidence-detail,
+      .founding-evidence-boundary) code{{font-size:.75rem!important;line-height:1.4}}
+    main :is(
+      .summary-chapter-no,
+      .summary-receipt-grid span,
+      .summary-shift-grid span,
+      .temporal-portrait-heading span,
+      .temporal-denominator,
+      .summary-communication-panel > header p,
+      .summary-communication-panel > header > strong,
+      .summary-communication-key span,
+      .summary-register-kicker,
+      .summary-register-sequence span,
+      .conflict-atlas-heading p,
+      .conflict-treatment span,
+      .conflict-atlas-deck span,
+      .conflict-category-key span,
+      .conflict-column-head,
+      .conflict-line-picker-label,
+      .conflict-line-status,
+      .conflict-denominator,
+      .conflict-category-guide dt,
+      .conflict-portrait-border-key,
+      .communication-mosaic-heading p,
+      .communication-mosaic-key strong,
+      .communication-mosaic-scroll-cue,
+      .communication-mosaic-card header strong,
+      .communication-mosaic-readout,
+      .adversary-era header strong,
+      .adversary-era li strong,
+      .stage-status,
+      .topic-legend,
+      .message-measures span,
+      .receipt-label,
+      .tradeoff-summary span,
+      .communication-summary-heading > span,
+      .communication-legend,
+      .communication-era-card header strong,
+      .era-template-heading p span,
+      .era-president-strip span,
+      .era-president-cross-owner,
+      .era-president-strip-label,
+      .era-card-heading > span,
+      .era-template-grid li,
+      .era-template-grid article > p span,
+      .era-reference-metric span,
+      .era-reference-highlight > summary b,
+      .era-reference-status,
+      .era-reference-badge,
+      .founding-panel-heading p,
+      .era-context-question > span,
+      .era-defined-coverage-line,
+      .agenda-card-president p,
+      .agenda-card-priority-heading,
+      .founding-network-key span,
+      .founding-era-argument header > span,
+      .founding-test-legend strong,
+      .founding-next-era > span,
+      .founding-problem-breakout dt,
+      .founding-era-facts span,
+      .founding-governance-channel strong,
+      .founding-governance-takeaway > span,
+      .founding-departure-heading span,
+      .founding-departure-change,
+      .founding-thread-intro,
+      .founding-thread-era strong,
+      .founding-thread-era span,
+      .founding-zero,
+      .era-choices legend,
+      .filter-status,
+      .summary-language-kicker,
+      .summary-line-status,
+      .summary-divisiveness-card > p:first-child,
+      .event-callouts li span
+    ){{font-size:.75rem!important;line-height:1.4}}
+
+    .summary-receipt-grid,.summary-shift-grid,.summary-communication-key,
+    .communication-mosaic-key,.ai-bridge,.receipt-grid,.tradeoff-summary,
+    .summary-language-takeaways,.summary-divisiveness-grid,.naming-method,
+    .message-compare,.communication-audit-grid,.stage-narrative,.inspector-row,
+    .summary-register-sequence,.era-select-bar,.era-select-bar.has-register-switch,
+    .era-select-control,.conflict-graph-heading,.conflict-measure-panel > header,
+    .era-template-heading,.era-visualize-heading,.founding-panel-heading,
+    .founding-visual-question,.era-context-question,.coverage-row,
+    .founding-governance-distributions,.founding-attention-departures,
+    .era-template-grid,.era-choices,.founding-problem-grid,
+    .founding-problem-grid-combined,.founding-problem-breakout,
+    .founding-era-facts,.founding-departure-grid,.founding-test-legend,
+    .expansion-defined-phase-grid,.expansion-defined-events{{grid-template-columns:1fr}}
+    .summary-communication-panel > header{{grid-template-columns:1fr;align-items:start}}
+    .summary-communication-panel > header > strong{{justify-self:start;white-space:normal}}
+    .summary-register-sequence{{gap:20px}}
+    .summary-register-sequence li + li::before{{content:"↓";left:50%;top:-18px;
+      transform:translateX(-50%)}}
+    .era-select-bar.has-register-switch .filter-status{{grid-column:auto}}
+    .era-select-control select{{max-width:none}}
+    .era-visualize-heading p,.founding-visual-question p{{text-align:left}}
+    .founding-next-era{{display:grid;grid-template-columns:1fr}}
+    .coverage-row small{{grid-column:1}}
+    .founding-step-footer{{align-items:flex-start;flex-direction:column}}
+    .founding-network-key,.founding-agenda-key,.founding-governance-key{{
+      align-items:flex-start;flex-direction:column
+    }}
+    .founding-network-key span,.founding-agenda-key span,
+    .founding-governance-key span{{text-align:left}}
+    .event-callouts ul{{grid-template-columns:1fr}}
+    .message-measures{{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .agenda-card-grid{{grid-template-columns:1fr}}
+    .agenda-card-grid-scroll{{grid-template-columns:none;
+      grid-auto-columns:min(100%,326px)}}
+    .era-reference-lane{{grid-template-columns:1fr}}
+    .era-reference-highlight,.era-reference-highlight-empty{{
+      border-left:0;border-top:1px solid #d2c5b4
+    }}
+    .founding-governance-bar{{grid-template-columns:minmax(0,1fr) auto;gap:7px 10px}}
+    .founding-governance-track{{grid-column:1/-1;grid-row:2}}
+    .founding-departure-grid article{{grid-template-columns:auto minmax(0,1fr)}}
+    .founding-departure-change{{grid-column:1/-1}}
+    .agenda-card-priority-heading{{align-items:flex-start;flex-wrap:wrap}}
+    .agenda-card-description > summary{{
+      overflow:visible;text-overflow:clip;white-space:normal
+    }}
+    .agenda-card-description > p{{position:static;margin-top:7px}}
+    .conflict-portrait-border-key,
+    .conflict-portrait-border-key > div{{min-width:0;max-width:100%}}
+    .conflict-portrait-border-key span{{white-space:normal;overflow-wrap:anywhere}}
+
+    main :is(.source-links,.inspector-panel,.summary-evidence-detail,
+      .founding-evidence-boundary,.expansion-receipt-group,
+      .era-reference-evidence) :is(a,code,cite),main td,main th{{
+      overflow-wrap:anywhere;word-break:break-word;white-space:normal
+    }}
+    main :is(.chart-scroll,.table-scroll,.expansion-story-scroll,
+      .era-defined-combined-scroll,.expansion-defined-scroll,.topic-life-scroll,
+      .era-echo-scroll,.founding-network-scroll,.founding-test-scroll,
+      .founding-thread-scroll){{
+      max-width:100%;overscroll-behavior-inline:contain;
+      -webkit-overflow-scrolling:touch;scroll-padding-inline:12px;scrollbar-width:auto
+    }}
+  }}
+  @media (max-width:480px) {{
+    .founding-movement-route{{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .founding-movement-route button{{border-bottom:1px solid var(--border)}}
+    .founding-movement-route button:nth-child(2n){{border-right:0}}
+    .founding-movement-route button:nth-last-child(-n+2){{border-bottom:0}}
+    .era-footprint-core,.era-footprint-language{{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .era-footprint-language strong{{white-space:normal;overflow-wrap:anywhere}}
+  }}
+  @media (max-width:760px) {{
+    main :is(.chart-scroll,.table-scroll,.expansion-story-scroll,
+      .era-defined-combined-scroll,.expansion-defined-scroll,.topic-life-scroll,
+      .era-echo-scroll,.founding-network-scroll,.founding-test-scroll,
+      .founding-thread-scroll)::before{{
+      content:"Swipe horizontally to inspect →";position:sticky;left:6px;z-index:6;
+      display:block;width:max-content;margin:2px 0 7px;padding:5px 8px;
+      border-radius:999px;background:#eee7dc;color:#5d5144;
+      font:750 .75rem/1.2 system-ui,sans-serif
+    }}
   }}
 </style>
 </head>

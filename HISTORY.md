@@ -1,5 +1,16 @@
 # Completed Tasks
 
+- [x] implement-mobile-experience-v1 Refined all 73 canonical routes and the self-contained Story
+  for 320–760px phones with a 56px native-disclosure navigation bar, safe-area gutters, 44px
+  controls, readable type, sticky-anchor clearance, named local scrollers, coarse-landscape rules,
+  and family-specific chart/network treatments while locking fine-pointer desktop behavior from
+  768px upward. The canonical inline build validates 73 HTML pages/429 JSON shards; the rendered
+  audit passes 74 physical pages × five viewports (370 observations), rich interaction/failure/
+  no-JavaScript/preference scenarios, and 60 pre-edit desktop screenshot/geometry states. All 3,025
+  tests pass with 64 known warnings; JavaScript, compilation, Data Trust, protected-data,
+  whitespace, and Reggie gates pass. Frozen annotations and governed data are unchanged; no
+  deployment -- 2026-09-08
+
 - [x] deploy-data-trust-redesign-v1 Published the reviewed Profiles, navigation, Summary, and Data
   Trust release through content PR [#6](https://github.com/jacobfulfyll/presidential_profiles/pull/6).
   Release commit `a586faaa3df4af08fb8b4d8232ed021810545442` merged to `master` as

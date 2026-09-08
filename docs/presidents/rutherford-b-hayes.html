@@ -31,6 +31,29 @@
   footer { max-width: 980px; margin: 24px auto 60px; padding: 18px 20px 0;
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
   footer a { color: var(--ink2); }
+  .mobile-scroll-cue { display: none; }
+  @media (max-width: 760px) {
+    :root { --mobile-page-gutter: max(16px, env(safe-area-inset-left)); }
+    header { padding: 32px max(16px, env(safe-area-inset-right)) 8px
+              max(16px, env(safe-area-inset-left)); }
+    main { padding: 8px max(16px, env(safe-area-inset-right)) 40px
+            max(16px, env(safe-area-inset-left)); }
+    footer { padding-right: max(16px, env(safe-area-inset-right));
+              padding-left: max(16px, env(safe-area-inset-left)); }
+    :where(button, select, input:not([type="checkbox"]):not([type="radio"]),
+           [role="button"]) { min-width: 44px; min-height: 44px; }
+    details > summary { box-sizing: border-box; min-height: 44px; padding-block: 10px; }
+    .mobile-scroll-region { max-width: 100%; overflow-x: auto; overflow-y: hidden;
+                             overscroll-behavior-inline: contain;
+                             -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+    .mobile-scroll-cue { display: inline-flex; align-items: center; min-height: 32px;
+                          margin: 0 0 8px; padding: 5px 9px; border-radius: 999px;
+                          background: #eef2f3; color: #52616c;
+                          font-size: 12px; font-weight: 750; }
+  }
+  @media (forced-colors: active) {
+    .mobile-scroll-cue { border: 1px solid CanvasText; background: Canvas; color: CanvasText; }
+  }
 
 
   body.profile-page { overflow-x: clip; }
@@ -55,6 +78,7 @@
   .record-note strong { display: block; margin-bottom: 3px; }
   .profile-nav { position: sticky; z-index: 8; top: calc(var(--global-nav-height, 61px) + 6px); max-width: 940px; margin: 18px auto 0; padding: 0 20px; }
   .profile-nav { overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; }
+  .profile-nav-cue { display: none; color: var(--muted); font-size: 12px; font-weight: 740; white-space: nowrap; }
   .profile-nav ul { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); min-width: 760px; padding: 5px; border: 1px solid var(--border); border-radius: 12px; background: rgba(252,252,251,.96); box-shadow: 0 4px 16px rgba(11,11,11,.06); list-style: none; }
   .profile-nav a { display: grid; min-height: 44px; place-items: center; padding: 5px 4px; border-radius: 8px; color: var(--ink2); font-size: .8rem; font-weight: 700; text-align: center; text-decoration: none; }
   .profile-nav a:hover { background: var(--page); color: var(--ink); }
@@ -182,8 +206,14 @@
   .download-row { margin-top: 14px; }
   .unavailable { color: var(--muted); font-style: italic; }
   @media (max-width: 760px) {
-    .profile-nav { top: calc(var(--global-nav-height, 105px) + 6px); }
-    .profile-page section { scroll-margin-top: calc(var(--global-nav-height, 105px) + 72px); }
+    .profile-nav { top: calc(var(--global-nav-height, 56px) + 6px); scrollbar-gutter: stable; }
+    .profile-nav-cue { display: inline-flex; min-height: 24px; align-items: center; padding-inline: 7px; }
+    .profile-nav a { font-size: 14px; }
+    .profile-page :where(.eyebrow, .glance-card span, .source-tag, .topic-label span,
+      .evidence-head span, blockquote cite, .evidence-counts dt, .receipt-audit dt,
+      .similarity-kicker, .similarity-description, .similarity-card data,
+      .president-nav span, .invocation-cards dt) { font-size: 12px!important; }
+    .profile-page section { scroll-margin-top: calc(var(--global-nav-height, 56px) + 96px); }
   }
   @media (max-width: 700px) {
     .source-key, .agenda-grid { grid-template-columns: 1fr; }
@@ -200,7 +230,7 @@
     .profile-nav { max-width: 100%; margin-top: 12px; padding: 0 8px; }
     .profile-nav ul { display: flex; width: max-content; min-width: 0; padding: 3px; }
     .profile-nav li { flex: 0 0 auto; }
-    .profile-nav a { min-width: 92px; min-height: 44px; padding: 4px 8px; font-size: .69rem; }
+    .profile-nav a { min-width: 92px; min-height: 44px; padding: 4px 8px; font-size: 14px; }
     .profile-page main { padding-inline: 16px; }
     .profile-page section { margin-top: 38px; scroll-margin-top: calc(var(--global-nav-height, 0px) + 112px); }
     .glance-grid { grid-template-columns: 1fr 1fr; }
@@ -218,7 +248,7 @@
     .measure-table tr { display: grid; grid-template-columns: 1fr 1fr; padding: 9px 0; border-top: 1px solid var(--grid); }
     .measure-table th, .measure-table td { display: block; padding: 2px 5px; border: 0; }
     .measure-table tbody th { grid-column: 1/-1; width: auto; }
-    .measure-table td::before { display: block; color: var(--muted); font-size: .62rem; font-weight: 720; text-transform: uppercase; }
+    .measure-table td::before { display: block; color: var(--muted); font-size: 12px; font-weight: 720; text-transform: uppercase; }
     .measure-table td:nth-child(2)::before { content: "Absolute"; }
     .measure-table td:nth-child(3)::before { content: "Rank"; }
     .invocation-table { display: none; }
@@ -253,6 +283,7 @@
 .pc-warning{margin:14px 0;padding:12px;border:1px solid #a47b22;border-left-width:5px;background:#fff7df;color:#4e3b13}
 .pc-network-layout{margin-top:16px}
 .profile-connections :where(figure,.pc-direction){border:1px solid var(--border);border-radius:10px}.profile-connections figure{margin:0;padding:10px;overflow:hidden}
+.pc-network-cue{display:none;color:var(--muted);font-size:12px;font-weight:740}.pc-network-scroll{max-width:100%}.pc-network-scroll:focus-visible{outline:3px solid #b45f06;outline-offset:3px}
 .profile-connections figcaption{margin:7px 4px 0;color:var(--muted);font-size:.7rem}.pc-network-svg{display:block;width:100%;height:auto;max-height:600px}
 .profile-connections .pc-topic-edge{stroke:#72563f;stroke-width:var(--pc-edge-width,2px);stroke-linecap:round;opacity:.52;transition:opacity .15s ease}
 .pc-observed-edge{stroke-dasharray:8 6}.pc-topic-node circle:not(.pc-topic-hit-area){fill:#f3dfc5;stroke:#72431e;stroke-width:2}.pc-topic-hit-area{fill:transparent;stroke:none;pointer-events:all}
@@ -279,7 +310,8 @@
 .pc-invocation-audit{margin-top:16px;border:1px solid var(--border);border-radius:9px}.pc-invocation-audit>summary{display:flex;align-items:center;padding:10px 12px;font-weight:700}.pc-invocation-audit-record{padding:0 12px 12px}.pc-downloads{display:flex;flex-wrap:wrap;gap:9px}.pc-downloads a{display:inline-flex;align-items:center;padding:6px 9px}
 .profile-connections [hidden]{display:none!important}
 @media(max-width:768px){.pc-relationship-list{grid-template-columns:1fr}.pc-network-svg{max-height:none}}
-@media(max-width:390px){.profile-connections :where(.pc-count-columns,.pc-audit-values){grid-template-columns:1fr}.profile-connections :where(figure,.pc-direction){padding:8px}.profile-connections .pc-mobile-hidden{display:none}.pc-svg-label{font-size:9px}.pc-invocation-switch{align-items:stretch;gap:8px}.pc-invocation-switch-label{display:flex;align-items:center}.pc-segmented-control{width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}.pc-segmented-control span{padding-inline:10px}}
+@media(max-width:760px){.profile-connections .pc-mobile-hidden{display:none}.pc-network-cue{display:block}.pc-network-scroll{overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-gutter:stable}.pc-network-svg{width:720px;min-width:720px}.profile-connections figcaption,.pc-kicker,.pc-audit-values dt,.pc-count-columns li,.pc-relationship-button span,.pc-invocation-bar-heading span,.pc-invocation-bar-row p,.pc-invocation-audit-record h6{font-size:12px}.pc-svg-label{font-size:11px}.pc-peer-label{font-size:11px}}
+@media(max-width:390px){.profile-connections :where(.pc-count-columns,.pc-audit-values){grid-template-columns:1fr}.profile-connections :where(figure,.pc-direction){padding:8px}.pc-invocation-switch{align-items:stretch;gap:8px}.pc-invocation-switch-label{display:flex;align-items:center}.pc-segmented-control{width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}.pc-segmented-control span{padding-inline:10px}}
 @media(prefers-reduced-motion:reduce){.profile-connections *,.profile-connections *::before,.profile-connections *::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 @media(forced-colors:active){.profile-connections :where(figure,.pc-direction,.pc-warning,.pc-complete-list,.pc-invocation-audit,.pc-invocation-bar-track,button,.pc-segmented-control,.pc-segmented-control label+label){border-color:currentColor}.profile-connections .pc-topic-edge{stroke:currentColor;opacity:1}.profile-connections .pc-invocation-bar-track i{background:Highlight}.profile-connections :where(.pc-topic-node circle:not(.pc-topic-hit-area),.pc-president-node circle,.pc-focal-node){fill:Canvas;stroke:currentColor}.profile-connections :where(.pc-svg-label,.pc-svg-empty){fill:CanvasText;stroke:Canvas}.profile-connections :where(.pc-relationship-button[aria-pressed=true],.pc-segmented-control input:checked+span){forced-color-adjust:none;background:Highlight;color:HighlightText}.profile-connections :where(button,a,summary):focus-visible,.profile-connections .pc-topic-control:focus-visible,.profile-connections .pc-segmented-control input:focus-visible+span{outline-color:Highlight}}
 
@@ -319,13 +351,41 @@ html:not(.nav-enhanced) .nav-group:hover>.nav-submenu,
 html:not(.nav-enhanced) .nav-group:focus-within>.nav-submenu{display:block!important}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
 .nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
-.footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
-@media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
-.nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
-width:100%;min-width:44px;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
-.nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
-@media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
+.footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}.mobile-nav{display:none}
+@media(max-width:760px),(max-height:500px) and (max-width:932px) and (pointer:coarse){
+.nav-shell{box-sizing:border-box;min-height:56px;padding:6px max(10px,env(safe-area-inset-right))
+6px max(10px,env(safe-area-inset-left));gap:8px;align-items:center}.nav-brand{flex:0 0 44px}
+.nav-brand-label,.nav-links{display:none}.mobile-nav{display:flex;align-items:center;gap:8px;
+min-width:0;width:100%;margin-left:auto}.mobile-current{min-width:0;flex:1;overflow:hidden;
+color:#53616c;font:700 .82rem/1.2 system-ui,sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.mobile-menu{position:relative;flex:0 0 auto;margin:0;padding:0;border:0;background:transparent}.mobile-menu>summary{display:flex;align-items:center;
+justify-content:center;gap:7px;box-sizing:border-box;min-width:72px;min-height:44px;padding:8px 10px;
+border-radius:8px;color:#172a38;font:700 14px/1 system-ui,sans-serif;cursor:pointer;list-style:none}
+.mobile-menu>summary::-webkit-details-marker{display:none}.mobile-menu>summary::after{content:"";
+width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
+.mobile-menu[open]>summary{background:#172a38;color:#fff}.mobile-menu[open]>summary::after{
+transform:translateY(2px) rotate(225deg)}.nav-shell:has(.mobile-menu[open])>.nav-links{position:fixed;
+top:calc(var(--global-nav-height,56px) + 6px);right:max(8px,env(safe-area-inset-right));
+left:max(8px,env(safe-area-inset-left));z-index:130;display:grid;grid-template-columns:1fr 1fr;
+gap:4px;max-height:calc(100dvh - var(--global-nav-height,56px) - 16px);padding:10px;
+overflow-y:auto;overscroll-behavior:contain;border:1px solid rgba(11,11,11,.16);border-radius:12px;
+background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.2)}
+.nav-shell:has(.mobile-menu[open])>.nav-links>.nav-item{position:static;min-width:0}
+.nav-shell:has(.mobile-menu[open])>.nav-links>.nav-item>a,
+.nav-shell:has(.mobile-menu[open]) .nav-submenu a{justify-content:flex-start;width:100%;
+padding:9px 10px;font:650 14px/1.2 system-ui,sans-serif}.nav-shell:has(.mobile-menu[open]) .nav-group,
+.nav-shell:has(.mobile-menu[open]) .nav-submenu,.nav-shell:has(.mobile-menu[open]) .nav-submenu[hidden],
+.nav-shell:has(.mobile-menu[open]) .nav-submenu-panel{display:contents!important}
+.nav-shell:has(.mobile-menu[open]) .nav-trigger{display:none}
+.section-kicker,.issues-eyebrow,.source-badge,.timeline-cue,.scroll-cue,
+.agenda-reason,.mark-president,.mark-value,small,caption,th,td{font-size:12px!important}
+.mobile-menu>summary:focus-visible{outline:3px solid #7a3d00;
+outline-offset:2px}}
+@media(max-height:500px) and (max-width:932px) and (pointer:coarse){
+:is(.story-meter,.summary-chapter-route,.compare-nav,.profile-nav,.issue-local-nav,
+.quality-nav,.methods-local-nav,.local-nav){position:static!important;top:auto!important}}
+@media(prefers-reduced-motion:reduce){.nav-trigger::after,.mobile-menu>summary::after{transition:none}}
 @media(forced-colors:active){.global-nav{background:Canvas;border-color:CanvasText;
 backdrop-filter:none}.nav-submenu-panel{background:Canvas;color:CanvasText;
 border:2px solid CanvasText;box-shadow:none}.nav-item>a:hover,.nav-trigger:hover,
@@ -334,8 +394,12 @@ outline:1px solid currentColor}.nav-item>a[aria-current=page],
 .nav-group.nav-group-current>.nav-trigger,.nav-submenu a[aria-current=page]{
 background:Canvas;color:CanvasText;text-decoration:underline;text-decoration-thickness:3px;
 text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
-.nav-submenu a:focus-visible,.nav-brand:focus-visible{outline-color:Highlight}}
-</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><div class="nav-submenu-panel"><a href="../presidents/index.html" aria-current="page">Presidents</a><a href="../issues/index.html">Issues</a></div></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><div class="nav-submenu-panel"><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></div></nav>
+.nav-submenu a:focus-visible,.nav-brand:focus-visible{outline-color:Highlight}
+.nav-shell:has(.mobile-menu[open])>.nav-links{background:Canvas;color:CanvasText;
+border:2px solid CanvasText;box-shadow:none}.mobile-menu[open]>summary{background:Canvas;color:CanvasText;
+text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:4px}
+.mobile-menu>summary:focus-visible{outline-color:Highlight}}
+</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links" id="primary-nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><div class="nav-submenu-panel"><a href="../presidents/index.html" aria-current="page">Presidents</a><a href="../issues/index.html">Issues</a></div></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><div class="nav-submenu-panel"><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div><div class="mobile-nav"><span class="mobile-current">Presidents</span><details class="mobile-menu"><summary aria-controls="primary-nav-links">Menu</summary></details></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
@@ -411,6 +475,27 @@ text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
     if (!nav.contains(event.target)) groups.forEach(group => close(group));
   });
 
+  const mobileMenu = nav.querySelector(".mobile-menu");
+  const mobileSummary = mobileMenu?.querySelector("summary");
+  if (mobileMenu && mobileSummary) {
+    mobileMenu.addEventListener("toggle", () => {
+      if (mobileMenu.open) groups.forEach(group => close(group));
+    });
+    nav.addEventListener("keydown", event => {
+      if (event.key !== "Escape" || !mobileMenu.open) return;
+      event.preventDefault();
+      event.stopPropagation();
+      mobileMenu.removeAttribute("open");
+      mobileSummary.focus();
+    });
+    nav.querySelectorAll(".nav-links a").forEach(link => link.addEventListener("click", () => {
+      mobileMenu.removeAttribute("open");
+    }));
+    document.addEventListener("pointerdown", event => {
+      if (mobileMenu.open && !nav.contains(event.target)) mobileMenu.removeAttribute("open");
+    });
+  }
+
   const setNavHeight = () => {
     document.documentElement.style.setProperty("--global-nav-height", `${nav.offsetHeight}px`);
   };
@@ -437,7 +522,7 @@ text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
   </div>
 </header>
 
-<nav class="profile-nav" aria-label="On this profile"><ul>
+<nav class="profile-nav" aria-label="On this profile"><span class="profile-nav-cue" aria-hidden="true">More sections →</span><ul>
   <li><a href="#overview">Overview</a></li><li><a href="#agenda">Agenda</a></li>
   <li><a href="#rhetoric">Rhetoric</a></li><li><a href="#connections">Connections</a></li>
   <li><a href="#similarity">Similarity</a></li><li><a href="#speeches">Speeches</a></li>
@@ -583,7 +668,8 @@ text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
     Select a topic in the graph or the list to emphasize its shared paths; select it again or press Escape to clear.
     Ring position and distance have no analytical meaning.</p>
     <div class="pc-network-layout">
-      <figure data-pc-topic-stage><svg class="pc-network-svg" viewBox="0 0 720 560" role="group" aria-label="Actual-speaker topic ego network for Rutherford B. Hayes. Topics occupy the inner ring and supported comparison presidents the outer ring." focusable="false"><line class="pc-topic-edge" x1="360" y1="280" x2="360" y2="148" style="--pc-edge-width:10.7px" data-pc-relation="t0"/><line class="pc-topic-edge" x1="360" y1="280" x2="485.5" y2="239.2" style="--pc-edge-width:5.6px" data-pc-relation="t1"/><line class="pc-topic-edge" x1="360" y1="280" x2="437.6" y2="386.8" style="--pc-edge-width:4px" data-pc-relation="t2"/><line class="pc-topic-edge pc-mobile-hidden" x1="360" y1="280" x2="282.4" y2="386.8" style="--pc-edge-width:3.9px" data-pc-relation="t3"/><line class="pc-topic-edge pc-mobile-hidden" x1="360" y1="280" x2="234.5" y2="239.2" style="--pc-edge-width:3.8px" data-pc-relation="t4"/><line class="pc-topic-edge pc-peer-edge" x1="360" y1="56" x2="360" y2="148" style="--pc-edge-width:13.6px" data-pc-relation="t0"/><line class="pc-topic-edge pc-peer-edge" x1="518.1" y1="108.4" x2="485.5" y2="239.2" style="--pc-edge-width:15.4px" data-pc-relation="t1"/><line class="pc-topic-edge pc-peer-edge" x1="602.3" y1="241.1" x2="437.6" y2="386.8" style="--pc-edge-width:4.3px" data-pc-relation="t2"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="573" y1="392" x2="282.4" y2="386.8" style="--pc-edge-width:16.2px" data-pc-relation="t3"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="444.1" y1="490.5" x2="234.5" y2="239.2" style="--pc-edge-width:10.7px" data-pc-relation="t4"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="275.9" y1="490.5" x2="360" y2="148" style="--pc-edge-width:11px" data-pc-relation="t0"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="147" y1="392" x2="485.5" y2="239.2" style="--pc-edge-width:15.1px" data-pc-relation="t1"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="117.7" y1="241.1" x2="437.6" y2="386.8" style="--pc-edge-width:3.9px" data-pc-relation="t2"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="360" y1="56" x2="282.4" y2="386.8" style="--pc-edge-width:12.9px" data-pc-relation="t3"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="201.9" y1="108.4" x2="234.5" y2="239.2" style="--pc-edge-width:6.4px" data-pc-relation="t4"/><g class="pc-topic-node pc-topic-control" role="button" tabindex="0" aria-pressed="false" aria-label="Select Constitutional Order &amp; Governance shared-topic paths, 36.47% of eligible actual-speaker paragraphs" data-pc-relation="t0"><circle class="pc-topic-hit-area" cx="360" cy="148" r="29.8"/><circle cx="360" cy="148" r="29.8"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="360" y="138">Constitutional</tspan><tspan x="360" y="152">Order &amp;</tspan><tspan x="360" y="166">Governance</tspan></text></g><g class="pc-topic-node pc-topic-control" role="button" tabindex="0" aria-pressed="false" aria-label="Select Foreign Relations &amp; Diplomacy shared-topic paths, 16.63% of eligible actual-speaker paragraphs" data-pc-relation="t1"><circle class="pc-topic-hit-area" cx="485.5" cy="239.2" r="22.6"/><circle cx="485.5" cy="239.2" r="22.6"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="485.5" y="229.2">Foreign</tspan><tspan x="485.5" y="243.2">Relations &amp;</tspan><tspan x="485.5" y="257.2">Diplomacy</tspan></text></g><g class="pc-topic-node pc-topic-control" role="button" tabindex="0" aria-pressed="false" aria-label="Select Procedural &amp; Administrative shared-topic paths, 10.42% of eligible actual-speaker paragraphs" data-pc-relation="t2"><circle class="pc-topic-hit-area" cx="437.6" cy="386.8" r="22"/><circle cx="437.6" cy="386.8" r="19.8"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="437.6" y="383.8">Procedural &amp;</tspan><tspan x="437.6" y="397.8">Administrative</tspan></text></g><g class="pc-topic-node pc-topic-control pc-mobile-hidden" role="button" tabindex="0" aria-pressed="false" aria-label="Select Civil Rights &amp; Immigration shared-topic paths, 10.22% of eligible actual-speaker paragraphs" data-pc-relation="t3"><circle class="pc-topic-hit-area" cx="282.4" cy="386.8" r="22"/><circle cx="282.4" cy="386.8" r="19.8"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="282.4" y="383.8">Civil Rights &amp;</tspan><tspan x="282.4" y="397.8">Immigration</tspan></text></g><g class="pc-topic-node pc-topic-control pc-mobile-hidden" role="button" tabindex="0" aria-pressed="false" aria-label="Select Money, Banking &amp; Currency shared-topic paths, 9.62% of eligible actual-speaker paragraphs" data-pc-relation="t4"><circle class="pc-topic-hit-area" cx="234.5" cy="239.2" r="22"/><circle cx="234.5" cy="239.2" r="19.5"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="234.5" y="236.2">Money, Banking</tspan><tspan x="234.5" y="250.2">&amp; Currency</tspan></text></g><g class="pc-president-node pc-peer-node" data-pc-relations="t0 t3"><circle cx="360" cy="56" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="360" y="93">Andrew Johnson</tspan></text></g><g class="pc-president-node pc-peer-node" data-pc-relations="t1"><circle cx="518.1" cy="108.4" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="518.1" y="145.4">John F. Kennedy</tspan></text></g><g class="pc-president-node pc-peer-node" data-pc-relations="t2"><circle cx="602.3" cy="241.1" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="602.3" y="271.1">Ulysses S.</tspan><tspan x="602.3" y="285.1">Grant</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t3"><circle cx="573" cy="392" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="573" y="429">Abraham Lincoln</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t4"><circle cx="444.1" cy="490.5" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="444.1" y="520.5">Martin Van</tspan><tspan x="444.1" y="534.5">Buren</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t0"><circle cx="275.9" cy="490.5" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="275.9" y="527.5">James Buchanan</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t1"><circle cx="147" cy="392" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="147" y="429">John Adams</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t2"><circle cx="117.7" cy="241.1" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="117.7" y="271.1">William Howard</tspan><tspan x="117.7" y="285.1">Taft</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t4"><circle cx="201.9" cy="108.4" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="201.9" y="145.4">Andrew Jackson</tspan></text></g><circle class="pc-focal-node" cx="360" cy="280" r="22"/><text class="pc-svg-label pc-focal-label" aria-hidden="true"><tspan x="360" y="277">Rutherford B.</tspan><tspan x="360" y="291">Hayes</tspan></text></svg>
+      <figure data-pc-topic-stage><p class="pc-network-cue" aria-hidden="true">Swipe or scroll to inspect the network →</p>
+        <div class="pc-network-scroll" role="region" aria-label="Shared topic network; scroll horizontally on narrow screens" tabindex="0"><svg class="pc-network-svg" viewBox="0 0 720 560" role="group" aria-label="Actual-speaker topic ego network for Rutherford B. Hayes. Topics occupy the inner ring and supported comparison presidents the outer ring." focusable="false"><line class="pc-topic-edge" x1="360" y1="280" x2="360" y2="148" style="--pc-edge-width:10.7px" data-pc-relation="t0"/><line class="pc-topic-edge" x1="360" y1="280" x2="485.5" y2="239.2" style="--pc-edge-width:5.6px" data-pc-relation="t1"/><line class="pc-topic-edge" x1="360" y1="280" x2="437.6" y2="386.8" style="--pc-edge-width:4px" data-pc-relation="t2"/><line class="pc-topic-edge pc-mobile-hidden" x1="360" y1="280" x2="282.4" y2="386.8" style="--pc-edge-width:3.9px" data-pc-relation="t3"/><line class="pc-topic-edge pc-mobile-hidden" x1="360" y1="280" x2="234.5" y2="239.2" style="--pc-edge-width:3.8px" data-pc-relation="t4"/><line class="pc-topic-edge pc-peer-edge" x1="360" y1="56" x2="360" y2="148" style="--pc-edge-width:13.6px" data-pc-relation="t0"/><line class="pc-topic-edge pc-peer-edge" x1="518.1" y1="108.4" x2="485.5" y2="239.2" style="--pc-edge-width:15.4px" data-pc-relation="t1"/><line class="pc-topic-edge pc-peer-edge" x1="602.3" y1="241.1" x2="437.6" y2="386.8" style="--pc-edge-width:4.3px" data-pc-relation="t2"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="573" y1="392" x2="282.4" y2="386.8" style="--pc-edge-width:16.2px" data-pc-relation="t3"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="444.1" y1="490.5" x2="234.5" y2="239.2" style="--pc-edge-width:10.7px" data-pc-relation="t4"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="275.9" y1="490.5" x2="360" y2="148" style="--pc-edge-width:11px" data-pc-relation="t0"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="147" y1="392" x2="485.5" y2="239.2" style="--pc-edge-width:15.1px" data-pc-relation="t1"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="117.7" y1="241.1" x2="437.6" y2="386.8" style="--pc-edge-width:3.9px" data-pc-relation="t2"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="360" y1="56" x2="282.4" y2="386.8" style="--pc-edge-width:12.9px" data-pc-relation="t3"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="201.9" y1="108.4" x2="234.5" y2="239.2" style="--pc-edge-width:6.4px" data-pc-relation="t4"/><g class="pc-topic-node pc-topic-control" role="button" tabindex="0" aria-pressed="false" aria-label="Select Constitutional Order &amp; Governance shared-topic paths, 36.47% of eligible actual-speaker paragraphs" data-pc-relation="t0"><circle class="pc-topic-hit-area" cx="360" cy="148" r="29.8"/><circle cx="360" cy="148" r="29.8"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="360" y="138">Constitutional</tspan><tspan x="360" y="152">Order &amp;</tspan><tspan x="360" y="166">Governance</tspan></text></g><g class="pc-topic-node pc-topic-control" role="button" tabindex="0" aria-pressed="false" aria-label="Select Foreign Relations &amp; Diplomacy shared-topic paths, 16.63% of eligible actual-speaker paragraphs" data-pc-relation="t1"><circle class="pc-topic-hit-area" cx="485.5" cy="239.2" r="22.6"/><circle cx="485.5" cy="239.2" r="22.6"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="485.5" y="229.2">Foreign</tspan><tspan x="485.5" y="243.2">Relations &amp;</tspan><tspan x="485.5" y="257.2">Diplomacy</tspan></text></g><g class="pc-topic-node pc-topic-control" role="button" tabindex="0" aria-pressed="false" aria-label="Select Procedural &amp; Administrative shared-topic paths, 10.42% of eligible actual-speaker paragraphs" data-pc-relation="t2"><circle class="pc-topic-hit-area" cx="437.6" cy="386.8" r="22"/><circle cx="437.6" cy="386.8" r="19.8"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="437.6" y="383.8">Procedural &amp;</tspan><tspan x="437.6" y="397.8">Administrative</tspan></text></g><g class="pc-topic-node pc-topic-control pc-mobile-hidden" role="button" tabindex="0" aria-pressed="false" aria-label="Select Civil Rights &amp; Immigration shared-topic paths, 10.22% of eligible actual-speaker paragraphs" data-pc-relation="t3"><circle class="pc-topic-hit-area" cx="282.4" cy="386.8" r="22"/><circle cx="282.4" cy="386.8" r="19.8"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="282.4" y="383.8">Civil Rights &amp;</tspan><tspan x="282.4" y="397.8">Immigration</tspan></text></g><g class="pc-topic-node pc-topic-control pc-mobile-hidden" role="button" tabindex="0" aria-pressed="false" aria-label="Select Money, Banking &amp; Currency shared-topic paths, 9.62% of eligible actual-speaker paragraphs" data-pc-relation="t4"><circle class="pc-topic-hit-area" cx="234.5" cy="239.2" r="22"/><circle cx="234.5" cy="239.2" r="19.5"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="234.5" y="236.2">Money, Banking</tspan><tspan x="234.5" y="250.2">&amp; Currency</tspan></text></g><g class="pc-president-node pc-peer-node" data-pc-relations="t0 t3"><circle cx="360" cy="56" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="360" y="93">Andrew Johnson</tspan></text></g><g class="pc-president-node pc-peer-node" data-pc-relations="t1"><circle cx="518.1" cy="108.4" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="518.1" y="145.4">John F. Kennedy</tspan></text></g><g class="pc-president-node pc-peer-node" data-pc-relations="t2"><circle cx="602.3" cy="241.1" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="602.3" y="271.1">Ulysses S.</tspan><tspan x="602.3" y="285.1">Grant</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t3"><circle cx="573" cy="392" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="573" y="429">Abraham Lincoln</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t4"><circle cx="444.1" cy="490.5" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="444.1" y="520.5">Martin Van</tspan><tspan x="444.1" y="534.5">Buren</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t0"><circle cx="275.9" cy="490.5" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="275.9" y="527.5">James Buchanan</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t1"><circle cx="147" cy="392" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="147" y="429">John Adams</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t2"><circle cx="117.7" cy="241.1" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="117.7" y="271.1">William Howard</tspan><tspan x="117.7" y="285.1">Taft</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t4"><circle cx="201.9" cy="108.4" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="201.9" y="145.4">Andrew Jackson</tspan></text></g><circle class="pc-focal-node" cx="360" cy="280" r="22"/><text class="pc-svg-label pc-focal-label" aria-hidden="true"><tspan x="360" y="277">Rutherford B.</tspan><tspan x="360" y="291">Hayes</tspan></text></svg></div>
         <figcaption>Fixed radial layout: focal president at center, topics on the inner ring, and comparison presidents on the outer ring.
         Shared emphasis remains a bipartite path: president → topic → president; president nodes are uniform.</figcaption></figure>
     </div>

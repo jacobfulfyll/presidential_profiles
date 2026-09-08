@@ -53,6 +53,9 @@ def test_no_javascript_fallback_keeps_chart_tables_and_downloads(
 
     assert "Interactive selection requires JavaScript" in page
     assert "fallback-chart-title" in page
+    assert page.count('class="trend-scroll" tabindex="0" role="region"') == 1
+    assert 'aria-label="Default word trends chart; scroll horizontally on narrow screens"' in page
+    assert "Swipe chart horizontally →" in page
     assert page.count('<table class="exact-table">') == 3
     assert "Published uncertainty" in page
     assert f'explorer/{explore_projection.DEFAULT_VALUES_FILE}' in page
@@ -172,6 +175,7 @@ def test_uncertainty_toggle_preserves_status_and_exact_paths():
 
 def test_accessibility_and_responsive_media_contracts():
     css = explore_assets.EXPLORE_CSS
+    script = explore_assets.EXPLORE_JS
     page = explorer.render_page.__doc__
 
     assert "min-height:44px" in css
@@ -179,9 +183,23 @@ def test_accessibility_and_responsive_media_contracts():
     assert "@media(max-width:899px)" in css
     assert "@media(max-width:639px)" in css
     assert "@media(max-width:480px)" in css
+    assert "@media(max-width:760px)" in css
     assert "prefers-reduced-motion:reduce" in css
     assert "forced-colors:active" in css
     assert "max-height:min(40vh,18rem)" in css
+    assert ".trend-scroll .trend-svg{width:700px;min-width:700px;max-width:none}" in css
+    assert ".trend-scroll .trend-svg text{font-size:15px}" in css
+    assert ".trend-scroll .hit-path{stroke-width:58}" in css
+    mobile_css = css.split("@media(max-width:760px)", 1)[1].split(
+        "@media(max-width:639px)", 1
+    )[0]
+    assert ".chart-swipe-cue{display:block" in mobile_css
+    assert "font-size:.78rem" in mobile_css
+    assert 'const scroller=element("div","trend-scroll")' in script
+    assert "scroller.tabIndex=0" in script
+    assert 'scroller.setAttribute("role","region")' in script
+    assert 'scroll horizontally on narrow screens`)' in script
+    assert "panel.append(swipeCue,scroller)" in script
     assert "complete default no-JavaScript path" in page
 
 

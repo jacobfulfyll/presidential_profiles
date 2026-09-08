@@ -6,6 +6,15 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+- [x] implement-mobile-experience-v1: Refined every canonical page and the self-contained Story for
+  320–760px phones while preserving fine-pointer desktop behavior at 768px and above. Added the
+  compact native/no-JavaScript menu, safe-area and 44px primitives, mobile chart/network scrollers,
+  family-specific reflow, touch/landscape/zoom/preference handling, the durable
+  `notes/mobile-experience-v1.md` contract, and a dependency-free 74-page browser audit. The final
+  73-HTML/429-JSON inline build, 3,025-test suite, 370-observation mobile matrix, 60-state desktop
+  lock, JavaScript/Python/Data Trust/protected-data/whitespace checks, and Reggie Doctor all pass.
+  Frozen annotations and governed data did not change; no deployment. [P1] [high] [completed]
+
 - [x] deploy-data-trust-redesign-v1: Published the reviewed Profiles, navigation, Summary, and Data
   Trust snapshot through content PR [#6](https://github.com/jacobfulfyll/presidential_profiles/pull/6),
   release commit `a586faaa3df4af08fb8b4d8232ed021810545442`, and `master` merge
