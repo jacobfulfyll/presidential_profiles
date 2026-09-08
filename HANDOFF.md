@@ -1,5 +1,26 @@
 # Handoff
 
+## Latest addendum — Mobile experience GitHub Pages release
+
+- The owner approved publication on 2026-09-08. Content PR
+  [#8](https://github.com/jacobfulfyll/presidential_profiles/pull/8) merged release commit
+  `b048e4358fee34e37755178f4e47b2a20c0ca0d4` to `master` as
+  `67f8ff24a1df14727a1237403ea4e4f1d590eefa` without rewriting history or deleting the reusable
+  `codex/github-pages-release` branch.
+- GitHub Pages run
+  [34273709409](https://github.com/jacobfulfyll/presidential_profiles/actions/runs/34273709409)
+  completed successfully for that exact merge SHA. Twenty representative Story, Summary,
+  Compare, Explore, Profiles, Issues, Data Trust, Feedback, asset, JSON, and CSV URLs returned
+  HTTPS 200 and matched the reviewed `docs/` bytes exactly. The public site is
+  <https://jacobfulfyll.github.io/presidential_profiles/>.
+- The release gate passed all 3,025 tests with 64 known warnings, the canonical 73-HTML/429-JSON
+  build, 129 inline scripts, generated JavaScript, Python compilation, both rendered browser
+  audits, the 60-state desktop lock, the 115-path staged release audit, credential scanning,
+  protected-data comparison, whitespace checks, and Reggie Doctor with 0 errors and 0 warnings.
+- No frozen paid annotation or governed derived-data artifact changed. Restricted annotation
+  control-plane state, operator helpers, local telemetry, credentials, caches, and scratch files
+  were not published.
+
 ## Latest addendum — Mobile experience v1
 
 - All 73 canonical routes plus the self-contained Story now share a 320–760px phone contract while
@@ -24,8 +45,8 @@
 - The durable contract and exact receipt are in `notes/mobile-experience-v1.md`. Frozen paid
   annotations retain fingerprint
   `9a8ac49ed29d63c94f4d7bdeb9f753cf0f38b45b8202ed7e7afa4de1c4297b54`; no governed data changed.
-  Reggie Doctor reports 0 errors, 0 warnings, and 3 informational findings. The work is local and
-  uncommitted; nothing was pushed or deployed.
+  Reggie Doctor reports 0 errors, 0 warnings, and 3 informational findings. The implementation was
+  subsequently published through the release addendum above.
 
 ## Latest addendum — Data Trust GitHub Pages release
 
@@ -144,29 +165,28 @@
 ## Current status
 
 - Last updated: 2026-09-08.
-- Branch: reusable `codex/github-pages-release`, fast-forwarded through the published content merge.
-- State: Mobile experience v1 is implemented, generated, and fully verified in the local worktree.
-  The earlier Data Trust release remains published; this mobile pass has not been committed,
-  pushed, or deployed.
+- Branch: reusable `codex/github-pages-release`, fast-forwarded through the published mobile
+  content merge.
+- State: Mobile experience v1 is implemented, verified, and published through GitHub Pages.
 
 ## Completed task
 
-- Implement and verify the source-driven mobile experience refinement while preserving desktop
-  behavior, protected Story contracts, frozen annotations, and governed-data provenance.
+- Implement, verify, and publish the source-driven mobile experience refinement while preserving
+  desktop behavior, protected Story contracts, frozen annotations, and governed-data provenance.
 
 ## Verification
 
 - The mobile implementation and acceptance receipt is recorded in
   `notes/mobile-experience-v1.md`. All required tests, canonical generation, static checks,
   protected-input comparison, whole-site mobile inspection, desktop screenshot/geometry lock, and
-  Reggie Doctor pass.
+  Reggie Doctor pass. Pages run 34273709409 succeeded for merge
+  `67f8ff24a1df14727a1237403ea4e4f1d590eefa`; 20 representative public files match local bytes.
 
 ## Worktree
 
-- The mobile implementation and rebuilt `docs/` output are uncommitted local changes. The worktree
-  was clean at task start; all 115 changed or untracked paths in the final Reggie receipt belong to
-  this source, test, documentation, or generated-output pass. No unrelated user file was cleaned,
-  reset, or overwritten.
+- The reviewed 115-path implementation and generated-output snapshot is committed and published.
+  Only the post-deployment documentation receipt remains local until its follow-up pull request is
+  merged. No unrelated user file was cleaned, reset, or overwritten.
 - `.claude/stats.json` remains preserved as ignored user-owned local telemetry and is absent from
   Git. Frozen paid annotations and existing governed paid data were not regenerated or hand-edited.
 
@@ -180,8 +200,8 @@
 
 ## Next safe action
 
-- Review the local mobile diff and generated site. Commit or publication is a separate owner action;
-  any future release should follow `notes/github-pages-release-plan-v1.md` again.
+- No mobile release action remains. Future site changes should follow
+  `notes/github-pages-release-plan-v1.md` again.
 
 ## Latest addendum — Summary language boundary and divisiveness synthesis
 
