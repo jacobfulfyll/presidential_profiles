@@ -1,0 +1,131 @@
+field,metric,era_key,era_label,era_order,value,ci_low,ci_high,n_units,support_unit,n_paragraphs,n_speeches,prevalence_primary,prevalence_second,interval_status
+party_attack,cohen_kappa,overall,Overall paired sample,-1,0.7159493500826848,0.622998154240577,0.772294228411875,8570,paired_paragraphs,8570.0,262,0.05752625437572929,0.03943990665110852,speech_cluster_bootstrap
+enemy_naming,cohen_kappa,overall,Overall paired sample,-1,0.778938235653974,0.74500537695191,0.8105385340765284,8570,paired_paragraphs,8570.0,262,0.21516919486581096,0.170828471411902,speech_cluster_bootstrap
+zero_sum,cohen_kappa,overall,Overall paired sample,-1,0.48916430875165745,0.4077752390592848,0.5567058814378073,8570,paired_paragraphs,8570.0,262,0.0807467911318553,0.03500583430571762,speech_cluster_bootstrap
+proposal_values,exact_match,overall,Overall paired sample,-1,0.7203033838973162,0.6991998089851711,0.7409694789587511,8570,paired_paragraphs,8570.0,262,,,speech_cluster_bootstrap
+topics,jaccard_normalized,overall,Overall paired sample,-1,0.7044512974384619,0.6879348883864481,0.7209434693711961,8570,paired_paragraphs,8570.0,262,,,speech_cluster_bootstrap
+entities,name_match_rate,overall,Overall paired sample,-1,0.47644761029411764,0.452357190655232,0.49913708220415537,8704,normalized_entity_union,8570.0,262,,,speech_cluster_bootstrap
+entities,stance_agreement,overall,Overall paired sample,-1,0.8808777429467085,0.8651830017681942,0.8958383733531193,4147,matched_entities,8570.0,262,,,speech_cluster_bootstrap
+party_attack,cohen_kappa,founding,Establishing the republic,0,,,,177,paired_paragraphs,177.0,14,0.0,0.0,unavailable_degenerate_point
+enemy_naming,cohen_kappa,founding,Establishing the republic,0,0.7529658060013955,0.5630886073902814,0.884831257480305,177,paired_paragraphs,177.0,14,0.11299435028248588,0.0903954802259887,speech_cluster_bootstrap
+zero_sum,cohen_kappa,founding,Establishing the republic,0,0.24251069900142647,0.0,0.7209887691178953,177,paired_paragraphs,177.0,14,0.03954802259887006,0.005649717514124294,speech_cluster_bootstrap
+proposal_values,exact_match,founding,Establishing the republic,0,0.6497175141242938,0.4941711389385808,0.7708333333333334,177,paired_paragraphs,177.0,14,,,speech_cluster_bootstrap
+topics,jaccard_normalized,founding,Establishing the republic,0,0.7462335216572505,0.6555164396763431,0.8231880543237249,177,paired_paragraphs,177.0,14,,,speech_cluster_bootstrap
+entities,name_match_rate,founding,Establishing the republic,0,0.4866666666666667,0.4201668241261001,0.5714285714285714,150,normalized_entity_union,177.0,14,,,speech_cluster_bootstrap
+entities,stance_agreement,founding,Establishing the republic,0,0.9315068493150684,0.8510558907589711,0.9868463773069036,73,matched_entities,177.0,14,,,speech_cluster_bootstrap
+party_attack,cohen_kappa,expansion,The continental republic,1,0.0,0.0,0.0,1043,paired_paragraphs,1043.0,27,0.015340364333652923,0.0,speech_cluster_bootstrap
+enemy_naming,cohen_kappa,expansion,The continental republic,1,0.703071838242442,0.5997481587386101,0.7735427651941603,1043,paired_paragraphs,1043.0,27,0.18983700862895495,0.12080536912751678,speech_cluster_bootstrap
+zero_sum,cohen_kappa,expansion,The continental republic,1,0.2769041691614412,0.13413274060641797,0.4243767693445531,1043,paired_paragraphs,1043.0,27,0.04793863854266539,0.011505273250239693,speech_cluster_bootstrap
+proposal_values,exact_match,expansion,The continental republic,1,0.7392138063279002,0.6611424111607034,0.7923083067092651,1043,paired_paragraphs,1043.0,27,,,speech_cluster_bootstrap
+topics,jaccard_normalized,expansion,The continental republic,1,0.7649408756791307,0.7153000999255485,0.8140261637614371,1043,paired_paragraphs,1043.0,27,,,speech_cluster_bootstrap
+entities,name_match_rate,expansion,The continental republic,1,0.5026178010471204,0.41439762130551605,0.5850118429316055,764,normalized_entity_union,1043.0,27,,,speech_cluster_bootstrap
+entities,stance_agreement,expansion,The continental republic,1,0.8567708333333334,0.8101240773521259,0.9044138301387971,384,matched_entities,1043.0,27,,,speech_cluster_bootstrap
+party_attack,cohen_kappa,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,0.5564608276615834,0.0,0.8371886129115892,744,paired_paragraphs,744.0,21,0.04973118279569892,0.025537634408602152,speech_cluster_bootstrap
+enemy_naming,cohen_kappa,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,0.7150417827298049,0.5882082672030472,0.8035762074069577,744,paired_paragraphs,744.0,21,0.22580645161290322,0.15591397849462366,speech_cluster_bootstrap
+zero_sum,cohen_kappa,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,0.5282978993194984,0.21704196271840082,0.7269425206350978,744,paired_paragraphs,744.0,21,0.06317204301075269,0.025537634408602152,speech_cluster_bootstrap
+proposal_values,exact_match,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,0.8024193548387096,0.7322312364031908,0.8673130341880342,744,paired_paragraphs,744.0,21,,,speech_cluster_bootstrap
+topics,jaccard_normalized,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,0.7013216845878134,0.6520089151364789,0.7619313850377216,744,paired_paragraphs,744.0,21,,,speech_cluster_bootstrap
+entities,name_match_rate,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,0.4679399727148704,0.3695133021571232,0.5798533417138068,733,normalized_entity_union,744.0,21,,,speech_cluster_bootstrap
+entities,stance_agreement,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,0.8221574344023324,0.7620493996181672,0.8766891771656345,343,matched_entities,744.0,21,,,speech_cluster_bootstrap
+party_attack,cohen_kappa,gilded-age,Administrative-industrial order,3,0.64957372116349,-0.0029393333410292397,0.8307285842626011,1677,paired_paragraphs,1677.0,41,0.022063208109719738,0.012522361359570662,speech_cluster_bootstrap
+enemy_naming,cohen_kappa,gilded-age,Administrative-industrial order,3,0.5648242409725133,0.36209844697986737,0.7328734212610873,1677,paired_paragraphs,1677.0,41,0.1037567084078712,0.04889683959451401,speech_cluster_bootstrap
+zero_sum,cohen_kappa,gilded-age,Administrative-industrial order,3,0.3843842943939579,0.06303700349185176,0.5851632559566399,1677,paired_paragraphs,1677.0,41,0.03697078115682767,0.011329755515802028,speech_cluster_bootstrap
+proposal_values,exact_match,gilded-age,Administrative-industrial order,3,0.7614788312462731,0.7098460234353505,0.7920107088649124,1677,paired_paragraphs,1677.0,41,,,speech_cluster_bootstrap
+topics,jaccard_normalized,gilded-age,Administrative-industrial order,3,0.7317119572933526,0.6939105798603084,0.760660130447257,1677,paired_paragraphs,1677.0,41,,,speech_cluster_bootstrap
+entities,name_match_rate,gilded-age,Administrative-industrial order,3,0.5003872966692486,0.45767711781717635,0.5557707446122079,1291,normalized_entity_union,1677.0,41,,,speech_cluster_bootstrap
+entities,stance_agreement,gilded-age,Administrative-industrial order,3,0.8591331269349846,0.811128580862237,0.9046383001498608,646,matched_entities,1677.0,41,,,speech_cluster_bootstrap
+party_attack,cohen_kappa,progressives-depression,"Reform, world war & collapse",4,0.83488852880371,-0.0036595488556111114,0.9138669518149695,591,paired_paragraphs,591.0,25,0.05922165820642978,0.049069373942470386,speech_cluster_bootstrap
+enemy_naming,cohen_kappa,progressives-depression,"Reform, world war & collapse",4,0.7958020212490281,0.5362089118436838,0.8896264676603731,591,paired_paragraphs,591.0,25,0.12690355329949238,0.09644670050761421,speech_cluster_bootstrap
+zero_sum,cohen_kappa,progressives-depression,"Reform, world war & collapse",4,0.2996708360763665,0.0,0.5439397085472659,591,paired_paragraphs,591.0,25,0.03722504230118443,0.00676818950930626,speech_cluster_bootstrap
+proposal_values,exact_match,progressives-depression,"Reform, world war & collapse",4,0.6869712351945855,0.6373501042752867,0.7449667798711626,591,paired_paragraphs,591.0,25,,,speech_cluster_bootstrap
+topics,jaccard_normalized,progressives-depression,"Reform, world war & collapse",4,0.6321489001692047,0.5455331015048032,0.6991383446218352,591,paired_paragraphs,591.0,25,,,speech_cluster_bootstrap
+entities,name_match_rate,progressives-depression,"Reform, world war & collapse",4,0.2978303747534517,0.20649496987559376,0.4149308935176172,507,normalized_entity_union,591.0,25,,,speech_cluster_bootstrap
+entities,stance_agreement,progressives-depression,"Reform, world war & collapse",4,0.8874172185430463,0.8317757009345794,0.9435107598552656,151,matched_entities,591.0,25,,,speech_cluster_bootstrap
+party_attack,cohen_kappa,war-new-deal,"New Deal, world war & settlement",5,0.5887619635690028,0.0,0.9246572046826067,333,paired_paragraphs,333.0,17,0.03903903903903904,0.021021021021021023,speech_cluster_bootstrap
+enemy_naming,cohen_kappa,war-new-deal,"New Deal, world war & settlement",5,0.8738932068598632,0.8021802305395822,0.924468529847475,333,paired_paragraphs,333.0,17,0.5255255255255256,0.4984984984984985,speech_cluster_bootstrap
+zero_sum,cohen_kappa,war-new-deal,"New Deal, world war & settlement",5,0.584821073294957,0.34313336233576397,0.7231407709772102,333,paired_paragraphs,333.0,17,0.2672672672672673,0.15615615615615616,speech_cluster_bootstrap
+proposal_values,exact_match,war-new-deal,"New Deal, world war & settlement",5,0.6606606606606606,0.5745714476473436,0.7422161458333332,333,paired_paragraphs,333.0,17,,,speech_cluster_bootstrap
+topics,jaccard_normalized,war-new-deal,"New Deal, world war & settlement",5,0.6532032032032032,0.59444764983288,0.7225414938121578,333,paired_paragraphs,333.0,17,,,speech_cluster_bootstrap
+entities,name_match_rate,war-new-deal,"New Deal, world war & settlement",5,0.5281553398058253,0.45147036122259954,0.6047137855080603,515,normalized_entity_union,333.0,17,,,speech_cluster_bootstrap
+entities,stance_agreement,war-new-deal,"New Deal, world war & settlement",5,0.9889705882352942,0.9723320158102767,1.0,272,matched_entities,333.0,17,,,speech_cluster_bootstrap
+party_attack,cohen_kappa,cold-war,Mature Cold War,6,0.7533759359133101,0.45897393587384505,0.7905941450226794,1349,paired_paragraphs,1349.0,45,0.07635285396590066,0.06597479614529281,speech_cluster_bootstrap
+enemy_naming,cohen_kappa,cold-war,Mature Cold War,6,0.7893543820513921,0.7333199662036693,0.8297947828526998,1349,paired_paragraphs,1349.0,45,0.2157153446997776,0.18383988139362492,speech_cluster_bootstrap
+zero_sum,cohen_kappa,cold-war,Mature Cold War,6,0.4402428504351429,0.3225574843740199,0.5371400381546199,1349,paired_paragraphs,1349.0,45,0.07412898443291327,0.031134173461823574,speech_cluster_bootstrap
+proposal_values,exact_match,cold-war,Mature Cold War,6,0.6953298739807264,0.6455117145260122,0.7409368856338879,1349,paired_paragraphs,1349.0,45,,,speech_cluster_bootstrap
+topics,jaccard_normalized,cold-war,Mature Cold War,6,0.6982826785273041,0.670805543725769,0.7266867031196859,1349,paired_paragraphs,1349.0,45,,,speech_cluster_bootstrap
+entities,name_match_rate,cold-war,Mature Cold War,6,0.4595300261096606,0.4118468874152024,0.5085952211034969,1532,normalized_entity_union,1349.0,45,,,speech_cluster_bootstrap
+entities,stance_agreement,cold-war,Mature Cold War,6,0.8650568181818182,0.8311091954022989,0.8919289138482281,704,matched_entities,1349.0,45,,,speech_cluster_bootstrap
+party_attack,cohen_kappa,post-cold-war,Conservative turn & always-on presidency,7,0.4981468037140354,0.20956631647643995,0.6831198418789685,1592,paired_paragraphs,1592.0,49,0.028266331658291458,0.013819095477386936,speech_cluster_bootstrap
+enemy_naming,cohen_kappa,post-cold-war,Conservative turn & always-on presidency,7,0.7683377940248493,0.6952505542654718,0.8248052108410654,1592,paired_paragraphs,1592.0,49,0.1934673366834171,0.15766331658291458,speech_cluster_bootstrap
+zero_sum,cohen_kappa,post-cold-war,Conservative turn & always-on presidency,7,0.31881320378622696,0.16342569189583273,0.4637082925968756,1592,paired_paragraphs,1592.0,49,0.05841708542713568,0.019472361809045227,speech_cluster_bootstrap
+proposal_values,exact_match,post-cold-war,Conservative turn & always-on presidency,7,0.7324120603015075,0.6963860229142543,0.7694955535587022,1592,paired_paragraphs,1592.0,49,,,speech_cluster_bootstrap
+topics,jaccard_normalized,post-cold-war,Conservative turn & always-on presidency,7,0.6728015075376884,0.635612059052634,0.709126139236055,1592,paired_paragraphs,1592.0,49,,,speech_cluster_bootstrap
+entities,name_match_rate,post-cold-war,Conservative turn & always-on presidency,7,0.474792243767313,0.4230298386753501,0.5301069654851771,1805,normalized_entity_union,1592.0,49,,,speech_cluster_bootstrap
+entities,stance_agreement,post-cold-war,Conservative turn & always-on presidency,7,0.882147024504084,0.8438984468620825,0.9157669866794216,857,matched_entities,1592.0,49,,,speech_cluster_bootstrap
+party_attack,cohen_kappa,present,Platform-era intensification,8,0.7660789326566122,0.6517060982395573,0.8359159221866004,1064,paired_paragraphs,1064.0,23,0.19454887218045114,0.14191729323308272,speech_cluster_bootstrap
+enemy_naming,cohen_kappa,present,Platform-era intensification,8,0.8249055152469916,0.7636739669328569,0.8769909814915386,1064,paired_paragraphs,1064.0,23,0.40883458646616544,0.37781954887218044,speech_cluster_bootstrap
+zero_sum,cohen_kappa,present,Platform-era intensification,8,0.5546798537062795,0.390002974603082,0.6659185567152177,1064,paired_paragraphs,1064.0,23,0.20864661654135339,0.11278195488721804,speech_cluster_bootstrap
+proposal_values,exact_match,present,Platform-era intensification,8,0.6419172932330827,0.5971382952844697,0.6922387307561142,1064,paired_paragraphs,1064.0,23,,,speech_cluster_bootstrap
+topics,jaccard_normalized,present,Platform-era intensification,8,0.7088032581453635,0.6736527448806147,0.7464770836742486,1064,paired_paragraphs,1064.0,23,,,speech_cluster_bootstrap
+entities,name_match_rate,present,Platform-era intensification,8,0.509594882729211,0.47058823529411764,0.5579911353227422,1407,normalized_entity_union,1064.0,23,,,speech_cluster_bootstrap
+entities,stance_agreement,present,Platform-era intensification,8,0.9079497907949791,0.8715986867938783,0.9375,717,matched_entities,1064.0,23,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,overall,Overall paired sample,-1,0.9539911787598373,0.9245874164242331,0.9776163312105455,266,paired_speeches,,266,,,speech_cluster_bootstrap
+speech_type,exact_match,overall,Overall paired sample,-1,0.9624060150375939,0.9398496240601504,0.9849624060150376,266,paired_speeches,,266,,,speech_cluster_bootstrap
+audience,cohen_kappa,overall,Overall paired sample,-1,0.9503515211845952,0.9181764776966901,0.9781431540660964,266,paired_speeches,,266,,,speech_cluster_bootstrap
+audience,exact_match,overall,Overall paired sample,-1,0.9661654135338346,0.943609022556391,0.9849624060150376,266,paired_speeches,,266,,,speech_cluster_bootstrap
+medium,cohen_kappa,overall,Overall paired sample,-1,0.8019605410100509,0.7433409008887808,0.8560512979859767,266,paired_speeches,,266,,,speech_cluster_bootstrap
+medium,exact_match,overall,Overall paired sample,-1,0.8646616541353384,0.8270676691729323,0.9060150375939849,266,paired_speeches,,266,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,founding,Establishing the republic,0,0.8305084745762712,0.5855778084714548,1.0,15,paired_speeches,,15,,,speech_cluster_bootstrap
+speech_type,exact_match,founding,Establishing the republic,0,0.8666666666666667,0.6666666666666666,1.0,15,paired_speeches,,15,,,speech_cluster_bootstrap
+audience,cohen_kappa,founding,Establishing the republic,0,0.8928571428571429,0.6666666666666667,1.0,15,paired_speeches,,15,,,speech_cluster_bootstrap
+audience,exact_match,founding,Establishing the republic,0,0.9333333333333333,0.8,1.0,15,paired_speeches,,15,,,speech_cluster_bootstrap
+medium,cohen_kappa,founding,Establishing the republic,0,0.7058823529411765,0.24999999999999978,1.0,15,paired_speeches,,15,,,speech_cluster_bootstrap
+medium,exact_match,founding,Establishing the republic,0,0.8666666666666667,0.6666666666666666,1.0,15,paired_speeches,,15,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,expansion,The continental republic,1,1.0,1.0,1.0,28,paired_speeches,,28,,,speech_cluster_bootstrap
+speech_type,exact_match,expansion,The continental republic,1,1.0,1.0,1.0,28,paired_speeches,,28,,,speech_cluster_bootstrap
+audience,cohen_kappa,expansion,The continental republic,1,1.0,1.0,1.0,28,paired_speeches,,28,,,speech_cluster_bootstrap
+audience,exact_match,expansion,The continental republic,1,1.0,1.0,1.0,28,paired_speeches,,28,,,speech_cluster_bootstrap
+medium,cohen_kappa,expansion,The continental republic,1,1.0,,,28,paired_speeches,,28,,,unavailable_degenerate_resamples
+medium,exact_match,expansion,The continental republic,1,1.0,1.0,1.0,28,paired_speeches,,28,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,1.0,1.0,1.0,21,paired_speeches,,21,,,speech_cluster_bootstrap
+speech_type,exact_match,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,1.0,1.0,1.0,21,paired_speeches,,21,,,speech_cluster_bootstrap
+audience,cohen_kappa,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,1.0,1.0,1.0,21,paired_speeches,,21,,,speech_cluster_bootstrap
+audience,exact_match,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,1.0,1.0,1.0,21,paired_speeches,,21,,,speech_cluster_bootstrap
+medium,cohen_kappa,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,1.0,,,21,paired_speeches,,21,,,unavailable_degenerate_resamples
+medium,exact_match,civil-war-reconstruction,Sectional crisis & constitutional rupture,2,1.0,1.0,1.0,21,paired_speeches,,21,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,gilded-age,Administrative-industrial order,3,0.9696969696969697,0.9047231729504801,1.0,41,paired_speeches,,41,,,speech_cluster_bootstrap
+speech_type,exact_match,gilded-age,Administrative-industrial order,3,0.975609756097561,0.926829268292683,1.0,41,paired_speeches,,41,,,speech_cluster_bootstrap
+audience,cohen_kappa,gilded-age,Administrative-industrial order,3,1.0,1.0,1.0,41,paired_speeches,,41,,,speech_cluster_bootstrap
+audience,exact_match,gilded-age,Administrative-industrial order,3,1.0,1.0,1.0,41,paired_speeches,,41,,,speech_cluster_bootstrap
+medium,cohen_kappa,gilded-age,Administrative-industrial order,3,1.0,1.0,1.0,41,paired_speeches,,41,,,speech_cluster_bootstrap
+medium,exact_match,gilded-age,Administrative-industrial order,3,1.0,1.0,1.0,41,paired_speeches,,41,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,progressives-depression,"Reform, world war & collapse",4,0.7645951035781545,0.5631067961165048,0.9479300902061855,25,paired_speeches,,25,,,speech_cluster_bootstrap
+speech_type,exact_match,progressives-depression,"Reform, world war & collapse",4,0.8,0.64,0.96,25,paired_speeches,,25,,,speech_cluster_bootstrap
+audience,cohen_kappa,progressives-depression,"Reform, world war & collapse",4,0.8015873015873016,0.5679012345679012,1.0,25,paired_speeches,,25,,,speech_cluster_bootstrap
+audience,exact_match,progressives-depression,"Reform, world war & collapse",4,0.88,0.72,1.0,25,paired_speeches,,25,,,speech_cluster_bootstrap
+medium,cohen_kappa,progressives-depression,"Reform, world war & collapse",4,0.5901639344262295,0.31316964285714277,0.8456908831908834,25,paired_speeches,,25,,,speech_cluster_bootstrap
+medium,exact_match,progressives-depression,"Reform, world war & collapse",4,0.76,0.6,0.92,25,paired_speeches,,25,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,war-new-deal,"New Deal, world war & settlement",5,0.8975903614457831,0.6134877622377621,1.0,17,paired_speeches,,17,,,speech_cluster_bootstrap
+speech_type,exact_match,war-new-deal,"New Deal, world war & settlement",5,0.9411764705882353,0.8235294117647058,1.0,17,paired_speeches,,17,,,speech_cluster_bootstrap
+audience,cohen_kappa,war-new-deal,"New Deal, world war & settlement",5,0.8617886178861788,0.4516129032258062,1.0,17,paired_speeches,,17,,,speech_cluster_bootstrap
+audience,exact_match,war-new-deal,"New Deal, world war & settlement",5,0.9411764705882353,0.8235294117647058,1.0,17,paired_speeches,,17,,,speech_cluster_bootstrap
+medium,cohen_kappa,war-new-deal,"New Deal, world war & settlement",5,0.8661417322834645,0.5142857142857141,1.0,17,paired_speeches,,17,,,speech_cluster_bootstrap
+medium,exact_match,war-new-deal,"New Deal, world war & settlement",5,0.9411764705882353,0.8235294117647058,1.0,17,paired_speeches,,17,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,cold-war,Mature Cold War,6,0.970414201183432,0.9008737583775052,1.0,45,paired_speeches,,45,,,speech_cluster_bootstrap
+speech_type,exact_match,cold-war,Mature Cold War,6,0.9777777777777777,0.9333333333333333,1.0,45,paired_speeches,,45,,,speech_cluster_bootstrap
+audience,cohen_kappa,cold-war,Mature Cold War,6,0.9391069012178619,0.8427645467739807,1.0,45,paired_speeches,,45,,,speech_cluster_bootstrap
+audience,exact_match,cold-war,Mature Cold War,6,0.9555555555555556,0.8888888888888888,1.0,45,paired_speeches,,45,,,speech_cluster_bootstrap
+medium,cohen_kappa,cold-war,Mature Cold War,6,0.6771879483500718,0.4767441860465117,0.843874617709137,45,paired_speeches,,45,,,speech_cluster_bootstrap
+medium,exact_match,cold-war,Mature Cold War,6,0.7777777777777778,0.6444444444444445,0.8888888888888888,45,paired_speeches,,45,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,post-cold-war,Conservative turn & always-on presidency,7,1.0,1.0,1.0,51,paired_speeches,,51,,,speech_cluster_bootstrap
+speech_type,exact_match,post-cold-war,Conservative turn & always-on presidency,7,1.0,1.0,1.0,51,paired_speeches,,51,,,speech_cluster_bootstrap
+audience,cohen_kappa,post-cold-war,Conservative turn & always-on presidency,7,0.9401408450704227,0.8438404962667968,1.0,51,paired_speeches,,51,,,speech_cluster_bootstrap
+audience,exact_match,post-cold-war,Conservative turn & always-on presidency,7,0.9607843137254902,0.9019607843137255,1.0,51,paired_speeches,,51,,,speech_cluster_bootstrap
+medium,cohen_kappa,post-cold-war,Conservative turn & always-on presidency,7,0.6936936936936936,0.4712873471557682,0.8735770581495466,51,paired_speeches,,51,,,speech_cluster_bootstrap
+medium,exact_match,post-cold-war,Conservative turn & always-on presidency,7,0.8431372549019608,0.7254901960784313,0.9411764705882353,51,paired_speeches,,51,,,speech_cluster_bootstrap
+speech_type,cohen_kappa,present,Platform-era intensification,8,1.0,1.0,1.0,23,paired_speeches,,23,,,speech_cluster_bootstrap
+speech_type,exact_match,present,Platform-era intensification,8,1.0,1.0,1.0,23,paired_speeches,,23,,,speech_cluster_bootstrap
+audience,cohen_kappa,present,Platform-era intensification,8,1.0,1.0,1.0,23,paired_speeches,,23,,,speech_cluster_bootstrap
+audience,exact_match,present,Platform-era intensification,8,1.0,1.0,1.0,23,paired_speeches,,23,,,speech_cluster_bootstrap
+medium,cohen_kappa,present,Platform-era intensification,8,0.36697247706422026,0.11538461538461535,0.6637426900584796,23,paired_speeches,,23,,,speech_cluster_bootstrap
+medium,exact_match,present,Platform-era intensification,8,0.6086956521739131,0.391304347826087,0.782608695652174,23,paired_speeches,,23,,,speech_cluster_bootstrap

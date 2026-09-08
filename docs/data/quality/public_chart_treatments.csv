@@ -1,0 +1,10 @@
+chart_id,claim,denominator,treatment,statistical_status,limitation
+population-ledger,population counts,"documents, paragraphs, or appearances as labeled",governed corpus and speaker-attribution artifacts,descriptive census,Population stages use different units and must not be added together.
+completion-by-era,second-model completion,all expected paragraph keys in sampled documents,persisted document-level sample,descriptive completeness,Completion is not correctness.
+zero-sum-flow,cross-model zero-sum judgments,"8,570 paired paragraph keys",primary and second LLM passes,counts and primary-row percentages,Neither model is human ground truth.
+zero-sum-by-era,zero-sum reproducibility,paired paragraph keys within Story era,primary and second LLM passes,Cohen's kappa plus prevalence,Rare positives make raw agreement optimistic.
+entity-funnel,entity detection then stance,"normalized entity union, then matched names",paired paragraph keys only,name match and stance agreement,Case/whitespace normalization is not alias resolution.
+corex-uncertainty,CorEx sampling intervals,resolved issue-by-five-year cells,speech-cluster bootstrap,mean interval width in percentage points,No LLM annotator exists on this surface.
+llm-uncertainty,LLM topic intervals,resolved topic-by-Story-era cells,speech-cluster bootstrap plus paired-model half-gap,mean interval width in percentage points,The paired-sample disagreement component assumes transfer to the full corpus.
+taxonomy-behavior,topic assignment behavior,all primary-annotated paragraphs,canonical case normalization and paragraph-topic deduplication,paragraph counts and shares,Multi-label shares are non-additive.
+era-coverage,corpus coverage,source documents assigned to Story eras,document-owner corpus,"speech, president, and word counts",This corpus is not a census of all presidential communication.

@@ -14,6 +14,17 @@ def test_every_registered_chart_resolves_to_metrics():
     metrics.validate_charts(set(metrics.CHART_METRICS))
 
 
+def test_metric_dictionary_groups_cover_each_measure_once():
+    metrics.validate_metric_groups()
+    grouped = [
+        name
+        for _group_key, _group_label, names in metrics.METRIC_GROUPS
+        for name in names
+    ]
+    assert len(grouped) == len(set(grouped))
+    assert set(grouped) == set(metrics.METRICS)
+
+
 def test_distinctive_reference_metric_names_unit_and_limits():
     metric = metrics.METRICS["era_distinctive_reference"]
     assert metric["status"] == "exploratory descriptive"
@@ -53,3 +64,31 @@ def test_explore_metrics_are_registered_at_their_governed_grains():
         "paragraph_share",
         "uncertainty_envelope",
     }
+
+
+def test_profile_connection_metrics_keep_their_governed_grains():
+    invocation = metrics.METRICS["actual_speaker_invocation_paragraph_count"]
+
+    assert invocation["unit"] == "eligible reference paragraphs"
+    assert "distinct (doc_name, para_idx)" in invocation["formula"]
+    assert "not historical contact" in invocation["limitations"]
+    assert metrics.CHART_METRICS["profile_topic_ego"] == {
+        "actual_speaker_topic_presence"
+    }
+    assert "profile_invocation_ego" not in metrics.CHART_METRICS
+    assert metrics.CHART_METRICS["profile_invocation_bars"] == {
+        "actual_speaker_invocation_paragraph_count"
+    }
+    assert "displayed bar value" in invocation["example"]
+
+
+def test_data_trust_units_and_pipeline_metric_match_their_public_figures():
+    uncertainty = metrics.METRICS["uncertainty_envelope"]
+    assert "percentage-point interval width" in uncertainty["unit"]
+    assert "× 100 percentage points" in uncertainty["formula"]
+    assert uncertainty["source"].startswith(
+        "data/quality/uncertainty_decomposition.csv"
+    )
+    pipeline = metrics.METRICS["annotation_pipeline_lineage"]
+    assert pipeline["unit"] == "ordered governed processing stages"
+    assert "human validity" in pipeline["limitations"]

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How the AI labels were made - Presidential Profiles</title>
-<meta name="description" content="Illustrated methodology for the corpus-derived taxonomy and AI annotation layer behind Presidential Profiles.">
+<title>From speech to auditable paragraph judgment - Presidential Profiles</title>
+<meta name="description" content="An auditable account of the data, evidence policy, semantic keys, model reproducibility, uncertainty, and limitations behind Presidential Profiles.">
 <style>
-
   :root {
     --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e;
     --muted: #706d67; --grid: #e1e0d9; --border: rgba(11,11,11,0.14);
@@ -31,55 +30,150 @@
             border-top: 1px solid var(--grid); color: var(--muted); font-size: 0.85rem; }
   footer a { color: var(--ink2); }
 
-  header, main, footer { max-width: 1040px; }
-  header { padding-top: 38px; }
-  .crumbs { margin-bottom: 22px; font-size: .88rem; } .crumbs a { color:var(--ink2); }
-  .kicker { color:#275d8c; font-weight:750; letter-spacing:.08em; text-transform:uppercase; font-size:.76rem; }
-  header h1 { font-size:clamp(2.2rem,6vw,4.5rem); line-height:1.02; max-width:850px; margin-top:12px; }
-  header .sub { font-size:1.08rem; max-width:760px; }
-  .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-top:28px; }
+  header, main, footer { max-width:1080px; }
+  header { padding-top:38px; }
+  .skip-link { position:fixed; left:12px; top:10px; z-index:1000; transform:translateY(-180%);
+    background:#172a38; color:#fff; padding:10px 14px; border-radius:8px; }
+  .skip-link:focus { transform:none; }
+  .crumbs { margin-bottom:20px; font-size:.88rem; } .crumbs a { color:var(--ink2); }
+  .kicker { color:#275d8c; font-weight:780; letter-spacing:.08em; text-transform:uppercase; font-size:.76rem; }
+  header h1 { font-size:clamp(2.25rem,6vw,4.6rem); line-height:1.01; max-width:900px; margin-top:12px; }
+  header .sub { font-size:1.1rem; max-width:800px; }
+  .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(165px,1fr)); gap:10px; margin-top:26px; }
   .stat { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px; }
-  .stat strong { display:block; font-size:1.65rem; } .stat span { color:var(--muted); font-size:.82rem; }
-  article { max-width:760px; } article h2 { font-size:1.7rem; margin-top:58px; letter-spacing:-.02em; }
-  article h3 { font-size:1.12rem; margin-top:30px; } article p, article li { color:var(--ink2); }
-  article p { margin-top:10px; } article ul, article ol { padding-left:22px; margin-top:12px; }
-  .wide { width:min(1040px,calc(100vw - 40px)); margin-top:24px; }
-  .diagram { display:block; width:100%; height:auto; background:var(--surface); border:1px solid var(--border); border-radius:18px; }
-  .diagram .node rect,.diagram .lane>rect { fill:#fff; stroke:#d7d9dd; stroke-width:2; }
-  .diagram .node.accent rect { fill:#eef6ff; stroke:#8bb9e8; } .diagram .node.dark rect { fill:#17202a; stroke:#17202a; }
-  .diagram text { font-family:system-ui,sans-serif; font-size:16px; font-weight:700; text-anchor:middle; fill:#17202a; }
-  .diagram .small { font-size:12px; font-weight:500; fill:#6b7280; } .diagram .dark text { fill:#fff; }
-  .diagram .dark .small { fill:#d1d5db; } .diagram .lane-title { text-anchor:start; font-size:19px; }
-  .diagram .pill rect { stroke-width:1.5; } .diagram .pill.on rect { fill:#eef8f2; stroke:#70aa85; }
-  .diagram .pill.off rect { fill:#f8f1f1; stroke:#bc8b8b; stroke-dasharray:6 5; }
-  .diagram .pill text { font-size:14px; } .diagram .caption { text-anchor:start; font-size:13px; font-weight:500; fill:#6b7280; }
-  .callout { border-left:4px solid #6da7ec; background:#f1f6fc; border-radius:0 12px 12px 0; padding:16px 18px; margin:20px 0; }
-  .callout p { margin:0; } .rubrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:18px; }
+  .stat strong { display:block; font-size:1.55rem; } .stat span { color:var(--muted); font-size:.8rem; }
+  .methods-local-nav { position:sticky; top:var(--global-nav-height,0); z-index:30; margin:22px 0 0;
+    background:rgba(249,249,247,.96); border-block:1px solid var(--border); overflow-x:auto; }
+  .methods-local-nav ul { display:flex; list-style:none; padding:6px 0; margin:0 auto; max-width:1080px; }
+  .methods-scroll-cue { display:none; align-items:center; white-space:nowrap; padding:6px 10px;
+    color:#52616c; font-size:.7rem; font-weight:750; }
+  .methods-local-nav a { display:grid; place-items:center; min-height:40px; padding:6px 12px;
+    white-space:nowrap; color:var(--ink2); text-decoration:none; font-size:.78rem; font-weight:680; }
+  .methods-local-nav a:hover { background:#ece7df; border-radius:8px; }
+  main { padding-top:18px; } .method-section { scroll-margin-top:190px; margin-top:62px; }
+  .method-section>h2 { font:700 clamp(1.65rem,3vw,2.15rem)/1.15 Georgia,serif; letter-spacing:-.02em; }
+  .method-section>p, .method-section>ul, .method-section>ol { max-width:780px; color:var(--ink2); margin-top:12px; }
+  .verdict-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:20px; }
+  .verdict { background:#fff; border:1px solid var(--border); border-radius:15px; padding:18px; }
+  .verdict span { color:#275d8c; text-transform:uppercase; letter-spacing:.07em; font-size:.7rem; font-weight:800; }
+  .verdict h3 { font-size:1rem; margin-top:7px; } .verdict p { color:var(--ink2); margin-top:7px; font-size:.9rem; }
+  figure { margin:26px 0; } figcaption { margin-bottom:14px; }
+  figcaption strong, figcaption span { display:block; } figcaption strong { font-size:1.08rem; }
+  figcaption span { color:var(--muted); font-size:.86rem; margin-top:3px; }
+  .pipeline-figure,.masking-figure,.worked-example,.evidence-figure { background:var(--surface);
+    border:1px solid var(--border); border-radius:18px; padding:20px; }
+  .pipeline { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); list-style:none; padding:0; gap:10px; }
+  .pipeline li { position:relative; min-height:126px; padding:15px; border:1px solid #cbd3d9;
+    border-radius:13px; background:#fff; }
+  .pipeline li>span { display:grid; width:27px; height:27px; place-items:center; border-radius:50%;
+    background:#172a38; color:#fff; font-weight:800; font-size:.72rem; }
+  .pipeline strong,.pipeline small { display:block; } .pipeline strong { margin-top:12px; }
+  .pipeline small { color:var(--muted); margin-top:5px; line-height:1.4; }
+  .masking-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .masking-grid section { margin:0; border:1px solid var(--border); border-radius:14px; padding:18px; background:#fff; }
+  .masking-grid h3 { font-size:1rem; } .masking-grid ul { display:flex; flex-wrap:wrap; list-style:none; padding:0; gap:7px; margin-top:13px; }
+  .masking-grid li { border-radius:999px; padding:7px 11px; font-size:.8rem; }
+  .masking-grid .visible { background:#e5f3e9; border:1px solid #70aa85; }
+  .masking-grid .hidden { background:#f6eeee; border:1px dashed #a66b6b; }
+  .masking-grid p { color:var(--muted); margin-top:14px; font-size:.86rem; }
+  .worked-flow { display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:10px; }
+  .worked-step { background:#fff; border:1px solid var(--border); border-radius:13px; padding:15px; min-width:0; }
+  .step-label { color:#275d8c; text-transform:uppercase; letter-spacing:.07em; font-size:.68rem; font-weight:800; }
+  blockquote { border-left:3px solid #6da7ec; padding-left:12px; margin-top:12px; color:var(--ink2); font-family:Georgia,serif; }
+  .worked-step p { color:var(--ink2); font-size:.84rem; margin-top:12px; }
+  .request-context { padding-left:18px; } .request-context li { margin:8px 0; }
+  .request-context strong,.request-context span { display:block; font-size:.76rem; }
+  .request-context span { color:var(--ink2); margin-top:3px; }
+  .worked-step code { overflow-wrap:anywhere; } .worked-step dl { margin-top:10px; }
+  .worked-step dl div { display:grid; grid-template-columns:minmax(92px,.8fr) 1.2fr; gap:8px; padding:6px 0; border-bottom:1px solid var(--grid); }
+  .worked-step dt { color:var(--muted); font-size:.75rem; } .worked-step dd { font-size:.8rem; font-weight:650; }
+  .callout { border-left:4px solid #6da7ec; background:#f1f6fc; border-radius:0 12px 12px 0; padding:16px 18px; margin:20px 0; max-width:800px; }
+  .callout.warning { border-color:#9b6227; background:#fbf3e9; } .callout p { margin:0; }
+  .rubrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin-top:18px; }
   .rubric { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px; }
-  .rubric code { font-weight:750; color:#275d8c; } .rubric p { font-size:.88rem; margin-top:7px; }
-  .metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; margin-top:18px; }
-  .metric { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px; }
-  .metric span,.metric small { display:block; color:var(--muted); font-size:.78rem; } .metric strong { font-size:1.35rem; display:block; margin:4px 0; }
+  .rubric code { font-weight:750; color:#275d8c; } .rubric p { font-size:.86rem; color:var(--ink2); margin-top:7px; }
+  .metric-family { margin-top:22px; } .metric-family h3 { font-size:1rem; }
+  .metric-family>p { color:var(--muted); margin-top:4px; font-size:.84rem; }
+  .evaluation-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:9px; margin-top:11px; }
+  .evaluation-card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px; }
+  .evaluation-card>* { display:block; } .evaluation-card .metric-name { color:var(--muted); font-size:.76rem; }
+  .evaluation-card strong { font-size:1.35rem; margin:4px 0; } .evaluation-card span { font-size:.78rem; }
+  .evaluation-card small { color:var(--muted); font-size:.7rem; margin-top:8px; }
+  .table-scroll { width:100%; overflow-x:auto; } .table-scroll:focus-visible { outline:3px solid #824600; outline-offset:2px; }
+  table { width:100%; border-collapse:collapse; background:#fff; }
+  th,td { border:1px solid var(--border); padding:10px; text-align:left; vertical-align:top; font-size:.8rem; }
+  thead th { color:var(--ink2); background:#f1f3f4; } td small { display:block; color:var(--muted); margin-top:3px; font-size:.67rem; }
+  .era-matrix { min-width:850px; } .evidence-table { margin-top:18px; }
+  .agreement-cell { background:linear-gradient(90deg,#d8e9f4 0 var(--agreement),#fff var(--agreement) 100%); }
+  .scroll-cue { display:none; color:var(--muted); font-size:.75rem; margin-bottom:8px; }
+  details summary { cursor:pointer; font-weight:700; }
+  .entity-funnel ol { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); list-style:none; padding:0; gap:10px; }
+  .entity-funnel li { background:#fff; border:1px solid var(--border); border-radius:13px; padding:15px; }
+  .entity-funnel li span,.entity-funnel li strong,.entity-funnel li small { display:block; }
+  .entity-funnel li span { color:var(--muted); font-size:.76rem; } .entity-funnel li strong { font-size:1.25rem; margin:4px 0; }
+  .entity-funnel li small,.figure-note { color:var(--muted); font-size:.75rem; }
+  .figure-note { margin-top:13px; } .passport-note { color:var(--muted); font-size:.82rem; max-width:800px; }
   .tax-atlas { margin-top:18px; } .tax-domain { background:var(--surface); border:1px solid var(--border); border-radius:12px; margin:8px 0; padding:0 16px; }
-  .tax-domain summary { cursor:pointer; display:flex; justify-content:space-between; gap:20px; padding:15px 0; font-weight:700; }
-  .tax-kind { color:var(--muted); font-size:.76rem; font-weight:500; } .tax-domain>p { margin:0 0 12px; font-size:.9rem; }
-  .tax-domain ul { margin:0 0 18px; } .tax-domain li { margin:10px 0; } .tax-domain li span { display:block; font-size:.86rem; }
-  .method-table { width:100%; border-collapse:collapse; margin-top:16px; background:var(--surface); }
-  .method-table th,.method-table td { border:1px solid var(--border); padding:10px; text-align:left; font-size:.86rem; vertical-align:top; }
-  .method-table th { color:var(--muted); }
-  .method-chart { width:min(1040px,calc(100vw - 40px));height:430px;margin:20px 0; }
-  @media(max-width:680px){ .diagram text { font-size:12px; } .diagram .small,.diagram .caption { font-size:9px; } .diagram .lane-title { font-size:14px; } }
+  .tax-domain summary { display:flex; justify-content:space-between; gap:20px; padding:15px 0; }
+  .tax-kind { color:var(--muted); font-size:.76rem; font-weight:500; } .tax-domain>p { margin:0 0 12px; font-size:.88rem; color:var(--ink2); }
+  .tax-domain ul { margin:0 0 18px; padding-left:22px; } .tax-domain li { margin:10px 0; color:var(--ink2); }
+  .tax-domain li span { display:block; font-size:.84rem; }
+  .receipt-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:18px; }
+  .receipt { background:#fff; border:1px solid var(--border); border-radius:13px; padding:16px; min-width:0; }
+  .receipt>span { color:#275d8c; text-transform:uppercase; letter-spacing:.06em; font-size:.68rem; font-weight:800; }
+  .receipt h3 { font-size:.98rem; margin-top:6px; } .receipt p { color:var(--ink2); font-size:.8rem; margin-top:8px; }
+  .receipt code { overflow-wrap:anywhere; } .receipt small { display:block; color:var(--muted); margin-top:8px; }
+  .receipt-contract { margin:12px 0 0; } .receipt-contract>div { padding:8px 0; border-top:1px solid var(--grid); }
+  .receipt-contract dt { color:var(--muted); font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; }
+  .receipt-contract dd { margin:4px 0 0; color:var(--ink2); font-size:.76rem; overflow-wrap:anywhere; }
+  .trust-receipt { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px;
+    background:var(--border); border:1px solid var(--border); border-radius:14px;
+    overflow:hidden; margin:20px 0; }
+  .trust-receipt div { background:#fff; padding:13px; min-width:0; }
+  .trust-receipt dt { color:#52616c; font-size:.68rem; font-weight:800;
+    letter-spacing:.06em; text-transform:uppercase; }
+  .trust-receipt dd { margin:.35rem 0 0; font-size:.8rem; overflow-wrap:anywhere; }
+  .deep-section { margin-top:22px; padding:0 18px; border:1px solid var(--border); border-radius:14px; background:#fff; }
+  .deep-section>summary { padding:17px 0; } .deep-section>div { padding-bottom:18px; }
+  .limitations { columns:2; column-gap:36px; padding-left:20px; } .limitations li { break-inside:avoid; margin-bottom:12px; color:var(--ink2); }
+  .download-list { display:flex; flex-wrap:wrap; gap:9px; list-style:none; padding:0; margin-top:15px; }
+  .download-list a { display:block; border:1px solid var(--border); border-radius:9px; padding:9px 12px; background:#fff; }
+  @media(max-width:760px) {
+    .verdict-grid,.masking-grid,.worked-flow,.receipt-grid,.trust-receipt { grid-template-columns:1fr; }
+    .pipeline { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .entity-funnel ol { grid-template-columns:1fr; }
+    .limitations { columns:1; }
+    .scroll-cue { display:block; }
+  }
+  @media(max-width:780px) {
+    .methods-scroll-cue { display:flex; }
+  }
+  @media(max-width:850px) {
+    .table-scroll::before { content:"Scroll table horizontally →"; display:block; position:sticky;
+      left:0; width:max-content; margin:0 0 7px; padding:4px 7px; border-radius:6px;
+      background:#eef2f3; color:#52616c; font-size:.7rem; font-weight:750; }
+  }
+  @media(max-width:430px) {
+    header,main,footer { padding-inline:15px; }
+    .pipeline { grid-template-columns:1fr; } .pipeline li { min-height:0; }
+    .pipeline-figure,.masking-figure,.worked-example,.evidence-figure { padding:15px; }
+    .methods-local-nav a { padding-inline:10px; font-size:.72rem; }
+  }
+  @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+  @media(forced-colors:active) { .visible,.hidden { border:1px solid CanvasText!important; } }
 </style></head><body><style>
 .global-nav{position:sticky;top:0;z-index:100;background:rgba(249,249,247,.94);
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
 align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
-color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+box-sizing:border-box;min-width:44px;min-height:44px;color:#172a38;text-decoration:none;font-weight:760;
+letter-spacing:-.015em;white-space:nowrap}
 .nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
 background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
 align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
 .nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
-min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+box-sizing:border-box;min-width:44px;min-height:44px;border:0;border-radius:8px;
+padding:7px 9px;background:transparent;
 color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
 white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
 .nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
@@ -88,65 +182,96 @@ background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6p
 border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
 transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
 .nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
-.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
-min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
-background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
-.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
-padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+.nav-submenu{position:absolute;top:100%;right:0;z-index:120;padding-top:7px}
+.nav-submenu-panel{display:grid;min-width:178px;padding:7px;
+border:1px solid rgba(11,11,11,.14);border-radius:11px;background:#fff;
+box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:flex;align-items:center;
+box-sizing:border-box;min-height:44px;border-radius:7px;padding:9px 10px;
+color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
 white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
-html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu,
+html:not(.nav-enhanced) .nav-group:focus-within>.nav-submenu{display:block!important}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
 .nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
 gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
-width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+width:100%;min-width:44px;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
 .nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
-</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div><div class="nav-item nav-group nav-group-current" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="data-quality.html">Data Quality</a><a href="methodology.html" aria-current="page">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+@media(forced-colors:active){.global-nav{background:Canvas;border-color:CanvasText;
+backdrop-filter:none}.nav-submenu-panel{background:Canvas;color:CanvasText;
+border:2px solid CanvasText;box-shadow:none}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger,.nav-submenu a:hover{background:Canvas;color:CanvasText;
+outline:1px solid currentColor}.nav-item>a[aria-current=page],
+.nav-group.nav-group-current>.nav-trigger,.nav-submenu a[aria-current=page]{
+background:Canvas;color:CanvasText;text-decoration:underline;text-decoration-thickness:3px;
+text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
+.nav-submenu a:focus-visible,.nav-brand:focus-visible{outline-color:Highlight}}
+</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><div class="nav-submenu-panel"><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div></div><div class="nav-item nav-group nav-group-current" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><div class="nav-submenu-panel"><a href="data-quality.html">Data Quality</a><a href="methodology.html" aria-current="page">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
   if (!nav || !nav.matches(".global-nav")) return;
-  document.documentElement.classList.add("nav-enhanced");
   const groups = [...nav.querySelectorAll(".nav-group")];
-  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
-  const close = (group, restoreFocus = false) => {
+  const hoverPointer = matchMedia("(any-hover: hover)");
+  let openGroup = null;
+  let openMode = null;
+  const sync = (group, isOpen) => {
     const trigger = group.querySelector(".nav-trigger");
     const submenu = group.querySelector(".nav-submenu");
-    trigger.setAttribute("aria-expanded", "false");
-    submenu.hidden = true;
-    group.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    submenu.hidden = !isOpen;
+    group.classList.toggle("is-open", isOpen);
+  };
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    if (openGroup === group) {
+      openGroup = null;
+      openMode = null;
+    }
+    sync(group, false);
     if (restoreFocus) trigger.focus();
   };
-  const closeOthers = active => groups.forEach(group => {
-    if (group !== active) close(group);
-  });
-  const open = group => {
-    closeOthers(group);
-    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
-    group.querySelector(".nav-submenu").hidden = false;
-    group.classList.add("is-open");
+  const open = (group, mode) => {
+    if (openGroup && openGroup !== group) sync(openGroup, false);
+    openGroup = group;
+    openMode = mode;
+    sync(group, true);
+  };
+  const activate = group => {
+    if (openGroup !== group) {
+      open(group, "pinned");
+      return;
+    }
+    if (openMode === "hover") {
+      openMode = "pinned";
+      sync(group, true);
+      return;
+    }
+    close(group);
   };
   groups.forEach(group => {
     const trigger = group.querySelector(".nav-trigger");
-    const toggle = () => {
-      if (trigger.getAttribute("aria-expanded") === "true") close(group);
-      else open(group);
-    };
-    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("click", () => activate(group));
     trigger.addEventListener("keydown", event => {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      toggle();
+      activate(group);
     });
-    group.addEventListener("pointerenter", () => {
-      if (finePointer.matches) open(group);
+    group.addEventListener("pointerenter", event => {
+      if (event.pointerType === "touch") return;
+      const canHover = event.pointerType === "mouse" ||
+        (event.pointerType === "pen" && hoverPointer.matches);
+      if (canHover && openGroup !== group) open(group, "hover");
     });
-    group.addEventListener("pointerleave", () => {
-      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    group.addEventListener("pointerleave", event => {
+      if (event.pointerType === "touch") return;
+      if (openGroup === group && openMode === "hover" &&
+          !group.contains(document.activeElement)) close(group);
     });
     group.addEventListener("focusout", () => setTimeout(() => {
       if (!group.contains(document.activeElement)) close(group);
@@ -154,6 +279,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
     group.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
       event.preventDefault();
+      event.stopPropagation();
       close(group, true);
     });
   });
@@ -168,176 +294,121 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
   if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
   else addEventListener("resize", setNavHeight);
 
+  document.documentElement.classList.add("nav-enhanced");
 })();
 </script>
 
-<header><p class="crumbs"><a href="index.html">← Dashboard</a> &nbsp;·&nbsp;
-<a href="compare.html">Compare presidents</a> &nbsp;·&nbsp; <a href="presidents/index.html">Profiles</a></p>
-<div class="kicker">Methods article · AI label layer</div><h1>How a speech becomes a label</h1>
-<p class="sub">The topic names were discovered from this corpus before the full annotation
-pass. The model did not receive a president's identity when making subjective judgments.
-Every label is keyed back to its paragraph, and a second model measures where the first one
-is uncertain.</p><div class="stat-grid">
-<div class="stat"><strong>36,229</strong><span>paragraphs, 100% covered</span></div>
-<div class="stat"><strong>50</strong><span>fine-grained topics</span></div>
-<div class="stat"><strong>17</strong><span>broad domains</span></div>
-<div class="stat"><strong>52,133</strong><span>distinct topic assignments</span></div>
-<div class="stat"><strong>27,214</strong><span>named-entity rows</span></div>
-</div><div id="method-coverage" class="method-chart"
-aria-label="Primary and second-opinion paragraph coverage"></div></header><main><article>
-<h2>First: what “AI-labeled” means here</h2>
-<p>There are two measurement layers on this website. The original issue charts use a seeded,
-deterministic CorEx topic model with hand-written anchor words. The newer layer uses a
-corpus-derived taxonomy and Claude to read paragraphs semantically. The old layer remains
-visible as an independent instrument; it is not relabeled as AI work after the fact.
-<a href="label-models.html"><strong>See the complete CorEx derivation and the
-side-by-side model comparison →</strong></a></p>
-<div class="callout"><p><strong>The unit is the paragraph.</strong> A speech can cover several
-subjects, switch from policy to ceremony, or name an adversary once. Paragraph-sized units keep
-those changes visible. All joins use <code>(doc_name, para_idx)</code>, never row position.</p></div>
-</article><div class="wide"><svg class="diagram" viewBox="0 0 1160 430" role="img"
- aria-labelledby="pipeline-title pipeline-desc">
-<title id="pipeline-title">From speeches to AI labels</title>
-<desc id="pipeline-desc">A seven-stage flow from the Miller Center corpus through paragraph
-segmentation, unsupervised clusters, era-isolated topic proposals, a frozen taxonomy,
-masked full-corpus annotation, and a second-opinion audit.</desc>
-<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7"
- markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#6b7280"/></marker></defs>
-<g fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)">
- <path d="M150 105H205"/><path d="M350 105H405"/><path d="M550 105H605"/>
- <path d="M750 105H805"/><path d="M950 105H1005"/>
- <path d="M1080 165V245H885"/><path d="M805 315H750"/>
-</g>
-<g class="node"><rect x="20" y="45" width="130" height="120" rx="18"/>
- <text x="85" y="82">1,057 speeches</text><text x="85" y="108">4.2M words</text>
- <text class="small" x="85" y="138">source corpus</text></g>
-<g class="node"><rect x="205" y="45" width="145" height="120" rx="18"/>
- <text x="278" y="82">36,229</text><text x="278" y="108">paragraphs</text>
- <text class="small" x="278" y="138">stable keyed units</text></g>
-<g class="node"><rect x="405" y="45" width="145" height="120" rx="18"/>
- <text x="478" y="82">Embeddings</text><text x="478" y="108">+ k=40</text>
- <text class="small" x="478" y="138">no topic names yet</text></g>
-<g class="node accent"><rect x="605" y="45" width="145" height="120" rx="18"/>
- <text x="678" y="82">9 isolated</text><text x="678" y="108">era proposals</text>
- <text class="small" x="678" y="138">anachronism guard</text></g>
-<g class="node accent"><rect x="805" y="45" width="145" height="120" rx="18"/>
- <text x="878" y="82">17 domains</text><text x="878" y="108">50 topics</text>
- <text class="small" x="878" y="138">frozen taxonomy</text></g>
-<g class="node"><rect x="1005" y="45" width="135" height="120" rx="18"/>
- <text x="1072" y="82">Held-out</text><text x="1072" y="108">coverage</text>
- <text class="small" x="1072" y="138">200 paragraphs</text></g>
-<g class="node dark"><rect x="805" y="245" width="270" height="140" rx="20"/>
- <text x="940" y="285">Masked full-corpus pass</text><text x="940" y="315">topics · flags · values · entities</text>
- <text class="small" x="940" y="348">text + decade only</text></g>
-<g class="node"><rect x="550" y="245" width="200" height="140" rx="20"/>
- <text x="650" y="285">Second opinion</text><text x="650" y="315">same prompts</text>
- <text class="small" x="650" y="348">different model · 25% sample</text></g>
-</svg></div><article>
-<h2>How the 50 topics were arrived at</h2>
-<ol><li><strong>Find the blind spots.</strong> The 15 anchored issues left 10,381 of 36,229
-paragraphs without a match. Those missing paragraphs were deliberately oversampled.</li>
-<li><strong>Let language cluster before naming it.</strong> Every paragraph was embedded with
-<code>minishlab/potion-base-8M</code>, normalized, and clustered with seeded MiniBatchKMeans at
-k=40. c-TF-IDF terms described what distinguished each cluster; the clusters were evidence,
-not final topics.</li><li><strong>Isolate eras.</strong> Nine 30-year samples were drawn with
-80 paragraphs per era and roughly half from the old taxonomy's blind mass. Each era proposal
-saw only its own paragraphs, dominant clusters, and terms. The 1800s proposal could not borrow
-“health care” from a modern sample.</li><li><strong>Merge once, then freeze.</strong> Opus merged
-the era proposals into 17 domains and 50 period-aware topics, then produced a many-to-many
-crosswalk to the 16 existing issue pages.</li><li><strong>Test what was not used to build it.</strong>
-A held-out set of 200 paragraphs—100 from the former blind mass—was labeled against the frozen
-list. Coverage reached 100%, above the pre-registered 90% gate. The taxonomy was then frozen
-before the 36,229-paragraph pass.</li></ol>
-<p>The taxonomy-generation run used claude-opus-4-8 (+ claude-sonnet-5 for coverage), 22 API
-requests, and recorded $2.4404 in actual usage-derived cost.</p>
-</article><div class="wide"><svg class="diagram" viewBox="0 0 1160 420" role="img"
- aria-labelledby="mask-title mask-desc">
-<title id="mask-title">Two passes use different evidence</title>
-<desc id="mask-desc">The judgment pass hides president, party, and title while showing
-paragraph text and decade. The factual speech pass shows title, year, and opening paragraphs.</desc>
-<g class="lane"><rect x="25" y="35" width="535" height="340" rx="24"/>
- <text class="lane-title" x="60" y="82">Paragraph judgment · masked</text>
- <g class="pill on"><rect x="60" y="112" width="205" height="48" rx="24"/><text x="162" y="142">paragraph text</text></g>
- <g class="pill on"><rect x="285" y="112" width="205" height="48" rx="24"/><text x="387" y="142">speech decade</text></g>
- <g class="pill off"><rect x="60" y="180" width="205" height="48" rx="24"/><text x="162" y="210">president hidden</text></g>
- <g class="pill off"><rect x="285" y="180" width="205" height="48" rx="24"/><text x="387" y="210">party hidden</text></g>
- <g class="pill off"><rect x="60" y="248" width="430" height="48" rx="24"/><text x="275" y="278">speech title hidden</text></g>
- <text class="caption" x="60" y="334">Used for topics, combat flags, proposal/values, entities</text></g>
-<g class="lane"><rect x="600" y="35" width="535" height="340" rx="24"/>
- <text class="lane-title" x="635" y="82">Speech facts · unmasked</text>
- <g class="pill on"><rect x="635" y="112" width="205" height="48" rx="24"/><text x="737" y="142">speech title</text></g>
- <g class="pill on"><rect x="860" y="112" width="205" height="48" rx="24"/><text x="962" y="142">year</text></g>
- <g class="pill on"><rect x="635" y="180" width="430" height="48" rx="24"/><text x="850" y="210">first five paragraphs</text></g>
- <text class="caption" x="635" y="274">Used for speech type, audience, and medium</text>
- <text class="caption" x="635" y="310">The title is evidence here—not a source of reputational bias.</text></g>
-</svg></div><article>
-<h2>What the annotator saw—and what it did not</h2>
-<p>The subjective paragraph pass received the paragraph text and its decade. President, party,
-and speech title were withheld. The decade allowed the rubric to judge combativeness against the
-speech's own era instead of silently imposing 2026 norms.</p><p>A second factual pass used the
-opposite policy: title, year, and the first five paragraphs were shown because those are direct
-evidence for speech type, audience, and medium. Masking a title like “Fourth Annual Message”
-would remove the best factual clue without reducing reputational bias.</p>
-<h3>The closed rubric</h3><p>Structured output allowed only the following fields and closed
-enum values. Unknown topic strings could not be invented by the model.</p>
-<div class="rubrics"><div class="rubric"><code>topics</code><p>Zero or more names from the frozen 50-topic list. No label is forced when none fits; several may apply.</p></div><div class="rubric"><code>party_attack</code><p>True only when a partisan actor is identifiable and the text imputes fault, failure, or bad motive.</p></div><div class="rubric"><code>enemy_naming</code><p>True only when a specific person, group, nation, or institution is framed as an adversary or threat.</p></div><div class="rubric"><code>zero_sum</code><p>True only when the paragraph itself frames gains as requiring another side&#x27;s loss—not merely when conflict is mentioned.</p></div><div class="rubric"><code>proposal</code><p>A concrete policy, program, law, appropriation, or course of action is urged.</p></div><div class="rubric"><code>values</code><p>Principles, identity, faith, gratitude, or civic virtue appear without a concrete policy ask.</p></div><div class="rubric"><code>mixed</code><p>A substantial concrete ask and a substantial values appeal both appear.</p></div><div class="rubric"><code>neither</code><p>Narrative, procedure, ceremony, factual reporting, or rebuttal that fits neither side.</p></div><div class="rubric"><code>entities</code><p>Specific actors are extracted with person/group/nation/institution/other and adversarial/favorable/neutral stance.</p></div></div>
-<h2>How every paragraph was labeled</h2>
-<p>Claude Sonnet 5 annotated all 36,229 paragraphs. Each request carried an exact
-count contract and the paragraph keys it had to return. Some long structured arrays stopped
-early, so incomplete speeches were never marked done: they were retried through seven rounds
-with smaller chunks until paragraph and speech coverage both reached 100%. Thirty-two speeches
-needed partial-speech chunk context; that amendment is recorded rather than hidden.</p>
-<p>The final table contains 52,133 distinct paragraph-topic pairs, or
-1.439 topics per paragraph. Labels are multi-label, so shares across topics do
-not sum to 100%. The denominator always includes the 404 paragraphs
-(1.12%) assigned no topic. Case variants are mapped to the canonical 50 names,
-and duplicate paragraph-topic pairs are removed before counting.</p>
-<h2>Quality checks and the second opinion</h2>
-<p>Coverage alone is not accuracy. A persisted, era-stratified sample of 266 speeches was read
-again by Claude Opus 4.8 using byte-identical prompts. The model was the only intended variable.
-Agreement is published field by field; no disagreement score is used to erase labels.</p>
-<div class="metrics"><div class="metric"><span>Topic sets</span><strong>67.8%</strong>
-<small>mean per-paragraph Jaccard · n=8,570</small></div><div class="metric"><span>Partisan attack</span><strong>κ 0.72</strong>
-<small>chance-corrected agreement · n=8,570</small></div><div class="metric"><span>Named adversary</span><strong>κ 0.78</strong>
-<small>chance-corrected agreement · n=8,570</small></div><div class="metric"><span>Zero-sum framing</span><strong>κ 0.49</strong>
-<small>chance-corrected agreement · n=8,570</small></div><div class="metric"><span>Proposal / values</span><strong>72.0%</strong>
-<small>exact match · n=8,570</small></div><div class="metric"><span>Speech type</span><strong>κ 0.95</strong>
-<small>chance-corrected agreement · n=266</small></div><div class="metric"><span>Entity stance</span><strong>88.1%</strong>
-<small>agreement where names matched · n=4,147</small></div></div>
-<div id="method-agreement" class="method-chart" aria-label="Agreement audit measures"></div>
-<div class="callout"><p><strong>These bars are not one league table.</strong> Topic-set
-Jaccard, binary-label κ, exact match, and matched-name stance agreement answer different
-questions. The shared 0–1 axis makes their scale visible; each tooltip retains the metric
-type.</p></div>
-<p>Those figures are reliability evidence, not human ground truth. Topic Jaccard is set overlap
-for a multi-label field; Cohen's kappa corrects categorical agreement for chance; exact match is
-used for the four-way proposal/values field. Entity-name matching is particularly strict because
-two models may choose different spans for the same actor; stance agreement is reported only on
-matched names.</p>
-<h2>How uncertainty reaches the charts</h2>
-<p>Trend bands resample whole speeches, not individual paragraphs, because paragraphs inside one
-speech are correlated. AI-topic trend bands combine that sampling interval with the measured
-half-gap between the primary and second-opinion labelers in the same reporting era. Thin periods
-are dotted; cells whose interval cannot be resolved receive a hollow ring. A point estimate may
-still be real while its uncertainty is unknown.</p>
-<h2>Where the labels appear</h2><ul><li><strong>Dashboard:</strong> AI topic trends carry sampling
-and annotator-disagreement bands.</li><li><strong>President profiles:</strong> top topics, distinctive
-topics, proposal/values mix, combat flags, genres, and named adversaries.</li><li><strong>Comparison:</strong>
-the same rates are aligned across two or three presidents.</li><li><strong>Issue pages:</strong> each
-broad legacy issue shows the finer AI topics in its crosswalk.</li><li><strong>Explorer:</strong> all
-50 AI topics can be overlaid against any word or phrase.</li></ul>
-<h2>Limitations that remain visible</h2><ul><li>The Miller Center collection is curated and not
-exhaustive; this is presidential formal speech, not every rally, interview, tweet, or private
-conversation.</li><li>The taxonomy is frozen for comparability and therefore retains known gaps,
-including no standalone education topic and no modern monetary-policy topic.</li><li>Era tags reduce
-anachronism; they do not eliminate every historically implausible assignment.</li><li>Inter-model
-agreement is not human validation. Zero-sum framing is the least stable binary flag here
-(κ 0.49), so it should be read with more caution than speech type (κ 0.95).</li>
-<li>President-level percentages are descriptive. Thin records are marked rather than promoted as
-precise estimates.</li></ul>
-<h2>The complete frozen taxonomy</h2><p>Open any domain to inspect its definition and every
-level-2 topic available to the annotator. Policy and non-policy domains are both first class.</p>
-<div class="tax-atlas"><details class="tax-domain">
+<a class="skip-link" href="#main-content">Skip to the method</a>
+<header><p class="crumbs"><a href="index.html">← Story</a> &nbsp;·&nbsp;
+<a href="data-quality.html">Data Quality</a> &nbsp;·&nbsp; <a href="era-boundaries.html">Era Choices</a></p>
+<div class="kicker">Methods · labeling and evaluation</div>
+<h1>From speech to auditable paragraph judgment</h1>
+<p class="sub">Every label can be traced to a semantic key, a frozen prompt, a model run,
+and a declared population. A second model tests reproducibility—not truth—and human validity
+remains an explicit open question.</p><div class="stat-grid">
+<div class="stat"><strong>36,229</strong><span>primary paragraph judgments completed</span></div>
+<div class="stat"><strong>8,570</strong><span>paired judgments available for evaluation</span></div>
+<div class="stat"><strong>50</strong><span>frozen fine-grained topics</span></div>
+<div class="stat"><strong>52,133</strong><span>normalized, distinct topic assignments</span></div>
+<div class="stat"><strong>47.6%</strong><span>strict entity-name reproducibility</span></div>
+</div></header>
+<nav class="methods-local-nav" aria-label="Methods sections"><ul><li class="methods-scroll-cue" aria-hidden="true">More sections →</li><li><a href="methodology.html#overview" aria-current="page">Overview</a></li><li><a href="methodology.html#labeling">Labeling</a></li><li><a href="methodology.html#evaluation">Evaluation</a></li><li><a href="methodology.html#populations">Populations</a></li><li><a href="label-models.html">Model Comparison</a></li><li><a href="metrics.html">Metric Dictionary</a></li><li><a href="methodology.html#downloads">Downloads</a></li></ul></nav>
+<main id="main-content">
+<section class="method-section" id="overview"><h2>The 30-second trust verdict</h2>
+<div class="verdict-grid"><div class="verdict"><span>What is strong</span><h3>Failures are designed to be visible</h3>
+<p>Exact semantic keys, one-to-one join validation, frozen paid artifacts, prompt hashes,
+corpus fingerprints, complete denominators, and speech-level uncertainty make silent drift harder.</p></div>
+<div class="verdict"><span>What the audit supports</span><h3>Reproducibility varies by field</h3>
+<p>The second model tests sensitivity to model choice under the same prompt. Topic overlap is
+set-based; binary judgments use κ; closed categories use exact agreement.</p></div>
+<div class="verdict"><span>What it does not support</span><h3>No human accuracy claim</h3>
+<p>Related models can share biases. Agreement cannot establish correctness, historical validity,
+or a causal interpretation, and disagreement is never erased from the record.</p></div>
+<div class="verdict"><span>Where caution is highest</span><h3>Zero-sum and entity detection</h3>
+<p>Zero-sum reproducibility is κ 0.49. Entity matching is strict and should be
+separated from stance agreement after a name has matched.</p></div></div>
+<figure class="pipeline-figure" data-substantive-chart
+ data-metric="annotation_pipeline_lineage"
+ data-evidence="data/llm_annotations/manifests/*.json"
+ aria-labelledby="pipeline-title"><figcaption id="pipeline-title"><strong>The labeling pipeline</strong>
+<span>A responsive HTML flow keeps every stage readable on a phone and without JavaScript.
+<a href="metrics.html#annotation_pipeline_lineage">Define pipeline lineage.</a></span></figcaption>
+<ol class="pipeline"><li><span>1</span><strong>Corpus</strong><small>1,057 source speeches</small></li><li><span>2</span><strong>Segmentation</strong><small>36,229 keyed paragraphs</small></li><li><span>3</span><strong>Discovery</strong><small>Embeddings + seeded paragraph clusters</small></li><li><span>4</span><strong>Sampling</strong><small>Historically isolated proposal bins</small></li><li><span>5</span><strong>Freeze</strong><small>17 domains + 50 topics</small></li><li><span>6</span><strong>Judgment</strong><small>Consecutive paragraph chunk + decade; identity masked</small></li><li><span>7</span><strong>Normalize</strong><small>Canonical names + duplicate removal</small></li><li><span>8</span><strong>Audit</strong><small>Persisted second-model sample</small></li></ol></figure></section>
+
+<section class="method-section" id="labeling"><h2>Follow one paragraph through the system</h2>
+<p>The easiest way to understand the pipeline is to watch evidence disappear, a constrained
+judgment appear, and provenance return only after inference.</p><figure class="worked-example" data-substantive-chart
+ data-metric="annotation_evidence_visibility paragraph_share"
+ data-evidence="data/paragraphs.parquet + data/llm_annotations/paragraph_annotations.parquet"
+ aria-labelledby="worked-title"><figcaption id="worked-title"><strong>One paragraph, end to end</strong>
+<span>The identity reveal happens after the model judgment, not before it.
+<a href="metrics.html#annotation_evidence_visibility">Define evidence visibility.</a></span></figcaption>
+<div class="worked-flow"><div class="worked-step"><span class="step-label">1 · Source evidence</span>
+<blockquote>It is in accordance with this principle that we have enacted laws for the protection of the public health and have adopted prohibition in narcotic drugs and intoxicating liquors. For purposes of national uniformity we ought to provide, by constitutional amendment and appropriate legislation, for a limitation of child labor, and in all cases under the exclusive jurisdiction of the Federal Government a minimum wage law for women, which would undoubtedly find sufficient power of enforcement in the influence of public opinion.</blockquote></div>
+<div class="worked-step"><span class="step-label">2 · Masked request</span>
+<p><strong>Actual request unit:</strong> one unchunked request for this speech;
+56 consecutive analytical paragraphs with para_idx
+<code>0–55</code>, plus 1920s context.</p>
+<p><strong>Withheld:</strong> president, party, title, URL, and existing labels.</p>
+<p>Adjacent-context excerpts (the complete indexed text was submitted):</p>
+<ol class="request-context"><li><strong>para_idx 35 · adjacent context</strong><span>INSULAR POSSESSIONS Conditions in the insular possessions on the whole have been good. Their business has been reviving. They are being administered according to law. That effort has the full support of the administration. Such recommendat…</span></li><li><strong>para_idx 36 · target</strong><span>It is in accordance with this principle that we have enacted laws for the protection of the public health and have adopted prohibition in narcotic drugs and intoxicating liquors. For purposes of national uniformity we ought to provide, by…</span></li><li><strong>para_idx 37 · adjacent context</strong><span>Having in mind that education is peculiarly a local problem, and that it should always be pursued with the largest freedom of choice by students and parents, nevertheless, the Federal Government might well give the benefit of its counsel a…</span></li></ol></div>
+<div class="worked-step"><span class="step-label">3 · Structured output</span>
+<dl><div><dt>Topics</dt><dd>Labor, Wages &amp; Working Conditions, Welfare, Poverty &amp; Economic Opportunity</dd></div>
+<div><dt>Proposal / values</dt><dd>proposal</dd></div>
+<div><dt>Partisan attack</dt><dd>false</dd></div>
+<div><dt>Named adversary</dt><dd>false</dd></div>
+<div><dt>Zero-sum framing</dt><dd>false</dd></div></dl></div>
+<div class="worked-step"><span class="step-label">4 · Normalization</span>
+<p>Topic names are case-normalized against the frozen taxonomy and deduplicated within the paragraph.</p>
+<p><strong>Canonical set:</strong> Labor, Wages &amp; Working Conditions, Welfare, Poverty &amp; Economic Opportunity</p></div>
+<div class="worked-step"><span class="step-label">5 · Semantic key + receipt</span>
+<p><code>(doc_name, para_idx)</code><br><code>/the-presidency/presidential-speeches/december-6-1923-first-annual-message</code>,
+<code>36</code></p><p>Calvin Coolidge,
+“December 6, 1923: First Annual Message” (1923).</p>
+<p><strong>Run:</strong> <code>judgment-full-20260720</code><br>
+<strong>Model:</strong> claude-sonnet-5<br>
+<strong>Prompt hash:</strong> <code>paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe</code></p></div>
+<div class="worked-step"><span class="step-label">6 · Downstream chart</span>
+<p>This keyed paragraph contributes one denominator record and one numerator record for each
+canonical topic on every consuming topic-share chart.</p><p><a href="metrics.html#paragraph_share">Define paragraph share</a> ·
+<a href="index.html">See the Story</a></p></div></div></figure>
+<figure class="masking-figure" data-substantive-chart
+ data-metric="annotation_evidence_visibility"
+ data-evidence="data/llm_annotations/manifests/*.json + prompt hashes"
+ aria-labelledby="masking-title"><figcaption id="masking-title"><strong>Two passes, two evidence policies</strong>
+<span>Evidence is removed only when it could bias the requested judgment.
+<a href="metrics.html#annotation_evidence_visibility">Define evidence visibility.</a></span></figcaption>
+<div class="masking-grid"><section><h3>Paragraph judgment · masked</h3>
+<ul><li class="visible">Several consecutive paragraphs from one speech</li><li class="visible">Speech decade</li>
+<li class="hidden">President hidden</li><li class="hidden">Party hidden</li>
+<li class="hidden">Speech title hidden</li></ul><p>Used for topics, combat flags,
+proposal/values, and entities.</p></section><section><h3>Speech facts · unmasked</h3>
+<ul><li class="visible">Speech title</li><li class="visible">Year</li>
+<li class="visible">First five paragraphs</li></ul><p>Used for speech type, audience,
+and medium. The title is direct evidence for this factual task.</p></section></div></figure>
+<h3>Why the paragraph is the unit</h3><p>A speech can change subjects, move from policy to ceremony,
+or name an adversary once. Paragraph units keep those transitions visible. Every paragraph join uses
+<code>(doc_name, para_idx)</code>; row position is never identity.</p>
+<details class="deep-section"><summary>How the 50-topic taxonomy was discovered and frozen</summary><div>
+<ol><li><strong>Find blind spots.</strong> Paragraphs missed by the anchored issue layer were
+deliberately oversampled; the frozen run receipt records the source population.</li>
+<li><strong>Cluster before naming.</strong> Normalized embeddings and a seeded clustering pass
+supplied evidence; clusters were not treated as final topics.</li>
+<li><strong>Use isolated historical samples.</strong> Fixed historical proposal bins prevented an
+early-period proposal from borrowing modern topic vocabulary.</li>
+<li><strong>Merge once, then freeze.</strong> The proposals became 17 domains and
+50 topics plus a declared crosswalk to the legacy issues.</li>
+<li><strong>Test labelability on held-out text.</strong> A separate held-out set exceeded its
+pre-registered coverage gate. That establishes rubric coverage, not semantic correctness; the exact
+sample size, split, and result remain in the frozen taxonomy receipt.</li></ol>
+<p>The taxonomy run used claude-opus-4-8 (+ claude-sonnet-5 for coverage), 22 recorded API
+requests, and $2.4404 in usage-derived cost.</p></div></details>
+<details class="deep-section"><summary>Inspect the closed judgment rubric</summary><div>
+<p>The structured response accepted only declared fields and enum values. Unknown topic strings
+could not be invented.</p><div class="rubrics"><div class="rubric"><code>topics</code><p>Zero or more names from the frozen topic list. No label is forced; several may apply.</p></div><div class="rubric"><code>party_attack</code><p>True only when an identifiable partisan actor is assigned fault, failure, or bad motive.</p></div><div class="rubric"><code>enemy_naming</code><p>True only when a specific person, group, nation, or institution is framed as an adversary or threat.</p></div><div class="rubric"><code>zero_sum</code><p>True only when the paragraph says one side’s gain requires another side’s loss—not merely when conflict appears.</p></div><div class="rubric"><code>proposal</code><p>A concrete policy, program, law, appropriation, or course of action is urged.</p></div><div class="rubric"><code>values</code><p>Principles, identity, faith, gratitude, or civic virtue appear without a concrete policy ask.</p></div><div class="rubric"><code>mixed</code><p>A substantial concrete ask and a substantial values appeal both appear.</p></div><div class="rubric"><code>neither</code><p>Narrative, procedure, ceremony, factual reporting, or rebuttal that fits neither side.</p></div><div class="rubric"><code>entities</code><p>Specific actors are extracted with a type and adversarial, favorable, or neutral stance.</p></div></div></div></details>
+<details class="deep-section"><summary>Inspect the complete frozen taxonomy</summary><div>
+<p>The 17 domains include policy and non-policy language. Open a domain to see every available
+topic and its frozen definition.</p><div class="tax-atlas"><details class="tax-domain">
 <summary><span>Foreign Relations &amp; Diplomacy</span><span class="tax-kind">policy · 8 topics</span></summary>
 <p>Conduct of relations with other nations: treaties, diplomacy, neutrality, alliances, hemispheric and great-power policy, foreign aid, and international organizations.</p><ul><li><strong>Neutral Rights &amp; Maritime Depredations</strong>
   <span>Protests against violations of American neutral commerce and the impressment of seamen by European belligerents during the era of the Napoleonic wars.</span></li><li><strong>Treaties, Diplomacy &amp; International Arbitration</strong>
@@ -401,7 +472,7 @@ level-2 topic available to the annotator. Policy and non-policy domains are both
   <span>Federal action to end racial denial of the vote and secure equal rights, combat discrimination, and include the disabled and minorities in American life.</span></li><li><strong>Immigration &amp; Border Security</strong>
   <span>Welcoming or restricting immigrants, border walls and enforcement, deportation and detention, and framing immigration as a security concern.</span></li></ul></details>
 <details class="tax-domain">
-<summary><span>Indian &amp; Tribal Affairs</span><span class="tax-kind">policy · 1 topics</span></summary>
+<summary><span>Indian &amp; Tribal Affairs</span><span class="tax-kind">policy · 1 topic</span></summary>
 <p>Relations with Indian tribes: treaties, hostilities, removal, reservations, allotment, and efforts at assimilation.</p><ul><li><strong>Indian Affairs, Removal &amp; Allotment</strong>
   <span>Relations with Indian tribes: frontier hostilities and treaties, efforts to &#x27;civilize&#x27; them, removal beyond the states, reservation policy, and allotment of lands in severalty.</span></li></ul></details>
 <details class="tax-domain">
@@ -418,7 +489,7 @@ level-2 topic available to the annotator. Policy and non-policy domains are both
   <span>Establishing governments for new territories, fixing boundaries and admitting states, and administering overseas dependencies such as the Philippines, Cuba, and Puerto Rico.</span></li><li><strong>Elections &amp; Voting Integrity</strong>
   <span>Federal supervision of elections and enforcement laws, disputed vote-counting, and modern controversies over voting rights and ballot integrity.</span></li></ul></details>
 <details class="tax-domain">
-<summary><span>Ceremonial &amp; Commemorative Address</span><span class="tax-kind">non-policy · 1 topics</span></summary>
+<summary><span>Ceremonial &amp; Commemorative Address</span><span class="tax-kind">non-policy · 1 topic</span></summary>
 <p>Non-policy ceremonial speech: eulogies, tributes to founders and heroes, anniversary commemorations, and national mourning.</p><ul><li><strong>Commemoration, Eulogy &amp; National Mourning</strong>
   <span>Ceremonial tributes to founders and heroes, eulogies for departed statesmen, anniversary commemorations, and consoling the nation in mourning.</span></li></ul></details>
 <details class="tax-domain">
@@ -427,44 +498,189 @@ level-2 topic available to the annotator. Policy and non-policy domains are both
   <span>The chief executive&#x27;s diffidence about his qualifications, gratitude for public trust, and reflection on entering or leaving the office.</span></li><li><strong>Personal Narrative, Storytelling &amp; Boasting</strong>
   <span>Autobiographical accounts of humble origins and family, anecdotes and humor, and self-congratulatory boasting of achievements.</span></li></ul></details>
 <details class="tax-domain">
-<summary><span>Procedural &amp; Administrative</span><span class="tax-kind">non-policy · 1 topics</span></summary>
+<summary><span>Procedural &amp; Administrative</span><span class="tax-kind">non-policy · 1 topic</span></summary>
 <p>Non-policy housekeeping: routine departmental reports, postal operations, and the mechanics of executive-legislative business.</p><ul><li><strong>Executive Departments, Postal &amp; Administrative Housekeeping</strong>
   <span>Routine departmental reports, statistics, and recommendations, the operation of the Post Office, and other administrative housekeeping of the executive branch.</span></li></ul></details>
 <details class="tax-domain">
-<summary><span>Faith &amp; National Values</span><span class="tax-kind">non-policy · 1 topics</span></summary>
+<summary><span>Faith &amp; National Values</span><span class="tax-kind">non-policy · 1 topic</span></summary>
 <p>Non-policy appeals to Providence, faith, patriotism, civic ideals, and the shared moral character of the nation.</p><ul><li><strong>Providence, Faith &amp; American Ideals</strong>
   <span>Invocations of Almighty God and Providence, calls for prayer and thanksgiving, and appeals to patriotism, civic ideals, and the shared moral character of the nation.</span></li></ul></details>
 <details class="tax-domain">
-<summary><span>Partisan &amp; Media Combat</span><span class="tax-kind">non-policy · 1 topics</span></summary>
+<summary><span>Partisan &amp; Media Combat</span><span class="tax-kind">non-policy · 1 topic</span></summary>
 <p>Non-policy political combat: attacks on opponents and parties, campaign debate, press-conference exchanges, and clashes with the media.</p><ul><li><strong>Partisan Combat, Press Conferences &amp; Media Attacks</strong>
-  <span>Attacks on opponents and parties, campaign debate and defense of one&#x27;s record, the give-and-take of televised news conferences, and clashes with the press.</span></li></ul></details></div>
-<h2>Provenance</h2><table class="method-table"><thead><tr><th>Stage</th><th>Models</th><th>Requests</th><th>Actual recorded cost</th></tr></thead><tbody>
-<tr><td>Taxonomy + crosswalk</td><td>claude-opus-4-8 (+ claude-sonnet-5 for coverage)</td><td>22</td><td>$2.4404</td></tr>
-<tr><td>Primary full annotation and convergence</td><td>claude-sonnet-5</td><td>2,580</td><td>$38.0947</td></tr>
-<tr><td>Second-opinion sample</td><td>claude-opus-4-8</td><td>618</td><td>$30.5211</td></tr>
-</tbody></table><p>Every output row carries a <code>run_id</code> that points to a manifest with
-model, prompt version and hash, batch ID, tokens, cost, and corpus fingerprint. The frozen paid
-artifacts are read-only inputs to this site build.</p>
-</article></main><footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public
-Affairs, University of Virginia</a>. Source code and full research notes:
+  <span>Attacks on opponents and parties, campaign debate and defense of one&#x27;s record, the give-and-take of televised news conferences, and clashes with the press.</span></li></ul></details></div></div></details>
+<figure class="evidence-figure" data-substantive-chart
+ data-metric="coarse_pos_share" data-evidence="data/grammar/era_pos.csv + data/grammar/manifest.json"
+ aria-labelledby="grammar-title"><figcaption id="grammar-title"><strong>Feature-engineering appendix · coarse parts of speech</strong>
+<span>A descriptive tagger check, not an evaluation of syntactic complexity.
+<a href="metrics.html#coarse_pos_share">Define coarse POS share.</a></span></figcaption>
+<div class="table-scroll" role="region" aria-label="Coarse parts of speech by reporting era" tabindex="0"><table><thead><tr><th>Reporting era</th><th>Common nouns</th><th>Proper nouns</th><th>Verbs</th><th>Pronouns</th><th>Adjectives</th></tr></thead>
+<tbody><tr><th scope="row">Establishing the republic</th><td>20.87%</td><td>3.75%</td><td>10.74%</td><td>7.77%</td><td>7.97%</td></tr><tr><th scope="row">The continental republic</th><td>20.51%</td><td>4.49%</td><td>10.06%</td><td>5.93%</td><td>8.12%</td></tr><tr><th scope="row">Sectional crisis &amp; constitutional rupture</th><td>19.54%</td><td>5.85%</td><td>10.28%</td><td>6.16%</td><td>7.88%</td></tr><tr><th scope="row">Administrative-industrial order</th><td>22.17%</td><td>5.32%</td><td>9.68%</td><td>4.74%</td><td>8.59%</td></tr><tr><th scope="row">Reform, world war &amp; collapse</th><td>22.60%</td><td>3.60%</td><td>10.08%</td><td>7.40%</td><td>8.81%</td></tr><tr><th scope="row">New Deal, world war &amp; settlement</th><td>21.03%</td><td>4.76%</td><td>10.41%</td><td>8.64%</td><td>8.38%</td></tr><tr><th scope="row">Mature Cold War</th><td>20.21%</td><td>5.78%</td><td>10.98%</td><td>9.88%</td><td>8.08%</td></tr><tr><th scope="row">Conservative turn &amp; always-on presidency</th><td>20.85%</td><td>5.27%</td><td>12.62%</td><td>11.18%</td><td>7.66%</td></tr><tr><th scope="row">Platform-era intensification</th><td>17.88%</td><td>6.02%</td><td>13.34%</td><td>13.79%</td><td>7.14%</td></tr></tbody></table></div><p class="figure-note">Tagged locally with
+<code>en_core_web_sm</code> 3.8.0 under
+spaCy 3.8.14. Historical spelling, OCR, quotation, and genre
+can change tag distributions. The manifest pins source and artifact hashes; stale caches fail closed.</p></figure></section>
+
+<section class="method-section" id="evaluation"><h2>Evaluation asks five different questions</h2>
+<ol><li><strong>Annotation processing completeness:</strong> did the primary pipeline return one valid row for
+every expected key?</li><li><strong>Taxonomy labelability:</strong> could held-out text be expressed
+with the frozen topic vocabulary?</li><li><strong>Paired-evaluation availability:</strong> how much of
+the persisted second-model sample has both judgments?</li><li><strong>Cross-model reproducibility:</strong>
+do two models make the same rubric decisions under byte-identical prompts?</li>
+<li><strong>Human validity:</strong> do blinded people applying the rubric agree with one another and
+with the models? This has not yet been measured.</li></ol>
+<div class="callout"><p><strong>Important:</strong> the second model does not reveal where the first
+model is “uncertain.” It measures labeler sensitivity to model choice within a related model family.
+Shared training data and shared prompt interpretation can make both models wrong in the same way.</p></div>
+<figure class="evidence-figure" data-substantive-chart
+ data-metric="intermodel_agreement_overall" data-evidence="data/quality/agreement_by_field_and_era.csv"
+ aria-labelledby="agreement-overall-title">
+<figcaption id="agreement-overall-title"><strong>One audit, several non-interchangeable measures</strong>
+<span>Metric families are separated so bar height cannot masquerade as a league table.
+<a href="metrics.html#intermodel_agreement_overall">Define overall cross-model reproducibility.</a></span></figcaption>
+<section class="metric-family"><h3>Set overlap</h3><p>Which topics did both models select for the same paragraph?</p><div class="evaluation-grid"><div class="evaluation-card"><p class="metric-name">Topic sets</p><strong>70.4%</strong><span><a href="metrics.html#jaccard">mean Jaccard</a></span><small>95% speech-clustered interval 68.8%–72.1% · n=8,570</small></div></div></section><section class="metric-family"><h3>Binary judgments</h3><p>Do the two models reproduce the same yes/no rubric decisions after chance correction?</p><div class="evaluation-grid"><div class="evaluation-card"><p class="metric-name">Partisan attack</p><strong>κ 0.72</strong><span><a href="metrics.html#kappa">Cohen’s κ</a></span><small>95% speech-clustered interval 0.62–0.77 · n=8,570</small><small>Primary positive 5.8%; second-model positive 3.9%</small></div><div class="evaluation-card"><p class="metric-name">Named adversary</p><strong>κ 0.78</strong><span><a href="metrics.html#kappa">Cohen’s κ</a></span><small>95% speech-clustered interval 0.75–0.81 · n=8,570</small><small>Primary positive 21.5%; second-model positive 17.1%</small></div><div class="evaluation-card"><p class="metric-name">Zero-sum framing</p><strong>κ 0.49</strong><span><a href="metrics.html#kappa">Cohen’s κ</a></span><small>95% speech-clustered interval 0.41–0.56 · n=8,570</small><small>Primary positive 8.1%; second-model positive 3.5%</small></div></div></section><section class="metric-family"><h3>Closed categories</h3><p>Do they choose the identical category when exactly one is required?</p><div class="evaluation-grid"><div class="evaluation-card"><p class="metric-name">Proposal / values</p><strong>72.0%</strong><span><a href="metrics.html#exact_agreement">exact agreement</a></span><small>95% speech-clustered interval 69.9%–74.1% · n=8,570</small></div><div class="evaluation-card"><p class="metric-name">Speech type</p><strong>96.2%</strong><span><a href="metrics.html#exact_agreement">exact agreement</a></span><small>95% speech-clustered interval 94.0%–98.5% · n=266</small></div><div class="evaluation-card"><p class="metric-name">Audience</p><strong>96.6%</strong><span><a href="metrics.html#exact_agreement">exact agreement</a></span><small>95% speech-clustered interval 94.4%–98.5% · n=266</small></div><div class="evaluation-card"><p class="metric-name">Medium</p><strong>86.5%</strong><span><a href="metrics.html#exact_agreement">exact agreement</a></span><small>95% speech-clustered interval 82.7%–90.6% · n=266</small></div></div></section>
+<details class="evidence-table"><summary>Exact values and interval status</summary>
+<div class="table-scroll" role="region" aria-label="Exact cross-model agreement values" tabindex="0"><table><thead><tr><th>Field</th><th>Measure</th><th>Estimate</th>
+<th>Support</th><th>Uncertainty</th></tr></thead><tbody><tr><th scope="row">Topic sets</th><td><a href="metrics.html#jaccard">mean Jaccard</a></td><td>70.4%</td><td>8,570</td><td>95% speech-clustered interval 68.8%–72.1%</td></tr><tr><th scope="row">Partisan attack</th><td><a href="metrics.html#kappa">Cohen’s κ</a></td><td>κ 0.72</td><td>8,570</td><td>95% speech-clustered interval 0.62–0.77</td></tr><tr><th scope="row">Named adversary</th><td><a href="metrics.html#kappa">Cohen’s κ</a></td><td>κ 0.78</td><td>8,570</td><td>95% speech-clustered interval 0.75–0.81</td></tr><tr><th scope="row">Zero-sum framing</th><td><a href="metrics.html#kappa">Cohen’s κ</a></td><td>κ 0.49</td><td>8,570</td><td>95% speech-clustered interval 0.41–0.56</td></tr><tr><th scope="row">Proposal / values</th><td><a href="metrics.html#exact_agreement">exact agreement</a></td><td>72.0%</td><td>8,570</td><td>95% speech-clustered interval 69.9%–74.1%</td></tr><tr><th scope="row">Speech type</th><td><a href="metrics.html#exact_agreement">exact agreement</a></td><td>96.2%</td><td>266</td><td>95% speech-clustered interval 94.0%–98.5%</td></tr><tr><th scope="row">Audience</th><td><a href="metrics.html#exact_agreement">exact agreement</a></td><td>96.6%</td><td>266</td><td>95% speech-clustered interval 94.4%–98.5%</td></tr><tr><th scope="row">Medium</th><td><a href="metrics.html#exact_agreement">exact agreement</a></td><td>86.5%</td><td>266</td><td>95% speech-clustered interval 82.7%–90.6%</td></tr></tbody></table></div>
+</details></figure>
+<figure class="evidence-figure" data-substantive-chart data-metric="intermodel_agreement_by_story_era" data-evidence="data/quality/agreement_by_field_and_era.csv"
+ aria-labelledby="agreement-era-title">
+<figcaption id="agreement-era-title"><strong>Reproducibility across governed Story eras · era × field heatmap</strong><span>Rows use all 9 chronological era definitions available in the Story-era evidence. <a href="metrics.html#intermodel_agreement_by_story_era">Define era-sliced reproducibility.</a></span></figcaption>
+<div class="table-scroll" role="region" aria-label="Cross-model agreement by era and field" tabindex="0"><table class="era-matrix"><thead><tr><th scope="col">Story era</th>
+<th scope="col">Topic sets<br><small><a href="metrics.html#jaccard">mean Jaccard</a></small></th><th scope="col">Partisan attack<br><small><a href="metrics.html#kappa">Cohen’s κ</a></small></th><th scope="col">Named adversary<br><small><a href="metrics.html#kappa">Cohen’s κ</a></small></th><th scope="col">Zero-sum framing<br><small><a href="metrics.html#kappa">Cohen’s κ</a></small></th><th scope="col">Proposal / values<br><small><a href="metrics.html#exact_agreement">exact agreement</a></small></th></tr></thead><tbody><tr><th scope="row">Establishing the republic</th><td class="agreement-cell" style="--agreement:74.623%"><strong>74.6%</strong><small>n=177</small><small>95% speech-clustered interval 65.6%–82.3%</small></td><td class="agreement-cell" style="--agreement:100.000%"><strong>not estimable</strong><small>n=177</small><small>Primary positive 0.0%; second-model positive 0.0%</small><small>Interval unavailable: point estimate is degenerate</small></td><td class="agreement-cell" style="--agreement:75.297%"><strong>κ 0.75</strong><small>n=177</small><small>Primary positive 11.3%; second-model positive 9.0%</small><small>95% speech-clustered interval 0.56–0.88</small></td><td class="agreement-cell" style="--agreement:24.251%"><strong>κ 0.24</strong><small>n=177</small><small>Primary positive 4.0%; second-model positive 0.6%</small><small>95% speech-clustered interval 0.00–0.72</small></td><td class="agreement-cell" style="--agreement:64.972%"><strong>65.0%</strong><small>n=177</small><small>95% speech-clustered interval 49.4%–77.1%</small></td></tr><tr><th scope="row">The continental republic</th><td class="agreement-cell" style="--agreement:76.494%"><strong>76.5%</strong><small>n=1,043</small><small>95% speech-clustered interval 71.5%–81.4%</small></td><td class="agreement-cell" style="--agreement:0.000%"><strong>κ 0.00</strong><small>n=1,043</small><small>Primary positive 1.5%; second-model positive 0.0%</small><small>95% speech-clustered interval 0.00–0.00</small></td><td class="agreement-cell" style="--agreement:70.307%"><strong>κ 0.70</strong><small>n=1,043</small><small>Primary positive 19.0%; second-model positive 12.1%</small><small>95% speech-clustered interval 0.60–0.77</small></td><td class="agreement-cell" style="--agreement:27.690%"><strong>κ 0.28</strong><small>n=1,043</small><small>Primary positive 4.8%; second-model positive 1.2%</small><small>95% speech-clustered interval 0.13–0.42</small></td><td class="agreement-cell" style="--agreement:73.921%"><strong>73.9%</strong><small>n=1,043</small><small>95% speech-clustered interval 66.1%–79.2%</small></td></tr><tr><th scope="row">Sectional crisis &amp; constitutional rupture</th><td class="agreement-cell" style="--agreement:70.132%"><strong>70.1%</strong><small>n=744</small><small>95% speech-clustered interval 65.2%–76.2%</small></td><td class="agreement-cell" style="--agreement:55.646%"><strong>κ 0.56</strong><small>n=744</small><small>Primary positive 5.0%; second-model positive 2.6%</small><small>95% speech-clustered interval 0.00–0.84</small></td><td class="agreement-cell" style="--agreement:71.504%"><strong>κ 0.72</strong><small>n=744</small><small>Primary positive 22.6%; second-model positive 15.6%</small><small>95% speech-clustered interval 0.59–0.80</small></td><td class="agreement-cell" style="--agreement:52.830%"><strong>κ 0.53</strong><small>n=744</small><small>Primary positive 6.3%; second-model positive 2.6%</small><small>95% speech-clustered interval 0.22–0.73</small></td><td class="agreement-cell" style="--agreement:80.242%"><strong>80.2%</strong><small>n=744</small><small>95% speech-clustered interval 73.2%–86.7%</small></td></tr><tr><th scope="row">Administrative-industrial order</th><td class="agreement-cell" style="--agreement:73.171%"><strong>73.2%</strong><small>n=1,677</small><small>95% speech-clustered interval 69.4%–76.1%</small></td><td class="agreement-cell" style="--agreement:64.957%"><strong>κ 0.65</strong><small>n=1,677</small><small>Primary positive 2.2%; second-model positive 1.3%</small><small>95% speech-clustered interval -0.00–0.83</small></td><td class="agreement-cell" style="--agreement:56.482%"><strong>κ 0.56</strong><small>n=1,677</small><small>Primary positive 10.4%; second-model positive 4.9%</small><small>95% speech-clustered interval 0.36–0.73</small></td><td class="agreement-cell" style="--agreement:38.438%"><strong>κ 0.38</strong><small>n=1,677</small><small>Primary positive 3.7%; second-model positive 1.1%</small><small>95% speech-clustered interval 0.06–0.59</small></td><td class="agreement-cell" style="--agreement:76.148%"><strong>76.1%</strong><small>n=1,677</small><small>95% speech-clustered interval 71.0%–79.2%</small></td></tr><tr><th scope="row">Reform, world war &amp; collapse</th><td class="agreement-cell" style="--agreement:63.215%"><strong>63.2%</strong><small>n=591</small><small>95% speech-clustered interval 54.6%–69.9%</small></td><td class="agreement-cell" style="--agreement:83.489%"><strong>κ 0.83</strong><small>n=591</small><small>Primary positive 5.9%; second-model positive 4.9%</small><small>95% speech-clustered interval -0.00–0.91</small></td><td class="agreement-cell" style="--agreement:79.580%"><strong>κ 0.80</strong><small>n=591</small><small>Primary positive 12.7%; second-model positive 9.6%</small><small>95% speech-clustered interval 0.54–0.89</small></td><td class="agreement-cell" style="--agreement:29.967%"><strong>κ 0.30</strong><small>n=591</small><small>Primary positive 3.7%; second-model positive 0.7%</small><small>95% speech-clustered interval 0.00–0.54</small></td><td class="agreement-cell" style="--agreement:68.697%"><strong>68.7%</strong><small>n=591</small><small>95% speech-clustered interval 63.7%–74.5%</small></td></tr><tr><th scope="row">New Deal, world war &amp; settlement</th><td class="agreement-cell" style="--agreement:65.320%"><strong>65.3%</strong><small>n=333</small><small>95% speech-clustered interval 59.4%–72.3%</small></td><td class="agreement-cell" style="--agreement:58.876%"><strong>κ 0.59</strong><small>n=333</small><small>Primary positive 3.9%; second-model positive 2.1%</small><small>95% speech-clustered interval 0.00–0.92</small></td><td class="agreement-cell" style="--agreement:87.389%"><strong>κ 0.87</strong><small>n=333</small><small>Primary positive 52.6%; second-model positive 49.8%</small><small>95% speech-clustered interval 0.80–0.92</small></td><td class="agreement-cell" style="--agreement:58.482%"><strong>κ 0.58</strong><small>n=333</small><small>Primary positive 26.7%; second-model positive 15.6%</small><small>95% speech-clustered interval 0.34–0.72</small></td><td class="agreement-cell" style="--agreement:66.066%"><strong>66.1%</strong><small>n=333</small><small>95% speech-clustered interval 57.5%–74.2%</small></td></tr><tr><th scope="row">Mature Cold War</th><td class="agreement-cell" style="--agreement:69.828%"><strong>69.8%</strong><small>n=1,349</small><small>95% speech-clustered interval 67.1%–72.7%</small></td><td class="agreement-cell" style="--agreement:75.338%"><strong>κ 0.75</strong><small>n=1,349</small><small>Primary positive 7.6%; second-model positive 6.6%</small><small>95% speech-clustered interval 0.46–0.79</small></td><td class="agreement-cell" style="--agreement:78.935%"><strong>κ 0.79</strong><small>n=1,349</small><small>Primary positive 21.6%; second-model positive 18.4%</small><small>95% speech-clustered interval 0.73–0.83</small></td><td class="agreement-cell" style="--agreement:44.024%"><strong>κ 0.44</strong><small>n=1,349</small><small>Primary positive 7.4%; second-model positive 3.1%</small><small>95% speech-clustered interval 0.32–0.54</small></td><td class="agreement-cell" style="--agreement:69.533%"><strong>69.5%</strong><small>n=1,349</small><small>95% speech-clustered interval 64.6%–74.1%</small></td></tr><tr><th scope="row">Conservative turn &amp; always-on presidency</th><td class="agreement-cell" style="--agreement:67.280%"><strong>67.3%</strong><small>n=1,592</small><small>95% speech-clustered interval 63.6%–70.9%</small></td><td class="agreement-cell" style="--agreement:49.815%"><strong>κ 0.50</strong><small>n=1,592</small><small>Primary positive 2.8%; second-model positive 1.4%</small><small>95% speech-clustered interval 0.21–0.68</small></td><td class="agreement-cell" style="--agreement:76.834%"><strong>κ 0.77</strong><small>n=1,592</small><small>Primary positive 19.3%; second-model positive 15.8%</small><small>95% speech-clustered interval 0.70–0.82</small></td><td class="agreement-cell" style="--agreement:31.881%"><strong>κ 0.32</strong><small>n=1,592</small><small>Primary positive 5.8%; second-model positive 1.9%</small><small>95% speech-clustered interval 0.16–0.46</small></td><td class="agreement-cell" style="--agreement:73.241%"><strong>73.2%</strong><small>n=1,592</small><small>95% speech-clustered interval 69.6%–76.9%</small></td></tr><tr><th scope="row">Platform-era intensification</th><td class="agreement-cell" style="--agreement:70.880%"><strong>70.9%</strong><small>n=1,064</small><small>95% speech-clustered interval 67.4%–74.6%</small></td><td class="agreement-cell" style="--agreement:76.608%"><strong>κ 0.77</strong><small>n=1,064</small><small>Primary positive 19.5%; second-model positive 14.2%</small><small>95% speech-clustered interval 0.65–0.84</small></td><td class="agreement-cell" style="--agreement:82.491%"><strong>κ 0.82</strong><small>n=1,064</small><small>Primary positive 40.9%; second-model positive 37.8%</small><small>95% speech-clustered interval 0.76–0.88</small></td><td class="agreement-cell" style="--agreement:55.468%"><strong>κ 0.55</strong><small>n=1,064</small><small>Primary positive 20.9%; second-model positive 11.3%</small><small>95% speech-clustered interval 0.39–0.67</small></td><td class="agreement-cell" style="--agreement:64.192%"><strong>64.2%</strong><small>n=1,064</small><small>95% speech-clustered interval 59.7%–69.2%</small></td></tr></tbody></table></div>
+</figure>
+<figure class="evidence-figure entity-funnel" data-substantive-chart
+ data-metric="entity_name_and_stance_reproducibility" data-evidence="data/quality/agreement_by_field_and_era.csv"
+ aria-labelledby="entity-funnel-title"><figcaption id="entity-funnel-title">
+<strong>Entity reliability has two separate gates</strong>
+<span>Finding the same normalized name is harder than judging stance after a name matches.
+<a href="metrics.html#entity_name_and_stance_reproducibility">Define the two-stage measure.</a></span></figcaption>
+<ol><li><span>Candidate union</span><strong>8,704</strong><small>normalized name instances produced by either model</small></li>
+<li><span>Same name found</span><strong>4,147 · 47.6%</strong><small>strict name match; wording differences remain disagreements</small></li>
+<li><span>Same stance</span><strong>3,653 · 88.1%</strong><small>conditional on the 4,147 matched names</small></li></ol>
+<p class="figure-note">The final percentage is conditional. It must not be read as 88.1%
+agreement across all extracted names.</p></figure>
+<dl class="trust-receipt"><div><dt>Claim</dt><dd>Cross-model agreement measures reproducibility under the same rubric, not correctness.</dd></div><div><dt>Population</dt><dd>8,570 paired paragraphs of 9,048 expected</dd></div><div><dt>Method</dt><dd>Field-specific normalized agreement with whole-speech clustered intervals</dd></div><div><dt>Uncertainty</dt><dd>95% deterministic speech-cluster bootstrap where estimable</dd></div><div><dt>Artifact</dt><dd>data/quality/agreement_by_field_and_era.csv</dd></div><div><dt>Status</dt><dd>Measured reproducibility; human validity not measured</dd></div><div><dt>Limitation</dt><dd>The model passes share prompt design and may share model-family biases</dd></div><div><dt>Downstream use</dt><dd>Qualify model-sensitive findings and prioritize blinded human review</dd></div></dl>
+<h3>How uncertainty reaches public charts</h3><p>Trend bands resample whole speeches because
+paragraphs within one speech are correlated. AI-topic bands can separately include sampling
+variation and measured cross-model disagreement. CorEx intervals and LLM intervals use different
+time grains and estimands, so their average widths are not compared as if one were intrinsically
+more certain.</p></section>
+
+<section class="method-section" id="populations"><h2>Know which record a number describes</h2>
+<p>A source document owner and the person speaking a paragraph are often the same—but not always.
+The population passport prevents those units from being silently substituted.</p>
+<figure class="evidence-figure" data-substantive-chart
+ data-metric="annotation_population_lineage"
+ data-evidence="data/speaker_views/meta_v1.json + data/llm_annotations/agreement_sample_v1.json"
+ aria-labelledby="population-title"><figcaption id="population-title">
+<strong>The population passport</strong><span>The denominator changes only when the analytical question changes.</span>
+<span><a href="metrics.html#annotation_population_lineage">Define population lineage.</a></span>
+</figcaption><div class="table-scroll" role="region" aria-label="Population passport layers" tabindex="0"><table><thead><tr><th>Layer</th><th>Unit</th><th>Population</th>
+<th>Permitted use</th></tr></thead><tbody><tr><th scope="row">Frozen label layer</th><td>Source-document speech and keyed paragraph</td><td>1,057 speeches; 36,229 paragraphs</td><td>Taxonomy labels, reproducibility audit, and legacy document-owner summaries</td></tr><tr><th scope="row">Corrected speaker foundation</th><td>Retained document, actual-speaker appearance, and attributed paragraph</td><td>1,053 retained documents; 35,394 paragraphs; 1,054 appearances</td><td>The governed population for new president-attributed work</td></tr><tr><th scope="row">Eligible actual-speaker view</th><td>Paragraph attributed to exactly one controlled president</td><td>32,531 eligible; 2,863 excluded; 296 cross-owner</td><td>Speaker-audited Story and connection analyses; each consumer declares treatment</td></tr><tr><th scope="row">Second-model audit</th><td>Same paragraph key read with the same prompt by another model</td><td>266 sampled speeches; 8,570 paired of 9,048 expected; 478 unavailable</td><td>Cross-model reproducibility only; prohibited from headline population rankings</td></tr></tbody></table></div>
+<h3>Population contract by public consumer</h3>
+<p>Every analytical page is named here; mixed pages must resolve the contract at the figure receipt.</p>
+<div class="table-scroll" role="region" aria-label="Population contracts by public consumer" tabindex="0"><table><thead><tr><th>Public consumer</th><th>Declared population treatment</th>
+</tr></thead><tbody><tr><th scope="row"><a href="index.html">Story</a></th><td>Mixed and chart-declared: speaker-audited era agenda/network evidence; retained legacy document-owner summaries where their receipts say so.</td></tr><tr><th scope="row"><a href="summary.html">America in Summary</a></th><td>Source-document ownership for president summaries; corpus-wide trends retain their own speech or paragraph denominator.</td></tr><tr><th scope="row"><a href="presidents/index.html">President Profiles</a></th><td>Core v3 measures use source-document owners; Connections uses eligible actual-speaker paragraphs and exposes cross-owner receipts.</td></tr><tr><th scope="row"><a href="compare.html">Compare</a></th><td>Profile v3 source-document-owner records, with thin records excluded from ranking.</td></tr><tr><th scope="row"><a href="issues/index.html">Issue Atlas</a></th><td>Corpus paragraphs keyed through source documents; it does not make a corrected president-attribution claim.</td></tr><tr><th scope="row"><a href="explorer.html">Explore</a></th><td>Source speeches and paragraphs with metric-specific denominators; it does not substitute the speaker foundation for legacy series.</td></tr><tr><th scope="row"><a href="era-boundaries.html">Era Choices</a></th><td>Source-speech and cycle aggregates; boundary sensitivity is not a president-level ranking.</td></tr><tr><th scope="row"><a href="data-quality.html">Data Quality</a></th><td>Both ownership contracts plus exclusions, cross-owner records, and the paired second-model audit.</td></tr><tr><th scope="row"><a href="label-models.html">Model Comparison</a></th><td>35,825 primary-LLM topic-bearing paragraphs from 36,229 source paragraphs; 404 no-topic paragraphs excluded by the preregistered estimand. Separate from the 8,570-paragraph second-model reproducibility audit.</td></tr><tr><th scope="row"><a href="methodology.html">Methods</a></th><td>Both population contracts, the paired audit, and governed feature-engineering evidence.</td></tr></tbody></table></div></figure>
+<p class="passport-note">The consumer register above makes document ownership, actual-speaker
+attribution, corpus aggregation, and the Data Quality-only paired sample explicit. The paired audit
+is evidence about measurement reproducibility, not a population for president rankings.</p>
+<h3>Era calibration is an unresolved measurement question</h3><p>The judgment prompt includes the
+speech decade so labels can be interpreted against their historical setting. This reduces obvious
+anachronism, but it also means the label may represent an era-calibrated threshold rather than one
+unchanging threshold across the full historical span. A preregistered decade-hidden sensitivity study is specified,
+but no paid run or result exists.</p></section>
+
+<section class="method-section" id="limitations"><h2>Limitations that remain visible</h2>
+<ul class="limitations"><li>The Miller Center collection is curated formal speech, not every rally,
+interview, social post, or private conversation.</li><li>A frozen taxonomy improves comparability but
+retains known gaps, including no standalone education topic and no modern monetary-policy topic.</li>
+<li>Era context reduces anachronism; it does not prove measurement invariance or eliminate implausible
+assignments.</li><li>Cross-model agreement is not a human reference standard. Zero-sum framing
+(κ 0.49) warrants more caution than high-reproducibility factual fields.</li>
+<li>Entity normalization is deliberately conservative, so span or wording differences lower strict
+name agreement.</li><li>President-level percentages are descriptive, not causal. Thin records remain
+marked rather than promoted as precise estimates.</li><li>Coarse POS shares can reflect genre, spelling,
+OCR, quotation, or tagger behavior; they are not syntactic-complexity scores.</li><li>The two model
+passes share a prompt and model family, so their errors are not independent.</li></ul>
+<div class="callout"><p><strong>Planned, not completed:</strong> the repository now specifies a blinded
+human-validity study and a paid decade-hidden measurement-invariance experiment. Both remain gated;
+the site makes no result claim until evidence and approvals exist. Inspect the public-safe
+<a href="data/validation-protocols-v1/manifest_v1.json">protocol manifest</a>; selected keys,
+coder assignments, and the dry-run request plan are not exposed in the public projection. This is
+an operational gate, not cryptographic secrecy: coders must not access the deterministic builder or
+its reconstruction inputs before their independent labels are locked.</p></div></section>
+
+<section class="method-section" id="provenance"><h2>Reproducibility receipts</h2>
+<p>The paid model outputs are immutable inputs. Everything shown here is either read from their
+manifests or derived locally with validated keys.</p><div class="receipt-grid"><article class="receipt"><span>Frozen paid artifact · read only</span>
+<h3>Taxonomy discovery</h3><dl class="receipt-contract">
+<div><dt>Inputs</dt><dd><code>data/paragraphs.parquet</code><br><code>era-isolated proposal samples</code></dd></div>
+<div><dt>Outputs</dt><dd><code>data/llm_annotations/taxonomy_v1.json</code><br><code>data/llm_annotations/crosswalk_v1.json</code></dd></div>
+<div><dt>Schema / hash identity</dt><dd><strong>taxonomy/v1</strong><br><code>sha256:498d33f88314f2e6cb3301bc9123af2112c52a7087c2e43055662ec63c0f6b6c</code><br><code>data/llm_annotations/taxonomy_v1.json</code><br><code>sha256:042fc959a64108cfa426e8463b72e2e56a66944cb32460173f711a668cc440dd</code><br><code>data/llm_annotations/crosswalk_v1.json</code><br><code>sha256:88a78b2f520d1e6539c8e520f99f4c43da0fcaf2253066e816997c6d30ccd1b3</code></dd></div>
+<div><dt>Command</dt><dd><code>arch -x86_64 .venv/bin/python -m pytest tests/test_ai_labels_site.py -q</code></dd></div>
+<div><dt>Relevant tests</dt><dd><code>tests/test_ai_labels_site.py</code></dd></div></dl>
+<small>Historical run taxonomy-v1-20260719: 22 requests · $2.4404 · claude-opus-4-8 (+ claude-sonnet-5 for coverage). The verification command makes no paid request.</small></article><article class="receipt"><span>Frozen paid artifact · read only</span>
+<h3>Primary paragraph judgments</h3><dl class="receipt-contract">
+<div><dt>Inputs</dt><dd><code>data/paragraphs.parquet</code><br><code>data/llm_annotations/taxonomy_v1.json</code></dd></div>
+<div><dt>Outputs</dt><dd><code>data/llm_annotations/paragraph_annotations.parquet</code><br><code>data/llm_annotations/paragraph_entities.parquet</code></dd></div>
+<div><dt>Schema / hash identity</dt><dd><strong>paragraph_annotations=paragraph-judgment/v1</strong><br><code>paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe</code><br><code>data/llm_annotations/paragraph_annotations.parquet</code><br><code>sha256:52ff6e8a90188f001241ffb3ac96046b019dd70d7b6b3cfa9954d3d60c9a4227</code><br><code>data/llm_annotations/paragraph_entities.parquet</code><br><code>sha256:ade6e4f03c7ff2c1806a365b3a7feeed752ec9e64e1d3e0edb8192d89fee67ff</code></dd></div>
+<div><dt>Command</dt><dd><code>arch -x86_64 .venv/bin/python -m pytest tests/test_ai_labels_site.py tests/test_quality_audit.py -q</code></dd></div>
+<div><dt>Relevant tests</dt><dd><code>tests/test_ai_labels_site.py</code><br><code>tests/test_quality_audit.py</code></dd></div></dl>
+<small>Historical run judgment-full-20260720: 1,040 requests · $26.2846 · claude-sonnet-5. Final frozen tables also contain validated retry/chunk convergence rows under the same prompt contract. The verification command makes no paid request.</small></article><article class="receipt"><span>Frozen paid artifact · read only</span>
+<h3>Factual speech labels</h3><dl class="receipt-contract">
+<div><dt>Inputs</dt><dd><code>data/speeches.parquet</code><br><code>first five source paragraphs</code></dd></div>
+<div><dt>Outputs</dt><dd><code>data/llm_annotations/speech_annotations.parquet</code></dd></div>
+<div><dt>Schema / hash identity</dt><dd><strong>speech_annotations=speech-factual/v1</strong><br><code>speech_annotations=sha256:450c667db92e324c1a1455914dd17528a999c88d3e32989e0d32fb3a0a7e95f1</code><br><code>data/llm_annotations/speech_annotations.parquet</code><br><code>sha256:d16c8b11d4ea3f3ecf3f5b92f73b993149b8d1c33c306ec5bada5c9c64607bf8</code></dd></div>
+<div><dt>Command</dt><dd><code>arch -x86_64 .venv/bin/python -m pytest tests/test_ai_labels_site.py tests/test_validation_protocols.py -q</code></dd></div>
+<div><dt>Relevant tests</dt><dd><code>tests/test_ai_labels_site.py</code><br><code>tests/test_validation_protocols.py</code></dd></div></dl>
+<small>Historical run factual-full-20260720: 1,037 requests · $1.6303 · claude-sonnet-5. Final frozen speech labels also contain validated retry rows under the same prompt contract. The verification command makes no paid request.</small></article><article class="receipt"><span>Frozen labels + deterministic derived agreement</span>
+<h3>Second-model reproducibility</h3><dl class="receipt-contract">
+<div><dt>Inputs</dt><dd><code>data/llm_annotations/agreement_sample_v1.json</code><br><code>primary and second annotation parquets</code></dd></div>
+<div><dt>Outputs</dt><dd><code>data/llm_annotations/agreement_v1.parquet</code><br><code>docs/data/quality/agreement_by_field_and_era.csv</code></dd></div>
+<div><dt>Schema / hash identity</dt><dd><strong>paragraph_annotations=paragraph-judgment/v1</strong><br><code>paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe</code><br><code>data/llm_annotations/agreement_v1.parquet</code><br><code>sha256:9e6ecd6474e9da9e315c98f7201a5f47969866c69183d9e5efa1278126770970</code><br><code>data/llm_annotations/paragraph_annotations__opus4-8.parquet</code><br><code>sha256:f7456d8a1aa13cb905cfa8f2947de2d62f56ba1de43939e241ba106629634f44</code></dd></div>
+<div><dt>Command</dt><dd><code>arch -x86_64 .venv/bin/python -m pytest tests/test_agreement_metrics.py tests/test_quality_audit.py -q</code></dd></div>
+<div><dt>Relevant tests</dt><dd><code>tests/test_agreement_metrics.py</code><br><code>tests/test_quality_audit.py</code></dd></div></dl>
+<small>Historical run opus-judgment-20260721: 266 requests · $21.5415 · claude-opus-4-8. The persisted paired audit retains later validated retry rows and missingness. The verification command makes no paid request.</small></article><article class="receipt"><span>Deterministic local derived artifact</span>
+<h3>Coarse POS appendix</h3><dl class="receipt-contract">
+<div><dt>Inputs</dt><dd><code>data/speeches.parquet</code><br><code>en_core_web_sm</code></dd></div>
+<div><dt>Outputs</dt><dd><code>data/grammar/speech_pos.parquet</code><br><code>data/grammar/era_pos.csv</code><br><code>data/grammar/manifest.json</code></dd></div>
+<div><dt>Schema / hash identity</dt><dd><strong>grammar-pos-v2</strong><br><code>sha256:bb457fd4d9862a0e44eb53d67a8b57e5fdafa03457da75918f721f156295d028</code></dd></div>
+<div><dt>Command</dt><dd><code>arch -x86_64 .venv/bin/python -m presidential_profiles.grammar</code></dd></div>
+<div><dt>Relevant tests</dt><dd><code>tests/test_grammar.py</code><br><code>tests/test_ai_labels_site.py</code></dd></div></dl>
+<small>No paid request is made by this command.</small></article><article class="receipt"><span>Deterministic local derived output</span>
+<h3>Data Quality and static projections</h3><dl class="receipt-contract">
+<div><dt>Inputs</dt><dd><code>governed corpus, frozen labels, speaker foundation, era specifications</code></dd></div>
+<div><dt>Outputs</dt><dd><code>docs/*.html</code><br><code>docs/data/quality/*</code><br><code>docs/data/validation-protocols-v1/*</code></dd></div>
+<div><dt>Schema / hash identity</dt><dd><strong>data-quality-public-manifest-v2</strong><br><code>sha256:fc31fe6cda1922c831078fa9d9b1457362ca753c17120659c879449051f09a57</code></dd></div>
+<div><dt>Command</dt><dd><code>arch -x86_64 .venv/bin/python -m presidential_profiles.site</code></dd></div>
+<div><dt>Relevant tests</dt><dd><code>tests/test_quality_audit.py</code><br><code>tests/test_site_validation.py</code><br><code>tests/test_validation_protocols.py</code></dd></div></dl>
+<small>No paid request is made by this command.</small></article></div>
+<details class="deep-section"><summary>Reproduce the deterministic projections</summary><div>
+<p><code>arch -x86_64 .venv/bin/python -m presidential_profiles.site</code></p>
+<p>This command consumes existing frozen artifacts; it does not submit a model request. Targeted
+tests should precede the full suite, followed by JavaScript syntax checks, site validation,
+frozen-artifact hash comparison, and Reggie Doctor.</p></div></details></section>
+
+<section class="method-section" id="downloads"><h2>Continue into the evidence</h2>
+<ul class="download-list"><li><a href="data-quality.html">Data Quality audit</a></li>
+<li><a href="label-models.html">Model Comparison</a></li><li><a href="metrics.html">Metric Dictionary</a></li>
+<li><a href="data/quality/second_model_by_era.csv" download>Second-model completion by Story era · CSV</a></li>
+<li><a href="data/quality/second_model_by_speech.csv" download>Sample completion by speech · CSV</a></li>
+<li><a href="data/quality/agreement_by_field_and_era.csv" download>Agreement, intervals, and prevalence · CSV</a></li>
+<li><a href="data/quality/population_ledger.csv" download>Population ledger · CSV</a></li>
+<li><a href="data/quality/entity_name_agreement.csv" download>Entity-name audit · CSV</a></li>
+<li><a href="data/quality/public_chart_treatments.csv" download>Public-chart treatment map · CSV</a></li>
+<li><a href="data/quality/manifest_v2.json" download>Data Quality v2 manifest · JSON</a></li></ul>
+<ul class="download-list"><li><a href="data/grammar/era_pos.csv" download>Coarse POS era shares · CSV</a></li>
+<li><a href="data/grammar/manifest.json" download>Coarse POS provenance · JSON</a></li></ul>
+<ul class="download-list"><li><a href="data/validation-protocols-v1/manifest_v1.json" download>Planned validation manifest · JSON</a></li>
+<li><a href="data/validation-protocols-v1/paragraph_selection_cells_v1.csv" download>Paragraph allocation cells · CSV</a></li>
+<li><a href="data/validation-protocols-v1/speech_selection_cells_v1.csv" download>Factual-label allocation cells · CSV</a></li>
+<li><a href="data/validation-protocols-v1/current_context_prompt_v1.json" download>Current-context prompt arm · JSON</a></li>
+<li><a href="data/validation-protocols-v1/decade_hidden_prompt_v1.json" download>Decade-hidden prompt arm · JSON</a></li></ul>
+<p>The full no-execution specification is also stored in
+<a href="https://github.com/jacobfulfyll/presidential_profiles/blob/main/notes/data-trust-validation-protocols-v1.md">the public research notes</a>.</p></section>
+</main><footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs,
+University of Virginia</a>. Source code and research notes:
 <a href="https://github.com/jacobfulfyll/presidential_profiles">Presidential Profiles</a>.</p><p class="footer-feedback"><a href="feedback.html">Feedback and accuracy →</a></p></footer>
-<script src="assets/plotly-3.0.1.min.js"></script><script>
-const MA=[{"label": "Topic sets", "value": 0.6776990609546035, "measure": "mean Jaccard"}, {"label": "Partisan attack", "value": 0.7159493500826851, "measure": "Cohen\u2019s \u03ba"}, {"label": "Named adversary", "value": 0.7789382356539741, "measure": "Cohen\u2019s \u03ba"}, {"label": "Zero-sum", "value": 0.48916430875165706, "measure": "Cohen\u2019s \u03ba"}, {"label": "Proposal / values", "value": 0.7203033838973162, "measure": "exact match"}, {"label": "Speech type", "value": 0.9539911787598374, "measure": "Cohen\u2019s \u03ba"}, {"label": "Entity stance", "value": 0.8808777429467085, "measure": "matched-name agreement"}];
-const methodBase={template:"simple_white",paper_bgcolor:"#fff",plot_bgcolor:"#fff",
- font:{family:"system-ui",color:"#24313d"},margin:{l:64,r:24,t:38,b:80}};
-Plotly.newPlot("method-coverage",[{type:"bar",x:["Primary label pass","Paired second opinion"],
- y:[36229,8570],marker:{color:["#2d6f9d","#b17a43"]},
- text:[36229,8570],textposition:"outside",
- hovertemplate:"%{x}<br>%{y:,} paragraphs<extra></extra>"}],
- {...methodBase,height:430,yaxis:{title:"paragraphs",gridcolor:"#e7e9eb"},
- title:{text:"How much of the corpus each judgment pass covers",font:{size:16}}},
- {displayModeBar:false,responsive:true});
-Plotly.newPlot("method-agreement",[{type:"bar",x:MA.map(x=>x.label),y:MA.map(x=>x.value),
- customdata:MA.map(x=>x.measure),
- marker:{color:MA.map(x=>x.label==="Zero-sum"?"#b17a43":"#2d6f9d")},
- hovertemplate:"%{x}<br>%{customdata}: %{y:.3f}<extra></extra>"}],
- {...methodBase,height:430,yaxis:{title:"reported agreement (0–1)",range:[0,1],gridcolor:"#e7e9eb"},
- title:{text:"Second-opinion reliability audit",font:{size:16}}},
- {displayModeBar:false,responsive:true});
-</script>
 </body></html>

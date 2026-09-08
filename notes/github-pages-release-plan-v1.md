@@ -1,6 +1,6 @@
 # GitHub Pages release plan v1
 
-Status: owner-authorized for execution on 2026-08-03.
+Status: owner-authorized for execution on 2026-09-08.
 
 ## Decision
 
@@ -49,6 +49,7 @@ Run these from the repository root with the x86_64 project environment:
 arch -x86_64 .venv/bin/python -m pytest -q
 arch -x86_64 .venv/bin/python -m presidential_profiles.site
 node scripts/validate_inline_js.mjs docs
+node scripts/audit_data_trust_pages.mjs --docs docs
 arch -x86_64 .venv/bin/python -m compileall -q src
 git diff --check
 ```

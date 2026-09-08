@@ -1,109 +1,109 @@
-era,part_of_speech,share_percent,n_tagged_tokens
-The founding,NOUN,21.05517398865253,113858
-The founding,PROPN,3.788930070789932,113858
-The founding,VERB,10.44019743891514,113858
-The founding,AUX,7.298564879059882,113858
-The founding,ADJ,8.24184510530661,113858
-The founding,ADV,3.636986421683149,113858
-The founding,PRON,7.182630996504417,113858
-The founding,DET,14.755221416149942,113858
-The founding,ADP,17.042280735653183,113858
-The founding,CCONJ,4.548648316323842,113858
-The founding,SCONJ,1.6713801401746036,113858
-The founding,NUM,0.3381404907867695,113858
-Expansion,NOUN,20.44536190248673,489759
-Expansion,PROPN,4.529983114143895,489759
-Expansion,VERB,10.0925148899765,489759
-Expansion,AUX,7.558003017810801,489759
-Expansion,ADJ,8.067028885635589,489759
-Expansion,ADV,3.6411786205051873,489759
-Expansion,PRON,5.957215691799436,489759
-Expansion,DET,16.014407085934103,489759
-Expansion,ADP,17.202542474972386,489759
-Expansion,CCONJ,4.258012614367475,489759
-Expansion,SCONJ,1.8866422056562515,489759
-Expansion,NUM,0.347109496711648,489759
-Civil War & Reconstruction,NOUN,20.003687617798903,488120
-Civil War & Reconstruction,PROPN,5.849381299680406,488120
-Civil War & Reconstruction,VERB,10.217569450135212,488120
-Civil War & Reconstruction,AUX,7.144964353027944,488120
-Civil War & Reconstruction,ADJ,7.889043677784151,488120
-Civil War & Reconstruction,ADV,3.982422355158568,488120
-Civil War & Reconstruction,PRON,5.840776858149636,488120
-Civil War & Reconstruction,DET,15.368556912234697,488120
-Civil War & Reconstruction,ADP,16.695279849217407,488120
-Civil War & Reconstruction,CCONJ,4.431287388347128,488120
-Civil War & Reconstruction,SCONJ,2.0736704089158406,488120
-Civil War & Reconstruction,NUM,0.5033598295501106,488120
-The Gilded Age,NOUN,22.41086953914785,416945
-The Gilded Age,PROPN,5.33139862571802,416945
-The Gilded Age,VERB,9.755483337130796,416945
-The Gilded Age,AUX,6.804974277182842,416945
-The Gilded Age,ADJ,8.543093213733226,416945
-The Gilded Age,ADV,3.363992852774347,416945
-The Gilded Age,PRON,4.537768770461332,416945
-The Gilded Age,DET,15.327441269232152,416945
-The Gilded Age,ADP,17.220976387772968,416945
-The Gilded Age,CCONJ,4.380194030387701,416945
-The Gilded Age,SCONJ,1.8736284162179664,416945
-The Gilded Age,NUM,0.4501792802407992,416945
-Progressives & Depression,NOUN,22.32636183855696,584045
-Progressives & Depression,PROPN,4.4147283171673415,584045
-Progressives & Depression,VERB,9.750960970473166,584045
-Progressives & Depression,AUX,7.684681831023295,584045
-Progressives & Depression,ADJ,8.860618616716177,584045
-Progressives & Depression,ADV,3.905349759008296,584045
-Progressives & Depression,PRON,6.103639274370982,584045
-Progressives & Depression,DET,14.301980155638692,584045
-Progressives & Depression,ADP,15.776866508573825,584045
-Progressives & Depression,CCONJ,4.423460521021497,584045
-Progressives & Depression,SCONJ,1.9678278214863585,584045
-Progressives & Depression,NUM,0.4835243859634104,584045
-War & New Deal,NOUN,21.53582491968793,139456
-War & New Deal,PROPN,4.626548875631023,139456
-War & New Deal,VERB,10.241223038090869,139456
-War & New Deal,AUX,7.614588113813676,139456
-War & New Deal,ADJ,8.57187930243231,139456
-War & New Deal,ADV,4.212798301973382,139456
-War & New Deal,PRON,8.198284763653053,139456
-War & New Deal,DET,13.250057365764112,139456
-War & New Deal,ADP,14.436811610830654,139456
-War & New Deal,CCONJ,4.621529371271225,139456
-War & New Deal,SCONJ,1.9138653051858647,139456
-War & New Deal,NUM,0.7765890316659018,139456
-The Cold War,NOUN,20.209920552737916,907772
-The Cold War,PROPN,5.690415655032321,907772
-The Cold War,VERB,11.198957447464782,907772
-The Cold War,AUX,7.972706803029836,907772
-The Cold War,ADJ,7.979206232401968,907772
-The Cold War,ADV,4.449024644954901,907772
-The Cold War,PRON,10.17149680756842,907772
-The Cold War,DET,12.215842744653944,907772
-The Cold War,ADP,12.943448354873247,907772
-The Cold War,CCONJ,4.401435602772502,907772
-The Cold War,SCONJ,2.1152888610796543,907772
-The Cold War,NUM,0.652256293430509,907772
-Post-Cold War,NOUN,21.02092846270929,525600
-Post-Cold War,PROPN,5.199200913242009,525600
-Post-Cold War,VERB,12.93226788432268,525600
-Post-Cold War,AUX,7.160768645357686,525600
-Post-Cold War,ADJ,7.614345509893456,525600
-Post-Cold War,ADV,4.681887366818874,525600
-Post-Cold War,PRON,11.258371385083716,525600
-Post-Cold War,DET,10.900114155251142,525600
-Post-Cold War,ADP,11.743911719939115,525600
-Post-Cold War,CCONJ,4.791286149162861,525600
-Post-Cold War,SCONJ,2.0873287671232874,525600
-Post-Cold War,NUM,0.6095890410958904,525600
-The present era,NOUN,17.875158061622777,364573
-The present era,PROPN,6.024856475932118,364573
-The present era,VERB,13.340538108965832,364573
-The present era,AUX,7.529904847588822,364573
-The present era,ADJ,7.139585213386619,364573
-The present era,ADV,5.978226582879149,364573
-The present era,PRON,13.78653932134305,364573
-The present era,DET,10.310692234477044,364573
-The present era,ADP,10.692783064022844,364573
-The present era,CCONJ,4.69124153461721,364573
-The present era,SCONJ,1.8602584393249089,364573
-The present era,NUM,0.770216115839626,364573
+era_key,era,era_order,part_of_speech,share_percent,n_tagged_tokens
+founding,Establishing the republic,0,NOUN,20.870878067484664,83456
+founding,Establishing the republic,0,PROPN,3.7492810582822083,83456
+founding,Establishing the republic,0,VERB,10.739791027607362,83456
+founding,Establishing the republic,0,AUX,7.536905674846625,83456
+founding,Establishing the republic,0,ADJ,7.974261886503068,83456
+founding,Establishing the republic,0,ADV,3.714532208588957,83456
+founding,Establishing the republic,0,PRON,7.769363496932516,83456
+founding,Establishing the republic,0,DET,14.19550421779141,83456
+founding,Establishing the republic,0,ADP,16.63870782208589,83456
+founding,Establishing the republic,0,CCONJ,4.6623370398773005,83456
+founding,Establishing the republic,0,SCONJ,1.7602089723926382,83456
+founding,Establishing the republic,0,NUM,0.388228527607362,83456
+expansion,The continental republic,1,NOUN,20.510572688071576,520161
+expansion,The continental republic,1,PROPN,4.493031965103112,520161
+expansion,The continental republic,1,VERB,10.064768408242832,520161
+expansion,The continental republic,1,AUX,7.504599537450905,520161
+expansion,The continental republic,1,ADJ,8.120178175603323,520161
+expansion,The continental republic,1,ADV,3.6284919476854283,520161
+expansion,The continental republic,1,PRON,5.934700986809853,520161
+expansion,The continental republic,1,DET,16.030613598482006,520161
+expansion,The continental republic,1,ADP,17.25792591140051,520161
+expansion,The continental republic,1,CCONJ,4.2567589650127555,520161
+expansion,The continental republic,1,SCONJ,1.8598087899707973,520161
+expansion,The continental republic,1,NUM,0.33854902616689836,520161
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,NOUN,19.544489686936785,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,PROPN,5.852479807756492,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,VERB,10.282891662772846,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,AUX,7.303918296508911,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,ADJ,7.882517855950871,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,ADV,4.158600894466324,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,PRON,6.163540484613844,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,DET,15.329550764301448,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,ADP,16.3436352713437,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,CCONJ,4.458714371537281,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,SCONJ,2.175555703891596,374525
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,NUM,0.5041051999198986,374525
+gilded-age,Administrative-industrial order,3,NOUN,22.173183477666715,844457
+gilded-age,Administrative-industrial order,3,PROPN,5.319039335336198,844457
+gilded-age,Administrative-industrial order,3,VERB,9.682079726972482,844457
+gilded-age,Administrative-industrial order,3,AUX,6.993132865261345,844457
+gilded-age,Administrative-industrial order,3,ADJ,8.59262224127457,844457
+gilded-age,Administrative-industrial order,3,ADV,3.602433279610448,844457
+gilded-age,Administrative-industrial order,3,PRON,4.737008515531283,844457
+gilded-age,Administrative-industrial order,3,DET,15.210129112553986,844457
+gilded-age,Administrative-industrial order,3,ADP,16.973392369297667,844457
+gilded-age,Administrative-industrial order,3,CCONJ,4.359250974294724,844457
+gilded-age,Administrative-industrial order,3,SCONJ,1.871735328145779,844457
+gilded-age,Administrative-industrial order,3,NUM,0.48599277405480684,844457
+progressives-depression,"Reform, world war & collapse",4,NOUN,22.59558431558372,270128
+progressives-depression,"Reform, world war & collapse",4,PROPN,3.6016258958715865,270128
+progressives-depression,"Reform, world war & collapse",4,VERB,10.078925546407628,270128
+progressives-depression,"Reform, world war & collapse",4,AUX,8.041372978736007,270128
+progressives-depression,"Reform, world war & collapse",4,ADJ,8.808786945448084,270128
+progressives-depression,"Reform, world war & collapse",4,ADV,3.804862879819937,270128
+progressives-depression,"Reform, world war & collapse",4,PRON,7.400935852632825,270128
+progressives-depression,"Reform, world war & collapse",4,DET,13.548391873482203,270128
+progressives-depression,"Reform, world war & collapse",4,ADP,15.139119232363916,270128
+progressives-depression,"Reform, world war & collapse",4,CCONJ,4.522670733874311,270128
+progressives-depression,"Reform, world war & collapse",4,SCONJ,2.0260765266836462,270128
+progressives-depression,"Reform, world war & collapse",4,NUM,0.43164721909613224,270128
+war-new-deal,"New Deal, world war & settlement",5,NOUN,21.02763149103146,164631
+war-new-deal,"New Deal, world war & settlement",5,PROPN,4.757913151229112,164631
+war-new-deal,"New Deal, world war & settlement",5,VERB,10.414806445930596,164631
+war-new-deal,"New Deal, world war & settlement",5,AUX,7.8849062448749025,164631
+war-new-deal,"New Deal, world war & settlement",5,ADJ,8.375093390673689,164631
+war-new-deal,"New Deal, world war & settlement",5,ADV,4.203947008765057,164631
+war-new-deal,"New Deal, world war & settlement",5,PRON,8.64357259568368,164631
+war-new-deal,"New Deal, world war & settlement",5,DET,13.251453249995446,164631
+war-new-deal,"New Deal, world war & settlement",5,ADP,14.112165995468654,164631
+war-new-deal,"New Deal, world war & settlement",5,CCONJ,4.582369055645656,164631
+war-new-deal,"New Deal, world war & settlement",5,SCONJ,2.018453389701818,164631
+war-new-deal,"New Deal, world war & settlement",5,NUM,0.7276879809999331,164631
+cold-war,Mature Cold War,6,NOUN,20.21375123999958,668347
+cold-war,Mature Cold War,6,PROPN,5.781278288074907,668347
+cold-war,Mature Cold War,6,VERB,10.97827924715754,668347
+cold-war,Mature Cold War,6,AUX,8.163872958208835,668347
+cold-war,Mature Cold War,6,ADJ,8.076044330265566,668347
+cold-war,Mature Cold War,6,ADV,4.344898682869826,668347
+cold-war,Mature Cold War,6,PRON,9.879598472051194,668347
+cold-war,Mature Cold War,6,DET,12.354959325021284,668347
+cold-war,Mature Cold War,6,ADP,13.055792874060929,668347
+cold-war,Mature Cold War,6,CCONJ,4.366593999823444,668347
+cold-war,Mature Cold War,6,SCONJ,2.1153682144155654,668347
+cold-war,Mature Cold War,6,NUM,0.6695623680513266,668347
+post-cold-war,Conservative turn & always-on presidency,7,NOUN,20.850577819828345,739850
+post-cold-war,Conservative turn & always-on presidency,7,PROPN,5.266337771169831,739850
+post-cold-war,Conservative turn & always-on presidency,7,VERB,12.623639927012231,739850
+post-cold-war,Conservative turn & always-on presidency,7,AUX,7.175238223964317,739850
+post-cold-war,Conservative turn & always-on presidency,7,ADJ,7.656146516185713,739850
+post-cold-war,Conservative turn & always-on presidency,7,ADV,4.718524025140232,739850
+post-cold-war,Conservative turn & always-on presidency,7,PRON,11.175373386497263,739850
+post-cold-war,Conservative turn & always-on presidency,7,DET,11.119956747989457,739850
+post-cold-war,Conservative turn & always-on presidency,7,ADP,12.011218490234507,739850
+post-cold-war,Conservative turn & always-on presidency,7,CCONJ,4.711090085828208,739850
+post-cold-war,Conservative turn & always-on presidency,7,SCONJ,2.0789349192403868,739850
+post-cold-war,Conservative turn & always-on presidency,7,NUM,0.6129620869095087,739850
+present,Platform-era intensification,8,NOUN,17.875158061622777,364573
+present,Platform-era intensification,8,PROPN,6.024856475932118,364573
+present,Platform-era intensification,8,VERB,13.340538108965832,364573
+present,Platform-era intensification,8,AUX,7.529904847588822,364573
+present,Platform-era intensification,8,ADJ,7.139585213386619,364573
+present,Platform-era intensification,8,ADV,5.978226582879149,364573
+present,Platform-era intensification,8,PRON,13.78653932134305,364573
+present,Platform-era intensification,8,DET,10.310692234477045,364573
+present,Platform-era intensification,8,ADP,10.692783064022843,364573
+present,Platform-era intensification,8,CCONJ,4.69124153461721,364573
+present,Platform-era intensification,8,SCONJ,1.8602584393249089,364573
+present,Platform-era intensification,8,NUM,0.770216115839626,364573

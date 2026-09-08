@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calvin Coolidge - Presidential Profiles</title>
-<script src="../assets/plotly-3.0.1.min.js"></script>
 <style>
 
   :root {
@@ -36,10 +35,13 @@
 
   body.profile-page { overflow-x: clip; }
   .profile-page :where(header, main, section, article, nav, div) { min-width: 0; }
+  .profile-page :where(a, button, summary) { min-width: 44px; min-height: 44px; }
+  .profile-page a { display: inline-flex; align-items: center; }
+  .profile-page summary { padding-block: 10px; cursor: pointer; }
   .profile-hero { padding-top: 28px; }
   .hero-tools { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; }
   .back-link { color: var(--ink2); font-size: .88rem; }
-  .compare-action { display: inline-flex; align-items: center; min-height: 42px; padding: 8px 15px; border: 1px solid #5d350c; border-radius: 8px; background: #fffaf4; color: #5d350c; font-weight: 720; text-decoration: none; }
+  .compare-action { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 15px; border: 1px solid #5d350c; border-radius: 8px; background: #fffaf4; color: #5d350c; font-weight: 720; text-decoration: none; }
   .hero-body { display: grid; grid-template-columns: 118px minmax(0,1fr); gap: 24px; align-items: center; }
   .portrait { grid-row: 1 / span 2; width: 118px; height: 118px; border: 1px solid var(--border); border-radius: 50%; background: var(--surface); object-fit: cover; }
   .eyebrow { color: #6a421b; font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
@@ -51,12 +53,13 @@
   .identity-meta .support.thin { border-color: #9b7220; background: #fff7df; color: #614b19; }
   .record-note { max-width: none; margin: 18px auto 0; padding: 15px 18px; border: 1px solid #c59a43; border-left: 5px solid #8a5d00; border-radius: 10px; background: #fff7df; color: #4e3b13; }
   .record-note strong { display: block; margin-bottom: 3px; }
-  .profile-nav { position: sticky; z-index: 8; top: calc(var(--global-nav-height, 0px) + 6px); max-width: 940px; margin: 18px auto 0; padding: 0 20px; }
-  .profile-nav ul { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); padding: 5px; border: 1px solid var(--border); border-radius: 12px; background: rgba(252,252,251,.96); box-shadow: 0 4px 16px rgba(11,11,11,.06); list-style: none; }
-  .profile-nav a { display: grid; min-height: 38px; place-items: center; padding: 5px 4px; border-radius: 8px; color: var(--ink2); font-size: .8rem; font-weight: 700; text-align: center; text-decoration: none; }
+  .profile-nav { position: sticky; z-index: 8; top: calc(var(--global-nav-height, 61px) + 6px); max-width: 940px; margin: 18px auto 0; padding: 0 20px; }
+  .profile-nav { overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; }
+  .profile-nav ul { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); min-width: 760px; padding: 5px; border: 1px solid var(--border); border-radius: 12px; background: rgba(252,252,251,.96); box-shadow: 0 4px 16px rgba(11,11,11,.06); list-style: none; }
+  .profile-nav a { display: grid; min-height: 44px; place-items: center; padding: 5px 4px; border-radius: 8px; color: var(--ink2); font-size: .8rem; font-weight: 700; text-align: center; text-decoration: none; }
   .profile-nav a:hover { background: var(--page); color: var(--ink); }
   .profile-page main { padding-top: 2px; }
-  .profile-page section { scroll-margin-top: calc(var(--global-nav-height, 0px) + 72px); }
+  .profile-page section { scroll-margin-top: calc(var(--global-nav-height, 61px) + 72px); }
   .section-kicker { margin-bottom: 5px; color: #6a421b; font-size: .68rem; font-weight: 820; letter-spacing: .09em; text-transform: uppercase; }
   .profile-page section > h2 { font: 700 clamp(1.45rem,3vw,1.85rem)/1.15 Georgia,serif; }
   .profile-page section > p { max-width: 52rem; }
@@ -103,8 +106,13 @@
   .rhetoric-card { padding: 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
   .rhetoric-card h3 { font-size: 1.05rem; }
   .chart-summary { margin: 5px 0 12px; color: var(--ink2); font-size: .84rem; }
-  .profile-figure { width: 100%; overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
-  .profile-page .chart { width: 100%; min-width: 0; }
+  .percentile-bars { display: grid; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
+  .percentile-row { display: grid; grid-template-columns: minmax(110px,1fr) minmax(120px,3fr) minmax(94px,auto); gap: 10px; align-items: center; }
+  .bar-label { font-size: .8rem; font-weight: 720; }
+  .bar-track { height: 14px; overflow: hidden; border: 1px solid #b9b7b0; border-radius: 99px; background: #ecebe7; }
+  .bar-track i { display: block; height: 100%; background: #315f78; }
+  .bar-rank, .bar-unranked { color: var(--ink2); font-size: .76rem; font-variant-numeric: tabular-nums; }
+  .bar-unranked { grid-column: 2/-1; font-style: italic; }
   .rank-unavailable { max-width: none; margin: 12px 0; padding: 11px 13px; border: 1px solid #c59a43; border-radius: 8px; background: #fff7df; color: #4e3b13; }
   .measure-table-wrap { margin-top: 12px; }
   .measure-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
@@ -113,7 +121,9 @@
   .measure-table thead th { color: var(--muted); font-size: .68rem; letter-spacing: .04em; text-transform: uppercase; }
   .measure-table tbody th { width: 24%; }
   .not-ranked { color: #6b4c0c; font-weight: 750; }
-  .rhetoric-card details { margin-top: 10px; }
+  .rhetoric-card details { margin-top: 14px; border: 1px solid var(--border); border-radius: 9px; }
+  .rhetoric-card details > summary { min-height: 44px; padding: 11px 13px; cursor: pointer; font-weight: 720; }
+  .rhetoric-card details .measure-table-wrap, .rhetoric-card details > p { margin: 0 13px 13px; }
   .evidence-card { margin-top: 11px; padding: 16px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); }
   .evidence-head { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 10px; }
   .evidence-head h3 { margin-right: auto; font-size: 1rem; }
@@ -125,19 +135,42 @@
   blockquote { margin: 12px 0 0; padding: 2px 0 2px 13px; border-left: 3px solid #776f64; }
   blockquote p { max-width: 50rem!important; margin: 0!important; color: var(--ink2)!important; font-size: .9rem; }
   blockquote cite { display: block; margin-top: 5px; color: var(--muted); font-size: .74rem; font-style: normal; }
+  .evidence-claim { max-width: 54rem; margin: 10px 0; font-weight: 680; }
+  .evidence-counts, .receipt-audit { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px 14px; margin: 12px 0; }
+  .evidence-counts div, .receipt-audit div { padding-top: 7px; border-top: 1px solid var(--grid); }
+  .evidence-counts dt, .receipt-audit dt { color: var(--muted); font-size: .67rem; font-weight: 760; letter-spacing: .03em; text-transform: uppercase; }
+  .evidence-counts dd, .receipt-audit dd { margin: 2px 0 0; overflow-wrap: anywhere; font-size: .8rem; }
+  .why-shown { max-width: none!important; padding: 10px 12px; border-left: 3px solid #6f6454; background: var(--page); font-size: .82rem; }
+  .evidence-receipt { margin-top: 12px; padding: 13px; border: 1px solid var(--border); border-radius: 9px; background: var(--page); }
+  .receipt-source { max-width: none!important; margin: 0!important; font-size: .82rem; }
+  .receipt-source span { color: var(--muted); }
+  .receipt-more, .card-audit { margin-top: 10px; border: 1px solid var(--border); border-radius: 8px; }
+  .receipt-more > summary, .card-audit > summary { min-height: 44px; padding: 11px 12px; cursor: pointer; font-weight: 720; }
+  .receipt-more > div, .card-audit > p, .card-audit > div { margin: 0 12px 12px; }
+  .evidence-limitation { max-width: none!important; margin: 13px 0 0!important; color: var(--ink2)!important; font-size: .78rem!important; }
+  .evidence-thin-warning { max-width: none!important; padding: 11px 13px; border: 1px solid #a47b22; border-left-width: 5px; border-radius: 9px; background: #fff7df; color: #4e3b13!important; }
   .more-evidence { margin-top: 12px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); }
   .more-evidence > summary { padding: 12px 14px; cursor: pointer; font-weight: 720; }
   .more-evidence > div, .more-evidence > p, .more-evidence > table { margin: 0 14px 14px; }
+  .evidence-section-disclosure { margin-top: 14px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); }
+  .evidence-section-disclosure > summary { padding: 13px 15px; font-weight: 760; }
+  .evidence-section-body { padding: 0 15px 16px; }
+  .evidence-section-body > .section-kicker { margin-top: 4px; }
   .invocation-table { width: calc(100% - 28px); border-collapse: collapse; font-size: .78rem; }
   .invocation-table th, .invocation-table td { padding: 7px; border-top: 1px solid var(--grid); text-align: left; }
   .invocation-cards { display: none; }
-  .similarity-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(245px,1fr)); gap: 11px; margin-top: 18px; }
-  .similarity-card { padding: 15px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); }
-  .similarity-card h3 { font-size: .98rem; }
-  .similarity-card p { min-height: 3.4em; margin: 4px 0 10px; color: var(--muted); font-size: .73rem; }
-  .similarity-card ol { display: grid; gap: 4px; margin: 0; padding-left: 22px; }
-  .similarity-card li { padding-left: 2px; font-size: .82rem; }
-  .similarity-card data { float: right; margin-left: 8px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .similarity-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(270px,1fr)); gap: 12px; margin-top: 18px; }
+  .similarity-card { position: relative; overflow: hidden; padding: 17px 16px 14px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); box-shadow: 0 5px 16px rgba(47,38,30,.045); }
+  .similarity-card::before { position: absolute; inset: 0 0 auto; height: 4px; background: #315f78; content: ""; }
+  .similarity-card .similarity-kicker { min-height: 0; margin: 0 0 5px; color: #6a421b; font-size: .65rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+  .similarity-card h3 { margin: 0; font-size: 1.02rem; }
+  .similarity-card .similarity-description { min-height: 3.4em; margin: 5px 0 12px; color: var(--muted); font-size: .73rem; }
+  .similarity-card ol { display: grid; margin: 0; padding-left: 23px; }
+  .similarity-card li { min-height: 48px; padding: 2px 0 2px 2px; border-top: 1px solid var(--grid); font-size: .82rem; }
+  .similarity-card li::marker { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .similarity-match { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; align-items: center; min-height: 44px; }
+  .similarity-card li a { display: flex; min-height: 44px; align-items: center; overflow-wrap: anywhere; font-weight: 690; }
+  .similarity-card data { display: inline-flex; min-height: 30px; align-items: center; justify-content: center; padding: 4px 8px; border: 1px solid var(--border); border-radius: 999px; background: var(--page); color: var(--ink2); font-size: .72rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .signature-list { display: grid; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; counter-reset: signature; }
   .signature-list li { display: grid; grid-template-columns: 58px minmax(0,1fr); gap: 12px; align-items: baseline; padding: 11px 13px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); }
   .signature-list span { color: var(--muted); font-size: .76rem; font-variant-numeric: tabular-nums; }
@@ -148,9 +181,13 @@
   .president-nav strong { margin-top: 3px; color: var(--ink); }
   .download-row { margin-top: 14px; }
   .unavailable { color: var(--muted); font-style: italic; }
+  @media (max-width: 760px) {
+    .profile-nav { top: calc(var(--global-nav-height, 105px) + 6px); }
+    .profile-page section { scroll-margin-top: calc(var(--global-nav-height, 105px) + 72px); }
+  }
   @media (max-width: 700px) {
     .source-key, .agenda-grid { grid-template-columns: 1fr; }
-    .similarity-card p { min-height: 0; }
+    .similarity-card .similarity-description { min-height: 0; }
   }
   @media (max-width: 600px) {
     .profile-hero { padding: 20px 16px 6px; }
@@ -160,9 +197,10 @@
     .profile-hero h1 { font-size: clamp(1.62rem,8vw,2.2rem); overflow-wrap: anywhere; }
     .identity-meta { grid-column: 1/-1; margin-top: 0; }
     .record-note { margin: 13px 16px 0; }
-    .profile-nav { margin-top: 12px; padding: 0 8px; }
-    .profile-nav ul { grid-template-columns: repeat(3,minmax(0,1fr)); padding: 3px; }
-    .profile-nav a { min-height: 40px; padding: 4px 2px; font-size: .69rem; }
+    .profile-nav { max-width: 100%; margin-top: 12px; padding: 0 8px; }
+    .profile-nav ul { display: flex; width: max-content; min-width: 0; padding: 3px; }
+    .profile-nav li { flex: 0 0 auto; }
+    .profile-nav a { min-width: 92px; min-height: 44px; padding: 4px 8px; font-size: .69rem; }
     .profile-page main { padding-inline: 16px; }
     .profile-page section { margin-top: 38px; scroll-margin-top: calc(var(--global-nav-height, 0px) + 112px); }
     .glance-grid { grid-template-columns: 1fr 1fr; }
@@ -171,7 +209,9 @@
     .topic-row data { text-align: left; }
     .topic-row .topic-rel { text-align: right; }
     .rhetoric-card { padding: 14px; }
-    .profile-figure { display: none; }
+    .percentile-row { grid-template-columns: minmax(96px,1fr) minmax(90px,2fr); gap: 6px 9px; }
+    .bar-rank { grid-column: 2; }
+    .bar-unranked { grid-column: 2; }
     .measure-table caption { display: block; width: 100%; }
     .measure-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     .measure-table, .measure-table tbody { display: block; }
@@ -186,6 +226,7 @@
     .invocation-cards > div { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 3px 9px; padding: 9px 0; border-top: 1px solid var(--grid); }
     .invocation-cards dt { color: var(--muted); font-size: .65rem; font-weight: 720; text-transform: uppercase; }
     .invocation-cards dd { min-width: 0; overflow-wrap: anywhere; }
+    .evidence-counts, .receipt-audit { grid-template-columns: 1fr; }
     .president-nav { grid-template-columns: 1fr; }
     .president-nav .next { text-align: left; }
   }
@@ -194,7 +235,53 @@
     .hero-tools > * { width: 100%; overflow-wrap: anywhere; }
     .compare-action { justify-content: center; }
   }
+  @media (forced-colors: active) {
+    .profile-nav ul, .rhetoric-card, .evidence-card, .evidence-section-disclosure, .bar-track { border-color: CanvasText; }
+    .bar-track i { background: Highlight; }
+    :where(.profile-nav a, summary, button, a):focus-visible { outline: 3px solid Highlight; outline-offset: 2px; }
+  }
   @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto!important; } }
+
+
+.profile-connections{max-width:100%;overflow:clip}.profile-connections *{box-sizing:border-box;min-width:0}
+.pc-population{padding:10px 12px;border-left:4px solid #315f78}.pc-scope-note,.pc-limitation{color:var(--muted);font-size:.8rem;line-height:1.55}
+.pc-subsection{margin-top:28px;scroll-margin-top:calc(var(--global-nav-height,0px) + 72px)}
+.pc-kicker{margin:0 0 5px;color:#6a421b;font-size:.68rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.pc-status{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.profile-connections :where(.pc-retry,.pc-expand-button,.pc-relationship-button,.pc-downloads a,summary,.pc-receipt a,.pc-segmented-control label){min-height:44px}.profile-connections button{font:inherit;cursor:pointer}
+.profile-connections :where(button,a,summary):focus-visible{outline:3px solid #b45f06;outline-offset:3px}
+.pc-warning{margin:14px 0;padding:12px;border:1px solid #a47b22;border-left-width:5px;background:#fff7df;color:#4e3b13}
+.pc-network-layout{margin-top:16px}
+.profile-connections :where(figure,.pc-direction){border:1px solid var(--border);border-radius:10px}.profile-connections figure{margin:0;padding:10px;overflow:hidden}
+.profile-connections figcaption{margin:7px 4px 0;color:var(--muted);font-size:.7rem}.pc-network-svg{display:block;width:100%;height:auto;max-height:600px}
+.profile-connections .pc-topic-edge{stroke:#72563f;stroke-width:var(--pc-edge-width,2px);stroke-linecap:round;opacity:.52;transition:opacity .15s ease}
+.pc-observed-edge{stroke-dasharray:8 6}.pc-topic-node circle:not(.pc-topic-hit-area){fill:#f3dfc5;stroke:#72431e;stroke-width:2}.pc-topic-hit-area{fill:transparent;stroke:none;pointer-events:all}
+.pc-topic-control{cursor:pointer}.pc-topic-control:focus-visible{outline:3px solid #b45f06;outline-offset:4px}.pc-topic-control[aria-pressed=true] circle:not(.pc-topic-hit-area){fill:#fff2df;stroke:#9b3f16;stroke-width:5}
+.pc-president-node circle{fill:#f7fbfd;stroke:#315f78;stroke-width:2}.pc-focal-node{fill:#fff8ee;stroke:#532e12;stroke-width:3}
+.pc-svg-label{fill:#211a15;font:700 11px system-ui,sans-serif;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:3px;pointer-events:none}.pc-topic-label,.pc-focal-label{font-size:10px}.pc-peer-label{font-size:9px}
+.pc-svg-empty{fill:#62574f;font:650 15px system-ui,sans-serif;text-anchor:middle}
+.profile-connections :where([data-pc-relation],[data-pc-relations]).is-pinned{opacity:1}
+.profile-connections line[data-pc-relation].is-pinned{stroke:#9b3f16;stroke-width:calc(var(--pc-edge-width,2px) + 2px)}
+.pc-rationale{color:var(--muted)}
+.pc-invocation-audit-record :where(h5,h6){margin:8px 0}.pc-invocation-audit-record h5{font:700 1.08rem Georgia,serif}.pc-audit-values,.pc-count-columns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pc-audit-values div,.pc-receipt{padding:8px;border:1px solid var(--grid)}.pc-audit-values dt{color:var(--muted);font-size:.68rem}.pc-audit-values dd{margin:3px 0 0;font-weight:700}
+.pc-count-columns ul{margin:0;padding:0;list-style:none}.pc-count-columns li{display:flex;justify-content:space-between;gap:8px;border-top:1px solid var(--grid);font-size:.73rem}
+.pc-receipt{margin-top:9px}.pc-receipt p{margin:5px 0;font-size:.75rem}.pc-receipt blockquote{margin:7px 0;padding-left:10px;border-left:3px solid currentColor}.pc-receipt a{display:inline-flex;align-items:center}
+.pc-relationship-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:12px 0 0;padding:0;list-style:none}
+.pc-relationship-button{display:flex;width:100%;align-items:flex-start;justify-content:center;flex-direction:column;padding:8px 10px;border:1px solid #9d826a;background:#fff;color:var(--ink);text-align:left}.pc-relationship-button span{color:var(--muted);font-size:.7rem}
+.pc-relationship-button[aria-pressed=true]{border-color:#71330d;background:#fff2df;box-shadow:inset 0 0 0 2px #71330d}
+.pc-enhancement-controls{margin-top:10px}.profile-connections :where(.pc-expand-button,.pc-retry){padding:8px 12px;border:1px solid #704421;background:#fff8ee;color:#573116;font-weight:700}
+.pc-complete-list{margin-top:12px;border:1px solid var(--border)}.pc-complete-list>summary{display:flex;align-items:center;padding:10px 12px;font-weight:700}.pc-complete-list ol{margin:0 12px 12px;padding-left:22px}.pc-complete-list li{margin:7px 0;font-size:.78rem}
+.pc-invocation-switch{display:flex;align-items:center;gap:14px;margin-top:16px}.pc-invocation-switch-label{font-weight:800}.pc-segmented-control{display:inline-grid;grid-template-columns:repeat(2,minmax(112px,1fr));overflow:hidden;border:1px solid #9d826a;border-radius:12px;background:var(--surface)}
+.pc-segmented-control label{position:relative;display:flex;align-items:stretch;cursor:pointer}.pc-segmented-control label+label{border-left:1px solid #9d826a}.pc-segmented-control input{position:absolute;width:1px;height:1px;opacity:0}.pc-segmented-control span{display:flex;width:100%;min-height:48px;align-items:center;justify-content:center;padding:8px 18px;color:var(--ink2);font-weight:780}.pc-segmented-control input:checked+span{background:#315f78;color:#fff}.pc-segmented-control input:focus-visible+span{outline:3px solid #b45f06;outline-offset:-4px}
+.pc-invocation-directions{margin-top:12px}.pc-direction{padding:16px}.pc-direction h4{margin-top:0}
+.pc-invocation-bars{display:grid;gap:13px;margin:16px 0 0;padding:0;list-style:none}.pc-invocation-bar-heading{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.pc-invocation-bar-heading span,.pc-invocation-bar-row p{color:var(--muted);font-size:.72rem;font-variant-numeric:tabular-nums}.pc-invocation-bar-row p{margin:4px 0 0}.pc-invocation-bar-track{display:block;height:14px;margin-top:5px;overflow:hidden;border:1px solid #b9b7b0;border-radius:99px;background:#ecebe7}.pc-invocation-bar-track i{display:block;height:100%;background:#315f78}
+.pc-invocation-audit{margin-top:16px;border:1px solid var(--border);border-radius:9px}.pc-invocation-audit>summary{display:flex;align-items:center;padding:10px 12px;font-weight:700}.pc-invocation-audit-record{padding:0 12px 12px}.pc-downloads{display:flex;flex-wrap:wrap;gap:9px}.pc-downloads a{display:inline-flex;align-items:center;padding:6px 9px}
+.profile-connections [hidden]{display:none!important}
+@media(max-width:768px){.pc-relationship-list{grid-template-columns:1fr}.pc-network-svg{max-height:none}}
+@media(max-width:390px){.profile-connections :where(.pc-count-columns,.pc-audit-values){grid-template-columns:1fr}.profile-connections :where(figure,.pc-direction){padding:8px}.profile-connections .pc-mobile-hidden{display:none}.pc-svg-label{font-size:9px}.pc-invocation-switch{align-items:stretch;gap:8px}.pc-invocation-switch-label{display:flex;align-items:center}.pc-segmented-control{width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}.pc-segmented-control span{padding-inline:10px}}
+@media(prefers-reduced-motion:reduce){.profile-connections *,.profile-connections *::before,.profile-connections *::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+@media(forced-colors:active){.profile-connections :where(figure,.pc-direction,.pc-warning,.pc-complete-list,.pc-invocation-audit,.pc-invocation-bar-track,button,.pc-segmented-control,.pc-segmented-control label+label){border-color:currentColor}.profile-connections .pc-topic-edge{stroke:currentColor;opacity:1}.profile-connections .pc-invocation-bar-track i{background:Highlight}.profile-connections :where(.pc-topic-node circle:not(.pc-topic-hit-area),.pc-president-node circle,.pc-focal-node){fill:Canvas;stroke:currentColor}.profile-connections :where(.pc-svg-label,.pc-svg-empty){fill:CanvasText;stroke:Canvas}.profile-connections :where(.pc-relationship-button[aria-pressed=true],.pc-segmented-control input:checked+span){forced-color-adjust:none;background:Highlight;color:HighlightText}.profile-connections :where(button,a,summary):focus-visible,.profile-connections .pc-topic-control:focus-visible,.profile-connections .pc-segmented-control input:focus-visible+span{outline-color:Highlight}}
 
 </style>
 </head>
@@ -203,12 +290,14 @@
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
 align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
-color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+box-sizing:border-box;min-width:44px;min-height:44px;color:#172a38;text-decoration:none;font-weight:760;
+letter-spacing:-.015em;white-space:nowrap}
 .nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
 background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
 align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
 .nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
-min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+box-sizing:border-box;min-width:44px;min-height:44px;border:0;border-radius:8px;
+padding:7px 9px;background:transparent;
 color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
 white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
 .nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
@@ -217,65 +306,96 @@ background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6p
 border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
 transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
 .nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
-.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
-min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
-background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
-.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
-padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+.nav-submenu{position:absolute;top:100%;right:0;z-index:120;padding-top:7px}
+.nav-submenu-panel{display:grid;min-width:178px;padding:7px;
+border:1px solid rgba(11,11,11,.14);border-radius:11px;background:#fff;
+box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:flex;align-items:center;
+box-sizing:border-box;min-height:44px;border-radius:7px;padding:9px 10px;
+color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
 white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
-html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu,
+html:not(.nav-enhanced) .nav-group:focus-within>.nav-submenu{display:block!important}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
 .nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
 gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
-width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+width:100%;min-width:44px;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
 .nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
-</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="../presidents/index.html" aria-current="page">Presidents</a><a href="../issues/index.html">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+@media(forced-colors:active){.global-nav{background:Canvas;border-color:CanvasText;
+backdrop-filter:none}.nav-submenu-panel{background:Canvas;color:CanvasText;
+border:2px solid CanvasText;box-shadow:none}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger,.nav-submenu a:hover{background:Canvas;color:CanvasText;
+outline:1px solid currentColor}.nav-item>a[aria-current=page],
+.nav-group.nav-group-current>.nav-trigger,.nav-submenu a[aria-current=page]{
+background:Canvas;color:CanvasText;text-decoration:underline;text-decoration-thickness:3px;
+text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
+.nav-submenu a:focus-visible,.nav-brand:focus-visible{outline-color:Highlight}}
+</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><div class="nav-submenu-panel"><a href="../presidents/index.html" aria-current="page">Presidents</a><a href="../issues/index.html">Issues</a></div></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><div class="nav-submenu-panel"><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
   if (!nav || !nav.matches(".global-nav")) return;
-  document.documentElement.classList.add("nav-enhanced");
   const groups = [...nav.querySelectorAll(".nav-group")];
-  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
-  const close = (group, restoreFocus = false) => {
+  const hoverPointer = matchMedia("(any-hover: hover)");
+  let openGroup = null;
+  let openMode = null;
+  const sync = (group, isOpen) => {
     const trigger = group.querySelector(".nav-trigger");
     const submenu = group.querySelector(".nav-submenu");
-    trigger.setAttribute("aria-expanded", "false");
-    submenu.hidden = true;
-    group.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    submenu.hidden = !isOpen;
+    group.classList.toggle("is-open", isOpen);
+  };
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    if (openGroup === group) {
+      openGroup = null;
+      openMode = null;
+    }
+    sync(group, false);
     if (restoreFocus) trigger.focus();
   };
-  const closeOthers = active => groups.forEach(group => {
-    if (group !== active) close(group);
-  });
-  const open = group => {
-    closeOthers(group);
-    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
-    group.querySelector(".nav-submenu").hidden = false;
-    group.classList.add("is-open");
+  const open = (group, mode) => {
+    if (openGroup && openGroup !== group) sync(openGroup, false);
+    openGroup = group;
+    openMode = mode;
+    sync(group, true);
+  };
+  const activate = group => {
+    if (openGroup !== group) {
+      open(group, "pinned");
+      return;
+    }
+    if (openMode === "hover") {
+      openMode = "pinned";
+      sync(group, true);
+      return;
+    }
+    close(group);
   };
   groups.forEach(group => {
     const trigger = group.querySelector(".nav-trigger");
-    const toggle = () => {
-      if (trigger.getAttribute("aria-expanded") === "true") close(group);
-      else open(group);
-    };
-    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("click", () => activate(group));
     trigger.addEventListener("keydown", event => {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      toggle();
+      activate(group);
     });
-    group.addEventListener("pointerenter", () => {
-      if (finePointer.matches) open(group);
+    group.addEventListener("pointerenter", event => {
+      if (event.pointerType === "touch") return;
+      const canHover = event.pointerType === "mouse" ||
+        (event.pointerType === "pen" && hoverPointer.matches);
+      if (canHover && openGroup !== group) open(group, "hover");
     });
-    group.addEventListener("pointerleave", () => {
-      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    group.addEventListener("pointerleave", event => {
+      if (event.pointerType === "touch") return;
+      if (openGroup === group && openMode === "hover" &&
+          !group.contains(document.activeElement)) close(group);
     });
     group.addEventListener("focusout", () => setTimeout(() => {
       if (!group.contains(document.activeElement)) close(group);
@@ -283,6 +403,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
     group.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
       event.preventDefault();
+      event.stopPropagation();
       close(group, true);
     });
   });
@@ -297,6 +418,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
   if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
   else addEventListener("resize", setNavHeight);
 
+  document.documentElement.classList.add("nav-enhanced");
 })();
 </script>
 
@@ -305,7 +427,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
     <a class="compare-action" href="../compare.html?a=calvin-coolidge&amp;b=herbert-hoover">Compare this president</a></div>
   <div class="hero-body">
     <img class="portrait" src="../portraits/calvin-coolidge.png" width="118" height="118" alt="Portrait of Calvin Coolidge">
-    <div><p class="eyebrow">Evidence-first presidential profile</p><h1>Calvin Coolidge</h1></div>
+    <div><p class="eyebrow">Corpus-based presidential profile</p><h1>Calvin Coolidge</h1></div>
     <div class="identity-meta">
       <span class="party" style="--party-color:#e34948">Republican</span>
       <span>Corpus record 1923–1928</span>
@@ -317,14 +439,16 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
 
 <nav class="profile-nav" aria-label="On this profile"><ul>
   <li><a href="#overview">Overview</a></li><li><a href="#agenda">Agenda</a></li>
-  <li><a href="#evidence">Evidence</a></li><li><a href="#similarity">Similarity</a></li>
-  <li><a href="#speeches">Speeches</a></li>
+  <li><a href="#rhetoric">Rhetoric</a></li><li><a href="#connections">Connections</a></li>
+  <li><a href="#similarity">Similarity</a></li><li><a href="#speeches">Speeches</a></li>
+  <li><a href="#evidence">Evidence</a></li>
 </ul></nav>
 <main>
 <section id="overview" data-profile-section="overview">
   <p class="section-kicker">Identity and record support</p><h2>Overview</h2>
   <p>These at-a-glance facts are mechanically derived from named corpus and annotation artifacts. Corpus years describe the available speeches, not time in office.</p>
-  <div class="glance-grid"><article class="glance-card"><span>Corpus support</span><strong>12 speeches</strong><small>590 paragraphs</small></article><article class="glance-card"><span>Corpus record span</span><strong>1923–1928</strong><small>Available speech years, not term dates</small></article><article class="glance-card"><span>Corpus words</span><strong>74,665</strong><small>Tokenized source record</small></article><article class="glance-card"><span>Ranking status</span><strong>Supported for percentile ranking</strong><small>5-speech minimum</small></article><article class="glance-card"><span>Leading AI topic</span><strong>Internal Improvements, Energy &amp; Infrastructure</strong><small>15.1% of paragraphs</small></article><article class="glance-card"><span>Leading legacy issue</span><strong>War &amp; military</strong><small>24.4% of paragraphs</small></article></div>
+  <p class="population-label"><strong>Core v3 profile population:</strong> source documents assigned to this president.</p>
+  <div class="glance-grid"><article class="glance-card"><span>Corpus support</span><strong>12 speeches</strong><small>590 paragraphs</small></article><article class="glance-card"><span>Corpus record span</span><strong>1923–1928</strong><small>Available speech years, not term dates</small></article><article class="glance-card"><span>Corpus words</span><strong>74,665</strong><small>Tokenized source record</small></article><article class="glance-card"><span>Ranking status</span><strong>Supported for percentile ranking</strong><small>5-speech minimum</small></article><article class="glance-card"><span>Leading AI topic</span><strong>Internal Improvements, Energy &amp; Infrastructure</strong><small>15.1% of paragraphs</small></article><article class="glance-card"><span>Largest legacy issue share</span><strong>War &amp; military</strong><small>24.4% of paragraphs</small></article></div>
   <ul class="source-key" aria-label="Measurement sources">
     <li><strong>Corpus-derived</strong>Deterministic counts, lexical measures, readability, and source excerpts.</li>
     <li><strong>AI-labeled</strong>Frozen paragraph topics, closed-rubric flags, genres, and entity stance labels.</li>
@@ -388,12 +512,11 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
   <span class="source-tag corpus-source">Corpus-derived</span>
   <h3 id="rhetoric_legacy-title">Rhetorical fingerprint</h3>
   <p class="chart-summary" id="rhetoric_legacy-summary">Eight deterministic lexical and readability measures, pairing each absolute value with its percentile among presidents represented by at least five corpus speeches. Highest relative position: Hope, 86th percentile. Lowest: Self-reference, 2nd percentile.</p>
-  <div class="profile-figure">
-  <div class="chart" data-fig="rhetoric_legacy" role="img" aria-labelledby="rhetoric_legacy-title" aria-describedby="rhetoric_legacy-summary"></div>
-</div>
-<details class="metric-lesson"><summary>Explain this measure</summary><p><strong>President percentile</strong> — The percentage of eligible presidents whose measured value is at or below this one.</p><p class="toy">The 80th percentile means the value is at least as high as about 80% of eligible presidents.</p><ol><li>Calculate the same measure for every eligible president</li><li>Exclude records below the five-speech precision floor</li><li>Order the values</li><li>Report the president&#x27;s relative position</li></ol><details><summary>Formula and limitations</summary><p><code>rank among eligible presidents / number eligible</code> · percentile from 0 to 100</p><p>A percentile is a relative position, not an absolute amount or a quality ranking.</p></details></details><details class="evidence"><summary>Inspect the evidence</summary><p><a href="../data/presidents/calvin-coolidge.json" download>Download absolute measures and eligible-president percentiles →</a></p></details>
+  <ol class="percentile-bars" aria-labelledby="rhetoric_legacy-title" aria-describedby="rhetoric_legacy-summary"><li class="percentile-row"><span class="bar-label">Hope</span><span class="bar-track" aria-hidden="true"><i style="width:85.7143%"></i></span><span class="bar-rank">86th percentile</span></li><li class="percentile-row"><span class="bar-label">Fear appeal</span><span class="bar-track" aria-hidden="true"><i style="width:30.9524%"></i></span><span class="bar-rank">31st percentile</span></li><li class="percentile-row"><span class="bar-label">Certainty</span><span class="bar-track" aria-hidden="true"><i style="width:57.1429%"></i></span><span class="bar-rank">57th percentile</span></li><li class="percentile-row"><span class="bar-label">Us vs them</span><span class="bar-track" aria-hidden="true"><i style="width:45.2381%"></i></span><span class="bar-rank">45th percentile</span></li><li class="percentile-row"><span class="bar-label">Self-reference</span><span class="bar-track" aria-hidden="true"><i style="width:2.3810%"></i></span><span class="bar-rank">2nd percentile</span></li><li class="percentile-row"><span class="bar-label">Formality</span><span class="bar-track" aria-hidden="true"><i style="width:38.0952%"></i></span><span class="bar-rank">38th percentile</span></li><li class="percentile-row"><span class="bar-label">Vocabulary</span><span class="bar-track" aria-hidden="true"><i style="width:80.9524%"></i></span><span class="bar-rank">81st percentile</span></li><li class="percentile-row"><span class="bar-label">Religiosity</span><span class="bar-track" aria-hidden="true"><i style="width:47.6190%"></i></span><span class="bar-rank">48th percentile</span></li></ol>
+  <details class="exact-values">
+  <summary>Exact values and eligible-president ranks</summary>
   <div class="measure-table-wrap"><table class="measure-table">
-  <caption>Rhetorical fingerprint: structured data alternative</caption>
+  <caption>Rhetorical fingerprint: exact values and eligible-president ranks</caption>
   <thead><tr><th scope="col">Measure</th><th scope="col">Absolute value</th><th scope="col">Eligible-president rank</th></tr></thead>
   <tbody><tr><th scope="row">Hope</th>
   <td>735.7 per 10,000 words</td>
@@ -413,16 +536,17 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
   <td>6.6 per 10,000 words</td>
   <td class="">48th percentile</td></tr></tbody>
 </table></div>
+  <p><a href="../data/presidents/calvin-coolidge.json" download>Download the complete profile data →</a></p>
+</details>
 </article><article class="rhetoric-card">
   <span class="source-tag ai-source">AI-labeled</span>
   <h3 id="rhetoric_ai-title">AI-labeled rhetoric</h3>
   <p class="chart-summary" id="rhetoric_ai-summary">Six paragraph-label measures, pairing each absolute rate or breadth value with its eligible-president percentile. Highest relative position: Proposal share, 90th percentile. Lowest: Zero-sum framing, 2nd percentile.</p>
-  <div class="profile-figure">
-  <div class="chart" data-fig="rhetoric_ai" role="img" aria-labelledby="rhetoric_ai-title" aria-describedby="rhetoric_ai-summary"></div>
-</div>
-<details class="metric-lesson"><summary>Explain this measure</summary><p><strong>President percentile</strong> — The percentage of eligible presidents whose measured value is at or below this one.</p><p class="toy">The 80th percentile means the value is at least as high as about 80% of eligible presidents.</p><ol><li>Calculate the same measure for every eligible president</li><li>Exclude records below the five-speech precision floor</li><li>Order the values</li><li>Report the president&#x27;s relative position</li></ol><details><summary>Formula and limitations</summary><p><code>rank among eligible presidents / number eligible</code> · percentile from 0 to 100</p><p>A percentile is a relative position, not an absolute amount or a quality ranking.</p></details></details><details class="evidence"><summary>Inspect the evidence</summary><p><a href="../data/presidents/calvin-coolidge.json" download>Download absolute measures and eligible-president percentiles →</a></p></details>
+  <ol class="percentile-bars" aria-labelledby="rhetoric_ai-title" aria-describedby="rhetoric_ai-summary"><li class="percentile-row"><span class="bar-label">Partisan attack</span><span class="bar-track" aria-hidden="true"><i style="width:7.1000%"></i></span><span class="bar-rank">7th percentile</span></li><li class="percentile-row"><span class="bar-label">Enemy naming</span><span class="bar-track" aria-hidden="true"><i style="width:4.8000%"></i></span><span class="bar-rank">5th percentile</span></li><li class="percentile-row"><span class="bar-label">Zero-sum</span><span class="bar-track" aria-hidden="true"><i style="width:2.4000%"></i></span><span class="bar-rank">2nd percentile</span></li><li class="percentile-row"><span class="bar-label">Proposal share</span><span class="bar-track" aria-hidden="true"><i style="width:90.5000%"></i></span><span class="bar-rank">90th percentile</span></li><li class="percentile-row"><span class="bar-label">Values share</span><span class="bar-track" aria-hidden="true"><i style="width:59.5000%"></i></span><span class="bar-rank">60th percentile</span></li><li class="percentile-row"><span class="bar-label">Topic breadth</span><span class="bar-track" aria-hidden="true"><i style="width:81.0000%"></i></span><span class="bar-rank">81st percentile</span></li></ol>
+  <details class="exact-values">
+  <summary>Exact values and eligible-president ranks</summary>
   <div class="measure-table-wrap"><table class="measure-table">
-  <caption>AI-labeled rhetoric: structured data alternative</caption>
+  <caption>AI-labeled rhetoric: exact values and eligible-president ranks</caption>
   <thead><tr><th scope="col">Measure</th><th scope="col">Absolute value</th><th scope="col">Eligible-president rank</th></tr></thead>
   <tbody><tr><th scope="row">Partisan attack</th>
   <td>0.17% · percent of paragraphs</td>
@@ -438,127 +562,519 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
   <td>23.06 effective topics</td>
   <td class="">81st percentile</td></tr></tbody>
 </table></div>
+  <p><a href="../data/presidents/calvin-coolidge.json" download>Download the complete profile data →</a></p>
+</details>
 </article></div>
 </section>
-<section id="evidence" data-profile-section="evidence">
-  <p class="section-kicker">Legacy issue model · named artifacts</p><h2>Evidence</h2>
-  <p><span class="source-tag legacy-source">Legacy issue model</span> Excerpt-bearing cards remain in the producer’s declared strength order and appear first. Rate-only evidence follows in the native disclosure.</p>
-  <article class="evidence-card i-card">
-  <div class="evidence-head"><h3>Taxes &amp; budget</h3>
-    <span><strong>14.6%</strong> of paragraphs</span>
-    <span>+8.3 pp vs era</span></div>
-  <div class="terms"><span class="term">ought</span><span class="term">method</span><span class="term">flood</span><span class="term">reduction</span><span class="term">national</span></div><blockquote><p>“The people ought to take no selfish attitude of pressing for removing moderate and fair taxes which might produce a deficit.”</p><cite>Fifth Annual Message, 1927</cite></blockquote>
-</article><article class="evidence-card i-card">
-  <div class="evidence-head"><h3>Agriculture</h3>
-    <span><strong>11.5%</strong> of paragraphs</span>
-    <span>+4.7 pp vs era</span></div>
-  <div class="terms"><span class="term">agriculture</span><span class="term">marketing</span><span class="term">agricultural</span><span class="term">cooperative</span><span class="term">reclamation</span></div><blockquote><p>“This means not only further progress, in overcoming the price disparity into which agriculture was plunged in 1920-21, but also increased efficiency on the part of farmers and a well-grounded confidence in the future of agriculture.”</p><cite>Sixth Annual Message, 1928</cite></blockquote>
-</article><details class="more-evidence"><summary>Additional issue evidence (2)</summary>
-  <div><article class="evidence-card i-card">
-  <div class="evidence-head"><h3>Infrastructure</h3>
-    <span><strong>16.3%</strong> of paragraphs</span>
-    <span>+4.0 pp vs era</span></div>
-  <div class="terms"><span class="term">consolidation</span></div><blockquote><p>“While the advantage of having good roads is very large, the desire for improved highways is not limited to our own country.”</p><cite>Fifth Annual Message, 1927</cite></blockquote>
-</article><article class="evidence-card i-card">
-  <div class="evidence-head"><h3>Education</h3>
-    <span><strong>6.4%</strong> of paragraphs</span>
-    <span>+3.6 pp vs era</span></div>
-  <div class="terms"><span class="term">spiritual</span></div><blockquote><p>“A survey of negro colleges and universities in the United States has just been completed l7y the Bureau of Education through funds provided by the institutions themselves and through private sources.”</p><cite>Sixth Annual Message, 1928</cite></blockquote>
-</article></div></details><details class="more-evidence"><summary>Distinctive vocabulary outside one issue</summary>
-  <p>Corpus-derived words not assigned to a displayed issue card.</p><div class="terms"><span class="term">washington</span><span class="term">colonies</span><span class="term">tile</span><span class="term">sound</span><span class="term">exceedingly</span><span class="term">armaments</span></div></details>
-<details class="more-evidence"><summary>Presidential invocation evidence</summary>
-  <p>Invokes: George Washington (9×), Thomas Jefferson (2×), Abraham Lincoln (2×), Theodore Roosevelt (1×)</p><table class="invocation-table"><caption>AI-classified presidential invocations</caption>
-  <thead><tr><th scope="col">Target</th><th scope="col">Function</th><th scope="col">Stance</th><th scope="col">Mentions</th></tr></thead><tbody><tr><td>George Washington</td><td>other/unclear</td><td>neutral</td><td>12</td></tr><tr><td>Thomas Jefferson</td><td>other/unclear</td><td>neutral</td><td>5</td></tr><tr><td>James Monroe</td><td>other/unclear</td><td>neutral</td><td>3</td></tr><tr><td>George Washington</td><td>other/unclear</td><td>positive</td><td>2</td></tr><tr><td>John Adams</td><td>other/unclear</td><td>neutral</td><td>2</td></tr><tr><td>Abraham Lincoln</td><td>other/unclear</td><td>neutral</td><td>1</td></tr><tr><td>George Washington</td><td>policy inheritance</td><td>neutral</td><td>1</td></tr><tr><td>John Adams</td><td>other/unclear</td><td>positive</td><td>1</td></tr><tr><td>Theodore Roosevelt</td><td>other/unclear</td><td>neutral</td><td>1</td></tr><tr><td>Thomas Jefferson</td><td>institutional precedent</td><td>positive</td><td>1</td></tr><tr><td>Warren G. Harding</td><td>institutional precedent</td><td>neutral</td><td>1</td></tr></tbody></table>
-  <dl class="invocation-cards" aria-label="AI-classified presidential invocations"><div><dt>Target</dt><dd>George Washington</dd>
-  <dt>Function</dt><dd>other/unclear</dd>
-  <dt>Stance</dt><dd>neutral</dd>
-  <dt>Mentions</dt><dd>12</dd></div><div><dt>Target</dt><dd>Thomas Jefferson</dd>
-  <dt>Function</dt><dd>other/unclear</dd>
-  <dt>Stance</dt><dd>neutral</dd>
-  <dt>Mentions</dt><dd>5</dd></div><div><dt>Target</dt><dd>James Monroe</dd>
-  <dt>Function</dt><dd>other/unclear</dd>
-  <dt>Stance</dt><dd>neutral</dd>
-  <dt>Mentions</dt><dd>3</dd></div><div><dt>Target</dt><dd>George Washington</dd>
-  <dt>Function</dt><dd>other/unclear</dd>
-  <dt>Stance</dt><dd>positive</dd>
-  <dt>Mentions</dt><dd>2</dd></div><div><dt>Target</dt><dd>John Adams</dd>
-  <dt>Function</dt><dd>other/unclear</dd>
-  <dt>Stance</dt><dd>neutral</dd>
-  <dt>Mentions</dt><dd>2</dd></div><div><dt>Target</dt><dd>Abraham Lincoln</dd>
-  <dt>Function</dt><dd>other/unclear</dd>
-  <dt>Stance</dt><dd>neutral</dd>
-  <dt>Mentions</dt><dd>1</dd></div><div><dt>Target</dt><dd>George Washington</dd>
-  <dt>Function</dt><dd>policy inheritance</dd>
-  <dt>Stance</dt><dd>neutral</dd>
-  <dt>Mentions</dt><dd>1</dd></div><div><dt>Target</dt><dd>John Adams</dd>
-  <dt>Function</dt><dd>other/unclear</dd>
-  <dt>Stance</dt><dd>positive</dd>
-  <dt>Mentions</dt><dd>1</dd></div><div><dt>Target</dt><dd>Theodore Roosevelt</dd>
-  <dt>Function</dt><dd>other/unclear</dd>
-  <dt>Stance</dt><dd>neutral</dd>
-  <dt>Mentions</dt><dd>1</dd></div><div><dt>Target</dt><dd>Thomas Jefferson</dd>
-  <dt>Function</dt><dd>institutional precedent</dd>
-  <dt>Stance</dt><dd>positive</dd>
-  <dt>Mentions</dt><dd>1</dd></div><div><dt>Target</dt><dd>Warren G. Harding</dd>
-  <dt>Function</dt><dd>institutional precedent</dd>
-  <dt>Stance</dt><dd>neutral</dd>
-  <dt>Mentions</dt><dd>1</dd></div></dl>
-  <p><a href="../data/networks/invocation_evidence.csv" download>Download invocation evidence →</a></p></details>
+<section class="profile-connections" id="connections" aria-label="Connections for Calvin Coolidge"
+  data-profile-connections data-index-url="../data/profile-context/index_v1.json"
+  data-shard-url="../data/profile-context/presidents/calvin-coolidge_v1.json"
+  data-president-profile-id="calvin-coolidge">
+  <p class="section-kicker">Actual-speaker relationships · governed projections</p><h2>Connections</h2>
+  <p class="pc-population"><strong>Connections population:</strong> eligible paragraphs attributed to the actual speaker.
+  Core v3 profile measures elsewhere remain based on source documents assigned to this president.</p>
+  <p class="pc-scope-note">These corpus relationships describe observed speech evidence. They do not establish historical importance,
+  personal affinity, similarity, influence, causality, policy success, or everything that happened outside the corpus.</p>
+  <p class="pc-status" role="status" aria-live="polite" data-pc-status></p>
+  <button type="button" class="pc-retry" data-pc-retry hidden>Retry Connections data</button>
+  <section class="pc-subsection" id="topic-network">
+    <p class="pc-kicker">Topic ego · actual speaker</p><h3>Shared topic emphasis</h3>
+    <p>Topic prominence and every edge width map the individual <code>speaker_paragraph_share</code>.
+    Select a topic in the graph or the list to emphasize its shared paths; select it again or press Escape to clear.
+    Ring position and distance have no analytical meaning.</p>
+    <div class="pc-network-layout">
+      <figure data-pc-topic-stage><svg class="pc-network-svg" viewBox="0 0 720 560" role="group" aria-label="Actual-speaker topic ego network for Calvin Coolidge. Topics occupy the inner ring and supported comparison presidents the outer ring." focusable="false"><line class="pc-topic-edge" x1="360" y1="280" x2="360" y2="148" style="--pc-edge-width:5.6px" data-pc-relation="t0"/><line class="pc-topic-edge" x1="360" y1="280" x2="485.5" y2="239.2" style="--pc-edge-width:5.2px" data-pc-relation="t1"/><line class="pc-topic-edge" x1="360" y1="280" x2="437.6" y2="386.8" style="--pc-edge-width:4.9px" data-pc-relation="t2"/><line class="pc-topic-edge pc-mobile-hidden" x1="360" y1="280" x2="282.4" y2="386.8" style="--pc-edge-width:4.8px" data-pc-relation="t3"/><line class="pc-topic-edge pc-mobile-hidden" x1="360" y1="280" x2="234.5" y2="239.2" style="--pc-edge-width:4.6px" data-pc-relation="t4"/><line class="pc-topic-edge pc-peer-edge" x1="360" y1="56" x2="360" y2="148" style="--pc-edge-width:15.4px" data-pc-relation="t0"/><line class="pc-topic-edge pc-peer-edge" x1="504.6" y1="98.8" x2="485.5" y2="239.2" style="--pc-edge-width:5.3px" data-pc-relation="t1"/><line class="pc-topic-edge pc-peer-edge" x1="594" y1="210.8" x2="437.6" y2="386.8" style="--pc-edge-width:13.6px" data-pc-relation="t2"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="594" y1="349.2" x2="282.4" y2="386.8" style="--pc-edge-width:4.6px" data-pc-relation="t3"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="504.6" y1="461.2" x2="234.5" y2="239.2" style="--pc-edge-width:5.6px" data-pc-relation="t4"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="360" y1="504" x2="360" y2="148" style="--pc-edge-width:15.1px" data-pc-relation="t0"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="215.4" y1="461.2" x2="485.5" y2="239.2" style="--pc-edge-width:4.9px" data-pc-relation="t1"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="126" y1="349.2" x2="437.6" y2="386.8" style="--pc-edge-width:11px" data-pc-relation="t2"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="126" y1="210.8" x2="282.4" y2="386.8" style="--pc-edge-width:3.7px" data-pc-relation="t3"/><line class="pc-topic-edge pc-peer-edge pc-mobile-hidden" x1="215.4" y1="98.8" x2="234.5" y2="239.2" style="--pc-edge-width:5.2px" data-pc-relation="t4"/><g class="pc-topic-node pc-topic-control" role="button" tabindex="0" aria-pressed="false" aria-label="Select Foreign Relations &amp; Diplomacy shared-topic paths, 16.78% of eligible actual-speaker paragraphs" data-pc-relation="t0"><circle class="pc-topic-hit-area" cx="360" cy="148" r="22.7"/><circle cx="360" cy="148" r="22.7"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="360" y="138">Foreign</tspan><tspan x="360" y="152">Relations &amp;</tspan><tspan x="360" y="166">Diplomacy</tspan></text></g><g class="pc-topic-node pc-topic-control" role="button" tabindex="0" aria-pressed="false" aria-label="Select Infrastructure &amp; Internal Improvements shared-topic paths, 15.08% of eligible actual-speaker paragraphs" data-pc-relation="t1"><circle class="pc-topic-hit-area" cx="485.5" cy="239.2" r="22"/><circle cx="485.5" cy="239.2" r="22"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="485.5" y="229.2">Infrastructure</tspan><tspan x="485.5" y="243.2">&amp; Internal</tspan><tspan x="485.5" y="257.2">Improvements</tspan></text></g><g class="pc-topic-node pc-topic-control" role="button" tabindex="0" aria-pressed="false" aria-label="Select Constitutional Order &amp; Governance shared-topic paths, 14.07% of eligible actual-speaker paragraphs" data-pc-relation="t2"><circle class="pc-topic-hit-area" cx="437.6" cy="386.8" r="22"/><circle cx="437.6" cy="386.8" r="21.5"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="437.6" y="376.8">Constitutional</tspan><tspan x="437.6" y="390.8">Order &amp;</tspan><tspan x="437.6" y="404.8">Governance</tspan></text></g><g class="pc-topic-node pc-topic-control pc-mobile-hidden" role="button" tabindex="0" aria-pressed="false" aria-label="Select Agriculture, Land &amp; Environment shared-topic paths, 13.73% of eligible actual-speaker paragraphs" data-pc-relation="t3"><circle class="pc-topic-hit-area" cx="282.4" cy="386.8" r="22"/><circle cx="282.4" cy="386.8" r="21.4"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="282.4" y="376.8">Agriculture,</tspan><tspan x="282.4" y="390.8">Land &amp;</tspan><tspan x="282.4" y="404.8">Environment</tspan></text></g><g class="pc-topic-node pc-topic-control pc-mobile-hidden" role="button" tabindex="0" aria-pressed="false" aria-label="Select Public Finance &amp; Taxation shared-topic paths, 12.71% of eligible actual-speaker paragraphs" data-pc-relation="t4"><circle class="pc-topic-hit-area" cx="234.5" cy="239.2" r="22"/><circle cx="234.5" cy="239.2" r="20.9"/><text class="pc-svg-label pc-topic-label" aria-hidden="true"><tspan x="234.5" y="236.2">Public Finance</tspan><tspan x="234.5" y="250.2">&amp; Taxation</tspan></text></g><g class="pc-president-node pc-peer-node" data-pc-relations="t0"><circle cx="360" cy="56" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="360" y="93">John F. Kennedy</tspan></text></g><g class="pc-president-node pc-peer-node" data-pc-relations="t1"><circle cx="504.6" cy="98.8" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="504.6" y="135.8">Jimmy Carter</tspan></text></g><g class="pc-president-node pc-peer-node" data-pc-relations="t2"><circle cx="594" cy="210.8" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="594" y="247.8">Andrew Johnson</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t3"><circle cx="594" cy="349.2" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="594" y="379.2">Theodore</tspan><tspan x="594" y="393.2">Roosevelt</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t4"><circle cx="504.6" cy="461.2" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="504.6" y="498.2">Ronald Reagan</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t0"><circle cx="360" cy="504" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="360" y="541">John Adams</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t1"><circle cx="215.4" cy="461.2" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="215.4" y="498.2">Franklin Pierce</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t2"><circle cx="126" cy="349.2" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="126" y="386.2">James Buchanan</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t3"><circle cx="126" cy="210.8" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="126" y="247.8">Herbert Hoover</tspan></text></g><g class="pc-president-node pc-peer-node pc-mobile-hidden" data-pc-relations="t4"><circle cx="215.4" cy="98.8" r="22"/><text class="pc-svg-label pc-peer-label" aria-hidden="true"><tspan x="215.4" y="128.8">Martin Van</tspan><tspan x="215.4" y="142.8">Buren</tspan></text></g><circle class="pc-focal-node" cx="360" cy="280" r="22"/><text class="pc-svg-label pc-focal-label" aria-hidden="true"><tspan x="360" y="284">Calvin Coolidge</tspan></text></svg>
+        <figcaption>Fixed radial layout: focal president at center, topics on the inner ring, and comparison presidents on the outer ring.
+        Shared emphasis remains a bipartite path: president → topic → president; president nodes are uniform.</figcaption></figure>
+    </div>
+    <ol class="pc-relationship-list" data-pc-topic-list><li><button type="button" class="pc-relationship-button" aria-pressed="false" data-pc-relation="t0"><strong>Foreign Relations &amp; Diplomacy</strong><span>16.78% of eligible actual-speaker paragraphs · 2 comparison presidents</span></button></li><li><button type="button" class="pc-relationship-button" aria-pressed="false" data-pc-relation="t1"><strong>Infrastructure &amp; Internal Improvements</strong><span>15.08% of eligible actual-speaker paragraphs · 2 comparison presidents</span></button></li><li><button type="button" class="pc-relationship-button" aria-pressed="false" data-pc-relation="t2"><strong>Constitutional Order &amp; Governance</strong><span>14.07% of eligible actual-speaker paragraphs · 2 comparison presidents</span></button></li><li><button type="button" class="pc-relationship-button" aria-pressed="false" data-pc-relation="t3"><strong>Agriculture, Land &amp; Environment</strong><span>13.73% of eligible actual-speaker paragraphs · 2 comparison presidents</span></button></li><li><button type="button" class="pc-relationship-button" aria-pressed="false" data-pc-relation="t4"><strong>Public Finance &amp; Taxation</strong><span>12.71% of eligible actual-speaker paragraphs · 2 comparison presidents</span></button></li></ol>
+    <div class="pc-enhancement-controls" data-pc-enhancement-controls hidden><button type="button" class="pc-expand-button" data-pc-expand="topic-expanded" aria-expanded="false">Show expanded topic network</button></div>
+    <p class="pc-limitation">Multi-label shares are never summed into prominence,
+    and no president-president edge, overlap score, confidence, similarity score, influence claim, or summed prominence is created.</p>
+  </section>
+  <section class="pc-subsection" id="invocations">
+    <p class="pc-kicker">Named former presidents · actual speaker</p><h3>Invocations in corpus speeches</h3>
+    <p>These lists aggregate accepted actual-speaker evidence. Bar length compares reference-paragraph counts across both directions;
+    exact reference-paragraph, raw-mention, and distinct-speech counts are printed for every displayed relationship. No normalized rate,
+    confidence, or majority function/stance is derived.</p>
+    <p class="pc-limitation"><code>target_status</code> uses corpus speech dates rather than an independent legal-term calendar.
+    Valid 2025–2026 later-corpus Trump → Biden evidence is therefore retained.</p>
+    <div class="pc-invocation-switch" role="radiogroup" aria-label="Invocation view"
+      data-pc-invocation-switch hidden>
+      <span class="pc-invocation-switch-label" aria-hidden="true">View</span>
+      <div class="pc-segmented-control">
+        <label><input type="radio" name="pc-invocation-view-calvin-coolidge" value="outgoing"
+          data-pc-invocation-choice aria-controls="pc-invocation-outgoing-calvin-coolidge" checked>
+          <span>Invoked</span></label>
+        <label><input type="radio" name="pc-invocation-view-calvin-coolidge" value="incoming"
+          data-pc-invocation-choice aria-controls="pc-invocation-incoming-calvin-coolidge">
+          <span>Invoked by</span></label>
+      </div>
+    </div>
+    <div class="pc-invocation-directions" data-pc-invocation-directions
+      data-default-invocation-direction="outgoing"><section class="pc-direction" id="pc-invocation-outgoing-calvin-coolidge" data-pc-invocation-direction="outgoing" aria-labelledby="pc-invocation-outgoing-calvin-coolidge-heading">
+  <h4 id="pc-invocation-outgoing-calvin-coolidge-heading">Most invoked former presidents</h4><p>Up to five named former presidents invoked by this actual speaker, in governed producer order.</p>
+  <ol class="pc-invocation-bars" aria-label="Most invoked former presidents"><li class="pc-invocation-bar-row">
+  <div class="pc-invocation-bar-heading"><strong>George Washington</strong>
+  <span>15 reference paragraphs</span></div>
+  <span class="pc-invocation-bar-track" aria-hidden="true"><i style="width:100.0000%"></i></span>
+  <p>15 raw mentions ·
+  4 distinct speeches</p>
+</li><li class="pc-invocation-bar-row">
+  <div class="pc-invocation-bar-heading"><strong>Thomas Jefferson</strong>
+  <span>5 reference paragraphs</span></div>
+  <span class="pc-invocation-bar-track" aria-hidden="true"><i style="width:33.3333%"></i></span>
+  <p>6 raw mentions ·
+  3 distinct speeches</p>
+</li><li class="pc-invocation-bar-row">
+  <div class="pc-invocation-bar-heading"><strong>James Monroe</strong>
+  <span>3 reference paragraphs</span></div>
+  <span class="pc-invocation-bar-track" aria-hidden="true"><i style="width:20.0000%"></i></span>
+  <p>3 raw mentions ·
+  3 distinct speeches</p>
+</li><li class="pc-invocation-bar-row">
+  <div class="pc-invocation-bar-heading"><strong>John Adams</strong>
+  <span>3 reference paragraphs</span></div>
+  <span class="pc-invocation-bar-track" aria-hidden="true"><i style="width:20.0000%"></i></span>
+  <p>3 raw mentions ·
+  1 distinct speech</p>
+</li><li class="pc-invocation-bar-row">
+  <div class="pc-invocation-bar-heading"><strong>Abraham Lincoln</strong>
+  <span>1 reference paragraph</span></div>
+  <span class="pc-invocation-bar-track" aria-hidden="true"><i style="width:6.6667%"></i></span>
+  <p>1 raw mention ·
+  1 distinct speech</p>
+</li></ol><details class="pc-invocation-audit"><summary>Audit details for the leading relationship</summary><article class="pc-invocation-audit-record">
+  <p class="pc-kicker">Named former-president invocation</p>
+  <h5>Calvin Coolidge → George Washington</h5>
+  <dl class="pc-audit-values">
+    <div><dt>Reference paragraphs</dt><dd>15</dd></div>
+    <div><dt>Raw mentions</dt><dd>15</dd></div>
+    <div><dt>Distinct speeches</dt><dd>4</dd></div>
+    <div><dt>Speech range</dt><dd>1925-07-03–1927-12-06</dd></div>
+  </dl>
+  <div class="pc-count-columns"><section><h6>Function counts</h6><ul><li><span>legacy/inheritance</span><strong>0</strong></li><li><span>institutional precedent</span><strong>0</strong></li><li><span>policy inheritance</span><strong>1</strong></li><li><span>historical comparison</span><strong>0</strong></li><li><span>contemporary rivalry</span><strong>0</strong></li><li><span>ceremonial/biographical</span><strong>0</strong></li><li><span>other/unclear</span><strong>14</strong></li></ul></section>
+  <section><h6>Stance counts</h6><ul><li><span>positive</span><strong>2</strong></li><li><span>negative</span><strong>0</strong></li><li><span>mixed</span><strong>0</strong></li><li><span>neutral</span><strong>13</strong></li><li><span>unclear</span><strong>0</strong></li></ul></section></div>
+  <h6>Distinct-speech audit examples</h6><article class="pc-receipt">
+  <p class="pc-receipt-role">First distinct speech · keyed paragraph (/the-presidency/presidential-speeches/july-3-1925-centennial-washingtons-command-continental-army, 0)</p>
+  <blockquote><p>Wherever men love liberty, wherever they believe in patriotism, wherever they exalt high character, by universal consent they turn to the name of George Washington.</p></blockquote>
+  <p><a href="https://millercenter.org/the-presidency/presidential-speeches/july-3-1925-centennial-washingtons-command-continental-army">July 3, 1925: Centennial of Washington’s Command of the Continental Army</a> · 1925-07-03</p>
+  <p>Function: <strong>other/unclear</strong> · Stance:
+  <strong>neutral</strong> · Target status:
+  former_president.</p>
+  <p>Actual speaker: <strong>Calvin Coolidge</strong> · Source-document owner:
+  <strong>Calvin Coolidge</strong> · same owner and speaker.</p>
+  <p class="pc-rationale">Annotation rationale: Fixed-rubric classification from the supplied sentence context.</p>
+</article><article class="pc-receipt">
+  <p class="pc-receipt-role">Lower-middle distinct speech · keyed paragraph (/the-presidency/presidential-speeches/february-22-1927-address-regarding-washingtons-birthday, 0)</p>
+  <blockquote><p>My fellow Americans: On the 22d day of February, 1932, America will celebrate the two hundredth anniversary of the birth of George Washington.</p></blockquote>
+  <p><a href="https://millercenter.org/the-presidency/presidential-speeches/february-22-1927-address-regarding-washingtons-birthday">February 22, 1927: Address Regarding Washington’s Birthday</a> · 1927-02-22</p>
+  <p>Function: <strong>other/unclear</strong> · Stance:
+  <strong>neutral</strong> · Target status:
+  former_president.</p>
+  <p>Actual speaker: <strong>Calvin Coolidge</strong> · Source-document owner:
+  <strong>Calvin Coolidge</strong> · same owner and speaker.</p>
+  <p class="pc-rationale">Annotation rationale: Fixed-rubric classification from the supplied sentence context.</p>
+</article><article class="pc-receipt">
+  <p class="pc-receipt-role">Last distinct speech · keyed paragraph (/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message, 59)</p>
+  <blockquote><p>HISTORICAL CELEBRATIONS Provision is being made to commemorate the two hundredth anniversary of the birth of George Washington.</p></blockquote>
+  <p><a href="https://millercenter.org/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message">December 6, 1927: Fifth Annual Message</a> · 1927-12-06</p>
+  <p>Function: <strong>other/unclear</strong> · Stance:
+  <strong>neutral</strong> · Target status:
+  former_president.</p>
+  <p>Actual speaker: <strong>Calvin Coolidge</strong> · Source-document owner:
+  <strong>Calvin Coolidge</strong> · same owner and speaker.</p>
+  <p class="pc-rationale">Annotation rationale: Fixed-rubric classification from the supplied sentence context.</p>
+</article>
+  <p class="pc-limitation">These are deterministic audit examples, not proof of intent,
+  representativeness, influence, historical importance, or policy success. The download contains every retained row.</p>
+</article></details>
+  <details class="pc-complete-list"><summary>Complete outgoing relationship list (7)</summary><ol><li><strong>George Washington</strong><span>invoked in 15 reference paragraphs · 15 raw mentions · 4 speeches</span></li><li><strong>Thomas Jefferson</strong><span>invoked in 5 reference paragraphs · 6 raw mentions · 3 speeches</span></li><li><strong>James Monroe</strong><span>invoked in 3 reference paragraphs · 3 raw mentions · 3 speeches</span></li><li><strong>John Adams</strong><span>invoked in 3 reference paragraphs · 3 raw mentions · 1 speeches</span></li><li><strong>Abraham Lincoln</strong><span>invoked in 1 reference paragraphs · 1 raw mentions · 1 speeches</span></li><li><strong>Theodore Roosevelt</strong><span>invoked in 1 reference paragraphs · 1 raw mentions · 1 speeches</span></li><li><strong>Warren G. Harding</strong><span>invoked in 1 reference paragraphs · 1 raw mentions · 1 speeches</span></li></ol></details>
+</section><section class="pc-direction" id="pc-invocation-incoming-calvin-coolidge" data-pc-invocation-direction="incoming" aria-labelledby="pc-invocation-incoming-calvin-coolidge-heading">
+  <h4 id="pc-invocation-incoming-calvin-coolidge-heading">Most frequent later invokers</h4><p>Up to five actual speakers who invoked this president in later corpus speeches, in governed producer order.</p>
+  <ol class="pc-invocation-bars" aria-label="Most frequent later invokers"><li class="pc-invocation-bar-row">
+  <div class="pc-invocation-bar-heading"><strong>Herbert Hoover</strong>
+  <span>3 reference paragraphs</span></div>
+  <span class="pc-invocation-bar-track" aria-hidden="true"><i style="width:20.0000%"></i></span>
+  <p>3 raw mentions ·
+  3 distinct speeches</p>
+</li><li class="pc-invocation-bar-row">
+  <div class="pc-invocation-bar-heading"><strong>John F. Kennedy</strong>
+  <span>2 reference paragraphs</span></div>
+  <span class="pc-invocation-bar-track" aria-hidden="true"><i style="width:13.3333%"></i></span>
+  <p>2 raw mentions ·
+  2 distinct speeches</p>
+</li><li class="pc-invocation-bar-row">
+  <div class="pc-invocation-bar-heading"><strong>Franklin D. Roosevelt</strong>
+  <span>1 reference paragraph</span></div>
+  <span class="pc-invocation-bar-track" aria-hidden="true"><i style="width:6.6667%"></i></span>
+  <p>1 raw mention ·
+  1 distinct speech</p>
+</li><li class="pc-invocation-bar-row">
+  <div class="pc-invocation-bar-heading"><strong>Ronald Reagan</strong>
+  <span>1 reference paragraph</span></div>
+  <span class="pc-invocation-bar-track" aria-hidden="true"><i style="width:6.6667%"></i></span>
+  <p>1 raw mention ·
+  1 distinct speech</p>
+</li></ol><details class="pc-invocation-audit"><summary>Audit details for the leading relationship</summary><article class="pc-invocation-audit-record">
+  <p class="pc-kicker">Named former-president invocation</p>
+  <h5>Herbert Hoover → Calvin Coolidge</h5>
+  <dl class="pc-audit-values">
+    <div><dt>Reference paragraphs</dt><dd>3</dd></div>
+    <div><dt>Raw mentions</dt><dd>3</dd></div>
+    <div><dt>Distinct speeches</dt><dd>3</dd></div>
+    <div><dt>Speech range</dt><dd>1929-03-04–1929-09-18</dd></div>
+  </dl>
+  <div class="pc-count-columns"><section><h6>Function counts</h6><ul><li><span>legacy/inheritance</span><strong>0</strong></li><li><span>institutional precedent</span><strong>1</strong></li><li><span>policy inheritance</span><strong>0</strong></li><li><span>historical comparison</span><strong>0</strong></li><li><span>contemporary rivalry</span><strong>0</strong></li><li><span>ceremonial/biographical</span><strong>0</strong></li><li><span>other/unclear</span><strong>2</strong></li></ul></section>
+  <section><h6>Stance counts</h6><ul><li><span>positive</span><strong>2</strong></li><li><span>negative</span><strong>0</strong></li><li><span>mixed</span><strong>0</strong></li><li><span>neutral</span><strong>1</strong></li><li><span>unclear</span><strong>0</strong></li></ul></section></div>
+  <h6>Distinct-speech audit examples</h6><article class="pc-receipt">
+  <p class="pc-receipt-role">First distinct speech · keyed paragraph (/the-presidency/presidential-speeches/march-4-1929-inaugural-address, 2)</p>
+  <blockquote><p>For wise guidance in this great period of recovery the Nation is deeply indebted to Calvin Coolidge.</p></blockquote>
+  <p><a href="https://millercenter.org/the-presidency/presidential-speeches/march-4-1929-inaugural-address">March 4, 1929: Inaugural Address</a> · 1929-03-04</p>
+  <p>Function: <strong>other/unclear</strong> · Stance:
+  <strong>positive</strong> · Target status:
+  former_president.</p>
+  <p>Actual speaker: <strong>Herbert Hoover</strong> · Source-document owner:
+  <strong>Herbert Hoover</strong> · same owner and speaker.</p>
+  <p class="pc-rationale">Annotation rationale: Fixed-rubric classification from the supplied sentence context.</p>
+</article><article class="pc-receipt">
+  <p class="pc-receipt-role">Lower-middle distinct speech · keyed paragraph (/the-presidency/presidential-speeches/july-24-1929-remarks-upon-proclaiming-treaty-renunciation-war, 7)</p>
+  <blockquote><p>We are honored here by the presence of President Coolidge under whose administration this great step in world peace was initiated.</p></blockquote>
+  <p><a href="https://millercenter.org/the-presidency/presidential-speeches/july-24-1929-remarks-upon-proclaiming-treaty-renunciation-war">July 24, 1929: Remarks Upon Proclaiming the Treaty for the Renunciation of War (Kellog-Briand Pact)</a> · 1929-07-24</p>
+  <p>Function: <strong>institutional precedent</strong> · Stance:
+  <strong>positive</strong> · Target status:
+  former_president.</p>
+  <p>Actual speaker: <strong>Herbert Hoover</strong> · Source-document owner:
+  <strong>Herbert Hoover</strong> · same owner and speaker.</p>
+  <p class="pc-rationale">Annotation rationale: Fixed-rubric classification from the supplied sentence context.</p>
+</article><article class="pc-receipt">
+  <p class="pc-receipt-role">Last distinct speech · keyed paragraph (/the-presidency/presidential-speeches/september-18-1929-message-regarding-international-peace, 1)</p>
+  <blockquote><p>Taft to Mr.</p></blockquote>
+  <p><a href="https://millercenter.org/the-presidency/presidential-speeches/september-18-1929-message-regarding-international-peace">September 18, 1929: Message Regarding International Peace</a> · 1929-09-18</p>
+  <p>Function: <strong>other/unclear</strong> · Stance:
+  <strong>neutral</strong> · Target status:
+  former_president.</p>
+  <p>Actual speaker: <strong>Herbert Hoover</strong> · Source-document owner:
+  <strong>Herbert Hoover</strong> · same owner and speaker.</p>
+  <p class="pc-rationale">Annotation rationale: Fixed-rubric classification from the supplied sentence context.</p>
+</article>
+  <p class="pc-limitation">These are deterministic audit examples, not proof of intent,
+  representativeness, influence, historical importance, or policy success. The download contains every retained row.</p>
+</article></details>
+  <details class="pc-complete-list"><summary>Complete incoming relationship list (4)</summary><ol><li><strong>Herbert Hoover</strong><span>invoked this president in 3 reference paragraphs · 3 raw mentions · 3 speeches</span></li><li><strong>John F. Kennedy</strong><span>invoked this president in 2 reference paragraphs · 2 raw mentions · 2 speeches</span></li><li><strong>Franklin D. Roosevelt</strong><span>invoked this president in 1 reference paragraphs · 1 raw mentions · 1 speeches</span></li><li><strong>Ronald Reagan</strong><span>invoked this president in 1 reference paragraphs · 1 raw mentions · 1 speeches</span></li></ol></details>
+</section></div>
+    <p class="pc-downloads"><a href="../data/profile-context/actual_speaker_invocation_edges_v1.csv" download>Download every invocation edge (CSV)</a>
+    <a href="../data/profile-context/actual_speaker_invocation_evidence_v1.csv" download>Download every retained invocation evidence row (CSV)</a></p>
+  </section>
 </section>
 <section id="similarity" data-profile-section="similarity">
   <p class="section-kicker">Five independent instruments</p><h2>Similarity</h2>
   <p>Each card uses only its named feature set and reports cosine scores. The five results are not combined into an overall likeness.</p>
   <div class="similarity-grid"><article class="similarity-card" data-similarity="ai_topics">
-  <h3>Fine AI topic mix</h3><p>Cosine similarity across all 50 AI-labeled topic shares.</p>
-  <ol><li><a href="warren-g-harding.html">Warren G. Harding</a>
-  <data value="0.8087">0.81 cosine</data></li><li><a href="john-quincy-adams.html">John Quincy Adams</a>
-  <data value="0.7441">0.74 cosine</data></li><li><a href="gerald-ford.html">Gerald Ford</a>
-  <data value="0.7185">0.72 cosine</data></li></ol></article><article class="similarity-card" data-similarity="ai_domains">
-  <h3>Broad AI domain mix</h3><p>Cosine similarity across the 17 broad AI topic domains.</p>
-  <ol><li><a href="gerald-ford.html">Gerald Ford</a>
-  <data value="0.8964">0.90 cosine</data></li><li><a href="warren-g-harding.html">Warren G. Harding</a>
-  <data value="0.8933">0.89 cosine</data></li><li><a href="theodore-roosevelt.html">Theodore Roosevelt</a>
-  <data value="0.8432">0.84 cosine</data></li></ol></article><article class="similarity-card" data-similarity="ai_rhetoric">
-  <h3>AI rhetoric profile</h3><p>Cosine similarity across six standardized measures: partisan attack, enemy naming, zero-sum framing, proposals, values, and topic breadth.</p>
-  <ol><li><a href="theodore-roosevelt.html">Theodore Roosevelt</a>
-  <data value="0.8823">0.88 cosine</data></li><li><a href="gerald-ford.html">Gerald Ford</a>
-  <data value="0.8801">0.88 cosine</data></li><li><a href="dwight-d-eisenhower.html">Dwight D. Eisenhower</a>
-  <data value="0.7570">0.76 cosine</data></li></ol></article><article class="similarity-card" data-similarity="rhetorical_fingerprint">
-  <h3>Rhetorical fingerprint</h3><p>Cosine similarity across eight standardized, named lexical measures: hope, fear, certainty, us-versus-them, self-reference, formality, vocabulary, and religiosity.</p>
-  <ol><li><a href="dwight-d-eisenhower.html">Dwight D. Eisenhower</a>
-  <data value="0.6640">0.66 cosine</data></li><li><a href="john-quincy-adams.html">John Quincy Adams</a>
-  <data value="0.5045">0.50 cosine</data></li><li><a href="william-mckinley.html">William McKinley</a>
-  <data value="0.4835">0.48 cosine</data></li></ol></article><article class="similarity-card" data-similarity="legacy_issues">
-  <h3>Legacy issue mix</h3><p>Cosine similarity across the 16 deterministic CorEx issue shares.</p>
-  <ol><li><a href="theodore-roosevelt.html">Theodore Roosevelt</a>
-  <data value="0.9822">0.98 cosine</data></li><li><a href="herbert-hoover.html">Herbert Hoover</a>
-  <data value="0.9504">0.95 cosine</data></li><li><a href="william-taft.html">William Howard Taft</a>
-  <data value="0.9365">0.94 cosine</data></li></ol></article></div>
+  <p class="similarity-kicker">Instrument 01</p>
+  <h3>Fine AI topic mix</h3><p class="similarity-description">Cosine similarity across all 50 AI-labeled topic shares.</p>
+  <ol><li><div class="similarity-match"><a href="warren-g-harding.html"><span>Warren G. Harding</span></a>
+  <data value="0.8087">0.81 cosine</data></div></li><li><div class="similarity-match"><a href="john-quincy-adams.html"><span>John Quincy Adams</span></a>
+  <data value="0.7441">0.74 cosine</data></div></li><li><div class="similarity-match"><a href="gerald-ford.html"><span>Gerald Ford</span></a>
+  <data value="0.7185">0.72 cosine</data></div></li></ol></article><article class="similarity-card" data-similarity="ai_domains">
+  <p class="similarity-kicker">Instrument 02</p>
+  <h3>Broad AI domain mix</h3><p class="similarity-description">Cosine similarity across the 17 broad AI topic domains.</p>
+  <ol><li><div class="similarity-match"><a href="gerald-ford.html"><span>Gerald Ford</span></a>
+  <data value="0.8964">0.90 cosine</data></div></li><li><div class="similarity-match"><a href="warren-g-harding.html"><span>Warren G. Harding</span></a>
+  <data value="0.8933">0.89 cosine</data></div></li><li><div class="similarity-match"><a href="theodore-roosevelt.html"><span>Theodore Roosevelt</span></a>
+  <data value="0.8432">0.84 cosine</data></div></li></ol></article><article class="similarity-card" data-similarity="ai_rhetoric">
+  <p class="similarity-kicker">Instrument 03</p>
+  <h3>AI rhetoric profile</h3><p class="similarity-description">Cosine similarity across six standardized measures: partisan attack, enemy naming, zero-sum framing, proposals, values, and topic breadth.</p>
+  <ol><li><div class="similarity-match"><a href="theodore-roosevelt.html"><span>Theodore Roosevelt</span></a>
+  <data value="0.8823">0.88 cosine</data></div></li><li><div class="similarity-match"><a href="gerald-ford.html"><span>Gerald Ford</span></a>
+  <data value="0.8801">0.88 cosine</data></div></li><li><div class="similarity-match"><a href="dwight-d-eisenhower.html"><span>Dwight D. Eisenhower</span></a>
+  <data value="0.7570">0.76 cosine</data></div></li></ol></article><article class="similarity-card" data-similarity="rhetorical_fingerprint">
+  <p class="similarity-kicker">Instrument 04</p>
+  <h3>Rhetorical fingerprint</h3><p class="similarity-description">Cosine similarity across eight standardized, named lexical measures: hope, fear, certainty, us-versus-them, self-reference, formality, vocabulary, and religiosity.</p>
+  <ol><li><div class="similarity-match"><a href="dwight-d-eisenhower.html"><span>Dwight D. Eisenhower</span></a>
+  <data value="0.6640">0.66 cosine</data></div></li><li><div class="similarity-match"><a href="john-quincy-adams.html"><span>John Quincy Adams</span></a>
+  <data value="0.5045">0.50 cosine</data></div></li><li><div class="similarity-match"><a href="william-mckinley.html"><span>William McKinley</span></a>
+  <data value="0.4835">0.48 cosine</data></div></li></ol></article><article class="similarity-card" data-similarity="legacy_issues">
+  <p class="similarity-kicker">Instrument 05</p>
+  <h3>Legacy issue mix</h3><p class="similarity-description">Cosine similarity across the 16 deterministic CorEx issue shares.</p>
+  <ol><li><div class="similarity-match"><a href="theodore-roosevelt.html"><span>Theodore Roosevelt</span></a>
+  <data value="0.9822">0.98 cosine</data></div></li><li><div class="similarity-match"><a href="herbert-hoover.html"><span>Herbert Hoover</span></a>
+  <data value="0.9504">0.95 cosine</data></div></li><li><div class="similarity-match"><a href="william-taft.html"><span>William Howard Taft</span></a>
+  <data value="0.9365">0.94 cosine</data></div></li></ol></article></div>
 </section>
 <section id="speeches" data-profile-section="speeches">
   <p class="section-kicker">Chronology kept separate from synthesis</p><h2>Signature speeches</h2>
   <p>Speeches ranked by how strongly their embedding aligns with this president’s era-adjusted distinctive direction. Years and titles come from the Miller Center corpus.</p>
   <ol class="signature-list"><li><span>1925</span><a href="https://millercenter.org/the-presidency/presidential-speeches/july-3-1925-centennial-washingtons-command-continental-army" target="_blank" rel="noopener">July 3, 1925: Centennial of Washington’s Command of the Continental Army</a></li><li><span>1924</span><a href="https://millercenter.org/the-presidency/presidential-speeches/december-3-1924-second-annual-message" target="_blank" rel="noopener">December 3, 1924: Second Annual Message</a></li><li><span>1928</span><a href="https://millercenter.org/the-presidency/presidential-speeches/december-4-1928-sixth-annual-message" target="_blank" rel="noopener">December 4, 1928: Sixth Annual Message</a></li><li><span>1925</span><a href="https://millercenter.org/the-presidency/presidential-speeches/march-4-1925-inaugural-address" target="_blank" rel="noopener">March 4, 1925: Inaugural Address</a></li><li><span>1925</span><a href="https://millercenter.org/the-presidency/presidential-speeches/october-20-1925-message-regarding-relationship-church-and" target="_blank" rel="noopener">October 20, 1925: Message Regarding Relationship of Church and State</a></li></ol>
-  <p class="download-row"><a href="../data/presidents/calvin-coolidge.json" download>Download this profile’s complete public data →</a></p>
-  <nav class="president-nav" aria-label="Adjacent president profiles"><a class="previous" href="warren-g-harding.html"><span>← Previous president</span><strong>Warren G. Harding</strong></a><a class="next" href="herbert-hoover.html"><span>Next president →</span><strong>Herbert Hoover</strong></a></nav>
 </section>
+<section id="evidence" data-profile-section="evidence">
+  <h2>Evidence</h2>
+  <details class="evidence-section-disclosure">
+    <summary>Legacy issue evidence and audit receipts</summary>
+    <div class="evidence-section-body">
+      <p class="section-kicker">Legacy issue model · named artifacts</p>
+      <p class="population-label"><strong>Population:</strong> source documents assigned to this president; rates use document-owner paragraphs.</p>
+      <p><span class="source-tag legacy-source">Legacy issue model</span> Cards retain the producer’s declared threshold-normalized strength order. The first two appear first and any remainder stays in the nested closed disclosure.</p>
+      <article class="evidence-card i-card">
+  <div class="evidence-head"><h3>Taxes &amp; budget</h3></div>
+  <p class="evidence-claim">This issue stood above the president&#x27;s era peers in the source-document population.</p>
+  <dl class="evidence-counts">
+    <div><dt>Document-owned paragraphs</dt><dd>86 / 590 (14.6%)</dd></div>
+    <div><dt>Source documents carrying issue</dt><dd>9</dd></div>
+    <div><dt>Paragraph-weighted corpus baseline</dt><dd>10.8% · 1.35×</dd></div>
+    <div><dt>Difference from era peers</dt><dd>+8.31 percentage points</dd></div>
+  </dl>
+  <p class="why-shown"><strong>Why shown:</strong> Shown because its era difference is +8.31 percentage points (threshold: +0.75).</p>
+  <article class="evidence-receipt primary-receipt">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message" target="_blank" rel="noopener">December 6, 1927: Fifth Annual Message</a> <span>· 1927-12-06 · Corpus year 1927</span></p>
+  <blockquote><p>“The people ought to take no selfish attitude of pressing for removing moderate and fair taxes which might produce a deficit.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message, 3)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>primary</dd></div>
+  </dl>
+</article><details class="receipt-more"><summary>Additional keyed receipts (2)</summary>
+  <div><article class="evidence-receipt ">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-3-1924-second-annual-message" target="_blank" rel="noopener">December 3, 1924: Second Annual Message</a> <span>· 1924-12-03 · Corpus year 1924</span></p>
+  <blockquote><p>“Anybody can reduce taxes, but it is not so easy to stand in the gap and resist the passage of increasing appropriation bills which would make tax reduction impossible.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-3-1924-second-annual-message, 6)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>additional_1</dd></div>
+  </dl>
+</article><article class="evidence-receipt ">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/march-4-1925-inaugural-address" target="_blank" rel="noopener">March 4, 1925: Inaugural Address</a> <span>· 1925-03-04 · Corpus year 1925</span></p>
+  <blockquote><p>“The collection of any taxes which are not absolutely required, which do not beyond reasonable doubt contribute to the public welfare, is only a species of legalized larceny.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/march-4-1925-inaugural-address, 21)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>additional_2</dd></div>
+  </dl>
+</article></div>
+</details>
+  <details class="card-audit"><summary>Methods and card audit</summary>
+    <p><strong>Legacy stance:</strong> No stance label</p>
+    <p><strong>Legacy stance method:</strong> Current legacy method: count fixed era-portable phrases in issue paragraphs; require eight matches and use a 60/40 split for a directional label.</p>
+    <p><strong>Distinctive-vocabulary method:</strong> Current legacy method: attach a term after at least two issue uses when its per-word issue rate is at least 1.5× its rate in the president&#x27;s text.</p>
+    <div class="terms"><span class="term">ought</span><span class="term">method</span><span class="term">flood</span><span class="term">reduction</span><span class="term">national</span></div>
+  </details>
+  <p class="evidence-limitation">This rate is based on source documents assigned to the president. Speaker attribution is reported separately. Excerpts are deterministic audit examples, not proof of representativeness, intent, influence, policy success, or historical importance.</p>
+</article><article class="evidence-card i-card">
+  <div class="evidence-head"><h3>Agriculture</h3></div>
+  <p class="evidence-claim">This issue was elevated both above its corpus baseline and above the president&#x27;s era peers in the source-document population.</p>
+  <dl class="evidence-counts">
+    <div><dt>Document-owned paragraphs</dt><dd>68 / 590 (11.5%)</dd></div>
+    <div><dt>Source documents carrying issue</dt><dd>9</dd></div>
+    <div><dt>Paragraph-weighted corpus baseline</dt><dd>2.8% · 4.18×</dd></div>
+    <div><dt>Difference from era peers</dt><dd>+4.66 percentage points</dd></div>
+  </dl>
+  <p class="why-shown"><strong>Why shown:</strong> Shown because its share is 4.18× the corpus baseline (threshold: 1.5×) and its era difference is +4.66 percentage points (threshold: +0.75).</p>
+  <article class="evidence-receipt primary-receipt">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-4-1928-sixth-annual-message" target="_blank" rel="noopener">December 4, 1928: Sixth Annual Message</a> <span>· 1928-12-04 · Corpus year 1928</span></p>
+  <blockquote><p>“This means not only further progress, in overcoming the price disparity into which agriculture was plunged in 1920-21, but also increased efficiency on the part of farmers and a well-grounded confidence in the future of agriculture.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-4-1928-sixth-annual-message, 24)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>primary</dd></div>
+  </dl>
+</article><details class="receipt-more"><summary>Additional keyed receipts (2)</summary>
+  <div><article class="evidence-receipt ">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message" target="_blank" rel="noopener">December 6, 1927: Fifth Annual Message</a> <span>· 1927-12-06 · Corpus year 1927</span></p>
+  <blockquote><p>“It is often stated that a reduction of tariff rates on industry would benefit agriculture.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message, 30)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>additional_1</dd></div>
+  </dl>
+</article><article class="evidence-receipt ">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-7-1926-fourth-annual-message" target="_blank" rel="noopener">December 7, 1926: Fourth Annual Message</a> <span>· 1926-12-07 · Corpus year 1926</span></p>
+  <blockquote><p>“The Department of Agriculture estimates the net income of agriculture for the year 1920-21 at only $375,000,000; for 1924-25, $2,656,000,000; for 1925-26, $2,757,000,000.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-7-1926-fourth-annual-message, 19)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>additional_2</dd></div>
+  </dl>
+</article></div>
+</details>
+  <details class="card-audit"><summary>Methods and card audit</summary>
+    <p><strong>Legacy stance:</strong> No stance label</p>
+    <p><strong>Legacy stance method:</strong> Current legacy method: count fixed era-portable phrases in issue paragraphs; require eight matches and use a 60/40 split for a directional label.</p>
+    <p><strong>Distinctive-vocabulary method:</strong> Current legacy method: attach a term after at least two issue uses when its per-word issue rate is at least 1.5× its rate in the president&#x27;s text.</p>
+    <div class="terms"><span class="term">agriculture</span><span class="term">marketing</span><span class="term">agricultural</span><span class="term">cooperative</span><span class="term">reclamation</span></div>
+  </details>
+  <p class="evidence-limitation">This rate is based on source documents assigned to the president. Speaker attribution is reported separately. Excerpts are deterministic audit examples, not proof of representativeness, intent, influence, policy success, or historical importance.</p>
+</article><details class="more-evidence"><summary>More issue evidence (2)</summary>
+  <div><article class="evidence-card i-card">
+  <div class="evidence-head"><h3>Infrastructure</h3></div>
+  <p class="evidence-claim">This issue was elevated both above its corpus baseline and above the president&#x27;s era peers in the source-document population.</p>
+  <dl class="evidence-counts">
+    <div><dt>Document-owned paragraphs</dt><dd>96 / 590 (16.3%)</dd></div>
+    <div><dt>Source documents carrying issue</dt><dd>10</dd></div>
+    <div><dt>Paragraph-weighted corpus baseline</dt><dd>8.3% · 1.97×</dd></div>
+    <div><dt>Difference from era peers</dt><dd>+4.01 percentage points</dd></div>
+  </dl>
+  <p class="why-shown"><strong>Why shown:</strong> Shown because its share is 1.97× the corpus baseline (threshold: 1.5×) and its era difference is +4.01 percentage points (threshold: +0.75).</p>
+  <article class="evidence-receipt primary-receipt">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message" target="_blank" rel="noopener">December 6, 1927: Fifth Annual Message</a> <span>· 1927-12-06 · Corpus year 1927</span></p>
+  <blockquote><p>“While the advantage of having good roads is very large, the desire for improved highways is not limited to our own country.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message, 15)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>primary</dd></div>
+  </dl>
+</article><details class="receipt-more"><summary>Additional keyed receipts (2)</summary>
+  <div><article class="evidence-receipt ">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-7-1926-fourth-annual-message" target="_blank" rel="noopener">December 7, 1926: Fourth Annual Message</a> <span>· 1926-12-07 · Corpus year 1926</span></p>
+  <blockquote><p>“One of the large contributing causes to the present highly satisfactory state of our economic condition is the prompt and dependable service, surpassing all our previous records, rendered by the railroads.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-7-1926-fourth-annual-message, 39)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>additional_1</dd></div>
+  </dl>
+</article><article class="evidence-receipt ">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-6-1923-first-annual-message" target="_blank" rel="noopener">December 6, 1923: First Annual Message</a> <span>· 1923-12-06 · Corpus year 1923</span></p>
+  <blockquote><p>“HIGHWAYS AND FORESTS Highways and reforestation should continue to have the interest and support of the Government.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-6-1923-first-annual-message, 53)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>additional_2</dd></div>
+  </dl>
+</article></div>
+</details>
+  <details class="card-audit"><summary>Methods and card audit</summary>
+    <p><strong>Legacy stance:</strong> No stance label</p>
+    <p><strong>Legacy stance method:</strong> Current legacy method: count fixed era-portable phrases in issue paragraphs; require eight matches and use a 60/40 split for a directional label.</p>
+    <p><strong>Distinctive-vocabulary method:</strong> Current legacy method: attach a term after at least two issue uses when its per-word issue rate is at least 1.5× its rate in the president&#x27;s text.</p>
+    <div class="terms"><span class="term">consolidation</span></div>
+  </details>
+  <p class="evidence-limitation">This rate is based on source documents assigned to the president. Speaker attribution is reported separately. Excerpts are deterministic audit examples, not proof of representativeness, intent, influence, policy success, or historical importance.</p>
+</article><article class="evidence-card i-card">
+  <div class="evidence-head"><h3>Education</h3></div>
+  <p class="evidence-claim">This issue stood above the president&#x27;s era peers in the source-document population.</p>
+  <dl class="evidence-counts">
+    <div><dt>Document-owned paragraphs</dt><dd>38 / 590 (6.4%)</dd></div>
+    <div><dt>Source documents carrying issue</dt><dd>11</dd></div>
+    <div><dt>Paragraph-weighted corpus baseline</dt><dd>4.4% · 1.47×</dd></div>
+    <div><dt>Difference from era peers</dt><dd>+3.64 percentage points</dd></div>
+  </dl>
+  <p class="why-shown"><strong>Why shown:</strong> Shown because its era difference is +3.64 percentage points (threshold: +0.75).</p>
+  <article class="evidence-receipt primary-receipt">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-4-1928-sixth-annual-message" target="_blank" rel="noopener">December 4, 1928: Sixth Annual Message</a> <span>· 1928-12-04 · Corpus year 1928</span></p>
+  <blockquote><p>“A survey of negro colleges and universities in the United States has just been completed l7y the Bureau of Education through funds provided by the institutions themselves and through private sources.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-4-1928-sixth-annual-message, 58)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>primary</dd></div>
+  </dl>
+</article><details class="receipt-more"><summary>Additional keyed receipts (2)</summary>
+  <div><article class="evidence-receipt ">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message" target="_blank" rel="noopener">December 6, 1927: Fifth Annual Message</a> <span>· 1927-12-06 · Corpus year 1927</span></p>
+  <blockquote><p>“EDUCATION For many years it has been the policy of the Federal Government to encourage and foster the cause of education.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/december-6-1927-fifth-annual-message, 55)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>additional_1</dd></div>
+  </dl>
+</article><article class="evidence-receipt ">
+  <p class="receipt-source"><a href="https://millercenter.org/the-presidency/presidential-speeches/february-22-1927-address-regarding-washingtons-birthday" target="_blank" rel="noopener">February 22, 1927: Address Regarding Washington’s Birthday</a> <span>· 1927-02-22 · Corpus year 1927</span></p>
+  <blockquote><p>“The boy might well have grown up with very little education, but his eager mind and indomitable will led him to acquire learning and information despite the handicaps surrounding him.”</p></blockquote>
+  <dl class="receipt-audit">
+    <div><dt>Keyed receipt</dt><dd><code>(/the-presidency/presidential-speeches/february-22-1927-address-regarding-washingtons-birthday, 6)</code></dd></div>
+    <div><dt>Source-document owner</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Actual speaker</dt><dd>Calvin Coolidge (calvin-coolidge)</dd></div>
+    <div><dt>Attribution state</dt><dd>Same actual speaker and source-document owner; eligible</dd></div>
+    <div><dt>Selection role</dt><dd>additional_2</dd></div>
+  </dl>
+</article></div>
+</details>
+  <details class="card-audit"><summary>Methods and card audit</summary>
+    <p><strong>Legacy stance:</strong> No stance label</p>
+    <p><strong>Legacy stance method:</strong> Current legacy method: count fixed era-portable phrases in issue paragraphs; require eight matches and use a 60/40 split for a directional label.</p>
+    <p><strong>Distinctive-vocabulary method:</strong> Current legacy method: attach a term after at least two issue uses when its per-word issue rate is at least 1.5× its rate in the president&#x27;s text.</p>
+    <div class="terms"><span class="term">spiritual</span></div>
+  </details>
+  <p class="evidence-limitation">This rate is based on source documents assigned to the president. Speaker attribution is reported separately. Excerpts are deterministic audit examples, not proof of representativeness, intent, influence, policy success, or historical importance.</p>
+</article></div></details><details class="more-evidence"><summary>Distinctive vocabulary outside one issue</summary>
+  <p>Corpus-derived words not assigned to a displayed issue card.</p><div class="terms"><span class="term">washington</span><span class="term">colonies</span><span class="term">tile</span><span class="term">sound</span><span class="term">exceedingly</span><span class="term">armaments</span></div></details>
+    </div>
+  </details>
+</section>
+<p class="download-row"><a href="../data/presidents/calvin-coolidge.json" download>Download this profile’s complete public data →</a></p>
+<nav class="president-nav" aria-label="Adjacent president profiles"><a class="previous" href="warren-g-harding.html"><span>← Previous president</span><strong>Warren G. Harding</strong></a><a class="next" href="herbert-hoover.html"><span>Next president →</span><strong>Herbert Hoover</strong></a></nav>
 </main>
 <footer><p>Data: <a href="https://data.millercenter.org">Miller Center of Public Affairs, University of Virginia</a>. Emotion scores: NRC Emotion Lexicon (Mohammad &amp; Turney). <a href="../methodology.html">AI labeling method</a> · <a href="https://github.com/jacobfulfyll/presidential_profiles">Code</a>.</p><p class="footer-feedback"><a href="../feedback.html">Feedback and accuracy →</a></p></footer>
 <script>
-const FIGS = {"rhetoric_legacy": {"data": [{"cliponaxis": false, "customdata": [["6.6 per 10,000 words", "48th percentile"], ["43.0% \u00b7 windowed type-token ratio (percent)", "81st percentile"], ["12.8 grade level", "38th percentile"], ["16.9% \u00b7 percent I among I + we", "2nd percentile"], ["57.1 per 10,000 words", "45th percentile"], ["64.6% \u00b7 percent of assertive and deliberative markers", "57th percentile"], ["262.7 per 10,000 words", "31st percentile"], ["735.7 per 10,000 words", "86th percentile"]], "hovertemplate": "%{y}\u003cbr\u003e%{customdata[0]}\u003cbr\u003e%{customdata[1]}\u003cextra\u003e\u003c/extra\u003e", "marker": {"color": "#256abf"}, "orientation": "h", "text": ["48th percentile \u00b7 6.6 / 10k", "81st percentile \u00b7 43.0%", "38th percentile \u00b7 grade 12.8", "2nd percentile \u00b7 16.9%", "45th percentile \u00b7 57.1 / 10k", "57th percentile \u00b7 64.6%", "31st percentile \u00b7 262.7 / 10k", "86th percentile \u00b7 735.7 / 10k"], "textposition": "outside", "x": [47.61904761904761, 80.95238095238095, 38.095238095238095, 2.380952380952381, 45.23809523809524, 57.14285714285714, 30.952380952380953, 85.71428571428571], "y": ["Religiosity", "Vocabulary", "Formality", "Self-reference", "Us vs them", "Certainty", "Fear appeal", "Hope"], "type": "bar"}], "layout": {"template": {"data": {"barpolar": [{"marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "bar": [{"error_x": {"color": "rgb(36,36,36)"}, "error_y": {"color": "rgb(36,36,36)"}, "marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "carpet": [{"aaxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "baxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "choropleth"}], "contourcarpet": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "contourcarpet"}], "contour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "contour"}], "heatmap": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "heatmap"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2dcontour"}], "histogram2d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2d"}], "histogram": [{"marker": {"line": {"color": "white", "width": 0.6}}, "type": "histogram"}], "mesh3d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermapbox"}], "scattermap": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermap"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolargl"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolar"}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "rgb(237,237,237)"}, "line": {"color": "white"}}, "header": {"fill": {"color": "rgb(217,217,217)"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "colorscale": {"diverging": [[0.0, "rgb(103,0,31)"], [0.1, "rgb(178,24,43)"], [0.2, "rgb(214,96,77)"], [0.3, "rgb(244,165,130)"], [0.4, "rgb(253,219,199)"], [0.5, "rgb(247,247,247)"], [0.6, "rgb(209,229,240)"], [0.7, "rgb(146,197,222)"], [0.8, "rgb(67,147,195)"], [0.9, "rgb(33,102,172)"], [1.0, "rgb(5,48,97)"]], "sequential": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "sequentialminus": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]]}, "colorway": ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"], "font": {"color": "rgb(36,36,36)"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "white", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "white", "polar": {"angularaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "radialaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "scene": {"xaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "zaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}, "shapedefaults": {"fillcolor": "black", "line": {"width": 0}, "opacity": 0.3}, "ternary": {"aaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "baxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "caxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}}, "title": {"font": {"size": 13, "color": "#0b0b0b"}, "text": "Corpus-derived rhetorical measures", "x": 0}, "font": {"family": "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif", "color": "#52514e", "size": 11}, "margin": {"l": 116, "r": 190, "t": 42, "b": 48}, "xaxis": {"tickfont": {"color": "#706d67"}, "range": [0, 100], "tickvals": [0, 25, 50, 75, 100], "ticksuffix": "th", "gridcolor": "#e1e0d9", "title": {"text": "Eligible-president percentile"}}, "yaxis": {"tickfont": {"color": "#0b0b0b", "size": 11}, "automargin": true}, "paper_bgcolor": "#fcfcfb", "plot_bgcolor": "#fcfcfb", "showlegend": false, "height": 374}}, "rhetoric_ai": {"data": [{"cliponaxis": false, "customdata": [["23.06 effective topics", "81st percentile"], ["32.88% \u00b7 percent of paragraphs", "60th percentile"], ["28.14% \u00b7 percent of paragraphs", "90th percentile"], ["1.36% \u00b7 percent of paragraphs", "2nd percentile"], ["3.56% \u00b7 percent of paragraphs", "5th percentile"], ["0.17% \u00b7 percent of paragraphs", "7th percentile"]], "hovertemplate": "%{y}\u003cbr\u003e%{customdata[0]}\u003cbr\u003e%{customdata[1]}\u003cextra\u003e\u003c/extra\u003e", "marker": {"color": "#256abf"}, "orientation": "h", "text": ["81st percentile \u00b7 23.06 topics", "60th percentile \u00b7 32.88%", "90th percentile \u00b7 28.14%", "2nd percentile \u00b7 1.36%", "5th percentile \u00b7 3.56%", "7th percentile \u00b7 0.17%"], "textposition": "outside", "x": [81.0, 59.5, 90.5, 2.4, 4.8, 7.1], "y": ["Topic breadth", "Values share", "Proposal share", "Zero-sum", "Enemy naming", "Partisan attack"], "type": "bar"}], "layout": {"template": {"data": {"barpolar": [{"marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "barpolar"}], "bar": [{"error_x": {"color": "rgb(36,36,36)"}, "error_y": {"color": "rgb(36,36,36)"}, "marker": {"line": {"color": "white", "width": 0.5}, "pattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}}, "type": "bar"}], "carpet": [{"aaxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "baxis": {"endlinecolor": "rgb(36,36,36)", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "rgb(36,36,36)"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "choropleth"}], "contourcarpet": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "contourcarpet"}], "contour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "contour"}], "heatmap": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "heatmap"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2dcontour"}], "histogram2d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "histogram2d"}], "histogram": [{"marker": {"line": {"color": "white", "width": 0.6}}, "type": "histogram"}], "mesh3d": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermapbox"}], "scattermap": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scattermap"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolargl"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterpolar"}], "scatter": [{"fillpattern": {"fillmode": "overlay", "size": 10, "solidity": 0.2}, "type": "scatter"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}, "colorscale": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "rgb(237,237,237)"}, "line": {"color": "white"}}, "header": {"fill": {"color": "rgb(217,217,217)"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowhead": 0, "arrowwidth": 1}, "autotypenumbers": "strict", "coloraxis": {"colorbar": {"outlinewidth": 1, "tickcolor": "rgb(36,36,36)", "ticks": "outside"}}, "colorscale": {"diverging": [[0.0, "rgb(103,0,31)"], [0.1, "rgb(178,24,43)"], [0.2, "rgb(214,96,77)"], [0.3, "rgb(244,165,130)"], [0.4, "rgb(253,219,199)"], [0.5, "rgb(247,247,247)"], [0.6, "rgb(209,229,240)"], [0.7, "rgb(146,197,222)"], [0.8, "rgb(67,147,195)"], [0.9, "rgb(33,102,172)"], [1.0, "rgb(5,48,97)"]], "sequential": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]], "sequentialminus": [[0.0, "#440154"], [0.1111111111111111, "#482878"], [0.2222222222222222, "#3e4989"], [0.3333333333333333, "#31688e"], [0.4444444444444444, "#26828e"], [0.5555555555555556, "#1f9e89"], [0.6666666666666666, "#35b779"], [0.7777777777777778, "#6ece58"], [0.8888888888888888, "#b5de2b"], [1.0, "#fde725"]]}, "colorway": ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF"], "font": {"color": "rgb(36,36,36)"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "white", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "white", "polar": {"angularaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "radialaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "scene": {"xaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "zaxis": {"backgroundcolor": "white", "gridcolor": "rgb(232,232,232)", "gridwidth": 2, "linecolor": "rgb(36,36,36)", "showbackground": true, "showgrid": false, "showline": true, "ticks": "outside", "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}, "shapedefaults": {"fillcolor": "black", "line": {"width": 0}, "opacity": 0.3}, "ternary": {"aaxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "baxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}, "bgcolor": "white", "caxis": {"gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside"}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}, "yaxis": {"automargin": true, "gridcolor": "rgb(232,232,232)", "linecolor": "rgb(36,36,36)", "showgrid": false, "showline": true, "ticks": "outside", "title": {"standoff": 15}, "zeroline": false, "zerolinecolor": "rgb(36,36,36)"}}}, "title": {"font": {"size": 13, "color": "#0b0b0b"}, "text": "AI-labeled paragraph measures", "x": 0}, "font": {"family": "system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif", "color": "#52514e", "size": 11}, "margin": {"l": 116, "r": 190, "t": 42, "b": 48}, "xaxis": {"tickfont": {"color": "#706d67"}, "range": [0, 100], "tickvals": [0, 25, 50, 75, 100], "ticksuffix": "th", "gridcolor": "#e1e0d9", "title": {"text": "Eligible-president percentile"}}, "yaxis": {"tickfont": {"color": "#0b0b0b", "size": 11}, "automargin": true}, "paper_bgcolor": "#fcfcfb", "plot_bgcolor": "#fcfcfb", "showlegend": false, "height": 300}}};
-const compactProfile = window.matchMedia("(max-width: 600px)");
-function mountProfileFigures() {
-  if (compactProfile.matches) return;
-  for (const el of document.querySelectorAll(".chart[data-fig]")) {
-    if (el.dataset.mounted === "true") continue;
-    const fig = FIGS[el.dataset.fig];
-    if (!fig) continue;
-    Plotly.newPlot(el, fig.data, fig.layout, {displayModeBar:false,responsive:true});
-    el.dataset.mounted = "true";
+(() => {
+  const root = document.querySelector("#connections[data-profile-connections]");
+  if (!root) return;
+  let modulePromise = null;
+  let retried = false;
+  const status = root.querySelector("[data-pc-status]");
+  const retry = root.querySelector("[data-pc-retry]");
+  const showFailure = () => {
+    if (status) status.textContent = "Interactive Connections could not load. All server-rendered evidence remains available.";
+    if (retry && !retried) retry.hidden = false;
+  };
+  const load = () => {
+    if (modulePromise) return modulePromise;
+    if (retry) retry.hidden = true;
+    modulePromise = import("../assets/profile-connections-v1.js")
+      .then(module => module.enhanceProfileConnections(root, {
+        indexUrl: root.dataset.indexUrl,
+        shardUrl: root.dataset.shardUrl,
+        presidentProfileId: root.dataset.presidentProfileId
+      }))
+      .catch(error => { modulePromise = null; showFailure(); throw error; });
+    return modulePromise;
+  };
+  if (retry) retry.addEventListener("click", () => {
+    if (retried) return;
+    retried = true;
+    load().catch(() => {});
+  });
+  root.addEventListener("focusin", () => { load().catch(() => {}); }, {once:true});
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      observer.disconnect();
+      load().catch(() => {});
+    }, {rootMargin:"600px 0px"});
+    observer.observe(root);
+  } else {
+    const maybeLoad = () => {
+      const bounds = root.getBoundingClientRect();
+      if (bounds.top > innerHeight + 600 || bounds.bottom < -600) return;
+      removeEventListener("scroll", maybeLoad);
+      removeEventListener("resize", maybeLoad);
+      load().catch(() => {});
+    };
+    addEventListener("scroll", maybeLoad, {passive:true});
+    addEventListener("resize", maybeLoad, {passive:true});
+    maybeLoad();
   }
-}
-mountProfileFigures();
-if (compactProfile.addEventListener) compactProfile.addEventListener("change", mountProfileFigures);
+})();
 </script>
 </body>
 </html>

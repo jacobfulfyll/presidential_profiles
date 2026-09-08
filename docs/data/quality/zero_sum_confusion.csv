@@ -1,5 +1,5 @@
-primary,second,n
-False,False,7833
-False,True,45
-True,False,437
-True,True,255
+primary,second,n,row_percent
+False,False,7833,99.42878903274944
+False,True,45,0.5712109672505713
+True,False,437,63.150289017341045
+True,True,255,36.84971098265896

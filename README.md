@@ -8,14 +8,22 @@ whole sweep of U.S. history. An NLP analysis of every speech in the
 Originally a 2019 Galvanize data-science capstone; rebuilt in 2026 on the official Miller Center
 data release with a modern Python pipeline. The original code is preserved in [`legacy/`](legacy/).
 
-**➡ [Interactive dashboard](https://jacobfulfyll.github.io/presidential_profiles/)** — every
+**➡ [Interactive site](https://jacobfulfyll.github.io/presidential_profiles/)** — every
 trend as a live chart — the issue and topic trends carrying confidence bands that widen where the
 record is thin instead of dropping the thin years — plus **[45 president profile pages](https://jacobfulfyll.github.io/presidential_profiles/presidents/)**:
-each begins with identity and corpus support, then moves through a neutral overview, six leading
-AI topics, direct-label rhetoric measures, source excerpts, five separately named similarity
-instruments, and signature speeches. Corpus-derived, AI-labeled, and legacy issue measures stay
-visibly distinct. Presidents with fewer than five corpus speeches keep their absolute evidence
-but receive no synthetic percentile rank, in the profile, public JSON, or Compare. The generated
+each follows Overview → Agenda → Rhetoric → Connections → Similarity → Signature speeches →
+Evidence, with Evidence last and closed initially. Rhetoric uses server-rendered semantic bars
+rather than profile Plotly payloads; legacy Evidence names its document-owner population and
+supplies exact counts, selection reasons, keyed Miller receipts, speaker/owner attribution, and
+limitations. Connections separately uses eligible actual-speaker paragraphs for a
+field-preserving topic ego whose topic nodes can be clicked or keyboard-activated to emphasize
+their paths. The former topic audit panel and complete focal-topic record are absent. One joined
+`Invoked` / `Invoked by` radio control switches a stable location between the two top-five count
+lists; the invocation diagram and hover/focus previews are gone, and topic expansion is reversible.
+The directory remains in canonical chronology and adds progressive name-only search. Core Profile V3
+measures remain document-owner based, protected Compare values are unchanged, and presidents with
+fewer than five source speeches still receive no synthetic percentile rank.
+The generated
 [Compare workspace](docs/compare.html) places two or three records into one narrative: Profile V3
 rhetorical fingerprints, a progressive agenda comparison, and comparison-wide evidence. The default
 agenda is the governed-order union of each selected president’s three highest-share broad AI topics;
@@ -113,13 +121,38 @@ share a `(doc_name, para_idx)` key — join on it rather than assuming row order
 keyed the same way; `paragraph_clusters_meta.json` carries each cluster's size, top terms, and
 NPMI coherence.
 
-`data/era_boundaries/` is the deterministic `$0` review layer behind the site's
-“Era Choices” page. `sliding_scores.parquet` tests every possible calendar-year
-boundary by comparing the preceding eight years with the following eight years
-on the Era Atlas's same 63-axis fingerprint; `cluster_stability.parquet` repeats
-contiguity-constrained Ward clustering from k=2 through k=12 with each axis group
-removed in turn. These distances describe rhetorical transition zones. Exact
-chapter years remain historical/editorial judgments, not algorithmic output.
+`data/era_boundaries/` is the deterministic `$0` `era-boundaries-v3` review layer behind the
+site's [Era Choices page](docs/era-boundaries.html). Its hashed bundle tests local transition
+scores, contiguous partitions, cluster stability, alternative segment lengths and grid offsets,
+axis and axis-family weighting, terminal-cycle exclusion, leave-one-family-out conditions, and a
+common-genre condition. The public condition, support, objective, similarity, driver, and
+right-censor receipts live under `docs/data/era-boundaries-v3/`; compatible older download URLs
+remain available. These results describe segmentation sensitivity. `ERA_PROFILE_SPECS` remains the
+sole owner of the nine public Story-era identities and anchors, and exact chapter dates remain
+reviewed historical/editorial judgments rather than algorithmic output.
+
+The five data-trust surfaces are [Data Quality](docs/data-quality.html),
+[Methods](docs/methodology.html), [Era Choices](docs/era-boundaries.html),
+[Model Comparison](docs/label-models.html), and the [Metric Dictionary](docs/metrics.html). They
+share a quick-verdict → visual-explanation → technical-evidence reading model and a local
+navigation system. `data-quality-v2` publishes its population, agreement, treatment, uncertainty,
+and provenance contracts through `docs/data/quality/manifest_v2.json`; each substantive figure
+names its registered metric and exact evidence artifact. The coarse POS analysis is now a Methods
+feature-engineering appendix governed by `grammar-pos-v2` in `data/grammar/manifest.json`, which
+pins the corpus, spaCy runtime, model package, outputs, and stale-cache checks.
+
+`data-trust-validation-protocols-v1` is a deterministic, execution-blocked plan for a future
+blinded human-validity study and paired decade-hidden sensitivity experiment. Its governed receipt
+is `data/validation_protocols/v1/manifest_v1.json`; only the declared non-identifying protocol
+projection is copied to `docs/data/validation-protocols-v1/`. No human labels, validity results,
+runtime model choice, paid request, or authority to change production labels exists. Restricted
+selection keys, coder assignments, and the invariance request plan stay outside the public site
+under the Git-ignored `data/validation_protocols/v1/restricted/` tree. Regenerate that local bundle
+with the documented `--rebuild` command. This prevents accidental publication but is not
+cryptographic secrecy: coders must not access the deterministic builder or reconstruction inputs
+before their labels are locked.
+See [`notes/data-trust-redesign-v1.md`](notes/data-trust-redesign-v1.md) and
+[`notes/data-trust-validation-protocols-v1.md`](notes/data-trust-validation-protocols-v1.md).
 
 LLM-derived annotations live separately under `data/llm_annotations/`, keyed by `doc_name` or
 `(doc_name, para_idx)` — never by row order — with every row's `run_id` pointing at a manifest
@@ -207,8 +240,9 @@ conservatively with promoted primary-AI entities; AI stance remains separate
 and nullable. The era table counts a normalized primary-AI entity once per
 paragraph, uses every eligible paragraph as the denominator, applies
 Jeffreys-smoothed log odds against the other Story eras, and publishes five
-supported candidates per era. Story now consumes the governed bundle through a
-fail-closed reader; other page families remain unmigrated. See
+supported candidates per era. Story now consumes the governed bundle through a fail-closed reader;
+Profiles consume it only through the separately labeled Connections population. Core Profile V3
+measures and Compare remain unmigrated. See
 [`notes/speaker-reference-foundation-v1.md`](notes/speaker-reference-foundation-v1.md)
 and
 [`notes/story-reference-entity-migration-v1.md`](notes/story-reference-entity-migration-v1.md),
@@ -247,6 +281,22 @@ Validate both public layers with
 `arch -x86_64 .venv/bin/python -m presidential_profiles.speaker_topic_network --check --site-dir docs`
 and
 `arch -x86_64 .venv/bin/python -m presidential_profiles.summary_topic_network --check --site-dir docs`.
+
+`docs/data/profile-context/` is the separate 49-file
+`president-profile-context-v1` public layer for profile Connections and enriched legacy Evidence.
+It contains one hashed index, one hashed manifest, 45 president shards, and complete invocation
+edge/evidence CSVs. Topic relationships are field-preserving all-corpus Level-1 projections from
+`actual-speaker-topic-network-v1`; invocation relationships come from the accepted evidence after
+the actual-speaker overlay and retain complete fixed-order function and stance counts. Python
+precomputes all analytical ordering and default/expanded selections. Profile HTML server-renders
+the default topic diagram, both top-five invocation summaries, semantic lists, receipts,
+limitations, and downloads. The enhancement module loads near Connections, but JSON is fetched
+only after explicit topic expansion; compacting and re-expanding reuse the same payload. The
+implementation and acceptance contract is
+[`notes/president-profiles-and-navigation-v1.md`](notes/president-profiles-and-navigation-v1.md).
+Validate the governed invocation aggregation with
+`arch -x86_64 .venv/bin/python -m presidential_profiles.actual_speaker_invocation_network --check`;
+the ordinary site build validates and publishes the complete context contract.
 
 `data/attention/topic_lifecycles.parquet` (201 rows) is the first life-history table built on
 that annotation layer: one row per `(level, treatment, topic)` — 2 levels × 3 genre treatments ×
@@ -478,13 +528,14 @@ Requires [uv](https://docs.astral.sh/uv/). Then:
 uv sync                 # install pinned environment (Python 3.12)
 uv run pp-fetch         # download + normalize the corpus  -> data/speeches.parquet
 uv run pp-analyze       # full pipeline                    -> outputs/
-uv run pp-site          # interactive dashboard            -> docs/index.html
+uv run pp-site          # deterministic static site        -> docs/index.html
 
 python -m presidential_profiles.coverage_pressure  # registered breadth/depth analysis
 python -m presidential_profiles.inference          # common frequentist receipt table
 python -m presidential_profiles.invocations status # resumable invocation-v2 workflow
 python -m presidential_profiles.networks           # deterministic Network Atlas artifacts
 python -m presidential_profiles.expansion_story    # second-era story evidence layer
+python -m presidential_profiles.validation_protocols --check
 python -m presidential_profiles.annotation_refresh list-bundles
 python -m presidential_profiles.annotation_refresh validate-registry
 ```
@@ -600,19 +651,67 @@ founding-dictionary audit; Hope divided by Doom with non-causal event guides; an
 topic-gravity field in which up to eight broad topics pull supported president
 portraits by recurring actual-speaker paragraph share. Summary ends with one
 427-row exact recurring-topic CSV download and no post-story appendix.
-The all-president legal/procedural-versus-hype scatter, five vertically aligned Conflict target
-trajectories at canonical `trends.ERAS` grain, the president-grain Conflict portrait view with
+The WHO and HOW bars now lead through an explicit non-causal nine-era bridge into the
+register comparison. Its default `By president` view keeps all 45 records in place and uses one
+native selector for All eras, Dim all, or one governed Story era. `Over time` instead plots the
+legal/procedural dictionary count divided by the hype dictionary count as one line across centered
+five-year all-corpus windows. A logarithmic axis accommodates the observed range; the generator
+retains the 20,000-word support floor, suppresses missing or zero hype denominators, and leaves
+unsupported windows as gaps. The chart deliberately omits historical-event and administration-
+transition lines. Seven direct year labels identify the 1827 Adams-heavy rise, 1863 Civil War-era
+drop, 1881 series maximum, 1944 wartime low, 1966 policy-heavy rise, 2016 mid-2010s decline, and
+2023 recent rebound. At the owner's direction, the permanent `Selected turns in the line` guide
+and both register text-alternative tables are removed. Direct-label hover is a short, left-aligned
+multiline corpus-composition summary; ordinary line hover retains the ratio and both component rates. Era
+emphasis disables in that view and restores its prior choice when the president view returns.
+The earlier phase buttons and nine-card Voice control are retired while the Time portrait's multi-era controls
+remain. One five-line Conflict target chart at canonical `trends.ERAS` grain, the
+president-grain Conflict portrait view restricted to the governed speaker-audited State of the
+Union/annual-message genre, with
 zero-sum on x, partisan attack on y, and enemy-naming portrait area, and the national-naming
-crossover remain inspectable. Each target category occupies its own panel on one shared percentage
-scale; exact labels appear at every era point, and the table beneath retains counts, shares, and
-support. The category note defines nation, group, person, institution, and the heterogeneous
-`Other` residual; the former standalone enemy-naming, zero-sum, and partisan graphs are removed.
-Time now uses a second all-president portrait view: future-family matches per 10,000 marker words
-sit on x, nostalgia-family matches per 10,000 marker words sit on y, and portrait area is the
-first-person singular share among counted singular and plural first-person pronouns. Its fixed
-area reference, exact 45-row fallback, era emphasis controls, thin-record halos, and explicit
-all-genre document-owner caveat keep that comparison distinct from the founding annual-message
-dictionary audit.
+crossover remain inspectable. Forty-two presidents have qualifying messages; William Harrison,
+James A. Garfield, and Harry S. Truman remain unsupported in the governed 45-row contract. Nation, group, person,
+institution, and other share one percentage
+axis with distinct colors, dash patterns, and marker shapes. Native All/category buttons and
+direct line hover emphasize one complete trajectory while leaving the others visible; click/tap
+pins, Escape resets, and point hover retains exact shares and counts. Six direct callouts explain
+the largest adjacent-era composition changes from the governed counts and name representative
+raw entity labels verified against the frozen entity rows and eligible speaker view. At the owner's direction,
+the target-mix text-alternative table is absent. A native, closed-by-default disclosure defines nation,
+group, person, institution, and the heterogeneous
+`Other` residual. Every annual-message portrait uses that same palette for a border identifying
+the category with its largest adversarial-entity count; a neutral border and explicit hover label
+preserve honest ties. The heavier portrait border remains uniform across support states.
+Compact hover uses bold labels and exact rates without raw flag/entity counts; it retains the
+qualifying speech count because supported presidents contribute between one and nine annual
+messages. At the owner's direction, the portrait's exact table and redundant header receipts are
+removed; the header keeps only its title plus two lines defining portrait area and the common
+annual-message paragraph denominator. The former standalone enemy-naming, zero-sum, and partisan graphs are removed.
+Time now uses a paired-view temporal comparison. The default all-president portrait field places
+future-family matches per 10,000 marker words on x and nostalgia-family matches per 10,000 marker
+words on y with uniform portrait sizes. Its single All/Dim/one-era selector and thin-record halos
+match the Voice interaction. `Over time` switches the same stage to separate Tomorrow and Yesterday
+lines as trailing four-year rolling averages of annual rates plotted at the ending year; it disables era emphasis
+and restores the prior choice on return. Self-reference, the size key, and the exact text-alternative
+table are absent; exact values remain in chart hover. The all-genre document-owner caveat keeps the
+president view explicit without adding a separate founding-message dictionary audit to the page.
+The later language boundary is a three-view chart stage: the governed America/United States
+crossover across the complete 1789–2026 corpus range, five explicit stance-word families, and
+first-person singular/plural rates. Necessity
+combines `must` with the complete `need / needs / needed / needing` surface family and exact
+obligation phrases; Commitment/Intent combines `will + shall` with explicit speaker or
+administration pledge and intent phrases; the other lines distinguish governed absolute-emphasis,
+conditional, and advice/possibility language, including `may` and `might`. The stance and pronoun
+views use centered seven-year, 10,000-word windows so every 1789–2026 center year remains
+inspectable; every value is finite without imputation. The five stance trajectories use solid
+strokes and distinct decade symbols. The two national-name and two pronoun trajectories are also
+solid and use distinct decade symbols; all three views use compact point hovers that define the
+line and name the exact year/rate plus contributing presidential records. Unsupported national-name
+windows remain gaps. Hover can emphasize or pin a whole trajectory. A compact
+artifact-derived synthesis answers the broader divisiveness question without inventing a composite:
+annual-message partisan attack is the strongest result; the 2020s pronoun reversal is descriptive;
+and the modest detrended Civil War-era nearest neighbor is an analogy, not an equivalence. The
+enemy-naming and zero-sum founding comparisons and their low-cluster cautions remain explicit.
 The page
 explicitly demotes post–Civil War topic breadth to a limitation because the
 visible expansion occurs mainly before 1860; it no longer publishes the weak lifecycle display or
@@ -788,6 +887,7 @@ annotation control plane is intentionally outside the Pages release.
 arch -x86_64 .venv/bin/python -m pytest -q
 arch -x86_64 .venv/bin/python -m presidential_profiles.site
 node scripts/validate_inline_js.mjs docs
+node scripts/audit_data_trust_pages.mjs --docs docs
 git diff --check
 python3 scripts/audit_github_release.py origin/master  # after explicit staging
 ```
@@ -809,6 +909,8 @@ python3 scripts/audit_github_release.py origin/master  # after explicit staging
 | Topic attention | `attention.py` | Per-topic attention curves over the annotated corpus → substantive-year threshold → born/died/persistent/revived lifecycles under three genre treatments, with rename-vs-death from LLM↔CorEx divergence plus in-domain successor detection; speech-clustered bootstrap CIs — standalone, $0, not wired into `pp-analyze` |
 | Method triangulation | `triangulate.py` | Per-speech composition vectors across all three labelers (LLM taxonomy, CorEx legacy, embedding clusters); LLM↔CorEx agreement (Jaccard + kappa) per issue and per era; rename-vs-death detection separating vocabulary drift from real decline; `agreement_drivers()` isolates what actually predicts agreement once the algebraic Jaccard ceiling is controlled for; standalone, not wired into `pp-analyze` |
 | Inter-model agreement | `agreement.py` | Draws a persisted 25% era-stratified sample → Opus 4.8 re-annotates it with byte-identical prompts (model is the only variable) → Cohen's kappa / Jaccard / exact-match / entity-stance agreement per field, overall and by 30-year era bin; flags low-confidence fields, never gates — standalone paid step, no `pp-*` entry point |
+| Data quality audit | `quality_audit.py` | Deterministic `data-quality-v2` projections over governed populations, normalization, agreement, uncertainty, and public-chart treatments; validates keys, schemas, units, source identities, prompt/model receipts, and manifest hashes before publication |
+| Validation protocols | `validation_protocols.py` | Deterministic 360-paragraph and 90-speech study plans with public sampling-cell/prompt receipts and restricted selection/coder/request artifacts; execution stays blocked until separate human-study and paid-run approvals satisfy every declared gate |
 | Chart confidence bands | `bands.py` | Speech-clustered bootstrap over the CorEx issue labels at 5-year grain, reusing `attention.bootstrap_era_shares` for the LLM topic layer rather than re-deriving it → per-surface uncertainty budgets (`sampling_only` for CorEx, which has no annotator to disagree; sampling + measured Sonnet↔Opus gap for the annotated topics) → a per-period `ci_status` trust gate plus a per-cell `interval_unresolvable` flag that withdraws (rather than fabricates) an interval a 2-speech bootstrap could not resolve, drawn as an open circle; visual de-emphasis in place of the old hard n-mask; standalone $0 script, read by `pp-site` |
 | Coverage pressure | `coverage_pressure.py` | Preregistered effective-topic breadth and length-biased episode depth; hierarchical president→speech bootstrap, Holm joint decision, complete sensitivity arms and secondary outcomes |
 | Expansion story | `expansion_story.py` | Eight exact topic unions plus aligned enemy-naming rates over fixed 1816–1854 period columns; all-paragraph denominators, speech-clustered intervals, paired-model widening, keyed receipts, and deterministic provenance |
@@ -817,9 +919,12 @@ python3 scripts/audit_github_release.py origin/master  # after explicit staging
 | Network artifacts | `networks.py` | Topic/domain co-occurrence by era and speech type, speech-type enrichment, invocation evidence, and rhetorical/agenda president similarity with deterministic NetworkX layouts |
 | Similarity | `similarity.py` | model2vec embeddings → president means → cosine + PCA, plus era-adjusted residuals ("who sounds alike, for their time") |
 | Era atlas | `eras.py` | 63 z-scored axes (topic/issue mix, style, register, combativeness, speech-type mix) per era/bin/presidency → raw + drift-detrended similarity (reusing `similarity.py`'s adjacent-era-mean trick) → contiguity-constrained periodization vs the historians' eras, checked with an `opponents`-dropped leave-one-out → LLM-written era portraits; standalone, not wired into `pp-analyze` |
+| Era-choice sensitivity | `era_boundaries.py`, `era_boundaries_site.py` | `era-boundaries-v3`: versioned, source-hashed dynamic-programming and clustering sensitivity over the governed Story scheme, with support, objectives, drivers, partition similarity, right-censor status, atomic public projections, and retained compatible URLs |
+| Coarse POS appendix | `grammar.py`, `methodology_site.py` | `grammar-pos-v2`: exact spaCy/model and corpus identities, Story-era ordering, hashed speech/era outputs, and stale-artifact refusal; published as a Methods feature-engineering appendix rather than a Data Quality verdict |
 | Vocabulary shift | `trends.py` | Keyword rates; log-odds with informative Dirichlet prior |
 | Issues | `issues_site.py`, `issues_assets.py` | One validated `issue-page-v2` model for the 16-page directory, semantic detail pages, broad five-year evidence, keyed early/peak/recent excerpts, five-speech president eligibility, exploratory 10/20-year AI crosswalks, shared deferred assets, exact tables, public JSON, tidy broad/president/fine CSV exports, and manifest-scoped stale-output cleanup |
-| Profiles | `profiles.py`, `profiles_site.py`, `ai_labels.py` | One normalized `president-profile-v3` view model shared by profile HTML, embedded direct-bar figures, public JSON, and Compare: identity/support, six ordered AI topics, legacy and AI measures with five-speech eligibility, strongest-first evidence, five independent similarity instruments, signatures, adjacent-president navigation, and thin-record warnings |
+| Profiles | `profiles.py`, `profiles_site.py`, `ai_labels.py` | Unchanged `president-profile-v3` values rendered as Overview, document-owner Agenda and semantic Rhetoric bars, separately labeled actual-speaker Connections, five independent Similarity instruments, signatures, and final closed enriched document-owner Evidence; thin ranks remain null |
+| Profile context | `actual_speaker_invocation_network.py`, `profile_context.py`, `profile_connections_assets.py` | Deterministic 49-file `president-profile-context-v1` publication with fail-closed provenance, atomic rollback, exact topic/invocation parity, precomputed topic-ego selections, keyed receipts, hard budgets, server fallbacks, reversible topic expansion, and server-rendered top-five invocation bars |
 | Explore projection | `explore_projection.py`, `explorer.py`, `explore_assets.py` | [Versioned v1 contract](notes/explore-interaction-and-evidence-v1.md) with a 263-file publication for exact/grouped unigrams and bigrams, governed CorEx/AI/acronym catalogs, field-preserving uncertainty rows, exact CSVs, source hashes, hard size budgets, and atomic stale-output replacement; semantic SVG interaction, URL v2 migration, and a complete no-JavaScript default remain renderer-only |
 | Site & figures | `site.py`, `figures.py`, `expansion_site.py`, `compare_site.py` | Nine-era chronological story with a timeline rail; a founding chapter organized around overlapping governing problems, aligned audience/medium composition, and persistence-ranked topic threads; an expansion-era topic matrix with an aligned adversary strip and documentary receipts; data-derived chapter takeaways, focused/full-history controls, accessible event callouts and compact evidence inspectors; a five-part Summary ending in the recurring-topic gravity field and exact CSV; 45 profiles; a graph-first two/three-president Compare workspace with paired radars, exact table fallbacks, visual neighbor lenses, and compact evidence/data displays; the governed Explore workspace; disclosure-based global navigation; metric lessons; quality/feedback pages; deterministic build and link/anchor/data validation |
 

@@ -1,10 +1,10 @@
-era,expected_paragraphs,completed_paragraphs,missing_paragraphs,completion_rate
-Civil War & Reconstruction,900,897,3,0.9966666666666667
-Expansion,1058,1001,57,0.946124763705104
-Post-Cold War,1175,1119,56,0.9523404255319149
-Progressives & Depression,1074,1071,3,0.9972067039106145
-The Cold War,2192,1865,327,0.8508211678832117
-The Gilded Age,1057,1044,13,0.9877010406811731
-The founding,227,219,8,0.9647577092511013
-The present era,1075,1064,11,0.9897674418604652
-War & New Deal,290,290,0,1.0
+era_key,era_label,era_order,expected_paragraphs,completed_paragraphs,missing_paragraphs,completion_rate
+founding,Establishing the republic,0,185,177,8,0.9567567567567568
+expansion,The continental republic,1,1100,1043,57,0.9481818181818182
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,746,744,2,0.9973190348525469
+gilded-age,Administrative-industrial order,3,1693,1677,16,0.9905493207324276
+progressives-depression,"Reform, world war & collapse",4,592,591,1,0.9983108108108109
+war-new-deal,"New Deal, world war & settlement",5,349,333,16,0.9541547277936963
+cold-war,Mature Cold War,6,1639,1349,290,0.8230628431970713
+post-cold-war,Conservative turn & always-on presidency,7,1669,1592,77,0.9538645895745955
+present,Platform-era intensification,8,1075,1064,11,0.9897674418604652

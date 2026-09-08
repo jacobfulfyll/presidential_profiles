@@ -67,6 +67,17 @@ def forbidden(path: str) -> bool:
     return path in FORBIDDEN_FILES or path.startswith(FORBIDDEN_PREFIXES)
 
 
+def release_path_error(path: str, *, present_in_index: bool) -> str | None:
+    """Return a boundary error, allowing a staged deletion of forbidden state."""
+    if forbidden(path):
+        if present_in_index:
+            return f"forbidden release path: {path}"
+        return None
+    if not allowed(path):
+        return f"path is outside the release allowlist: {path}"
+    return None
+
+
 def main() -> int:
     base = sys.argv[1] if len(sys.argv) > 1 else "origin/master"
     changed = nul_paths(
@@ -85,11 +96,10 @@ def main() -> int:
         errors.append(f"no staged release changes relative to {base}")
 
     for path in changed:
-        if forbidden(path):
-            errors.append(f"forbidden release path: {path}")
-        elif not allowed(path):
-            errors.append(f"path is outside the release allowlist: {path}")
         size = index_size(path)
+        path_error = release_path_error(path, present_in_index=size is not None)
+        if path_error:
+            errors.append(path_error)
         if size is not None and size > MAX_GIT_BLOB:
             errors.append(f"Git blob exceeds 100 MiB: {path} ({size} bytes)")
         if path.startswith("docs/") and index_mode(path) == "120000":

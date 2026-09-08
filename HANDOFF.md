@@ -1,5 +1,284 @@
 # Handoff
 
+## Latest addendum — Data Trust redesign v1
+
+- The five preserved Data routes now form one layered evidence system: `data-quality.html`,
+  `methodology.html`, `era-boundaries.html`, `label-models.html`, and `metrics.html`. Each leads
+  with a short verdict, continues through a visual explanation, and keeps technical evidence and
+  downloads available. Shared local navigation covers Overview, Labeling, Evaluation,
+  Populations, Model Comparison, Metric Dictionary, and Downloads.
+- `src/presidential_profiles/quality_audit.py` owns the corrected deterministic audit rather than
+  the page renderer. Its `data-quality-v2` public projection declares populations, units, schemas,
+  semantic keys, source hashes, model/prompt receipts, validation results, and every chart
+  treatment in `docs/data/quality/manifest_v2.json`. Existing compatible CSV URLs remain, while
+  new population-ledger, field-by-era agreement, and chart-treatment exports make downstream
+  denominators explicit.
+- Methods now separates annotation completeness, taxonomy labelability, paired-evaluation
+  availability, cross-model reproducibility, and the human validity that has not yet been measured.
+  It includes a worked paragraph trace, a population passport, metric-family agreement panels,
+  era/field evidence, and reproducibility cards. Coarse POS moved here under the source-hashed
+  `grammar-pos-v2` contract with exact spaCy/model identity and stale-cache refusal.
+- Era Choices now consumes `ERA_PROFILE_SPECS` as the sole public Story-era identity and anchor
+  contract. `era-boundaries-v3` publishes the declared segmentation and clustering sensitivity
+  conditions, support, objectives, partition similarity, signed drivers, historical receipts, and
+  terminal-era right-censor status through an atomic versioned public projection while retaining
+  compatible download URLs. The nine Story eras and Story boundaries themselves did not change.
+- Model Comparison keeps the failed preregistered prediction prominent. The searchable Metric
+  Dictionary groups measures by analytical question and supplies stable deep links used by
+  substantive figures. Plotly-dependent trust charts were replaced or paired with semantic
+  server-rendered evidence and accessible controls.
+- `data-trust-validation-protocols-v1` persists an execution-blocked future human-validity study
+  and paired decade-hidden sensitivity plan. Public output includes only the manifest,
+  non-identifying sampling-cell summaries, and prompt definitions. Selected keys, coder tasks,
+  and the request plan remain restricted. No human label, result, runtime model, current-price
+  receipt, paid call, or production-label migration exists.
+- The durable contract and verification sequence are recorded in
+  `notes/data-trust-redesign-v1.md`; the full planned-study specification remains in
+  `notes/data-trust-validation-protocols-v1.md`. Frozen `data/llm_annotations/` artifacts were not
+  regenerated or hand-edited, and no deployment was authorized.
+- Final acceptance is green: 106 focused trust/era/method tests and all 3,017 repository tests
+  pass with 64 existing warnings; the final metric-target refinement passes 27 focused tests.
+  The canonical build validates 73 HTML pages and 429 JSON shards, all 129 inline scripts and all
+  generated JavaScript parse, Python compiles, every governed public projection revalidates, and
+  `git diff --check` passes. The executable and independent browser reviews cover all five routes
+  at 390, 768, and 1280 pixels plus JavaScript-disabled evidence, keyboard focus, contrast,
+  sticky anchors, overflow, target sizing, and console diagnostics. Reggie Doctor reports 0
+  errors, 0 warnings, and 4 informational findings. The frozen-annotation directory fingerprint
+  remains `9a8ac49ed29d63c94f4d7bdeb9f753cf0f38b45b8202ed7e7afa4de1c4297b54`.
+
+## Latest addendum — President Profiles and Navigation v1
+
+- The shared Profiles/Data navbar now has a real pointer bridge, one hover/pinned state machine,
+  no-JavaScript hover/focus access, 44px targets, and forced-colors treatment. The president
+  directory remains in canonical chronology and now exposes one AI-topic preview plus progressive
+  name-only search, with six eager and 39 lazy decorative portraits.
+- All 45 profiles now follow Overview, Agenda, Rhetoric, Connections, Similarity, Signature
+  speeches, and Evidence. Profile Plotly was replaced by semantic HTML/CSS bars. Legacy Evidence
+  keeps its existing document-owner model and producer order while adding exact counts, selection
+  bases, keyed receipts, actual-speaker/source-owner attribution, method labels, and limitations;
+  it is the final content section and begins closed.
+- Connections is a separately labeled actual-speaker population. Its topic ego is a
+  field-preserving Level-1 projection from the accepted topic bundle with a reversible
+  expanded/compact control and no focus/hover preview. Topic nodes in the SVG and their matching
+  list controls now support click, Enter, Space, and Escape path emphasis; the former topic audit
+  readout and complete focal Level-1 record no longer render. The governed
+  `actual-speaker-invocation-network-v1` aggregation still contains 1,243 accepted rows and 303
+  directed edges. One joined `Invoked` / `Invoked by` radio control now switches the same visual
+  location between its two server-rendered top-five count lists; without enhancement both lists
+  remain present. Browser code performs no analytical ranking or aggregation.
+- `president-profile-context-v1` publishes exactly 49 files. The complete generated inventory is
+  73 canonical/74 physical HTML files, 423 JSON files, and 129 inline scripts. Measured outputs
+  remain within every contract budget; the largest profile is 111,875 raw / 22,482 gzip bytes,
+  the enhancement module is 21,192 / 5,755 bytes, and the maximum module/index/shard expansion is
+  1,130,152 / 132,998 bytes.
+- The changed-surface suite passes 49 tests and the broader governed-profile suite passes 172.
+  The full repository run passes 2,936 tests with
+  the same 64 warnings. Canonical outputs remain byte-identical across canonical and inline
+  builds; static JavaScript, Python compilation, and
+  whitespace checks pass. Post-refinement browser QA on the local Lincoln profile confirms graph
+  click/Enter/Space/Escape behavior, synchronized graph/list pressed state, radio click and arrow
+  switching, the unenhanced two-list fallback, exact Similarity row alignment, no removed topic
+  surfaces, and zero page-level overflow at 1280×720. The original four-viewport v1 matrix remains
+  green for the underlying shell, expansion, failure/Retry, and request boundaries.
+- `president-profile-v3`, protected Compare projections, Story, Summary, and Explore analyses
+  remain unchanged apart from regenerated shared-navbar bytes. Profile Agenda, Rhetoric, and
+  Similarity retain their existing document-owner denominators; this profile change introduces
+  actual-speaker denominators only in Connections, while Compare retains its governed values.
+  Invocations cover qualifying named former presidents in this corpus, use corpus speech dates for
+  `target_status`, and do not establish historical absence, intent, influence, or causation.
+- The work is uncommitted on `codex/summary-who-how-transition`. The original fourteen dirty,
+  user-owned paths were preserved. Frozen paid annotations and existing governed artifacts were
+  not regenerated or hand-edited. Nothing was staged, committed, pushed, deployed, switched, or
+  cleaned. The next safe action is owner review of the local generated site and intended diff.
+
+## Current status
+
+- Last updated: 2026-09-08.
+- Branch: `codex/summary-who-how-transition`.
+- State: Data Trust redesign implementation, governed artifact generation, and repository-wide
+  acceptance are complete in the shared dirty worktree. No publication action was authorized.
+
+## Completed task
+
+- Implement and verify the complete source-driven Data Trust redesign while preserving the
+  protected Story, frozen-annotation, and no-deployment boundaries.
+
+## Verification
+
+- The exact final acceptance receipt is recorded in the latest addendum above and in
+  `notes/data-trust-redesign-v1.md`. All required tests, generation, static checks, governed
+  validators, protected-input comparison, responsive/browser inspection, and Reggie checks pass.
+
+## Worktree
+
+- The pre-existing user-owned profile, Summary, generated-site, data, and documentation changes
+  remain in place. The Data Trust work adds its source modules, tests, contract note, derived
+  governed artifacts, and generator-owned projections without cleaning or overwriting unrelated
+  work.
+- `.claude/stats.json` remains user-owned telemetry. Frozen paid annotations and existing governed
+  paid data were not regenerated or hand-edited.
+
+## Decisions and blockers
+
+- Story boundaries, `president-profile-v3`, protected Compare projections, and frozen paid
+  annotations remain protected. Data Trust changes explain or project those inputs; they do not
+  authorize a Story migration or label replacement.
+- Deployment, paid calls, human-label collection, staging, commit, push, branch switching, and
+  worktree cleanup remain outside this task's authority.
+
+## Next safe action
+
+- Review the local generated site and intended diff. Do not deploy without explicit authorization.
+
+## Latest addendum — Summary language boundary and divisiveness synthesis
+
+- Summary Time's fixed America/United States boundary is now a compact three-view stage:
+  `National name`, `Modal words`, and `Personal voice`. The first preserves the 1910 sustained
+  crossover and its corpus examples. The second uses five disjoint surface families: Necessity
+  (`must`, the complete `need / needs / needed / needing` family, and exact `have / has / had / got
+  to` plus `gotta` phrases), Commitment/Intent (`will + shall` plus explicit speaker or
+  administration promises, pledges, vows, guarantees, commitments, plans, resolutions, and
+  statements of determination), the governed Absolute-emphasis family, Conditional (`would +
+  could`), and Advice/Possibility (`should` plus the existing hedge family,
+  including `may` and `might`); it explicitly refuses to recast them as a certainty/extremity
+  index. The third shows the existing first-person singular and plural families and derives the
+  2020s pooled rates (234 and 329 per 10,000 tokens), describing
+  the recent reversal without presenting pronouns as individualism or divisiveness.
+- The shared stage uses pressed-state buttons, live announcements, and Left/Right/Home/End keyboard
+  movement through the existing chart-stage controller. Every line supports full-trajectory hover
+  emphasis, click/tap pinning, and Escape reset; base widths are frozen before restyling so emphasis
+  never compounds. Every language trajectory is now solid; distinct decade marker shapes preserve
+  non-color identification for the five stance families, both pronoun families, and both national
+  names. The United States line is no longer dashed, the I/me/my line is no longer dashed, and the
+  national-name view now spans the complete 1789–2026 corpus timeline instead of the former
+  1880–1932 context crop. Its existing five-year/20,000-word support gate yields 228 supported
+  center years and 10 honest gaps; no missing value is joined or imputed. The stance families'
+  238 center years are already finite, so no values are imputed or connected across missing
+  observations. Modal-family and pronoun views use centered seven-year windows and a 10,000-word
+  floor, preserving all 238 center years without `connectgaps`. All three views now use the same
+  compact point hover: one short whole-line definition, the exact center-year rate, and the
+  contributing presidents; window definitions and support floors remain in the permanent evidence
+  disclosure.
+  National naming retains its governed five-year crossover rule. Each view keeps its generated
+  exact hover; narrow screens contain a 760px chart within the local horizontal scroller with no
+  page overflow.
+  Both new charts reuse the registered `rate_10k` metric and existing artifacts. Necessity's
+  complete surface family and explicit commitment/intent additions are counted deterministically
+  from `speeches.parquet`; the absolute-emphasis line reuses `speech_markers.parquet`. The ambiguous,
+  modern-spoken-heavy `going to` construction is intentionally excluded. No browser-side measure or
+  governed artifact was added.
+- A derived three-card synthesis now answers “is presidential rhetoric more divisive now?” with
+  the narrow verdict: more openly partisan, yes; more divisive in every broader sense, no. It
+  stands behind the annual-message partisan-attack ratio versus Civil War & Reconstruction
+  (4.8x, 95% speech-clustered bootstrap 2.3–14.3x), labels the pronoun result descriptive, and
+  heavily caveats the modest 0.315 detrended Civil War-era nearest-neighbor analogy. The
+  enemy-naming 1.09x [0.79, 1.61] and zero-sum 1.76x [0.95, 4.88] founding comparisons remain
+  visible because both include one; all three ratio intervals retain the 10-present-speech
+  low-cluster caution.
+- Verification: 35 focused Summary/Story tests and all 2,820 repository tests pass
+  under the required x86_64 environment with the existing 64 warnings. The canonical build
+  validates 73 HTML pages and 376 JSON shards; all 128 generated inline scripts parse, compilation
+  and `git diff --check` pass, and desktop/mobile browser QA reports no diagnostics or page-level
+  overflow. Nothing was deployed, staged, committed, pushed, switched, or cleaned.
+
+## Latest addendum — Summary Who/How/Register transition refinement
+
+- On 2026-09-04 the owner asked for a clearer transition from Summary's WHO and
+  HOW communication bars into the legal/procedural × hype president field, and
+  for the dense Voice-era controls to become one dropdown.
+- Voice now reads as one explicit `Who + how → register` sequence across the
+  same nine governed Story eras: Congress → public, written → spoken/broadcast,
+  and a less-procedural opening → procedural nineteenth-century middle → higher
+  hype later. The permanent copy states that these patterns coincide in the
+  corpus and do not establish that audience or delivery caused the vocabulary
+  change.
+- Voice now offers one two-choice `By president` / `Over time` switch. The
+  default preserves the existing 45-president portrait field. `Over time`
+  plots one owner-directed legal/procedural ÷ hype line across the existing
+  centered five-year all-corpus rates. The logarithmic axis keeps the positive
+  ratio range readable. All 238 center years remain in the generated figure and ordinary
+  line hover retains both component rates; 228 supported windows render, the existing
+  20,000-word support floor remains authoritative, a missing or zero hype
+  denominator is suppressed, and gaps stay unknown rather than becoming zero.
+- After owner review, the time view removes the six historical-event lines and
+  all three administration-transition lines. Hope/Doom retains its separate
+  event context. This register chart now has seven direct year labels:
+  the 1827 Adams-heavy rise, 1863 Civil War-era drop, 1881 series maximum, 1944
+  wartime low, 1966 policy-heavy rise, 2016 mid-2010s decline, and 2023 recent
+  rebound. Direct year-label hover shows only a concise corpus-composition summary,
+  left-aligned across short lines. At the owner's direction, the permanent `Selected turns in
+  the line` guide and both register text-alternative tables are removed; ordinary line hover
+  retains the exact ratio and component rates.
+- Conflict target mix now shows nation, group, person, institution, and other together as five
+  lines on one shared percentage chart instead of five vertically stacked panels. Distinct
+  colors, dash patterns, and marker shapes preserve non-color identification. Native All/category
+  buttons and direct line hover emphasize a complete trajectory without hiding the others;
+  click/tap pins, keyboard focus previews, and Escape resets. Six direct callouts derive the
+  largest adjacent-era composition explanations from the governed counts, including cases where
+  the denominator rather than the category count drives the visual rise. Their hover summaries
+  now name the leading raw entity labels and exact occurrences verified against frozen
+  `paragraph_entities.parquet` joined to eligible `paragraph_view_v1.parquet` keys. Point hover preserves
+  exact shares and counts. At the owner's direction, the target-mix text-alternative table is removed.
+  The category-definition and denominator note remains immediately below the chart as a native
+  disclosure that starts closed and expands without JavaScript.
+- The separate zero-sum × partisan × enemy-naming portrait now uses the governed
+  `annual_message_strict` treatment rather than all available speech genres. Its 42 plotted
+  presidents therefore share the State of the Union/annual-message genre; William Harrison,
+  James A. Garfield, and Harry S. Truman remain unsupported in the governed 45-row contract because
+  the corpus has no qualifying message. The all-eligible speaker population remains the validated parity source
+  for the separate target-mix chart. Every plotted portrait now has a visible border using the
+  target chart's category color for the largest adversarial-entity count in that president's same
+  qualifying messages. Four exact ties use a neutral border; the compact key and hover carry the
+  textual category or tie label. Borders are now a uniform seven pixels. Portrait
+  hover has bold labels and omits raw flag/entity counts while retaining exact rates, encoding
+  explanations, support, and qualifying-message coverage. Coverage is not equal: the 42 supported
+  presidents contribute 1–9 qualifying messages (median 4); the three unsupported rows contribute 0.
+  Narrow-screen portrait taps keep the complete tooltip visible by adjusting only the chart's
+  existing horizontal scroll position.
+  At the owner's direction, the portrait exact table is removed. Its inner header now contains
+  only the chart title plus two lines defining portrait area and the common paragraph denominator;
+  the coverage eyebrow, enemy-naming range, position sentence, x/y shorthand, and tie note are absent.
+  The subsection now uses the reader-facing `BY PRESIDENT · COMPARABLE SPEECHES` kicker,
+  `How presidents frame conflict` title, and one-sentence annual-message qualifier instead of the
+  former implementation-oriented shared-genre wording.
+- One native `Emphasize an era` select offers All eras, Dim all, and exactly one
+  of the nine chronological Story eras. Every president remains plotted and
+  the choice changes emphasis only. The select is disabled in `Over time`,
+  where the full chronology and nine quiet era bands remain visible; its prior
+  choice is restored on return to `By president`. The view is transient and
+  adds no URL state. Summary Time retains its existing multi-era controls.
+- Source and generated tests lock the bridge wording, two-view switch,
+  11-option selector, removal of Voice phase/card controls, preservation of
+  every plotted era, guarded ratio semantics, honest gaps, exactly seven movement
+  annotations, removal of the register alternatives, the one-chart conflict target layout,
+  six target-line controls, six count-derived target callouts, and removal of the target-mix
+  alternative. The canonical build validates 73 HTML pages and 376 JSON
+  shards; 67 focused tests pass, including frozen named-entity receipts; all 128 inline scripts
+  and generated external scripts parse; Python compilation and whitespace checks pass. The most
+  recent full repository run, before the hover-copy-only refinement, passed all 2,814 tests with
+  the same 64 existing warnings.
+- Browser QA at 1280×720, 1024×768, 768×1024, and 390×844 confirms the select's
+  All/Dim/single behavior, mouse and arrow-key view switching, disabled-state
+  announcement, era restoration, stacked narrow bridge, visible focus,
+  intended chart-local scrolling, zero page-level overflow, and an empty error console.
+  The same four-width matrix confirms direct target-line hover emphasis, focus preview,
+  click/tap pinning, Escape reset, 44-pixel narrow controls, callout hover summaries, and
+  removal of the target-mix alternative.
+  No governed data, public data
+  artifact, or schema changed. The generator now owns and registers the derived
+  `legal_hype_ratio`; browser code does not calculate it.
+- The common-genre portrait refinement preserves the canonical 73-HTML/376-JSON build. The
+  focused Summary/Story/metric/site suite now passes 67 tests; static JavaScript and Python
+  compilation remain clean. Browser QA at 1280×720 and 390×844 confirms 42 rendered portraits,
+  Carter's 0% annual-message partisan-attack value, three unsupported contract rows, chart-local
+  narrow-screen scrolling, zero page overflow, and an empty error console. The same matrix
+  confirms all 42 portraits carry category-colored rings, the six-item textual key wraps without
+  overflow, tied leaders remain neutral, and hover names every border meaning.
+- The work remains uncommitted on `codex/summary-who-how-transition`; no push or
+  deployment occurred. The implementation contract remains
+  `notes/summary-redesign-v2.md` with this owner-directed refinement recorded in
+  its Voice decision and acceptance checks.
+
 ## Latest addendum — Final Release Program Steps 1–6 integration
 
 - On 2026-09-04 the owner approved preserving the completed Story,
@@ -435,44 +714,42 @@
   `http://127.0.0.1:8010/compare.html`; nothing was deployed, staged, committed,
   pushed, switched, or cleaned, and frozen paid annotations were not changed.
 
-## Latest addendum — All-president temporal portrait
+## Latest addendum — Tomorrow and yesterday paired views
 
-- Summary Time now replaces the era-line future/nostalgia display with one
-  all-president portrait scatter. Future-family matches per 10,000 marker words
-  are on x, nostalgia-family matches per 10,000 marker words are on y, and
-  portrait area is the first-person singular share among the counted
-  I/me/my/mine/myself and we/us/our/ours/ourselves families.
-- `build_summary_temporal_president_contract` joins
-  `speech_markers.parquet`, `speech_stats.parquet`, and the corpus speech table
-  one-to-one on `doc_name`, rejects key or metadata drift, and pools exact counts
-  before dividing. Its document-owner, all-genre treatment is explicitly not
-  speaker-audited. The founding annual-message dictionary audit remains visible
-  as a separate population.
-- All 45 presidents remain in fixed succession and Story-era controls change
-  emphasis only. The 42 observed records and three below-five-speech records
-  (William Harrison, James A. Garfield, and Zachary Taylor) remain plotted; thin
-  records use an amber halo. A fixed theoretical 100% area scale, calibrated
-  700px chart field, 20/40/60% size key, exact 45-row table, and narrow-screen
-  internal scroller keep the encoding stable. A true 0% uses a disclosed hollow
-  locator with no portrait image; unavailable values remain `N/A`.
-- Era filtering snapshots immutable ordinary style arrays before Plotly renders,
-  so repeated preset/Dim all/All eras cycles restore original opacity, fill,
-  outline, and 3px/4px support widths instead of corrupting Plotly binary-array
-  payloads. Portrait calibration leaves the support halo visible, and the
-  mobile legend reflows into three bounded columns.
-- Verification: 56 focused Summary/Story/site tests pass; the canonical build
-  validates 73 HTML pages and 182 JSON shards; all 130 generated inline scripts
-  parse; compilation and `git diff --check` pass. The full suite records 2,694
-  passes and the known unrelated runtime-receipt failure because that test
-  hard-codes `low` while this requested session runs at `ultra`. Reggie Doctor
-  reports 0 errors, 0 warnings, and 4 informational findings for the optional
-  portable guide, existing tool telemetry, the user-owned dirty worktree, and
-  the repository's native external Reggie layout.
-- The local preview remains available at `http://localhost:8010/summary.html`.
-  Browser automation of that localhost tab was blocked by the app's local-URL
-  safety policy after reload, so no automated visual viewport claim is made for
-  this turn. Nothing was deployed, staged, committed, pushed, switched, or
-  cleaned, and frozen paid annotations were not changed.
+- Summary Time now pairs one all-president portrait field with a separate
+  `Over time` view. The president field keeps future-family matches per 10,000
+  marker words on x and nostalgia-family matches per 10,000 marker words on y,
+  but every portrait is the same size. The time view draws Tomorrow and Yesterday
+  as separate solid/dashed trailing four-year rolling averages of annual rates,
+  plotted at each window's ending year; it does not create a ratio or calculate
+  a browser-side measure. Each point requires coverage in all four years and at
+  least 10,000 total marker words in the window. The current corpus has 235
+  complete windows from 1789–1792 through 2023–2026; 227 pass both guards.
+- `build_summary_temporal_president_contract` is now
+  `summary-temporal-president-v2`. It joins `speech_markers.parquet` to the corpus
+  speech table one-to-one on `doc_name`, rejects key or metadata drift, and pools
+  exact future, nostalgia, and word counts before dividing. The removed
+  self-reference dimension no longer loads `speech_stats.parquet` into this
+  contract. Its document-owner, all-genre treatment is explicitly not
+  speaker-audited.
+- The interaction now matches Voice: By president / Over time buttons and one
+  native All eras / Dim all / single-era selector. The selector changes emphasis
+  only, disables with an explicit live status in the time view, and restores its
+  prior value on return. All 45 presidents remain in fixed succession; the 42
+  observed and three below-five-speech records remain plotted with ordinary and
+  amber support halos. Exact values and support remain in hover. The former size
+  key, self-reference copy, and text-alternative table are removed.
+- The standalone founding annual-message dictionary audit has been removed from
+  the reader flow at the owner's direction. No frozen annotations or governed
+  derived artifacts were changed.
+- Verification: the canonical build validates 73 HTML pages and 376 JSON
+  shards; 68 focused Summary/Story/metric/site tests pass; all 128 generated
+  inline scripts parse; compilation and `git diff --check` pass. Browser QA at
+  1280×720, 1024×768, 768×1024, and 390×844 confirms the switch, disabled/live
+  timeline state, restored Civil War emphasis, internal chart scrolling, and
+  zero page-level overflow. Browser diagnostics are empty. Reggie Doctor reports
+  0 errors, 0 warnings, and 4 informational findings. Nothing was deployed,
+  staged, committed, pushed, switched, or cleaned.
 
 ## Latest addendum — Conflict target mix at era grain
 
@@ -2589,7 +2866,7 @@ the older Story-task status below for the current handoff; the prior record rema
 - No branch, staging, commit, push, pull request, site rebuild, or deployment was performed.
   Production constituency labeling remains a separately authorized future task.
 
-## Current status
+## Historical snapshot — Second-era Story implementation
 
 The locked second-era Story plan is implemented in the Python generator and rebuilt static site.
 The 1816–1849 chapter now uses a fixed-period topic matrix with an aligned adversary-naming strip,
@@ -2597,15 +2874,15 @@ artifact-derived prose, named source receipts, uncertainty status, and a 1850–
 preview. The founding-era redesign and every later chapter remain in place. The local preview is
 running at `http://127.0.0.1:8010/`. Nothing was deployed.
 
-## Active task
+### Active task
 
 No active task is claimed.
 
-## Branch
+### Branch
 
 `master`; no branch, staging, commit, push, pull request, or deployment was created for this work.
 
-## Delivered behavior
+### Delivered behavior
 
 - `src/presidential_profiles/expansion_story.py` derives the published layer over eight fixed
   periods: 1816–20 through 1846–49, plus the fixed-scale 1850–54 coda.
@@ -2635,7 +2912,7 @@ No active task is claimed.
 - The old three-line expansion figure and its obsolete metric registration are removed.
   `expansion_story` now registers paragraph share and confidence interval.
 
-## Artifacts and documentation
+### Artifacts and documentation
 
 - Published deterministic layer:
   `data/expansion_story/period_metrics.parquet` (72 rows, 27 columns) and
@@ -2650,7 +2927,7 @@ No active task is claimed.
 - `docs/index.html` and `docs/index_selfcontained.html`, along with the normal generated-site
   output, were refreshed from source. Generated HTML was not hand-edited.
 
-## Verification
+### Verification
 
 - Focused expansion/founding/V3/V2/site-validation/metric-registry gate:
   `arch -x86_64 .venv/bin/python -m pytest -q tests/test_expansion_story.py
@@ -2675,7 +2952,7 @@ No active task is claimed.
   tool telemetry; the worktree has 309 changed or untracked paths; and the repository remains in
   external/native Reggie docs mode without adapter scripts.
 
-## Worktree ownership
+### Worktree ownership
 
 Every modification and untracked path present at the initial scan remains user-owned, including
 all pre-existing `.claude`, source, tests, data, generated-site, dependency, and documentation
@@ -2684,7 +2961,7 @@ tests, V4 note, and derived layer, and regenerated the site through its builder.
 restore, reformat, stage, or overwrite unrelated work. `.claude/stats.json` remains existing tool
 telemetry and is not part of this task.
 
-## Decisions and limitations
+### Decisions and limitations
 
 - Python under `src/presidential_profiles/` remains the source of truth; `docs/` is generated.
 - Frozen paid annotations were read but never regenerated or hand-edited.
@@ -2696,7 +2973,7 @@ telemetry and is not part of this task.
 - Preview only at `http://127.0.0.1:8010/`; public deployment remains out of scope.
 - No blocker remains.
 
-## Next safe action
+### Next safe action
 
 Review the local preview, then commit only the intended second-era changes together with any
 separately reviewed pre-existing worktree changes. Do not treat the dirty worktree as this task's

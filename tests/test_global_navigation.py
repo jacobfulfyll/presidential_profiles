@@ -6,6 +6,7 @@ import pytest
 
 from presidential_profiles.expansion_site import (
     NAV,
+    NAV_CSS,
     NAV_JS,
     _prune_retired_routes,
     add_global_navigation,
@@ -20,7 +21,8 @@ def _top_level_labels(markup: str) -> list[str]:
 
 def _submenu(markup: str, key: str) -> str:
     match = re.search(
-        rf'<div class="nav-submenu" id="nav-submenu-{key}" hidden>(.*?)</div>',
+        rf'<div class="nav-submenu" id="nav-submenu-{key}" hidden>'
+        rf'<div class="nav-submenu-panel">(.*?)</div></div>',
         markup,
         re.S,
     )
@@ -127,12 +129,23 @@ def test_methods_descendants_mark_data_and_methods(tmp_path, descendant):
     assert 'href="methodology.html" aria-current="page">Methods</a>' in markup
 
 
+def test_selfcontained_story_shell_retains_story_current_state(tmp_path):
+    page = tmp_path / "index_selfcontained.html"
+    page.write_text("<body><footer></footer></body>")
+
+    add_global_navigation(tmp_path)
+
+    markup = page.read_text()
+    assert 'href="index.html" data-nav-label="Story" aria-current="page"' in markup
+
+
 def test_disclosures_use_native_controls_and_cover_required_interactions():
     markup = nav()
     assert markup.count('class="nav-trigger" type="button"') == 2
     assert markup.count('aria-expanded="false"') == 2
     assert 'aria-controls="nav-submenu-profiles"' in markup
     assert 'aria-controls="nav-submenu-data"' in markup
+    assert markup.count('class="nav-submenu-panel"') == 2
     assert 'role="menu"' not in markup
     assert 'role="menuitem"' not in markup
     for behavior in (
@@ -143,9 +156,64 @@ def test_disclosures_use_native_controls_and_cover_required_interactions():
         'event.key !== "Escape"',
         "focusout",
         "pointerdown",
-        "finePointer.matches",
+        'event.pointerType === "touch"',
+        'event.pointerType === "mouse"',
+        'event.pointerType === "pen"',
+        'open(group, "hover")',
+        'open(group, "pinned")',
     ):
         assert behavior in NAV_JS
+
+
+def test_submenu_wrapper_bridges_trigger_and_panel_without_a_dead_zone():
+    compact_css = re.sub(r"\s+", "", NAV_CSS)
+    assert (
+        ".nav-submenu{position:absolute;top:100%;right:0;z-index:120;"
+        "padding-top:7px}" in compact_css
+    )
+    panel_rule = re.search(r"\.nav-submenu-panel\{([^}]+)\}", compact_css)
+    assert panel_rule is not None
+    assert "background:#fff" in panel_rule.group(1)
+    assert "border:1pxsolidrgba(11,11,11,.14)" in panel_rule.group(1)
+    assert "box-shadow:" in panel_rule.group(1)
+    outer_rule = re.search(r"\.nav-submenu\{([^}]+)\}", compact_css)
+    assert outer_rule is not None
+    assert "background:" not in outer_rule.group(1)
+    assert "box-shadow:" not in outer_rule.group(1)
+
+
+def test_nav_state_machine_distinguishes_hover_and_pinned_activation():
+    assert "let openGroup = null" in NAV_JS
+    assert "let openMode = null" in NAV_JS
+    assert 'if (openMode === "hover")' in NAV_JS
+    assert 'openMode = "pinned"' in NAV_JS
+    assert 'openGroup === group && openMode === "hover"' in NAV_JS
+    assert (
+        'trigger.setAttribute("aria-expanded", isOpen ? "true" : "false")'
+        in NAV_JS
+    )
+    assert "submenu.hidden = !isOpen" in NAV_JS
+    assert 'group.classList.toggle("is-open", isOpen)' in NAV_JS
+
+
+def test_progressive_and_high_contrast_navigation_styles_are_shared():
+    compact_css = re.sub(r"\s+", "", NAV_CSS)
+    assert "html:not(.nav-enhanced).nav-group:hover>.nav-submenu," in compact_css
+    assert (
+        "html:not(.nav-enhanced).nav-group:focus-within>.nav-submenu{display:block!important}"
+        in compact_css
+    )
+    assert "min-width:44px" in compact_css
+    assert "min-height:44px" in compact_css
+    assert "@media(forced-colors:active)" in compact_css
+    assert "outline-color:Highlight" in compact_css
+    assert "text-decoration-thickness:3px" in compact_css
+    assert "border:2pxsolidCanvasText" in compact_css
+
+
+def test_enhancement_class_is_added_only_after_listeners_are_installed():
+    enhancement = NAV_JS.index('classList.add("nav-enhanced")')
+    assert NAV_JS.rindex("addEventListener") < enhancement
 
 
 def test_story_and_summary_have_separate_destinations_and_current_states():

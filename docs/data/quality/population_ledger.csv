@@ -1,0 +1,13 @@
+population_id,label,unit,count,definition
+source_documents,Source corpus documents,documents,1057,Miller Center corpus
+source_paragraphs,Source corpus paragraphs,paragraphs,36229,Complete primary annotation population
+speaker_retained_documents,Documents retained after speaker audit,documents,1053,4 source documents excluded by the governed attribution layer
+speaker_retained_paragraphs,Paragraphs retained after speaker audit,paragraphs,35394,Actual-speaker attribution population
+speaker_eligible_paragraphs,Analysis-eligible attributed paragraphs,paragraphs,32531,Eligible for actual-speaker results
+speaker_excluded_paragraphs,Excluded attributed paragraphs,paragraphs,2863,Retained with explicit exclusion reasons
+cross_owner_paragraphs,Eligible paragraphs credited across document owners,paragraphs,296,Actual speaker differs from source-document owner
+speaker_appearances,Actual-speaker appearances,appearances,1054,A document can contain more than one presidential speaker
+second_model_expected_documents,Second-opinion sample,documents,266,Persisted stratified speech draw
+second_model_expected_paragraphs,Expected second-opinion paragraphs,paragraphs,9048,All paragraphs in sampled documents
+second_model_paired_documents,Documents with paired paragraph judgments,documents,262,At least one completed second-model paragraph
+second_model_paired_paragraphs,Paired paragraph judgments,paragraphs,8570,Shared semantic keys only

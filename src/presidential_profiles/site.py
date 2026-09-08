@@ -20,9 +20,11 @@ import plotly.io as pio
 from plotly.subplots import make_subplots
 
 from . import (
+    actual_speaker_invocation_network,
     ai_labels,
     attention,
     bands,
+    combat,
     compare_projection,
     compare_site,
     corpus,
@@ -30,6 +32,7 @@ from . import (
     era_contextualizations,
     era_profiles,
     era_visualizations,
+    eras,
     expansion_site,
     expansion_story,
     explorer,
@@ -40,6 +43,8 @@ from . import (
     methodology_site,
     metrics,
     portraits,
+    profile_connections_assets,
+    profile_context,
     profiles,
     profiles_site,
     rhetoric,
@@ -685,7 +690,10 @@ def _standing_html(
     scores: pd.DataFrame | None = None,
     speeches: pd.DataFrame | None = None,
     rates: pd.DataFrame | None = None,
+    stats: pd.DataFrame | None = None,
     summary_data: dict | None = None,
+    combat_ratios: pd.DataFrame | None = None,
+    era_similarity: pd.DataFrame | None = None,
     topic_network_html: str = "",
 ) -> str:
     long_run_inputs = (scores, speeches, rates)
@@ -697,11 +705,7 @@ def _standing_html(
         )
     long_run = (
         f"""<div class="synthesis-throughline">
-<h3>Every president remains inspectable</h3>
-<p>The aggregate decline in procedure and rise in performance are not a smooth handoff.
-Use a broad historical phase, then refine it with specific era cards. The plot never removes
-presidents, and it starts with the complete record visible.</p>
-{_procedural_era_html(scores)}
+{_procedural_era_html(scores, rates)}
 </div>"""
         if all(value is not None for value in long_run_inputs)
         else ""
@@ -726,7 +730,11 @@ presidents, and it starts with the complete record visible.</p>
         )
         return communication_fallback + comparison_fallback
     communication_detail = _summary_communication_audit_html(founding_data)
-    nostalgia = summary_data["founding_nostalgia"]
+    language_inputs = (stats, combat_ratios, era_similarity)
+    if any(value is None for value in language_inputs):
+        raise ValueError(
+            "summary language views require stats, combat ratios, and era similarity"
+        )
     return f"""<div class="summary-thesis" role="note">
   <span>America, in aggregate</span>
   <p>The formal presidential record becomes more public-facing, more performed, less
@@ -745,7 +753,9 @@ presidents, and it starts with the complete record visible.</p>
   <h2 id="summary-performance-title">Who is addressed changes. How the address is delivered changes.</h2>
   <p class="summary-lede"><strong>Who:</strong> Congress gives way to the general public.
   <strong>How:</strong> written messages give way to spoken, broadcast, and other performed forms.
-  The two questions now have independent 100% stacked bars, palettes, and legends.</p>
+  Read together across the same nine eras, the separate bars show a Congress-facing written
+  record becoming more public and performed; the bridge below carries that chronology into the
+  register view without treating audience or delivery as its cause.</p>
   <div class="summary-communication-bars">
     <section class="summary-communication-panel summary-communication-who"
              aria-labelledby="summary-audience-title">
@@ -810,32 +820,13 @@ presidents, and it starts with the complete record visible.</p>
 <section class="summary-chapter" id="summary-time" aria-labelledby="summary-time-title">
   <p class="summary-chapter-no">03 · Time</p>
   <h2 id="summary-time-title">Presidents can sell tomorrow and yesterday at the same time</h2>
-  <p class="summary-lede">Each portrait is one president. Rightward means more future-family
-  wording; upward means more nostalgia-family wording; portrait area grows with the share of
-  counted first-person pronouns in the singular family. These are independent measures—not one
-  scale running from past to future.</p>
+  <p class="summary-lede">Compare the same two independent word families in two views: each
+  president’s all-corpus record, or supported four-year rolling averages. A speech can invoke
+  tomorrow and yesterday at the same time; this is not one scale running from past to future.</p>
   {_summary_temporal_portrait_html(summary_data["temporal_presidents"])}
-  <aside class="summary-term-audit">
-    <span>Separate dictionary audit · founding annual messages only</span>
-    <p>The dictionary contains only <code>again</code>, <code>restore*</code>, and
-    <code>back to</code>. In {nostalgia["n_speeches"]} annual messages from 1789–1799 it finds
-    <strong>{nostalgia["total"]} matches</strong>: {nostalgia["again"]} × <em>again</em>,
-    {nostalgia["restore"]} × <em>restore*</em>, and {nostalgia["back_to"]} × <em>back to</em>.
-    The contexts are usually recurrence, restored order, or restored relations—not a golden-age
-    appeal. This narrow term audit checks the dictionary; it is not the all-speech population
-    used by the president portrait scatter.</p>
-  </aside>
-  <h3>“America” overtakes “the United States” in the Progressive-era boundary</h3>
-  <p>The naming crossover is another form of direct address: the institutional name gives way
-  to the shorter national name in the centered series around 1910.</p>
-  {_chart_block(
-      "naming_progressive", 430, "rate_10k",
-      source="speech_markers.parquet",
-      measure_label="National naming terms per 10,000 words",
-      support="Centered five-year rolling sums of matches and all words.",
-      caveat="The terms include adjectival and geographic uses and cannot prove national identity.",
+  {_summary_language_change_html(
+      speeches, rates, stats, combat_ratios, era_similarity
   )}
-  {_naming_explanation_html(speeches, rates)}
 </section>
 
 <section class="summary-chapter" id="summary-emotion" aria-labelledby="summary-emotion-title">
@@ -895,6 +886,58 @@ SUMMARY_RATIO_EVENTS = [
     (2001, "September 11 attacks"),
     (2020, "COVID-19 pandemic"),
 ]
+SUMMARY_REGISTER_MOMENTS = [
+    (
+        1827, "Adams-heavy rise", "1825–1829 centered window", 227, 8,
+        "John Quincy Adams dominates this pool: seven of ten records, 183 of "
+        "227 legal/procedural matches, and only four of eight hype matches. "
+        "The rise comes mainly from the sparse hype denominator.",
+    ),
+    (
+        1863, "Civil War-era drop", "1861–1865 centered window", 164, 28,
+        "Compared with 1855–1859, the legal/procedural rate falls 53% while "
+        "the hype rate rises 182%. Longer annual, veto, and treaty records in "
+        "the earlier pool give way to more, shorter wartime and transition records.",
+    ),
+    (
+        1881, "Highest administrative window", "1879–1883 centered window", 829, 11,
+        "Veto, appropriations, and long annual-message records dominate this "
+        "19-speech pool, producing the highest supported ratio in the series.",
+    ),
+    (
+        1944, "Wartime low", "1942–1946 centered window", 51, 64,
+        "The 23-record pool mixes Roosevelt and Truman wartime, conference, and "
+        "transition speeches; it is not a single-event effect.",
+    ),
+    (
+        1966, "1960s policy-heavy rise", "1964–1968 centered window", 591, 98,
+        "Policy-heavy Johnson records—including the "
+        "1968 State of the Union and nuclear non-proliferation treaty remarks—"
+        "lift the numerator.",
+    ),
+    (
+        2016, "Mid-2010s decline", "2014–2018 centered window", 92, 236,
+        "Obama's nine records contribute 41 legal/procedural and 36 hype matches; "
+        "Trump's fourteen contribute 51 and 200. The hype denominator—not a "
+        "comparable procedural increase—drives the fall.",
+    ),
+    (
+        2023, "Recent rebound", "2021–2025 centered window", 171, 286,
+        "Biden's 28 records contribute 148 legal/procedural and 132 hype matches; "
+        "four joint-session or State of the Union addresses supply 96 of his "
+        "148 legal/procedural matches. The rise also reflects the much larger "
+        "2020 block leaving the rolling window.",
+    ),
+]
+SUMMARY_REGISTER_HOVER_SUMMARIES = {
+    1827: "Adams dominates this pool; sparse hype drives the rise.",
+    1863: "The procedural rate falls as the pool shifts toward shorter wartime records.",
+    1881: "Long annual, veto, and appropriations records produce the series high.",
+    1944: "The wartime-transition pool has more hype than legal/procedural matches.",
+    1966: "Policy-heavy Johnson records lift the legal/procedural side.",
+    2016: "Trump's much larger hype count drives the ratio down.",
+    2023: "Biden's major addresses lift procedural language as the large 2020 block leaves.",
+}
 
 SUMMARY_CONFLICT_CATEGORY_SPECS = (
     ("adv_n_nation", "nation", "🌍", "Nation", "#315f78"),
@@ -915,6 +958,15 @@ SUMMARY_CONFLICT_CATEGORY_LINE_STYLES = {
     "institution": ("dashdot", "triangle-up"),
     "other": ("longdash", "pentagon"),
 }
+SUMMARY_CONFLICT_PORTRAIT_TIE_COLOR = "#3f3b37"
+SUMMARY_CONFLICT_TURNING_POINT_SPECS = (
+    (1, "institution", "Institution spike", -10, -52),
+    (2, "group", "Domestic turn", 38, -42),
+    (4, "group", "Group peak", -28, -46),
+    (5, "nation", "Wartime nations", 24, 38),
+    (7, "group", "Group share", -28, -46),
+    (8, "person", "Broader mix", -42, -44),
+)
 SUMMARY_CONFLICT_CATEGORY_GUIDE = (
     (
         "Nation",
@@ -938,6 +990,8 @@ SUMMARY_CONFLICT_CATEGORY_GUIDE = (
     ),
 )
 SUMMARY_CONFLICT_PORTRAIT_FIGURE_KEY = "summary_conflict_frame_portraits"
+SUMMARY_CONFLICT_TARGET_TREATMENT = "speaker_audited_all"
+SUMMARY_CONFLICT_PORTRAIT_TREATMENT = "annual_message_strict"
 SUMMARY_CONFLICT_FIGURE_KEYS = (
     "summary_conflict_targets",
     SUMMARY_CONFLICT_PORTRAIT_FIGURE_KEY,
@@ -945,13 +999,15 @@ SUMMARY_CONFLICT_FIGURE_KEYS = (
 SUMMARY_CONFLICT_COMPOSITION_MIN = 30
 SUMMARY_CONFLICT_PORTRAIT_ZERO_PX = 16.0
 SUMMARY_CONFLICT_PORTRAIT_MAX_PX = 64.0
-SUMMARY_TEMPORAL_PORTRAIT_ZERO_PX = 16.0
-SUMMARY_TEMPORAL_PORTRAIT_REFERENCE_PX = 80.0
+SUMMARY_CONFLICT_PORTRAIT_BORDER_PX = 7.0
+SUMMARY_TEMPORAL_PORTRAIT_PX = 52.0
 SUMMARY_TEMPORAL_CHART_WIDTH_PX = 700.0
 SUMMARY_TEMPORAL_CHART_HEIGHT_PX = 650.0
 SUMMARY_TEMPORAL_PLOT_WIDTH_PX = SUMMARY_TEMPORAL_CHART_WIDTH_PX - 78.0 - 28.0
 SUMMARY_TEMPORAL_PLOT_HEIGHT_PX = SUMMARY_TEMPORAL_CHART_HEIGHT_PX - 70.0 - 66.0
 SUMMARY_TEMPORAL_SUPPORT_MIN_SPEECHES = indices.PRESIDENT_PERCENTILE_MIN_SPEECHES
+SUMMARY_TEMPORAL_TIMELINE_YEARS = 4
+SUMMARY_TEMPORAL_TIMELINE_MIN_WORDS = 10_000
 SUMMARY_CONFLICT_DISPLAY_ORDER = (
     "George Washington", "John Adams", "Thomas Jefferson", "James Madison",
     "James Monroe", "John Quincy Adams", "Andrew Jackson", "Martin Van Buren",
@@ -967,6 +1023,36 @@ SUMMARY_CONFLICT_DISPLAY_ORDER = (
     "George H. W. Bush", "Bill Clinton", "George W. Bush", "Barack Obama",
     "Joe Biden", "Donald Trump",
 )
+
+
+def _summary_conflict_dominant_adversary(row) -> tuple[str, str, str]:
+    """Return the honest label and ring color for one president portrait."""
+    candidates = [
+        (key, label, color, int(getattr(row, column)))
+        for column, key, _emoji, label, color
+        in SUMMARY_CONFLICT_CATEGORY_SPECS
+    ]
+    maximum = max(count for _key, _label, _color, count in candidates)
+    if maximum <= 0:
+        return (
+            "none",
+            "No adversarial entity type recorded",
+            SUMMARY_CONFLICT_PORTRAIT_TIE_COLOR,
+        )
+    leaders = [
+        (key, label, color)
+        for key, label, color, count in candidates
+        if count == maximum
+    ]
+    if len(leaders) > 1:
+        labels = " + ".join(label for _key, label, _color in leaders)
+        return (
+            "tie",
+            f"Tie · {labels}",
+            SUMMARY_CONFLICT_PORTRAIT_TIE_COLOR,
+        )
+    key, label, color = leaders[0]
+    return key, label, color
 
 
 def build_summary_conflict_contract(
@@ -1077,7 +1163,16 @@ def build_summary_conflict_contract(
             raise ValueError(f"summary conflict count {count_column!r} is not integral")
         rows[count_column] = rows[count_column].astype("Int64")
         missing_counts = rows[rate_column].notna() & rows[count_column].isna()
-        orphan_counts = rows[rate_column].isna() & rows[count_column].notna()
+        allowed_zero_without_support = (
+            no_paragraph_support
+            & rows[rate_column].isna()
+            & rows[count_column].eq(0)
+        )
+        orphan_counts = (
+            rows[rate_column].isna()
+            & rows[count_column].notna()
+            & ~allowed_zero_without_support
+        )
         invalid_counts = rows[count_column].notna() & (
             (rows[count_column] < 0)
             | (rows[count_column] > rows["n_paragraphs"])
@@ -1478,7 +1573,7 @@ def _summary_conflict_ordered_rows(contract: dict) -> pd.DataFrame:
 
 
 def fig_summary_conflict_targets(contract: dict) -> go.Figure:
-    """Show each adversarial target category in an aligned era trajectory."""
+    """Show all adversarial target categories on one shared era trajectory."""
     rows = contract["rows"].sort_values("era_order", kind="stable")
     x_values = rows["era_order"].to_numpy(dtype=int)
     total_entities = rows["n_adversarial_entities"].to_numpy(dtype=int)
@@ -1486,22 +1581,11 @@ def fig_summary_conflict_targets(contract: dict) -> go.Figure:
         f"{row.era_short}<br>{int(row.era_start)}–{int(row.era_end)}"
         for row in rows.itertuples(index=False)
     ]
-    subplot_titles = [
-        f"{emoji} {label}"
-        for _column, _key, emoji, label, _color
-        in SUMMARY_CONFLICT_CATEGORY_SPECS
-    ]
-    fig = make_subplots(
-        rows=len(SUMMARY_CONFLICT_CATEGORY_SPECS),
-        cols=1,
-        shared_xaxes=True,
-        vertical_spacing=.035,
-        subplot_titles=subplot_titles,
-    )
+    fig = go.Figure()
     target_axis_max = float(contract["target_axis_max"])
-    for row_number, (
+    for (
         count_column, key, _emoji, label, color
-    ) in enumerate(SUMMARY_CONFLICT_CATEGORY_SPECS, start=1):
+    ) in SUMMARY_CONFLICT_CATEGORY_SPECS:
         share = rows[f"adv_share_{key}"].mul(100)
         line_dash, marker_symbol = SUMMARY_CONFLICT_CATEGORY_LINE_STYLES[key]
         support_notes = [
@@ -1521,7 +1605,7 @@ def fig_summary_conflict_targets(contract: dict) -> go.Figure:
         fig.add_trace(go.Scatter(
             x=x_values,
             y=share,
-            mode="lines+markers+text",
+            mode="lines+markers",
             connectgaps=False,
             line=dict(color=color, width=2.5, dash=line_dash),
             marker=dict(
@@ -1533,19 +1617,9 @@ def fig_summary_conflict_targets(contract: dict) -> go.Figure:
                 symbol=marker_symbols,
                 line=dict(color=color, width=1.4),
             ),
-            text=[
-                "" if pd.isna(value) else f"{float(value):.1f}%"
-                for value in share
-            ],
-            textposition=[
-                "bottom center"
-                if not pd.isna(value) and float(value) > target_axis_max * .9
-                else "top center"
-                for value in share
-            ],
-            textfont=dict(color=INK2, size=9),
             cliponaxis=False,
             name=label,
+            meta=key,
             customdata=list(zip(
                 rows["era"].astype(str),
                 rows["era_start"].astype(int),
@@ -1558,70 +1632,138 @@ def fig_summary_conflict_targets(contract: dict) -> go.Figure:
                 support_notes,
             )),
             hovertemplate=(
-                f"<b>%{{customdata[0]}}</b> · {label}"
-                "<br>%{y:.1f}% of adversarial entity mentions"
-                "<br>%{customdata[3]:,} of %{customdata[4]:,} mentions"
-                "<br>%{customdata[5]:,} contributing speeches · "
-                "%{customdata[6]:,} eligible speeches"
-                "<br>%{customdata[7]:,} eligible paragraphs"
-                "<br>%{customdata[1]}–%{customdata[2]}%{customdata[8]}"
-                "<extra></extra>"
+                "%{y:.1f}% · %{customdata[3]:,} of %{customdata[4]:,} mentions"
+                "%{customdata[8]}<extra>%{fullData.name}</extra>"
             ),
             showlegend=False,
-        ), row=row_number, col=1)
-        for x_value in x_values[rows["n_adversarial_entities"].eq(0)]:
-            axis_suffix = "" if row_number == 1 else str(row_number)
-            fig.add_annotation(
-                x=int(x_value), y=target_axis_max * .08,
-                xref=f"x{axis_suffix}", yref=f"y{axis_suffix}",
-                text="N/A", showarrow=False,
-                font=dict(color=MUTED, size=9),
+        ))
+    indexed = rows.set_index("era_order")
+    turning_point_summaries = {
+        1: (
+            "Institution share rises from {p_institution:.1f}% to "
+            "{c_institution:.1f}% ({p_institution_n:,} to {c_institution_n:,} "
+            "mentions). Bank of the United States supplies 122 of the era's "
+            "235 institution mentions; the Senate supplies 37."
+        ),
+        2: (
+            "Nation share falls from {p_nation:.1f}% to {c_nation:.1f}% as "
+            "group share rises to {c_group:.1f}% and person share to "
+            "{c_person:.1f}%. Repeated domestic labels include Southern people "
+            "(39), Edwin M. Stanton (26), and Senator Douglas (16)."
+        ),
+        4: (
+            "Group share reaches {c_group:.1f}% as group mentions rise from "
+            "{p_group_n:,} to {c_group_n:,} and nation mentions fall from "
+            "{p_nation_n:,} to {c_nation_n:,}. Democratic Party (24), opponents "
+            "(11), and alien enemies (9) recur among the group labels."
+        ),
+        5: (
+            "Nation share jumps from {p_nation:.1f}% to {c_nation:.1f}% "
+            "({p_nation_n:,} to {c_nation_n:,} mentions) while the total pool "
+            "is nearly unchanged ({p_total_n:,} to {c_total_n:,}). Germany and "
+            "Japan supply 70 nation mentions each; Italy supplies 19."
+        ),
+        7: (
+            "Group share rises from {p_group:.1f}% to {c_group:.1f}% even as "
+            "group mentions fall from {p_group_n:,} to {c_group_n:,}; the total "
+            "pool contracts from {p_total_n:,} to {c_total_n:,}. al Qaeda (73), "
+            "terrorists (52), and Taliban (37) lead the raw group labels."
+        ),
+        8: (
+            "Group share falls from {p_group:.1f}% to {c_group:.1f}% despite "
+            "more group mentions ({p_group_n:,} to {c_group_n:,}), because "
+            "person and institution mentions grow faster. Repeated person "
+            "labels include Putin (53), Biden (43), Joe Biden (34), and Donald "
+            "Trump (32)."
+        ),
+    }
+    color_by_key = {
+        key: color for _column, key, _emoji, _label, color
+        in SUMMARY_CONFLICT_CATEGORY_SPECS
+    }
+    for era_order, key, label, ax, ay in SUMMARY_CONFLICT_TURNING_POINT_SPECS:
+        current = indexed.loc[era_order]
+        previous = indexed.loc[era_order - 1]
+        if (
+            int(current["n_adversarial_entities"]) == 0
+            or int(previous["n_adversarial_entities"]) == 0
+        ):
+            continue
+        values = {}
+        for _column, category_key, _emoji, _category_label, _color in (
+            SUMMARY_CONFLICT_CATEGORY_SPECS
+        ):
+            values[f"p_{category_key}"] = (
+                float(previous[f"adv_share_{category_key}"]) * 100
             )
+            values[f"c_{category_key}"] = (
+                float(current[f"adv_share_{category_key}"]) * 100
+            )
+            values[f"p_{category_key}_n"] = int(previous[f"adv_n_{category_key}"])
+            values[f"c_{category_key}_n"] = int(current[f"adv_n_{category_key}"])
+        values["p_total_n"] = int(previous["n_adversarial_entities"])
+        values["c_total_n"] = int(current["n_adversarial_entities"])
+        summary = turning_point_summaries[era_order].format(**values)
+        color = color_by_key[key]
+        fig.add_annotation(
+            x=era_order,
+            y=float(current[f"adv_share_{key}"]) * 100,
+            xref="x", yref="y",
+            name=f"conflict-turn::{key}",
+            text=label,
+            showarrow=True,
+            arrowhead=0,
+            arrowwidth=1.1,
+            arrowcolor=color,
+            ax=ax,
+            ay=ay,
+            bgcolor="#fffdf9",
+            bordercolor=color,
+            borderwidth=1,
+            borderpad=4,
+            font=dict(size=9, color=INK2),
+            hovertext="<br>".join(textwrap.wrap(
+                summary,
+                width=34,
+                break_long_words=False,
+                break_on_hyphens=False,
+            )),
+        )
+    for x_value in x_values[rows["n_adversarial_entities"].eq(0)]:
+        fig.add_annotation(
+            x=int(x_value), y=target_axis_max * .08,
+            xref="x", yref="y",
+            text="N/A", showarrow=False,
+            font=dict(color=MUTED, size=9),
+        )
     fig.update_layout(**_layout(
-        height=860,
-        hovermode="x unified",
-        hoversubplots="axis",
+        height=520,
+        hovermode="closest",
         hoverlabel=dict(
             bgcolor="#fffdf9", bordercolor="#d8d0c4",
             font=dict(family=FONT, color=INK2, size=11),
         ),
         showlegend=False,
-        margin=dict(l=76, r=38, t=42, b=96),
-    ))
-    tick_step = 20 if target_axis_max >= 60 else 10
-    tick_values = list(np.arange(0, target_axis_max + .01, tick_step))
-    n_panels = len(SUMMARY_CONFLICT_CATEGORY_SPECS)
-    for row_number in range(1, n_panels + 1):
-        fig.update_xaxes(
+        margin=dict(l=76, r=38, t=64, b=96),
+        xaxis=dict(
             range=[-.35, len(rows) - .65],
             tickmode="array", tickvals=x_values, ticktext=tick_text,
-            showticklabels=row_number == n_panels,
-            title=(
-                "fixed reporting eras · categorical order"
-                if row_number == n_panels else None
-            ),
+            title="fixed reporting eras · categorical order",
             showgrid=False, zeroline=False, linecolor=BASELINE,
             tickfont=dict(color=MUTED, size=9),
             fixedrange=True, showspikes=False,
-            row=row_number, col=1,
-        )
-        fig.update_yaxes(
-            title=(
-                "share of adversarial<br>entity mentions"
-                if row_number == 3 else None
-            ),
-            range=[0, target_axis_max], tickvals=tick_values, ticksuffix="%",
+        ),
+        yaxis=dict(
+            title="share of adversarial entity mentions",
+            range=[0, target_axis_max],
             gridcolor="rgba(116,105,95,.16)", zeroline=False,
-            linecolor=BASELINE, tickfont=dict(color=MUTED, size=8),
+            linecolor=BASELINE, tickfont=dict(color=MUTED, size=9),
             fixedrange=True, showspikes=False,
-            row=row_number, col=1,
-        )
-    for annotation, spec in zip(
-        fig.layout.annotations[:n_panels], SUMMARY_CONFLICT_CATEGORY_SPECS
-    ):
-        annotation.update(
-            x=0, xanchor="left", font=dict(color=spec[-1], size=13),
-        )
+        ),
+    ))
+    tick_step = 20 if target_axis_max >= 60 else 10
+    tick_values = list(np.arange(0, target_axis_max + .01, tick_step))
+    fig.update_yaxes(tickvals=tick_values, ticksuffix="%")
     return fig
 
 
@@ -1700,6 +1842,16 @@ def fig_summary_conflict_portraits(
         "Thin paragraph record" if status == "thin_record" else "Observed record"
         for status in plotted["support_status"].astype(str)
     ]
+    border_encodings = [
+        _summary_conflict_dominant_adversary(row)
+        for row in plotted.itertuples(index=False)
+    ]
+    border_notes = [label for _key, label, _color in border_encodings]
+    border_colors = [color for _key, _label, color in border_encodings]
+    coverage_notes = [
+        f"{int(count)} annual message{'s' if int(count) != 1 else ''}"
+        for count in plotted["n_speeches"]
+    ]
     fig = go.Figure(go.Scatter(
         x=x_values,
         y=y_values,
@@ -1710,14 +1862,8 @@ def fig_summary_conflict_portraits(
             color="#fff8ec",
             opacity=1,
             line=dict(
-                color=np.where(
-                    plotted["support_status"].eq("observed"),
-                    "#6f4828",
-                    "#b16b3e",
-                ),
-                width=np.where(
-                    plotted["support_status"].eq("observed"), 3.0, 4.0
-                ),
+                color=border_colors,
+                width=SUMMARY_CONFLICT_PORTRAIT_BORDER_PX,
             ),
         ),
         customdata=list(zip(
@@ -1725,27 +1871,30 @@ def fig_summary_conflict_portraits(
             plotted["year_first"].astype(int),
             plotted["year_last"].astype(int),
             enemy_values,
-            plotted["n_enemy_naming"].astype(int),
-            plotted["n_zero_sum"].astype(int),
-            plotted["n_party_attack"].astype(int),
-            plotted["n_paragraphs"].astype(int),
-            plotted["n_speeches"].astype(int),
+            coverage_notes,
             support_notes,
+            border_notes,
         )),
         hovertemplate=(
-            "<b>%{customdata[0]}</b> · %{customdata[1]}–%{customdata[2]}"
-            "<br>zero-sum framing %{x:.1f}% of paragraphs"
-            "<br>partisan attack %{y:.1f}%"
-            "<br>enemy naming %{customdata[3]:.1f}% · portrait area"
-            "<br>counts: %{customdata[5]} zero-sum · %{customdata[6]} partisan · "
-            "%{customdata[4]} enemy naming"
-            "<br>%{customdata[7]:,} paragraphs · %{customdata[8]} speeches"
-            "<br>%{customdata[9]}<extra></extra>"
+            "<b>%{customdata[0]}</b>"
+            "<br><b>Years:</b> %{customdata[1]}–%{customdata[2]}"
+            "<br><b>Zero-sum framing:</b> %{x:.1f}% of paragraphs"
+            "<br><b>Partisan attack:</b> %{y:.1f}% of paragraphs"
+            "<br><b>Enemy naming:</b> %{customdata[3]:.1f}% of paragraphs "
+            "· portrait size"
+            "<br><b>Most-named adversary type:</b> %{customdata[6]} "
+            "· portrait border"
+            "<br><b>Speeches analyzed:</b> %{customdata[4]}"
+            "<br><b>Support:</b> %{customdata[5]}<extra></extra>"
         ),
         cliponaxis=False,
         showlegend=False,
     ))
     for (_, row), diameter in zip(plotted.iterrows(), diameters):
+        portrait_diameter = max(
+            6.0,
+            float(diameter) - SUMMARY_CONFLICT_PORTRAIT_BORDER_PX - 1.0,
+        )
         fig.add_layout_image(
             source=faces[str(row.president)],
             x=float(row.zero_sum) * 100,
@@ -1754,25 +1903,12 @@ def fig_summary_conflict_portraits(
             yref="y",
             xanchor="center",
             yanchor="middle",
-            sizex=x_axis_span * float(diameter) / 540,
-            sizey=y_axis_span * float(diameter) / 470,
+            sizex=x_axis_span * portrait_diameter / 540,
+            sizey=y_axis_span * portrait_diameter / 470,
             sizing="contain",
             layer="above",
             opacity=1,
             name=f"conflict-portrait::{row.president}",
-        )
-    unavailable_count = int((~available).sum())
-    if unavailable_count:
-        fig.add_annotation(
-            x=.99,
-            y=.01,
-            xref="paper",
-            yref="paper",
-            xanchor="right",
-            yanchor="bottom",
-            text=f"{unavailable_count} incomplete rows appear as N/A in the table",
-            showarrow=False,
-            font=dict(size=10, color=MUTED),
         )
     fig.update_layout(**_layout(
         height=650,
@@ -1784,6 +1920,7 @@ def fig_summary_conflict_portraits(
         hoverlabel=dict(
             bgcolor="#fffdf9",
             bordercolor="#d8d0c4",
+            align="left",
             font=dict(family=FONT, color=INK2, size=11),
         ),
         showlegend=False,
@@ -1810,49 +1947,29 @@ def fig_summary_conflict_portraits(
     return fig
 
 
-def _summary_conflict_target_table_html(contract: dict) -> str:
-    rows = contract["rows"].sort_values("era_order", kind="stable")
-
-    def display_share(value: float) -> str:
-        return "N/A" if pd.isna(value) else f"{float(value) * 100:.1f}%"
-
-    support_labels = {
-        "observed": "Observed",
-        "thin_record": (
-            f"Thin record (<{SUMMARY_CONFLICT_COMPOSITION_MIN} mentions)"
-        ),
-        "not_available": "Not available",
-    }
-    body_rows = []
-    for row in rows.itertuples(index=False):
-        share_cells = "".join(
-            "<td>"
-            + display_share(getattr(row, f"adv_share_{key}"))
-            + f" · {int(getattr(row, count_column)):,}</td>"
-            for count_column, key, _emoji, _label, _color
-            in SUMMARY_CONFLICT_CATEGORY_SPECS
-        )
-        body_rows.append(
-            '<tr><th scope="row">'
-            + html.escape(str(row.era))
-            + f"</th><td>{int(row.era_start)}–{int(row.era_end)}</td>"
-            + share_cells
-            + f"<td>{int(row.n_adversarial_entities):,}</td>"
-            + f"<td>{int(row.n_adversarial_speeches):,}</td><td>"
-            + html.escape(support_labels[str(row.composition_status)])
-            + "</td></tr>"
-        )
-    category_headers = "".join(
-        f"<th>{html.escape(label)}</th>"
-        for _column, _key, _emoji, label, _color
+def _summary_conflict_line_controls_html() -> str:
+    buttons = ['<button type="button" data-conflict-line="__all__" '
+               'aria-pressed="true">All</button>']
+    buttons.extend(
+        '<button type="button" data-conflict-line="'
+        + html.escape(key, quote=True)
+        + '" data-line-style="'
+        + html.escape(SUMMARY_CONFLICT_CATEGORY_LINE_STYLES[key][0], quote=True)
+        + '" class="conflict-line-'
+        + html.escape(key, quote=True)
+        + '" aria-pressed="false"><span aria-hidden="true"></span>'
+        + html.escape(label)
+        + "</button>"
+        for _column, key, _emoji, label, _color
         in SUMMARY_CONFLICT_CATEGORY_SPECS
     )
-    return f"""<details class="president-table conflict-target-table">
-<summary>Text alternative · target mix by era</summary>
-<div class="table-scroll"><table><thead><tr><th>Era</th><th>Years</th>
-{category_headers}<th>Adversarial mentions</th><th>Contributing speeches</th><th>Support</th></tr></thead>
-<tbody>{"".join(body_rows)}</tbody></table></div>
-</details>"""
+    return f"""<div class="conflict-line-picker" data-conflict-line-picker>
+  <span class="conflict-line-picker-label">Highlight a line</span>
+  <div class="conflict-line-buttons" role="group" aria-label="Highlight a target-type line">
+    {"".join(buttons)}
+  </div>
+  <span class="conflict-line-status" role="status" aria-live="polite">All five target lines emphasized.</span>
+</div>"""
 
 
 def _summary_conflict_category_guide_html(contract: dict) -> str:
@@ -1861,9 +1978,9 @@ def _summary_conflict_category_guide_html(contract: dict) -> str:
         + html.escape(description) + "</dd></div>"
         for label, description in SUMMARY_CONFLICT_CATEGORY_GUIDE
     )
-    return f"""<aside class="conflict-category-guide" role="note"
-aria-labelledby="conflict-category-guide-title">
-<h5 id="conflict-category-guide-title">What each target category includes</h5>
+    return f"""<details class="conflict-category-guide">
+<summary id="conflict-category-guide-title">What each target category includes</summary>
+<div class="conflict-category-guide-body">
 <dl>{definitions}</dl>
 <p>Each point pools speaker-audited adversarial entity mentions within one fixed reporting era;
 it is not an average of presidents or years. Repeated mentions count, and one paragraph can
@@ -1872,39 +1989,30 @@ lowers at least one other. Era lengths, corpus density, and genre mix vary, and 
 guide the eye between aggregates without estimating values between them. Categories are frozen
 AI-assigned types; “Other” is a heterogeneous residual, not a single kind of enemy. A textual
 target is not a judgment that it was legitimate. The corpus currently ends in {contract['corpus_end_date'].strftime('%B %Y')}.</p>
-</aside>"""
-
-
-def _summary_conflict_portrait_table_html(contract: dict) -> str:
-    rows = _summary_conflict_ordered_rows(contract)
-
-    def display_rate(value: float) -> str:
-        return "N/A" if pd.isna(value) else f"{float(value) * 100:.1f}%"
-
-    support_labels = {
-        "observed": "Observed",
-        "thin_record": "Thin record",
-        "not_available": "Not available",
-    }
-    body = "".join(
-        "<tr><th scope=\"row\">"
-        + html.escape(str(row.president))
-        + f"</th><td>{int(row.year_first)}–{int(row.year_last)}</td>"
-        + f"<td>{display_rate(row.zero_sum)}</td>"
-        + f"<td>{display_rate(row.party_attack)}</td>"
-        + f"<td>{display_rate(row.enemy_naming)}</td>"
-        + f"<td>{int(row.n_paragraphs):,}</td>"
-        + "<td>"
-        + html.escape(support_labels[str(row.support_status)])
-        + "</td></tr>"
-        for row in rows.itertuples(index=False)
-    )
-    return f"""<details class="president-table conflict-portrait-table">
-<summary>Text alternative · all president points and portrait sizes</summary>
-<div class="table-scroll"><table><thead><tr><th>President</th><th>Corpus years</th>
-<th>Zero-sum framing</th><th>Partisan attack</th><th>Enemy naming · portrait area</th>
-<th>Paragraphs</th><th>Support</th></tr></thead><tbody>{body}</tbody></table></div>
+</div>
 </details>"""
+
+
+def _summary_conflict_portrait_border_key_html() -> str:
+    items = "".join(
+        '<span style="--portrait-border-color:'
+        + html.escape(color, quote=True)
+        + '"><i aria-hidden="true"></i>'
+        + html.escape(label)
+        + "</span>"
+        for _column, _key, _emoji, label, color
+        in SUMMARY_CONFLICT_CATEGORY_SPECS
+    )
+    items += (
+        '<span style="--portrait-border-color:'
+        + SUMMARY_CONFLICT_PORTRAIT_TIE_COLOR
+        + '"><i aria-hidden="true"></i>Tied leaders</span>'
+    )
+    return f"""<div class="conflict-portrait-border-key" role="note"
+aria-label="Portrait border colors show each president's most-named adversary type">
+<strong>Portrait border · most named in these messages</strong>
+<div>{items}</div>
+</div>"""
 
 
 def _summary_conflict_graphs_html(
@@ -1940,76 +2048,75 @@ def _summary_conflict_graphs_html(
             "Zero-sum framing × partisan attack · enemy-naming portrait area"
         ),
         support=(
-            "All complete president rows in the validated treatment; every rate divides "
-            "its labeled paragraphs by all eligible paragraphs."
+            "State of the Union and annual-message paragraphs only. Presidents without "
+            "a qualifying corpus speech remain explicit N/A rows; every available rate "
+            "divides its labeled paragraphs by all eligible message paragraphs."
         ),
         caveat=(
             "Portrait area—not diameter—is proportional to enemy-naming share; the "
             "largest observed share uses the source image's native 64-pixel size. A zero "
             "uses a 16-pixel locator. Overlap does not merge presidents; hover and the "
-            "exact table retain each value."
+            "generated figure retain each value. Annual messages provide a shared genre across "
+            "eras, not identical venues, delivery modes, record sizes, or political contexts."
         ),
-    )
-    enemy_min = president_contract["rows"]["enemy_naming"].min(skipna=True)
-    enemy_max = president_contract["rows"]["enemy_naming"].max(skipna=True)
-    enemy_range = (
-        "Enemy naming N/A"
-        if pd.isna(enemy_min) or pd.isna(enemy_max)
-        else f"Enemy naming {enemy_min * 100:.1f}%–{enemy_max * 100:.1f}%"
     )
     return f"""<div class="conflict-graph-suite"
      data-conflict-schema="{html.escape(str(president_contract['schema_version']), quote=True)}"
-     data-target-schema="{html.escape(str(target_contract['schema_version']), quote=True)}">
+     data-target-schema="{html.escape(str(target_contract['schema_version']), quote=True)}"
+     data-conflict-target-treatment="{html.escape(str(target_contract['treatment']), quote=True)}"
+     data-conflict-president-treatment="{html.escape(str(president_contract['treatment']), quote=True)}">
   <header class="conflict-graph-heading">
     <div><p>{len(target_contract['rows'])} ERAS · {len(president_contract['rows'])} PRESIDENTS · 2 COMPARISONS</p>
     <h3>Conflict across eras and presidents</h3></div>
-    <div class="conflict-treatment" role="note"><span>Current input</span>
-    <strong>{html.escape(str(target_contract['treatment_label']))}</strong></div>
+    <div class="conflict-treatment" role="note"><span>Governed inputs</span>
+    <strong>Target mix · {html.escape(str(target_contract['treatment_label']))}</strong>
+    <small>Portrait · {html.escape(str(president_contract['treatment_label']))}</small></div>
   </header>
-  <p class="conflict-graph-deck">Five aligned era trajectories follow who or what receives
-  adversarial framing; a president portrait view shows how three paragraph-level frames combine.
-  Target lines use adversarial entity mentions; portrait position and area use eligible paragraphs.
-  <span>○ fewer than {SUMMARY_CONFLICT_COMPOSITION_MIN} adversarial mentions · hover for exact counts</span></p>
+  <p class="conflict-graph-deck">Five lines on one era chart follow who or what receives
+  adversarial framing; a common-genre president portrait view shows how three paragraph-level
+  frames combine. Target lines use all eligible adversarial entity mentions; portrait position
+  and area use State of the Union and annual-message paragraphs only.
+  <span>○ fewer than {SUMMARY_CONFLICT_COMPOSITION_MIN} adversarial mentions · hover points for exact counts · hover labeled turns for the compositional explanation</span></p>
   <section class="conflict-question-group" aria-labelledby="conflict-target-heading">
     <div class="conflict-question-heading"><span>01</span><div>
     <p>WHO OR WHAT IS NAMED?</p><h4 id="conflict-target-heading">How the target mix changes</h4>
-    <small>Five aligned panels share one vertical scale across nine fixed reporting eras.</small>
+    <small>Five target types share one scale; highlight any line, then inspect six labeled changes in the mix.</small>
     </div></div>
     <section class="conflict-measure-panel conflict-target-panel" aria-label="Target mix by historical era">
       <p class="conflict-denominator">Each era pools speaker-audited adversarial mentions ·
-      across the five panels, every supported era totals 100% · lines connect aggregates only</p>
+      across the five lines, every supported era totals 100% · lines connect aggregates only</p>
+      {_summary_conflict_line_controls_html()}
       <div class="chart-scroll conflict-target-scroll"><div class="chart"
-      data-fig="summary_conflict_targets" style="height:860px"></div></div>
+      data-fig="summary_conflict_targets" style="height:520px"
+      aria-label="Five target-type lines across nine historical eras"></div></div>
       {_summary_conflict_category_guide_html(target_contract)}
-      {_summary_conflict_target_table_html(target_contract)}
     </section>
   </section>
   <section class="conflict-question-group" aria-labelledby="conflict-relationship-heading">
     <div class="conflict-question-heading"><span>02</span><div>
-    <p>HOW DO THE THREE FRAMES COMBINE?</p>
-    <h4 id="conflict-relationship-heading">One portrait view</h4>
-    <small>Zero-sum framing runs left to right; partisan attack runs bottom to top;
-    portrait area grows with enemy naming.</small>
+    <p>BY PRESIDENT · COMPARABLE SPEECHES</p>
+    <h4 id="conflict-relationship-heading">How presidents frame conflict</h4>
+    <small>Compared within State of the Union and annual-message speeches.</small>
     </div></div>
     <section class="conflict-measure-panel conflict-portrait-panel"
              style="--measure-color:#6d5a91"
              aria-labelledby="summary-conflict-frame-portraits-title">
-      <header><div><span>ALL {len(president_contract['rows'])} PRESIDENTS</span>
+      <header><div>
       <h5 id="summary-conflict-frame-portraits-title">Zero-sum × partisan × enemy naming</h5>
-      <p>Position carries two paragraph shares; portrait area carries the third.</p></div>
-      <strong>{enemy_range}</strong></header>
-      <p class="conflict-denominator">x = zero-sum framing · y = partisan attack ·
-      portrait area = enemy naming · all as shares of eligible paragraphs</p>
+      <p>Portrait area = enemy naming.<br>
+      All values are shares of eligible State of the Union and annual-message paragraphs.</p>
+      </div></header>
+      {_summary_conflict_portrait_border_key_html()}
       <div class="chart-scroll conflict-portrait-scroll"><div class="chart"
       data-fig="{SUMMARY_CONFLICT_PORTRAIT_FIGURE_KEY}" style="height:650px"></div></div>
-      {_summary_conflict_portrait_table_html(president_contract)}
     </section>
   </section>
 </div>
 <details class="summary-evidence-detail"><summary>Evidence, limitations, and speaker-audited data</summary>
 <div class="conflict-evidence-grid">{category_evidence}{portrait_evidence}</div>
 <p>The target and portrait figures use separate validated era- and president-grain contracts from
-the same speaker-audited paragraph population. Rebuilding the governed producer updates both
+governed speaker-audited populations: all eligible paragraphs for the target mix and the shared
+annual-message genre for the portrait comparison. Rebuilding the governed producer updates both
 without averaging percentages or applying chart-specific corrections.</p></details>"""
 
 
@@ -2036,29 +2143,19 @@ def _summary_register_series(
 
 def build_summary_temporal_president_contract(
     speech_markers: pd.DataFrame,
-    speech_stats: pd.DataFrame,
     speeches: pd.DataFrame,
     *,
     expected_presidents: int | None = 45,
 ) -> dict:
-    """Pool all-corpus temporal wording and self-reference by president.
-
-    Future and nostalgia use the marker word denominator. Self-reference uses
-    the independent linguistic-stat denominator ``I + we``. The exact speech
-    key set and document-owner metadata must agree across all three sources.
-    """
+    """Pool all-corpus future and nostalgia wording by president."""
     required_by_source = {
         "speech markers": {
             "doc_name", "president", "year", "n_words", "future", "nostalgia",
-        },
-        "speech stats": {
-            "doc_name", "president", "year", "i_count", "we_count",
         },
         "speeches": {"doc_name", "president", "year"},
     }
     sources = {
         "speech markers": speech_markers,
-        "speech stats": speech_stats,
         "speeches": speeches,
     }
     for source_name, required in required_by_source.items():
@@ -2100,37 +2197,22 @@ def build_summary_temporal_president_contract(
             "doc_name", "president", "year", "n_words", "future", "nostalgia",
         ]
     ].rename(columns={"president": "marker_president", "year": "marker_year"})
-    stat_rows = speech_stats[
-        ["doc_name", "president", "year", "i_count", "we_count"]
-    ].rename(columns={"president": "stat_president", "year": "stat_year"})
     joined = _strict_one_to_one_merge(
         speech_meta,
         marker_rows,
         ["doc_name"],
         "summary temporal speeches x markers",
     )
-    joined = _strict_one_to_one_merge(
-        joined,
-        stat_rows,
-        ["doc_name"],
-        "summary temporal speeches x stats",
-    )
     if not joined["president"].astype(str).equals(
         joined["marker_president"].astype(str)
-    ) or not joined["president"].astype(str).equals(
-        joined["stat_president"].astype(str)
     ):
         raise ValueError("summary temporal president metadata differs across sources")
     if not np.array_equal(
         joined["year"].to_numpy(), joined["marker_year"].to_numpy()
-    ) or not np.array_equal(
-        joined["year"].to_numpy(), joined["stat_year"].to_numpy()
     ):
         raise ValueError("summary temporal year metadata differs across sources")
 
-    count_columns = [
-        "n_words", "future", "nostalgia", "i_count", "we_count",
-    ]
+    count_columns = ["n_words", "future", "nostalgia"]
     numeric = joined[count_columns].apply(pd.to_numeric, errors="coerce")
     if numeric.isna().any().any() or np.isinf(numeric.to_numpy(dtype=float)).any():
         raise ValueError("summary temporal source counts must be finite")
@@ -2157,8 +2239,6 @@ def build_summary_temporal_president_contract(
             n_rate_words=("n_words", "sum"),
             n_future_matches=("future", "sum"),
             n_nostalgia_matches=("nostalgia", "sum"),
-            n_i_pronouns=("i_count", "sum"),
-            n_we_pronouns=("we_count", "sum"),
         )
         .reset_index()
     )
@@ -2198,16 +2278,8 @@ def build_summary_temporal_president_contract(
         rows["n_nostalgia_matches"] / rows["n_rate_words"] * 10_000,
         np.nan,
     )
-    rows["n_first_person_pronouns"] = (
-        rows["n_i_pronouns"] + rows["n_we_pronouns"]
-    )
-    rows["self_reference"] = np.where(
-        rows["n_first_person_pronouns"].gt(0),
-        rows["n_i_pronouns"] / rows["n_first_person_pronouns"],
-        np.nan,
-    )
     rows["era"] = rows.apply(_president_story_era, axis=1)
-    complete = rows[["future", "nostalgia", "self_reference"]].notna().all(axis=1)
+    complete = rows[["future", "nostalgia"]].notna().all(axis=1)
     rows["support_status"] = np.select(
         [
             ~complete,
@@ -2217,17 +2289,12 @@ def build_summary_temporal_president_contract(
         default="observed",
     )
     return {
-        "schema_version": "summary-temporal-president-v1",
+        "schema_version": "summary-temporal-president-v2",
         "treatment": "all_corpus_document_owner",
         "treatment_label": "All corpus speeches · document-owner president records",
         "speaker_scope_status": "document_owned_transcripts_not_speaker_audited",
-        "source_label": (
-            "speech_markers.parquet + speech_stats.parquet + speeches.parquet"
-        ),
+        "source_label": "speech_markers.parquet + speeches.parquet",
         "rate_unit": "matches_per_10k_marker_words",
-        "self_reference_definition": (
-            "first-person singular / (first-person singular + first-person plural)"
-        ),
         "support_min_speeches": SUMMARY_TEMPORAL_SUPPORT_MIN_SPEECHES,
         "corpus_end_date": (
             pd.Timestamp(speeches["date"].max())
@@ -2244,18 +2311,17 @@ def build_summary_data(
     paragraph_annotations: pd.DataFrame,
     speech_annotations: pd.DataFrame,
     speech_markers: pd.DataFrame,
-    speech_stats: pd.DataFrame,
     taxonomy: dict,
     lifecycle_table: pd.DataFrame,
     trend_table: pd.DataFrame,
-    president_conflict_table: pd.DataFrame,
+    president_conflict_treatments: pd.DataFrame,
     target_mix_table: pd.DataFrame,
     receipts: pd.DataFrame,
     founding_data: dict,
 ) -> dict:
     """Build one keyed, validated payload for every Summary-only aggregate."""
     temporal_presidents = build_summary_temporal_president_contract(
-        speech_markers, speech_stats, speeches
+        speech_markers, speeches
     )
     paragraph_frame = _strict_one_to_one_merge(
         paragraphs[["doc_name", "para_idx"]],
@@ -2333,56 +2399,54 @@ def build_summary_data(
     if not np.allclose(stance_frame.sum(axis=1), 100):
         raise ValueError("summary proposal/value shares must sum to 100% by era")
 
+    if "treatment" not in president_conflict_treatments:
+        raise ValueError("summary conflict president treatments lack treatment labels")
+    target_population_rows = president_conflict_treatments.loc[
+        president_conflict_treatments["treatment"].eq(
+            SUMMARY_CONFLICT_TARGET_TREATMENT
+        )
+    ].copy()
+    portrait_rows = president_conflict_treatments.loc[
+        president_conflict_treatments["treatment"].eq(
+            SUMMARY_CONFLICT_PORTRAIT_TREATMENT
+        )
+    ].copy()
+    if target_population_rows.empty or portrait_rows.empty:
+        raise ValueError(
+            "summary conflict president treatments lack the required all-speaker "
+            "or annual-message population"
+        )
+    conflict_target_population = build_summary_conflict_contract(
+        target_population_rows,
+        expected_presidents=int(speeches["president"].nunique()),
+    )
     conflict_presidents = build_summary_conflict_contract(
-        president_conflict_table,
+        portrait_rows,
         expected_presidents=int(speeches["president"].nunique()),
     )
     conflict_targets = build_summary_conflict_target_contract(target_mix_table)
     for count_column, *_ in SUMMARY_CONFLICT_CATEGORY_SPECS:
         target_total = int(conflict_targets["rows"][count_column].sum())
-        president_total = int(conflict_presidents["rows"][count_column].sum())
+        president_total = int(
+            conflict_target_population["rows"][count_column].sum()
+        )
         if target_total != president_total:
             raise ValueError(
                 f"summary conflict {count_column} differs by era and president grain"
             )
     if int(conflict_targets["rows"]["n_paragraphs"].sum()) != int(
-        conflict_presidents["rows"]["n_paragraphs"].sum()
+        conflict_target_population["rows"]["n_paragraphs"].sum()
     ):
         raise ValueError(
             "summary conflict eligible paragraphs differ by era and president grain"
         )
-    if conflict_targets["treatment"] != conflict_presidents["treatment"]:
+    if conflict_targets["treatment"] != conflict_target_population["treatment"]:
         raise ValueError("summary conflict contracts use different treatments")
     if "date" in speeches:
         expected_end_date = pd.Timestamp(speeches["date"].max()).date()
         if conflict_targets["corpus_end_date"].date() != expected_end_date:
             raise ValueError("summary target-mix corpus end date differs from speeches")
 
-    annotated_speeches = speeches.merge(
-        speech_annotations[["doc_name", "speech_type"]],
-        on="doc_name", how="left", validate="one_to_one", indicator=True,
-    )
-    if annotated_speeches["_merge"].ne("both").any():
-        raise ValueError("summary founding nostalgia needs every speech annotation")
-    founding_messages = annotated_speeches[
-        annotated_speeches["speech_type"].eq(
-            "state_of_the_union_or_annual_message"
-        )
-        & annotated_speeches["year"].between(1770, 1799)
-    ]
-    nostalgia_pattern = re.compile(indices.MARKERS["nostalgia"])
-    nostalgia_matches = [
-        match
-        for transcript in founding_messages["transcript"].str.lower()
-        for match in nostalgia_pattern.findall(transcript)
-    ]
-    founding_nostalgia = {
-        "n_speeches": len(founding_messages),
-        "total": len(nostalgia_matches),
-        "again": sum(match == "again" for match in nostalgia_matches),
-        "restore": sum(match.startswith("restor") for match in nostalgia_matches),
-        "back_to": sum(match == "back to" for match in nostalgia_matches),
-    }
     receipt_rows = receipts[
         receipts["status"].eq("confirmatory")
         & receipts["metric"].eq("effective_topics")
@@ -2418,7 +2482,6 @@ def build_summary_data(
         "conflict_targets": conflict_targets,
         "conflict_presidents": conflict_presidents,
         "temporal_presidents": temporal_presidents,
-        "founding_nostalgia": founding_nostalgia,
         "register": register,
         "communications": communications,
         "breadth_receipt": receipt_rows.iloc[0],
@@ -2773,23 +2836,23 @@ def fig_summary_temporal(
     contract: dict,
     faces: dict[str, str],
 ) -> go.Figure:
-    """Relate future and nostalgia; portrait area shows self-reference."""
+    """Relate president-level future and nostalgia rates with uniform portraits."""
     rows = contract["rows"].copy()
-    available = rows[["future", "nostalgia", "self_reference"]].notna().all(axis=1)
+    available = rows[["future", "nostalgia"]].notna().all(axis=1)
     plotted = rows.loc[available].copy().sort_values(
-        "self_reference", ascending=False, kind="stable"
+        "display_order", kind="stable"
     )
     if plotted.empty:
         fig = go.Figure()
         fig.add_annotation(
             x=.5, y=.5, xref="paper", yref="paper",
-            text="N/A · no president has all three temporal measures available",
+            text="N/A · no president has both temporal measures available",
             showarrow=False, font=dict(size=13, color=MUTED),
         )
         fig.update_layout(**_layout(
             height=SUMMARY_TEMPORAL_CHART_HEIGHT_PX, showlegend=False,
             title=dict(
-                text="Future language versus nostalgia language",
+                text="Tomorrow language versus yesterday language",
                 font=dict(size=15),
             ),
             margin=dict(l=78, r=28, t=70, b=66),
@@ -2810,34 +2873,26 @@ def fig_summary_temporal(
             "summary temporal portrait scatter is missing portraits: "
             + ", ".join(sorted(missing_faces))
         )
-    portrait_diameters = pd.Series(
-        SUMMARY_TEMPORAL_PORTRAIT_REFERENCE_PX
-        * np.sqrt(plotted["self_reference"]),
-        index=plotted.index,
-    )
-    zero_share = plotted["self_reference"].eq(0)
-    marker_diameters = portrait_diameters.where(
-        ~zero_share, SUMMARY_TEMPORAL_PORTRAIT_ZERO_PX
-    )
+    portrait_diameters = np.full(len(plotted), SUMMARY_TEMPORAL_PORTRAIT_PX)
     x_ceiling = max(5.0, float(np.ceil(plotted["future"].max() / 5) * 5))
     y_ceiling = max(5.0, float(np.ceil(plotted["nostalgia"].max() / 5) * 5))
     x_padding = (
-        x_ceiling * SUMMARY_TEMPORAL_PORTRAIT_REFERENCE_PX
+        x_ceiling * SUMMARY_TEMPORAL_PORTRAIT_PX
         / (
             2
             * (
                 SUMMARY_TEMPORAL_PLOT_WIDTH_PX
-                - SUMMARY_TEMPORAL_PORTRAIT_REFERENCE_PX
+                - SUMMARY_TEMPORAL_PORTRAIT_PX
             )
         )
     )
     y_padding = (
-        y_ceiling * SUMMARY_TEMPORAL_PORTRAIT_REFERENCE_PX
+        y_ceiling * SUMMARY_TEMPORAL_PORTRAIT_PX
         / (
             2
             * (
                 SUMMARY_TEMPORAL_PLOT_HEIGHT_PX
-                - SUMMARY_TEMPORAL_PORTRAIT_REFERENCE_PX
+                - SUMMARY_TEMPORAL_PORTRAIT_PX
             )
         )
     )
@@ -2845,28 +2900,20 @@ def fig_summary_temporal(
     y_axis_span = y_ceiling + 2 * y_padding
     support_notes = [
         (
-            (
-                f"Thin record · fewer than {contract['support_min_speeches']} speeches"
-                if status == "thin_record" else "Observed record"
-            )
-            + (
-                " · zero singular share uses a 16px hollow locator, not portrait area"
-                if is_zero else ""
-            )
+            f"Thin record · fewer than {contract['support_min_speeches']} speeches"
+            if status == "thin_record" else "Observed record"
         )
-        for status, is_zero in zip(
-            plotted["support_status"].astype(str), zero_share
-        )
+        for status in plotted["support_status"].astype(str)
     ]
     fig = go.Figure(go.Scatter(
         x=plotted["future"],
         y=plotted["nostalgia"],
         mode="markers",
         marker=dict(
-            size=marker_diameters.tolist(),
+            size=portrait_diameters.tolist(),
             sizemode="diameter",
-            symbol=np.where(zero_share, "circle-open", "circle").tolist(),
-            color=np.where(zero_share, "#fffdf9", "#fff8ec").tolist(),
+            symbol=["circle"] * len(plotted),
+            color=["#fff8ec"] * len(plotted),
             opacity=1,
             line=dict(
                 color=np.where(
@@ -2884,31 +2931,24 @@ def fig_summary_temporal(
             plotted["first_year"].astype(int),
             plotted["last_year"].astype(int),
             plotted["era"].astype(str),
-            plotted["n_future_matches"].astype(int),
-            plotted["n_nostalgia_matches"].astype(int),
-            plotted["self_reference"].mul(100),
-            plotted["n_i_pronouns"].astype(int),
-            plotted["n_we_pronouns"].astype(int),
             plotted["n_speeches"].astype(int),
             plotted["n_rate_words"].astype(int),
             support_notes,
         )),
         hovertemplate=(
-            "<b>%{customdata[0]}</b> · %{customdata[1]}–%{customdata[2]}"
-            "<br>%{customdata[3]}"
-            "<br>future %{x:.2f} per 10,000 marker words · %{customdata[4]} matches"
-            "<br>nostalgia %{y:.2f} per 10,000 marker words · %{customdata[5]} matches"
-            "<br>self-reference %{customdata[6]:.1f}% singular among counted first-person pronouns · portrait area"
-            "<br>%{customdata[7]:,} singular-family forms · %{customdata[8]:,} plural-family forms"
-            "<br>%{customdata[9]} speeches · %{customdata[10]:,} marker words"
-            "<br>%{customdata[11]}<extra></extra>"
+            "<b>%{customdata[0]}</b>"
+            "<br><b>Years:</b> %{customdata[1]}–%{customdata[2]}"
+            "<br><b>Story era:</b> %{customdata[3]}"
+            "<br><b>Tomorrow:</b> %{x:.2f} per 10,000 marker words"
+            "<br><b>Yesterday:</b> %{y:.2f} per 10,000 marker words"
+            "<br><b>Speeches analyzed:</b> %{customdata[4]}"
+            "<br><b>Marker words:</b> %{customdata[5]:,}"
+            "<br><b>Support:</b> %{customdata[6]}<extra></extra>"
         ),
         cliponaxis=False,
         showlegend=False,
     ))
     for (_, row), diameter in zip(plotted.iterrows(), portrait_diameters):
-        if float(row.self_reference) == 0:
-            continue
         fig.add_layout_image(
             source=faces[str(row.president)],
             x=float(row.future),
@@ -2928,18 +2968,10 @@ def fig_summary_temporal(
             opacity=1,
             name=f"portrait::{row.president}",
         )
-    unavailable_count = int((~available).sum())
-    if unavailable_count:
-        fig.add_annotation(
-            x=.99, y=.01, xref="paper", yref="paper",
-            xanchor="right", yanchor="bottom",
-            text=f"{unavailable_count} incomplete rows appear as N/A in the table",
-            showarrow=False, font=dict(size=10, color=MUTED),
-        )
     fig.update_layout(**_layout(
         height=SUMMARY_TEMPORAL_CHART_HEIGHT_PX,
         title=dict(
-            text="Future language versus nostalgia language",
+            text="Tomorrow language versus yesterday language",
             font=dict(size=15),
         ),
         hovermode="closest",
@@ -2963,6 +2995,157 @@ def fig_summary_temporal(
             tickvals=list(np.arange(0, y_ceiling + .01, 5)),
             gridcolor=GRID, linecolor=BASELINE,
             showspikes=False, fixedrange=True,
+        ),
+    ))
+    return fig
+
+
+def _summary_temporal_timeline_frame(markers: pd.DataFrame) -> pd.DataFrame:
+    """Average four consecutive annual future and nostalgia rates."""
+    required = {"year", "n_words", "future", "nostalgia"}
+    missing = required - set(markers.columns)
+    if missing:
+        raise ValueError(
+            "summary temporal timeline is missing marker columns: "
+            + ", ".join(sorted(missing))
+        )
+    numeric = markers[["year", "n_words", "future", "nostalgia"]].apply(
+        pd.to_numeric, errors="coerce"
+    )
+    if numeric.empty:
+        raise ValueError("summary temporal timeline has no supported windows")
+    if numeric.isna().any().any() or np.isinf(numeric.to_numpy(dtype=float)).any():
+        raise ValueError("summary temporal timeline marker values must be finite")
+    if not np.allclose(numeric["year"], np.round(numeric["year"])):
+        raise ValueError("summary temporal timeline years must be integers")
+    count_columns = ["n_words", "future", "nostalgia"]
+    if (numeric[count_columns] < 0).any().any():
+        raise ValueError("summary temporal timeline marker counts cannot be negative")
+    if not np.allclose(
+        numeric[count_columns], np.round(numeric[count_columns])
+    ):
+        raise ValueError("summary temporal timeline marker counts must be integers")
+    if (
+        numeric["future"].gt(numeric["n_words"])
+        | numeric["nostalgia"].gt(numeric["n_words"])
+    ).any():
+        raise ValueError(
+            "summary temporal timeline family matches cannot exceed marker words"
+        )
+    numeric = numeric.astype(int)
+    grouped = numeric.groupby("year")[count_columns].sum()
+    first_year = max(int(grouped.index.min()), era_profiles.STORY_ERAS[0][1])
+    last_year = min(int(grouped.index.max()), era_profiles.STORY_ERAS[-1][2])
+    years = pd.RangeIndex(first_year, last_year + 1, name="year")
+    grouped = grouped.reindex(years, fill_value=0)
+    annual_rates = grouped[["future", "nostalgia"]].div(
+        grouped["n_words"].where(grouped["n_words"] > 0), axis=0
+    ) * 10_000
+    rolling_rates = annual_rates.rolling(
+        SUMMARY_TEMPORAL_TIMELINE_YEARS,
+        min_periods=SUMMARY_TEMPORAL_TIMELINE_YEARS,
+    ).mean()
+    rolling_words = grouped["n_words"].rolling(
+        SUMMARY_TEMPORAL_TIMELINE_YEARS,
+        min_periods=SUMMARY_TEMPORAL_TIMELINE_YEARS,
+    ).sum()
+    rolling_rates = rolling_rates.iloc[3:].copy()
+    rolling_words = rolling_words.iloc[3:].copy()
+    supported = rolling_words.ge(SUMMARY_TEMPORAL_TIMELINE_MIN_WORDS)
+    frame = pd.DataFrame({"n_words": rolling_words})
+    for column in ("future", "nostalgia"):
+        frame[column] = rolling_rates[column].where(supported)
+    frame["window_start"] = frame.index - 3
+    frame["window_end"] = frame.index
+    frame.index.name = "window_end_year"
+    if frame[["future", "nostalgia"]].dropna(how="all").empty:
+        raise ValueError("summary temporal timeline has no supported windows")
+    return frame
+
+
+def fig_summary_temporal_timeline(markers: pd.DataFrame) -> go.Figure:
+    """Plot future and nostalgia as trailing four-year rolling averages."""
+    frame = _summary_temporal_timeline_frame(markers)
+    first_end_year = int(frame.index.min())
+    last_end_year = int(frame.index.max())
+    windows = np.asarray([
+        f"{int(row.window_start)}–{int(row.window_end)} window"
+        for row in frame.itertuples()
+    ])
+    fig = go.Figure()
+    for column, label, color, dash in (
+        ("future", "Tomorrow", "#315f78", "solid"),
+        ("nostalgia", "Yesterday", "#a24f52", "dash"),
+    ):
+        fig.add_trace(go.Scatter(
+            x=frame.index,
+            y=frame[column],
+            mode="lines",
+            name=label,
+            connectgaps=False,
+            line=dict(color=color, width=3, dash=dash),
+            customdata=windows,
+            hovertemplate=(
+                f"<b>{label}</b>"
+                "<br>%{customdata}"
+                "<br>%{y:.2f} matches per 10,000 marker words"
+                "<extra></extra>"
+            ),
+        ))
+    era_annotation_labels = {
+        "Admin-industrial": "Admin-<br>industrial",
+        "Reform/collapse": "Reform/<br>collapse",
+        "New Deal/WWII": "New Deal/<br>WWII",
+        "Always-on": "Always-<br>on",
+    }
+    for index, ((_, start, end), short) in enumerate(zip(
+        era_profiles.STORY_ERAS, SUMMARY_ERA_SHORT
+    )):
+        fig.add_vrect(
+            x0=start,
+            x1=end,
+            fillcolor=(
+                "rgba(139,94,52,.035)" if index % 2 == 0
+                else "rgba(49,95,120,.035)"
+            ),
+            line_width=0,
+            layer="below",
+        )
+        fig.add_annotation(
+            x=(start + end) / 2,
+            y=1.025,
+            xref="x",
+            yref="paper",
+            text=era_annotation_labels.get(short, short),
+            showarrow=False,
+            font=dict(size=9, color=MUTED),
+        )
+    ceiling = max(
+        5.0,
+        float(np.ceil(frame[["future", "nostalgia"]].max().max() / 5) * 5),
+    )
+    fig.update_layout(**_layout(
+        height=SUMMARY_TEMPORAL_CHART_HEIGHT_PX,
+        title=dict(
+            text="Tomorrow and yesterday over time",
+            font=dict(size=15),
+            x=0,
+            xanchor="left",
+        ),
+        hovermode="x unified",
+        legend=dict(orientation="h", y=1.08, x=0),
+        margin=dict(l=78, r=28, t=92, b=66),
+        xaxis=dict(
+            title="ending year of supported four-year rolling average",
+            range=[first_end_year, last_end_year],
+            gridcolor=GRID,
+            linecolor=BASELINE,
+        ),
+        yaxis=dict(
+            title="matches per 10,000 marker words",
+            range=[0, ceiling],
+            gridcolor=GRID,
+            linecolor=BASELINE,
         ),
     ))
     return fig
@@ -4317,16 +4500,29 @@ def _view_toggle_html(
 )}"""
 
 
-def _event_callouts(events: list[tuple[int, str]]) -> str:
+def _event_callouts(
+    events: list[tuple[int, str]], *, numbered: bool = False,
+) -> str:
     """Always-visible keyboard/mobile alternative to chart event hover."""
     items = "".join(
-        f'<li><span>{year}</span>{html.escape(label)}</li>'
-        for year, label in events
+        f'<li><span>{f"{index} · " if numbered else ""}{year}</span>'
+        f'{html.escape(label)}</li>'
+        for index, (year, label) in enumerate(events, 1)
+    )
+    aria_label = (
+        "Numbered historical event context" if numbered
+        else "Historical event context"
+    )
+    note = (
+        "Numbered events orient time; they do not establish that an event "
+        "caused a measured movement."
+        if numbered else
+        "Events orient time; they do not establish that an event caused a "
+        "measured movement."
     )
     return (
-        '<div class="event-callouts" role="note" aria-label="Historical event context">'
-        f"<ul>{items}</ul><p>Events orient time; they do not establish that an event "
-        "caused a measured movement.</p></div>"
+        '<div class="event-callouts" role="note" '
+        f'aria-label="{aria_label}"><ul>{items}</ul><p>{note}</p></div>'
     )
 
 
@@ -9248,7 +9444,7 @@ def fig_procedural_eras(scores: pd.DataFrame, faces: dict[str, str]) -> go.Figur
     fig.update_layout(**_layout(
         height=620,
         title=dict(
-            text="All presidents stay in place · era presets change emphasis, never membership",
+            text="Legal/procedural vocabulary × hype across presidential records",
             font=dict(size=15),
         ),
         xaxis=dict(
@@ -9266,13 +9462,184 @@ def fig_procedural_eras(scores: pd.DataFrame, faces: dict[str, str]) -> go.Figur
     return fig
 
 
+def _summary_register_timeline_frame(rates: pd.DataFrame) -> pd.DataFrame:
+    """Return supported component rates and their guarded ratio by center year."""
+    required = {"mechanism", "hype"}
+    missing = required - set(rates.columns)
+    if missing:
+        raise ValueError(
+            "summary register timeline is missing rate columns: "
+            + ", ".join(sorted(missing))
+        )
+    if not rates.index.is_unique or not rates.index.is_monotonic_increasing:
+        raise ValueError("summary register timeline years must be unique and ordered")
+    frame = rates.loc[:, ["mechanism", "hype"]].copy()
+    frame = frame[
+        (frame.index >= era_profiles.STORY_ERAS[0][1])
+        & (frame.index <= era_profiles.STORY_ERAS[-1][2])
+    ]
+    frame["legal_hype_ratio"] = frame["mechanism"].div(
+        frame["hype"].where(frame["hype"] > 0)
+    )
+    if frame["legal_hype_ratio"].dropna().empty:
+        raise ValueError("summary register timeline has no supported windows")
+    return frame
+
+
+def fig_summary_register_timeline(rates: pd.DataFrame) -> go.Figure:
+    """Plot legal/procedural matches per hype match over supported windows."""
+    frame = _summary_register_timeline_frame(rates)
+
+    first_year = int(frame.index.min())
+    last_year = int(frame.index.max())
+    windows = np.asarray([
+        f"{max(first_year, int(year) - 2)}–{min(last_year, int(year) + 2)} window"
+        for year in frame.index
+    ])
+    customdata = np.column_stack((
+        windows,
+        frame["mechanism"].to_numpy(),
+        frame["hype"].to_numpy(),
+    ))
+    fig = go.Figure(go.Scatter(
+        x=frame.index,
+        y=frame["legal_hype_ratio"],
+        mode="lines",
+        name="Legal/procedural ÷ hype",
+        connectgaps=False,
+        line=dict(color="#315f78", width=3),
+        customdata=customdata,
+        hovertemplate=(
+            "<b>%{customdata[0]}</b>"
+            "<br>%{y:.2f} legal/procedural matches per hype match"
+            "<br>Legal/procedural: %{customdata[1]:.2f} per 10,000"
+            "<br>Hype: %{customdata[2]:.2f} per 10,000"
+            "<extra></extra>"
+        ),
+    ))
+    era_annotation_labels = {
+        "Admin-industrial": "Admin-<br>industrial",
+        "Reform/collapse": "Reform/<br>collapse",
+        "New Deal/WWII": "New Deal/<br>WWII",
+        "Always-on": "Always-<br>on",
+    }
+    for index, ((_, start, end), short) in enumerate(zip(
+        era_profiles.STORY_ERAS, SUMMARY_ERA_SHORT
+    )):
+        fig.add_vrect(
+            x0=start,
+            x1=end,
+            fillcolor=(
+                "rgba(139,94,52,.035)" if index % 2 == 0
+                else "rgba(49,95,120,.035)"
+            ),
+            line_width=0,
+            layer="below",
+        )
+        fig.add_annotation(
+            x=(start + end) / 2,
+            y=1.025,
+            xref="x",
+            yref="paper",
+            text=era_annotation_labels.get(short, short),
+            showarrow=False,
+            font=dict(size=9, color=MUTED),
+        )
+    annotation_offsets = {
+        1827: (-28, -34),
+        1863: (-26, 34),
+        1881: (24, 34),
+        1944: (22, -34),
+        1966: (-28, -34),
+        2016: (-34, 34),
+        2023: (-32, -34),
+    }
+    for year, title, window, legal_count, hype_count, detail in SUMMARY_REGISTER_MOMENTS:
+        if year not in frame.index or pd.isna(frame.at[year, "legal_hype_ratio"]):
+            raise ValueError(
+                f"summary register moment needs supported year {year}"
+            )
+        ratio = float(frame.at[year, "legal_hype_ratio"])
+        ax, ay = annotation_offsets[year]
+        fig.add_annotation(
+            x=year,
+            # Plotly annotation coordinates on a logarithmic axis use log10 units.
+            y=float(np.log10(ratio)),
+            xref="x",
+            yref="y",
+            text=str(year),
+            showarrow=True,
+            arrowhead=0,
+            arrowwidth=1.2,
+            arrowcolor="#315f78",
+            ax=ax,
+            ay=ay,
+            bgcolor="#f5f8fa",
+            bordercolor="#315f78",
+            borderwidth=1,
+            borderpad=4,
+            font=dict(size=9, color="#213f50"),
+            hovertext="<br>".join(textwrap.wrap(
+                SUMMARY_REGISTER_HOVER_SUMMARIES[year],
+                width=26,
+                break_long_words=False,
+                break_on_hyphens=False,
+            )),
+        )
+    fig.update_layout(**_layout(
+        height=620,
+        title=dict(
+            text="Legal/procedural ÷ hype over time",
+            font=dict(size=15),
+            x=0,
+            xanchor="left",
+            y=.98,
+        ),
+        showlegend=False,
+        hovermode="x",
+        hoverlabel=dict(
+            align="left",
+            bgcolor="#f5f8fa",
+            bordercolor="#315f78",
+            font=dict(family=FONT, size=12, color="#213f50"),
+        ),
+        xaxis=dict(
+            title="center year of supported five-year window",
+            range=[first_year, last_year],
+            gridcolor=GRID,
+            linecolor=BASELINE,
+        ),
+        yaxis=dict(
+            title="legal/procedural matches per hype match · log scale",
+            type="log",
+            tickmode="array",
+            tickvals=[.3, .5, 1, 2, 5, 10, 20, 50, 100],
+            ticktext=["0.3", "0.5", "1", "2", "5", "10", "20", "50", "100"],
+            gridcolor=GRID,
+            linecolor=BASELINE,
+        ),
+        margin=dict(l=72, r=28, t=125, b=62),
+    ))
+    return fig
+
+
 def _president_era_controls_html(
     figure_key: str,
     *,
     height: int = 620,
     extra_class: str = "",
+    control_style: str = "multi",
+    alternate_figure_key: str | None = None,
+    comparison_label: str = "Register",
+    timeline_status: str = (
+        "Over time: the legal/procedural-per-hype ratio is shown for every "
+        "supported centered five-year window; year labels explain seven selected "
+        "corpus movements; era emphasis is unavailable in this view."
+    ),
 ) -> str:
     """Shared dim-only Story-era controls for fixed-membership portraits."""
+    if control_style not in {"multi", "single"}:
+        raise ValueError(f"unknown president-era control style: {control_style}")
     chips = "".join(
         '<label class="era-chip" '
         f'style="--era-chip-color:{color}">'
@@ -9298,9 +9665,43 @@ def _president_era_controls_html(
     class_names = "president-era-explorer"
     if extra_class:
         class_names += " " + extra_class
-    return f"""<div class="{html.escape(class_names, quote=True)}"
-     data-era-figure="{html.escape(figure_key, quote=True)}">
-  <p class="era-control-intro"><strong>Highlight a chapter.</strong> Start with a broad
+    if control_style == "single":
+        select_id = f"{figure_key}-era-select"
+        chart_id = f"{figure_key}-chart"
+        status_id = f"{figure_key}-era-status"
+        era_options = "".join(
+            f'<option value="{html.escape(name, quote=True)}">'
+            f'{html.escape(short)} · {start}–{end}</option>'
+            for (name, start, end), short in zip(
+                era_profiles.STORY_ERAS, SUMMARY_ERA_SHORT
+            )
+        )
+        view_switch = ""
+        if alternate_figure_key is not None:
+            view_switch = f"""<div class="register-view-switch" role="group"
+         aria-label="{html.escape(comparison_label, quote=True)} comparison view">
+      <span>View</span>
+      <button type="button" data-register-view="presidents" aria-pressed="true"
+              aria-controls="{html.escape(chart_id, quote=True)}">By president</button>
+      <button type="button" data-register-view="timeline" aria-pressed="false"
+              aria-controls="{html.escape(chart_id, quote=True)}">Over time</button>
+    </div>"""
+        controls = f"""<div class="era-select-bar{' has-register-switch' if view_switch else ''}">
+    {view_switch}
+    <div class="era-select-control">
+      <label for="{html.escape(select_id, quote=True)}">Emphasize an era</label>
+      <select id="{html.escape(select_id, quote=True)}" data-era-select
+              aria-describedby="{html.escape(status_id, quote=True)}">
+        <option value="__all__" selected>All eras</option>
+        <option value="__none__">Dim all</option>
+        <optgroup label="Choose one era">{era_options}</optgroup>
+      </select>
+    </div>
+    <p class="filter-status" id="{html.escape(status_id, quote=True)}"
+       aria-live="polite">All nine eras emphasized.</p>
+  </div>"""
+    else:
+        controls = f"""<p class="era-control-intro"><strong>Highlight a chapter.</strong> Start with a broad
   historical phase or refine it with the nine era cards. Unselected presidents remain visible.</p>
   <div class="era-preset-actions" aria-label="Historical phase presets">
     {preset_buttons}
@@ -9308,144 +9709,117 @@ def _president_era_controls_html(
     <button type="button" data-era-clear>Dim all</button>
   </div>
   <fieldset class="era-choices"><legend>Refine by specific era</legend>{chips}</fieldset>
-  <p class="filter-status" aria-live="polite">All nine eras highlighted; all plotted presidents visible.</p>
-  <div class="chart-scroll"><div class="chart" data-fig="{html.escape(figure_key, quote=True)}"
+  <p class="filter-status" aria-live="polite">All nine eras highlighted; all plotted presidents visible.</p>"""
+    alternate_attribute = (
+        f' data-register-timeline-figure="{html.escape(alternate_figure_key, quote=True)}"'
+        if alternate_figure_key is not None else ""
+    )
+    timeline_status_attribute = (
+        f' data-timeline-status="{html.escape(timeline_status, quote=True)}"'
+        if alternate_figure_key is not None else ""
+    )
+    chart_id_attribute = (
+        f' id="{html.escape(figure_key, quote=True)}-chart"'
+        if control_style == "single" else ""
+    )
+    chart_scroll_class = (
+        "chart-scroll register-chart-scroll"
+        if control_style == "single" else "chart-scroll"
+    )
+    chart_scroll_attributes = (
+        ' tabindex="0" aria-label="'
+        + html.escape(comparison_label, quote=True)
+        + ' chart; scroll horizontally on narrow screens"'
+        if control_style == "single" else ""
+    )
+    return f"""<div class="{html.escape(class_names, quote=True)}"
+     data-era-figure="{html.escape(figure_key, quote=True)}"{alternate_attribute}{timeline_status_attribute}>
+  {controls}
+  <div class="{chart_scroll_class}"{chart_scroll_attributes}>
+    <div class="chart"{chart_id_attribute} data-fig="{html.escape(figure_key, quote=True)}"
        style="height:{height}px"></div></div>
 </div>"""
 
 
 def _president_era_html(
-    points: pd.DataFrame,
     *,
     figure_key: str,
-    x_column: str,
-    x_label: str,
-    y_column: str,
-    y_label: str,
     evidence_metric: str,
     evidence_source: str,
     evidence_support: str,
     evidence_caveat: str,
+    control_style: str = "multi",
+    alternate_figure_key: str | None = None,
 ) -> str:
-    points = points.copy().sort_values(["first_year", "last_year"])
-    points["era"] = points.apply(_president_story_era, axis=1)
-    rows = "".join(
-        f"<tr><th scope=\"row\">{html.escape(president)}</th>"
-        f"<td>{int(row.first_year)}–{int(row.last_year)}</td>"
-        f"<td>{html.escape(row.era)}</td><td>{float(row[x_column]):.1f}</td>"
-        f"<td>{float(row[y_column]):.1f}</td><td>{int(row.n_speeches)}</td></tr>"
-        for president, row in points.iterrows()
-    )
-    return f"""{_president_era_controls_html(figure_key)}
+    return f"""{_president_era_controls_html(
+        figure_key,
+        control_style=control_style,
+        alternate_figure_key=alternate_figure_key,
+    )}
 {_chart_evidence(
     evidence_metric, evidence_source,
     support=evidence_support,
     caveat=evidence_caveat,
 )}
-<details class="president-table"><summary>Text alternative · all president points</summary>
-<div class="table-scroll"><table><thead><tr><th>President</th><th>Corpus years</th>
-<th>Era</th><th>{html.escape(x_label)}</th><th>{html.escape(y_label)}</th><th>Speeches</th></tr></thead>
-<tbody>{rows}</tbody></table></div></details>"""
+"""
 
 
-def _procedural_era_html(scores: pd.DataFrame) -> str:
-    return _president_era_html(
-        scores,
+def _procedural_era_html(_scores: pd.DataFrame, _rates: pd.DataFrame) -> str:
+    portrait_field = _president_era_html(
         figure_key="procedural_eras",
-        x_column="mechanism",
-        x_label="Legal / procedural per 10,000",
-        y_column="hype",
-        y_label="Hype per 10,000",
         evidence_metric="legal_procedural",
         evidence_source="speech_markers.parquet",
         evidence_support=(
-            "All 45 presidents; rates use every word in each president's corpus record."
+            "By president pools every word in all 45 corpus records; Over time uses the "
+            "existing centered five-year pooled-word windows above the 20,000-word floor."
         ),
         evidence_caveat=(
-            "Vocabulary is not competence, productivity, policy depth, or policy effectiveness."
+            "The president axes are separate dictionary rates. The time view divides the "
+            "legal/procedural count by the hype count; either component can move the ratio, "
+            "and the dictionaries differ in breadth. Vocabulary is not competence, "
+            "productivity, policy depth, or policy effectiveness. Event lines provide "
+            "historical context, administration lines mark transitions, and A/B explain "
+            "window composition; none is a causal estimate."
         ),
+        control_style="single",
+        alternate_figure_key="summary_register_timeline",
     )
-
-
-def _summary_temporal_size_legend_html() -> str:
-    samples = "".join(
-        '<span class="temporal-size-sample">'
-        f'<i style="--temporal-size:{SUMMARY_TEMPORAL_PORTRAIT_REFERENCE_PX * np.sqrt(share):.1f}px" '
-        'aria-hidden="true"></i>'
-        f'<span><strong>{share * 100:.0f}%</strong><small>singular share</small></span>'
-        '</span>'
-        for share in (.2, .4, .6)
-    )
-    return f"""<div class="temporal-size-key"
-     aria-label="Portrait area reference for first-person singular share">
-  <p><strong>Portrait area = self-reference.</strong> Reference shares of first-person
-  singular forms among all counted first-person pronouns; area—not diameter—is proportional.
-  A true 0% uses a 16px hollow locator with no portrait image.</p>
-  <div>{samples}</div>
-</div>"""
-
-
-def _summary_temporal_table_html(contract: dict) -> str:
-    rows = contract["rows"].sort_values("display_order", kind="stable")
-    support_labels = {
-        "observed": "Observed",
-        "thin_record": "Thin record",
-        "not_available": "Not available",
-    }
-
-    def rate(value: float) -> str:
-        return "N/A" if pd.isna(value) else f"{float(value):.2f}"
-
-    def share(value: float) -> str:
-        return "N/A" if pd.isna(value) else f"{float(value) * 100:.1f}%"
-
-    body = "".join(
-        "<tr><th scope=\"row\">"
-        + html.escape(str(row.president))
-        + f"</th><td>{int(row.first_year)}–{int(row.last_year)}</td>"
-        + f"<td>{html.escape(str(row.era))}</td>"
-        + f"<td>{rate(row.future)}</td><td>{int(row.n_future_matches):,}</td>"
-        + f"<td>{rate(row.nostalgia)}</td><td>{int(row.n_nostalgia_matches):,}</td>"
-        + f"<td>{share(row.self_reference)}</td>"
-        + f"<td>{int(row.n_i_pronouns):,}</td><td>{int(row.n_we_pronouns):,}</td>"
-        + f"<td>{int(row.n_speeches):,}</td><td>{int(row.n_rate_words):,}</td>"
-        + "<td>"
-        + html.escape(support_labels[str(row.support_status)])
-        + "</td></tr>"
-        for row in rows.itertuples(index=False)
-    )
-    return f"""<details class="president-table temporal-portrait-table">
-<summary>Text alternative · all president temporal points and portrait sizes</summary>
-<div class="table-scroll"><table><thead><tr><th>President</th><th>Corpus record span</th>
-<th>Story era</th><th>Future / 10k</th><th>Future matches</th>
-<th>Nostalgia / 10k</th><th>Nostalgia matches</th>
-<th>Singular share · portrait area</th>
-<th>Singular family · I/me/my/mine/myself</th>
-<th>Plural family · we/us/our/ours/ourselves</th>
-<th>Speeches</th><th>Marker words</th><th>Support</th></tr></thead>
-<tbody>{body}</tbody></table></div></details>"""
+    return f"""<div class="summary-register-bridge">
+  <p class="summary-register-kicker">Who + how → register</p>
+  <h3>Audience, delivery, and register across the same eras</h3>
+  <p>Read the two bars into the portrait field below. In this corpus, the opening record is
+  less legal/procedural than its long nineteenth-century middle. In later public- and
+  broadcast-heavy eras, legal/procedural wording recedes while hype rises. These patterns
+  coincide in the collection; the charts do not establish that audience or delivery caused
+  the vocabulary change. Use the switch below to read individual presidential records or the
+  legal/procedural-per-hype ratio over time.</p>
+  <ol class="summary-register-sequence" aria-label="Voice transition across the corpus">
+    <li><span>Who</span><strong>Congress → public</strong></li>
+    <li><span>How</span><strong>Written → spoken + broadcast</strong></li>
+    <li><span>Register</span><strong>Less procedural → procedural middle → higher hype later</strong></li>
+  </ol>
+</div>
+<noscript><p class="summary-register-noscript">The interactive register chart requires JavaScript.</p></noscript>
+{portrait_field}"""
 
 
 def _summary_temporal_portrait_html(contract: dict) -> str:
     rows = contract["rows"]
-    has_plotted_rows = rows[
-        ["future", "nostalgia", "self_reference"]
-    ].notna().all(axis=1).any()
-    available_share = rows["self_reference"].dropna()
-    share_range = (
-        "Self-reference N/A"
-        if available_share.empty
-        else (
-            f"Singular share {available_share.min() * 100:.1f}%–"
-            f"{available_share.max() * 100:.1f}%"
-        )
-    )
+    has_plotted_rows = rows[["future", "nostalgia"]].notna().all(axis=1).any()
     thin_count = int(rows["support_status"].eq("thin_record").sum())
     chart_html = (
         _president_era_controls_html(
             "summary_temporal",
             height=int(SUMMARY_TEMPORAL_CHART_HEIGHT_PX),
             extra_class="summary-temporal-explorer",
+            control_style="single",
+            alternate_figure_key="summary_temporal_timeline",
+            comparison_label="Tomorrow and yesterday",
+            timeline_status=(
+                "Over time: tomorrow and yesterday are separate lines for every "
+                "supported four-year rolling average; era emphasis is unavailable "
+                "in this view."
+            ),
         )
         if has_plotted_rows
         else (
@@ -9460,34 +9834,31 @@ def _summary_temporal_portrait_html(contract: dict) -> str:
      data-temporal-schema="{html.escape(str(contract['schema_version']), quote=True)}"
      data-temporal-treatment="{html.escape(str(contract['treatment']), quote=True)}">
   <header class="temporal-portrait-heading"><div>
-    <span>ALL {len(rows)} PRESIDENTS · ALL AVAILABLE CORPUS SPEECHES</span>
-    <h3>Tomorrow × yesterday × self-reference</h3>
-    <p>Position carries two vocabulary rates; portrait area carries the first-person
-    singular share of counted first-person pronouns.</p></div>
-    <strong>{html.escape(share_range)}</strong>
+    <span>TOMORROW + YESTERDAY</span>
+    <h3>Two temporal appeals, viewed together</h3>
+    <p>Future-family and nostalgia-family matches per 10,000 marker words.</p></div>
   </header>
   <p class="temporal-denominator">x = future-family matches per 10,000 marker words ·
-  y = nostalgia-family matches per 10,000 marker words · portrait area = singular share ·
+  y = nostalgia-family matches per 10,000 marker words · portraits use a uniform size ·
   {thin_count} records below the {contract['support_min_speeches']}-speech precision floor use an amber halo</p>
-  {_summary_temporal_size_legend_html()}
-  <p class="temporal-swipe-hint">Swipe horizontally to inspect the full president field.</p>
+  <noscript><p class="summary-register-noscript">The interactive temporal chart requires JavaScript.</p></noscript>
   {chart_html}
-  {_summary_temporal_table_html(contract)}
 </section>
 {_chart_evidence(
     "temporal_portrait",
     str(contract["source_label"]),
     support=(
         "All 45 presidents aggregate every available corpus speech assigned to that "
-        "document president. Future and nostalgia divide exact matches by marker words; "
-        "self-reference divides I/me/my/mine/myself counts by those counts plus "
-        "we/us/our/ours/ourselves counts."
+        "document president. The time view averages four consecutive annual rates, plots each "
+        "at the ending year, requires coverage in all four years, and applies a 10,000-word "
+        "window floor. Both views divide exact future- and nostalgia-family matches by marker words."
     ),
     caveat=(
         "These are unadjusted all-genre, document-owned transcript aggregates rather than "
         "speaker-audited claims. They are sensitive to genre, coverage, quotations, questions, "
-        "and other speakers. First-person singular share is not ego or personality, and the "
-        "referent of collective pronouns can change."
+        "and other speakers. Each year receives equal weight in the rolling average even when "
+        "its speech volume differs. Dictionary matches cannot establish intent, feasibility, "
+        "or historical accuracy."
     ),
 )}"""
 
@@ -9641,18 +10012,54 @@ def naming_crossover_year(rates: pd.DataFrame, run: int = 5) -> int:
     return years[0]
 
 
-def fig_naming_progressive(rates: pd.DataFrame) -> go.Figure:
-    frame = rates.loc[1880:1932]
+def fig_naming_progressive(
+    rates: pd.DataFrame, speeches: pd.DataFrame | None = None,
+) -> go.Figure:
+    frame = rates[["united_states", "america"]].copy()
     crossover = naming_crossover_year(rates)
+    context = (
+        _centered_window_context(speeches, "word_count", window=5).reindex(frame.index)
+        if speeches is not None else None
+    )
+    marker_sizes = [
+        5 if year in (frame.index[0], frame.index[-1]) or year % 10 == 0 else 0
+        for year in frame.index
+    ]
     fig = go.Figure()
-    for label, column, color, dash in [
-        ("“United States”", "united_states", "#8b6c42", "dash"),
-        ("“America / American(s)”", "america", "#2f7397", "solid"),
+    for label, summary, column, color, marker_symbol in [
+        (
+            "“United States”", "the exact national name",
+            "united_states", "#8b6c42", "square",
+        ),
+        (
+            "“America / American(s)”", "the shorter national-name family",
+            "america", "#2f7397", "circle",
+        ),
     ]:
+        customdata = (
+            context["presidents"].to_numpy()
+            if context is not None else None
+        )
+        hovertemplate = (
+            f"<b>{label}</b> · {summary}"
+            "<br><b>%{x}:</b> %{y:.1f} per 10,000 words"
+            "<br><b>Presidents:</b> %{customdata}<extra></extra>"
+            if context is not None else
+            f"<b>{label}</b> · {summary}"
+            "<br><b>%{x}:</b> %{y:.1f} per 10,000 words<extra></extra>"
+        )
         fig.add_trace(go.Scatter(
-            x=frame.index, y=frame[column], mode="lines", name=label,
-            line=dict(color=color, width=3, dash=dash),
-            hovertemplate="%{x}<br>%{y:.1f} uses per 10,000<extra>" + label + "</extra>",
+            x=frame.index, y=frame[column], mode="lines+markers", name=label,
+            connectgaps=False,
+            line=dict(color=color, width=3, dash="solid"),
+            marker=dict(
+                color=color,
+                line=dict(color="#fcfcfb", width=.8),
+                size=marker_sizes,
+                symbol=marker_symbol,
+            ),
+            customdata=customdata,
+            hovertemplate=hovertemplate,
         ))
     fig.add_vline(
         x=crossover, line_color="#6f4828", line_dash="dot",
@@ -9661,12 +10068,551 @@ def fig_naming_progressive(rates: pd.DataFrame) -> go.Figure:
     )
     fig.update_layout(**_layout(
         height=430,
-        xaxis=dict(range=[1880, 1932], title="1880–1932 context window",
+        hoverlabel=dict(
+            align="left", bgcolor="rgba(255,253,249,.94)",
+            font=dict(family=FONT, size=10),
+        ),
+        xaxis=dict(range=X_RANGE, title="center year of five-year window",
                    gridcolor=GRID, linecolor=BASELINE),
         yaxis=dict(title="uses per 10,000 words", rangemode="tozero",
                    gridcolor=GRID, linecolor=BASELINE),
     ))
     return fig
+
+
+SUMMARY_LANGUAGE_WINDOW_YEARS = 7
+SUMMARY_LANGUAGE_MIN_WORDS = 10_000
+SUMMARY_NECESSITY_NEED_RE = re.compile(
+    r"\bneed(?:s|ed|ing)?\b", re.IGNORECASE
+)
+SUMMARY_NECESSITY_OBLIGATION_RE = re.compile(
+    r"\b(?:have|has|had|got) to\b|\bgotta\b", re.IGNORECASE
+)
+SUMMARY_COMMITMENT_EXPLICIT_RE = re.compile(
+    r"(?:"
+    r"\b(?:i|we|this administration|my administration|the united states|america)\s+"
+    r"(?:"
+    r"(?:hereby\s+)?(?:promise|pledge|vow|guarantee|commit)\b"
+    r"|(?:intend(?:s)?|resolve(?:s)?|plan(?:s)?)\s+to\b"
+    r")"
+    r"|\b(?:i\s+am|i'm|we\s+are|we're|this administration\s+is|"
+    r"my administration\s+is|the united states\s+is|america\s+is)\s+"
+    r"(?:(?:fully|deeply|firmly|irrevocably|absolutely)\s+)?"
+    r"(?:committed|determined)\s+to\b"
+    r")",
+    re.IGNORECASE,
+)
+SUMMARY_STANCE_FAMILIES = (
+    (
+        "Necessity",
+        "must, need, and obligation phrases",
+        "#a24f52",
+        "circle",
+    ),
+    (
+        "Commitment / intent",
+        "will, shall, and explicit commitments",
+        "#315f78",
+        "square",
+    ),
+    (
+        "Absolute emphasis",
+        "absolute and emphatic word forms",
+        "#986a32",
+        "diamond",
+    ),
+    ("Conditional", "would and could", "#6d5d8f", "triangle-up"),
+    (
+        "Advice / possibility",
+        "should and possibility terms",
+        "#4f7557",
+        "x",
+    ),
+)
+
+
+def _centered_window_context(
+    rows: pd.DataFrame,
+    denominator: str,
+    *,
+    window: int = SUMMARY_LANGUAGE_WINDOW_YEARS,
+) -> pd.DataFrame:
+    """Human-readable support and contributing names for every center year."""
+    if window % 2 != 1:
+        raise ValueError("summary language context requires an odd window")
+    radius = window // 2
+    first_year = int(rows["year"].min())
+    last_year = int(rows["year"].max())
+    contexts = []
+    for year in range(first_year, last_year + 1):
+        start = max(first_year, year - radius)
+        end = min(last_year, year + radius)
+        subset = rows.loc[rows["year"].between(start, end)].sort_values(
+            ["year", "date", "president", "doc_name"]
+        )
+        presidents = list(dict.fromkeys(subset["president"].astype(str)))
+        contexts.append({
+            "year": year,
+            "window": f"{start}–{end}",
+            "presidents": ", ".join(presidents),
+            "window_words": int(subset[denominator].sum()),
+            "n_speeches": int(len(subset)),
+        })
+    return pd.DataFrame(contexts).set_index("year")
+
+
+def summary_stance_family_rates(
+    stats: pd.DataFrame,
+    markers: pd.DataFrame,
+    speeches: pd.DataFrame,
+    *,
+    window: int = SUMMARY_LANGUAGE_WINDOW_YEARS,
+    min_words: int = SUMMARY_LANGUAGE_MIN_WORDS,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Five disjoint, auditable surface families pooled over centered windows."""
+    if any(
+        table["doc_name"].duplicated().any()
+        for table in (stats, markers, speeches)
+    ):
+        raise ValueError("summary stance families require one row per speech")
+    key_sets = [set(table["doc_name"]) for table in (stats, markers, speeches)]
+    if key_sets[0] != key_sets[1] or key_sets[0] != key_sets[2]:
+        raise ValueError("speech, speech-stat, and marker key sets differ")
+    if speeches["transcript"].isna().any():
+        raise ValueError("summary stance families require every transcript")
+    marker_cols = [
+        "doc_name", "president", "date", "year", "n_words", "boosters", "hedges",
+    ]
+    stat_cols = [
+        "doc_name", "president", "date", "year", "modal_must", "modal_will",
+        "modal_shall", "modal_would", "modal_could", "modal_should",
+    ]
+    joined = markers[marker_cols].merge(
+        stats[stat_cols], on="doc_name", how="inner", validate="one_to_one",
+        suffixes=("_marker", "_stat"),
+    )
+    speech_counts = speeches[[
+        "doc_name", "president", "date", "year", "transcript",
+    ]].copy()
+    speech_counts["need_forms"] = speech_counts["transcript"].str.count(
+        SUMMARY_NECESSITY_NEED_RE
+    )
+    speech_counts["obligation_phrases"] = speech_counts["transcript"].str.count(
+        SUMMARY_NECESSITY_OBLIGATION_RE
+    )
+    speech_counts["explicit_commitment"] = speech_counts["transcript"].map(
+        lambda transcript: len(SUMMARY_COMMITMENT_EXPLICIT_RE.findall(transcript))
+    )
+    speech_counts = speech_counts.rename(columns={
+        column: f"{column}_speech" for column in ("president", "date", "year")
+    })
+    joined = joined.merge(
+        speech_counts.drop(columns="transcript"),
+        on="doc_name", how="inner", validate="one_to_one",
+    )
+    for column in ("president", "date", "year"):
+        left = joined[f"{column}_marker"]
+        right = joined[f"{column}_stat"]
+        if not left.equals(right.rename(left.name)):
+            raise ValueError(f"speech-stat and marker {column} metadata differs")
+        speech = joined[f"{column}_speech"]
+        if not left.equals(speech.rename(left.name)):
+            raise ValueError(f"speech and marker {column} metadata differs")
+        joined[column] = left
+    joined["necessity"] = (
+        joined["modal_must"]
+        + joined["need_forms"]
+        + joined["obligation_phrases"]
+    )
+    joined["commitment"] = (
+        joined["modal_will"]
+        + joined["modal_shall"]
+        + joined["explicit_commitment"]
+    )
+    joined["absolute_emphasis"] = joined["boosters"]
+    joined["conditional"] = joined["modal_would"] + joined["modal_could"]
+    joined["advice_possibility"] = joined["modal_should"] + joined["hedges"]
+    family_columns = [
+        "necessity", "commitment", "absolute_emphasis", "conditional",
+        "advice_possibility",
+    ]
+    annual = joined.groupby("year")[[*family_columns, "n_words"]].sum()
+    years = pd.RangeIndex(
+        int(joined["year"].min()), int(joined["year"].max()) + 1, name="year"
+    )
+    annual = annual.reindex(years, fill_value=0)
+    rolled = annual.rolling(window, center=True, min_periods=1).sum()
+    rates = rolled[family_columns].div(rolled["n_words"], axis=0) * 10_000
+    rates.loc[rolled["n_words"].lt(min_words), :] = np.nan
+    context = _centered_window_context(joined, "n_words", window=window)
+    if not np.array_equal(
+        context["window_words"].to_numpy(), rolled["n_words"].to_numpy(dtype=int)
+    ):
+        raise ValueError("summary stance window support does not reconcile")
+    return rates, context
+
+
+def fig_summary_modals(
+    stats: pd.DataFrame,
+    markers: pd.DataFrame,
+    speeches: pd.DataFrame,
+) -> go.Figure:
+    """Grouped stance words without turning them into a latent certainty index."""
+    rates, context = summary_stance_family_rates(stats, markers, speeches)
+    fig = go.Figure()
+    marker_sizes = [
+        5 if year in (rates.index[0], rates.index[-1]) or year % 10 == 0 else 0
+        for year in rates.index
+    ]
+    for (label, summary, color, marker_symbol), column in zip(
+        SUMMARY_STANCE_FAMILIES, rates.columns
+    ):
+        fig.add_trace(go.Scatter(
+            x=rates.index,
+            y=rates[column],
+            mode="lines+markers",
+            name=label,
+            connectgaps=False,
+            line=dict(color=color, width=2.7, dash="solid"),
+            marker=dict(
+                color=color,
+                line=dict(color="#fcfcfb", width=.8),
+                size=marker_sizes,
+                symbol=marker_symbol,
+            ),
+            customdata=np.stack([
+                context["window"], context["presidents"],
+                context["window_words"], context["n_speeches"],
+            ], axis=-1),
+            hovertemplate=(
+                f"<b>{label}</b> · {summary}"
+                "<br><b>%{x}:</b> %{y:.1f} per 10,000 words"
+                "<br><b>Presidents:</b> %{customdata[1]}"
+                "<extra></extra>"
+            ),
+        ))
+    fig.update_layout(**_timeline_layout(
+        height=470,
+        margin=dict(l=62, r=22, t=58, b=58),
+        title=dict(
+            text="Stance and absolute-emphasis word families",
+            font=dict(size=15),
+        ),
+        hoverlabel=dict(
+            align="left", bgcolor="rgba(255,253,249,.94)",
+            font=dict(family=FONT, size=10),
+        ),
+        xaxis=dict(
+            range=X_RANGE,
+            title="center year of seven-year window",
+            gridcolor=GRID,
+            linecolor=BASELINE,
+        ),
+        yaxis=dict(
+            title="uses per 10,000 words",
+            rangemode="tozero",
+            gridcolor=GRID,
+            linecolor=BASELINE,
+        ),
+        legend=dict(
+            orientation="h", yanchor="bottom", y=1.01, x=0,
+            font=dict(size=11, color=INK2),
+        ),
+    ))
+    fig.update_xaxes(title="center year of seven-year window")
+    return fig
+
+
+def _decade_rate(stats: pd.DataFrame, column: str, decade: int) -> float:
+    rows = stats.loc[(stats["year"] // 10 * 10).eq(decade)]
+    if rows.empty or int(rows["n_tokens"].sum()) <= 0:
+        raise ValueError(f"no speech-stat support for the {decade}s")
+    return float(rows[column].sum() / rows["n_tokens"].sum() * 10_000)
+
+
+def fig_summary_pronouns(stats: pd.DataFrame) -> go.Figure:
+    """First-person families over time; levels, not a latent individualism score."""
+    context = _centered_window_context(
+        stats, "n_tokens", window=SUMMARY_LANGUAGE_WINDOW_YEARS
+    )
+    fig = go.Figure()
+    marker_sizes = [
+        5 if year in (context.index[0], context.index[-1]) or year % 10 == 0 else 0
+        for year in context.index
+    ]
+    for label, summary, column, color, marker_symbol in [
+        (
+            "we / us / our family", "collective first-person language",
+            "we_count", "#315f78", "circle",
+        ),
+        (
+            "I / me / my family", "singular first-person language",
+            "i_count", "#a24f52", "square",
+        ),
+    ]:
+        series = _stats_yearly(
+            stats, column, window=SUMMARY_LANGUAGE_WINDOW_YEARS,
+            min_tokens=SUMMARY_LANGUAGE_MIN_WORDS,
+        )
+        fig.add_trace(go.Scatter(
+            x=series.index,
+            y=series.values,
+            mode="lines+markers",
+            name=label,
+            connectgaps=False,
+            line=dict(color=color, width=3, dash="solid"),
+            marker=dict(
+                color=color,
+                line=dict(color="#fcfcfb", width=.8),
+                size=marker_sizes,
+                symbol=marker_symbol,
+            ),
+            customdata=np.stack([
+                context["window"], context["presidents"],
+                context["window_words"], context["n_speeches"],
+            ], axis=-1),
+            hovertemplate=(
+                f"<b>{label}</b> · {summary}"
+                "<br><b>%{x}:</b> %{y:.1f} per 10,000 words"
+                "<br><b>Presidents:</b> %{customdata[1]}"
+                "<extra></extra>"
+            ),
+        ))
+    current_i = _decade_rate(stats, "i_count", 2020)
+    current_we = _decade_rate(stats, "we_count", 2020)
+    fig.add_vrect(
+        x0=2020, x1=2026, fillcolor="rgba(162,79,82,.08)", line_width=0,
+    )
+    fig.add_annotation(
+        x=2024,
+        y=.92,
+        yref="paper",
+        text=f"<b>2020s pooled</b><br>I {current_i:.0f} · we {current_we:.0f}",
+        showarrow=False,
+        xanchor="right",
+        yanchor="top",
+        align="right",
+        bgcolor="rgba(255,253,249,.94)",
+        bordercolor="#cbb89f",
+        borderpad=4,
+        font=dict(size=11, color="#6f4828"),
+    )
+    fig.update_layout(**_timeline_layout(
+        height=470,
+        margin=dict(l=62, r=22, t=58, b=58),
+        title=dict(
+            text="Collective language still leads; the 2020s interrupt its long rise",
+            font=dict(size=15),
+        ),
+        hoverlabel=dict(
+            align="left", bgcolor="rgba(255,253,249,.94)",
+            font=dict(family=FONT, size=10),
+        ),
+        xaxis=dict(
+            range=X_RANGE,
+            title="center year of seven-year window",
+            gridcolor=GRID,
+            linecolor=BASELINE,
+        ),
+        yaxis=dict(
+            title="uses per 10,000 words",
+            rangemode="tozero",
+            gridcolor=GRID,
+            linecolor=BASELINE,
+        ),
+        legend=dict(
+            orientation="h", yanchor="bottom", y=1.01, x=0,
+            font=dict(size=11, color=INK2),
+        ),
+    ))
+    fig.update_xaxes(title="center year of seven-year window")
+    return fig
+
+
+def summary_divisiveness_contract(
+    combat_ratios: pd.DataFrame,
+    era_similarity: pd.DataFrame,
+    stats: pd.DataFrame,
+) -> dict:
+    """Extract the three published signals and fail closed on their scopes."""
+    ratio_keys = {
+        "party": ("party_attack", "Civil War & Reconstruction"),
+        "enemy": ("enemy_naming", "The founding"),
+        "zero_sum": ("zero_sum", "The founding"),
+    }
+    ratio_rows = {}
+    for key, (flag, denominator) in ratio_keys.items():
+        rows = combat_ratios.loc[
+            combat_ratios["numerator"].eq("The present era")
+            & combat_ratios["denominator"].eq(denominator)
+            & combat_ratios["flag"].eq(flag)
+            & combat_ratios["treatment"].eq("sotu_only")
+        ]
+        if len(rows) != 1:
+            raise ValueError(
+                f"expected one present-era SOTU ratio row for {flag}/{denominator}"
+            )
+        row = rows.iloc[0]
+        if row["ci_status"] != "low_cluster_caution":
+            raise ValueError(f"unexpected CI status for {flag}: {row['ci_status']}")
+        if not all(np.isfinite(float(row[column])) for column in ("ratio", "ci_lo", "ci_hi")):
+            raise ValueError(f"ratio interval is not finite for {flag}")
+        ratio_rows[key] = row
+
+    present_similarity = era_similarity.loc[
+        era_similarity["grain"].eq("era")
+        & era_similarity["matrix"].eq("detrended")
+        & era_similarity["unit_i"].eq("The present era")
+        & era_similarity["unit_j"].ne("The present era")
+    ].sort_values(["cosine", "unit_j"], ascending=[False, True])
+    if present_similarity.empty:
+        raise ValueError("present-era detrended similarity rows are missing")
+    nearest = present_similarity.iloc[0]
+    if nearest["unit_j"] != "Civil War & Reconstruction":
+        raise ValueError("present-era detrended nearest neighbor changed")
+
+    current_i = _decade_rate(stats, "i_count", 2020)
+    current_we = _decade_rate(stats, "we_count", 2020)
+    prior_i = {
+        decade: _decade_rate(stats, "i_count", decade)
+        for decade in sorted(set((stats["year"] // 10 * 10).astype(int)))
+        if 1800 <= decade < 2020
+    }
+    if not prior_i or current_i <= max(prior_i.values()):
+        raise ValueError("2020s first-person singular rate is no longer highest since the 1790s")
+
+    return {
+        "party": ratio_rows["party"],
+        "enemy": ratio_rows["enemy"],
+        "zero_sum": ratio_rows["zero_sum"],
+        "nearest": nearest,
+        "current_i": current_i,
+        "current_we": current_we,
+    }
+
+
+def _summary_divisiveness_html(
+    combat_ratios: pd.DataFrame,
+    era_similarity: pd.DataFrame,
+    stats: pd.DataFrame,
+) -> str:
+    contract = summary_divisiveness_contract(combat_ratios, era_similarity, stats)
+    party = contract["party"]
+    enemy = contract["enemy"]
+    zero_sum = contract["zero_sum"]
+    nearest = contract["nearest"]
+    return f"""<section class="summary-divisiveness" aria-labelledby="summary-divisiveness-title">
+  <p class="summary-language-kicker">THREE TESTS OF A BROAD CLAIM</p>
+  <h3 id="summary-divisiveness-title">Is presidential rhetoric more divisive now?</h3>
+  <p class="summary-divisiveness-verdict"><strong>More openly partisan, yes. More divisive in every broader sense, no.</strong> The three signals answer different questions, so they
+  should not be combined into one index.</p>
+  <div class="summary-divisiveness-grid">
+    <article class="summary-divisiveness-card is-strong">
+      <p>THE RESULT I STAND BEHIND</p>
+      <strong>{float(party['ratio']):.1f}×</strong>
+      <h4>Opposing-party attack in annual messages</h4>
+      <p>The present-era rate is {float(party['ratio']):.1f} times the Civil War &amp;
+      Reconstruction rate; the 95% speech-clustered bootstrap interval is
+      {float(party['ci_lo']):.1f}–{float(party['ci_hi']):.1f}×. The interval excludes one
+      inside the one speech genre represented in every era.</p>
+    </article>
+    <article class="summary-divisiveness-card">
+      <p>A DESCRIPTIVE SHIFT, NOT A DIVISION SCORE</p>
+      <strong>{contract['current_i']:.0f} <small>vs {contract['current_we']:.0f}</small></strong>
+      <h4>First-person singular versus plural in the 2020s</h4>
+      <p>I/me/my-family wording reaches its highest decade rate since the 1790s while
+      we/us/our-family wording falls from its 2010s level. I stand behind those lexical rates;
+      I would not call them evidence of divisiveness by themselves.</p>
+    </article>
+    <article class="summary-divisiveness-card">
+      <p>AN ANALOGY I WOULD CAVEAT</p>
+      <strong>{float(nearest['cosine']):.3f}</strong>
+      <h4>Nearest drift-detrended era: Civil War &amp; Reconstruction</h4>
+      <p>This is the present era’s closest relative match after removing adjacent-era drift,
+      but {float(nearest['cosine']):.3f} is modest absolute similarity. It is a historical
+      rhyme, not evidence that the present is a rerun of the Civil War era.</p>
+    </article>
+  </div>
+  <p class="summary-divisiveness-null"><strong>The important limits:</strong> against the
+  founding-era annual message, enemy naming is {float(enemy['ratio']):.2f}×
+  ({float(enemy['ci_lo']):.2f}–{float(enemy['ci_hi']):.2f}×) and zero-sum framing is
+  {float(zero_sum['ratio']):.2f}× ({float(zero_sum['ci_lo']):.2f}–{float(zero_sum['ci_hi']):.2f}×).
+  Both intervals include one. The present era has only {int(party['n_speeches_numerator'])}
+  annual messages, so all three ratio intervals carry the governed low-cluster caution.</p>
+  <details class="summary-evidence-detail"><summary>Measures, provenance, and interpretation limits</summary>
+    <p><strong>Annual-message comparison.</strong> Paragraph shares from frozen combativeness
+    annotations; 95% speech-clustered bootstrap ratios from <code>combat/ratios.parquet</code>.
+    The interval component is {html.escape(str(party['ci_components']).replace('_', ' '))}.</p>
+    <p><strong>Pronouns.</strong> spaCy-token counts from <code>speech_stats.parquet</code>, pooled
+    within the 2020s and divided by all alphabetic tokens. The displayed chart uses centered
+    five-year window totals.</p>
+    <p><strong>Era analogy.</strong> Detrended cosine similarity from
+    <code>eras/era_similarity.parquet</code>; “nearest” is a relative rank, not a closeness
+    threshold, causal claim, or president-to-president match.</p>
+  </details>
+</section>"""
+
+
+def _summary_language_change_html(
+    speeches: pd.DataFrame,
+    rates: pd.DataFrame,
+    stats: pd.DataFrame,
+    combat_ratios: pd.DataFrame,
+    era_similarity: pd.DataFrame,
+) -> str:
+    keys = ["naming_progressive", "summary_modals", "summary_pronouns"]
+    labels = ["National name", "Modal words", "Personal voice"]
+    announcements = [
+        "National name: America overtakes the United States around the 1910 boundary.",
+        "Stance families: necessity, commitment and intent, absolute emphasis, condition, and possibility move differently across the full record.",
+        "Personal voice: collective terms still lead, but the 2020s reverse the recent direction.",
+    ]
+    buttons = "".join(
+        f'<button type="button" data-stage-button="{index}" '
+        f'aria-pressed="{"true" if index == 0 else "false"}">'
+        f"{html.escape(label)}</button>"
+        for index, label in enumerate(labels)
+    )
+    return f"""<div class="summary-language-boundary">
+  <p class="summary-language-kicker">LANGUAGE ACROSS THE BOUNDARY</p>
+  <h3>Three ways presidential wording changes over time</h3>
+  <p>Flip between a national naming shift, grouped stance words, and first-person language.
+  These are separate lexical descriptions—not one scale of certainty, identity, or division.</p>
+  <div class="story-stage summary-language-stage" data-stage-mode="chart"
+       data-stage-figs="{html.escape(json.dumps(keys), quote=True)}"
+       data-stage-announcements="{html.escape(json.dumps(announcements), quote=True)}">
+    <div class="stage-controls" role="group" aria-label="Language change chart">{buttons}</div>
+    <p class="stage-status" aria-live="polite">{html.escape(announcements[0])}</p>
+    <div class="chart-scroll"><div class="chart staged-chart"
+         data-fig="naming_progressive" style="height:470px"></div></div>
+    <p class="summary-line-status" aria-live="polite">Hover any line to highlight its full
+    trajectory; click or tap to pin it, and press Escape to restore every line.</p>
+    <noscript><p>The interactive chart switcher requires JavaScript. The summaries and
+    provenance below preserve the main findings.</p></noscript>
+  </div>
+  {_chart_evidence(
+      "rate_10k", "speeches.parquet + speech_markers.parquet + speech_stats.parquet",
+      measure_label="Exact word and phrase uses per 10,000 words",
+      support="National naming keeps its governed centered five-year/20,000-word view; grouped stance and pronoun lines use centered seven-year windows above 10,000 words, which retain every 1789–2026 center year.",
+      caveat="The grouped stance view combines explicit surface forms, not a certainty or extremity index. Need includes verb, adjective, and noun uses; the commitment/intent additions require explicit speaker or administration wording and exclude going to; quotations can contribute to every family. The pronoun families do not measure individualism.",
+  )}
+  <div class="summary-language-takeaways">
+    <article><strong>National name</strong><span>1910 is the first start of five consecutive
+    displayed windows with America above the United States.</span></article>
+    <article><strong>Grouped stance</strong><span>Necessity now includes the complete need word
+    family and exact obligation phrases; commitment/intent joins will and shall to explicit
+    speaker or administration pledge and intent phrases; absolute-emphasis wording remains
+    separate. Solid lines and distinct decade symbols keep all five trajectories legible. Hover
+    any line for a compact family definition, exact rate, year, and contributing
+    presidents.</span></article>
+    <article><strong>Personal voice</strong><span>The 2020s interrupt a century-long collective
+    rise: I-family wording reaches its highest decade rate since the 1790s, but we still leads.</span></article>
+  </div>
+  <details class="summary-evidence-detail"><summary>Inspect the 1910 naming rule and corpus examples</summary>
+    {_naming_explanation_html(speeches, rates)}
+  </details>
+</div>
+{_summary_divisiveness_html(combat_ratios, era_similarity, stats)}"""
 
 
 def _local_sentence(speech: pd.Series, fragment: str) -> str:
@@ -10459,8 +11405,6 @@ def build_html(
                           letter-spacing:.1em;text-transform:uppercase; }}
   .summary-thesis p {{ max-width:900px;margin:10px 0 0;color:#f2f5f6;
                        font:650 clamp(1.2rem,2.8vw,2rem)/1.32 Georgia,serif; }}
-  .summary-term-audit > span {{ color:#6f4828;font-size:.68rem;
-                    font-weight:850;letter-spacing:.08em;text-transform:uppercase; }}
   .summary-chapter-route {{ position:sticky;top:var(--global-nav-height,48px);z-index:12;
                             display:flex;gap:7px;overflow-x:auto;margin:0 0 42px;padding:9px;
                             background:color-mix(in srgb,var(--page) 94%,transparent);
@@ -10500,40 +11444,17 @@ def build_html(
   .summary-shift-grid span {{ color:var(--muted);font-size:.67rem;font-weight:780;
                               text-transform:uppercase;letter-spacing:.04em; }}
   .summary-shift-grid strong {{ margin-top:5px;font:750 clamp(1.5rem,3vw,2.25rem)/1 Georgia,serif; }}
-  .summary-term-audit {{ margin:16px 0 28px;padding:16px 18px;background:#edf5f1;
-                         border:1px solid #bfd2c7;border-radius:12px; }}
-  .summary-term-audit p {{ max-width:920px;margin:7px 0 0;line-height:1.6; }}
-  .summary-term-audit code {{ color:#315f4b;background:#dfece5;border-radius:4px;padding:1px 4px; }}
   .summary-temporal-portrait {{ margin:24px 0 16px;border:1px solid var(--border);
                                 border-top:4px solid #315f78;border-radius:14px;
                                 background:var(--surface);overflow:hidden; }}
-  .temporal-portrait-heading {{ display:grid;grid-template-columns:minmax(0,1fr) auto;
-                                gap:18px;align-items:start;padding:18px 20px 12px; }}
+  .temporal-portrait-heading {{ display:block;padding:18px 20px 12px; }}
   .temporal-portrait-heading span {{ color:#8b5e34;font-size:.59rem;font-weight:850;
                                      letter-spacing:.09em;text-transform:uppercase; }}
   .temporal-portrait-heading h3 {{ margin:4px 0 0;font:750 clamp(1.2rem,2.4vw,1.62rem)/1.08 Georgia,serif; }}
   .temporal-portrait-heading p {{ max-width:660px;margin:6px 0 0;color:var(--muted);
                                   font-size:.72rem;line-height:1.45; }}
-  .temporal-portrait-heading > strong {{ align-self:start;padding:7px 9px;border-radius:7px;
-                                         background:#f3eee6;color:#6f4828;font-size:.64rem;
-                                         font-variant-numeric:tabular-nums;white-space:nowrap; }}
   .temporal-denominator {{ margin:0;padding:0 20px 12px;color:var(--muted);
                            font-size:.59rem;font-weight:720;letter-spacing:.02em; }}
-  .temporal-size-key {{ display:flex;align-items:center;justify-content:space-between;gap:18px;
-                        margin:0 20px 12px;padding:11px 13px;border:1px solid #ded7ce;
-                        border-radius:10px;background:#fbf8f3; }}
-  .temporal-size-key > p {{ max-width:520px;margin:0;color:var(--ink2);
-                            font-size:.68rem;line-height:1.45; }}
-  .temporal-size-key > div {{ display:flex;align-items:flex-end;gap:16px;flex:0 0 auto; }}
-  .temporal-size-sample {{ display:flex;align-items:center;gap:6px; }}
-  .temporal-size-sample > i {{ display:block;flex:0 0 auto;width:var(--temporal-size);
-                               height:var(--temporal-size);border:2px solid #6f4828;
-                               border-radius:50%;background:#fff8ec; }}
-  .temporal-size-sample span,.temporal-size-sample strong,
-  .temporal-size-sample small {{ display:block; }}
-  .temporal-size-sample strong {{ color:var(--ink2);font-size:.66rem;
-                                  font-variant-numeric:tabular-nums; }}
-  .temporal-size-sample small {{ color:var(--muted);font-size:.55rem;white-space:nowrap; }}
   .summary-temporal-explorer {{ padding:0 20px 4px; }}
   .summary-temporal-explorer .chart-scroll {{ margin-inline:-20px;padding:4px 2px 0;
                                               border-width:1px 0 0;border-radius:0;
@@ -10542,9 +11463,6 @@ def build_html(
                                       min-width:{SUMMARY_TEMPORAL_CHART_WIDTH_PX:.0f}px;
                                       max-width:{SUMMARY_TEMPORAL_CHART_WIDTH_PX:.0f}px;
                                       margin-inline:auto; }}
-  .temporal-swipe-hint {{ display:none;margin:0;padding:0 20px 8px;color:var(--muted);
-                          font-size:.64rem;font-weight:720; }}
-  .temporal-portrait-table {{ margin:10px 20px 18px; }}
   .summary-evidence-detail {{ margin:10px 0 20px;padding:10px 12px;
                               background:var(--surface);border:1px solid var(--border);
                               border-radius:10px; }}
@@ -10580,6 +11498,58 @@ def build_html(
                                                 overscroll-behavior-inline:contain; }}
   .summary-communication-panel .chart {{ min-width:860px; }}
   .summary-communication-panel .inspector-row {{ margin-bottom:0; }}
+  .summary-register-bridge {{ margin:30px 0 14px;padding:20px 22px 18px;
+                              border:1px solid #d7c7b2;border-radius:16px;
+                              background:linear-gradient(135deg,#f4ede2 0%,#faf7f1 58%,#eef4f5 100%);
+                              box-shadow:0 10px 28px rgba(48,42,31,.045); }}
+  .summary-register-kicker {{ margin:0;color:#8b5e34;font-size:.65rem;font-weight:850;
+                              letter-spacing:.1em;text-transform:uppercase; }}
+  .summary-register-bridge h3 {{ margin:5px 0 8px;
+                                 font:680 clamp(1.4rem,2.8vw,2.15rem)/1.1 Georgia,serif; }}
+  .summary-register-bridge > p:not(.summary-register-kicker) {{ max-width:870px;margin:0;
+                                                                 color:var(--ink2);font-size:.86rem;
+                                                                 line-height:1.55; }}
+  .summary-register-sequence {{ list-style:none;display:grid;
+                                grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;
+                                margin:17px 0 0;padding:0; }}
+  .summary-register-sequence li {{ position:relative;display:grid;gap:4px;align-content:center;
+                                   min-height:72px;padding:11px 13px;border:1px solid var(--border);
+                                   border-radius:10px;background:rgba(255,253,249,.88); }}
+  .summary-register-sequence li + li::before {{ content:"→";position:absolute;left:-19px;top:50%;
+                                                color:#8b5e34;font-size:1.05rem;font-weight:850;
+                                                transform:translateY(-50%); }}
+  .summary-register-sequence span {{ color:#8b5e34;font-size:.57rem;font-weight:850;
+                                     letter-spacing:.09em;text-transform:uppercase; }}
+  .summary-register-sequence strong {{ color:var(--ink2);font:680 .83rem/1.28 Georgia,serif; }}
+  .era-select-bar {{ display:grid;grid-template-columns:minmax(240px,auto) minmax(290px,360px) minmax(0,1fr);
+                     align-items:center;gap:9px 12px;margin:0 0 10px;padding:11px 13px;
+                     border:1px solid var(--border);border-radius:11px;background:var(--surface); }}
+  .register-view-switch {{ display:flex;align-items:center;gap:4px;min-width:0; }}
+  .register-view-switch > span {{ margin-right:4px;color:var(--ink2);font-size:.76rem;
+                                  font-weight:800; }}
+  .register-view-switch button {{ min-height:44px;padding:8px 12px;border:1px solid #b9aa97;
+                                  background:#fffdf9;color:var(--ink2);font-size:.74rem;
+                                  font-weight:760;cursor:pointer; }}
+  .register-view-switch button:first-of-type {{ border-radius:8px 0 0 8px; }}
+  .register-view-switch button:last-of-type {{ margin-left:-5px;border-radius:0 8px 8px 0; }}
+  .register-view-switch button[aria-pressed="true"] {{ position:relative;z-index:1;
+                                                        border-color:#315f78;background:#315f78;
+                                                        color:#fff; }}
+  .register-view-switch button:focus-visible {{ position:relative;z-index:2;
+                                                 outline:3px solid #d08b45;outline-offset:2px; }}
+  .era-select-control {{ display:grid;grid-template-columns:auto minmax(170px,1fr);
+                         align-items:center;gap:8px;min-width:0; }}
+  .era-select-control label {{ color:var(--ink2);font-size:.76rem;font-weight:800; }}
+  .era-select-control select {{ width:100%;min-height:44px;padding:8px 34px 8px 10px;
+                            border:1px solid #b9aa97;border-radius:8px;background:#fffdf9;
+                            color:var(--ink2);font:700 .76rem/1.2 system-ui;cursor:pointer; }}
+  .era-select-control select:disabled {{ cursor:not-allowed;opacity:.62; }}
+  .era-select-control select:focus-visible {{ outline:3px solid #d08b45;outline-offset:2px; }}
+  .era-select-bar .filter-status {{ margin:0; }}
+  .president-era-explorer.is-timeline-view .chart {{ min-width:860px; }}
+  .register-chart-scroll:focus-visible {{ outline:3px solid #d08b45;outline-offset:2px; }}
+  .summary-register-noscript {{ margin:10px 0;padding:10px 12px;border-left:4px solid #8b5e34;
+                                background:#f5efe6;color:var(--ink2);font-size:.78rem; }}
   .conflict-atlas {{ margin:20px 0 16px;border:1px solid var(--border);border-radius:16px;
                      background:#faf7f1;box-shadow:0 12px 32px rgba(48,42,31,.055);
                      overflow:clip; }}
@@ -10591,10 +11561,11 @@ def build_html(
                                 font:680 clamp(1.35rem,2.5vw,1.9rem)/1.08 Georgia,serif; }}
   .conflict-treatment {{ max-width:340px;padding:7px 9px;border:1px solid #d9c9b4;
                          border-radius:10px;background:#fff9ef; }}
-  .conflict-treatment span,.conflict-treatment strong {{ display:block; }}
+  .conflict-treatment span,.conflict-treatment strong,.conflict-treatment small {{ display:block; }}
   .conflict-treatment span {{ color:#8b5e34;font-size:.58rem;font-weight:850;
                               letter-spacing:.08em;text-transform:uppercase; }}
   .conflict-treatment strong {{ margin-top:2px;color:#5d5144;font-size:.65rem;line-height:1.25; }}
+  .conflict-treatment small {{ margin-top:3px;color:var(--muted);font-size:.58rem;line-height:1.3; }}
   .conflict-atlas-deck {{ max-width:960px;margin:0;padding:0 18px 10px;color:var(--ink2);
                           font-size:.75rem;line-height:1.45; }}
   .conflict-atlas-deck span {{ margin-left:5px;color:var(--muted);font-size:.61rem;white-space:nowrap; }}
@@ -10721,25 +11692,69 @@ def build_html(
                                                font-variant-numeric:tabular-nums;white-space:nowrap; }}
   .conflict-denominator {{ margin:0;padding:0 14px 9px;color:var(--muted);font-size:.55rem;
                            font-weight:720;letter-spacing:.025em; }}
+  .conflict-line-picker {{ display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+                           padding:0 14px 10px; }}
+  .conflict-line-picker-label {{ color:var(--ink2);font-size:.63rem;font-weight:820;
+                                 letter-spacing:.02em; }}
+  .conflict-line-buttons {{ display:flex;align-items:center;gap:4px;flex-wrap:wrap; }}
+  .conflict-line-buttons button {{ display:inline-flex;align-items:center;gap:6px;min-height:44px;
+                                    padding:6px 9px;border:1px solid #cfc4b5;border-radius:7px;
+                                    background:#fffdf9;color:var(--ink2);font:750 .62rem/1 system-ui,sans-serif;
+                                    cursor:pointer; }}
+  .conflict-line-buttons button:hover {{ border-color:#8d7d69;background:#f8f3eb; }}
+  .conflict-line-buttons button:focus-visible {{ outline:3px solid #315f78;outline-offset:2px; }}
+  .conflict-line-buttons button[aria-pressed="true"] {{ border-color:#274a5d;background:#e8f0f4;
+                                                         color:#17384a;box-shadow:inset 0 0 0 1px #274a5d; }}
+  .conflict-line-buttons button span {{ display:block;width:20px;height:3px;border-radius:99px;
+                                        background:currentColor; }}
+  .conflict-line-buttons [data-line-style="dash"] span {{ background:repeating-linear-gradient(90deg,currentColor 0 7px,transparent 7px 10px); }}
+  .conflict-line-buttons [data-line-style="dot"] span {{ background:repeating-linear-gradient(90deg,currentColor 0 3px,transparent 3px 6px); }}
+  .conflict-line-buttons [data-line-style="dashdot"] span {{ background:repeating-linear-gradient(90deg,currentColor 0 7px,transparent 7px 9px,currentColor 9px 11px,transparent 11px 14px); }}
+  .conflict-line-buttons [data-line-style="longdash"] span {{ background:repeating-linear-gradient(90deg,currentColor 0 10px,transparent 10px 14px); }}
+  .conflict-line-nation {{ color:#315f78 !important; }}
+  .conflict-line-group {{ color:#4f7557 !important; }}
+  .conflict-line-person {{ color:#a24f52 !important; }}
+  .conflict-line-institution {{ color:#9a7133 !important; }}
+  .conflict-line-other {{ color:#74695f !important; }}
+  .conflict-line-status {{ flex:1 1 190px;color:var(--muted);font-size:.57rem;line-height:1.35; }}
   .conflict-target-panel .chart-scroll,
   .conflict-portrait-panel .chart-scroll {{ margin:0;padding:4px 2px 0;border:0;
                                              border-top:1px solid #eee8df;border-radius:0;
                                              background:#fffdf9;overscroll-behavior-inline:contain; }}
   .conflict-target-panel .chart {{ min-width:680px; }}
   .conflict-portrait-panel .chart {{ min-width:640px; }}
-  .conflict-target-table,.conflict-portrait-table {{ margin:10px 12px 14px; }}
-  .conflict-category-guide {{ margin:12px;padding:12px;border:1px solid #ddd1c2;
-                              border-radius:10px;background:#f8f3eb;color:var(--ink2); }}
-  .conflict-category-guide h5 {{ margin:0 0 9px;color:var(--ink);
-                                 font:680 .88rem/1.2 Georgia,serif; }}
+  .conflict-category-guide {{ margin:12px;border:1px solid #ddd1c2;border-radius:10px;
+                              overflow:hidden;background:#f8f3eb;color:var(--ink2); }}
+  .conflict-category-guide > summary {{ box-sizing:border-box;min-height:44px;padding:11px 12px;
+                                        color:var(--ink);cursor:pointer;
+                                        font:680 .88rem/1.35 Georgia,serif; }}
+  .conflict-category-guide > summary::marker {{ color:#7b684f; }}
+  .conflict-category-guide > summary:focus-visible {{ outline:3px solid #315f78;
+                                                      outline-offset:-3px; }}
+  .conflict-category-guide[open] > summary {{ border-bottom:1px solid #ddd1c2; }}
+  .conflict-category-guide-body {{ padding:12px; }}
   .conflict-category-guide dl {{ display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
                                  gap:8px;margin:0; }}
   .conflict-category-guide dl > div {{ padding:8px;border-left:3px solid #cabdad;
                                        background:#fffdf9; }}
   .conflict-category-guide dt {{ color:var(--ink);font-size:.62rem;font-weight:850; }}
   .conflict-category-guide dd {{ margin:3px 0 0;color:var(--ink2);font-size:.58rem;line-height:1.4; }}
-  .conflict-category-guide > p {{ margin:10px 0 0;color:var(--muted);font-size:.58rem;
-                                  line-height:1.45; }}
+  .conflict-category-guide-body > p {{ margin:10px 0 0;color:var(--muted);font-size:.58rem;
+                                       line-height:1.45; }}
+  .conflict-portrait-border-key {{ display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;
+                                   margin:10px 12px;padding:9px 10px;border:1px solid #e0d7ca;
+                                   border-radius:9px;background:#fffdf9;color:var(--ink2); }}
+  .conflict-portrait-border-key > strong {{ flex:0 0 auto;color:var(--ink);
+                                            font-size:.61rem; }}
+  .conflict-portrait-border-key > div {{ display:flex;flex:1 1 360px;flex-wrap:wrap;
+                                         align-items:center;gap:5px 10px; }}
+  .conflict-portrait-border-key span {{ display:inline-flex;align-items:center;gap:4px;
+                                        font-size:.56rem;font-weight:760;white-space:nowrap; }}
+  .conflict-portrait-border-key i {{ display:block;width:12px;height:12px;box-sizing:border-box;
+                                     border:3px solid var(--portrait-border-color);
+                                     border-radius:50%;background:#fff; }}
+  .conflict-portrait-border-key small {{ flex:1 1 100%;color:var(--muted);
+                                         font-size:.54rem;line-height:1.35; }}
   .conflict-target-panel {{ --measure-color:#315f78; }}
   .communication-mosaic-suite {{ display:grid;gap:28px;margin:24px 0 16px; }}
   .communication-mosaic {{ min-width:0;padding:20px;border:1px solid var(--border);
@@ -12471,6 +13486,46 @@ def build_html(
                                   margin:8px 0;border-radius:0 9px 9px 0; }}
   .naming-examples blockquote p {{ margin:0;font-size:.82rem; }}
   .naming-examples cite {{ display:block;margin-top:6px;color:var(--muted);font-style:normal;font-size:.72rem; }}
+  .summary-language-boundary {{ margin-top:38px;padding-top:26px;border-top:1px solid var(--border); }}
+  .summary-language-boundary > h3,.summary-divisiveness > h3 {{ margin:4px 0 8px; }}
+  .summary-language-boundary > p:not(.summary-language-kicker) {{ max-width:780px;color:var(--ink2); }}
+  .summary-language-kicker {{ margin:0;color:#8b5e34;font-size:.7rem;font-weight:850;
+                              letter-spacing:.08em; }}
+  .summary-language-stage {{ margin-top:16px;padding:15px;border:1px solid var(--border);
+                             border-radius:14px;background:#f8f5ef; }}
+  .summary-language-stage .stage-status {{ margin-bottom:4px; }}
+  .summary-language-stage .chart-scroll {{ background:var(--surface);border-radius:10px; }}
+  .summary-line-status {{ margin:8px 2px 0;color:var(--muted);font-size:.72rem;line-height:1.4; }}
+  .summary-language-takeaways {{ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+                                 gap:9px;margin:12px 0 16px; }}
+  .summary-language-takeaways article {{ padding:11px 12px;border:1px solid var(--border);
+                                         border-radius:10px;background:var(--surface); }}
+  .summary-language-takeaways strong,.summary-language-takeaways span {{ display:block; }}
+  .summary-language-takeaways strong {{ color:var(--ink);font-size:.77rem; }}
+  .summary-language-takeaways span {{ margin-top:4px;color:var(--muted);
+                                      font-size:.72rem;line-height:1.42; }}
+  .summary-divisiveness {{ margin:34px 0 0;padding:22px;border:1px solid #cbb89f;
+                           border-radius:15px;background:#f4ede3; }}
+  .summary-divisiveness-verdict {{ max-width:800px;margin:6px 0 17px;color:var(--ink2);
+                                   font-size:1rem;line-height:1.58; }}
+  .summary-divisiveness-verdict strong {{ color:#6f4828; }}
+  .summary-divisiveness-grid {{ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+                                gap:10px; }}
+  .summary-divisiveness-card {{ min-width:0;padding:14px;border:1px solid #d8cab8;
+                                border-radius:11px;background:var(--surface); }}
+  .summary-divisiveness-card.is-strong {{ border-top:4px solid #315f78; }}
+  .summary-divisiveness-card > p:first-child {{ margin:0 0 7px;color:#8b5e34;
+                                                font-size:.64rem;font-weight:850;
+                                                letter-spacing:.06em; }}
+  .summary-divisiveness-card > strong {{ display:block;color:var(--ink);
+                                         font:700 2rem/1 Georgia,serif; }}
+  .summary-divisiveness-card > strong small {{ color:var(--muted);font-size:.8rem; }}
+  .summary-divisiveness-card h4 {{ margin:8px 0 6px;font-size:.86rem; }}
+  .summary-divisiveness-card h4 + p {{ margin:0;color:var(--ink2);
+                                      font-size:.76rem;line-height:1.5; }}
+  .summary-divisiveness-null {{ margin:13px 0 0;padding:11px 13px;border-left:4px solid #8b5e34;
+                                border-radius:0 8px 8px 0;background:#fffaf1;color:var(--ink2);
+                                font-size:.8rem;line-height:1.5; }}
   header h1 {{ max-width:850px;font-size:clamp(2.7rem,7vw,5.7rem);line-height:.92;letter-spacing:-.055em; }}
   .hero-subheadline {{ max-width:830px;margin:.85rem 0 0;color:#6f4828;
                        font:650 clamp(1.08rem,2.2vw,1.6rem)/1.25 Georgia,serif; }}
@@ -12508,6 +13563,34 @@ def build_html(
   .reduced-motion .founding-governance-fill,
   .reduced-motion .founding-governance-president {{ transition:none; }}
   @media (prefers-reduced-motion:reduce) {{ .scroll-cue::after{{animation:none}} .story-meter-fill{{transition:none}} .founding-governance-fill,.founding-governance-president{{transition:none}} .era-defined-combined-series,.era-defined-combined-line{{transition:none}} .js-motion .story-section{{opacity:1;transform:none;transition:none}} }}
+  @media (forced-colors:active) {{
+    .summary-register-bridge,.summary-register-sequence li,.era-select-bar{{
+      border-color:CanvasText;background:Canvas;box-shadow:none;forced-color-adjust:auto}}
+    .summary-register-kicker,.summary-register-sequence span,
+    .summary-register-sequence li + li::before{{color:CanvasText}}
+    .register-view-switch button{{border-color:ButtonText;background:ButtonFace;color:ButtonText}}
+    .register-view-switch button[aria-pressed="true"]{{border-color:Highlight;background:Highlight;
+      color:HighlightText}}
+    .register-view-switch button:focus-visible,.era-select-control select:focus-visible{{
+      outline-color:Highlight}}
+    .conflict-line-buttons button{{border-color:ButtonText;background:ButtonFace;color:ButtonText!important}}
+    .conflict-line-buttons button[aria-pressed="true"]{{border-color:Highlight;background:Highlight;
+      color:HighlightText!important;box-shadow:none}}
+    .conflict-line-buttons button:focus-visible{{outline-color:Highlight}}
+    .conflict-category-guide,.conflict-category-guide > summary{{border-color:CanvasText;
+      background:Canvas;color:CanvasText}}
+    .conflict-category-guide > summary::marker{{color:CanvasText}}
+    .conflict-category-guide > summary:focus-visible{{outline-color:Highlight}}
+    .conflict-portrait-border-key{{border-color:CanvasText;background:Canvas;color:CanvasText}}
+    .conflict-portrait-border-key i{{border-color:CanvasText;background:Canvas}}
+    .summary-language-stage,.summary-language-takeaways article,.summary-divisiveness,
+    .summary-divisiveness-card,.summary-divisiveness-null{{border-color:CanvasText;
+      background:Canvas;color:CanvasText;box-shadow:none}}
+  }}
+  @media (max-width:960px) {{
+    .era-select-bar.has-register-switch{{grid-template-columns:auto minmax(270px,1fr)}}
+    .era-select-bar.has-register-switch .filter-status{{grid-column:1/-1}}
+  }}
   @media (max-width:960px) {{
     .conflict-atlas-heading{{grid-template-columns:minmax(0,1fr) minmax(230px,290px);
                              gap:10px;padding:14px 12px 9px}}
@@ -12531,19 +13614,21 @@ def build_html(
     .summary-communication-panel > header > strong{{justify-self:start;white-space:normal}}
     .summary-communication-key{{grid-template-columns:1fr 1fr}}
     .summary-communication-panel .chart{{min-width:820px}}
-    .temporal-portrait-heading{{grid-template-columns:1fr;padding-inline:14px}}
-    .temporal-portrait-heading > strong{{justify-self:start;white-space:normal}}
+    .summary-register-bridge{{padding:17px 15px}}
+    .summary-register-sequence{{grid-template-columns:1fr;gap:20px}}
+    .summary-register-sequence li{{min-height:58px}}
+    .summary-register-sequence li + li::before{{content:"↓";left:50%;top:-18px;
+      transform:translateX(-50%)}}
+    .summary-language-stage .chart{{min-width:760px}}
+    .era-select-bar,.era-select-bar.has-register-switch{{grid-template-columns:1fr;align-items:start}}
+    .era-select-bar.has-register-switch .filter-status{{grid-column:auto}}
+    .register-view-switch{{flex-wrap:wrap}}
+    .era-select-control{{grid-template-columns:1fr}}
+    .era-select-control select{{max-width:none}}
+    .temporal-portrait-heading{{padding-inline:14px}}
     .temporal-denominator{{padding-inline:14px}}
-    .temporal-size-key{{align-items:flex-start;flex-direction:column;margin-inline:14px}}
-    .temporal-size-key > div{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-                             width:100%;gap:8px}}
-    .temporal-size-sample{{min-width:0;align-items:center;flex-direction:column;
-                           gap:3px;text-align:center}}
-    .temporal-size-sample small{{white-space:normal}}
     .summary-temporal-explorer{{padding-inline:14px}}
     .summary-temporal-explorer .chart-scroll{{margin-inline:-14px}}
-    .temporal-swipe-hint{{display:block;padding-inline:14px}}
-    .temporal-portrait-table{{margin-inline:14px}}
     .conflict-graph-heading{{grid-template-columns:1fr;padding:14px 12px 9px}}
     .conflict-graph-heading .conflict-treatment{{max-width:none}}
     .conflict-graph-deck{{padding:0 12px 10px}}
@@ -12561,6 +13646,7 @@ def build_html(
     .message-compare,.receipt-grid{{grid-template-columns:1fr}}
     .message-measures{{grid-template-columns:1fr 1fr}}
     .tradeoff-summary,.naming-method{{grid-template-columns:1fr}}
+    .summary-language-takeaways,.summary-divisiveness-grid{{grid-template-columns:1fr}}
     .naming-examples{{grid-column:1}}
     .era-choices{{grid-template-columns:1fr 1fr}}
     .inspector-row{{grid-template-columns:minmax(0,1fr)}}
@@ -12619,6 +13705,8 @@ def build_html(
     .conflict-atlas-heading{{grid-template-columns:1fr}}
     .conflict-treatment{{max-width:none}}
     .conflict-category-key,.conflict-target-key .conflict-category-key{{grid-template-columns:1fr 1fr}}
+    .conflict-line-picker{{align-items:flex-start}}
+    .conflict-line-picker-label,.conflict-line-status{{flex-basis:100%}}
     .conflict-graph-deck span{{white-space:normal}}
     .conflict-column-head,.conflict-era-list{{min-width:610px}}
     .conflict-column-head > span:first-child{{position:sticky;left:0;z-index:3;
@@ -12668,8 +13756,9 @@ def build_html(
   Originally a 2019 Galvanize capstone, rebuilt in 2026.</p>
   <p><a href="methodology.html">Illustrated AI labeling methodology, complete taxonomy,
   prompts, agreement audit, and limitations →</a></p>
-  <p>Method note: timelines are 5-year centered rolling rates weighted by word count,
-  through April 2026. Points backed by under 20,000 words are not plotted - the corpus
+  <p>Method note: most timelines are 5-year centered rolling rates weighted by word count,
+  through April 2026, with points under 20,000 words omitted. The Tomorrow/Yesterday view
+  is a trailing four-year average of annual rates with a 10,000-word window floor. The corpus
   before ~1790 is a handful of speeches, and one personal inaugural should not set a
   national trend line. Dots are per president per year: 46 years have more than one
   president speaking, and the corpus files a few famous pre-presidency speeches
@@ -12688,11 +13777,195 @@ def build_html(
   if (reduceMotion) document.documentElement.classList.add("reduced-motion");
   else document.documentElement.classList.add("js-motion");
   const plotted = new WeakSet();
+  function setupConflictTargetHighlight(chart) {{
+    if (chart.dataset.conflictHighlightReady === "true") return;
+    const picker = document.querySelector("[data-conflict-line-picker]");
+    if (!picker) return;
+    const buttons = [...picker.querySelectorAll("[data-conflict-line]")];
+    const status = picker.querySelector(".conflict-line-status");
+    const figure = FIGS.summary_conflict_targets;
+    const keys = figure.data.map(trace => trace.meta).filter(Boolean);
+    const labels = new Map(figure.data.map(trace => [trace.meta, trace.name]));
+    const callouts = (figure.layout.annotations || []).map((annotation, index) => ({{
+      index,
+      key: (annotation.name || "").replace("conflict-turn::", ""),
+    }})).filter(item => keys.includes(item.key));
+    let pinned = "__all__";
+    chart.dataset.conflictHighlightReady = "true";
+
+    function applyHighlight(key) {{
+      keys.forEach((traceKey, index) => {{
+        const active = key === "__all__" || key === traceKey;
+        Plotly.restyle(chart, {{
+          opacity: active ? 1 : .14,
+          "line.width": key === traceKey ? 4.5 : key === "__all__" ? 2.5 : 1.4,
+          "marker.line.width": key === traceKey ? 2 : 1.4,
+        }}, [index]);
+      }});
+      const annotationUpdate = {{}};
+      callouts.forEach(item => {{
+        annotationUpdate[`annotations[${{item.index}}].opacity`] = (
+          key === "__all__" || key === item.key ? 1 : .26
+        );
+      }});
+      Plotly.relayout(chart, annotationUpdate);
+    }}
+    function syncPinnedState() {{
+      buttons.forEach(button => {{
+        button.setAttribute(
+          "aria-pressed", String(button.dataset.conflictLine === pinned)
+        );
+      }});
+      if (status) status.textContent = pinned === "__all__"
+        ? "All five target lines emphasized. Hover a line or choose one to isolate it."
+        : `${{labels.get(pinned)}} highlighted; the other four lines remain visible at low emphasis. Choose All or press Escape to reset.`;
+      applyHighlight(pinned);
+    }}
+    function setPinned(key) {{
+      pinned = key === pinned && key !== "__all__" ? "__all__" : key;
+      syncPinnedState();
+    }}
+    buttons.forEach(button => {{
+      const key = button.dataset.conflictLine;
+      button.addEventListener("click", () => setPinned(key));
+      button.addEventListener("pointerenter", () => applyHighlight(key));
+      button.addEventListener("pointerleave", () => applyHighlight(pinned));
+      button.addEventListener("focus", () => applyHighlight(key));
+      button.addEventListener("blur", () => applyHighlight(pinned));
+    }});
+    picker.addEventListener("keydown", event => {{
+      if (event.key !== "Escape") return;
+      pinned = "__all__";
+      syncPinnedState();
+    }});
+    chart.on("plotly_hover", event => {{
+      const point = event.points.find(item => keys.includes(item.data.meta));
+      if (point) applyHighlight(point.data.meta);
+    }});
+    chart.on("plotly_unhover", () => applyHighlight(pinned));
+    chart.on("plotly_click", event => {{
+      const point = event.points.find(item => keys.includes(item.data.meta));
+      if (point) setPinned(point.data.meta);
+    }});
+    syncPinnedState();
+  }}
+  function setupContainedPortraitHover(chart) {{
+    if (chart.dataset.containedHoverReady === "true") return;
+    const scroller = chart.closest(".chart-scroll");
+    if (!scroller) return;
+    chart.dataset.containedHoverReady = "true";
+    function revealHoverLabel(point, attempt = 0) {{
+      requestAnimationFrame(() => {{
+        const label = chart.querySelector(".hoverlayer .hovertext");
+        if (!label) return;
+        const labelBounds = label.getBoundingClientRect();
+        const scrollBounds = scroller.getBoundingClientRect();
+        const inset = 8;
+        const rightOverflow = labelBounds.right - (scrollBounds.right - inset);
+        const leftOverflow = (scrollBounds.left + inset) - labelBounds.left;
+        let shifted = false;
+        if (rightOverflow > 0) {{
+          scroller.scrollLeft += Math.ceil(rightOverflow);
+          shifted = true;
+        }} else if (leftOverflow > 0) {{
+          scroller.scrollLeft -= Math.ceil(leftOverflow);
+          shifted = true;
+        }}
+        if (!shifted) return;
+        Plotly.Fx.hover(chart, [{{
+          curveNumber: point.curveNumber,
+          pointNumber: point.pointNumber,
+        }}]);
+        if (attempt < 3) revealHoverLabel(point, attempt + 1);
+      }});
+    }}
+    chart.on("plotly_click", event => {{
+      const point = event.points?.[0];
+      if (point) revealHoverLabel(point);
+    }});
+  }}
+  const summaryLanguageFigures = new Set([
+    "naming_progressive", "summary_modals", "summary_pronouns",
+  ]);
+  const summaryLanguageBaseWidths = new Map(
+    [...summaryLanguageFigures].map(key => [
+      key,
+      Object.freeze(
+        (FIGS[key]?.data || []).map(trace => Number(trace.line?.width || 2.5))
+      ),
+    ])
+  );
+  function setupSummaryLanguageHighlight(chart) {{
+    if (chart.dataset.summaryLanguageHighlightReady === "true") return;
+    chart.dataset.summaryLanguageHighlightReady = "true";
+    chart.tabIndex = 0;
+    let pinned = null;
+    const status = chart.closest(".summary-language-stage")
+      ?.querySelector(".summary-line-status");
+    function figure() {{ return FIGS[chart.dataset.fig]; }}
+    function applyHighlight(activeIndex) {{
+      const traces = figure()?.data || [];
+      const baseWidths = summaryLanguageBaseWidths.get(chart.dataset.fig) || [];
+      traces.forEach((trace, index) => {{
+        const baseWidth = baseWidths[index] || 2.5;
+        const active = activeIndex == null || activeIndex === index;
+        Plotly.restyle(chart, {{
+          opacity: active ? 1 : .14,
+          "line.width": activeIndex === index ? baseWidth + 2.2 : baseWidth,
+        }}, [index]);
+      }});
+    }}
+    function restoreAll() {{
+      pinned = null;
+      applyHighlight(null);
+      if (status) status.textContent = (
+        "Hover any line to highlight its full trajectory; click or tap to pin it, "
+        + "and press Escape to restore every line."
+      );
+    }}
+    chart.on("plotly_hover", event => {{
+      const point = event.points?.[0];
+      if (!point) return;
+      applyHighlight(point.curveNumber);
+      if (status) status.textContent = `${{point.data.name}} highlighted.`;
+    }});
+    chart.on("plotly_unhover", () => {{
+      if (pinned == null) restoreAll();
+      else applyHighlight(pinned);
+    }});
+    chart.on("plotly_click", event => {{
+      const point = event.points?.[0];
+      if (!point) return;
+      pinned = pinned === point.curveNumber ? null : point.curveNumber;
+      if (pinned == null) restoreAll();
+      else {{
+        applyHighlight(pinned);
+        if (status) status.textContent = (
+          `${{point.data.name}} pinned; press Escape to restore every line.`
+        );
+      }}
+    }});
+    chart.addEventListener("keydown", event => {{
+      if (event.key === "Escape") restoreAll();
+    }});
+    chart.addEventListener("summary-language-reset", restoreAll);
+    restoreAll();
+  }}
   function renderChart(el) {{
     if (plotted.has(el)) return;
     const fig = FIGS[el.dataset.fig];
     Plotly.newPlot(el, fig.data, fig.layout,
-                   {{displayModeBar: false, responsive: true}});
+                   {{displayModeBar: false, responsive: true}}).then(() => {{
+      if (el.dataset.fig === "summary_conflict_targets") {{
+        setupConflictTargetHighlight(el);
+      }}
+      if (el.dataset.fig === "summary_conflict_frame_portraits") {{
+        setupContainedPortraitHover(el);
+      }}
+      if (summaryLanguageFigures.has(el.dataset.fig)) {{
+        setupSummaryLanguageHighlight(el);
+      }}
+    }});
     plotted.add(el);
   }}
   const sections = [...document.querySelectorAll("main > section")];
@@ -12736,7 +14009,12 @@ def build_html(
       if (plotted.has(chart)) {{
         const fig = FIGS[keys[index]];
         Plotly.react(chart, fig.data, fig.layout,
-                     {{displayModeBar:false,responsive:true}});
+                     {{displayModeBar:false,responsive:true}}).then(() => {{
+          if (summaryLanguageFigures.has(keys[index])) {{
+            setupSummaryLanguageHighlight(chart);
+            chart.dispatchEvent(new CustomEvent("summary-language-reset"));
+          }}
+        }});
       }}
     }} else {{
       container.querySelectorAll("[data-stage-panel]").forEach((panel, position) => {{
@@ -12767,8 +14045,14 @@ def build_html(
   }});
   document.querySelectorAll(".president-era-explorer").forEach(explorer => {{
     const figureKey = explorer.dataset.eraFigure;
+    const timelineFigureKey = explorer.dataset.registerTimelineFigure;
+    const timelineStatus = explorer.dataset.timelineStatus;
     const chart = explorer.querySelector("[data-fig]");
     const choices = [...explorer.querySelectorAll("[data-era-choice]")];
+    const eraSelect = explorer.querySelector("[data-era-select]");
+    const registerViewButtons = [
+      ...explorer.querySelectorAll("[data-register-view]")
+    ];
     const allButton = explorer.querySelector("[data-era-all]");
     const clearButton = explorer.querySelector("[data-era-clear]");
     const presetButtons = [...explorer.querySelectorAll("[data-era-preset]")];
@@ -12795,14 +14079,32 @@ def build_html(
       item => Object.freeze({{name:item.name || "", opacity:item.opacity ?? 1}})
     ));
     function applyEraSelection() {{
+      const timelineActive = registerViewButtons.some(
+        button => button.dataset.registerView === "timeline"
+          && button.getAttribute("aria-pressed") === "true"
+      );
+      if (timelineActive) {{
+        if (status) status.textContent = timelineStatus;
+        return;
+      }}
       renderChart(chart);
       if (!rows.length) {{
         if (status) status.textContent = "No complete president points are available to highlight.";
         return;
       }}
-      const selected = new Set(
-        choices.filter(choice => choice.checked).map(choice => choice.value)
-      );
+      const allEras = new Set(rows.map(row => row[3]));
+      let selected;
+      if (eraSelect) {{
+        selected = eraSelect.value === "__all__"
+          ? allEras
+          : eraSelect.value === "__none__"
+            ? new Set()
+            : new Set([eraSelect.value]);
+      }} else {{
+        selected = new Set(
+          choices.filter(choice => choice.checked).map(choice => choice.value)
+        );
+      }}
       const opacities = rows.map((row, index) =>
         selected.has(row[3]) ? baseOpacities[index] : .22);
       const widths = rows.map((row, index) =>
@@ -12826,14 +14128,61 @@ def build_html(
         ) ? item.opacity : .18;
       }});
       Plotly.relayout(chart, imageUpdates);
-      const labels = choices.filter(choice => choice.checked)
-        .map(choice => choice.value);
-      status.textContent = labels.length === choices.length
-        ? "All nine eras highlighted; all plotted presidents visible."
-        : labels.length
-          ? `${{labels.join(", ")}} highlighted; all other plotted presidents remain visible.`
+      if (eraSelect) {{
+        const selectedLabel = eraSelect.selectedOptions[0]?.textContent || "Selected era";
+        status.textContent = eraSelect.value === "__all__"
+          ? "All nine eras emphasized."
+          : eraSelect.value === "__none__"
+            ? "All eras dimmed; every plotted president remains available for inspection."
+            : `${{selectedLabel}} emphasized; all other plotted presidents remain visible at low emphasis.`;
+      }} else {{
+        const labels = choices.filter(choice => choice.checked)
+          .map(choice => choice.value);
+        status.textContent = labels.length === choices.length
+          ? "All nine eras highlighted; all plotted presidents visible."
+          : labels.length
+            ? `${{labels.join(", ")}} highlighted; all other plotted presidents remain visible.`
           : "No era highlighted; every plotted president remains visible at low emphasis.";
+      }}
     }}
+    async function activateRegisterView(view) {{
+      if (!timelineFigureKey || !registerViewButtons.length) return;
+      const isTimeline = view === "timeline";
+      registerViewButtons.forEach(button => {{
+        button.setAttribute(
+          "aria-pressed", String(button.dataset.registerView === view)
+        );
+      }});
+      if (eraSelect) eraSelect.disabled = isTimeline;
+      explorer.classList.toggle("is-timeline-view", isTimeline);
+      chart.dataset.fig = isTimeline ? timelineFigureKey : figureKey;
+      if (plotted.has(chart)) {{
+        const figure = FIGS[chart.dataset.fig];
+        await Plotly.react(
+          chart, figure.data, figure.layout,
+          {{displayModeBar:false,responsive:true}}
+        );
+      }} else {{
+        renderChart(chart);
+      }}
+      applyEraSelection();
+    }}
+    registerViewButtons.forEach((button, index) => {{
+      button.addEventListener("click", () => {{
+        void activateRegisterView(button.dataset.registerView);
+      }});
+      button.addEventListener("keydown", event => {{
+        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        let target = index + (event.key === "ArrowRight" ? 1 : -1);
+        if (event.key === "Home") target = 0;
+        if (event.key === "End") target = registerViewButtons.length - 1;
+        target = (target + registerViewButtons.length) % registerViewButtons.length;
+        registerViewButtons[target].focus();
+        registerViewButtons[target].click();
+      }});
+    }});
+    eraSelect?.addEventListener("change", applyEraSelection);
     choices.forEach(choice => choice.addEventListener("change", applyEraSelection));
     presetButtons.forEach(button => button.addEventListener("click", () => {{
       const wanted = new Set(button.dataset.eraPreset.split("||"));
@@ -13310,6 +14659,10 @@ def main() -> None:
     topic_network_bundle = speaker_topic_network.load_network_bundle(
         foundation=story_bundle
     )
+    invocation_network_bundle = actual_speaker_invocation_network.build_network_bundle(
+        story_bundle,
+        topic_network_bundle,
+    )
     summary_topic_projection = summary_topic_network.build_projection(
         topic_network_bundle
     )
@@ -13367,9 +14720,11 @@ def main() -> None:
     register_trends = pd.read_parquet(
         corpus.DATA_DIR / "register" / "trends.parquet"
     )
-    president_conflict_table = pd.read_parquet(
-        corpus.DATA_DIR / "combat" / "by_president_speaker_audited_v2.parquet"
+    president_conflict_treatments = pd.read_parquet(
+        combat.BY_PRESIDENT_TREATMENTS_V2_PATH
     )
+    combat_ratios = pd.read_parquet(combat.RATIOS_PATH)
+    era_similarity = pd.read_parquet(eras.ERA_SIMILARITY_PATH)
     target_mix_table = pd.read_parquet(
         corpus.DATA_DIR
         / "combat"
@@ -13384,11 +14739,10 @@ def main() -> None:
         paragraph_annotations,
         speech_annotations,
         markers,
-        stats,
         taxonomy,
         lifecycle_table,
         register_trends,
-        president_conflict_table,
+        president_conflict_treatments,
         target_mix_table,
         coverage_receipts,
         founding_data,
@@ -13412,6 +14766,20 @@ def main() -> None:
         display_issues,
         require_complete=True,
     )
+    profile_context_projection = profile_context.verify_reproducible(
+        topic_network_bundle,
+        invocation_network_bundle,
+        story_bundle,
+        profile_views,
+    )
+    profile_connection_sizes = profile_connections_assets.profile_connections_asset_sizes()
+    if (
+        profile_connection_sizes["javascript_raw_bytes"] > 60_000
+        or profile_connection_sizes["javascript_gzip_bytes"] > 20_000
+    ):
+        raise ValueError(
+            "profile Connections enhancement module exceeds its byte budget"
+        )
     compare_projection_bundle = compare_projection.build_projection(
         topic_network_bundle,
         profile_data,
@@ -13461,15 +14829,19 @@ def main() -> None:
         "civil_rights_yearly": fig_civil_rights_yearly(para_labels, paragraphs),
         "civil_rights_full": fig_civil_rights_full(band_table),
         "procedural_eras": fig_procedural_eras(all_scores, faces),
+        "summary_register_timeline": fig_summary_register_timeline(rates),
         "summary_audience": fig_summary_audience(summary_data),
         "summary_medium": fig_summary_medium(summary_data),
         **conflict_figs,
         "summary_temporal": fig_summary_temporal(
             summary_data["temporal_presidents"], faces
         ),
+        "summary_temporal_timeline": fig_summary_temporal_timeline(markers),
         "summary_hope_doom_ratio": fig_summary_hope_doom_ratio(markers),
         "progressive_heatmap": fig_progressive_heatmap(para_labels),
-        "naming_progressive": fig_naming_progressive(rates),
+        "naming_progressive": fig_naming_progressive(rates, df),
+        "summary_modals": fig_summary_modals(stats, markers, df),
+        "summary_pronouns": fig_summary_pronouns(stats),
         "new_deal": fig_new_deal_war(para_labels),
         "broadcast": fig_broadcast_presidency(stats, speech_annotations),
         "platform_era": fig_platform_signals(rates, markers),
@@ -13597,7 +14969,10 @@ def main() -> None:
             scores=all_scores,
             speeches=df,
             rates=rates,
+            stats=stats,
             summary_data=summary_data,
+            combat_ratios=combat_ratios,
+            era_similarity=era_similarity,
             topic_network_html=summary_topic_section,
         ),
     }
@@ -13610,10 +14985,11 @@ def main() -> None:
     }
     summary_section_keys = {"synthesis"}
     summary_figure_keys = {
-        "procedural_eras", "naming_progressive",
+        "procedural_eras", "summary_register_timeline", "naming_progressive",
+        "summary_modals", "summary_pronouns",
         "summary_audience", "summary_medium",
         *SUMMARY_CONFLICT_FIGURE_KEYS,
-        "summary_temporal",
+        "summary_temporal", "summary_temporal_timeline",
         "summary_hope_doom_ratio",
     }
     story_section_keys = {key for key, *_ in SECTIONS[:9]}
@@ -13636,6 +15012,24 @@ def main() -> None:
         projection=summary_topic_projection,
     )
     summary_topic_network.write_renderer_assets(SITE_DIR)
+    profile_context.write_public_projection(
+        topic_network_bundle,
+        invocation_network_bundle,
+        story_bundle,
+        profile_views,
+        SITE_DIR,
+        projection=profile_context_projection,
+    )
+    profile_connection_asset = SITE_DIR / "assets" / "profile-connections-v1.js"
+    profile_connection_asset.parent.mkdir(parents=True, exist_ok=True)
+    profile_connection_asset.write_text(
+        profile_connections_assets.PROFILE_CONNECTIONS_JS,
+        encoding="utf-8",
+    )
+    if profile_connection_asset.read_text(encoding="utf-8") != (
+        profile_connections_assets.PROFILE_CONNECTIONS_JS
+    ):
+        raise ValueError("profile Connections enhancement asset write drift")
     compare_projection.write_public_projection(
         compare_projection_bundle,
         SITE_DIR,
@@ -13678,10 +15072,18 @@ def main() -> None:
         f"({summary_out.stat().st_size / 1e6:.1f} MB)"
     )
 
+    context_shards = {
+        str(shard["president"]["president_profile_id"]): shard
+        for shard in profile_context_projection.shards.values()
+    }
+    if len(context_shards) != 45:
+        raise ValueError("profile context must provide 45 unique president shards")
     profile_views = profiles_site.write_profiles(
         profile_data,
         SITE_DIR,
         views=profile_views,
+        context_index=profile_context_projection.index,
+        context_shards=context_shards,
     )
     expansion_site.write(SITE_DIR)
 
@@ -13709,17 +15111,31 @@ def main() -> None:
         print(f"wrote {out2.relative_to(REPO_ROOT)} ({out2.stat().st_size / 1e6:.1f} MB)")
     bundle_plotly_runtime(SITE_DIR)
     expansion_site.add_global_navigation(SITE_DIR)
+    profile_budget_report = profiles_site.validate_generated_profile_budgets(SITE_DIR)
     report = site_validation.validate_site(SITE_DIR)
     story_foundation.check_story_contract(story_bundle, SITE_DIR)
     speaker_topic_network.validate_publication(topic_network_bundle, SITE_DIR)
     summary_topic_network.validate_publication(topic_network_bundle, SITE_DIR)
+    profile_context.validate_publication(
+        topic_network_bundle,
+        invocation_network_bundle,
+        story_bundle,
+        profile_views,
+        SITE_DIR,
+    )
+    if not profile_connection_asset.is_file():
+        raise ValueError("profile Connections enhancement module is missing")
     compare_projection.validate_publication(
         compare_projection_bundle,
         SITE_DIR,
         network_bundle=topic_network_bundle,
     )
     explore_projection.validate_publication(explore_projection_bundle, SITE_DIR)
-    print(f"  validated {report['html_pages']} HTML pages and {report['json_shards']} JSON shards")
+    print(
+        f"  validated {report['html_pages']} HTML pages and "
+        f"{report['json_shards']} JSON shards; profile max "
+        f"{profile_budget_report['maximum_profile_raw_bytes']:,} raw bytes"
+    )
 
 
 if __name__ == "__main__":

@@ -136,8 +136,6 @@
                           letter-spacing:.1em;text-transform:uppercase; }
   .summary-thesis p { max-width:900px;margin:10px 0 0;color:#f2f5f6;
                        font:650 clamp(1.2rem,2.8vw,2rem)/1.32 Georgia,serif; }
-  .summary-term-audit > span { color:#6f4828;font-size:.68rem;
-                    font-weight:850;letter-spacing:.08em;text-transform:uppercase; }
   .summary-chapter-route { position:sticky;top:var(--global-nav-height,48px);z-index:12;
                             display:flex;gap:7px;overflow-x:auto;margin:0 0 42px;padding:9px;
                             background:color-mix(in srgb,var(--page) 94%,transparent);
@@ -177,40 +175,17 @@
   .summary-shift-grid span { color:var(--muted);font-size:.67rem;font-weight:780;
                               text-transform:uppercase;letter-spacing:.04em; }
   .summary-shift-grid strong { margin-top:5px;font:750 clamp(1.5rem,3vw,2.25rem)/1 Georgia,serif; }
-  .summary-term-audit { margin:16px 0 28px;padding:16px 18px;background:#edf5f1;
-                         border:1px solid #bfd2c7;border-radius:12px; }
-  .summary-term-audit p { max-width:920px;margin:7px 0 0;line-height:1.6; }
-  .summary-term-audit code { color:#315f4b;background:#dfece5;border-radius:4px;padding:1px 4px; }
   .summary-temporal-portrait { margin:24px 0 16px;border:1px solid var(--border);
                                 border-top:4px solid #315f78;border-radius:14px;
                                 background:var(--surface);overflow:hidden; }
-  .temporal-portrait-heading { display:grid;grid-template-columns:minmax(0,1fr) auto;
-                                gap:18px;align-items:start;padding:18px 20px 12px; }
+  .temporal-portrait-heading { display:block;padding:18px 20px 12px; }
   .temporal-portrait-heading span { color:#8b5e34;font-size:.59rem;font-weight:850;
                                      letter-spacing:.09em;text-transform:uppercase; }
   .temporal-portrait-heading h3 { margin:4px 0 0;font:750 clamp(1.2rem,2.4vw,1.62rem)/1.08 Georgia,serif; }
   .temporal-portrait-heading p { max-width:660px;margin:6px 0 0;color:var(--muted);
                                   font-size:.72rem;line-height:1.45; }
-  .temporal-portrait-heading > strong { align-self:start;padding:7px 9px;border-radius:7px;
-                                         background:#f3eee6;color:#6f4828;font-size:.64rem;
-                                         font-variant-numeric:tabular-nums;white-space:nowrap; }
   .temporal-denominator { margin:0;padding:0 20px 12px;color:var(--muted);
                            font-size:.59rem;font-weight:720;letter-spacing:.02em; }
-  .temporal-size-key { display:flex;align-items:center;justify-content:space-between;gap:18px;
-                        margin:0 20px 12px;padding:11px 13px;border:1px solid #ded7ce;
-                        border-radius:10px;background:#fbf8f3; }
-  .temporal-size-key > p { max-width:520px;margin:0;color:var(--ink2);
-                            font-size:.68rem;line-height:1.45; }
-  .temporal-size-key > div { display:flex;align-items:flex-end;gap:16px;flex:0 0 auto; }
-  .temporal-size-sample { display:flex;align-items:center;gap:6px; }
-  .temporal-size-sample > i { display:block;flex:0 0 auto;width:var(--temporal-size);
-                               height:var(--temporal-size);border:2px solid #6f4828;
-                               border-radius:50%;background:#fff8ec; }
-  .temporal-size-sample span,.temporal-size-sample strong,
-  .temporal-size-sample small { display:block; }
-  .temporal-size-sample strong { color:var(--ink2);font-size:.66rem;
-                                  font-variant-numeric:tabular-nums; }
-  .temporal-size-sample small { color:var(--muted);font-size:.55rem;white-space:nowrap; }
   .summary-temporal-explorer { padding:0 20px 4px; }
   .summary-temporal-explorer .chart-scroll { margin-inline:-20px;padding:4px 2px 0;
                                               border-width:1px 0 0;border-radius:0;
@@ -219,9 +194,6 @@
                                       min-width:700px;
                                       max-width:700px;
                                       margin-inline:auto; }
-  .temporal-swipe-hint { display:none;margin:0;padding:0 20px 8px;color:var(--muted);
-                          font-size:.64rem;font-weight:720; }
-  .temporal-portrait-table { margin:10px 20px 18px; }
   .summary-evidence-detail { margin:10px 0 20px;padding:10px 12px;
                               background:var(--surface);border:1px solid var(--border);
                               border-radius:10px; }
@@ -257,6 +229,58 @@
                                                 overscroll-behavior-inline:contain; }
   .summary-communication-panel .chart { min-width:860px; }
   .summary-communication-panel .inspector-row { margin-bottom:0; }
+  .summary-register-bridge { margin:30px 0 14px;padding:20px 22px 18px;
+                              border:1px solid #d7c7b2;border-radius:16px;
+                              background:linear-gradient(135deg,#f4ede2 0%,#faf7f1 58%,#eef4f5 100%);
+                              box-shadow:0 10px 28px rgba(48,42,31,.045); }
+  .summary-register-kicker { margin:0;color:#8b5e34;font-size:.65rem;font-weight:850;
+                              letter-spacing:.1em;text-transform:uppercase; }
+  .summary-register-bridge h3 { margin:5px 0 8px;
+                                 font:680 clamp(1.4rem,2.8vw,2.15rem)/1.1 Georgia,serif; }
+  .summary-register-bridge > p:not(.summary-register-kicker) { max-width:870px;margin:0;
+                                                                 color:var(--ink2);font-size:.86rem;
+                                                                 line-height:1.55; }
+  .summary-register-sequence { list-style:none;display:grid;
+                                grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;
+                                margin:17px 0 0;padding:0; }
+  .summary-register-sequence li { position:relative;display:grid;gap:4px;align-content:center;
+                                   min-height:72px;padding:11px 13px;border:1px solid var(--border);
+                                   border-radius:10px;background:rgba(255,253,249,.88); }
+  .summary-register-sequence li + li::before { content:"→";position:absolute;left:-19px;top:50%;
+                                                color:#8b5e34;font-size:1.05rem;font-weight:850;
+                                                transform:translateY(-50%); }
+  .summary-register-sequence span { color:#8b5e34;font-size:.57rem;font-weight:850;
+                                     letter-spacing:.09em;text-transform:uppercase; }
+  .summary-register-sequence strong { color:var(--ink2);font:680 .83rem/1.28 Georgia,serif; }
+  .era-select-bar { display:grid;grid-template-columns:minmax(240px,auto) minmax(290px,360px) minmax(0,1fr);
+                     align-items:center;gap:9px 12px;margin:0 0 10px;padding:11px 13px;
+                     border:1px solid var(--border);border-radius:11px;background:var(--surface); }
+  .register-view-switch { display:flex;align-items:center;gap:4px;min-width:0; }
+  .register-view-switch > span { margin-right:4px;color:var(--ink2);font-size:.76rem;
+                                  font-weight:800; }
+  .register-view-switch button { min-height:44px;padding:8px 12px;border:1px solid #b9aa97;
+                                  background:#fffdf9;color:var(--ink2);font-size:.74rem;
+                                  font-weight:760;cursor:pointer; }
+  .register-view-switch button:first-of-type { border-radius:8px 0 0 8px; }
+  .register-view-switch button:last-of-type { margin-left:-5px;border-radius:0 8px 8px 0; }
+  .register-view-switch button[aria-pressed="true"] { position:relative;z-index:1;
+                                                        border-color:#315f78;background:#315f78;
+                                                        color:#fff; }
+  .register-view-switch button:focus-visible { position:relative;z-index:2;
+                                                 outline:3px solid #d08b45;outline-offset:2px; }
+  .era-select-control { display:grid;grid-template-columns:auto minmax(170px,1fr);
+                         align-items:center;gap:8px;min-width:0; }
+  .era-select-control label { color:var(--ink2);font-size:.76rem;font-weight:800; }
+  .era-select-control select { width:100%;min-height:44px;padding:8px 34px 8px 10px;
+                            border:1px solid #b9aa97;border-radius:8px;background:#fffdf9;
+                            color:var(--ink2);font:700 .76rem/1.2 system-ui;cursor:pointer; }
+  .era-select-control select:disabled { cursor:not-allowed;opacity:.62; }
+  .era-select-control select:focus-visible { outline:3px solid #d08b45;outline-offset:2px; }
+  .era-select-bar .filter-status { margin:0; }
+  .president-era-explorer.is-timeline-view .chart { min-width:860px; }
+  .register-chart-scroll:focus-visible { outline:3px solid #d08b45;outline-offset:2px; }
+  .summary-register-noscript { margin:10px 0;padding:10px 12px;border-left:4px solid #8b5e34;
+                                background:#f5efe6;color:var(--ink2);font-size:.78rem; }
   .conflict-atlas { margin:20px 0 16px;border:1px solid var(--border);border-radius:16px;
                      background:#faf7f1;box-shadow:0 12px 32px rgba(48,42,31,.055);
                      overflow:clip; }
@@ -268,10 +292,11 @@
                                 font:680 clamp(1.35rem,2.5vw,1.9rem)/1.08 Georgia,serif; }
   .conflict-treatment { max-width:340px;padding:7px 9px;border:1px solid #d9c9b4;
                          border-radius:10px;background:#fff9ef; }
-  .conflict-treatment span,.conflict-treatment strong { display:block; }
+  .conflict-treatment span,.conflict-treatment strong,.conflict-treatment small { display:block; }
   .conflict-treatment span { color:#8b5e34;font-size:.58rem;font-weight:850;
                               letter-spacing:.08em;text-transform:uppercase; }
   .conflict-treatment strong { margin-top:2px;color:#5d5144;font-size:.65rem;line-height:1.25; }
+  .conflict-treatment small { margin-top:3px;color:var(--muted);font-size:.58rem;line-height:1.3; }
   .conflict-atlas-deck { max-width:960px;margin:0;padding:0 18px 10px;color:var(--ink2);
                           font-size:.75rem;line-height:1.45; }
   .conflict-atlas-deck span { margin-left:5px;color:var(--muted);font-size:.61rem;white-space:nowrap; }
@@ -398,25 +423,69 @@
                                                font-variant-numeric:tabular-nums;white-space:nowrap; }
   .conflict-denominator { margin:0;padding:0 14px 9px;color:var(--muted);font-size:.55rem;
                            font-weight:720;letter-spacing:.025em; }
+  .conflict-line-picker { display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+                           padding:0 14px 10px; }
+  .conflict-line-picker-label { color:var(--ink2);font-size:.63rem;font-weight:820;
+                                 letter-spacing:.02em; }
+  .conflict-line-buttons { display:flex;align-items:center;gap:4px;flex-wrap:wrap; }
+  .conflict-line-buttons button { display:inline-flex;align-items:center;gap:6px;min-height:44px;
+                                    padding:6px 9px;border:1px solid #cfc4b5;border-radius:7px;
+                                    background:#fffdf9;color:var(--ink2);font:750 .62rem/1 system-ui,sans-serif;
+                                    cursor:pointer; }
+  .conflict-line-buttons button:hover { border-color:#8d7d69;background:#f8f3eb; }
+  .conflict-line-buttons button:focus-visible { outline:3px solid #315f78;outline-offset:2px; }
+  .conflict-line-buttons button[aria-pressed="true"] { border-color:#274a5d;background:#e8f0f4;
+                                                         color:#17384a;box-shadow:inset 0 0 0 1px #274a5d; }
+  .conflict-line-buttons button span { display:block;width:20px;height:3px;border-radius:99px;
+                                        background:currentColor; }
+  .conflict-line-buttons [data-line-style="dash"] span { background:repeating-linear-gradient(90deg,currentColor 0 7px,transparent 7px 10px); }
+  .conflict-line-buttons [data-line-style="dot"] span { background:repeating-linear-gradient(90deg,currentColor 0 3px,transparent 3px 6px); }
+  .conflict-line-buttons [data-line-style="dashdot"] span { background:repeating-linear-gradient(90deg,currentColor 0 7px,transparent 7px 9px,currentColor 9px 11px,transparent 11px 14px); }
+  .conflict-line-buttons [data-line-style="longdash"] span { background:repeating-linear-gradient(90deg,currentColor 0 10px,transparent 10px 14px); }
+  .conflict-line-nation { color:#315f78 !important; }
+  .conflict-line-group { color:#4f7557 !important; }
+  .conflict-line-person { color:#a24f52 !important; }
+  .conflict-line-institution { color:#9a7133 !important; }
+  .conflict-line-other { color:#74695f !important; }
+  .conflict-line-status { flex:1 1 190px;color:var(--muted);font-size:.57rem;line-height:1.35; }
   .conflict-target-panel .chart-scroll,
   .conflict-portrait-panel .chart-scroll { margin:0;padding:4px 2px 0;border:0;
                                              border-top:1px solid #eee8df;border-radius:0;
                                              background:#fffdf9;overscroll-behavior-inline:contain; }
   .conflict-target-panel .chart { min-width:680px; }
   .conflict-portrait-panel .chart { min-width:640px; }
-  .conflict-target-table,.conflict-portrait-table { margin:10px 12px 14px; }
-  .conflict-category-guide { margin:12px;padding:12px;border:1px solid #ddd1c2;
-                              border-radius:10px;background:#f8f3eb;color:var(--ink2); }
-  .conflict-category-guide h5 { margin:0 0 9px;color:var(--ink);
-                                 font:680 .88rem/1.2 Georgia,serif; }
+  .conflict-category-guide { margin:12px;border:1px solid #ddd1c2;border-radius:10px;
+                              overflow:hidden;background:#f8f3eb;color:var(--ink2); }
+  .conflict-category-guide > summary { box-sizing:border-box;min-height:44px;padding:11px 12px;
+                                        color:var(--ink);cursor:pointer;
+                                        font:680 .88rem/1.35 Georgia,serif; }
+  .conflict-category-guide > summary::marker { color:#7b684f; }
+  .conflict-category-guide > summary:focus-visible { outline:3px solid #315f78;
+                                                      outline-offset:-3px; }
+  .conflict-category-guide[open] > summary { border-bottom:1px solid #ddd1c2; }
+  .conflict-category-guide-body { padding:12px; }
   .conflict-category-guide dl { display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
                                  gap:8px;margin:0; }
   .conflict-category-guide dl > div { padding:8px;border-left:3px solid #cabdad;
                                        background:#fffdf9; }
   .conflict-category-guide dt { color:var(--ink);font-size:.62rem;font-weight:850; }
   .conflict-category-guide dd { margin:3px 0 0;color:var(--ink2);font-size:.58rem;line-height:1.4; }
-  .conflict-category-guide > p { margin:10px 0 0;color:var(--muted);font-size:.58rem;
-                                  line-height:1.45; }
+  .conflict-category-guide-body > p { margin:10px 0 0;color:var(--muted);font-size:.58rem;
+                                       line-height:1.45; }
+  .conflict-portrait-border-key { display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;
+                                   margin:10px 12px;padding:9px 10px;border:1px solid #e0d7ca;
+                                   border-radius:9px;background:#fffdf9;color:var(--ink2); }
+  .conflict-portrait-border-key > strong { flex:0 0 auto;color:var(--ink);
+                                            font-size:.61rem; }
+  .conflict-portrait-border-key > div { display:flex;flex:1 1 360px;flex-wrap:wrap;
+                                         align-items:center;gap:5px 10px; }
+  .conflict-portrait-border-key span { display:inline-flex;align-items:center;gap:4px;
+                                        font-size:.56rem;font-weight:760;white-space:nowrap; }
+  .conflict-portrait-border-key i { display:block;width:12px;height:12px;box-sizing:border-box;
+                                     border:3px solid var(--portrait-border-color);
+                                     border-radius:50%;background:#fff; }
+  .conflict-portrait-border-key small { flex:1 1 100%;color:var(--muted);
+                                         font-size:.54rem;line-height:1.35; }
   .conflict-target-panel { --measure-color:#315f78; }
   .communication-mosaic-suite { display:grid;gap:28px;margin:24px 0 16px; }
   .communication-mosaic { min-width:0;padding:20px;border:1px solid var(--border);
@@ -2148,6 +2217,46 @@
                                   margin:8px 0;border-radius:0 9px 9px 0; }
   .naming-examples blockquote p { margin:0;font-size:.82rem; }
   .naming-examples cite { display:block;margin-top:6px;color:var(--muted);font-style:normal;font-size:.72rem; }
+  .summary-language-boundary { margin-top:38px;padding-top:26px;border-top:1px solid var(--border); }
+  .summary-language-boundary > h3,.summary-divisiveness > h3 { margin:4px 0 8px; }
+  .summary-language-boundary > p:not(.summary-language-kicker) { max-width:780px;color:var(--ink2); }
+  .summary-language-kicker { margin:0;color:#8b5e34;font-size:.7rem;font-weight:850;
+                              letter-spacing:.08em; }
+  .summary-language-stage { margin-top:16px;padding:15px;border:1px solid var(--border);
+                             border-radius:14px;background:#f8f5ef; }
+  .summary-language-stage .stage-status { margin-bottom:4px; }
+  .summary-language-stage .chart-scroll { background:var(--surface);border-radius:10px; }
+  .summary-line-status { margin:8px 2px 0;color:var(--muted);font-size:.72rem;line-height:1.4; }
+  .summary-language-takeaways { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+                                 gap:9px;margin:12px 0 16px; }
+  .summary-language-takeaways article { padding:11px 12px;border:1px solid var(--border);
+                                         border-radius:10px;background:var(--surface); }
+  .summary-language-takeaways strong,.summary-language-takeaways span { display:block; }
+  .summary-language-takeaways strong { color:var(--ink);font-size:.77rem; }
+  .summary-language-takeaways span { margin-top:4px;color:var(--muted);
+                                      font-size:.72rem;line-height:1.42; }
+  .summary-divisiveness { margin:34px 0 0;padding:22px;border:1px solid #cbb89f;
+                           border-radius:15px;background:#f4ede3; }
+  .summary-divisiveness-verdict { max-width:800px;margin:6px 0 17px;color:var(--ink2);
+                                   font-size:1rem;line-height:1.58; }
+  .summary-divisiveness-verdict strong { color:#6f4828; }
+  .summary-divisiveness-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+                                gap:10px; }
+  .summary-divisiveness-card { min-width:0;padding:14px;border:1px solid #d8cab8;
+                                border-radius:11px;background:var(--surface); }
+  .summary-divisiveness-card.is-strong { border-top:4px solid #315f78; }
+  .summary-divisiveness-card > p:first-child { margin:0 0 7px;color:#8b5e34;
+                                                font-size:.64rem;font-weight:850;
+                                                letter-spacing:.06em; }
+  .summary-divisiveness-card > strong { display:block;color:var(--ink);
+                                         font:700 2rem/1 Georgia,serif; }
+  .summary-divisiveness-card > strong small { color:var(--muted);font-size:.8rem; }
+  .summary-divisiveness-card h4 { margin:8px 0 6px;font-size:.86rem; }
+  .summary-divisiveness-card h4 + p { margin:0;color:var(--ink2);
+                                      font-size:.76rem;line-height:1.5; }
+  .summary-divisiveness-null { margin:13px 0 0;padding:11px 13px;border-left:4px solid #8b5e34;
+                                border-radius:0 8px 8px 0;background:#fffaf1;color:var(--ink2);
+                                font-size:.8rem;line-height:1.5; }
   header h1 { max-width:850px;font-size:clamp(2.7rem,7vw,5.7rem);line-height:.92;letter-spacing:-.055em; }
   .hero-subheadline { max-width:830px;margin:.85rem 0 0;color:#6f4828;
                        font:650 clamp(1.08rem,2.2vw,1.6rem)/1.25 Georgia,serif; }
@@ -2185,6 +2294,34 @@
   .reduced-motion .founding-governance-fill,
   .reduced-motion .founding-governance-president { transition:none; }
   @media (prefers-reduced-motion:reduce) { .scroll-cue::after{animation:none} .story-meter-fill{transition:none} .founding-governance-fill,.founding-governance-president{transition:none} .era-defined-combined-series,.era-defined-combined-line{transition:none} .js-motion .story-section{opacity:1;transform:none;transition:none} }
+  @media (forced-colors:active) {
+    .summary-register-bridge,.summary-register-sequence li,.era-select-bar{
+      border-color:CanvasText;background:Canvas;box-shadow:none;forced-color-adjust:auto}
+    .summary-register-kicker,.summary-register-sequence span,
+    .summary-register-sequence li + li::before{color:CanvasText}
+    .register-view-switch button{border-color:ButtonText;background:ButtonFace;color:ButtonText}
+    .register-view-switch button[aria-pressed="true"]{border-color:Highlight;background:Highlight;
+      color:HighlightText}
+    .register-view-switch button:focus-visible,.era-select-control select:focus-visible{
+      outline-color:Highlight}
+    .conflict-line-buttons button{border-color:ButtonText;background:ButtonFace;color:ButtonText!important}
+    .conflict-line-buttons button[aria-pressed="true"]{border-color:Highlight;background:Highlight;
+      color:HighlightText!important;box-shadow:none}
+    .conflict-line-buttons button:focus-visible{outline-color:Highlight}
+    .conflict-category-guide,.conflict-category-guide > summary{border-color:CanvasText;
+      background:Canvas;color:CanvasText}
+    .conflict-category-guide > summary::marker{color:CanvasText}
+    .conflict-category-guide > summary:focus-visible{outline-color:Highlight}
+    .conflict-portrait-border-key{border-color:CanvasText;background:Canvas;color:CanvasText}
+    .conflict-portrait-border-key i{border-color:CanvasText;background:Canvas}
+    .summary-language-stage,.summary-language-takeaways article,.summary-divisiveness,
+    .summary-divisiveness-card,.summary-divisiveness-null{border-color:CanvasText;
+      background:Canvas;color:CanvasText;box-shadow:none}
+  }
+  @media (max-width:960px) {
+    .era-select-bar.has-register-switch{grid-template-columns:auto minmax(270px,1fr)}
+    .era-select-bar.has-register-switch .filter-status{grid-column:1/-1}
+  }
   @media (max-width:960px) {
     .conflict-atlas-heading{grid-template-columns:minmax(0,1fr) minmax(230px,290px);
                              gap:10px;padding:14px 12px 9px}
@@ -2208,19 +2345,21 @@
     .summary-communication-panel > header > strong{justify-self:start;white-space:normal}
     .summary-communication-key{grid-template-columns:1fr 1fr}
     .summary-communication-panel .chart{min-width:820px}
-    .temporal-portrait-heading{grid-template-columns:1fr;padding-inline:14px}
-    .temporal-portrait-heading > strong{justify-self:start;white-space:normal}
+    .summary-register-bridge{padding:17px 15px}
+    .summary-register-sequence{grid-template-columns:1fr;gap:20px}
+    .summary-register-sequence li{min-height:58px}
+    .summary-register-sequence li + li::before{content:"↓";left:50%;top:-18px;
+      transform:translateX(-50%)}
+    .summary-language-stage .chart{min-width:760px}
+    .era-select-bar,.era-select-bar.has-register-switch{grid-template-columns:1fr;align-items:start}
+    .era-select-bar.has-register-switch .filter-status{grid-column:auto}
+    .register-view-switch{flex-wrap:wrap}
+    .era-select-control{grid-template-columns:1fr}
+    .era-select-control select{max-width:none}
+    .temporal-portrait-heading{padding-inline:14px}
     .temporal-denominator{padding-inline:14px}
-    .temporal-size-key{align-items:flex-start;flex-direction:column;margin-inline:14px}
-    .temporal-size-key > div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-                             width:100%;gap:8px}
-    .temporal-size-sample{min-width:0;align-items:center;flex-direction:column;
-                           gap:3px;text-align:center}
-    .temporal-size-sample small{white-space:normal}
     .summary-temporal-explorer{padding-inline:14px}
     .summary-temporal-explorer .chart-scroll{margin-inline:-14px}
-    .temporal-swipe-hint{display:block;padding-inline:14px}
-    .temporal-portrait-table{margin-inline:14px}
     .conflict-graph-heading{grid-template-columns:1fr;padding:14px 12px 9px}
     .conflict-graph-heading .conflict-treatment{max-width:none}
     .conflict-graph-deck{padding:0 12px 10px}
@@ -2238,6 +2377,7 @@
     .message-compare,.receipt-grid{grid-template-columns:1fr}
     .message-measures{grid-template-columns:1fr 1fr}
     .tradeoff-summary,.naming-method{grid-template-columns:1fr}
+    .summary-language-takeaways,.summary-divisiveness-grid{grid-template-columns:1fr}
     .naming-examples{grid-column:1}
     .era-choices{grid-template-columns:1fr 1fr}
     .inspector-row{grid-template-columns:minmax(0,1fr)}
@@ -2296,6 +2436,8 @@
     .conflict-atlas-heading{grid-template-columns:1fr}
     .conflict-treatment{max-width:none}
     .conflict-category-key,.conflict-target-key .conflict-category-key{grid-template-columns:1fr 1fr}
+    .conflict-line-picker{align-items:flex-start}
+    .conflict-line-picker-label,.conflict-line-status{flex-basis:100%}
     .conflict-graph-deck span{white-space:normal}
     .conflict-column-head,.conflict-era-list{min-width:610px}
     .conflict-column-head > span:first-child{position:sticky;left:0;z-index:3;
@@ -2335,12 +2477,14 @@
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
 align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
-color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+box-sizing:border-box;min-width:44px;min-height:44px;color:#172a38;text-decoration:none;font-weight:760;
+letter-spacing:-.015em;white-space:nowrap}
 .nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
 background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
 align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
 .nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
-min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+box-sizing:border-box;min-width:44px;min-height:44px;border:0;border-radius:8px;
+padding:7px 9px;background:transparent;
 color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
 white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
 .nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
@@ -2349,65 +2493,96 @@ background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6p
 border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
 transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
 .nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
-.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
-min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
-background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
-.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
-padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+.nav-submenu{position:absolute;top:100%;right:0;z-index:120;padding-top:7px}
+.nav-submenu-panel{display:grid;min-width:178px;padding:7px;
+border:1px solid rgba(11,11,11,.14);border-radius:11px;background:#fff;
+box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:flex;align-items:center;
+box-sizing:border-box;min-height:44px;border-radius:7px;padding:9px 10px;
+color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
 white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
-html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu,
+html:not(.nav-enhanced) .nav-group:focus-within>.nav-submenu{display:block!important}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
 .nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
 gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
-width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+width:100%;min-width:44px;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
 .nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
-</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story" aria-current="page">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="data-quality.html">Data Quality</a><a href="methodology.html">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+@media(forced-colors:active){.global-nav{background:Canvas;border-color:CanvasText;
+backdrop-filter:none}.nav-submenu-panel{background:Canvas;color:CanvasText;
+border:2px solid CanvasText;box-shadow:none}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger,.nav-submenu a:hover{background:Canvas;color:CanvasText;
+outline:1px solid currentColor}.nav-item>a[aria-current=page],
+.nav-group.nav-group-current>.nav-trigger,.nav-submenu a[aria-current=page]{
+background:Canvas;color:CanvasText;text-decoration:underline;text-decoration-thickness:3px;
+text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
+.nav-submenu a:focus-visible,.nav-brand:focus-visible{outline-color:Highlight}}
+</style><nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="index.html" data-nav-label="Story" aria-current="page">Story</a></div><div class="nav-item"><a href="summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><div class="nav-submenu-panel"><a href="presidents/index.html">Presidents</a><a href="issues/index.html">Issues</a></div></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><div class="nav-submenu-panel"><a href="data-quality.html">Data Quality</a><a href="methodology.html">Methods</a><a href="era-boundaries.html">Era Choices</a></div></div></div></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
   if (!nav || !nav.matches(".global-nav")) return;
-  document.documentElement.classList.add("nav-enhanced");
   const groups = [...nav.querySelectorAll(".nav-group")];
-  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
-  const close = (group, restoreFocus = false) => {
+  const hoverPointer = matchMedia("(any-hover: hover)");
+  let openGroup = null;
+  let openMode = null;
+  const sync = (group, isOpen) => {
     const trigger = group.querySelector(".nav-trigger");
     const submenu = group.querySelector(".nav-submenu");
-    trigger.setAttribute("aria-expanded", "false");
-    submenu.hidden = true;
-    group.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    submenu.hidden = !isOpen;
+    group.classList.toggle("is-open", isOpen);
+  };
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    if (openGroup === group) {
+      openGroup = null;
+      openMode = null;
+    }
+    sync(group, false);
     if (restoreFocus) trigger.focus();
   };
-  const closeOthers = active => groups.forEach(group => {
-    if (group !== active) close(group);
-  });
-  const open = group => {
-    closeOthers(group);
-    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
-    group.querySelector(".nav-submenu").hidden = false;
-    group.classList.add("is-open");
+  const open = (group, mode) => {
+    if (openGroup && openGroup !== group) sync(openGroup, false);
+    openGroup = group;
+    openMode = mode;
+    sync(group, true);
+  };
+  const activate = group => {
+    if (openGroup !== group) {
+      open(group, "pinned");
+      return;
+    }
+    if (openMode === "hover") {
+      openMode = "pinned";
+      sync(group, true);
+      return;
+    }
+    close(group);
   };
   groups.forEach(group => {
     const trigger = group.querySelector(".nav-trigger");
-    const toggle = () => {
-      if (trigger.getAttribute("aria-expanded") === "true") close(group);
-      else open(group);
-    };
-    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("click", () => activate(group));
     trigger.addEventListener("keydown", event => {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      toggle();
+      activate(group);
     });
-    group.addEventListener("pointerenter", () => {
-      if (finePointer.matches) open(group);
+    group.addEventListener("pointerenter", event => {
+      if (event.pointerType === "touch") return;
+      const canHover = event.pointerType === "mouse" ||
+        (event.pointerType === "pen" && hoverPointer.matches);
+      if (canHover && openGroup !== group) open(group, "hover");
     });
-    group.addEventListener("pointerleave", () => {
-      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    group.addEventListener("pointerleave", event => {
+      if (event.pointerType === "touch") return;
+      if (openGroup === group && openMode === "hover" &&
+          !group.contains(document.activeElement)) close(group);
     });
     group.addEventListener("focusout", () => setTimeout(() => {
       if (!group.contains(document.activeElement)) close(group);
@@ -2415,6 +2590,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
     group.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
       event.preventDefault();
+      event.stopPropagation();
       close(group, true);
     });
   });
@@ -2429,6 +2605,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
   if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
   else addEventListener("resize", setNavHeight);
 
+  document.documentElement.classList.add("nav-enhanced");
 })();
 </script>
 
@@ -4396,8 +4573,9 @@ anchors. Named presidential invocations only. This does not yet capture broader 
   Originally a 2019 Galvanize capstone, rebuilt in 2026.</p>
   <p><a href="methodology.html">Illustrated AI labeling methodology, complete taxonomy,
   prompts, agreement audit, and limitations →</a></p>
-  <p>Method note: timelines are 5-year centered rolling rates weighted by word count,
-  through April 2026. Points backed by under 20,000 words are not plotted - the corpus
+  <p>Method note: most timelines are 5-year centered rolling rates weighted by word count,
+  through April 2026, with points under 20,000 words omitted. The Tomorrow/Yesterday view
+  is a trailing four-year average of annual rates with a 10,000-word window floor. The corpus
   before ~1790 is a handful of speeches, and one personal inaugural should not set a
   national trend line. Dots are per president per year: 46 years have more than one
   president speaking, and the corpus files a few famous pre-presidency speeches
@@ -4416,11 +4594,195 @@ anchors. Named presidential invocations only. This does not yet capture broader 
   if (reduceMotion) document.documentElement.classList.add("reduced-motion");
   else document.documentElement.classList.add("js-motion");
   const plotted = new WeakSet();
+  function setupConflictTargetHighlight(chart) {
+    if (chart.dataset.conflictHighlightReady === "true") return;
+    const picker = document.querySelector("[data-conflict-line-picker]");
+    if (!picker) return;
+    const buttons = [...picker.querySelectorAll("[data-conflict-line]")];
+    const status = picker.querySelector(".conflict-line-status");
+    const figure = FIGS.summary_conflict_targets;
+    const keys = figure.data.map(trace => trace.meta).filter(Boolean);
+    const labels = new Map(figure.data.map(trace => [trace.meta, trace.name]));
+    const callouts = (figure.layout.annotations || []).map((annotation, index) => ({
+      index,
+      key: (annotation.name || "").replace("conflict-turn::", ""),
+    })).filter(item => keys.includes(item.key));
+    let pinned = "__all__";
+    chart.dataset.conflictHighlightReady = "true";
+
+    function applyHighlight(key) {
+      keys.forEach((traceKey, index) => {
+        const active = key === "__all__" || key === traceKey;
+        Plotly.restyle(chart, {
+          opacity: active ? 1 : .14,
+          "line.width": key === traceKey ? 4.5 : key === "__all__" ? 2.5 : 1.4,
+          "marker.line.width": key === traceKey ? 2 : 1.4,
+        }, [index]);
+      });
+      const annotationUpdate = {};
+      callouts.forEach(item => {
+        annotationUpdate[`annotations[${item.index}].opacity`] = (
+          key === "__all__" || key === item.key ? 1 : .26
+        );
+      });
+      Plotly.relayout(chart, annotationUpdate);
+    }
+    function syncPinnedState() {
+      buttons.forEach(button => {
+        button.setAttribute(
+          "aria-pressed", String(button.dataset.conflictLine === pinned)
+        );
+      });
+      if (status) status.textContent = pinned === "__all__"
+        ? "All five target lines emphasized. Hover a line or choose one to isolate it."
+        : `${labels.get(pinned)} highlighted; the other four lines remain visible at low emphasis. Choose All or press Escape to reset.`;
+      applyHighlight(pinned);
+    }
+    function setPinned(key) {
+      pinned = key === pinned && key !== "__all__" ? "__all__" : key;
+      syncPinnedState();
+    }
+    buttons.forEach(button => {
+      const key = button.dataset.conflictLine;
+      button.addEventListener("click", () => setPinned(key));
+      button.addEventListener("pointerenter", () => applyHighlight(key));
+      button.addEventListener("pointerleave", () => applyHighlight(pinned));
+      button.addEventListener("focus", () => applyHighlight(key));
+      button.addEventListener("blur", () => applyHighlight(pinned));
+    });
+    picker.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      pinned = "__all__";
+      syncPinnedState();
+    });
+    chart.on("plotly_hover", event => {
+      const point = event.points.find(item => keys.includes(item.data.meta));
+      if (point) applyHighlight(point.data.meta);
+    });
+    chart.on("plotly_unhover", () => applyHighlight(pinned));
+    chart.on("plotly_click", event => {
+      const point = event.points.find(item => keys.includes(item.data.meta));
+      if (point) setPinned(point.data.meta);
+    });
+    syncPinnedState();
+  }
+  function setupContainedPortraitHover(chart) {
+    if (chart.dataset.containedHoverReady === "true") return;
+    const scroller = chart.closest(".chart-scroll");
+    if (!scroller) return;
+    chart.dataset.containedHoverReady = "true";
+    function revealHoverLabel(point, attempt = 0) {
+      requestAnimationFrame(() => {
+        const label = chart.querySelector(".hoverlayer .hovertext");
+        if (!label) return;
+        const labelBounds = label.getBoundingClientRect();
+        const scrollBounds = scroller.getBoundingClientRect();
+        const inset = 8;
+        const rightOverflow = labelBounds.right - (scrollBounds.right - inset);
+        const leftOverflow = (scrollBounds.left + inset) - labelBounds.left;
+        let shifted = false;
+        if (rightOverflow > 0) {
+          scroller.scrollLeft += Math.ceil(rightOverflow);
+          shifted = true;
+        } else if (leftOverflow > 0) {
+          scroller.scrollLeft -= Math.ceil(leftOverflow);
+          shifted = true;
+        }
+        if (!shifted) return;
+        Plotly.Fx.hover(chart, [{
+          curveNumber: point.curveNumber,
+          pointNumber: point.pointNumber,
+        }]);
+        if (attempt < 3) revealHoverLabel(point, attempt + 1);
+      });
+    }
+    chart.on("plotly_click", event => {
+      const point = event.points?.[0];
+      if (point) revealHoverLabel(point);
+    });
+  }
+  const summaryLanguageFigures = new Set([
+    "naming_progressive", "summary_modals", "summary_pronouns",
+  ]);
+  const summaryLanguageBaseWidths = new Map(
+    [...summaryLanguageFigures].map(key => [
+      key,
+      Object.freeze(
+        (FIGS[key]?.data || []).map(trace => Number(trace.line?.width || 2.5))
+      ),
+    ])
+  );
+  function setupSummaryLanguageHighlight(chart) {
+    if (chart.dataset.summaryLanguageHighlightReady === "true") return;
+    chart.dataset.summaryLanguageHighlightReady = "true";
+    chart.tabIndex = 0;
+    let pinned = null;
+    const status = chart.closest(".summary-language-stage")
+      ?.querySelector(".summary-line-status");
+    function figure() { return FIGS[chart.dataset.fig]; }
+    function applyHighlight(activeIndex) {
+      const traces = figure()?.data || [];
+      const baseWidths = summaryLanguageBaseWidths.get(chart.dataset.fig) || [];
+      traces.forEach((trace, index) => {
+        const baseWidth = baseWidths[index] || 2.5;
+        const active = activeIndex == null || activeIndex === index;
+        Plotly.restyle(chart, {
+          opacity: active ? 1 : .14,
+          "line.width": activeIndex === index ? baseWidth + 2.2 : baseWidth,
+        }, [index]);
+      });
+    }
+    function restoreAll() {
+      pinned = null;
+      applyHighlight(null);
+      if (status) status.textContent = (
+        "Hover any line to highlight its full trajectory; click or tap to pin it, "
+        + "and press Escape to restore every line."
+      );
+    }
+    chart.on("plotly_hover", event => {
+      const point = event.points?.[0];
+      if (!point) return;
+      applyHighlight(point.curveNumber);
+      if (status) status.textContent = `${point.data.name} highlighted.`;
+    });
+    chart.on("plotly_unhover", () => {
+      if (pinned == null) restoreAll();
+      else applyHighlight(pinned);
+    });
+    chart.on("plotly_click", event => {
+      const point = event.points?.[0];
+      if (!point) return;
+      pinned = pinned === point.curveNumber ? null : point.curveNumber;
+      if (pinned == null) restoreAll();
+      else {
+        applyHighlight(pinned);
+        if (status) status.textContent = (
+          `${point.data.name} pinned; press Escape to restore every line.`
+        );
+      }
+    });
+    chart.addEventListener("keydown", event => {
+      if (event.key === "Escape") restoreAll();
+    });
+    chart.addEventListener("summary-language-reset", restoreAll);
+    restoreAll();
+  }
   function renderChart(el) {
     if (plotted.has(el)) return;
     const fig = FIGS[el.dataset.fig];
     Plotly.newPlot(el, fig.data, fig.layout,
-                   {displayModeBar: false, responsive: true});
+                   {displayModeBar: false, responsive: true}).then(() => {
+      if (el.dataset.fig === "summary_conflict_targets") {
+        setupConflictTargetHighlight(el);
+      }
+      if (el.dataset.fig === "summary_conflict_frame_portraits") {
+        setupContainedPortraitHover(el);
+      }
+      if (summaryLanguageFigures.has(el.dataset.fig)) {
+        setupSummaryLanguageHighlight(el);
+      }
+    });
     plotted.add(el);
   }
   const sections = [...document.querySelectorAll("main > section")];
@@ -4464,7 +4826,12 @@ anchors. Named presidential invocations only. This does not yet capture broader 
       if (plotted.has(chart)) {
         const fig = FIGS[keys[index]];
         Plotly.react(chart, fig.data, fig.layout,
-                     {displayModeBar:false,responsive:true});
+                     {displayModeBar:false,responsive:true}).then(() => {
+          if (summaryLanguageFigures.has(keys[index])) {
+            setupSummaryLanguageHighlight(chart);
+            chart.dispatchEvent(new CustomEvent("summary-language-reset"));
+          }
+        });
       }
     } else {
       container.querySelectorAll("[data-stage-panel]").forEach((panel, position) => {
@@ -4495,8 +4862,14 @@ anchors. Named presidential invocations only. This does not yet capture broader 
   });
   document.querySelectorAll(".president-era-explorer").forEach(explorer => {
     const figureKey = explorer.dataset.eraFigure;
+    const timelineFigureKey = explorer.dataset.registerTimelineFigure;
+    const timelineStatus = explorer.dataset.timelineStatus;
     const chart = explorer.querySelector("[data-fig]");
     const choices = [...explorer.querySelectorAll("[data-era-choice]")];
+    const eraSelect = explorer.querySelector("[data-era-select]");
+    const registerViewButtons = [
+      ...explorer.querySelectorAll("[data-register-view]")
+    ];
     const allButton = explorer.querySelector("[data-era-all]");
     const clearButton = explorer.querySelector("[data-era-clear]");
     const presetButtons = [...explorer.querySelectorAll("[data-era-preset]")];
@@ -4523,14 +4896,32 @@ anchors. Named presidential invocations only. This does not yet capture broader 
       item => Object.freeze({name:item.name || "", opacity:item.opacity ?? 1})
     ));
     function applyEraSelection() {
+      const timelineActive = registerViewButtons.some(
+        button => button.dataset.registerView === "timeline"
+          && button.getAttribute("aria-pressed") === "true"
+      );
+      if (timelineActive) {
+        if (status) status.textContent = timelineStatus;
+        return;
+      }
       renderChart(chart);
       if (!rows.length) {
         if (status) status.textContent = "No complete president points are available to highlight.";
         return;
       }
-      const selected = new Set(
-        choices.filter(choice => choice.checked).map(choice => choice.value)
-      );
+      const allEras = new Set(rows.map(row => row[3]));
+      let selected;
+      if (eraSelect) {
+        selected = eraSelect.value === "__all__"
+          ? allEras
+          : eraSelect.value === "__none__"
+            ? new Set()
+            : new Set([eraSelect.value]);
+      } else {
+        selected = new Set(
+          choices.filter(choice => choice.checked).map(choice => choice.value)
+        );
+      }
       const opacities = rows.map((row, index) =>
         selected.has(row[3]) ? baseOpacities[index] : .22);
       const widths = rows.map((row, index) =>
@@ -4554,14 +4945,61 @@ anchors. Named presidential invocations only. This does not yet capture broader 
         ) ? item.opacity : .18;
       });
       Plotly.relayout(chart, imageUpdates);
-      const labels = choices.filter(choice => choice.checked)
-        .map(choice => choice.value);
-      status.textContent = labels.length === choices.length
-        ? "All nine eras highlighted; all plotted presidents visible."
-        : labels.length
-          ? `${labels.join(", ")} highlighted; all other plotted presidents remain visible.`
+      if (eraSelect) {
+        const selectedLabel = eraSelect.selectedOptions[0]?.textContent || "Selected era";
+        status.textContent = eraSelect.value === "__all__"
+          ? "All nine eras emphasized."
+          : eraSelect.value === "__none__"
+            ? "All eras dimmed; every plotted president remains available for inspection."
+            : `${selectedLabel} emphasized; all other plotted presidents remain visible at low emphasis.`;
+      } else {
+        const labels = choices.filter(choice => choice.checked)
+          .map(choice => choice.value);
+        status.textContent = labels.length === choices.length
+          ? "All nine eras highlighted; all plotted presidents visible."
+          : labels.length
+            ? `${labels.join(", ")} highlighted; all other plotted presidents remain visible.`
           : "No era highlighted; every plotted president remains visible at low emphasis.";
+      }
     }
+    async function activateRegisterView(view) {
+      if (!timelineFigureKey || !registerViewButtons.length) return;
+      const isTimeline = view === "timeline";
+      registerViewButtons.forEach(button => {
+        button.setAttribute(
+          "aria-pressed", String(button.dataset.registerView === view)
+        );
+      });
+      if (eraSelect) eraSelect.disabled = isTimeline;
+      explorer.classList.toggle("is-timeline-view", isTimeline);
+      chart.dataset.fig = isTimeline ? timelineFigureKey : figureKey;
+      if (plotted.has(chart)) {
+        const figure = FIGS[chart.dataset.fig];
+        await Plotly.react(
+          chart, figure.data, figure.layout,
+          {displayModeBar:false,responsive:true}
+        );
+      } else {
+        renderChart(chart);
+      }
+      applyEraSelection();
+    }
+    registerViewButtons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        void activateRegisterView(button.dataset.registerView);
+      });
+      button.addEventListener("keydown", event => {
+        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        let target = index + (event.key === "ArrowRight" ? 1 : -1);
+        if (event.key === "Home") target = 0;
+        if (event.key === "End") target = registerViewButtons.length - 1;
+        target = (target + registerViewButtons.length) % registerViewButtons.length;
+        registerViewButtons[target].focus();
+        registerViewButtons[target].click();
+      });
+    });
+    eraSelect?.addEventListener("change", applyEraSelection);
     choices.forEach(choice => choice.addEventListener("change", applyEraSelection));
     presetButtons.forEach(button => button.addEventListener("click", () => {
       const wanted = new Set(button.dataset.eraPreset.split("||"));

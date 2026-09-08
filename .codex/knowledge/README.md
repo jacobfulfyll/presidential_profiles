@@ -6,8 +6,20 @@ as a flat required reading list.
 ## Final release program
 
 - [Active eight-workstream final release program](../../notes/final-release-program-v1.md)
+- [President Profiles and Navigation v1](../../notes/president-profiles-and-navigation-v1.md)
 - [Compare agenda visual system v1](../../notes/compare-agenda-visual-system-v1.md)
 - [Explore interaction and evidence v1](../../notes/explore-interaction-and-evidence-v1.md)
+
+## Data Trust redesign
+
+- [Data Trust redesign v1 contract, routes, artifacts, and acceptance](../../notes/data-trust-redesign-v1.md)
+- [Gated human-validity and measurement-invariance protocols](../../notes/data-trust-validation-protocols-v1.md)
+- [Deterministic Data Quality v2 audit](../../src/presidential_profiles/quality_audit.py)
+- [Era Boundaries v3 analysis](../../src/presidential_profiles/era_boundaries.py)
+- [Auditable Methods and grammar v2 publication](../../src/presidential_profiles/methodology_site.py)
+- [Model Comparison and Metric Dictionary appendices](../../src/presidential_profiles/trust_appendices.py)
+- [Execution-blocked protocol builder](../../src/presidential_profiles/validation_protocols.py)
+- [Executable five-page rendered acceptance audit](../../scripts/audit_data_trust_pages.mjs)
 
 ## Story Page V2
 

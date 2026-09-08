@@ -467,6 +467,13 @@ def test_initial_topic_counts_stable_colors_and_auto_clear_contract(
     assert "overflow-x:auto" in ISSUES_CSS
     assert ".chart-scroll>.chart{min-width:700px}" in ISSUES_CSS
     assert 'note.setAttribute("role", "status")' in ISSUES_JS
+    assert 'target?.querySelector(".chart-loading")?.remove()' in ISSUES_JS
+    assert ISSUES_JS.index("removeLoadingPlaceholder(broadTarget)") < ISSUES_JS.index(
+        "Plotly.newPlot("
+    )
+    assert ISSUES_JS.index("removeLoadingPlaceholder(fineTarget)") < ISSUES_JS.index(
+        "Plotly.react("
+    )
 
 
 def test_fine_exports_keep_partial_observed_edges_and_full_denominators(real_views):

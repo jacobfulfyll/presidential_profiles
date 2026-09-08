@@ -34,12 +34,14 @@
 backdrop-filter:blur(14px);border-bottom:1px solid rgba(11,11,11,.12)}
 .nav-shell{max-width:1120px;margin:0 auto;padding:8px 20px;display:flex;
 align-items:center;gap:20px}.nav-brand{display:flex;align-items:center;gap:9px;
-color:#172a38;text-decoration:none;font-weight:760;letter-spacing:-.015em;white-space:nowrap}
+box-sizing:border-box;min-width:44px;min-height:44px;color:#172a38;text-decoration:none;font-weight:760;
+letter-spacing:-.015em;white-space:nowrap}
 .nav-mark{display:grid;place-items:center;width:31px;height:31px;border-radius:9px;
 background:#172a38;color:#fff;font:700 15px Georgia,serif}.nav-links{display:flex;
 align-items:center;gap:3px;margin-left:auto;min-width:0}.nav-item{position:relative}
 .nav-item>a,.nav-trigger{display:flex;align-items:center;justify-content:center;gap:5px;
-min-height:34px;border:0;border-radius:8px;padding:7px 9px;background:transparent;
+box-sizing:border-box;min-width:44px;min-height:44px;border:0;border-radius:8px;
+padding:7px 9px;background:transparent;
 color:#53616c;text-decoration:none;font:620 .79rem/1 system-ui,sans-serif;
 white-space:nowrap;cursor:pointer}.nav-item>a:hover,.nav-trigger:hover,
 .nav-group.is-open>.nav-trigger{background:#ece7df;color:#172a38}
@@ -48,71 +50,102 @@ background:#172a38;color:#fff}.nav-trigger::after{content:"";width:6px;height:6p
 border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
 transform:translateY(-2px) rotate(45deg);transition:transform .16s ease}
 .nav-group.is-open>.nav-trigger::after{transform:translateY(1px) rotate(225deg)}
-.nav-submenu{position:absolute;top:calc(100% + 7px);right:0;z-index:120;display:grid;
-min-width:178px;padding:7px;border:1px solid rgba(11,11,11,.14);border-radius:11px;
-background:#fff;box-shadow:0 14px 34px rgba(23,42,56,.18)}
-.nav-submenu[hidden]{display:none}.nav-submenu a{display:block;border-radius:7px;
-padding:9px 10px;color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
+.nav-submenu{position:absolute;top:100%;right:0;z-index:120;padding-top:7px}
+.nav-submenu-panel{display:grid;min-width:178px;padding:7px;
+border:1px solid rgba(11,11,11,.14);border-radius:11px;background:#fff;
+box-shadow:0 14px 34px rgba(23,42,56,.18)}
+.nav-submenu[hidden]{display:none}.nav-submenu a{display:flex;align-items:center;
+box-sizing:border-box;min-height:44px;border-radius:7px;padding:9px 10px;
+color:#3f4d58;text-decoration:none;font-size:.8rem;font-weight:620;
 white-space:nowrap}.nav-submenu a:hover{background:#f1ede7;color:#172a38}
 .nav-submenu a[aria-current=page]{background:#e2ebf1;color:#172a38}
-html:not(.nav-enhanced) .nav-group:hover>.nav-submenu{display:grid}
+html:not(.nav-enhanced) .nav-group:hover>.nav-submenu,
+html:not(.nav-enhanced) .nav-group:focus-within>.nav-submenu{display:block!important}
 .nav-item>a:focus-visible,.nav-trigger:focus-visible,.nav-submenu a:focus-visible,
 .nav-brand:focus-visible{outline:3px solid #7a3d00;outline-offset:2px}
 .footer-feedback{margin-top:12px}.footer-feedback a{font-weight:650}
 @media(max-width:760px){.nav-shell{padding:7px 10px;gap:8px;align-items:flex-start}
 .nav-brand-label{display:none}.nav-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
 gap:2px;width:100%;margin-left:0}.nav-item{min-width:0}.nav-item>a,.nav-trigger{
-width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
+width:100%;min-width:44px;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:min(220px,calc(100vw - 20px))}
 .nav-group:nth-last-child(2) .nav-submenu{left:50%;right:auto;transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.nav-trigger::after{transition:none}}
+@media(forced-colors:active){.global-nav{background:Canvas;border-color:CanvasText;
+backdrop-filter:none}.nav-submenu-panel{background:Canvas;color:CanvasText;
+border:2px solid CanvasText;box-shadow:none}.nav-item>a:hover,.nav-trigger:hover,
+.nav-group.is-open>.nav-trigger,.nav-submenu a:hover{background:Canvas;color:CanvasText;
+outline:1px solid currentColor}.nav-item>a[aria-current=page],
+.nav-group.nav-group-current>.nav-trigger,.nav-submenu a[aria-current=page]{
+background:Canvas;color:CanvasText;text-decoration:underline;text-decoration-thickness:3px;
+text-underline-offset:4px}.nav-item>a:focus-visible,.nav-trigger:focus-visible,
+.nav-submenu a:focus-visible,.nav-brand:focus-visible{outline-color:Highlight}}
 </style>
 <link rel="stylesheet" href="../assets/issues-v2.css">
 <script src="../assets/plotly-3.0.1.min.js" defer></script>
 <script src="../assets/issues-v2.js" defer></script></head>
 <body class="issues-page" data-generated="issues-v2" data-issue-page data-issue-view="../data/issues/foreign-policy.json">
 <a class="skip-link" href="#main-content">Skip to issue evidence</a>
-<nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><a href="../presidents/index.html">Presidents</a><a href="../issues/index.html" aria-current="page">Issues</a></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></nav>
+<nav class="global-nav" aria-label="Primary"><div class="nav-shell"><a class="nav-brand" href="../index.html"><span class="nav-mark">P</span><span class="nav-brand-label">Presidential Profiles</span></a><div class="nav-links"><div class="nav-item"><a href="../index.html" data-nav-label="Story">Story</a></div><div class="nav-item"><a href="../summary.html" data-nav-label="Summary">Summary</a></div><div class="nav-item"><a href="../compare.html" data-nav-label="Compare">Compare</a></div><div class="nav-item"><a href="../explorer.html" data-nav-label="Explore">Explore</a></div><div class="nav-item nav-group nav-group-current" data-nav-label="Profiles"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-profiles">Profiles</button><div class="nav-submenu" id="nav-submenu-profiles" hidden><div class="nav-submenu-panel"><a href="../presidents/index.html">Presidents</a><a href="../issues/index.html" aria-current="page">Issues</a></div></div></div><div class="nav-item nav-group" data-nav-label="Data"><button class="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-submenu-data">Data</button><div class="nav-submenu" id="nav-submenu-data" hidden><div class="nav-submenu-panel"><a href="../data-quality.html">Data Quality</a><a href="../methodology.html">Methods</a><a href="../era-boundaries.html">Era Choices</a></div></div></div></div></div></nav>
 <script>
 (() => {
   const nav = document.currentScript.previousElementSibling;
   if (!nav || !nav.matches(".global-nav")) return;
-  document.documentElement.classList.add("nav-enhanced");
   const groups = [...nav.querySelectorAll(".nav-group")];
-  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
-  const close = (group, restoreFocus = false) => {
+  const hoverPointer = matchMedia("(any-hover: hover)");
+  let openGroup = null;
+  let openMode = null;
+  const sync = (group, isOpen) => {
     const trigger = group.querySelector(".nav-trigger");
     const submenu = group.querySelector(".nav-submenu");
-    trigger.setAttribute("aria-expanded", "false");
-    submenu.hidden = true;
-    group.classList.remove("is-open");
+    trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    submenu.hidden = !isOpen;
+    group.classList.toggle("is-open", isOpen);
+  };
+  const close = (group, restoreFocus = false) => {
+    const trigger = group.querySelector(".nav-trigger");
+    if (openGroup === group) {
+      openGroup = null;
+      openMode = null;
+    }
+    sync(group, false);
     if (restoreFocus) trigger.focus();
   };
-  const closeOthers = active => groups.forEach(group => {
-    if (group !== active) close(group);
-  });
-  const open = group => {
-    closeOthers(group);
-    group.querySelector(".nav-trigger").setAttribute("aria-expanded", "true");
-    group.querySelector(".nav-submenu").hidden = false;
-    group.classList.add("is-open");
+  const open = (group, mode) => {
+    if (openGroup && openGroup !== group) sync(openGroup, false);
+    openGroup = group;
+    openMode = mode;
+    sync(group, true);
+  };
+  const activate = group => {
+    if (openGroup !== group) {
+      open(group, "pinned");
+      return;
+    }
+    if (openMode === "hover") {
+      openMode = "pinned";
+      sync(group, true);
+      return;
+    }
+    close(group);
   };
   groups.forEach(group => {
     const trigger = group.querySelector(".nav-trigger");
-    const toggle = () => {
-      if (trigger.getAttribute("aria-expanded") === "true") close(group);
-      else open(group);
-    };
-    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("click", () => activate(group));
     trigger.addEventListener("keydown", event => {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      toggle();
+      activate(group);
     });
-    group.addEventListener("pointerenter", () => {
-      if (finePointer.matches) open(group);
+    group.addEventListener("pointerenter", event => {
+      if (event.pointerType === "touch") return;
+      const canHover = event.pointerType === "mouse" ||
+        (event.pointerType === "pen" && hoverPointer.matches);
+      if (canHover && openGroup !== group) open(group, "hover");
     });
-    group.addEventListener("pointerleave", () => {
-      if (finePointer.matches && !group.contains(document.activeElement)) close(group);
+    group.addEventListener("pointerleave", event => {
+      if (event.pointerType === "touch") return;
+      if (openGroup === group && openMode === "hover" &&
+          !group.contains(document.activeElement)) close(group);
     });
     group.addEventListener("focusout", () => setTimeout(() => {
       if (!group.contains(document.activeElement)) close(group);
@@ -120,6 +153,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
     group.addEventListener("keydown", event => {
       if (event.key !== "Escape") return;
       event.preventDefault();
+      event.stopPropagation();
       close(group, true);
     });
   });
@@ -134,6 +168,7 @@ width:100%;min-width:0;font-size:.72rem;padding:6px 4px}.nav-submenu{max-width:m
   if ("ResizeObserver" in window) new ResizeObserver(setNavHeight).observe(nav);
   else addEventListener("resize", setNavHeight);
 
+  document.documentElement.classList.add("nav-enhanced");
 })();
 </script>
 

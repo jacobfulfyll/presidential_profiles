@@ -1,10 +1,10 @@
-era,n_speeches,n_presidents,n_words
-Civil War & Reconstruction,120,8,504288
-Expansion,102,9,504986
-Post-Cold War,149,5,547936
-Progressives & Depression,129,7,601629
-The Cold War,263,9,943627
-The Gilded Age,84,6,430912
-The founding,73,4,117116
-The present era,82,3,384247
-War & New Deal,55,2,144525
+era_key,era_label,era_order,n_speeches,n_presidents,n_words
+founding,Establishing the republic,0,53,3,85989
+expansion,The continental republic,1,122,10,536113
+civil-war-reconstruction,Sectional crisis & constitutional rupture,2,84,6,386725
+gilded-age,Administrative-industrial order,3,156,9,871559
+progressives-depression,"Reform, world war & collapse",4,93,4,278545
+war-new-deal,"New Deal, world war & settlement",5,68,3,170732
+cold-war,Mature Cold War,6,192,8,694154
+post-cold-war,Conservative turn & always-on presidency,7,207,6,771202
+present,Platform-era intensification,8,82,3,384247

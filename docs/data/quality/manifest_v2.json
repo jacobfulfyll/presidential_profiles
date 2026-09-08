@@ -1,0 +1,781 @@
+{
+  "agreement_bootstrap": {
+    "algorithm": "multinomial speech-cluster resampling; all paragraphs and entities from a selected speech repeat together",
+    "cluster_unit": "doc_name (whole speeches)",
+    "confidence_percentiles": [
+      2.5,
+      97.5
+    ],
+    "draws": 2000,
+    "era_axis": "ERA_PROFILE_SPECS (approved Story eras)",
+    "seed": 20260908
+  },
+  "agreement_v1_validation": {
+    "canonical_topic_jaccard_raw_labels": 0.6776990609546035,
+    "checked_metrics": [
+      "audience:cohen_kappa",
+      "audience:exact_match",
+      "enemy_naming:cohen_kappa",
+      "entities:name_match_rate",
+      "entities:stance_agreement",
+      "medium:cohen_kappa",
+      "medium:exact_match",
+      "party_attack:cohen_kappa",
+      "proposal_values:exact_match",
+      "speech_type:cohen_kappa",
+      "speech_type:exact_match",
+      "topics:raw_jaccard",
+      "zero_sum:cohen_kappa"
+    ],
+    "published_topic_jaccard_normalized_labels": 0.7044512974384619,
+    "status": "passed",
+    "topic_difference_reason": "case normalization and within-paragraph deduplication"
+  },
+  "annotation_runs": [
+    {
+      "manifest_sha256": "sha256:5fce97acc244a0b5231a674c3dd06357d41e64abb0d1f07063214267f1842ce2",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "speech_annotations=sha256:450c667db92e324c1a1455914dd17528a999c88d3e32989e0d32fb3a0a7e95f1",
+      "prompt_version": "speech_annotations=speech-factual/v1",
+      "run_id": "factual-full-20260720"
+    },
+    {
+      "manifest_sha256": "sha256:633bc4d8ad27142bc77cd131239cce0ad6d8eeef2b0bdb40f212ba647e2ec4e8",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "speech_annotations=sha256:450c667db92e324c1a1455914dd17528a999c88d3e32989e0d32fb3a0a7e95f1",
+      "prompt_version": "speech_annotations=speech-factual/v1",
+      "run_id": "factual-r2-20260720"
+    },
+    {
+      "manifest_sha256": "sha256:56bf9c29ac886d489b89627e3a66d454a64bd3779c48f4a78ac567692d010edd",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-chunk1-20260720"
+    },
+    {
+      "manifest_sha256": "sha256:b6f0fac3121dcd5b753d932f9be2b29fa24a46b85d1db10d9ea3c4e5bb7ecf2f",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-chunk10-20260720"
+    },
+    {
+      "manifest_sha256": "sha256:5d87abf71dfbe16cf4da64faf2b3747a72e0d428344cdde2adedab95565a37e6",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-chunk25-20260720"
+    },
+    {
+      "manifest_sha256": "sha256:64242690fbc78fe732df39e7b86b104ca6d8ee47446e166a1695a015d521979b",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-chunk5-20260720"
+    },
+    {
+      "manifest_sha256": "sha256:ec28a495b76a0a6ed603d574187e93afef6b0827be4a8d6f59649d7b1138596d",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-full-20260720"
+    },
+    {
+      "manifest_sha256": "sha256:5eb75f6a22a7ab1fc7d69aec1dc247b39dbae71a9b210bcb2ef95f331ac7fc9c",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "judgment-r2-20260720"
+    },
+    {
+      "manifest_sha256": "sha256:71d59ac667d9724fd48f3a3dcf83b1eb7b2c89a25ca5a9882abdc82756c897a9",
+      "model": "claude-opus-4-8",
+      "prompt_hash": "speech_annotations=sha256:450c667db92e324c1a1455914dd17528a999c88d3e32989e0d32fb3a0a7e95f1",
+      "prompt_version": "speech_annotations=speech-factual/v1",
+      "run_id": "opus-factual-20260721"
+    },
+    {
+      "manifest_sha256": "sha256:6fc7ebdb8b7299a25bf174b859877713a38efca533414c9af55df89dee3f40ad",
+      "model": "claude-opus-4-8",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "opus-judgment-20260721"
+    },
+    {
+      "manifest_sha256": "sha256:c4eb6883c92ee1be1c12215e9aa1ff07b08cf8a34e7545f3a7903462e426dc83",
+      "model": "claude-opus-4-8",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1",
+      "run_id": "opus-judgment-r2-20260722"
+    },
+    {
+      "manifest_sha256": "sha256:deee0289cdbe50de639ad211ed620cde07b64a328fbda673ceb1015af7a9dbfb",
+      "model": "claude-sonnet-5",
+      "prompt_hash": "paragraph_annotations=sha256:6fa617391761c6b7b0e934e3a4782aa28d259d15678e4e4e4665c8b2d93ecdfe,speech_annotations=sha256:450c667db92e324c1a1455914dd17528a999c88d3e32989e0d32fb3a0a7e95f1",
+      "prompt_version": "paragraph_annotations=paragraph-judgment/v1,speech_annotations=speech-factual/v1",
+      "run_id": "pilot-v2-20260720"
+    }
+  ],
+  "artifacts": {
+    "agreement_by_field_and_era.csv": {
+      "bytes": 23146,
+      "rows": 130,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:9a7323954e0189dbe734be54af6bffaad8b4f5da84d8aad0b4b7e4335e70767a"
+    },
+    "entity_case_examples.csv": {
+      "bytes": 3910,
+      "rows": 3,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:0d10544b27f0ec8612c1e5efa2064f4d858d95e47e266155f00b89d1e95eefa9"
+    },
+    "entity_name_agreement.csv": {
+      "bytes": 1245485,
+      "rows": 8570,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:db6d801d781cf5e25b2aa80937c9fbbddbb30dc443fb6b44e4ae496c10553876"
+    },
+    "entity_stance_matches.csv": {
+      "bytes": 542542,
+      "rows": 4147,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:1e8a08029664c4358bb2d80bd790e06e2631132e5166a51386e8835ce2e006a7"
+    },
+    "era_coverage.csv": {
+      "bytes": 590,
+      "rows": 9,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:088bd9eb84008766c3e64e3a8950d3273020deff593a96452b220a4e9c2163fb"
+    },
+    "population_ledger.csv": {
+      "bytes": 1436,
+      "rows": 12,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:ab47accc2722468336d2cdc64cc0f9964d7251c2921cf1103b4d42840ca9f190"
+    },
+    "president_alias_examples.csv": {
+      "bytes": 5761,
+      "rows": 198,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:41475321f2208e8430ce2963c37a49940e42157890f7ac4c91e84e2efb204409"
+    },
+    "president_coverage.csv": {
+      "bytes": 1140,
+      "rows": 45,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:f36c00568943283f73e615576bea08f40bc81508d2f5dfe295fc0f12ccda7342"
+    },
+    "public_chart_treatments.csv": {
+      "bytes": 1859,
+      "rows": 9,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:5d3b75972cd4e2c133d3dcef1342d0302206fa7f09d8dd009d04304cfd10db16"
+    },
+    "second_model_by_era.csv": {
+      "bytes": 800,
+      "rows": 9,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:d5384a0319dbe6e96fae5079f4c91cfad3174eb247e0608374e427d1089dc236"
+    },
+    "second_model_by_speech.csv": {
+      "bytes": 58347,
+      "rows": 266,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:493ed4658b497b61d8c040ba05ec09a9131d8d24a4493d51a44a1615ef2a7e75"
+    },
+    "taxonomy_label_behavior.csv": {
+      "bytes": 861,
+      "rows": 9,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:308af8ecc0c66ac287d6318bb5d1994e9ffefe5fa2d3b5f670ef0cd54b2f2640"
+    },
+    "uncertainty_decomposition.csv": {
+      "bytes": 442,
+      "rows": 2,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:5a11e2ccaaae138df8297cb9524097d65e7ddf7eb35bb1c4c919c3e6fdeb43bf"
+    },
+    "zero_sum_by_era.csv": {
+      "bytes": 1214,
+      "rows": 10,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:76583aa47a12f02a1b39ccc5fefeb8d9b9b6ce4266ac77a3b5cbc4e3b1348caf"
+    },
+    "zero_sum_confusion.csv": {
+      "bytes": 163,
+      "rows": 4,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:ccd29a29260c121862f96e538e592038c2bbe79fc74673a8108e9f8ce21c9803"
+    },
+    "zero_sum_disagreement_excerpts.csv": {
+      "bytes": 408560,
+      "rows": 482,
+      "schema_version": "data-quality-v2",
+      "sha256": "sha256:1682ea4d844980dd4465deb3727131269930e7f5b1846c9d530ce774b3dc482a"
+    }
+  },
+  "bands_contract": {
+    "cross_surface_comparison": "prohibited_different_temporal_grains",
+    "metadata_sha256": "sha256:5f3dd91dadb4c3219a3961789d31d8fd2ef8882cb9383ac6eb146351488affa4",
+    "surfaces": {
+      "corex_issues": {
+        "annotator_disagreement": "NOT APPLICABLE \u2014 the CorEx pipeline contains no LLM annotator, so there is no annotator whose disagreement could widen these intervals. This is not a missing component awaiting a dependency.",
+        "ci_components": "sampling_only",
+        "grain": "5-year periods",
+        "labels": "CorEx anchored topic model (issues.py, seed=42)"
+      },
+      "llm_topics": {
+        "annotator_disagreement": {
+          "agreement_v1_parquet": "deliberately NOT read: its topic metric is a jaccard with no conversion to percentage points of share, and it is keyed on the ERA_SPAN sampling axis",
+          "caveats": {
+            "deflating": "the band is centred on the PRIMARY annotator's point estimate and moves by half the gap between the two, so it reaches halfway toward the secondary annotator's estimate and never covers it; an envelope containing both readings would use the full |difference|",
+            "inflating": "the paired subsample's own sampling noise is included in the observed difference, so the half-width leans high \u2014 the safe direction for a band, and not corrected for",
+            "transfer_assumption": "the paired set is a DOCUMENT-level sample: 262 speeches (of the 266 agreement_sample_v1.json drew; agreement.py::_load_joined restricts to sample_docs), holding 8570 of the corpus's 36229 paragraphs \u2014 23.7%. Its disagreement is assumed to transfer to the full-corpus era intervals it widens; within-speech clustering is not modelled in the half-width, only in the sampling bootstrap. `bands.paired_coverage()` recomputes every figure in this sentence."
+          },
+          "definition": "|share_primary - share_secondary| / 2 over the paragraphs both annotators labeled",
+          "era_axis": "measured directly on trends.ERAS \u2014 no cross-axis mapping from taxonomy.ERA_SPAN is performed",
+          "min_paired_paragraphs": 50,
+          "rows_total": 450,
+          "rows_with_component_applied": 450,
+          "source": "paragraph_annotations.parquet vs paragraph_annotations__opus4-8.parquet"
+        },
+        "grain": "trends.ERAS (9 named eras)",
+        "labels": "paragraph_annotations.topics (level2 of taxonomy_v1)",
+        "sampling_source": "attention.bootstrap_era_shares (reused, not re-derived)",
+        "treatment": "raw"
+      }
+    }
+  },
+  "contract_version": "data-quality-v2",
+  "generation_status": "deterministic_local_no_api_calls",
+  "human_validity_status": "not_measured",
+  "metadata_sha256": "sha256:fc31fe6cda1922c831078fa9d9b1457362ca753c17120659c879449051f09a57",
+  "populations": {
+    "affected_speeches": 28,
+    "cross_owner_paragraphs": 296,
+    "eligible_paragraphs": 32531,
+    "excluded_paragraphs": 2863,
+    "missing": 478,
+    "paired": 8570,
+    "retained_documents": 1053,
+    "retained_paragraphs": 35394,
+    "sampled": 9048,
+    "source_documents": 1057,
+    "source_paragraphs": 36229,
+    "speaker_appearances": 1054
+  },
+  "schema_version": "data-quality-public-manifest-v2",
+  "source_artifacts": {
+    "agreement_metrics": {
+      "bytes": 5651,
+      "path": "data/llm_annotations/agreement_v1.parquet",
+      "sha256": "sha256:9e6ecd6474e9da9e315c98f7201a5f47969866c69183d9e5efa1278126770970"
+    },
+    "agreement_sample": {
+      "bytes": 75703,
+      "path": "data/llm_annotations/agreement_sample_v1.json",
+      "sha256": "sha256:7cd0ad5c107e5f2f1b7b57c6bf02d5848b766f5455474fe898cf1d805df0a363"
+    },
+    "bands": {
+      "bytes": 85393,
+      "path": "data/bands.parquet",
+      "sha256": "sha256:1683189dd85f787111a02169ddaf407cd666ca07291c1aaf335d45f55f61d011"
+    },
+    "bands_metadata": {
+      "bytes": 7098,
+      "path": "data/bands_meta.json",
+      "sha256": "sha256:5f3dd91dadb4c3219a3961789d31d8fd2ef8882cb9383ac6eb146351488affa4"
+    },
+    "paragraphs": {
+      "bytes": 13515945,
+      "path": "data/paragraphs.parquet",
+      "sha256": "sha256:7f647adbde21bedb8ffa9ef65b2e5a14e87ebddf8918febe511992700264e4d3"
+    },
+    "primary_entities": {
+      "bytes": 203439,
+      "path": "data/llm_annotations/paragraph_entities.parquet",
+      "sha256": "sha256:ade6e4f03c7ff2c1806a365b3a7feeed752ec9e64e1d3e0edb8192d89fee67ff"
+    },
+    "primary_paragraph_annotations": {
+      "bytes": 111862,
+      "path": "data/llm_annotations/paragraph_annotations.parquet",
+      "sha256": "sha256:52ff6e8a90188f001241ffb3ac96046b019dd70d7b6b3cfa9954d3d60c9a4227"
+    },
+    "primary_speech_annotations": {
+      "bytes": 30778,
+      "path": "data/llm_annotations/speech_annotations.parquet",
+      "sha256": "sha256:d16c8b11d4ea3f3ecf3f5b92f73b993149b8d1c33c306ec5bada5c9c64607bf8"
+    },
+    "second_entities": {
+      "bytes": 50636,
+      "path": "data/llm_annotations/paragraph_entities__opus4-8.parquet",
+      "sha256": "sha256:c518e47022a716a785d0f9ad9d19c4920ec2cb75c8115ebf8ea050ac1df14ccf"
+    },
+    "second_paragraph_annotations": {
+      "bytes": 33607,
+      "path": "data/llm_annotations/paragraph_annotations__opus4-8.parquet",
+      "sha256": "sha256:f7456d8a1aa13cb905cfa8f2947de2d62f56ba1de43939e241ba106629634f44"
+    },
+    "second_speech_annotations": {
+      "bytes": 11471,
+      "path": "data/llm_annotations/speech_annotations__opus4-8.parquet",
+      "sha256": "sha256:c92d05747255d2788e7f0a21d16cd216b59a9920e730c80c4a8d367866e85eb7"
+    },
+    "speaker_appearances": {
+      "bytes": 12580934,
+      "path": "data/speaker_views/appearances_v1.parquet",
+      "sha256": "sha256:1bc3545e09fa6b70d18ffe4aa7578003d5c29f96c12b10f2b66b1fdcb199bbab"
+    },
+    "speaker_metadata": {
+      "bytes": 8519,
+      "path": "data/speaker_views/meta_v1.json",
+      "sha256": "sha256:43fef3a450bcb5984b017a5792c5f71ba9e6e55520e30cf209858ea21ede5081"
+    },
+    "speaker_paragraph_view": {
+      "bytes": 15947914,
+      "path": "data/speaker_views/paragraph_view_v1.parquet",
+      "sha256": "sha256:e12788604ce6d6c8513daf5834d13b0f3115763466a89952b1fb3bbafed65472"
+    },
+    "speeches": {
+      "bytes": 13488375,
+      "path": "data/speeches.parquet",
+      "sha256": "sha256:065c24997b03483a1fc7bc689144699a505b627ab95ab1eb79d02c54f86348b5"
+    },
+    "taxonomy": {
+      "bytes": 240083,
+      "path": "data/llm_annotations/taxonomy_v1.json",
+      "sha256": "sha256:042fc959a64108cfa426e8463b72e2e56a66944cb32460173f711a668cc440dd"
+    }
+  },
+  "speaker_contract": {
+    "metadata_sha256": "sha256:bb832b96598bc71851d206720427ef13e9f10e8f83a0fcaf60128a8b5032f6f1",
+    "schema_version": "speaker-reference-foundation-v1"
+  },
+  "table_schemas": {
+    "agreement_by_field_and_era.csv": {
+      "columns": [
+        "field",
+        "metric",
+        "era_key",
+        "era_label",
+        "era_order",
+        "value",
+        "ci_low",
+        "ci_high",
+        "n_units",
+        "support_unit",
+        "n_paragraphs",
+        "n_speeches",
+        "prevalence_primary",
+        "prevalence_second",
+        "interval_status"
+      ],
+      "dtypes": {
+        "ci_high": "float64",
+        "ci_low": "float64",
+        "era_key": "str",
+        "era_label": "str",
+        "era_order": "int64",
+        "field": "str",
+        "interval_status": "str",
+        "metric": "str",
+        "n_paragraphs": "float64",
+        "n_speeches": "int64",
+        "n_units": "int64",
+        "prevalence_primary": "float64",
+        "prevalence_second": "float64",
+        "support_unit": "str",
+        "value": "float64"
+      },
+      "semantic_key": [
+        "field",
+        "metric",
+        "era_key"
+      ]
+    },
+    "entity_case_examples.csv": {
+      "columns": [
+        "case_id",
+        "case_kind",
+        "doc_name",
+        "para_idx",
+        "president",
+        "year",
+        "era_key",
+        "era_label",
+        "entity_primary",
+        "entity_second",
+        "entity_normalized",
+        "stance_primary",
+        "stance_second",
+        "text",
+        "interpretation_status"
+      ],
+      "dtypes": {
+        "case_id": "str",
+        "case_kind": "str",
+        "doc_name": "str",
+        "entity_normalized": "str",
+        "entity_primary": "str",
+        "entity_second": "str",
+        "era_key": "str",
+        "era_label": "str",
+        "interpretation_status": "str",
+        "para_idx": "int64",
+        "president": "str",
+        "stance_primary": "str",
+        "stance_second": "str",
+        "text": "str",
+        "year": "int32"
+      },
+      "semantic_key": [
+        "case_id"
+      ]
+    },
+    "entity_name_agreement.csv": {
+      "columns": [
+        "doc_name",
+        "para_idx",
+        "jaccard",
+        "entity_bearing",
+        "primary_only",
+        "second_only",
+        "matched",
+        "era_key",
+        "era_label",
+        "era_order"
+      ],
+      "dtypes": {
+        "doc_name": "str",
+        "entity_bearing": "bool",
+        "era_key": "object",
+        "era_label": "object",
+        "era_order": "int64",
+        "jaccard": "float64",
+        "matched": "int64",
+        "para_idx": "int64",
+        "primary_only": "int64",
+        "second_only": "int64"
+      },
+      "semantic_key": [
+        "doc_name",
+        "para_idx"
+      ]
+    },
+    "entity_stance_matches.csv": {
+      "columns": [
+        "doc_name",
+        "para_idx",
+        "entity_normalized",
+        "primary_present",
+        "second_present",
+        "stance_primary",
+        "stance_second",
+        "stance_agrees"
+      ],
+      "dtypes": {
+        "doc_name": "str",
+        "entity_normalized": "str",
+        "para_idx": "int64",
+        "primary_present": "bool",
+        "second_present": "bool",
+        "stance_agrees": "bool",
+        "stance_primary": "str",
+        "stance_second": "str"
+      },
+      "semantic_key": [
+        "doc_name",
+        "para_idx",
+        "entity_normalized"
+      ]
+    },
+    "era_coverage.csv": {
+      "columns": [
+        "era_key",
+        "era_label",
+        "era_order",
+        "n_speeches",
+        "n_presidents",
+        "n_words"
+      ],
+      "dtypes": {
+        "era_key": "str",
+        "era_label": "str",
+        "era_order": "int64",
+        "n_presidents": "int64",
+        "n_speeches": "int64",
+        "n_words": "int64"
+      },
+      "semantic_key": [
+        "era_key"
+      ]
+    },
+    "population_ledger.csv": {
+      "columns": [
+        "population_id",
+        "label",
+        "unit",
+        "count",
+        "definition"
+      ],
+      "dtypes": {
+        "count": "int64",
+        "definition": "str",
+        "label": "str",
+        "population_id": "str",
+        "unit": "str"
+      },
+      "semantic_key": [
+        "population_id"
+      ]
+    },
+    "president_alias_examples.csv": {
+      "columns": [
+        "canonical_president",
+        "alias"
+      ],
+      "dtypes": {
+        "alias": "str",
+        "canonical_president": "str"
+      },
+      "semantic_key": [
+        "canonical_president",
+        "alias"
+      ]
+    },
+    "president_coverage.csv": {
+      "columns": [
+        "president",
+        "n_speeches",
+        "thin_record"
+      ],
+      "dtypes": {
+        "n_speeches": "int64",
+        "president": "str",
+        "thin_record": "bool"
+      },
+      "semantic_key": [
+        "president"
+      ]
+    },
+    "public_chart_treatments.csv": {
+      "columns": [
+        "chart_id",
+        "claim",
+        "denominator",
+        "treatment",
+        "statistical_status",
+        "limitation"
+      ],
+      "dtypes": {
+        "chart_id": "str",
+        "claim": "str",
+        "denominator": "str",
+        "limitation": "str",
+        "statistical_status": "str",
+        "treatment": "str"
+      },
+      "semantic_key": [
+        "chart_id"
+      ]
+    },
+    "second_model_by_era.csv": {
+      "columns": [
+        "era_key",
+        "era_label",
+        "era_order",
+        "expected_paragraphs",
+        "completed_paragraphs",
+        "missing_paragraphs",
+        "completion_rate"
+      ],
+      "dtypes": {
+        "completed_paragraphs": "int64",
+        "completion_rate": "float64",
+        "era_key": "str",
+        "era_label": "str",
+        "era_order": "int64",
+        "expected_paragraphs": "int64",
+        "missing_paragraphs": "int64"
+      },
+      "semantic_key": [
+        "era_key"
+      ]
+    },
+    "second_model_by_speech.csv": {
+      "columns": [
+        "doc_name",
+        "president",
+        "year",
+        "era_key",
+        "era_label",
+        "era_order",
+        "title",
+        "expected_paragraphs",
+        "completed_paragraphs",
+        "missing_paragraphs",
+        "completion_rate"
+      ],
+      "dtypes": {
+        "completed_paragraphs": "int64",
+        "completion_rate": "float64",
+        "doc_name": "str",
+        "era_key": "str",
+        "era_label": "str",
+        "era_order": "int64",
+        "expected_paragraphs": "int64",
+        "missing_paragraphs": "int64",
+        "president": "str",
+        "title": "str",
+        "year": "int32"
+      },
+      "semantic_key": [
+        "doc_name"
+      ]
+    },
+    "taxonomy_label_behavior.csv": {
+      "columns": [
+        "era_key",
+        "era_label",
+        "era_order",
+        "n_paragraphs",
+        "unlabeled_paragraphs",
+        "multi_label_paragraphs",
+        "normalized_assignments",
+        "mean_labels"
+      ],
+      "dtypes": {
+        "era_key": "str",
+        "era_label": "str",
+        "era_order": "int64",
+        "mean_labels": "float64",
+        "multi_label_paragraphs": "int64",
+        "n_paragraphs": "int64",
+        "normalized_assignments": "int64",
+        "unlabeled_paragraphs": "int64"
+      },
+      "semantic_key": [
+        "era_key"
+      ]
+    },
+    "uncertainty_decomposition.csv": {
+      "columns": [
+        "surface",
+        "period_kind",
+        "ci_components",
+        "disagreement_status",
+        "n_cells",
+        "n_resolved_sampling",
+        "n_resolved_combined",
+        "mean_sampling_width_pp",
+        "mean_combined_width_pp",
+        "mean_disagreement_half_width_pp"
+      ],
+      "dtypes": {
+        "ci_components": "str",
+        "disagreement_status": "str",
+        "mean_combined_width_pp": "float64",
+        "mean_disagreement_half_width_pp": "float64",
+        "mean_sampling_width_pp": "float64",
+        "n_cells": "int64",
+        "n_resolved_combined": "int64",
+        "n_resolved_sampling": "int64",
+        "period_kind": "str",
+        "surface": "str"
+      },
+      "semantic_key": [
+        "surface",
+        "period_kind",
+        "ci_components",
+        "disagreement_status"
+      ]
+    },
+    "zero_sum_by_era.csv": {
+      "columns": [
+        "era_key",
+        "era_label",
+        "era_order",
+        "n",
+        "n_speeches",
+        "primary_positive_rate",
+        "second_positive_rate",
+        "kappa"
+      ],
+      "dtypes": {
+        "era_key": "str",
+        "era_label": "str",
+        "era_order": "int64",
+        "kappa": "float64",
+        "n": "int64",
+        "n_speeches": "int64",
+        "primary_positive_rate": "float64",
+        "second_positive_rate": "float64"
+      },
+      "semantic_key": [
+        "era_key"
+      ]
+    },
+    "zero_sum_confusion.csv": {
+      "columns": [
+        "primary",
+        "second",
+        "n",
+        "row_percent"
+      ],
+      "dtypes": {
+        "n": "int64",
+        "primary": "bool",
+        "row_percent": "float64",
+        "second": "bool"
+      },
+      "semantic_key": [
+        "primary",
+        "second"
+      ]
+    },
+    "zero_sum_disagreement_excerpts.csv": {
+      "columns": [
+        "doc_name",
+        "para_idx",
+        "president",
+        "year",
+        "era_key",
+        "era_label",
+        "zero_sum_primary",
+        "zero_sum_second",
+        "text"
+      ],
+      "dtypes": {
+        "doc_name": "str",
+        "era_key": "object",
+        "era_label": "object",
+        "para_idx": "int64",
+        "president": "str",
+        "text": "str",
+        "year": "int32",
+        "zero_sum_primary": "bool",
+        "zero_sum_second": "bool"
+      },
+      "semantic_key": [
+        "doc_name",
+        "para_idx"
+      ]
+    }
+  },
+  "units": {
+    "agreement": "proportion_0_to_1",
+    "completion_rate": "proportion_0_to_1",
+    "prevalence": "proportion_0_to_1",
+    "uncertainty_width": "percentage_points"
+  },
+  "validations": {
+    "canonical_agreement": "passed",
+    "chronological_story_eras": "passed",
+    "finite_nonnegative_uncertainty_widths": "passed",
+    "headline_regression": "passed",
+    "paired_entity_population": "passed",
+    "paragraph_key_set": "passed",
+    "speaker_artifact_hashes": "passed"
+  }
+}

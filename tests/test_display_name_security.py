@@ -3,8 +3,8 @@
 Sink inventory:
 
 * issue page title, heading, prose, and issue-index card: escaped HTML text;
-* profile issue card and president-index badge: escaped HTML text;
-* dashboard/profile Plotly bundles and comparison payload: script-safe JSON;
+* profile issue card: escaped HTML text; the directory has no legacy issue badge;
+* dashboard Plotly bundles and comparison payload: script-safe JSON;
 * issue-page Plotly bundle: Plotly's direct ``to_json`` escaping;
 * Explorer chip labels and comparison issue labels: DOM ``textContent`` /
   ``createTextNode`` construction;
@@ -170,7 +170,18 @@ def test_profile_cards_and_index_escape_every_issue_label(monkeypatch):
     assert HOSTILE not in cards
     assert html.escape(HOSTILE) in cards
     assert HOSTILE not in index
-    assert html.escape(HOSTILE) in index
+    assert html.escape(HOSTILE) not in index
+    assert "Legacy issue" not in index
+
+
+def test_profile_legacy_quote_fallback_canonicalizes_hostile_markup():
+    data = _profile_card_data("Economic policy")
+    data["issue_cards"]["President A"]["cards"][0]["quote"] = SCRIPT_BREAKOUT
+
+    cards = profiles_site._issue_cards_html("President A", data)
+
+    assert SCRIPT_BREAKOUT not in cards
+    assert html.escape(SCRIPT_BREAKOUT) in cards
 
 
 def test_ordinary_punctuation_is_escaped_once_and_renders_as_text():
@@ -240,14 +251,10 @@ def test_comparison_payload_and_issue_labels_use_safe_script_and_dom(
 
 
 def test_all_embedded_display_name_payloads_use_script_safe_json():
-    profile_source = profiles_site.render_profile.__code__.co_consts
-    assert any(
-        isinstance(value, str) and "const FIGS = " in value
-        for value in profile_source
-    )
-    assert "json_for_script(fig_json)" in open(
-        profiles_site.__file__, encoding="utf-8"
-    ).read()
+    profile_source = open(profiles_site.__file__, encoding="utf-8").read()
+    assert "const FIGS = " not in profile_source
+    assert "json_for_script(fig_json)" not in profile_source
+    assert "Plotly.newPlot" not in profile_source
     from presidential_profiles import site
 
     assert "json_for_script(fig_json)" in open(

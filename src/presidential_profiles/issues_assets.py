@@ -135,6 +135,9 @@ ISSUES_JS = r"""
   if (!page) return;
   const broadTarget = document.getElementById("issue-trend-chart");
   const fineTarget = document.getElementById("fine-topic-chart");
+  const removeLoadingPlaceholder = target => {
+    target?.querySelector(".chart-loading")?.remove();
+  };
   const setFailure = (target, message) => {
     if (!target) return;
     target.replaceChildren();
@@ -168,6 +171,7 @@ ISSUES_JS = r"""
       setFailure(broadTarget, "The interactive trend could not load. The exact-value table remains available below.");
       return;
     }
+    removeLoadingPlaceholder(broadTarget);
     Plotly.newPlot(
       broadTarget,
       payload.trend_figure.data,
@@ -263,6 +267,7 @@ ISSUES_JS = r"""
         setFailure(fineTarget, "The interactive fine-topic chart could not load. The exact-value table remains available below.");
         return;
       }
+      removeLoadingPlaceholder(fineTarget);
       const lookup = new Map(selectedRows.map(row => [`${row.topic}\u0000${row.period_label}`, row]));
       const colors = payload.fine_topic_colors || {};
       const traces = resolved === "heatmap" ? [{

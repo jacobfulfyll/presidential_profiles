@@ -6,6 +6,85 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
 
 ## Active Tasks
 
+- [x] verify-data-trust-redesign-v1: Completed the full source-driven acceptance for Data Quality,
+  Methods, Era Choices, Model Comparison, and the Metric Dictionary. All 3,017 repository tests,
+  the 73-HTML/429-JSON canonical build, 129-script parser, generated JavaScript and Python syntax,
+  governed projection validators, frozen-artifact fingerprint, whitespace check, and Reggie
+  Doctor pass. Executable and independent browser QA covers all five pages at 390/768/1280px plus
+  keyboard, no-JavaScript, contrast, anchor, overflow, target-size, and console checks with no
+  remaining findings. No deployment, paid call, human labeling, frozen-artifact edit, or Story
+  boundary change occurred. Contract and exact receipt: `notes/data-trust-redesign-v1.md` and
+  `HANDOFF.md`. [P1] [high] [completed]
+
+- [x] refine-profile-connections-and-similarity-interactions: Made every Shared topic emphasis
+  topic node a click- and keyboard-operable 44px control that emphasizes its graph paths without
+  restoring hover/focus previews. Removed the topic-edge readout and complete focal Level-1 record
+  from profile HTML while preserving the public context contract. Consolidated both invocation
+  directions into one stable top-five location controlled by a joined `Invoked` / `Invoked by`
+  native radio switch, with both lists retained as the unenhanced fallback. Restyled all five
+  Similarity instruments as site-consistent cards and grid-aligned every president name and cosine
+  value. The 49 changed-surface tests, 172 broader governed-profile tests, 2,936-test full suite,
+  canonical/inline builds, static checks, protected hashes, and browser interaction checks pass;
+  no deployment. [P1] [high] [completed]
+
+- [x] redesign-president-profiles-and-navigation-v1: Repaired the shared navbar bridge and
+  hover/pinned state machine; simplified the chronological president directory with progressive
+  name-only search; replaced profile Plotly bars with semantic HTML/CSS; enriched legacy
+  document-owner Evidence with counts, selection bases, keyed receipts, attribution, and
+  limitations; and added separately labeled actual-speaker topic and former-president invocation
+  Connections. The final Evidence section starts closed, topic expansion is reversible with no
+  hover/focus preview, and invocation is presented as top-five count bars in one direction-switching
+  location rather than a graph. Published the deterministic 49-file `president-profile-context-v1` contract while
+  preserving every `president-profile-v3` value, protected Compare projection, denominator, and
+  frozen governed input. The canonical inventory is 73/74 HTML, 423 JSON, 49 profile-context
+  files, and 129 inline scripts, with all size budgets passing. Final verification is recorded in
+  `notes/president-profiles-and-navigation-v1.md`; no deployment. [P1] [high] [completed]
+
+- [x] refine-summary-who-how-register-transition: Added a compact
+  `Who + how → register` bridge between Summary Voice's separate audience and
+  delivery bars and its existing all-president legal/procedural × hype field.
+  A `By president` / `Over time` switch adds one generator-computed
+  legal/procedural ÷ hype line across the existing centered five-year
+  all-corpus series, with a logarithmic axis, the 20,000-word support floor,
+  zero-denominator guard, honest gaps, exact component values, and all nine era
+  bands preserved. The time chart stays quiet: it has no historical-event or
+  administration-transition overlays. Direct 1827, 1863, 1881, 1944, 1966, 2016,
+  and 2023 labels explain seven selected movements through the records and dictionary
+  counts inside their five-year pools, including exact Adams, Obama/Trump, and Biden
+  contributions and the 2020 rolling-window exit, rather than as single-year or
+  presidential effects. Direct-label hover now contains only a short, left-aligned multiline
+  summary, with exact ratio/component values retained in ordinary line hover. At the owner's
+  direction the permanent movement cards and both register text-alternative tables are absent.
+  Conflict target mix now places nation, group, person, institution, and other as five
+  shape- and dash-distinguished lines on one chart rather than five panels. Native All/category
+  controls and direct line hover emphasize a complete trajectory, click/tap pins it, and Escape
+  resets it; six derived callouts explain large adjacent-era composition changes and name raw
+  entity-label drivers whose counts are pinned against frozen entity evidence. The target-mix
+  text-alternative table is removed at the owner's direction while exact point hover remains; the
+  category definitions and denominator caveats remain in a native disclosure that starts closed.
+  The president portrait now uses only the existing governed `annual_message_strict` treatment,
+  removing campaign/debate genre imbalance from that comparison. It plots the 42 presidents with
+  qualifying State of the Union/annual-message evidence; the governed contract retains unsupported
+  rows for William Harrison, James A. Garfield, and Harry S. Truman. Each plotted portrait now has a border
+  using the shared target-category palette for the largest adversarial-entity count in those same
+  messages; tied categories use a neutral border and remain explicit in hover.
+  The border is heavier and uniform, while the simplified hover uses bold field labels, drops raw
+  flag/entity counts, and retains the varying one-to-nine qualifying-message coverage.
+  Removed the owner-rejected exact table and simplified the portrait header to the title plus a
+  two-line area/denominator explanation, with no repeated coverage, range, position, or axis receipts.
+  The bridge follows the same governed eras
+  and explicitly treats the patterns as coincident, not causal. Replaced only
+  the Voice field's dense phase/card controls with one native selector containing
+  All eras, Dim all, and the nine chronological Story eras. It changes president
+  emphasis only, disables in the time view, and restores the prior choice on
+  return. Summary Time retains its multi-era controls. One descriptive ratio
+  metric was added to the registry; no governed data, public artifact, or
+  schema changed. The canonical
+  73-HTML/376-JSON build, 67 focused tests, static scripts, compilation, and
+  responsive browser QA pass. The most recent full run before the named-hover copy refinement
+  passed all 2,814 repository tests with 64 existing warnings; no deployment. Contract:
+  `notes/summary-redesign-v2.md`. [P1] [high] [completed]
+
 - [x] redesign-explore-interaction-and-evidence-v1: Rebuilt Explore around a
   searchable governed catalog, primary exact/grouped word entry, reversible
   family chips, a six-series state model, native SVG trajectory inspection,
@@ -152,16 +231,37 @@ backlog on 2026-07-13 — see `.pipeline/convergence-analysis/task.md` for what 
   thin-record, fixed-stage tab, and 390px browser checks have zero page overflow.
   [P1] [high]
   [completed]
-- [x] redesign-summary-time-as-president-portrait-scatter: Replaced the
-  future/nostalgia era line with a validated all-45-president portrait scatter:
-  future rate on x, nostalgia rate on y, and fixed-scale first-person singular
-  share as portrait area. Exact all-speech document-owner receipts, Story-era
-  emphasis controls, thin-record halos, a 20/40/60% area key, true-zero/N/A
-  behavior, the complete table, calibrated narrow-screen containment, and a
-  separate founding annual-message audit are covered by 56 focused tests. The
-  canonical 73-HTML/182-JSON build and 130-script parser pass; the full suite has
-  2,694 passes plus the unrelated `low`-versus-`ultra` runtime-receipt failure,
-  and Reggie Doctor reports 0 errors and 0 warnings.
+- [x] add-summary-language-switcher-and-divisiveness-synthesis: Replaced the fixed national-name
+  boundary with one compact National name / Modal words / Personal voice chart stage, retaining
+  keyboard switching, live state, and mobile-contained scrolling. Modal words now uses five
+  explicit, disjoint stance families: Necessity (`must`, the complete need surface family, and
+  exact obligation phrases), Commitment/Intent (`will + shall` plus explicit speaker or
+  administration pledge and intent phrases), governed Absolute emphasis, Conditional (`would +
+  could`), and Advice/Possibility (`should` plus the existing hedge family, including
+  `may` and `might`). Its centered seven-year, 10,000-word windows retain all 238 center
+  years. All three views use compact point hovers that first define the line, then report the exact
+  year/rate and contributing presidents. All language-stage lines support whole-trajectory hover
+  emphasis, click/tap pinning, and Escape reset. Every trajectory is solid with distinct decade
+  symbols, including I/me/my and United States. National naming spans the complete 1789–2026 corpus
+  range under its existing five-year/20,000-word support gate; unsupported windows stay as gaps.
+  Every stance center-year value is finite, so no observations are imputed, and `going to` remains
+  excluded as an ambiguous modern-spoken form.
+  Added an artifact-derived verdict that stands behind higher annual-message partisan attack,
+  treats the 2020s pronoun reversal as descriptive, heavily caveats the modest Civil War-era
+  analogy, and keeps the two founding-era null comparisons plus the present-era low-cluster
+  warning visible. The canonical 73-HTML/376-JSON build, 71 focused tests, all 2,820 repository
+  tests with 64 existing warnings, static checks, and desktop/mobile browser QA pass. No frozen
+  annotations or governed analytical artifacts changed. [P1] [high]
+  [completed]
+- [x] redesign-summary-time-as-paired-views: Reworked the validated all-45-president
+  temporal portrait field to use uniform portraits, one All/Dim/single-era selector,
+  and a By president / Over time switch. The second view draws Tomorrow and Yesterday
+  as separate solid/dashed trailing four-year rolling averages of annual rates,
+  plotted at each window's ending year. Removed the self-reference dimension, size key, and exact
+  text-alternative table; retained exact hover, thin-record halos, the all-speech
+  document-owner caveat, and removed the separate founding-message dictionary audit.
+  The canonical 73-HTML/376-JSON build, 68 focused tests, 128-script parser,
+  responsive browser QA, and Reggie Doctor pass.
   [P1] [high] [completed]
 - [x] redesign-conflict-target-mix-at-era-grain: Replaced the president-succession
   target timeline with five vertically aligned category trajectories over the
